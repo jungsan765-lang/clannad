@@ -1,0 +1,4183 @@
+{
+  "fingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "cases": 3,
+  "states": {
+    "WIN_FULL_INN": 3
+  },
+  "errors": 0,
+  "inputLimit": 0,
+  "scope": "Three original healer4 Liyue WEALTH failures rerun with public DIAMOND/rear Traveler/Kaeya attack/Xingqiu+Barbara support; at most3 native guard actions when protagonist HP<80%; all other gear/seed/talents/route identical. The original24 are preserved.",
+  "matchedPreparation": [
+    {
+      "seed": 717,
+      "checks": {
+        "sameDeclaredSpec": true,
+        "sameInitialSeed": true,
+        "sameHour": true,
+        "sameBlossomRoute": true,
+        "sameEquipped12Items": true,
+        "sameActualTalent6": true,
+        "sameC0": true,
+        "sameInitialEnemyActors": true
+      },
+      "baselineState": "LOSS",
+      "counterState": "WIN_FULL_INN",
+      "guardCount": 0,
+      "publicCounterPreparation": [
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": "DIAMOND",
+            "name": "수호 진형"
+          },
+          "revision": 13
+        },
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": [
+              "MOND_KAEYA",
+              "LIYUE_XINGQIU",
+              "MOND_BARBARA",
+              "PLAYER_CUSTOM"
+            ]
+          },
+          "revision": 14
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 2,
+            "tactic": "공격우선"
+          },
+          "revision": 15
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 3,
+            "tactic": "지원우선"
+          },
+          "revision": 16
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 4,
+            "tactic": "지원우선"
+          },
+          "revision": 17
+        }
+      ]
+    },
+    {
+      "seed": 4242,
+      "checks": {
+        "sameDeclaredSpec": true,
+        "sameInitialSeed": true,
+        "sameHour": true,
+        "sameBlossomRoute": true,
+        "sameEquipped12Items": true,
+        "sameActualTalent6": true,
+        "sameC0": true,
+        "sameInitialEnemyActors": true
+      },
+      "baselineState": "LOSS",
+      "counterState": "WIN_FULL_INN",
+      "guardCount": 3,
+      "publicCounterPreparation": [
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": "DIAMOND",
+            "name": "수호 진형"
+          },
+          "revision": 13
+        },
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": [
+              "MOND_KAEYA",
+              "LIYUE_XINGQIU",
+              "MOND_BARBARA",
+              "PLAYER_CUSTOM"
+            ]
+          },
+          "revision": 14
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 2,
+            "tactic": "공격우선"
+          },
+          "revision": 15
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 3,
+            "tactic": "지원우선"
+          },
+          "revision": 16
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 4,
+            "tactic": "지원우선"
+          },
+          "revision": 17
+        }
+      ]
+    },
+    {
+      "seed": 9031,
+      "checks": {
+        "sameDeclaredSpec": true,
+        "sameInitialSeed": true,
+        "sameHour": true,
+        "sameBlossomRoute": true,
+        "sameEquipped12Items": true,
+        "sameActualTalent6": true,
+        "sameC0": true,
+        "sameInitialEnemyActors": true
+      },
+      "baselineState": "LOSS",
+      "counterState": "WIN_FULL_INN",
+      "guardCount": 3,
+      "publicCounterPreparation": [
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": "DIAMOND",
+            "name": "수호 진형"
+          },
+          "revision": 13
+        },
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": [
+              "MOND_KAEYA",
+              "LIYUE_XINGQIU",
+              "MOND_BARBARA",
+              "PLAYER_CUSTOM"
+            ]
+          },
+          "revision": 14
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 2,
+            "tactic": "공격우선"
+          },
+          "revision": 15
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 3,
+            "tactic": "지원우선"
+          },
+          "revision": 16
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 4,
+            "tactic": "지원우선"
+          },
+          "revision": 17
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "spec": {
+        "index": 18,
+        "teamName": "healer4",
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "region": "리월",
+        "kind": "WEALTH",
+        "seed": 717,
+        "level": 60,
+        "tier": 5,
+        "route": "ROUTE_TRAVELER",
+        "enhance": 6,
+        "talent": 6
+      },
+      "state": "WIN_FULL_INN",
+      "counterPreparation": [
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": "DIAMOND",
+            "name": "수호 진형"
+          },
+          "revision": 13
+        },
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": [
+              "MOND_KAEYA",
+              "LIYUE_XINGQIU",
+              "MOND_BARBARA",
+              "PLAYER_CUSTOM"
+            ]
+          },
+          "revision": 14
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 2,
+            "tactic": "공격우선"
+          },
+          "revision": 15
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 3,
+            "tactic": "지원우선"
+          },
+          "revision": 16
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 4,
+            "tactic": "지원우선"
+          },
+          "revision": 17
+        }
+      ],
+      "blossom": {
+        "kind": "WEALTH",
+        "map": "MAP_CHASM_SURFACE",
+        "region": "리월",
+        "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+        "name": "부의 꽃",
+        "reward": "모라",
+        "mapName": "층암거연 지상",
+        "claimed": false,
+        "here": false
+      },
+      "startingMora": 1000000,
+      "preparation": {
+        "hp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 21574,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "equipped": [
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000010",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000011",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000012",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000013",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000014",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000015",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000016",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000017",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000018",
+            "equip": "EQ_CATALYST_MAPPA",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000019",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000020",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "ACCESSORY"
+          }
+        ],
+        "talents": {
+          "PLAYER_CUSTOM": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "MOND_KAEYA": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "e",
+              "c5": "q"
+            }
+          },
+          "LIYUE_XINGQIU": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "MOND_BARBARA": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          }
+        },
+        "constellations": {
+          "PLAYER_CUSTOM": 0,
+          "MOND_KAEYA": 0,
+          "LIYUE_XINGQIU": 0,
+          "MOND_BARBARA": 0
+        },
+        "phases": {
+          "PLAYER_CUSTOM": 6,
+          "MOND_ALBEDO": 0,
+          "MOND_BARBARA": 6,
+          "MOND_BENNETT": 5,
+          "MOND_VENTI": 0,
+          "MOND_DIONA": 0,
+          "MOND_DAHLIA": 0,
+          "MOND_DILUC": 0,
+          "MOND_AMBER": 0,
+          "MOND_JEAN": 0,
+          "MOND_KAEYA": 6,
+          "MOND_KLEE": 0,
+          "MOND_MIKA": 0,
+          "MOND_MONA": 0,
+          "MOND_NOELLE": 5,
+          "MOND_FISCHL": 0,
+          "MOND_LISA": 5,
+          "MOND_RAZOR": 0,
+          "MOND_ROSARIA": 0,
+          "MOND_SUCROSE": 0,
+          "MOND_EULA": 0,
+          "LIYUE_BAIZHU": 0,
+          "LIYUE_BEIDOU": 0,
+          "LIYUE_QIQI": 0,
+          "LIYUE_NINGGUANG": 0,
+          "LIYUE_KEQING": 0,
+          "LIYUE_GAMING": 0,
+          "LIYUE_GANYU": 0,
+          "LIYUE_XINGQIU": 6,
+          "LIYUE_HUTAO": 0,
+          "LIYUE_XIANGLING": 0,
+          "LIYUE_XIANYUN": 0,
+          "LIYUE_LANYAN": 0,
+          "LIYUE_XIAO": 0,
+          "LIYUE_SHENHE": 0,
+          "LIYUE_XINYAN": 0,
+          "LIYUE_TARTAGLIA": 0,
+          "LIYUE_YANFEI": 0,
+          "LIYUE_YELAN": 0,
+          "LIYUE_YUNJIN": 0,
+          "LIYUE_YAOYAO": 0,
+          "LIYUE_ZHONGLI": 0,
+          "LIYUE_CHONGYUN": 0,
+          "SUMERU_ALHAITHAM": 0,
+          "SUMERU_DEHYA": 0,
+          "SUMERU_DORI": 0,
+          "SUMERU_KAVEH": 0,
+          "SUMERU_CANDACE": 0,
+          "SUMERU_COLLEI": 0,
+          "SUMERU_NAHIDA": 0,
+          "SUMERU_NILOU": 0,
+          "SUMERU_FARUZAN": 0,
+          "SUMERU_LAYLA": 0,
+          "SUMERU_CYNO": 0,
+          "SUMERU_WANDERER": 0,
+          "SUMERU_SETHOS": 0,
+          "SUMERU_TIGHNARI": 0,
+          "INAZUMA_AYAKA": 0,
+          "INAZUMA_AYATO": 0,
+          "INAZUMA_GOROU": 0,
+          "INAZUMA_HEIZOU": 0,
+          "INAZUMA_ITTO": 0,
+          "INAZUMA_KOKOMI": 0,
+          "INAZUMA_KIRARA": 0,
+          "INAZUMA_KAZUHA": 0,
+          "INAZUMA_YAEMIKO": 0,
+          "INAZUMA_MIZUKI": 0,
+          "INAZUMA_RAIDEN": 0,
+          "INAZUMA_SHINOBU": 0,
+          "INAZUMA_SARA": 0,
+          "INAZUMA_SAYU": 0,
+          "INAZUMA_THOMA": 0,
+          "INAZUMA_YOIMIYA": 0,
+          "FONTAINE_ARLECCHINO": 0,
+          "FONTAINE_EMILIE": 0,
+          "FONTAINE_CHIORI": 0,
+          "FONTAINE_ESCOFFIER": 0,
+          "FONTAINE_CLORINDE": 0,
+          "FONTAINE_NAVIA": 0,
+          "FONTAINE_NEUVILLETTE": 0,
+          "FONTAINE_FREMINET": 0,
+          "FONTAINE_FURINA": 0,
+          "FONTAINE_WRIOTHESLEY": 0,
+          "FONTAINE_LYNEY": 0,
+          "FONTAINE_LYNETTE": 0,
+          "FONTAINE_CHEVREUSE": 0,
+          "FONTAINE_SIGEWINNE": 0,
+          "FONTAINE_CHARLOTTE": 0,
+          "NATLAN_CHASCA": 0,
+          "NATLAN_KACHINA": 0,
+          "NATLAN_KINICH": 0,
+          "NATLAN_MUALANI": 0,
+          "NATLAN_MAVUIKA": 0,
+          "NATLAN_ORORON": 0,
+          "NATLAN_SKIRK": 0,
+          "NATLAN_XILONEN": 0,
+          "NATLAN_CITLALI": 0,
+          "NATLAN_VARESA": 0,
+          "NATLAN_IFA": 0,
+          "NATLAN_IANSAN": 0,
+          "NODKRAI_COLUMBINA": 0,
+          "NODKRAI_DURIN": 0,
+          "NODKRAI_AINO": 0,
+          "NODKRAI_NICOLE": 0,
+          "NODKRAI_NEFER": 0,
+          "NODKRAI_FLINS": 0,
+          "NODKRAI_LINNEA": 0,
+          "NODKRAI_LAUMA": 0,
+          "NODKRAI_SANDRONE": 0,
+          "NODKRAI_VARKA": 0,
+          "NODKRAI_YAHODA": 0,
+          "NODKRAI_INEFA": 0,
+          "LIYUE_ZIBAI": 0,
+          "SNEZ_ODDETTE": 0,
+          "SNEZ_ALYOSHA": 0,
+          "NODKRAI_ILLUGA": 0,
+          "NODKRAI_LOHEN": 0,
+          "NODKRAI_PRUNE": 0,
+          "SNEZ_VESNA": 0,
+          "SNEZ_VODYANITSA": 0
+        }
+      },
+      "initialPrng": 717,
+      "initialClaim": null,
+      "realHour": 497682,
+      "options": {
+        "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+        "kind": "WEALTH",
+        "name": "부의 꽃",
+        "reward": "모라",
+        "map": "MAP_CHASM_SURFACE",
+        "active": true,
+        "claimed": false,
+        "minutesLeft": 24,
+        "unlocked": true,
+        "tiers": [
+          {
+            "tier": 1,
+            "level": 6,
+            "minLevel": 5,
+            "books": null,
+            "mora": 1800,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 2,
+            "level": 15,
+            "minLevel": 10,
+            "books": null,
+            "mora": 5000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 3,
+            "level": 30,
+            "minLevel": 25,
+            "books": null,
+            "mora": 14000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 4,
+            "level": 45,
+            "minLevel": 40,
+            "books": null,
+            "mora": 27000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 5,
+            "level": 60,
+            "minLevel": 55,
+            "books": null,
+            "mora": 40000,
+            "reason": "",
+            "recommended": true
+          }
+        ]
+      },
+      "entryReceipt": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+          "mode": "BOSS",
+          "name": "지맥 · 부의 꽃"
+        },
+        "revision": 18
+      },
+      "routeReceipt": {
+        "ok": true,
+        "type": "BOSS_ROUTE",
+        "result": {
+          "battle": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B19",
+          "group": "EG_LEY_CHASM_SURFACE",
+          "opening": true,
+          "phase": "COMBAT_OPENING",
+          "order": [
+            {
+              "index": 0,
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "name": "동일 조건 비교",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "score": 80,
+              "first": false,
+              "alive": true,
+              "hp": 19122,
+              "maxHp": 19122,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 1,
+              "id": "MON_TH_SCOUT#2",
+              "source": "MON_TH_SCOUT",
+              "name": "보물 사냥단·척후병",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 93,
+              "first": false,
+              "alive": true,
+              "hp": 23800,
+              "maxHp": 23800,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 2,
+              "id": "MOND_KAEYA",
+              "source": "MOND_KAEYA",
+              "name": "케이아",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 93,
+              "first": false,
+              "alive": true,
+              "hp": 22185,
+              "maxHp": 22185,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 3,
+              "id": "MON_TH_SCOUT#1",
+              "source": "MON_TH_SCOUT",
+              "name": "보물 사냥단·척후병",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 91,
+              "first": false,
+              "alive": true,
+              "hp": 23800,
+              "maxHp": 23800,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 4,
+              "id": "LIYUE_XINGQIU",
+              "source": "LIYUE_XINGQIU",
+              "name": "행추",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 78,
+              "first": false,
+              "alive": true,
+              "hp": 21574,
+              "maxHp": 21574,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 5,
+              "id": "MOND_BARBARA",
+              "source": "MOND_BARBARA",
+              "name": "바바라",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 78,
+              "first": false,
+              "alive": true,
+              "hp": 20654,
+              "maxHp": 21687,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 6,
+              "id": "MON_RUIN_GUARD_VARIANT#1",
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "name": "유적 가디언",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 64,
+              "first": false,
+              "alive": true,
+              "hp": 69259,
+              "maxHp": 69259,
+              "current": false,
+              "acted": false
+            }
+          ]
+        },
+        "revision": 19
+      },
+      "battleStart": {
+        "actors": [
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "name": "케이아",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 22185,
+            "maxHp": 22185,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "level": 60,
+            "crit": 18,
+            "critDmg": 65,
+            "hit": 96,
+            "eva": 10,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  }
+                },
+                "taken": 1.06,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "role": "공격우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[얼음]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 4078,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 1,
+            "tactic": "공격우선",
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 0
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "LIYUE_XINGQIU",
+            "source": "LIYUE_XINGQIU",
+            "name": "행추",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 21574,
+            "maxHp": 21574,
+            "atk": 4015.0000000000005,
+            "def": 2798.4,
+            "spd": 71,
+            "level": 60,
+            "crit": 21,
+            "critDmg": 60,
+            "hit": 96,
+            "eva": 8,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {},
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1.12,
+                "role": "지원우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[물]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 3915,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 2,
+            "tactic": "지원우선",
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "MOND_BARBARA",
+            "source": "MOND_BARBARA",
+            "name": "바바라",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 20654,
+            "maxHp": 21687,
+            "atk": 2932.6000000000004,
+            "def": 2470.6000000000004,
+            "spd": 71,
+            "level": 60,
+            "crit": 10,
+            "critDmg": 50,
+            "hit": 95,
+            "eva": 8,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {},
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1.12,
+                "role": "지원우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[물]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 2844,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 3,
+            "tactic": "지원우선",
+            "traits": {
+              "ELEMENT_BOOST": {
+                "ALL": 8
+              },
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "동일 조건 비교",
+            "side": "ALLY",
+            "control": "PLAYER",
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "level": 60,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 81,
+            "eva": 7,
+            "resist": 8,
+            "range": "근접",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              }
+            ],
+            "cooldowns": {},
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 4,
+            "tactic": "균형",
+            "slotDamageMultiplier": 0.8,
+            "protagonist": {
+              "version": 1,
+              "route": "ROUTE_TRAVELER",
+              "skillIds": [
+                "PLAYER_TRAVELER_ANEMO_E",
+                "PLAYER_TRAVELER_ANEMO_Q"
+              ]
+            },
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 3
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "MON_RUIN_GUARD_VARIANT#1",
+            "source": "MON_RUIN_GUARD_VARIANT",
+            "name": "유적 가디언",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 69259,
+            "maxHp": 69259,
+            "atk": 25648,
+            "def": 1753,
+            "crit": 8,
+            "critDmg": 60,
+            "level": 60,
+            "spd": 64,
+            "hit": 92,
+            "eva": 3,
+            "resist": 10,
+            "range": "근접",
+            "grade": "정예",
+            "tags": [
+              "[물리]",
+              "[기계]"
+            ],
+            "tactic": "생존우선",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "size": "MEDIUM",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "유적 기계",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          },
+          {
+            "id": "MON_TH_SCOUT#1",
+            "source": "MON_TH_SCOUT",
+            "name": "보물 사냥단·척후병",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 23800,
+            "maxHp": 23800,
+            "atk": 15680,
+            "def": 1249,
+            "crit": 8,
+            "critDmg": 55,
+            "level": 60,
+            "spd": 90,
+            "hit": 92,
+            "eva": 6,
+            "resist": 5,
+            "range": "근접",
+            "grade": "일반",
+            "tags": [
+              "[물리]"
+            ],
+            "tactic": "균형",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 1
+            },
+            "size": "SMALL",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "보물 사냥단",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          },
+          {
+            "id": "MON_TH_SCOUT#2",
+            "source": "MON_TH_SCOUT",
+            "name": "보물 사냥단·척후병",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 23800,
+            "maxHp": 23800,
+            "atk": 15680,
+            "def": 1249,
+            "crit": 8,
+            "critDmg": 55,
+            "level": 60,
+            "spd": 90,
+            "hit": 92,
+            "eva": 6,
+            "resist": 5,
+            "range": "근접",
+            "grade": "일반",
+            "tags": [
+              "[물리]"
+            ],
+            "tactic": "균형",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 2
+            },
+            "size": "SMALL",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "보물 사냥단",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          }
+        ],
+        "leyLine": {
+          "version": 2,
+          "kind": "WEALTH",
+          "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+          "map": "MAP_CHASM_SURFACE",
+          "hour": 497682,
+          "tier": 5,
+          "level": 60
+        },
+        "enemyBalanceRevision": 1,
+        "adminBalanceRevision": 0,
+        "prng": 1301536127
+      },
+      "openingSaveValidated": true,
+      "mainResult": {
+        "mora": 40000,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B19",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B19",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+        "group": "EG_LEY_CHASM_SURFACE",
+        "origin": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+        "gate": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+        "branch": null,
+        "victory": true,
+        "xp": 400,
+        "loot": {
+          "MAT_CHAOS_CIRCUIT": 1,
+          "TRPG_SCRAP_METAL": 1,
+          "MAT_TREASURE_INSIGNIA": 3
+        },
+        "rounds": 8,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "leyLine": {
+          "kind": "WEALTH",
+          "name": "부의 꽃",
+          "tier": 5,
+          "level": 60,
+          "claimed": true,
+          "mora": 40000,
+          "books": null
+        }
+      },
+      "mainMeter": {
+        "presentationMs": 68590,
+        "inputs": 7
+      },
+      "mainSeconds": 99.59,
+      "hpBeforeRecovery": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19122,
+          "maxHp": 19122
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 60,
+          "hp": 7016,
+          "maxHp": 22185
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "level": 60,
+          "hp": 1031,
+          "maxHp": 21574
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 20654,
+          "maxHp": 20654
+        }
+      ],
+      "moraAfterMain": 1040000,
+      "preRewardHpRatio": 0.5777126099706745,
+      "preRewardKO": [],
+      "hourlyReasonSame": "이번 시간의 부의 꽃 보상은 이미 받았습니다. 24분 뒤 정각에 새 꽃이 핍니다.",
+      "claimAfterMain": {
+        "version": 1,
+        "WEALTH": 497682
+      },
+      "hourlyClaimedAcrossRegions": true,
+      "returnStartPrng": 2384744209,
+      "recovery": {
+        "failed": false,
+        "before": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 7016,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 1031,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "after": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 21574,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "stock": "STK_INN_LIYUE",
+        "lodgingMora": 414,
+        "events": [
+          {
+            "type": "TRAVEL_COMBAT",
+            "victory": true,
+            "seconds": 42
+          },
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 414,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 83.4120813668169,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 19122,
+                  "maxHp": 19122,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 9702,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0.5626774847870183,
+                  "recoveryCost": 158
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 60,
+                  "hp": 3721,
+                  "maxHp": 21574,
+                  "lostHpRatio": 0.8275238713265969,
+                  "recoveryCost": 232
+                },
+                {
+                  "owner": "MOND_BARBARA",
+                  "level": 60,
+                  "hp": 20654,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                }
+              ]
+            },
+            "cost": 414
+          }
+        ],
+        "seconds": 76,
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 3208413540,
+          "worldDay": 1,
+          "worldTime": "21:50"
+        },
+        "outEdges": [
+          "EDGE_LY_DETAIL_038_B",
+          "EDGE_LY_DETAIL_037_B",
+          "EDGE_LY_DETAIL_036_B",
+          "EDGE_V01516_LINGJU_TIANHENG_A",
+          "EDGE_LY_DETAIL_008_B",
+          "EDGE_LY_DETAIL_001_B"
+        ]
+      },
+      "seconds": 175.59,
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3208413540,
+        "worldDay": 1,
+        "worldTime": "21:50"
+      },
+      "stopReason": null,
+      "finalMora": 1039691,
+      "netMora": 39691,
+      "grossMoraEarned": 40105,
+      "travelMoraEarned": 105,
+      "actualInnMora": 414,
+      "defeatMoraPaid": 0,
+      "ledgerDifference": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19122,
+          "maxHp": 19122
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 60,
+          "hp": 22185,
+          "maxHp": 22185
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "level": 60,
+          "hp": 21574,
+          "maxHp": 21574
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 20654,
+          "maxHp": 20654
+        }
+      ],
+      "finalPrng": 3208413540,
+      "finalSaveValidated": true,
+      "secondsPerNetMora": 0.004423924819228541,
+      "minutesPer10000NetMora": 0.7373208032047568,
+      "continuousNominalMoraPerHour": 813757.0476678625,
+      "realHourClaimQuotaMora": 40000,
+      "cpuSeconds": 2.890225583,
+      "guardCount": 0
+    },
+    {
+      "spec": {
+        "index": 19,
+        "teamName": "healer4",
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "region": "리월",
+        "kind": "WEALTH",
+        "seed": 4242,
+        "level": 60,
+        "tier": 5,
+        "route": "ROUTE_TRAVELER",
+        "enhance": 6,
+        "talent": 6
+      },
+      "state": "WIN_FULL_INN",
+      "counterPreparation": [
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": "DIAMOND",
+            "name": "수호 진형"
+          },
+          "revision": 13
+        },
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": [
+              "MOND_KAEYA",
+              "LIYUE_XINGQIU",
+              "MOND_BARBARA",
+              "PLAYER_CUSTOM"
+            ]
+          },
+          "revision": 14
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 2,
+            "tactic": "공격우선"
+          },
+          "revision": 15
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 3,
+            "tactic": "지원우선"
+          },
+          "revision": 16
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 4,
+            "tactic": "지원우선"
+          },
+          "revision": 17
+        }
+      ],
+      "blossom": {
+        "kind": "WEALTH",
+        "map": "MAP_CHASM_SURFACE",
+        "region": "리월",
+        "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+        "name": "부의 꽃",
+        "reward": "모라",
+        "mapName": "층암거연 지상",
+        "claimed": false,
+        "here": false
+      },
+      "startingMora": 1000000,
+      "preparation": {
+        "hp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 21574,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "equipped": [
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000010",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000011",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000012",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000013",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000014",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000015",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000016",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000017",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000018",
+            "equip": "EQ_CATALYST_MAPPA",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000019",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000020",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "ACCESSORY"
+          }
+        ],
+        "talents": {
+          "PLAYER_CUSTOM": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "MOND_KAEYA": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "e",
+              "c5": "q"
+            }
+          },
+          "LIYUE_XINGQIU": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "MOND_BARBARA": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          }
+        },
+        "constellations": {
+          "PLAYER_CUSTOM": 0,
+          "MOND_KAEYA": 0,
+          "LIYUE_XINGQIU": 0,
+          "MOND_BARBARA": 0
+        },
+        "phases": {
+          "PLAYER_CUSTOM": 6,
+          "MOND_ALBEDO": 0,
+          "MOND_BARBARA": 6,
+          "MOND_BENNETT": 5,
+          "MOND_VENTI": 0,
+          "MOND_DIONA": 0,
+          "MOND_DAHLIA": 0,
+          "MOND_DILUC": 0,
+          "MOND_AMBER": 0,
+          "MOND_JEAN": 0,
+          "MOND_KAEYA": 6,
+          "MOND_KLEE": 0,
+          "MOND_MIKA": 0,
+          "MOND_MONA": 0,
+          "MOND_NOELLE": 5,
+          "MOND_FISCHL": 0,
+          "MOND_LISA": 5,
+          "MOND_RAZOR": 0,
+          "MOND_ROSARIA": 0,
+          "MOND_SUCROSE": 0,
+          "MOND_EULA": 0,
+          "LIYUE_BAIZHU": 0,
+          "LIYUE_BEIDOU": 0,
+          "LIYUE_QIQI": 0,
+          "LIYUE_NINGGUANG": 0,
+          "LIYUE_KEQING": 0,
+          "LIYUE_GAMING": 0,
+          "LIYUE_GANYU": 0,
+          "LIYUE_XINGQIU": 6,
+          "LIYUE_HUTAO": 0,
+          "LIYUE_XIANGLING": 0,
+          "LIYUE_XIANYUN": 0,
+          "LIYUE_LANYAN": 0,
+          "LIYUE_XIAO": 0,
+          "LIYUE_SHENHE": 0,
+          "LIYUE_XINYAN": 0,
+          "LIYUE_TARTAGLIA": 0,
+          "LIYUE_YANFEI": 0,
+          "LIYUE_YELAN": 0,
+          "LIYUE_YUNJIN": 0,
+          "LIYUE_YAOYAO": 0,
+          "LIYUE_ZHONGLI": 0,
+          "LIYUE_CHONGYUN": 0,
+          "SUMERU_ALHAITHAM": 0,
+          "SUMERU_DEHYA": 0,
+          "SUMERU_DORI": 0,
+          "SUMERU_KAVEH": 0,
+          "SUMERU_CANDACE": 0,
+          "SUMERU_COLLEI": 0,
+          "SUMERU_NAHIDA": 0,
+          "SUMERU_NILOU": 0,
+          "SUMERU_FARUZAN": 0,
+          "SUMERU_LAYLA": 0,
+          "SUMERU_CYNO": 0,
+          "SUMERU_WANDERER": 0,
+          "SUMERU_SETHOS": 0,
+          "SUMERU_TIGHNARI": 0,
+          "INAZUMA_AYAKA": 0,
+          "INAZUMA_AYATO": 0,
+          "INAZUMA_GOROU": 0,
+          "INAZUMA_HEIZOU": 0,
+          "INAZUMA_ITTO": 0,
+          "INAZUMA_KOKOMI": 0,
+          "INAZUMA_KIRARA": 0,
+          "INAZUMA_KAZUHA": 0,
+          "INAZUMA_YAEMIKO": 0,
+          "INAZUMA_MIZUKI": 0,
+          "INAZUMA_RAIDEN": 0,
+          "INAZUMA_SHINOBU": 0,
+          "INAZUMA_SARA": 0,
+          "INAZUMA_SAYU": 0,
+          "INAZUMA_THOMA": 0,
+          "INAZUMA_YOIMIYA": 0,
+          "FONTAINE_ARLECCHINO": 0,
+          "FONTAINE_EMILIE": 0,
+          "FONTAINE_CHIORI": 0,
+          "FONTAINE_ESCOFFIER": 0,
+          "FONTAINE_CLORINDE": 0,
+          "FONTAINE_NAVIA": 0,
+          "FONTAINE_NEUVILLETTE": 0,
+          "FONTAINE_FREMINET": 0,
+          "FONTAINE_FURINA": 0,
+          "FONTAINE_WRIOTHESLEY": 0,
+          "FONTAINE_LYNEY": 0,
+          "FONTAINE_LYNETTE": 0,
+          "FONTAINE_CHEVREUSE": 0,
+          "FONTAINE_SIGEWINNE": 0,
+          "FONTAINE_CHARLOTTE": 0,
+          "NATLAN_CHASCA": 0,
+          "NATLAN_KACHINA": 0,
+          "NATLAN_KINICH": 0,
+          "NATLAN_MUALANI": 0,
+          "NATLAN_MAVUIKA": 0,
+          "NATLAN_ORORON": 0,
+          "NATLAN_SKIRK": 0,
+          "NATLAN_XILONEN": 0,
+          "NATLAN_CITLALI": 0,
+          "NATLAN_VARESA": 0,
+          "NATLAN_IFA": 0,
+          "NATLAN_IANSAN": 0,
+          "NODKRAI_COLUMBINA": 0,
+          "NODKRAI_DURIN": 0,
+          "NODKRAI_AINO": 0,
+          "NODKRAI_NICOLE": 0,
+          "NODKRAI_NEFER": 0,
+          "NODKRAI_FLINS": 0,
+          "NODKRAI_LINNEA": 0,
+          "NODKRAI_LAUMA": 0,
+          "NODKRAI_SANDRONE": 0,
+          "NODKRAI_VARKA": 0,
+          "NODKRAI_YAHODA": 0,
+          "NODKRAI_INEFA": 0,
+          "LIYUE_ZIBAI": 0,
+          "SNEZ_ODDETTE": 0,
+          "SNEZ_ALYOSHA": 0,
+          "NODKRAI_ILLUGA": 0,
+          "NODKRAI_LOHEN": 0,
+          "NODKRAI_PRUNE": 0,
+          "SNEZ_VESNA": 0,
+          "SNEZ_VODYANITSA": 0
+        }
+      },
+      "initialPrng": 4242,
+      "initialClaim": null,
+      "realHour": 497682,
+      "options": {
+        "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+        "kind": "WEALTH",
+        "name": "부의 꽃",
+        "reward": "모라",
+        "map": "MAP_CHASM_SURFACE",
+        "active": true,
+        "claimed": false,
+        "minutesLeft": 24,
+        "unlocked": true,
+        "tiers": [
+          {
+            "tier": 1,
+            "level": 6,
+            "minLevel": 5,
+            "books": null,
+            "mora": 1800,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 2,
+            "level": 15,
+            "minLevel": 10,
+            "books": null,
+            "mora": 5000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 3,
+            "level": 30,
+            "minLevel": 25,
+            "books": null,
+            "mora": 14000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 4,
+            "level": 45,
+            "minLevel": 40,
+            "books": null,
+            "mora": 27000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 5,
+            "level": 60,
+            "minLevel": 55,
+            "books": null,
+            "mora": 40000,
+            "reason": "",
+            "recommended": true
+          }
+        ]
+      },
+      "entryReceipt": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+          "mode": "BOSS",
+          "name": "지맥 · 부의 꽃"
+        },
+        "revision": 18
+      },
+      "routeReceipt": {
+        "ok": true,
+        "type": "BOSS_ROUTE",
+        "result": {
+          "battle": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-4242:B19",
+          "group": "EG_LEY_CHASM_SURFACE",
+          "opening": true,
+          "phase": "COMBAT_OPENING",
+          "order": [
+            {
+              "index": 0,
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "name": "동일 조건 비교",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "score": 74,
+              "first": false,
+              "alive": true,
+              "hp": 19122,
+              "maxHp": 19122,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 1,
+              "id": "MON_TH_SCOUT#1",
+              "source": "MON_TH_SCOUT",
+              "name": "보물 사냥단·척후병",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 99,
+              "first": false,
+              "alive": true,
+              "hp": 23800,
+              "maxHp": 23800,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 2,
+              "id": "MON_TH_SCOUT#2",
+              "source": "MON_TH_SCOUT",
+              "name": "보물 사냥단·척후병",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 91,
+              "first": false,
+              "alive": true,
+              "hp": 23800,
+              "maxHp": 23800,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 3,
+              "id": "MOND_KAEYA",
+              "source": "MOND_KAEYA",
+              "name": "케이아",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 88,
+              "first": false,
+              "alive": true,
+              "hp": 22185,
+              "maxHp": 22185,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 4,
+              "id": "MOND_BARBARA",
+              "source": "MOND_BARBARA",
+              "name": "바바라",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 77,
+              "first": false,
+              "alive": true,
+              "hp": 20654,
+              "maxHp": 21687,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 5,
+              "id": "LIYUE_XINGQIU",
+              "source": "LIYUE_XINGQIU",
+              "name": "행추",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 72,
+              "first": false,
+              "alive": true,
+              "hp": 21574,
+              "maxHp": 21574,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 6,
+              "id": "MON_RUIN_GUARD_VARIANT#1",
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "name": "유적 가디언",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 67,
+              "first": false,
+              "alive": true,
+              "hp": 69259,
+              "maxHp": 69259,
+              "current": false,
+              "acted": false
+            }
+          ]
+        },
+        "revision": 19
+      },
+      "battleStart": {
+        "actors": [
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "name": "케이아",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 22185,
+            "maxHp": 22185,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "level": 60,
+            "crit": 18,
+            "critDmg": 65,
+            "hit": 96,
+            "eva": 10,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  }
+                },
+                "taken": 1.06,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "role": "공격우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[얼음]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 4078,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 1,
+            "tactic": "공격우선",
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 0
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "LIYUE_XINGQIU",
+            "source": "LIYUE_XINGQIU",
+            "name": "행추",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 21574,
+            "maxHp": 21574,
+            "atk": 4015.0000000000005,
+            "def": 2798.4,
+            "spd": 71,
+            "level": 60,
+            "crit": 21,
+            "critDmg": 60,
+            "hit": 96,
+            "eva": 8,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {},
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1.12,
+                "role": "지원우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[물]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 3915,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 2,
+            "tactic": "지원우선",
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "MOND_BARBARA",
+            "source": "MOND_BARBARA",
+            "name": "바바라",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 20654,
+            "maxHp": 21687,
+            "atk": 2932.6000000000004,
+            "def": 2470.6000000000004,
+            "spd": 71,
+            "level": 60,
+            "crit": 10,
+            "critDmg": 50,
+            "hit": 95,
+            "eva": 8,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {},
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1.12,
+                "role": "지원우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[물]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 2844,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 3,
+            "tactic": "지원우선",
+            "traits": {
+              "ELEMENT_BOOST": {
+                "ALL": 8
+              },
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "동일 조건 비교",
+            "side": "ALLY",
+            "control": "PLAYER",
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "level": 60,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 81,
+            "eva": 7,
+            "resist": 8,
+            "range": "근접",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              }
+            ],
+            "cooldowns": {},
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 4,
+            "tactic": "균형",
+            "slotDamageMultiplier": 0.8,
+            "protagonist": {
+              "version": 1,
+              "route": "ROUTE_TRAVELER",
+              "skillIds": [
+                "PLAYER_TRAVELER_ANEMO_E",
+                "PLAYER_TRAVELER_ANEMO_Q"
+              ]
+            },
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 3
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "MON_RUIN_GUARD_VARIANT#1",
+            "source": "MON_RUIN_GUARD_VARIANT",
+            "name": "유적 가디언",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 69259,
+            "maxHp": 69259,
+            "atk": 25648,
+            "def": 1753,
+            "crit": 8,
+            "critDmg": 60,
+            "level": 60,
+            "spd": 64,
+            "hit": 92,
+            "eva": 3,
+            "resist": 10,
+            "range": "근접",
+            "grade": "정예",
+            "tags": [
+              "[물리]",
+              "[기계]"
+            ],
+            "tactic": "생존우선",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "size": "MEDIUM",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "유적 기계",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          },
+          {
+            "id": "MON_TH_SCOUT#1",
+            "source": "MON_TH_SCOUT",
+            "name": "보물 사냥단·척후병",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 23800,
+            "maxHp": 23800,
+            "atk": 15680,
+            "def": 1249,
+            "crit": 8,
+            "critDmg": 55,
+            "level": 60,
+            "spd": 90,
+            "hit": 92,
+            "eva": 6,
+            "resist": 5,
+            "range": "근접",
+            "grade": "일반",
+            "tags": [
+              "[물리]"
+            ],
+            "tactic": "균형",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 1
+            },
+            "size": "SMALL",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "보물 사냥단",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          },
+          {
+            "id": "MON_TH_SCOUT#2",
+            "source": "MON_TH_SCOUT",
+            "name": "보물 사냥단·척후병",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 23800,
+            "maxHp": 23800,
+            "atk": 15680,
+            "def": 1249,
+            "crit": 8,
+            "critDmg": 55,
+            "level": 60,
+            "spd": 90,
+            "hit": 92,
+            "eva": 6,
+            "resist": 5,
+            "range": "근접",
+            "grade": "일반",
+            "tags": [
+              "[물리]"
+            ],
+            "tactic": "균형",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 2
+            },
+            "size": "SMALL",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "보물 사냥단",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          }
+        ],
+        "leyLine": {
+          "version": 2,
+          "kind": "WEALTH",
+          "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+          "map": "MAP_CHASM_SURFACE",
+          "hour": 497682,
+          "tier": 5,
+          "level": 60
+        },
+        "enemyBalanceRevision": 1,
+        "adminBalanceRevision": 0,
+        "prng": 439633058
+      },
+      "openingSaveValidated": true,
+      "mainResult": {
+        "mora": 40000,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-4242:B19",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-4242:B19",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-4242",
+        "group": "EG_LEY_CHASM_SURFACE",
+        "origin": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+        "gate": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+        "branch": null,
+        "victory": true,
+        "xp": 400,
+        "loot": {
+          "MAT_CHAOS_DEVICE": 1,
+          "MAT_CHAOS_CIRCUIT": 1,
+          "TRPG_SCRAP_METAL": 1,
+          "MAT_TREASURE_INSIGNIA": 2
+        },
+        "rounds": 9,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "leyLine": {
+          "kind": "WEALTH",
+          "name": "부의 꽃",
+          "tier": 5,
+          "level": 60,
+          "claimed": true,
+          "mora": 40000,
+          "books": null
+        }
+      },
+      "mainMeter": {
+        "presentationMs": 77470,
+        "inputs": 9
+      },
+      "mainSeconds": 114.47,
+      "hpBeforeRecovery": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 15633,
+          "maxHp": 19122
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 22185
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "level": 60,
+          "hp": 4888,
+          "maxHp": 21574
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 19886,
+          "maxHp": 20654
+        }
+      ],
+      "moraAfterMain": 1040000,
+      "preRewardHpRatio": 0.4778048434395989,
+      "preRewardKO": [
+        "MOND_KAEYA"
+      ],
+      "hourlyReasonSame": "이번 시간의 부의 꽃 보상은 이미 받았습니다. 24분 뒤 정각에 새 꽃이 핍니다.",
+      "claimAfterMain": {
+        "version": 1,
+        "WEALTH": 497682
+      },
+      "hourlyClaimedAcrossRegions": true,
+      "returnStartPrng": 3796653221,
+      "recovery": {
+        "failed": false,
+        "before": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 15633,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 4888,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 19886,
+            "maxHp": 20654
+          }
+        ],
+        "after": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 21574,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "stock": "STK_INN_LIYUE",
+        "lodgingMora": 584,
+        "events": [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 584,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 119.5845033616374,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 15633,
+                  "maxHp": 19122,
+                  "lostHpRatio": 0.1824599937245058,
+                  "recoveryCost": 52
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 0,
+                  "maxHp": 22185,
+                  "lostHpRatio": 1,
+                  "recoveryCost": 280
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 60,
+                  "hp": 4888,
+                  "maxHp": 21574,
+                  "lostHpRatio": 0.7734309817372763,
+                  "recoveryCost": 217
+                },
+                {
+                  "owner": "MOND_BARBARA",
+                  "level": 60,
+                  "hp": 19886,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0.03718408056550789,
+                  "recoveryCost": 11
+                }
+              ]
+            },
+            "cost": 584
+          }
+        ],
+        "seconds": 34,
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 3992356706,
+          "worldDay": 1,
+          "worldTime": "21:50"
+        },
+        "outEdges": [
+          "EDGE_LY_DETAIL_038_B",
+          "EDGE_LY_DETAIL_037_B",
+          "EDGE_LY_DETAIL_036_B",
+          "EDGE_V01516_LINGJU_TIANHENG_A",
+          "EDGE_LY_DETAIL_008_B",
+          "EDGE_LY_DETAIL_001_B"
+        ]
+      },
+      "seconds": 148.47,
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3992356706,
+        "worldDay": 1,
+        "worldTime": "21:50"
+      },
+      "stopReason": null,
+      "finalMora": 1039416,
+      "netMora": 39416,
+      "grossMoraEarned": 40000,
+      "travelMoraEarned": 0,
+      "actualInnMora": 584,
+      "defeatMoraPaid": 0,
+      "ledgerDifference": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19122,
+          "maxHp": 19122
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 60,
+          "hp": 22185,
+          "maxHp": 22185
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "level": 60,
+          "hp": 21574,
+          "maxHp": 21574
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 20654,
+          "maxHp": 20654
+        }
+      ],
+      "finalPrng": 3992356706,
+      "finalSaveValidated": true,
+      "secondsPerNetMora": 0.0037667444692510653,
+      "minutesPer10000NetMora": 0.6277907448751776,
+      "continuousNominalMoraPerHour": 955732.4712063044,
+      "realHourClaimQuotaMora": 40000,
+      "cpuSeconds": 2.998067346,
+      "guardCount": 3
+    },
+    {
+      "spec": {
+        "index": 20,
+        "teamName": "healer4",
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "region": "리월",
+        "kind": "WEALTH",
+        "seed": 9031,
+        "level": 60,
+        "tier": 5,
+        "route": "ROUTE_TRAVELER",
+        "enhance": 6,
+        "talent": 6
+      },
+      "state": "WIN_FULL_INN",
+      "counterPreparation": [
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": "DIAMOND",
+            "name": "수호 진형"
+          },
+          "revision": 13
+        },
+        {
+          "ok": true,
+          "type": "FORMATION_SET",
+          "result": {
+            "formation": [
+              "MOND_KAEYA",
+              "LIYUE_XINGQIU",
+              "MOND_BARBARA",
+              "PLAYER_CUSTOM"
+            ]
+          },
+          "revision": 14
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 2,
+            "tactic": "공격우선"
+          },
+          "revision": 15
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 3,
+            "tactic": "지원우선"
+          },
+          "revision": 16
+        },
+        {
+          "ok": true,
+          "type": "PARTY_TACTIC",
+          "result": {
+            "slot": 4,
+            "tactic": "지원우선"
+          },
+          "revision": 17
+        }
+      ],
+      "blossom": {
+        "kind": "WEALTH",
+        "map": "MAP_CHASM_SURFACE",
+        "region": "리월",
+        "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+        "name": "부의 꽃",
+        "reward": "모라",
+        "mapName": "층암거연 지상",
+        "claimed": false,
+        "here": false
+      },
+      "startingMora": 1000000,
+      "preparation": {
+        "hp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 21574,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "equipped": [
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000010",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000011",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "PLAYER_CUSTOM",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000012",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000013",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000014",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_KAEYA",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000015",
+            "equip": "EQ_SWORD_RANCOUR",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000016",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000017",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "LIYUE_XINGQIU",
+            "equipped": true,
+            "category": "ACCESSORY"
+          },
+          {
+            "slot": "EQI_000018",
+            "equip": "EQ_CATALYST_MAPPA",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "WEAPON"
+          },
+          {
+            "slot": "EQI_000019",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "ARMOR"
+          },
+          {
+            "slot": "EQI_000020",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "quantity": 1,
+            "enhance": 6,
+            "instanceRevision": 0,
+            "owner": "MOND_BARBARA",
+            "equipped": true,
+            "category": "ACCESSORY"
+          }
+        ],
+        "talents": {
+          "PLAYER_CUSTOM": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "MOND_KAEYA": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "e",
+              "c5": "q"
+            }
+          },
+          "LIYUE_XINGQIU": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "MOND_BARBARA": {
+            "na": 6,
+            "e": 6,
+            "q": 6,
+            "base": {
+              "na": 6,
+              "e": 6,
+              "q": 6
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          }
+        },
+        "constellations": {
+          "PLAYER_CUSTOM": 0,
+          "MOND_KAEYA": 0,
+          "LIYUE_XINGQIU": 0,
+          "MOND_BARBARA": 0
+        },
+        "phases": {
+          "PLAYER_CUSTOM": 6,
+          "MOND_ALBEDO": 0,
+          "MOND_BARBARA": 6,
+          "MOND_BENNETT": 5,
+          "MOND_VENTI": 0,
+          "MOND_DIONA": 0,
+          "MOND_DAHLIA": 0,
+          "MOND_DILUC": 0,
+          "MOND_AMBER": 0,
+          "MOND_JEAN": 0,
+          "MOND_KAEYA": 6,
+          "MOND_KLEE": 0,
+          "MOND_MIKA": 0,
+          "MOND_MONA": 0,
+          "MOND_NOELLE": 5,
+          "MOND_FISCHL": 0,
+          "MOND_LISA": 5,
+          "MOND_RAZOR": 0,
+          "MOND_ROSARIA": 0,
+          "MOND_SUCROSE": 0,
+          "MOND_EULA": 0,
+          "LIYUE_BAIZHU": 0,
+          "LIYUE_BEIDOU": 0,
+          "LIYUE_QIQI": 0,
+          "LIYUE_NINGGUANG": 0,
+          "LIYUE_KEQING": 0,
+          "LIYUE_GAMING": 0,
+          "LIYUE_GANYU": 0,
+          "LIYUE_XINGQIU": 6,
+          "LIYUE_HUTAO": 0,
+          "LIYUE_XIANGLING": 0,
+          "LIYUE_XIANYUN": 0,
+          "LIYUE_LANYAN": 0,
+          "LIYUE_XIAO": 0,
+          "LIYUE_SHENHE": 0,
+          "LIYUE_XINYAN": 0,
+          "LIYUE_TARTAGLIA": 0,
+          "LIYUE_YANFEI": 0,
+          "LIYUE_YELAN": 0,
+          "LIYUE_YUNJIN": 0,
+          "LIYUE_YAOYAO": 0,
+          "LIYUE_ZHONGLI": 0,
+          "LIYUE_CHONGYUN": 0,
+          "SUMERU_ALHAITHAM": 0,
+          "SUMERU_DEHYA": 0,
+          "SUMERU_DORI": 0,
+          "SUMERU_KAVEH": 0,
+          "SUMERU_CANDACE": 0,
+          "SUMERU_COLLEI": 0,
+          "SUMERU_NAHIDA": 0,
+          "SUMERU_NILOU": 0,
+          "SUMERU_FARUZAN": 0,
+          "SUMERU_LAYLA": 0,
+          "SUMERU_CYNO": 0,
+          "SUMERU_WANDERER": 0,
+          "SUMERU_SETHOS": 0,
+          "SUMERU_TIGHNARI": 0,
+          "INAZUMA_AYAKA": 0,
+          "INAZUMA_AYATO": 0,
+          "INAZUMA_GOROU": 0,
+          "INAZUMA_HEIZOU": 0,
+          "INAZUMA_ITTO": 0,
+          "INAZUMA_KOKOMI": 0,
+          "INAZUMA_KIRARA": 0,
+          "INAZUMA_KAZUHA": 0,
+          "INAZUMA_YAEMIKO": 0,
+          "INAZUMA_MIZUKI": 0,
+          "INAZUMA_RAIDEN": 0,
+          "INAZUMA_SHINOBU": 0,
+          "INAZUMA_SARA": 0,
+          "INAZUMA_SAYU": 0,
+          "INAZUMA_THOMA": 0,
+          "INAZUMA_YOIMIYA": 0,
+          "FONTAINE_ARLECCHINO": 0,
+          "FONTAINE_EMILIE": 0,
+          "FONTAINE_CHIORI": 0,
+          "FONTAINE_ESCOFFIER": 0,
+          "FONTAINE_CLORINDE": 0,
+          "FONTAINE_NAVIA": 0,
+          "FONTAINE_NEUVILLETTE": 0,
+          "FONTAINE_FREMINET": 0,
+          "FONTAINE_FURINA": 0,
+          "FONTAINE_WRIOTHESLEY": 0,
+          "FONTAINE_LYNEY": 0,
+          "FONTAINE_LYNETTE": 0,
+          "FONTAINE_CHEVREUSE": 0,
+          "FONTAINE_SIGEWINNE": 0,
+          "FONTAINE_CHARLOTTE": 0,
+          "NATLAN_CHASCA": 0,
+          "NATLAN_KACHINA": 0,
+          "NATLAN_KINICH": 0,
+          "NATLAN_MUALANI": 0,
+          "NATLAN_MAVUIKA": 0,
+          "NATLAN_ORORON": 0,
+          "NATLAN_SKIRK": 0,
+          "NATLAN_XILONEN": 0,
+          "NATLAN_CITLALI": 0,
+          "NATLAN_VARESA": 0,
+          "NATLAN_IFA": 0,
+          "NATLAN_IANSAN": 0,
+          "NODKRAI_COLUMBINA": 0,
+          "NODKRAI_DURIN": 0,
+          "NODKRAI_AINO": 0,
+          "NODKRAI_NICOLE": 0,
+          "NODKRAI_NEFER": 0,
+          "NODKRAI_FLINS": 0,
+          "NODKRAI_LINNEA": 0,
+          "NODKRAI_LAUMA": 0,
+          "NODKRAI_SANDRONE": 0,
+          "NODKRAI_VARKA": 0,
+          "NODKRAI_YAHODA": 0,
+          "NODKRAI_INEFA": 0,
+          "LIYUE_ZIBAI": 0,
+          "SNEZ_ODDETTE": 0,
+          "SNEZ_ALYOSHA": 0,
+          "NODKRAI_ILLUGA": 0,
+          "NODKRAI_LOHEN": 0,
+          "NODKRAI_PRUNE": 0,
+          "SNEZ_VESNA": 0,
+          "SNEZ_VODYANITSA": 0
+        }
+      },
+      "initialPrng": 9031,
+      "initialClaim": null,
+      "realHour": 497682,
+      "options": {
+        "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+        "kind": "WEALTH",
+        "name": "부의 꽃",
+        "reward": "모라",
+        "map": "MAP_CHASM_SURFACE",
+        "active": true,
+        "claimed": false,
+        "minutesLeft": 24,
+        "unlocked": true,
+        "tiers": [
+          {
+            "tier": 1,
+            "level": 6,
+            "minLevel": 5,
+            "books": null,
+            "mora": 1800,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 2,
+            "level": 15,
+            "minLevel": 10,
+            "books": null,
+            "mora": 5000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 3,
+            "level": 30,
+            "minLevel": 25,
+            "books": null,
+            "mora": 14000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 4,
+            "level": 45,
+            "minLevel": 40,
+            "books": null,
+            "mora": 27000,
+            "reason": "",
+            "recommended": false
+          },
+          {
+            "tier": 5,
+            "level": 60,
+            "minLevel": 55,
+            "books": null,
+            "mora": 40000,
+            "reason": "",
+            "recommended": true
+          }
+        ]
+      },
+      "entryReceipt": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+          "mode": "BOSS",
+          "name": "지맥 · 부의 꽃"
+        },
+        "revision": 18
+      },
+      "routeReceipt": {
+        "ok": true,
+        "type": "BOSS_ROUTE",
+        "result": {
+          "battle": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031:B19",
+          "group": "EG_LEY_CHASM_SURFACE",
+          "opening": true,
+          "phase": "COMBAT_OPENING",
+          "order": [
+            {
+              "index": 0,
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "name": "동일 조건 비교",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "score": 76,
+              "first": false,
+              "alive": true,
+              "hp": 19122,
+              "maxHp": 19122,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 1,
+              "id": "MON_TH_SCOUT#2",
+              "source": "MON_TH_SCOUT",
+              "name": "보물 사냥단·척후병",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 97,
+              "first": false,
+              "alive": true,
+              "hp": 23800,
+              "maxHp": 23800,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 2,
+              "id": "MOND_KAEYA",
+              "source": "MOND_KAEYA",
+              "name": "케이아",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 94,
+              "first": false,
+              "alive": true,
+              "hp": 22185,
+              "maxHp": 22185,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 3,
+              "id": "MON_TH_SCOUT#1",
+              "source": "MON_TH_SCOUT",
+              "name": "보물 사냥단·척후병",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 90,
+              "first": false,
+              "alive": true,
+              "hp": 23800,
+              "maxHp": 23800,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 4,
+              "id": "LIYUE_XINGQIU",
+              "source": "LIYUE_XINGQIU",
+              "name": "행추",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 77,
+              "first": false,
+              "alive": true,
+              "hp": 21574,
+              "maxHp": 21574,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 5,
+              "id": "MOND_BARBARA",
+              "source": "MOND_BARBARA",
+              "name": "바바라",
+              "side": "ALLY",
+              "control": "AI",
+              "score": 73,
+              "first": false,
+              "alive": true,
+              "hp": 20654,
+              "maxHp": 21687,
+              "current": false,
+              "acted": false
+            },
+            {
+              "index": 6,
+              "id": "MON_RUIN_GUARD_VARIANT#1",
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "name": "유적 가디언",
+              "side": "ENEMY",
+              "control": "AI",
+              "score": 72,
+              "first": false,
+              "alive": true,
+              "hp": 69259,
+              "maxHp": 69259,
+              "current": false,
+              "acted": false
+            }
+          ]
+        },
+        "revision": 19
+      },
+      "battleStart": {
+        "actors": [
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "name": "케이아",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 22185,
+            "maxHp": 22185,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "level": 60,
+            "crit": 18,
+            "critDmg": 65,
+            "hit": 96,
+            "eva": 10,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  }
+                },
+                "taken": 1.06,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "role": "공격우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[얼음]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 4078,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 1,
+            "tactic": "공격우선",
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 0
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "LIYUE_XINGQIU",
+            "source": "LIYUE_XINGQIU",
+            "name": "행추",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 21574,
+            "maxHp": 21574,
+            "atk": 4015.0000000000005,
+            "def": 2798.4,
+            "spd": 71,
+            "level": 60,
+            "crit": 21,
+            "critDmg": 60,
+            "hit": 96,
+            "eva": 8,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {},
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1.12,
+                "role": "지원우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[물]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 3915,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 2,
+            "tactic": "지원우선",
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "MOND_BARBARA",
+            "source": "MOND_BARBARA",
+            "name": "바바라",
+            "side": "ALLY",
+            "control": "AI",
+            "hp": 20654,
+            "maxHp": 21687,
+            "atk": 2932.6000000000004,
+            "def": 2470.6000000000004,
+            "spd": 71,
+            "level": 60,
+            "crit": 10,
+            "critDmg": 50,
+            "hit": 95,
+            "eva": 8,
+            "resist": 40,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              },
+              {
+                "id": "ROLE",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {},
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1.12,
+                "role": "지원우선"
+              }
+            ],
+            "cooldowns": {},
+            "tags": [
+              "[광계]",
+              "[물]"
+            ],
+            "bondHearts": 0,
+            "bondBonusPercent": 0,
+            "baseAttack": 2844,
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 3,
+            "tactic": "지원우선",
+            "traits": {
+              "ELEMENT_BOOST": {
+                "ALL": 8
+              },
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "동일 조건 비교",
+            "side": "ALLY",
+            "control": "PLAYER",
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "level": 60,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 81,
+            "eva": 7,
+            "resist": 8,
+            "range": "근접",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": -10,
+                    "flat": 0
+                  }
+                },
+                "taken": 0.88,
+                "reactionOut": 1,
+                "supportOut": 1.2,
+                "formation": "DIAMOND"
+              }
+            ],
+            "cooldowns": {},
+            "guest": false,
+            "shields": [],
+            "turns": 0,
+            "slot": 4,
+            "tactic": "균형",
+            "slotDamageMultiplier": 0.8,
+            "protagonist": {
+              "version": 1,
+              "route": "ROUTE_TRAVELER",
+              "skillIds": [
+                "PLAYER_TRAVELER_ANEMO_E",
+                "PLAYER_TRAVELER_ANEMO_Q"
+              ]
+            },
+            "traits": {
+              "STACK_ATK": 3,
+              "PRECISION": 5,
+              "FIRST_GUARD": 20,
+              "STAGGER_RES": 30,
+              "HEAL_BOOST": 10,
+              "SHIELD_BOOST": 10
+            },
+            "traitState": {
+              "firstHit": false,
+              "firstStrike": false
+            },
+            "position": {
+              "x": 2,
+              "y": 3
+            },
+            "size": "MEDIUM",
+            "facing": 1,
+            "nextScorePenalty": 0
+          },
+          {
+            "id": "MON_RUIN_GUARD_VARIANT#1",
+            "source": "MON_RUIN_GUARD_VARIANT",
+            "name": "유적 가디언",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 69259,
+            "maxHp": 69259,
+            "atk": 25648,
+            "def": 1753,
+            "crit": 8,
+            "critDmg": 60,
+            "level": 60,
+            "spd": 64,
+            "hit": 92,
+            "eva": 3,
+            "resist": 10,
+            "range": "근접",
+            "grade": "정예",
+            "tags": [
+              "[물리]",
+              "[기계]"
+            ],
+            "tactic": "생존우선",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "size": "MEDIUM",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "유적 기계",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          },
+          {
+            "id": "MON_TH_SCOUT#1",
+            "source": "MON_TH_SCOUT",
+            "name": "보물 사냥단·척후병",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 23800,
+            "maxHp": 23800,
+            "atk": 15680,
+            "def": 1249,
+            "crit": 8,
+            "critDmg": 55,
+            "level": 60,
+            "spd": 90,
+            "hit": 92,
+            "eva": 6,
+            "resist": 5,
+            "range": "근접",
+            "grade": "일반",
+            "tags": [
+              "[물리]"
+            ],
+            "tactic": "균형",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 1
+            },
+            "size": "SMALL",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "보물 사냥단",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          },
+          {
+            "id": "MON_TH_SCOUT#2",
+            "source": "MON_TH_SCOUT",
+            "name": "보물 사냥단·척후병",
+            "side": "ENEMY",
+            "control": "AI",
+            "hp": 23800,
+            "maxHp": 23800,
+            "atk": 15680,
+            "def": 1249,
+            "crit": 8,
+            "critDmg": 55,
+            "level": 60,
+            "spd": 90,
+            "hit": 92,
+            "eva": 6,
+            "resist": 5,
+            "range": "근접",
+            "grade": "일반",
+            "tags": [
+              "[물리]"
+            ],
+            "tactic": "균형",
+            "nativeAura": null,
+            "aura": null,
+            "statuses": [],
+            "cooldowns": {},
+            "shields": [],
+            "turns": 0,
+            "airborne": false,
+            "element": "물리",
+            "hasDedicatedCards": true,
+            "enemySkillsInitialized": true,
+            "position": {
+              "x": 3,
+              "y": 2
+            },
+            "size": "SMALL",
+            "facing": -1,
+            "nextScorePenalty": 0,
+            "family": "보물 사냥단",
+            "targetRule": "FRONT",
+            "growthScaled": true
+          }
+        ],
+        "leyLine": {
+          "version": 2,
+          "kind": "WEALTH",
+          "route": "BRT_LEY_WEALTH_CHASM_SURFACE",
+          "map": "MAP_CHASM_SURFACE",
+          "hour": 497682,
+          "tier": 5,
+          "level": 60
+        },
+        "enemyBalanceRevision": 1,
+        "adminBalanceRevision": 0,
+        "prng": 3376148597
+      },
+      "openingSaveValidated": true,
+      "mainResult": {
+        "mora": 40000,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031:B19",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031:B19",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031",
+        "group": "EG_LEY_CHASM_SURFACE",
+        "origin": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+        "gate": "BOSS:BRT_LEY_WEALTH_CHASM_SURFACE",
+        "branch": null,
+        "victory": true,
+        "xp": 400,
+        "loot": {
+          "MAT_CHAOS_DEVICE": 2,
+          "TRPG_SCRAP_METAL": 2,
+          "MAT_TREASURE_INSIGNIA": 4
+        },
+        "rounds": 12,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "leyLine": {
+          "kind": "WEALTH",
+          "name": "부의 꽃",
+          "tier": 5,
+          "level": 60,
+          "claimed": true,
+          "mora": 40000,
+          "books": null
+        }
+      },
+      "mainMeter": {
+        "presentationMs": 83020,
+        "inputs": 12
+      },
+      "mainSeconds": 129.01999999999998,
+      "hpBeforeRecovery": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 7334,
+          "maxHp": 19122
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 22185
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 21574
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20654
+        }
+      ],
+      "moraAfterMain": 1040000,
+      "preRewardHpRatio": 0.08672311039636742,
+      "preRewardKO": [
+        "MOND_KAEYA",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "hourlyReasonSame": "이번 시간의 부의 꽃 보상은 이미 받았습니다. 24분 뒤 정각에 새 꽃이 핍니다.",
+      "claimAfterMain": {
+        "version": 1,
+        "WEALTH": 497682
+      },
+      "hourlyClaimedAcrossRegions": true,
+      "returnStartPrng": 3080282983,
+      "recovery": {
+        "failed": false,
+        "before": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 7334,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 20654
+          }
+        ],
+        "after": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 60,
+            "hp": 21574,
+            "maxHp": 21574
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "stock": "STK_INN_LIYUE",
+        "lodgingMora": 1037,
+        "events": [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 1037,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 216.98776278631942,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 7334,
+                  "maxHp": 19122,
+                  "lostHpRatio": 0.6164627131053237,
+                  "recoveryCost": 173
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 0,
+                  "maxHp": 22185,
+                  "lostHpRatio": 1,
+                  "recoveryCost": 280
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 60,
+                  "hp": 0,
+                  "maxHp": 21574,
+                  "lostHpRatio": 1,
+                  "recoveryCost": 280
+                },
+                {
+                  "owner": "MOND_BARBARA",
+                  "level": 60,
+                  "hp": 0,
+                  "maxHp": 20654,
+                  "lostHpRatio": 1,
+                  "recoveryCost": 280
+                }
+              ]
+            },
+            "cost": 1037
+          }
+        ],
+        "seconds": 34,
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 2635391185,
+          "worldDay": 1,
+          "worldTime": "21:50"
+        },
+        "outEdges": [
+          "EDGE_LY_DETAIL_038_B",
+          "EDGE_LY_DETAIL_037_B",
+          "EDGE_LY_DETAIL_036_B",
+          "EDGE_V01516_LINGJU_TIANHENG_A",
+          "EDGE_LY_DETAIL_008_B",
+          "EDGE_LY_DETAIL_001_B"
+        ]
+      },
+      "seconds": 163.01999999999998,
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2635391185,
+        "worldDay": 1,
+        "worldTime": "21:50"
+      },
+      "stopReason": null,
+      "finalMora": 1038963,
+      "netMora": 38963,
+      "grossMoraEarned": 40000,
+      "travelMoraEarned": 0,
+      "actualInnMora": 1037,
+      "defeatMoraPaid": 0,
+      "ledgerDifference": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19122,
+          "maxHp": 19122
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 60,
+          "hp": 22185,
+          "maxHp": 22185
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "level": 60,
+          "hp": 21574,
+          "maxHp": 21574
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 20654,
+          "maxHp": 20654
+        }
+      ],
+      "finalPrng": 2635391185,
+      "finalSaveValidated": true,
+      "secondsPerNetMora": 0.004183969406873187,
+      "minutesPer10000NetMora": 0.6973282344788646,
+      "continuousNominalMoraPerHour": 860426.9414795731,
+      "realHourClaimQuotaMora": 40000,
+      "cpuSeconds": 3.405296229,
+      "guardCount": 3
+    }
+  ],
+  "rawSHA256": "06c0e57583109e2cf8b2a17440c34b89e6029c8ab89081bcb16aa1e125285ac3",
+  "gzipSHA256": "2c5dd410d8055dc274ec8dcb6fa211533a287455d12901bc755e0b63ab0ac04e"
+}

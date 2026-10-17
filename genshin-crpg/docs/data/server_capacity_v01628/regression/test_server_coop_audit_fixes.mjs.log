@@ -1,0 +1,10 @@
+PASS old legacy request remains a replay after intervening commands and turns; battle view is current
+PASS same request ID with changed card, target, branch or turn is rejected without any save change
+PASS concurrent duplicate commands commit one action; concurrent changed intent conflicts
+PASS a delayed first delivery bound to an old turn is rejected; malformed request IDs are not silently accepted
+PASS a failed command-receipt insert rolls the host save back atomically and can be safely retried
+PASS restart and reopen restore the saved room ID, the guest view and the unchanged fight
+PASS a resumed guest remains eligible for the real battle reward and each reward is paid only once
+PASS old guest request IDs stay consumed after switching hosts and deleting the old host
+PASS a queued command is refused if the guest leaves before the host save lock becomes available
+{"ok":true,"checks":["old legacy request remains a replay after intervening commands and turns; battle view is current","same request ID with changed card, target, branch or turn is rejected without any save change","concurrent duplicate commands commit one action; concurrent changed intent conflicts","a delayed first delivery bound to an old turn is rejected; malformed request IDs are not silently accepted","a failed command-receipt insert rolls the host save back atomically and can be safely retried","restart and reopen restore the saved room ID, the guest view and the unchanged fight","a resumed guest remains eligible for the real battle reward and each reward is paid only once","old guest request IDs stay consumed after switching hosts and deleting the old host","a queued command is refused if the guest leaves before the host save lock becomes available"]}

@@ -1,0 +1,1352 @@
+{
+  "schema": 2,
+  "release": "0.16.21",
+  "baselinePublishedCommit": "df1d2c48b630bf8a152481bcc4bcc3e5b8b37785",
+  "finalGrowthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+  "canonicalQaRawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "policy": "Evidence hashes only. Does not replace the published authored DB or imply live server deployment. Historical/partial/interrupted/candidate runs retain their identities. No inventory scaling, deletion, debt or receipt rewriting.",
+  "finalAscensionNative": {
+    "conditions": 255,
+    "nativeBattles": 749,
+    "wins": 739,
+    "losses": 10,
+    "recoveries": 97
+  },
+  "finalAscensionComparison": {
+    "combatTimingSame": 255,
+    "finalHpSame": 255,
+    "priorCandidateCombatTimingSame": 255,
+    "priorCandidateFinalHpSame": 255,
+    "victorySequenceSame": 255,
+    "nativePayoutsMatchPromise": 255
+  },
+  "finalFocusedGrowthRegression": {
+    "checks": 46,
+    "programs": 5,
+    "rows": [
+      {
+        "program": "tests/test_material_rewards_v01616.cjs",
+        "log": "material_rewards_final_readable.log",
+        "exitCode": 0,
+        "seconds": 132.246,
+        "passLines": 13,
+        "loadedProductFilesAtStart": {
+          "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+          "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+        },
+        "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "logSHA256": "eb817331370d3c9907f167b7cdc4a980c13bfaed92054560bc86b45d5a06a962"
+      },
+      {
+        "program": "tests/test_ascension_balance_v01614.cjs",
+        "log": "ascension_balance_final_readable.log",
+        "exitCode": 0,
+        "seconds": 61.071,
+        "passLines": 9,
+        "loadedProductFilesAtStart": {
+          "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+          "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+        },
+        "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "logSHA256": "f2dd09d262c20d47e6c0edcc0952990e969a86014384c31588738595eee57393"
+      },
+      {
+        "program": "tests/test_ascension_efficiency_v01613.cjs",
+        "log": "ascension_efficiency_final_readable.log",
+        "exitCode": 0,
+        "seconds": 25.915,
+        "passLines": 6,
+        "loadedProductFilesAtStart": {
+          "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+          "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+        },
+        "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "logSHA256": "582128cae9d9353c2c53d845cd317eaca3c016277a6dd1fc9615d21ec18265b6"
+      },
+      {
+        "program": "tests/test_task_materials_v0169.cjs",
+        "log": "task_materials_final_readable.log",
+        "exitCode": 0,
+        "seconds": 30.009,
+        "passLines": 8,
+        "loadedProductFilesAtStart": {
+          "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+          "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+        },
+        "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "logSHA256": "1b57c199209e66bd122adf67f6bf9b38972ee392b02318575dd270c611672c9a"
+      },
+      {
+        "program": "tests/test_growth_balance_v01621.cjs",
+        "log": "growth_hp_regression_final.log",
+        "exitCode": 0,
+        "seconds": 21.036,
+        "passLines": 10,
+        "loadedProductFilesAtStart": {
+          "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+          "runtime_combat.js": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa"
+        },
+        "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "logSHA256": "59696e0f102a84c04cb4505ea5e6d1f32dd7dcbdbcc12b936381faf3c317ee2d"
+      }
+    ]
+  },
+  "additionalFinalQa": [
+    {
+      "program": "docs/data/full_balance_v01621/growth/project_book_growth_v01621.cjs",
+      "log": "book_growth_projection_final_readable.log",
+      "exitCode": 0,
+      "seconds": 3.329,
+      "passLines": 0,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "0a4c6595ef7475ba7f572fdf9075a260245400a35041656067915fc15beea754"
+    },
+    {
+      "program": "docs/data/full_balance_v01621/growth/audit_early_electro_limit_v01621.cjs",
+      "log": "early_electro_limit.log",
+      "exitCode": 0,
+      "seconds": 3.373,
+      "passLines": 0,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "2ddfc0ab23a0e2198365e5205187987b205b080f1b2d5d8436c33bfcc9d9d9c2"
+    }
+  ],
+  "seniorAccountNewCharacterConditionalLedger": {
+    "rewardWindows": 22,
+    "firstAlignedWindowToLastHours": 21,
+    "upperTierHeroBooksPerWindow": 180,
+    "booksSupplied": 3960,
+    "usedBooks": 3784,
+    "unusedBooks": 176,
+    "nominalBookXp": 3784000,
+    "actualBookXp": 3782570,
+    "capDiscardedBookXp": 1430,
+    "nominalBenchXp": 2200,
+    "actualBenchXp": 2200,
+    "capDiscardedBenchXp": 0,
+    "totalActualLevelingXp": 3784770,
+    "nativeUseItemActions": 28,
+    "nativeAscensionActions": 6,
+    "ascensionMora": 93200,
+    "bookUseMora": 0,
+    "materialTotals": {
+      "GROWTH_GEM_ELECTRO": 39140,
+      "ING_LAMP_GRASS": 42,
+      "MAT_DAMAGED_MASK": 5,
+      "MAT_STAINED_MASK": 7,
+      "TRPG_BOSS_ESSENCE": 1,
+      "MAT_OMINOUS_MASK": 10,
+      "MAT_FB_LIGHTNING_PRISM": 5
+    },
+    "measuredCombatBattles": 0,
+    "measuredCombatSeconds": null,
+    "measuredProcurementSeconds": null,
+    "calendarGuarantee": false
+  },
+  "combatSnapshotNote": "The first four focused programs honestly record a temporarily inspected runtime_combat.js snapshot 009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e. Its sole edit was an unreachable legacy guestSnapshots HP branch and was reverted before release. Domain/owned-party fixtures do not enter that branch; final 177-program release regression is a separate gate. Growth itself is final 84a4 throughout. Final255 and HP10/book/early witness record the unchanged published combat file 544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa. Do not rewrite the observed source hashes as if every execution had identical full product bytes.",
+  "nativeRuns": [
+    {
+      "path": "after_ascension_final200/native.json.gz",
+      "growthSourceSHA256": "e3a06ce50ffa618238bd19e086662bfc64e660850c98af2fbbf391999bb1c03e",
+      "conditions": 255,
+      "recordedCounts": {
+        "conditions": 255,
+        "nativeBattles": 749,
+        "wins": 739,
+        "losses": 10,
+        "recoveries": 97
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "after_hp_policy_pyro50/native.json.gz",
+      "growthSourceSHA256": "1daa9a224ae7e4117bbba24657fef40e2c0cab66688493f9d81477014e4112ec",
+      "conditions": 9,
+      "recordedCounts": {
+        "conditions": 9,
+        "nativeBattles": 27,
+        "wins": 27,
+        "losses": 0,
+        "recoveries": 12
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "after_talent_final80/native.json.gz",
+      "growthSourceSHA256": "ef07b08757a96a540f508b29da854a271f5ff3b3db4fc990bc0ee4f8320bde6c",
+      "conditions": 64,
+      "recordedCounts": {
+        "conditions": 64,
+        "nativeBattles": 192,
+        "wins": 192,
+        "losses": 0,
+        "recoveries": 2
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "ascension_final_readable/native.json.gz",
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "conditions": 255,
+      "recordedCounts": {
+        "conditions": 255,
+        "nativeBattles": 749,
+        "wins": 739,
+        "losses": 10,
+        "recoveries": 97
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "ascension_final_readable_partial/native.json.gz",
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "conditions": 30,
+      "recordedCounts": null,
+      "complete": false,
+      "role": "persisted partial already included in final, do not add counts"
+    },
+    {
+      "path": "before_all_stages/native.json.gz",
+      "growthSourceSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "conditions": 80,
+      "recordedCounts": {
+        "conditions": 80,
+        "nativeBattles": 240,
+        "wins": 240,
+        "losses": 0,
+        "recoveries": 5
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "before_pilot/native.json.gz",
+      "growthSourceSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "conditions": 24,
+      "recordedCounts": {
+        "conditions": 24,
+        "nativeBattles": 68,
+        "wins": 66,
+        "losses": 2,
+        "recoveries": 10
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "before_pyro_counter/native.json.gz",
+      "growthSourceSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "conditions": 46,
+      "recordedCounts": {
+        "conditions": 46,
+        "nativeBattles": 130,
+        "wins": 124,
+        "losses": 6,
+        "recoveries": 28
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "before_pyro_policy50/native.json.gz",
+      "growthSourceSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "conditions": 9,
+      "recordedCounts": {
+        "conditions": 9,
+        "nativeBattles": 27,
+        "wins": 27,
+        "losses": 0,
+        "recoveries": 12
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "before_screening/native.json.gz",
+      "growthSourceSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "conditions": 96,
+      "recordedCounts": {
+        "conditions": 96,
+        "nativeBattles": 284,
+        "wins": 282,
+        "losses": 2,
+        "recoveries": 42
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "before_talent/native.json.gz",
+      "growthSourceSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "conditions": 48,
+      "recordedCounts": {
+        "conditions": 48,
+        "nativeBattles": 144,
+        "wins": 144,
+        "losses": 0,
+        "recoveries": 2
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "before_talent_extra/native.json.gz",
+      "growthSourceSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "conditions": 16,
+      "recordedCounts": {
+        "conditions": 16,
+        "nativeBattles": 48,
+        "wins": 48,
+        "losses": 0,
+        "recoveries": 0
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "full_final_gem_cost_final/native.json.gz",
+      "growthSourceSHA256": "ef07b08757a96a540f508b29da854a271f5ff3b3db4fc990bc0ee4f8320bde6c",
+      "conditions": 6,
+      "recordedCounts": {
+        "conditions": 6,
+        "nativeBattles": 1932,
+        "wins": 1931,
+        "losses": 1,
+        "recoveries": 53
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    },
+    {
+      "path": "full_final_gem_cost_original_partial/native.json.gz",
+      "growthSourceSHA256": "ef07b08757a96a540f508b29da854a271f5ff3b3db4fc990bc0ee4f8320bde6c",
+      "conditions": 2,
+      "recordedCounts": null,
+      "complete": false,
+      "role": "persisted partial already included in final, do not add counts"
+    },
+    {
+      "path": "full_final_gem_readable_high/native.json.gz",
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "conditions": 3,
+      "recordedCounts": {
+        "conditions": 3,
+        "nativeBattles": 57,
+        "wins": 56,
+        "losses": 1,
+        "recoveries": 53
+      },
+      "complete": true,
+      "role": "actual snapshot-specific native data; not every snapshot is final"
+    }
+  ],
+  "measurementLimits": [
+    "Growth runner old battle.log/finalActors can be stale due to public action cloning. They are not used as detailed hit/immune/final-actor evidence. Native result/current-save HP/current inventory/presentation delta measurements remain valid; separate early witness captures actual settlement logs.",
+    "Three-fight conditions are not a full cultivation campaign or guaranteed victory for every team.",
+    "Early15→25 stages retain disclosed efficiency reversals. Late35→60 success pairs and successful highest-stage comparisons are separately scoped.",
+    "Final Lv60 Pyro3-seed campaign ran57 domain fights,56 wins and1 loss. Final low30 requirement4688 wins is only an arithmetic extrapolation from the actual625-win sample.",
+    "Book projection is conditional supply plus native consumption/cost, not native blossom wins or real playtime.",
+    "EXP native route fixtures exclude story/gear/material acquisition and real network/individual input delays.",
+    "Inventory counts are preserved but new unexecuted cost changes can alter held material purchasing power."
+  ],
+  "fileCount": 164,
+  "fileBytes": 30840982,
+  "files": [
+    {
+      "path": "README_KO.md",
+      "bytes": 4992,
+      "sha256": "486624a9f5a818b23348bdd6ab4c17502ac0844b13a14d81ee98057bdadec5bd",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "after_ascension_cases.json",
+      "bytes": 54112,
+      "sha256": "34d202d424e39887d8218db2a16d95c0b8c2ddc9f18ef033954bc89f8546e227",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "after_ascension_final200/native.json.gz",
+      "bytes": 431651,
+      "sha256": "73cc8d5782c91399254c82971cd6fb02adf6dde075fa30451ba55903362f9d53",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "after_ascension_final200/summary.json",
+      "bytes": 1351491,
+      "sha256": "8b24106459c7fa96642f6c704e354c6d8d53fef8f10fbcb5104790f4a1ccd425",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "after_ascension_final200/summary_original.json.gz",
+      "bytes": 330975,
+      "sha256": "7d2560ed3c2a0a33b81019f4c7ee9fe9330dfcfb0cbc782a1dcc09c7343e9778",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "after_growth_hp.json",
+      "bytes": 81165,
+      "sha256": "57c5801eb28c6caadba61cfe03ac999077d1a333f5c1a9c035139d6c51a1d6dd",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "after_hp_policy_pyro50/native.json.gz",
+      "bytes": 38202,
+      "sha256": "57918478a0de929b96057921d5062b9bb13cd46cdc07fcb77c2949e57840b3e5",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "after_hp_policy_pyro50/summary.json",
+      "bytes": 381769,
+      "sha256": "ca55644ba2c24f5e34bf4bf3a0886f4d720a9d8a19e88bf12aff62e7a38073a9",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "after_hp_policy_pyro50/summary_original.json.gz",
+      "bytes": 41941,
+      "sha256": "39a1d0b648938f4929206a2de5c2909f0462be91bb84079821d6f5c0bf1cff44",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "after_talent_cases.json",
+      "bytes": 12271,
+      "sha256": "b05775e9288be523f47301be08d0cf7ee0af1866f5d98be2b2b8a49baeed4ac0",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "after_talent_final80/native.json.gz",
+      "bytes": 105598,
+      "sha256": "5febe1462825896f6b8d8d1da083336c79e06cd81d534f8afbac3efef5ba8206",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "after_talent_final80/summary.json",
+      "bytes": 595406,
+      "sha256": "9836b3b4084a87f590ec48618490146817edaedbe100626749ee969585520355",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "after_talent_final80/summary_original.json.gz",
+      "bytes": 50991,
+      "sha256": "33d6312b400eb5f90f91c89c25213422a6bd0ecf627355db1559add1fc26e06d",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "all_stage_cases.json",
+      "bytes": 15519,
+      "sha256": "d1d7b7a82bac44ca1bc564c887910d306d76f059296096092a689337467ad140",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_balance_current.log",
+      "bytes": 1378,
+      "sha256": "6fe6b403a522d9c9b0f968bf25dbbf61176ca7d117b088580e371650d375c257",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_balance_final_readable.log",
+      "bytes": 1370,
+      "sha256": "f2dd09d262c20d47e6c0edcc0952990e969a86014384c31588738595eee57393",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_comparison.json",
+      "bytes": 190606,
+      "sha256": "813ebf0e0677564ecc854b0a76bb895c15fc75d1b0be631b8a6a0a4d3d1cea80",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_efficiency_current.log",
+      "bytes": 680,
+      "sha256": "582128cae9d9353c2c53d845cd317eaca3c016277a6dd1fc9615d21ec18265b6",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_efficiency_final_readable.log",
+      "bytes": 680,
+      "sha256": "582128cae9d9353c2c53d845cd317eaca3c016277a6dd1fc9615d21ec18265b6",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_final_comparison.json",
+      "bytes": 282037,
+      "sha256": "8f50ed44ec9c3d3511c1b5170446b55b585df9e0da9924f45c02faa0c2824058",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_final_readable/native.json.gz",
+      "bytes": 466800,
+      "sha256": "17e8dfb17274e13c7cccb76bd59e81c65599a142170b24dd25cb3c214cf729d3",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_final_readable/remaining_run.log",
+      "bytes": 43907,
+      "sha256": "86c245f7f401cbfae151edf94a2d3eaa4c7f65e441e761e638dccc0aa18c6e4c",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_final_readable/summary.json",
+      "bytes": 2509990,
+      "sha256": "8c6f8e047c2314a813ab9ce419488036674f58d77d19ff16b674b437f5d9390f",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_final_readable_partial/native.json.gz",
+      "bytes": 75916,
+      "sha256": "290e4e5b359444990a1b59a19bf50e5b736d5fe5abe73ede589e5a331e7f8948",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_final_readable_partial/run.log",
+      "bytes": 5724,
+      "sha256": "d5e98d3028cdc1c5bebd0538318877ad3b923b038026622324b9e530c592f4a9",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "ascension_final_readable_partial/summary.json",
+      "bytes": 1515940,
+      "sha256": "3b80d80af43dbd33b19b52e84ab4d28186d8b43e57b1c13a4b1a7e7f62f739f2",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "audit_early_electro_limit_v01621.cjs",
+      "bytes": 4001,
+      "sha256": "de5c3931f3638e9d06c08cbb4dd27b31429cbd7fe215a2782a243004ab1beaee",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "audit_growth_accounting_v01621.cjs",
+      "bytes": 4403,
+      "sha256": "316888965959ea68d023096a4a0d35810a032ce74064b8beb48c5054f4bca853",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "audit_growth_compat_v01621.cjs",
+      "bytes": 3908,
+      "sha256": "f5dc3c05203319e22787f741c4a2a497e8c01fe8e72f0868cc9b5ac173718810",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "audit_growth_food_trip_v01621.cjs",
+      "bytes": 4494,
+      "sha256": "1be03b7d12d5b5f42c7fb3b90c1cd1ce1f258199f9125d33d9b1ae5ebcc0fae6",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "audit_growth_hp_original_v01621.cjs",
+      "bytes": 3079,
+      "sha256": "5355d34c50ec2fd2a5bea447f21c6987c747b1c23cfd0cc2d2e9fe75d7524798",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "audit_growth_hp_v01621.cjs",
+      "bytes": 3327,
+      "sha256": "edf98ba96e4410461b2644793bdeafa82033674141dc15e8d98665e897a79a77",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "audit_growth_v01621.cjs",
+      "bytes": 12555,
+      "sha256": "65f501c3048b4e3b40d9bbdef4900a9d170758869fd965d340b5d66c62308917",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "before_all_stages/native.json.gz",
+      "bytes": 111201,
+      "sha256": "58e8190f8b58493d87ab421e7b67b2d2d3428a109f90194e9752cf295e61646f",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_all_stages/summary.json",
+      "bytes": 657289,
+      "sha256": "552364779d08cde9b7ade570e2b4ffd83c61bc004a5ea852cf8cd073b901feee",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_all_stages/summary_original.json.gz",
+      "bytes": 58138,
+      "sha256": "ba527afc5b37671b51a56027ac2e1fd8dc5eaa42236136dec5af18d64662ea8e",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_growth_hp.json",
+      "bytes": 81127,
+      "sha256": "3bc344fed6eb3661d02dc8c38b80811e3a4826bb5ff6c107291aad0a29623ce5",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pilot/native.json.gz",
+      "bytes": 55474,
+      "sha256": "f8faa3a7aaefd57f4d9b2dc5be1ffedeec42b821b5f139239e71d52fa53d7352",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pilot/summary.json",
+      "bytes": 439435,
+      "sha256": "3165abcedff8067ec728567a711c007519cce9672b9b8882d9b1c0dbfab99ca4",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pilot/summary_original.json.gz",
+      "bytes": 54164,
+      "sha256": "5e8db39fc982cdceb4ff006d0cce59b5f1d3ff45c29945535d744cce427e2253",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pyro_counter/native.json.gz",
+      "bytes": 88220,
+      "sha256": "f5eca0dfac2341a3e914d6232f215ee7c2d2187e9626ddecef1203547c7be173",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pyro_counter/summary.json",
+      "bytes": 529248,
+      "sha256": "6e2d0611e1aca96a059dc26dae6a60a8bfc2b9ebf6182fac0aa97dbc3b57b6c5",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pyro_counter/summary_original.json.gz",
+      "bytes": 84596,
+      "sha256": "2b35a27a5b432621f96f7891f1f9457547eaf0704a4e242454376aed6731de11",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pyro_policy50/native.json.gz",
+      "bytes": 38183,
+      "sha256": "af6b1b2ce393578aa84793e510e578c65eee8c0b0ab03c222ee07f80116cd933",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pyro_policy50/summary.json",
+      "bytes": 381746,
+      "sha256": "e3da8e624b7a590f6d5031d50000037c99ed11d773d7300c6ab346d4d08317d8",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_pyro_policy50/summary_original.json.gz",
+      "bytes": 41914,
+      "sha256": "657c90cbadc245a0b011092a35ac42c184d4d0f208a6da09d57d0659138d1d76",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_screening/native.json.gz",
+      "bytes": 209163,
+      "sha256": "5dc1af785a8e71a674d9a347f60fdbe7bd52fba939c99f5beeb6c88fd187770d",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_screening/summary.json",
+      "bytes": 724730,
+      "sha256": "d9be4ca231c6c95af73e441cd8c80e359b709612eabdbedd691833cbb46e7d53",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_screening/summary_original.json.gz",
+      "bytes": 168819,
+      "sha256": "b666bb473ca8ba6428589c2a8d20d70fb9a24c74c868a6410589c6f3f9fa3e7a",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_talent/native.json.gz",
+      "bytes": 83841,
+      "sha256": "6dfb8d9fa23a24e5b5c3afbbef6229c17f8f18722133cba097a64155049cf44d",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_talent/summary.json",
+      "bytes": 532829,
+      "sha256": "60c64f78238d54776fb76cbfb1818136d4ed1838217adaac0f8aabb53f1755f8",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_talent/summary_original.json.gz",
+      "bytes": 44099,
+      "sha256": "e3009de643802ec38ae04385c5c104fbaa2d65098b52f3b5c4eeec2f15bd0a67",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_talent_extra/native.json.gz",
+      "bytes": 39501,
+      "sha256": "d6e0cd66df7730578034784f3d25e9bd2968dc0456ff2c6e7aec3cc711a7d264",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_talent_extra/summary.json",
+      "bytes": 407855,
+      "sha256": "88860180c134ceb685a2c50b73842aed3a5babcfd832870dce2dd549e0c85b2d",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "before_talent_extra/summary_original.json.gz",
+      "bytes": 26285,
+      "sha256": "06d18f3a0a4bf2844aec108f6c7547f1eec2011b727ec0b31b18ee4c804cfd2f",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "book_growth_projection.json",
+      "bytes": 638030,
+      "sha256": "9e28c4e4b119f3b84d10a322b00d97b39dd7e90e84adf55e0851869acfa9b2e9",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "book_growth_projection.log",
+      "bytes": 247,
+      "sha256": "0a4c6595ef7475ba7f572fdf9075a260245400a35041656067915fc15beea754",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "book_growth_projection_final_readable.log",
+      "bytes": 247,
+      "sha256": "0a4c6595ef7475ba7f572fdf9075a260245400a35041656067915fc15beea754",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "book_growth_projection_initial_candidate.json.gz",
+      "bytes": 18205,
+      "sha256": "5e8698fd9a44a920ce83c7dbaf0f6f97b9a749e9f86fd957d3280635a2fbda04",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "calculate_ascension_common_proposals.py",
+      "bytes": 3807,
+      "sha256": "919c1e9bbb03f38164f5b95ad37751b4acfca3e0f62ffab2c63fc66adf7a7b9b",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "common_stage_reward_proposals.json",
+      "bytes": 861277,
+      "sha256": "d3a519a341df62ea6d01cc3e5d32dc4ef071e425a51ce50b51eadbfd04341cfb",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "early_electro_limit.log",
+      "bytes": 273,
+      "sha256": "2ddfc0ab23a0e2198365e5205187987b205b080f1b2d5d8436c33bfcc9d9d9c2",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "early_electro_limit_native.json.gz",
+      "bytes": 54391,
+      "sha256": "cb0526931cf76f5d4fda8f2307b56ed8702c3a7bfa8a27f8a885ac7f8d2ef109",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "early_electro_limit_summary.json",
+      "bytes": 59995,
+      "sha256": "2c58aced559edfe063f001450b0bc2496e20ecf8fb16d953f42eba254c901436",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "existing_inventory_cost_impact.json",
+      "bytes": 5853,
+      "sha256": "33f801956d718e4773996f7c022854ee1c6de53bc03d2172e347261779577864",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "final_growth_test_interrupted_attempt.json",
+      "bytes": 410,
+      "sha256": "a89c032212748a60f335df14ad5284e7a8d2a388f23f59b5e73f51bd66bb0b9b",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "final_growth_test_results.json",
+      "bytes": 4431,
+      "sha256": "a47dce02fdeda39f40e3026c5a59f46a319e3a85172b7590659300e3040ead42",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "final_growth_test_second_attempt.json",
+      "bytes": 2521,
+      "sha256": "b72aaa13b1d50bc1e00bbc4c5d24ec49b56288abd7ff930077259ecde40af0f4",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "full_final_gem_cost_cases.json",
+      "bytes": 1510,
+      "sha256": "f701f9fa68e62107afe53efde45b400fbef456c293b5d1d710ce1b59e6f59e4b",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_final/native.json.gz",
+      "bytes": 230300,
+      "sha256": "75c4377cf0432eb07c3984f3d8b4691d6e5baae4b8f416a4a06ad59a9ef92394",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_final/remaining_native.json.gz",
+      "bytes": 156174,
+      "sha256": "b363daafb0172512ed3c25da43714bae7ff25e974e5d645cfe22c8574da87ce9",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_final/remaining_run.log",
+      "bytes": 930,
+      "sha256": "3796a510917ebc35c9bb1b4e9ea9dc1782223634d84c4b78aba1f3489a0c31d4",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_final/remaining_summary.json",
+      "bytes": 7041641,
+      "sha256": "a4e0ad2e4b63d4f4238f54858469d67135433e4ca32795aca116778a32d1350b",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_final/summary.json",
+      "bytes": 40745,
+      "sha256": "62ddaab03183d379450860e47ecc591f2fdc9b6f47ad27aa4db8db4bdb391eb3",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_original_partial/native.json.gz",
+      "bytes": 88734,
+      "sha256": "b8ae332a7a5211abd675b4422c8c84e06002eca06b70bbfd76d436ec00a2162d",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_original_partial/run.log",
+      "bytes": 471,
+      "sha256": "a74fe618eabb81bbba2b15d48008a88446f69a420c1260629ee64aa7a7a2a9bb",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_cost_original_partial/summary.json",
+      "bytes": 3845413,
+      "sha256": "00d9584779b1deb6decab1393d54d45da4a3cb3d2c5a0fd43fb1ab118161e3df",
+      "role": "prior candidate native data; preserve actual source hash"
+    },
+    {
+      "path": "full_final_gem_readable_high/native.json.gz",
+      "bytes": 52860,
+      "sha256": "57db568e00cf5892a42ed8ad5b0812e422b81796e13b4328ff2bb8300c579ef8",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "full_final_gem_readable_high/run.log",
+      "bytes": 700,
+      "sha256": "b50b15650412fb1e49a3f5b4f8d3a5b7e45fa5a882780f94e6f8c8ef37edefc0",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "full_final_gem_readable_high/summary.json",
+      "bytes": 1660301,
+      "sha256": "233238361bed15334b2f0b7cdbd3d92d189b983be235fdf957a2584ad55eb323",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_accounting.json",
+      "bytes": 58830,
+      "sha256": "fc8f151f67fc572ad2c89d2dec0de741260d5b020c942ab9ac0e699e9b26cc01",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_accounting.log",
+      "bytes": 321,
+      "sha256": "ba34583a41c4ba48e093d96131484afb3709afa358b0719332860c1bbdc71222",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_accounting_before.json",
+      "bytes": 58812,
+      "sha256": "e6e7580d58ff23fe0e87e0aa9c4f8592786db8fd5e589a0dba7b470ca55a9b29",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_accounting_before.log",
+      "bytes": 321,
+      "sha256": "ba34583a41c4ba48e093d96131484afb3709afa358b0719332860c1bbdc71222",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_accounting_final_readable.json",
+      "bytes": 58784,
+      "sha256": "e031f8cb1e77be6ea760410fa8201f0d5fdb53165514a00f8f7b5bff3165036f",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_accounting_final_readable.log",
+      "bytes": 321,
+      "sha256": "ba34583a41c4ba48e093d96131484afb3709afa358b0719332860c1bbdc71222",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_campaign_comparison.json",
+      "bytes": 10960,
+      "sha256": "60059e5a4a120a537f07925be27b7f48617092f9ae3f43ea7d8a86ae54523637",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_compat.json",
+      "bytes": 439,
+      "sha256": "c11ebee2fab33c8dedec3e0788d1e20a60355ba4fc668d5a56e211f84057734a",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_compat.json.gz",
+      "bytes": 86850,
+      "sha256": "f339ff870c510a3e9c80ed5f68f857de8661f19c2819b9870c8a5faf2dee2483",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_compat.log",
+      "bytes": 440,
+      "sha256": "c7d8576131c2af4f364af29e5534add34d6f6bd6a608cd5b91495f25b26c25c1",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_compat_final_readable.json",
+      "bytes": 439,
+      "sha256": "f3d8338ce1f605419720cb7855019ea5f0064569c908f07c52f0391a42324bcc",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_compat_final_readable.json.gz",
+      "bytes": 86798,
+      "sha256": "8370f01298d14154dc089577e4846c78ff06f27bd8c96801238e27ada14bc7b7",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_compat_final_readable.log",
+      "bytes": 440,
+      "sha256": "e43039c2f4b69f65a972a58f1948e88249a56717ee293001ccc9554684e1aaa7",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_after.json",
+      "bytes": 12753,
+      "sha256": "af03ce9a71266e617fc7bf104e8313f38a0d2dea41d14e1205e58eaae68088c6",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_after.json.gz",
+      "bytes": 31512,
+      "sha256": "b8c21d270dae416e9542829dc51fd644b0267d6b04faabf940d7882f4a206c29",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_after.log",
+      "bytes": 12754,
+      "sha256": "8fbc61787a8736a2cf90c7feb417192d94606c21772c960d50983b624afea5de",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_after_variant_probe.json",
+      "bytes": 12832,
+      "sha256": "7d5082b2098a260cb906e5e88cbb328afa149f8376c956e23750258d79b81a08",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_after_variant_probe.json.gz",
+      "bytes": 31171,
+      "sha256": "9b9f7fea136aea697a2c048fcfe627cbcaaa6d05a4997137fe3de853892fb9b5",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_after_variant_probe.log",
+      "bytes": 12833,
+      "sha256": "c4e287ef1c07383e3539fb8d15f9aa87ec6b947cfca6d10de89a5b8a9b1af592",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_before.json",
+      "bytes": 12730,
+      "sha256": "cda871ae853b7075be474636a00cb9bf96603f09e758bd89df052a4f9ef9ad15",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_before.json.gz",
+      "bytes": 31412,
+      "sha256": "6c7bc877c570fd213c40ffd853904fccf4bbf3ccd46d1f9f075f6dd2fea8d7e7",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_before.log",
+      "bytes": 12731,
+      "sha256": "4f58c6ba93b8b9f628c4b7d4ed73f66372d80c25186d5a76a88e4afe3878ab58",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_before_variant_probe.json",
+      "bytes": 12809,
+      "sha256": "ff614e1ac79c42c7b555697715616ebe1e931dbd03d34177a3d89a51111e93bd",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_before_variant_probe.json.gz",
+      "bytes": 31010,
+      "sha256": "4fcb8f134b8744a368d3f810addb488ed61f9791e9e884910d9413eeeba003fc",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_food_trip_before_variant_probe.log",
+      "bytes": 12810,
+      "sha256": "e60d104a050d23e77ae491c9c8bf8ca091fb072b1de98ff0bffa15c8613e7fc5",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_before.json.gz",
+      "bytes": 419189,
+      "sha256": "aa8e53674b93266e2bbc5a2604027a251c423098a461982ca0c06e0b65bb9ccb",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_before.provenance.json.gz",
+      "bytes": 12996,
+      "sha256": "3054b1e9505e0afe1dc2a47789bb0f7966b24961f9866154018bc82052fbb8d0",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_final_after.json.gz",
+      "bytes": 353317,
+      "sha256": "14dd4ce32685b0e09212a1ab00a86bd54eba03ec8798e8763585516974847edc",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_final_after.log",
+      "bytes": 5614,
+      "sha256": "b627ec14ab82bffff5c5aae97246f842c12317b2ac69d5b343ce0504dd49b735",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_final_after.provenance.json.gz",
+      "bytes": 13622,
+      "sha256": "87e6444ffd3bcb549dc7ec05e8c606e554669c3668e83465c2f56aa63786c1e4",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_final_before.json.gz",
+      "bytes": 172160,
+      "sha256": "8c4ce777234f4a85222f79945e4b74c1b2e022f382b6fd4abb67596112fbf332",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_final_before.log",
+      "bytes": 5557,
+      "sha256": "2297cb834a76abfe65c0f6f1b20d30df0db466f7d5d2f39793570f03c7e6fa49",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_final_before.provenance.json.gz",
+      "bytes": 13108,
+      "sha256": "f8bb1f1d0229bf03859b2b426b70c22d5ea264e2c11e00e6d5cab60e9119830b",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_hp_policy_after.json.gz",
+      "bytes": 215083,
+      "sha256": "d578fc6d1f2187eb74770de777702653acd3f0ec361fdeb86799ab3b5c0c2c10",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_hp_policy_after.provenance.json.gz",
+      "bytes": 13516,
+      "sha256": "99e3a2e7d8acca3d128c823e729615ca0b334256e21534ae9f7a804a60314eaa",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_full_campaign_hp_policy_after_pre_route_fix.json.gz",
+      "bytes": 215083,
+      "sha256": "d578fc6d1f2187eb74770de777702653acd3f0ec361fdeb86799ab3b5c0c2c10",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "growth_hp_baseline_fail.log",
+      "bytes": 1085,
+      "sha256": "6285bcde4c20119c3dc562c5ec8a2d88a72ee592874e56fc5d624ca1dc59316e",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "growth_hp_final_readable.log",
+      "bytes": 819,
+      "sha256": "59696e0f102a84c04cb4505ea5e6d1f32dd7dcbdbcc12b936381faf3c317ee2d",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_hp_regression.log",
+      "bytes": 819,
+      "sha256": "59696e0f102a84c04cb4505ea5e6d1f32dd7dcbdbcc12b936381faf3c317ee2d",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_hp_regression_final.log",
+      "bytes": 819,
+      "sha256": "59696e0f102a84c04cb4505ea5e6d1f32dd7dcbdbcc12b936381faf3c317ee2d",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_runner_before_helper.cjs.gz",
+      "bytes": 7942,
+      "sha256": "1d85ecb1d723b1e8e127200f4f5f33c1cb812203186cf2d0162a0480cb666aff",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_runner_final_after_helper.cjs.gz",
+      "bytes": 8049,
+      "sha256": "9876ceae11ae9c5b6db3b86e6ff49d9c29af314bf09e7f60ec0452bd91e14fdf",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_runner_final_before_helper.cjs.gz",
+      "bytes": 8049,
+      "sha256": "9876ceae11ae9c5b6db3b86e6ff49d9c29af314bf09e7f60ec0452bd91e14fdf",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "growth_runner_hp_policy_after_helper.cjs.gz",
+      "bytes": 7942,
+      "sha256": "1d85ecb1d723b1e8e127200f4f5f33c1cb812203186cf2d0162a0480cb666aff",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "historical_growth_saves_v01620.json.gz",
+      "bytes": 58580,
+      "sha256": "7686042c1b1c644b35033961daac7f7e6b803e9370726108435656f14b93b6bf",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "legacy_growth_regression.log",
+      "bytes": 1668,
+      "sha256": "0a928adab0b7a80a14b6b376d01c82b56382475ffc6589996313646bd76fa9ff",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "material_rewards_baseline_fail.log",
+      "bytes": 6984,
+      "sha256": "6a72b84811eeb787762e48fbcbc208eea1bc532594565d25006ce07f6eff2093",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "material_rewards_baseline_fail_final.log",
+      "bytes": 6984,
+      "sha256": "a7f0e81270f8112eaf11bdbc9d61d9bdfcf6e8c189e98377fdf3f8eee251a984",
+      "role": "published-baseline / old-version observation"
+    },
+    {
+      "path": "material_rewards_current.log",
+      "bytes": 1388,
+      "sha256": "5123c1803c72035f16ca81e0e72de25a4f961dbc08589195d8f0273de617ef16",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "material_rewards_final_readable.log",
+      "bytes": 1389,
+      "sha256": "eb817331370d3c9907f167b7cdc4a980c13bfaed92054560bc86b45d5a06a962",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "material_rewards_stale_nextday_expectation.log",
+      "bytes": 2086,
+      "sha256": "f471c6df7dcf3d665d4b5adcb9b809c00288c8164db14fc38cfbd73b2c4e1870",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "merge_final_ascension_v01621.py",
+      "bytes": 6115,
+      "sha256": "2a600a9d74cc244c5ed541a4415fb50e955aac3a29ad21b53876afb503739673",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "oom_interrupted_ascension_balance_final_readable.log",
+      "bytes": 106,
+      "sha256": "4e70b8cff2fe707b60dfacddff1e903e16baf5e3b3da269b1890941d57249864",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "oom_interrupted_ascension_efficiency_final_readable.log",
+      "bytes": 216,
+      "sha256": "8476ab131f6c24dccc9cfa245905609753d4049c0d85e4d73b982b2236088d84",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "oom_interrupted_task_materials_final_readable.log",
+      "bytes": 375,
+      "sha256": "e03446cb391cfde0696b4479614357339c8328746348f6289fc35730e55f5748",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "pilot_cases.json",
+      "bytes": 4669,
+      "sha256": "ccce846f881dd0b441476823409c8d2ed556134b6a317863b7aa82012d7a3e3e",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "product_after_runtime_growth_v01522.js.gz",
+      "bytes": 19418,
+      "sha256": "f503b5f44c3033065cb9573276b8384a2e31d26c5a646a7b108fe47f28edcc29",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "product_ascension_checkpoint_runtime_growth_v01522.js.gz",
+      "bytes": 19283,
+      "sha256": "a802fc683e95e430b79590b73849303fb2c0c540a77a249167ceb34c30e9b67f",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "product_before_runtime_growth_v01522.js.gz",
+      "bytes": 18962,
+      "sha256": "153f39e7987d7c57f38ac61d4770bf354df5f31c07d25c7f66ec99744f5cf829",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "product_final_runtime_growth_v01522.js.gz",
+      "bytes": 19424,
+      "sha256": "d60d4f82af41dd3531dd845ca2b36a940c669ccb27c1a741bc4024d0e3a5fdc8",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "product_hp_checkpoint_runtime_growth_v01522.js.gz",
+      "bytes": 19160,
+      "sha256": "489aa21e868863a43aea43812107d3ffeb2a481d43afd2aa537e6e9a413de57a",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "product_initial_candidate_runtime_growth_v01522.js.gz",
+      "bytes": 19418,
+      "sha256": "f503b5f44c3033065cb9573276b8384a2e31d26c5a646a7b108fe47f28edcc29",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "project_book_growth_v01621.cjs",
+      "bytes": 3727,
+      "sha256": "d45829ec31fdbcaac8a0fee323745191a9c2a676baf038b6838d76731dd038c8",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "project_senior_account_new_character_v01621.cjs",
+      "bytes": 8560,
+      "sha256": "264b3ba178d1ca87f45cb988b6e54ee3b8dc4a1d9f0f723f5d1bc4f5a02a7287",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "proposed_common_stage_efficiency.json",
+      "bytes": 16283,
+      "sha256": "85b525d5f254f963457e7746508c9537b56a20a3c885a6aded852ac48780ac63",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "pyro_counter_cases.json",
+      "bytes": 12580,
+      "sha256": "c3466d529f3c9310eb792c5a36324f9991c6e13a3d80c73e4f40718052bebc22",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "pyro_policy50_cases.json",
+      "bytes": 2781,
+      "sha256": "ad22b1764ccb4dfcbd311fe7c7a6b542181313ced4d82e730dd85b693431a964",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "resource_interruption_report.json",
+      "bytes": 1538,
+      "sha256": "88a2b69108f1ae0089a172aae9e0e4197210b13cfeb283ebdfa9a92944bd7c52",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "run_growth_campaigns_original_v01621.py",
+      "bytes": 3483,
+      "sha256": "fa7826d15ef657d834e6a534f0d605332687218a0c3dea2704b4978030e978ab",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "run_growth_campaigns_v01621.py",
+      "bytes": 4901,
+      "sha256": "61f8bdeac43ecf1ab92c35caf6cfbbb1e20f95366771a87425ce88fc5fc8c99e",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "screening_cases.json",
+      "bytes": 18575,
+      "sha256": "de6b5d4d609824efae38f999e77baedc6ae5880d0caea95f332306956e9b880c",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "seal_growth_manifest_v01621.py",
+      "bytes": 5663,
+      "sha256": "ba8f6de7c6856f0c5d5797c7e476a1f9670cd18d96c5a7edcaccbb93937d224a",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "senior_account_new_character_projection.json",
+      "bytes": 176103,
+      "sha256": "f6a29d1ef111fe42535bd695c90429593aa17d47f5d3b73a5d763514c3001a41",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "senior_account_new_character_projection.log",
+      "bytes": 713,
+      "sha256": "0161349613e03500e365a49a78324691e3b486c4f846b660a7d0551c896dc8f5",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "senior_account_wrong_bench_zero_assumption.log",
+      "bytes": 931,
+      "sha256": "cdd043e158a03368ef6518eff58a0d2569a5d7f1eb7a47f55c66614dd8d4928a",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "source_change_impact_assertion.json",
+      "bytes": 1896,
+      "sha256": "07bb86761c35b744526b43cc01b0831933cc687da21b419c39aa9439b30d4cb8",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "talent_cases.json",
+      "bytes": 9191,
+      "sha256": "86cf2aaaa0749310af461d21eddbe595f6d63d2d0a0899b356b3b418cc51b17c",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "talent_comparison.json",
+      "bytes": 35307,
+      "sha256": "863c22e3dfb1187c40e5090a452e7e5c9fc8357bc2b85a605f7ecbd74ddf6827",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "talent_extra_seed_cases.json",
+      "bytes": 3083,
+      "sha256": "041f2471ef8869c4825cce1e179d158f75296fa8836e9cd707b2d2d6eaf6f0a8",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "task_materials_current.log",
+      "bytes": 890,
+      "sha256": "86fcbcfcdcc407b583e7fd8e63ffb5c865f0e05da4d88399432a00537f463c6c",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "task_materials_final_readable.log",
+      "bytes": 891,
+      "sha256": "1b57c199209e66bd122adf67f6bf9b38972ee392b02318575dd270c611672c9a",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "task_materials_stale_weekly_expectation.log",
+      "bytes": 1577,
+      "sha256": "2b427d8cf9f85f920ef2fc65bc3e2c16c61da7514138710be572424a8a78747f",
+      "role": "interrupted / stale QA expectation failure; preserved, not counted as PASS"
+    },
+    {
+      "path": "tutorial_regression.log",
+      "bytes": 978,
+      "sha256": "0b3c9d92b07834d249a00eb69839578e571de8c3454e2b67e854436d2fb21958",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    },
+    {
+      "path": "whole_character_cost_projection.json",
+      "bytes": 5024,
+      "sha256": "43007964c9ab4e1f3b4284d40bd441b1653a503f7e9d851a8414fcd4ad53aa99",
+      "role": "snapshot-specific native observation / QA / arithmetic; read provenance and scope"
+    }
+  ]
+}

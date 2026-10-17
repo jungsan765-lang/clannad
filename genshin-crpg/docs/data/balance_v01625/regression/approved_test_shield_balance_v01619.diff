@@ -1,0 +1,20 @@
+--- original/tests/test_shield_balance_v01619.cjs
++++ current/tests/test_shield_balance_v01619.cjs
+@@ -7,7 +7,7 @@
+ const jade=a=>a.shields.find(s=>s.source==='LIYUE_ZHONGLI_E');
+ test('Jade Shield protects all living fighters with legal talent/gear modifiers and finite overflow',()=>{
+  const {r,b,actor,enemy}=arena(),z=actor('LIYUE_ZHONGLI'),p=actor('PLAYER_CUSTOM');cast(r,z,'LIYUE_ZHONGLI_E',enemy);
+- const wanted=Math.round(z.maxHp*.2*r.premiumTalentMultiplier(z,'e')*1.1*.65);assert(wanted>0);
++ const wanted=Math.round(z.maxHp*.2*r.premiumTalentMultiplier(z,'e')*1.1*r.combatCharacterBudget().zhongliShieldMultiplier);assert(wanted>0);
+  for(const a of b.actors.filter(a=>a.side==='ALLY')){const sh=jade(a);assert(sh);assert.equal(sh.value,wanted);assert.equal(sh.rounds,2);assert.equal(sh.ignoreForcedMove,true);}
+  const hp=p.hp;r.applyDamage(enemy,p,wanted+200,{element:'물리',sourceKind:'TEST_FINAL_PACKET'});assert.equal(p.hp,hp-200);assert(!jade(p));
+  return{value:wanted,overflowHpLoss:200,targets:4};
+@@ -17,7 +17,7 @@
+  const hit=Math.floor(size*.75);r.applyDamage(enemy,p,hit,{element:'물리',sourceKind:'TEST_FINAL_PACKET'});assert.equal(jade(p).value,size-hit);cast(r,z,'LIYUE_ZHONGLI_Q',enemy);
+  // C2 is a constellation shield after the direct cast context, so it retains its
+  // native fixed size rather than inheriting the E/Q talent multiplier.
+- const c2=Math.round(z.maxHp*.2*1.1*.65);assert.equal(p.shields.filter(s=>s.source==='LIYUE_ZHONGLI_E').length,1);assert.equal(jade(p).value,Math.max(size-hit,c2));assert.equal(jade(p).initialValue,size);
++ const c2=Math.round(z.maxHp*.2*1.1*r.combatCharacterBudget().zhongliShieldMultiplier);assert.equal(p.shields.filter(s=>s.source==='LIYUE_ZHONGLI_E').length,1);assert.equal(jade(p).value,Math.max(size-hit,c2));assert.equal(jade(p).initialValue,size);
+  return{constellation:r.constellationLevel(z.source),eValue:size,c2Value:c2,shieldCount:p.shields.length};
+ });
+ test('existing saved shield values survive restore and refresh until their normal depletion',()=>{

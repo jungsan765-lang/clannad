@@ -1,0 +1,75 @@
+{
+  "candidateConditions": 27,
+  "additionalBaselineFourConditions": 3,
+  "nativeFinalRecheckConditions": 9,
+  "recommended": 3.2,
+  "adoptedByRoot": 3.2,
+  "productEditsByAgent": 0,
+  "errors": 0,
+  "inputLimits": 0,
+  "candidateSourceRecords": [
+    {
+      "onlyChanged": "ordinary ATK coefficient60",
+      "base": 1.6,
+      "candidate": 2.6,
+      "baseGrowthSHA256": "5280d8c6a32e8a7424c1a76b835cb345d264a8cec8c675b11b74a44737b5872d",
+      "candidateGrowthSHA256": "73ff7f7f08b825afe65652fbd68ebe69c15c06b754c26c1d85016706ab5a5695",
+      "baselineFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "immutableSnapshot": "/workspace/scratch/a62414469990/field-v01627-private/chasm_candidate_immutable_input"
+    },
+    {
+      "onlyChanged": "ordinary ATK coefficient60",
+      "base": 1.6,
+      "candidate": 3.2,
+      "baseGrowthSHA256": "5280d8c6a32e8a7424c1a76b835cb345d264a8cec8c675b11b74a44737b5872d",
+      "candidateGrowthSHA256": "381655342617116240a7bd7742719c1b46bac56361b56135052c2facc420aa13",
+      "baselineFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "immutableSnapshot": "/workspace/scratch/a62414469990/field-v01627-private/chasm_candidate_immutable_input"
+    },
+    {
+      "onlyChanged": "ordinary ATK coefficient60",
+      "base": 1.6,
+      "candidate": 4,
+      "baseGrowthSHA256": "5280d8c6a32e8a7424c1a76b835cb345d264a8cec8c675b11b74a44737b5872d",
+      "candidateGrowthSHA256": "a0bec1464f336ee1abbd912e10b29bb4f03df66ccc0f8516b58d752416f75b81",
+      "baselineFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "immutableSnapshot": "/workspace/scratch/a62414469990/field-v01627-private/chasm_candidate_immutable_input"
+    }
+  ],
+  "finalNativeSourceRecord": {
+    "nativeFinal": true,
+    "onlyChanged": "none: final source H.load(ROOT), VM patch bypassed",
+    "base": 3.2,
+    "candidate": 3.2,
+    "baseGrowthSHA256": "f324284528aa25d15c316a8e98ec710177e38299dab55d40a1545f85f5fcd117",
+    "candidateGrowthSHA256": "f324284528aa25d15c316a8e98ec710177e38299dab55d40a1545f85f5fcd117",
+    "baselineFingerprint": "520a5292c125249d30a14d9c97763ca5ef2416bfb52a9a961038fca88d0c6708",
+    "immutableSnapshot": "/workspace/scratch/a62414469990/balance-v01627-work"
+  },
+  "files": {
+    "immutable_loaded_input.tar.gz": "ba6483b8734f86146c12e9a0c107e73404a1203d5cd180d95e756b22f9534962",
+    "post_early_curve_native9_rows.json.gz": "81ab728ebc8e5c1647766450c3b19b2d11244da91c9e2a602d7fa41e0dbf20bc",
+    "candidate_26_9_rows.json.gz": "64a07b3502b296afb4c95c61e5749a4bf7fb640d783b2ae9d250289c306a7632",
+    "candidate_runner.cjs": "59c579469c9932294b5682b6dc66b879df5deea196258eaa38c375baa825f2ae",
+    "baseline_16_four3.json.gz": "8fc9c87b9fa2f7ccae346bca0cfef8532f8e80d2c9230cdf4377a35699f63054",
+    "same_conditions_candidate_comparison.json": "3b904bedf3c0d4b8cf1a9d4edbd303e34fffacef4b0a280d3aab1886d373b225",
+    "candidate_40_9_rows.json.gz": "7390d528881dff7b0b5a96604021dc9627d42ff0d3357e76c277bf2b87f7073d",
+    "README_KO.md": "f341e949ed6097c0d4b408f5c7af4606163856cdfe4ff345b4b0db808bf1f404",
+    "final_native_exact_comparison.json": "59f0c216cbfa528fea95ddfe0497739e91ea335e73dc1261cb04d6a9c629757e",
+    "candidate_32_9_rows.json.gz": "e262c6f508d29ac42bfcb5852926b1080f2ba9700b686600b3f88f6ff8d6294f",
+    "final_field3_rows.json.gz": "199fff2115e7c789b0a72c55d7e00fc47e9fb3c9a3dbe7960752d59a2cc454ff",
+    "field_policy_unchanged_comparison.json": "73bcd07a3384647ead6387c53160aa8d23175eeded961fe37cd43bc80a1dfc22",
+    "final_native_runner.cjs": "bbd21072f52235220737dd888b99e1f59f14af34ec48b3215defc1887c0bea74",
+    "immutable_loaded_input_manifest.json": "ff185bb9393fc6af0b8b0e707cfd91e4bdf7f32d28e1f9f89d793ed9ede3d108",
+    "independent_four6.json": "a24da6c555c4bf07fe19e0e702cae33ac7bc2d003b0a2a490d54dee8b4c2415d",
+    "final_native9_rows.json.gz": "5a2689ac8afde7a212586dd9b6cc74da92ad5960ce61686e9299243265011566",
+    "post_early_curve_exact_comparison.json": "85efe89fcdbf7a18e705e2b40f4d6fd04e73b75df1da3c19df9ee17c463a8e6b"
+  },
+  "fieldRepresentativeRechecks": 3,
+  "postEarlyCurveRechecks": {
+    "count": 9,
+    "nativeFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+    "growthSHA256": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+    "allActorsLogsActionsDamageRewardOutcomesExactUnchanged": true
+  }
+}

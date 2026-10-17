@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "scope": "Exact book counts/ceil payout divisions, no new native combat; all three talents start at1 for each independent row.",
+  "upgradeCosts": [
+    5,
+    10,
+    30,
+    80,
+    150,
+    240,
+    315,
+    400,
+    450
+  ],
+  "rows": [
+    {
+      "stage": 30,
+      "talentTarget": 4,
+      "threeTalentsCumulativeBooksFrom1": 135,
+      "beforePay": 6,
+      "finalPay": 3,
+      "beforeUnboostedWins": 23,
+      "finalUnboostedWins": 45,
+      "additionalWins": 22,
+      "beforeOneDayThreeBonusWins": 20,
+      "finalOneDayThreeBonusWins": 42,
+      "warning": "Each row starts all three talents at1; do not sum rows because earlier upgrade costs repeat. Character/story gates and winning the stage are not assumed guarantees."
+    },
+    {
+      "stage": 35,
+      "talentTarget": 6,
+      "threeTalentsCumulativeBooksFrom1": 825,
+      "beforePay": 8,
+      "finalPay": 4,
+      "beforeUnboostedWins": 104,
+      "finalUnboostedWins": 207,
+      "additionalWins": 103,
+      "beforeOneDayThreeBonusWins": 101,
+      "finalOneDayThreeBonusWins": 204,
+      "warning": "Each row starts all three talents at1; do not sum rows because earlier upgrade costs repeat. Character/story gates and winning the stage are not assumed guarantees."
+    },
+    {
+      "stage": 40,
+      "talentTarget": 6,
+      "threeTalentsCumulativeBooksFrom1": 825,
+      "beforePay": 10,
+      "finalPay": 7,
+      "beforeUnboostedWins": 83,
+      "finalUnboostedWins": 118,
+      "additionalWins": 35,
+      "beforeOneDayThreeBonusWins": 80,
+      "finalOneDayThreeBonusWins": 115,
+      "warning": "Each row starts all three talents at1; do not sum rows because earlier upgrade costs repeat. Character/story gates and winning the stage are not assumed guarantees."
+    },
+    {
+      "stage": 45,
+      "talentTarget": 8,
+      "threeTalentsCumulativeBooksFrom1": 2490,
+      "beforePay": 12,
+      "finalPay": 9,
+      "beforeUnboostedWins": 208,
+      "finalUnboostedWins": 277,
+      "additionalWins": 69,
+      "beforeOneDayThreeBonusWins": 205,
+      "finalOneDayThreeBonusWins": 274,
+      "warning": "Each row starts all three talents at1; do not sum rows because earlier upgrade costs repeat. Character/story gates and winning the stage are not assumed guarantees."
+    },
+    {
+      "stage": 50,
+      "talentTarget": 8,
+      "threeTalentsCumulativeBooksFrom1": 2490,
+      "beforePay": 24,
+      "finalPay": 19,
+      "beforeUnboostedWins": 104,
+      "finalUnboostedWins": 132,
+      "additionalWins": 28,
+      "beforeOneDayThreeBonusWins": 101,
+      "finalOneDayThreeBonusWins": 129,
+      "warning": "Each row starts all three talents at1; do not sum rows because earlier upgrade costs repeat. Character/story gates and winning the stage are not assumed guarantees."
+    },
+    {
+      "stage": 55,
+      "talentTarget": 9,
+      "threeTalentsCumulativeBooksFrom1": 3690,
+      "beforePay": 36,
+      "finalPay": 28,
+      "beforeUnboostedWins": 103,
+      "finalUnboostedWins": 132,
+      "additionalWins": 29,
+      "beforeOneDayThreeBonusWins": 100,
+      "finalOneDayThreeBonusWins": 129,
+      "warning": "Each row starts all three talents at1; do not sum rows because earlier upgrade costs repeat. Character/story gates and winning the stage are not assumed guarantees."
+    },
+    {
+      "stage": 60,
+      "talentTarget": 10,
+      "threeTalentsCumulativeBooksFrom1": 5040,
+      "beforePay": 80,
+      "finalPay": 80,
+      "beforeUnboostedWins": 63,
+      "finalUnboostedWins": 63,
+      "additionalWins": 0,
+      "beforeOneDayThreeBonusWins": 60,
+      "finalOneDayThreeBonusWins": 60,
+      "warning": "Each row starts all three talents at1; do not sum rows because earlier upgrade costs repeat. Character/story gates and winning the stage are not assumed guarantees."
+    }
+  ]
+}

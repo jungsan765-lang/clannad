@@ -1,0 +1,8 @@
+{"kind":"before","name":"EG_FB_PRIMO_GEOVISHAP","result":{"victory":false,"rounds":409,"defeatReason":"STALEMATE","hpBeforeReward":50342,"maxHp":64608,"deaths":1,"xp":0,"mora":0,"loot":{},"events":5227},"counters":{"nativeAiActions":2041,"roundStarts":409}}
+{"kind":"before","name":"EG_FB_RUIN_SERPENT","result":{"victory":false,"rounds":454,"defeatReason":"STALEMATE","hpBeforeReward":46985,"maxHp":73491,"deaths":1,"xp":0,"mora":0,"loot":{},"events":5880},"counters":{"nativeAiActions":2141,"roundStarts":454}}
+{"kind":"after","name":"EG_FB_PRIMO_GEOVISHAP","result":{"victory":false,"rounds":45,"hpBeforeReward":0,"maxHp":64608,"deaths":4,"xp":0,"mora":0,"loot":{},"events":420},"counters":{"nativeAiActions":183,"roundStarts":45}}
+{"kind":"after","name":"EG_FB_RUIN_SERPENT","result":{"victory":false,"rounds":44,"hpBeforeReward":0,"maxHp":73491,"deaths":4,"xp":0,"mora":0,"loot":{},"events":486},"counters":{"nativeAiActions":185,"roundStarts":43}}
+{"kind":"before","name":"STABLE_IMMUNITY","result":{"victory":false,"rounds":500,"defeatReason":"STALEMATE","hpBeforeReward":1806,"maxHp":3402,"deaths":1,"xp":0,"mora":0,"loot":{},"events":2909},"counters":{"nativeAiActions":1500,"roundStarts":500}}
+{"kind":"after","name":"STABLE_IMMUNITY","result":{"victory":false,"rounds":500,"defeatReason":"STALEMATE","hpBeforeReward":1806,"maxHp":3402,"deaths":1,"xp":0,"mora":0,"loot":{},"events":2909},"counters":{"nativeAiActions":1500,"roundStarts":500}}
+{"kind":"after","name":"STABLE_IMMUNITY_NO_GUARD","error":{"code":"COMBAT_LOOP","message":"자동 전투 진행 한도를 초과했습니다."},"counters":{"nativeAiActions":1500,"roundStarts":500}}
+{"summary":"docs/data/qa_v01619/stalemate_regression_validation/summary.json","autoUntilPlayerIdentical":true}

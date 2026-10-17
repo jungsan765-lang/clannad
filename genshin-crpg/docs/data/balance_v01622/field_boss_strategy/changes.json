@@ -1,0 +1,236 @@
+{
+  "version": "0.16.22",
+  "timestampUTC": "2026-10-10T05:58:09.453313+00:00",
+  "sourceFrozen": true,
+  "qaFrozen": true,
+  "productChanges": 1,
+  "growthSourceUnchangedSHA256": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+  "registrationCount": 182,
+  "changes": [
+    {
+      "path": "source/runtime_field_bosses.js",
+      "before": "before_runtime_field_bosses.js",
+      "beforeSHA256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563",
+      "after": "after_runtime_field_bosses.js",
+      "afterSHA256": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b",
+      "diff": "runtime_field_bosses.js.diff",
+      "diffSHA256": "7cdb27ea3fbf96132b80cf0e623f6bb25be6903254fb4feabba278678481248e"
+    },
+    {
+      "path": "tools/test_field_bosses.cjs",
+      "before": "before_test_field_bosses.cjs",
+      "beforeSHA256": "52982f00a9dc1ec543b73afbc835cba5acb2f07ff06fdbe995142521d5461c96",
+      "after": "after_test_field_bosses.cjs",
+      "afterSHA256": "26355ba3b05b0c9a9229b01f97aeb8616ca64cdd6743173cb9573a3ce537e1a2",
+      "diff": "test_field_bosses.cjs.diff",
+      "diffSHA256": "ab59369d2d5563cd2d73ad07e4fc86e4bdfd1299539b2335a2dea787d0ba4731"
+    },
+    {
+      "path": "tools/test_field_boss_immunity_v01618.cjs",
+      "before": "before_test_field_boss_immunity_v01618.cjs",
+      "beforeSHA256": "cff92470bdde761021825c3c4033832b42097bdbea18e5bb0731b609b718d0ea",
+      "after": "after_test_field_boss_immunity_v01618.cjs",
+      "afterSHA256": "e2014322a5afb05acd43a491003b0dbde71ba55a30f889d12110c3dfc8e39119",
+      "diff": "test_field_boss_immunity_v01618.cjs.diff",
+      "diffSHA256": "8a171e095eb2dd1ae4073d12dbe2b234d739e1f680aa31c7bcc04a4efa1ba7b2"
+    },
+    {
+      "path": "tools/test_boss_boundaries_v01619.cjs",
+      "before": "before_test_boss_boundaries_v01619.cjs",
+      "beforeSHA256": "1b2710d4174c99c60ca01b95479340e57506e4bb480aa0babffa939ee957f8fc",
+      "after": "after_test_boss_boundaries_v01619.cjs",
+      "afterSHA256": "4512acb719ac75ef97fbc25c67133b39b4e319b414b61110e2361d10930536e0",
+      "diff": "test_boss_boundaries_v01619.cjs.diff",
+      "diffSHA256": "9c9ec6659833c3154a6d439f50bcf58b72de3c355aa43630643891b9fd5f2b51"
+    },
+    {
+      "path": "tools/verify_release.py",
+      "before": "before_verify_release.py",
+      "beforeSHA256": "ccbfa7037cee22c83dc393525a29d81727e07973a5d7dd6b4c340592baae5873",
+      "after": "after_verify_release.py",
+      "afterSHA256": "ad27759f5799f5471d506a14da1dd5cc8932a8f69bd8cc4dc8a502500b08c137",
+      "diff": "verify_release.py.diff",
+      "diffSHA256": "ef859d21b27799a7287861a3cdb9d403199a395e670f53cb281b7667720710c8"
+    }
+  ],
+  "newQA": {
+    "path": "tools/test_field_boss_strategy_v01622.cjs",
+    "SHA256": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322"
+  },
+  "result": {
+    "path": "docs/data/balance_v01622/field_boss_strategy/contracts.json",
+    "SHA256": "e4394e933a4405ee3111a91f24c2e590b7a47ef4883088ca2b8b9c45941106dc",
+    "total": 18,
+    "passed": 18,
+    "failed": 0
+  },
+  "preservedQAFailures": [
+    {
+      "path": "first_preparation_failures.json",
+      "reason": "Test preparation only: undefined first receipt map; incorrect unmarked legacy Cryo END expectation."
+    },
+    {
+      "path": "guoba_preparation_failure.json",
+      "reason": "Native Guoba destroyed core normally; test tried to read core from null revival after success."
+    }
+  ],
+  "mechanicScope": [
+    "New battle revision3: four Hypostasis retry revival until existing core/prism/pillar success.",
+    "Revision2/unmarked existing saves preserve one-time revival.",
+    "Revision2 Cryo full response rounds/Serpent typed delayed blockade operate unchanged in revision3.",
+    "Revision3 Anemo air access reuses engine rules, prior ANTI_AIR15 retained; exact actor/target/sourceKind scoped range, explicit packet range priority, nested reaction excluded, finally restoration."
+  ],
+  "unchanged": [
+    "UI",
+    "monster stats",
+    "enemy data",
+    "damage math",
+    "rewards",
+    "cooldown duration",
+    "quota",
+    "quest accounting",
+    "new system fields"
+  ],
+  "limits": [
+    "Native boundary fixture with declared ownedLv60 party; oversized core/body damage is not a practical full fight strategy/time proof.",
+    "Anemo/Electro/Geo existing END deadlines unchanged, including creation END countdown.",
+    "Field boss attachment policy already applies whenever an existing recognized boss actor enters native runtime, not only public boss routes.",
+    "Old six-source release seals remain old evidence; final seven-source builds and selected regression are separate."
+  ],
+  "rewardComparison": {
+    "zero": {
+      "reward": {
+        "xp": 1200,
+        "mora": 122,
+        "loot": {
+          "MAT_FB_LIGHTNING_PRISM": 4
+        },
+        "firstClear": true
+      },
+      "notes": {
+        "seen": [
+          "REVIVE"
+        ],
+        "attempts": 1,
+        "wins": 1,
+        "best": 1
+      },
+      "quota": {
+        "FB_ELECTRO_HYPOSTASIS": 2160
+      },
+      "fieldBossWindow": {
+        "window": 41473,
+        "wins": 1
+      },
+      "taskCalls": [
+        {
+          "kind": "win",
+          "n": 1
+        },
+        {
+          "kind": "boss",
+          "n": 1
+        }
+      ],
+      "receiptCount": 1,
+      "receipt": {
+        "mora": 122,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+        "group": "EG_FB_ELECTRO_HYPOSTASIS",
+        "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "branch": null,
+        "victory": true,
+        "xp": 1200,
+        "loot": {
+          "MAT_FB_LIGHTNING_PRISM": 4
+        },
+        "rounds": 1,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "firstClear": true,
+        "fieldBoss": {
+          "boss": "FB_ELECTRO_HYPOSTASIS",
+          "name": "무상의 뇌전",
+          "seen": [
+            "REVIVE"
+          ],
+          "victory": true
+        }
+      },
+      "deadSummons": 3
+    },
+    "two": {
+      "reward": {
+        "xp": 1200,
+        "mora": 122,
+        "loot": {
+          "MAT_FB_LIGHTNING_PRISM": 4
+        },
+        "firstClear": true
+      },
+      "notes": {
+        "seen": [
+          "REVIVE"
+        ],
+        "attempts": 1,
+        "wins": 1,
+        "best": 7
+      },
+      "quota": {
+        "FB_ELECTRO_HYPOSTASIS": 2160
+      },
+      "fieldBossWindow": {
+        "window": 41473,
+        "wins": 1
+      },
+      "taskCalls": [
+        {
+          "kind": "win",
+          "n": 1
+        },
+        {
+          "kind": "boss",
+          "n": 1
+        }
+      ],
+      "receiptCount": 1,
+      "receipt": {
+        "mora": 122,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+        "group": "EG_FB_ELECTRO_HYPOSTASIS",
+        "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "branch": null,
+        "victory": true,
+        "xp": 1200,
+        "loot": {
+          "MAT_FB_LIGHTNING_PRISM": 4
+        },
+        "rounds": 7,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "firstClear": true,
+        "fieldBoss": {
+          "boss": "FB_ELECTRO_HYPOSTASIS",
+          "name": "무상의 뇌전",
+          "seen": [
+            "REVIVE"
+          ],
+          "victory": true
+        }
+      },
+      "deadSummons": 9
+    },
+    "extraXpMoraLootWinsAndQuota": 0
+  },
+  "nonFieldEvidence": "non_field_scope_growth.json"
+}

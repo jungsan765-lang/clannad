@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "tests": [
+    "tools/test_field_bosses.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_save_revision.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tests/test_version.cjs",
+    "tools/test_field_boss_strategy_v01622.cjs"
+  ],
+  "gateCount": 11,
+  "timeoutSeconds": 900,
+  "maxWorkerCeiling": 2,
+  "workerControl": "workers.json; starts at1; root coordinates team-wide heavy limit2; >=4GiB launch ceiling2, >=6GiB ceiling1; missing memory reading ceiling2",
+  "pauseControl": "create PAUSE_REQUESTED; finish active gates then exit before starting another",
+  "buildStep": "root/agent completed final0.16.22 browser/server builds before this snapshot; all product/test expectations frozen"
+}

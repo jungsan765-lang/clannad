@@ -1,0 +1,28 @@
+{
+  "test": "tests/test_food_balance_v01620.cjs",
+  "command": [
+    "node",
+    "tests/test_food_balance_v01620.cjs"
+  ],
+  "startedAt": "2026-10-10T09:11:05.054546+00:00",
+  "endedAt": "2026-10-10T09:11:30.383096+00:00",
+  "seconds": 25.18,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_boss_difficulty_scope_v01624.cjs": {
+      "before": "b219475def808141cc23ae112351dccde252954221ad5cdcc768663a7c7e07b7",
+      "after": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63"
+    },
+    "tests/test_field_boss_strategy_v01623.cjs": {
+      "before": "ac1bf2342e3a157110667d5dfc28820d9b8cfd0ffc241b9e806b84c3132b8992",
+      "after": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b"
+    }
+  },
+  "testSha256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+  "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "stdoutSha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_food_balance_v01620.stdout.log",
+  "stderrLog": "test_food_balance_v01620.stderr.log"
+}

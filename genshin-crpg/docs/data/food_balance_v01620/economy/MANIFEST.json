@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "scope": "Economic native213 checks and384 supply samples; actualNPC8 BUY/SELL, unchanged fees/ingredients/resale/inn/trade; raw duplicates removed only after gzip identity",
+  "finishedUTC": "2026-10-09T19:09:50.791295+00:00",
+  "sourceWrites": false,
+  "files": [
+    {
+      "path": "ECONOMY_AFTER_KO.md",
+      "bytes": 4790,
+      "sha256": "cb1cade68d719d10245c59913c2db124a2dcef7607f62243a4b277ead69541ec"
+    },
+    {
+      "path": "ECONOMY_AUDIT_KO.md",
+      "bytes": 8320,
+      "sha256": "1fcb052a6836d361ebcc409308ee189473a9f5350f20eaa1f3019bd84ae36a46"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4851,
+      "sha256": "3c8d434da1ab95e5869f754757a567f83627cde5d08fc3fc6a5485fd6ad24dc1"
+    },
+    {
+      "path": "after/catalog_after.json.gz",
+      "bytes": 85830,
+      "sha256": "27e35e618c68fe45ac6dcef35a4dee61145059263b5290379b888b138b412998",
+      "uncompressedBytes": 1431472,
+      "uncompressedSHA256": "608ea1b20c091b6fcc6cafc017f22b4c996040c5e5761329c9477c46e71057c3"
+    },
+    {
+      "path": "after/economy_after_checks.json",
+      "bytes": 50631,
+      "sha256": "05f05f7dbc3fe73419957fbf27eb96b1d319d1bed213fa624397b38222c1a5e8"
+    },
+    {
+      "path": "after/economy_after_summary.json",
+      "bytes": 21664,
+      "sha256": "7413805f60ff5467fb5a8b498bf3350449fee161c84bd76e87af4dd156af7a14"
+    },
+    {
+      "path": "after/supply_after.json",
+      "bytes": 113563,
+      "sha256": "8c4bc35573dd44ef5810a094766b809edd33129177f626e77476dcdb9f863560"
+    },
+    {
+      "path": "after/supply_after.json.gz",
+      "bytes": 38497,
+      "sha256": "53a2e6b759a3c74ae7d95cc49257ee18966135467826d34e0d283fd6e0fbd9b0",
+      "uncompressedBytes": 379872,
+      "uncompressedSHA256": "8da6aec27bc7a080f68129b81565177dd9208c1dcbe11dbfaea39dc802985700"
+    },
+    {
+      "path": "audit_catalog.cjs",
+      "bytes": 4367,
+      "sha256": "b317dbcb55e43199535f739ec4e5b659655696fa44d7c65af6c566ccd64f8a5f"
+    },
+    {
+      "path": "baseline_source_identity.json",
+      "bytes": 16784,
+      "sha256": "8f69565528d6824f0b971f23bee6d2de3d60918e2ac035c7092275b9a5e2789f"
+    },
+    {
+      "path": "catalog_baseline.json.gz",
+      "bytes": 83085,
+      "sha256": "bff53b0fb65281d6dcd76921f72e34e62a84853123658394715fa7044fe3ac74",
+      "uncompressedBytes": 1435663,
+      "uncompressedSHA256": "f8cc023515f976f41322b4f0511858c6e94fe65ffbf45dbf461b24cb04a1762d"
+    },
+    {
+      "path": "economy_summary.json",
+      "bytes": 22374,
+      "sha256": "62490fd944913ab294c7f222673353f65a6a6100c310cc5535c93063268b3d0b"
+    },
+    {
+      "path": "original_catalog_audit.cjs.txt.gz",
+      "bytes": 1969,
+      "sha256": "ed0829372adca445398895075a8e7bd7852370f17c894eccc095f717c4d30e51",
+      "uncompressedBytes": 3962,
+      "uncompressedSHA256": "09aa71717649b587fbfcebd4c94aad66000b9d832c7a3594486c0804cff26098"
+    },
+    {
+      "path": "original_manifest.json",
+      "bytes": 999,
+      "sha256": "114dbb80425853e0c85bc979cbc4bae2ce5266365fc57f0eece237ef1d125b9b"
+    },
+    {
+      "path": "portable_baseline_replay_check.json",
+      "bytes": 564,
+      "sha256": "4441c4105262d1681bec5999a225eff8fe3c4e4a3cef5fe67cac4a1acbd1c4a2"
+    },
+    {
+      "path": "supply_baseline.json",
+      "bytes": 113526,
+      "sha256": "ac84b4c0e2593be95b40cd7948484a67fdefa28621ef7dc798153058cd138dc7"
+    },
+    {
+      "path": "supply_baseline.json.gz",
+      "bytes": 38457,
+      "sha256": "12403f542deb3a5a1ae443c41302688fa9b47d493cd4bda0928ee8bff088db1f",
+      "uncompressedBytes": 379832,
+      "uncompressedSHA256": "ac1e2bfcde4dc59b4aed9abad71c41940054178fb4f9d55588fcfe6dcefc7ea9"
+    },
+    {
+      "path": "verify_after_economy.cjs",
+      "bytes": 6701,
+      "sha256": "0027b80dbbda59ea1dcaed119dff5c4bfea63b547dd7be3735804d01af7db966"
+    }
+  ]
+}

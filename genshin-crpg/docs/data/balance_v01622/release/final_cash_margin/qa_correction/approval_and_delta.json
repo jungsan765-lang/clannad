@@ -1,0 +1,27 @@
+{
+  "test": "tests/test_ascension_efficiency_v01613.cjs",
+  "beforeSha256": "593a18f606ae5c7456cce3bf729d70d0dfc8b4f80613650d666af9008f06ad57",
+  "afterSha256": "855a2afdef130e5eb7e65a620152f3751299e7048b77aefdf128f94fbd0f9a80",
+  "authorizedBy": "root approved one-literal3686to3864 QA expectation correction after first36; product unchanged",
+  "reason": "Approved Lv55 payment1932 with existing first-three2x bonus gives3864; prior1843x2=3686 expectation was stale. Victory asserts, enemy/party/native fixture, all other cases unchanged.",
+  "approvedDelta": [
+    {
+      "path": "tests/test_ascension_efficiency_v01613.cjs",
+      "before": {
+        "path": "tests/test_ascension_efficiency_v01613.cjs",
+        "bytes": 10387,
+        "sha256": "593a18f606ae5c7456cce3bf729d70d0dfc8b4f80613650d666af9008f06ad57"
+      },
+      "after": {
+        "path": "tests/test_ascension_efficiency_v01613.cjs",
+        "bytes": 10387,
+        "sha256": "855a2afdef130e5eb7e65a620152f3751299e7048b77aefdf128f94fbd0f9a80"
+      }
+    }
+  ],
+  "originalFailureRawSha256": "cfddefb5b6b5bc57f7858ab1af97b991dc3ae421ec03e1b48f1fdeecc2c756c5",
+  "originalFailureProgramResult": "../per_gate/020.json",
+  "first36OriginalResultsNotRewritten": true,
+  "transientCorrectionAndRestoreEvent": "../transient_approved_qa_event.json",
+  "recordedAt": "2026-10-10T05:31:46.421038+00:00"
+}

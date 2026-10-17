@@ -1,0 +1,1 @@
+{"ok":true,"checks":["a deleted known public ID is discarded on lookup while other accounts remain available","ordinary save-cache invalidation preserves live public-ID lookup","the existing five-second rebuild throttle stays intact and overlapping lookup tasks scan once","rebuild removes 200 deleted entries without changing remaining accounts or durable audit history"]}

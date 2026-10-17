@@ -1,0 +1,5 @@
+PASS new battles apply Q ATK3%+850 and store the focused field ATK8%+400
+PASS serialized pre-policy battles keep Q ATK3%+1250 and create their promised +600 field
+PASS an already stored +600 Bamboo Star retains its amount and one-recipient limit after restore
+PASS new policy marker survives serialization and unknown policy values are rejected
+PASS current and legacy Xianyun skill descriptions leave the authored DB untouched

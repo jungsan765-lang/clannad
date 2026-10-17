@@ -1,0 +1,1330 @@
+{
+  "publishedBaselineCommit": "46190377b713e6218e66b26bc4292f18fb5a348d",
+  "phase": "baseline",
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "conditions": 21,
+  "counts": {
+    "CLEARED": 12,
+    "TIMEOUT": 9
+  },
+  "rows": [
+    {
+      "id": "f10_four_c6_exclusive_meals",
+      "floor": 10,
+      "investment": "FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 10,
+      "inputs": 6,
+      "hp": 0.5566254688556846,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_SWEET_MADAME": 4,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 3,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.7999508085839021,
+          "immune": 0,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "MOND_BARBARA": "",
+            "MOND_LISA": "",
+            "MOND_SUCROSE": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 3,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.5707557031298038,
+          "immune": 25,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "고리가 아직 열리지 않았습니다.",
+            "MOND_BARBARA": "고리가 아직 열리지 않았습니다.",
+            "MOND_LISA": "고리가 아직 열리지 않았습니다.",
+            "MOND_SUCROSE": "고리가 아직 열리지 않았습니다."
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 4,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.5566254688556846,
+          "immune": 25,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "고리가 아직 열리지 않았습니다.",
+            "MOND_BARBARA": "고리가 아직 열리지 않았습니다.",
+            "MOND_LISA": "고리가 아직 열리지 않았습니다.",
+            "MOND_SUCROSE": "고리가 아직 열리지 않았습니다."
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.534765512
+    },
+    {
+      "id": "f10_four_c6_exclusive_meals",
+      "floor": 10,
+      "investment": "FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "TIMEOUT",
+      "rounds": 18,
+      "inputs": 8,
+      "hp": 0.33475252141051753,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_SUCROSE"
+      ],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_SWEET_MADAME": 4,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 3,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.7891830875315943,
+          "immune": 0,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "MOND_BARBARA": "",
+            "MOND_LISA": "",
+            "MOND_SUCROSE": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 3,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.5604034256828053,
+          "immune": 25,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "고리가 아직 열리지 않았습니다.",
+            "MOND_BARBARA": "고리가 아직 열리지 않았습니다.",
+            "MOND_LISA": "고리가 아직 열리지 않았습니다.",
+            "MOND_SUCROSE": "고리가 아직 열리지 않았습니다."
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "MOND_SUCROSE"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.33475252141051753,
+          "immune": 71,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "고리가 아직 열리지 않았습니다.",
+            "MOND_BARBARA": "고리가 아직 열리지 않았습니다.",
+            "MOND_LISA": "고리가 아직 열리지 않았습니다.",
+            "MOND_SUCROSE": "고리가 아직 열리지 않았습니다."
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.599638828
+    },
+    {
+      "id": "f10_four_c6_exclusive_meals",
+      "floor": 10,
+      "investment": "FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 9,
+      "inputs": 8,
+      "hp": 0.6728446657217962,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_SWEET_MADAME": 2,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 3,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.7898632360601325,
+          "immune": 0,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "MOND_BARBARA": "",
+            "MOND_LISA": "",
+            "MOND_SUCROSE": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 3,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.6839044954028419,
+          "immune": 23,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "고리가 아직 열리지 않았습니다.",
+            "MOND_BARBARA": "고리가 아직 열리지 않았습니다.",
+            "MOND_LISA": "고리가 아직 열리지 않았습니다.",
+            "MOND_SUCROSE": "고리가 아직 열리지 않았습니다."
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 3,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.6728446657217962,
+          "immune": 23,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "고리가 아직 열리지 않았습니다.",
+            "MOND_BARBARA": "고리가 아직 열리지 않았습니다.",
+            "MOND_LISA": "고리가 아직 열리지 않았습니다.",
+            "MOND_SUCROSE": "고리가 아직 열리지 않았습니다."
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.346996268
+    },
+    {
+      "id": "f11_mixed_exclusive_meals",
+      "floor": 11,
+      "investment": "MIXED_FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 13,
+      "inputs": 6,
+      "hp": 0.7409424326420021,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_SWEET_MADAME": 5,
+        "FOOD_HASH_BROWN": 4
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 6,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.6765390065865114,
+          "immune": 0,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 3,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.48889918804980437,
+          "immune": 3,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 4,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.7409424326420021,
+          "immune": 4,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.303006901
+    },
+    {
+      "id": "f11_mixed_exclusive_meals",
+      "floor": 11,
+      "investment": "MIXED_FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "CLEARED",
+      "rounds": 17,
+      "inputs": 5,
+      "hp": 0.3119990046744752,
+      "ko": [
+        "LIYUE_GANYU",
+        "LIYUE_NINGGUANG"
+      ],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 11,
+        "FOOD_SWEET_MADAME": 4,
+        "FOOD_HASH_BROWN": 4
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 5,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.6735332278762242,
+          "immune": 0,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 6,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "LIYUE_NINGGUANG"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.3022679203028633,
+          "immune": 30,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 6,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "LIYUE_GANYU",
+            "LIYUE_NINGGUANG"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.3119990046744752,
+          "immune": 9,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.352576573
+    },
+    {
+      "id": "f11_mixed_exclusive_meals",
+      "floor": 11,
+      "investment": "MIXED_FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 10,
+      "inputs": 6,
+      "hp": 0.8012940545577621,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_SWEET_MADAME": 4,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 5,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.7387803184147832,
+          "immune": 0,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 2,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.6692776327241079,
+          "immune": 2,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 3,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.8012940545577621,
+          "immune": 2,
+          "mastery": null,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_HUTAO": "",
+            "LIYUE_GANYU": "",
+            "LIYUE_NINGGUANG": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.181088545
+    },
+    {
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "NONE",
+      "seed": 717,
+      "state": "TIMEOUT",
+      "rounds": 24,
+      "inputs": 12,
+      "hp": 0.7205921704478886,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "consumed": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.8805172451200902,
+          "immune": 14,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.7205921704478886,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.273184605
+    },
+    {
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "NONE",
+      "seed": 4242,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.8838440453891272,
+      "ko": [],
+      "consumed": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.8838440453891272,
+          "immune": 20,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.19889226
+    },
+    {
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "NONE",
+      "seed": 9031,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.9537068510389018,
+      "ko": [],
+      "consumed": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9537068510389018,
+          "immune": 18,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.131728004
+    },
+    {
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 32,
+      "inputs": 30,
+      "hp": 0.8616557340295506,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 1,
+        "FOOD_HASH_BROWN": 1
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 10,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9279747741753513,
+          "immune": 9,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.917343477663429,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 10,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.8616557340295506,
+          "immune": 8,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 2.028484706
+    },
+    {
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.947906647091581,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 4,
+        "FOOD_JADE_PARCELS": 4,
+        "FOOD_SATISFYING_SALAD": 4
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.947906647091581,
+          "immune": 16,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.289221328
+    },
+    {
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.952231487441329,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 4,
+        "FOOD_JADE_PARCELS": 4,
+        "FOOD_SATISFYING_SALAD": 4
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.952231487441329,
+          "immune": 13,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.285767336
+    },
+    {
+      "id": "fixed_f12_c0_guard_all_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 32,
+      "inputs": 30,
+      "hp": 0.8782752710257393,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_FISHERMANS_TOAST": 12,
+        "FOOD_CREAM_STEW": 12,
+        "FOOD_SWEET_MADAME": 1,
+        "FOOD_HASH_BROWN": 1
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 10,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9418316205133398,
+          "immune": 9,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9395245568485077,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 10,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.8782752710257393,
+          "immune": 8,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.859640473
+    },
+    {
+      "id": "fixed_f12_c0_guard_all_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.9684098617931454,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 4,
+        "FOOD_JADE_PARCELS": 4,
+        "FOOD_SATISFYING_SALAD": 4,
+        "FOOD_FISHERMANS_TOAST": 4,
+        "FOOD_CREAM_STEW": 4
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9684098617931454,
+          "immune": 16,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.18963343
+    },
+    {
+      "id": "fixed_f12_c0_guard_all_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.9624722465303643,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 4,
+        "FOOD_JADE_PARCELS": 4,
+        "FOOD_SATISFYING_SALAD": 4,
+        "FOOD_FISHERMANS_TOAST": 4,
+        "FOOD_CREAM_STEW": 4
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9624722465303643,
+          "immune": 13,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.272280118
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "floor": 12,
+      "investment": "MIXED_FIVE_C0_FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "TIMEOUT",
+      "rounds": 32,
+      "inputs": 23,
+      "hp": 0.4615201919042379,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING"
+      ],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 1,
+        "FOOD_HASH_BROWN": 1
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9812133351278174,
+          "immune": 24,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 9,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.8692058616294444,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "LIYUE_XIANGLING"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.4615201919042379,
+          "immune": 20,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.881943398
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "floor": 12,
+      "investment": "MIXED_FIVE_C0_FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "CLEARED",
+      "rounds": 31,
+      "inputs": 30,
+      "hp": 0.8302178000626763,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 2,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9084848010028205,
+          "immune": 21,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 9,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.8985114384205578,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 11,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.8302178000626763,
+          "immune": 16,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.938137635
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "floor": 12,
+      "investment": "MIXED_FIVE_C0_FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 30,
+      "inputs": 26,
+      "hp": 0.9076390361105222,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 2,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.8783753013136095,
+          "immune": 19,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 8,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "nativeProtagonistKO": true,
+          "hp": 0.8619021820209015,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 11,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 0.9076390361105222,
+          "immune": 24,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.954159665
+    },
+    {
+      "id": "fixed_f12_c6_guard_feast_healing",
+      "floor": 12,
+      "investment": "FIVE_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 22,
+      "inputs": 21,
+      "hp": 1,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 5,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 3,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 9,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 8,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 5,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.756246997
+    },
+    {
+      "id": "fixed_f12_c6_guard_feast_healing",
+      "floor": 12,
+      "investment": "FIVE_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "CLEARED",
+      "rounds": 26,
+      "inputs": 24,
+      "hp": 1,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 8,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 2,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 8,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 10,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 14,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.639134362
+    },
+    {
+      "id": "fixed_f12_c6_guard_feast_healing",
+      "floor": 12,
+      "investment": "FIVE_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 26,
+      "inputs": 26,
+      "hp": 1,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 8,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 5,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 8,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 10,
+          "ko": [],
+          "nativeProtagonistKO": false,
+          "hp": 1,
+          "immune": 12,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "MOND_DILUC": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 2.00429963
+    }
+  ]
+}

@@ -1,0 +1,543 @@
+{
+ "version": "0.16.27",
+ "scope": "Historical story and level-gate contracts plus current daily-boss prepared public counterplay; diagnostic ownership/investment, not natural acquisition or every composition. Current invested shield/ranged parties are declared separately from genuine sealed 0.16.26 wind-route behavior and obsolete damage-only C0 probes.",
+ "total": 7,
+ "passed": 7,
+ "results": [
+  {
+   "name": "타르탈리아 (Liyue act 3, Lv.50): a fixed Lv.50 boss; a Lv.50 party wins after a long fight with real damage",
+   "ok": true,
+   "evidence": {
+    "stats": {
+     "hp": 59886,
+     "atk": 5107,
+     "def": 1034
+    },
+    "fights": [
+     {
+      "victory": true,
+      "rounds": 7,
+      "hp": 47,
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 7,
+      "hp": 58,
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 7,
+      "hp": 42,
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "타르탈리아 of the 이세계 route (Lv.50 subdue fight): no longer falls in one round",
+   "ok": true,
+   "evidence": [
+    {
+     "victory": true,
+     "rounds": 4,
+     "hp": 82,
+     "openingPolicy": {
+      "noWindRevision": null,
+      "windCardVisible": false
+     }
+    },
+    {
+     "victory": true,
+     "rounds": 5,
+     "hp": 81,
+     "openingPolicy": {
+      "noWindRevision": null,
+      "windCardVisible": false
+     }
+    },
+    {
+     "victory": true,
+     "rounds": 5,
+     "hp": 79,
+     "openingPolicy": {
+      "noWindRevision": null,
+      "windCardVisible": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "야타용왕 (Lv.60): a Lv.60 party wins most fights and has to work for it",
+   "ok": true,
+   "evidence": [
+    {
+     "victory": true,
+     "rounds": 5,
+     "hp": 18,
+     "openingPolicy": {
+      "noWindRevision": null,
+      "windCardVisible": false
+     }
+    },
+    {
+     "victory": true,
+     "rounds": 6,
+     "hp": 19,
+     "openingPolicy": {
+      "noWindRevision": null,
+      "windCardVisible": false
+     }
+    },
+    {
+     "victory": true,
+     "rounds": 6,
+     "hp": 12,
+     "openingPolicy": {
+      "noWindRevision": null,
+      "windCardVisible": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "repeat challenges: level gates remain; prepared 4★ C6 and 5★ C0 parties win through public protagonist skills",
+   "ok": true,
+   "evidence": {
+    "tartaglia": {
+     "fourC6": [
+      {
+       "victory": true,
+       "rounds": 4,
+       "hp": 62,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E"
+       ],
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      },
+      {
+       "victory": true,
+       "rounds": 4,
+       "hp": 48,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E"
+       ],
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      },
+      {
+       "victory": true,
+       "rounds": 4,
+       "hp": 40,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK"
+       ],
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      }
+     ],
+     "fiveC0": [
+      {
+       "victory": true,
+       "rounds": 5,
+       "hp": 61,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK",
+        "PLAYER_ISEKAI_Q"
+       ],
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      },
+      {
+       "victory": true,
+       "rounds": 7,
+       "hp": 61,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK"
+       ],
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      },
+      {
+       "victory": true,
+       "rounds": 6,
+       "hp": 68,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E"
+       ],
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      }
+     ],
+     "uninvestedAutomatic": [
+      {
+       "victory": false,
+       "rounds": 11,
+       "hp": 0,
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      },
+      {
+       "victory": false,
+       "rounds": 11,
+       "hp": 0,
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      },
+      {
+       "victory": false,
+       "rounds": 11,
+       "hp": 0,
+       "openingPolicy": {
+        "noWindRevision": null,
+        "windCardVisible": false
+       }
+      }
+     ],
+     "stats": {
+      "hp": 144625,
+      "atk": 16010,
+      "def": 1241
+     }
+    },
+    "azhdaha": [
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 75,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_BASIC_GUARD"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 69,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_BASIC_GUARD"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 69,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_BASIC_GUARD"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "daily rematches: invested public shield/ranged counterplay wins; fresh Dvalin has no wind-route shortcut",
+   "ok": true,
+   "evidence": {
+    "andriusFourC6": [
+     {
+      "victory": true,
+      "rounds": 2,
+      "hp": 68,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 2,
+      "hp": 73,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 2,
+      "hp": 64,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     }
+    ],
+    "dvalinRangedFourC6": [
+     {
+      "victory": true,
+      "rounds": 3,
+      "hp": 77,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": 1,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 2,
+      "hp": 81,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": 1,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 2,
+      "hp": 90,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": 1,
+       "windCardVisible": false
+      }
+     }
+    ],
+    "formerAndriusFourC0": [
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 8,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": false,
+      "rounds": 5,
+      "hp": 0,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": false,
+      "rounds": 5,
+      "hp": 0,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": false
+      }
+     }
+    ],
+    "inadequateDvalin": [
+     {
+      "victory": false,
+      "rounds": 8,
+      "hp": 0,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_BASIC_GUARD",
+       "PLAYER_ISEKAI_E"
+      ],
+      "openingPolicy": {
+       "noWindRevision": 1,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": false,
+      "rounds": 8,
+      "hp": 0,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_BASIC_GUARD",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_BASIC_GUARD"
+      ],
+      "openingPolicy": {
+       "noWindRevision": 1,
+       "windCardVisible": false
+      }
+     },
+     {
+      "victory": false,
+      "rounds": 8,
+      "hp": 0,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_BASIC_GUARD",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_BASIC_GUARD"
+      ],
+      "openingPolicy": {
+       "noWindRevision": 1,
+       "windCardVisible": false
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "genuine 0.16.26 Dvalin rematch still supplies and executes its original public wind-route counterplay",
+   "ok": true,
+   "evidence": {
+    "beforeFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+    "fights": [
+     {
+      "victory": true,
+      "rounds": 5,
+      "hp": 56,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": true
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 5,
+      "hp": 44,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": true
+      }
+     },
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 58,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ],
+      "openingPolicy": {
+       "noWindRevision": null,
+       "windCardVisible": true
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers",
+   "ok": true,
+   "evidence": {
+    "hatchling": 19245,
+    "variant": {
+     "version": 1,
+     "tier": 5,
+     "label": "지역 위험 개체",
+     "affixes": [
+      "ARMORED",
+      "SCORCH"
+     ],
+     "acts": 0
+    },
+    "ordinaryBase": 9700,
+    "newHpMultiplier": 1.24
+   }
+  }
+ ]
+}

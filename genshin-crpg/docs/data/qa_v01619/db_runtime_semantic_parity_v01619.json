@@ -1,0 +1,423 @@
+{
+  "checkedAt": "2026-10-09T16:33:58.525068+00:00",
+  "currentRemoteHead": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "currentRemoteDbBlob": "cc3996929c885d41289038ff501640039a4cc71e",
+  "matchesEarlierVerifiedRemoteRawBlob": true,
+  "earlierProofPath": "/tmp/crpg_all_enemy_audit/published-db-semantic-check.json",
+  "earlierProofSha256": "579e726e773272150a8d4b3525f087541f389429214712f13f164eeb50007b45",
+  "priorWorkflowHead": "0a287e8fed60694e5eaf34720b8ae250f81bc9e0",
+  "priorArtifactId": 11602149435,
+  "priorArtifactSha256": "c7aaed910e9c7b2ef5c6a5590dd03483d5c1a5ffafd7d99accf097ffe4e2772b",
+  "localCurrentDbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "localBaselineDbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "publishedExtractedDbSha256": "c3d5eef26ac21e19136131ba3ab24ab542c1dbe63d428f6e47ab7743d1e75aa1",
+  "all64TablesSemanticallyEqual": true,
+  "tables": [
+    {
+      "table": "00_CORE",
+      "rows": 49,
+      "semanticSha256": "89b54631807d92a8a6b128c31312feed96221f945cddf08496f05c11d35d296d",
+      "equal": true
+    },
+    {
+      "table": "01_WORLD",
+      "rows": 16,
+      "semanticSha256": "d593fa94e28fb74641c14c8cfadc957fa8120fcfff92872b22e60ae7d533be68",
+      "equal": true
+    },
+    {
+      "table": "02_NODKRAI",
+      "rows": 24,
+      "semanticSha256": "bf4a110b9d4e8fd344c8ae63b1574e2b609ef45c0cf2e084084945adbb89bb45",
+      "equal": true
+    },
+    {
+      "table": "03_IMAGE",
+      "rows": 1514,
+      "semanticSha256": "bd36c97e03a3200821ee912f0a228d49fe7e69b3560d1477d800e8eb28107e50",
+      "equal": true
+    },
+    {
+      "table": "04_CHAR_DB",
+      "rows": 135,
+      "semanticSha256": "9c083c9c232fc4d748de678b5f8702a216bc9178fc960d083887e308972769e6",
+      "equal": true
+    },
+    {
+      "table": "05_HUD",
+      "rows": 53,
+      "semanticSha256": "2c56cefb3bc1bb7cd9dc55793e1cf5d783f07fc48b43820d88f99f984d093694",
+      "equal": true
+    },
+    {
+      "table": "06_TEMPLATES",
+      "rows": 39,
+      "semanticSha256": "a5fab4f6fea71f6b4eeecf1cf184cf878433ff4a0f6d21e1051d3fe45883f9f8",
+      "equal": true
+    },
+    {
+      "table": "07_CHAR_DB",
+      "rows": 120,
+      "semanticSha256": "f9a4ce6c8058c6fb89313019c0dfdf022a58794b6ac9f67728f23f734e69a34a",
+      "equal": true
+    },
+    {
+      "table": "08_SKILL_CARD_DB",
+      "rows": 324,
+      "semanticSha256": "5996ed3940938a7436abfac3ebf7f8e856a9c6e59523df9b2353f8b1d6872b0d",
+      "equal": true
+    },
+    {
+      "table": "09_MONSTER_DB",
+      "rows": 206,
+      "semanticSha256": "5f28f3875ce45f07d5916ab689b4386e153775f8fda470590ebabe625d381907",
+      "equal": true
+    },
+    {
+      "table": "10_WEATHER_LOCATION",
+      "rows": 22,
+      "semanticSha256": "0c28a8ee166051fa59b70cfceadb1dc0d8ae185b965156fa778c2a8445d8aba2",
+      "equal": true
+    },
+    {
+      "table": "11_POWER_TAGS",
+      "rows": 51,
+      "semanticSha256": "5225e8ad3d2eaac0616e466af46a20d3b555b5c02a0801327517c91659fc6d69",
+      "equal": true
+    },
+    {
+      "table": "12_ENEMY_CARD_DB",
+      "rows": 370,
+      "semanticSha256": "650add45aba4d005e7f755e5a79c4650f85e5410249d9939ce1ae13f6f2bc053",
+      "equal": true
+    },
+    {
+      "table": "13_STATUS_EFFECT_DB",
+      "rows": 34,
+      "semanticSha256": "c4be41b815f046190075671f835c448cc0bb2eee19ce5bf31b5bdcf8d6baa41c",
+      "equal": true
+    },
+    {
+      "table": "14_ITEM_DB",
+      "rows": 285,
+      "semanticSha256": "f962128b20f145978f2237fe9163685c733849b08b332a93bb2240663b593a74",
+      "equal": true
+    },
+    {
+      "table": "15_INVENTORY_TEMPLATE",
+      "rows": 10,
+      "semanticSha256": "df09eac29afeb035c626dbedf1245564fc8f0d30d45ea558240ff01af75b9179",
+      "equal": true
+    },
+    {
+      "table": "15_INVENTORY_STATE",
+      "rows": 1,
+      "semanticSha256": "41c72a509215b325ffea69169a584dc14cd83108d5100764c8b3145122c5e443",
+      "equal": true
+    },
+    {
+      "table": "16_EQUIP_DB",
+      "rows": 96,
+      "semanticSha256": "cb2f9110bf551f3c1e23652a2c5d84139810ec16043ca1cf07c1da7d7dc5b8a9",
+      "equal": true
+    },
+    {
+      "table": "17_RECIPE_DB",
+      "rows": 208,
+      "semanticSha256": "413a08e938dee5976d06b92ca2cc5837d2c965578d7185336e976d93aed5a41c",
+      "equal": true
+    },
+    {
+      "table": "18_MERCHANT_DB",
+      "rows": 31,
+      "semanticSha256": "bd153353d8e8e308926372297ed79f865ab34a9117b8daf6ce10012402cd74c8",
+      "equal": true
+    },
+    {
+      "table": "19_SHOP_STOCK_DB",
+      "rows": 227,
+      "semanticSha256": "3e16f5e91cfbd311e41856bceae6c870995eb7709d2b0282c8330e1a35c83a9e",
+      "equal": true
+    },
+    {
+      "table": "20_LOOT_TABLE",
+      "rows": 108,
+      "semanticSha256": "40ff4376b92eb90edfd515ee1aa9baae4b742c8ff9392a84fc39ff66d9234d39",
+      "equal": true
+    },
+    {
+      "table": "21_LIFE_ACTION_DB",
+      "rows": 16,
+      "semanticSha256": "9e50070c4c8ab3c725e5bd4a2165f7e02b47d684366a66222f4cf37c6bc82925",
+      "equal": true
+    },
+    {
+      "table": "22_QUEST_DB",
+      "rows": 218,
+      "semanticSha256": "2a59df3f873e8a7e04900f3683b516caced1d462fcfc34ab5d016a9306886d4f",
+      "equal": true
+    },
+    {
+      "table": "23_FLAG_DB",
+      "rows": 591,
+      "semanticSha256": "6f0e0b4f2fbe6cd44a47b2c2b20fd0e14f436d2675a83bf90e839ca6d966bcd3",
+      "equal": true
+    },
+    {
+      "table": "24_CURRENT_STATE",
+      "rows": 257,
+      "semanticSha256": "39dee494ee115798d4483cfb49e2c62b1b34438490d633335810af6478599fcc",
+      "equal": true
+    },
+    {
+      "table": "25_CURRENT_ROSTER",
+      "rows": 1,
+      "semanticSha256": "f3e72bc2a9768ad38ffe6431bcee4d6c9941ef9e24ffdea75cd273ef458beca2",
+      "equal": true
+    },
+    {
+      "table": "26_LEVEL_RULES",
+      "rows": 21,
+      "semanticSha256": "77d0ea7b96bed0679b34c7e13e7765e9fb886d998fbfc91fa4112d3941537eec",
+      "equal": true
+    },
+    {
+      "table": "27_COMBAT_ENGINE",
+      "rows": 168,
+      "semanticSha256": "2155dab7977453ef4735e17ec7bd2797ce1127065e5e8ee7c01cd1769a41b825",
+      "equal": true
+    },
+    {
+      "table": "28_CANON_AUDIT",
+      "rows": 1,
+      "semanticSha256": "a0e7552b750ae857304720c870512cb62949a0e75e9a68dde77684a15f44b6c2",
+      "equal": true
+    },
+    {
+      "table": "29_NARRATIVE_STYLE",
+      "rows": 33,
+      "semanticSha256": "1be1679c42a1552a096cff89141427270ec6a0c5b5e13a25c4d07d2ad778f171",
+      "equal": true
+    },
+    {
+      "table": "31_DB_INDEX",
+      "rows": 62,
+      "semanticSha256": "5d759d8e7bc38137c75d23166269a2cbe9f997aece161802156a7d9c68d8f0e1",
+      "equal": true
+    },
+    {
+      "table": "30_OUTPUT_FORMAT",
+      "rows": 31,
+      "semanticSha256": "46a7b765f09228db6f3cf8ea52b8e2a71f8f8ac8080739f99e4f6c79757549c5",
+      "equal": true
+    },
+    {
+      "table": "98_BACKUP_CHAR_STATS_20260917",
+      "rows": 1,
+      "semanticSha256": "5e078fdb2fc4118cfc601bdf368e5200928895408af2470c2d4bdabf645c31ac",
+      "equal": true
+    },
+    {
+      "table": "32_MAP_DB",
+      "rows": 100,
+      "semanticSha256": "471128a91c918e750bc5ad9fb280578345fd5294cf3ed0551b5a5e2f716be229",
+      "equal": true
+    },
+    {
+      "table": "33_ENCOUNTER_GROUP_DB",
+      "rows": 87,
+      "semanticSha256": "fe9dc9a67d463fd18d793ed14f7e59e4667e12516b1420460089a29b5aa941af",
+      "equal": true
+    },
+    {
+      "table": "34_MAP_ENCOUNTER_POOL",
+      "rows": 168,
+      "semanticSha256": "5e4e0268ed57ab7aeb4c601be845d9532117a1f1e65469403e498e133d69de69",
+      "equal": true
+    },
+    {
+      "table": "35_BOSS_ROUTE_DB",
+      "rows": 17,
+      "semanticSha256": "caa9d1d5e8ca958af59851bee351242864b9ccc89bae816e179791bb2c6c185c",
+      "equal": true
+    },
+    {
+      "table": "36_ENCOUNTER_RULES",
+      "rows": 43,
+      "semanticSha256": "69b36560b161dc27253bd533ef56b1158476d2883d9314f13114c44d51e69475",
+      "equal": true
+    },
+    {
+      "table": "37_ELEMENTAL_REACTION_DB",
+      "rows": 23,
+      "semanticSha256": "2db19288d0a776a7badb353054cda6d76988fea30f472a43e556ab9f40865c00",
+      "equal": true
+    },
+    {
+      "table": "38_ELEMENTAL_RUNTIME",
+      "rows": 1,
+      "semanticSha256": "2c690d9d4d83eb1b50253c4612a037dcaade47d3ab076190fc88f55a51b1cb14",
+      "equal": true
+    },
+    {
+      "table": "39_CARD_RUNTIME",
+      "rows": 1,
+      "semanticSha256": "f7f0f2ab5e48acc988a86a21cc7a2f90ba0a86a5aedc91ee4397e1e79a6fc1c7",
+      "equal": true
+    },
+    {
+      "table": "40_CRPG_MIGRATION_PLAN",
+      "rows": 1,
+      "semanticSha256": "cddcf96f86ed3b6e8433531b21b0f987d1dcb93713bd1020fcedb4a6bbdb4b8f",
+      "equal": true
+    },
+    {
+      "table": "41_SAVE_CHAR_STATE",
+      "rows": 1,
+      "semanticSha256": "364cbb8618020a7a919f41c68c8a69239d559e27b4d3327f7c23f1081fab6587",
+      "equal": true
+    },
+    {
+      "table": "42_SAVE_QUEST_STATE",
+      "rows": 1,
+      "semanticSha256": "d49d1105232b4131debb24fc27121b73c1847bd971709e786c333e75e3702231",
+      "equal": true
+    },
+    {
+      "table": "43_SAVE_FLAG_STATE",
+      "rows": 1,
+      "semanticSha256": "0bd09594884d59b69229f805ae68e7aae00960a5b2ce8fa1724bde895cdbe0e9",
+      "equal": true
+    },
+    {
+      "table": "44_SAVE_PARTY_STATE",
+      "rows": 1,
+      "semanticSha256": "2a54298b29dfe928b7f26099742e551d1102101393e02a96280fdc8b79ce667a",
+      "equal": true
+    },
+    {
+      "table": "45_CHAR_DIALOGUE_DB",
+      "rows": 281,
+      "semanticSha256": "58e7662c0da37798947e3753b129058f4d078aba76b907ea84098ea1c2f83373",
+      "equal": true
+    },
+    {
+      "table": "46_CHAR_RELATION_DB",
+      "rows": 1129,
+      "semanticSha256": "f6bb9692bb72944489f8eb993147bb9fbb4a01fad7d38906c7099576881bc159",
+      "equal": true
+    },
+    {
+      "table": "47_MAP_EDGE_DB",
+      "rows": 153,
+      "semanticSha256": "6d094d208266df0e760077df8a61418c091dbc3d560c9a77bd3918cf0f529f67",
+      "equal": true
+    },
+    {
+      "table": "48_RECIPE_INGREDIENT_DB",
+      "rows": 499,
+      "semanticSha256": "3eef522282048fe03265fcb1a409adbe0c6f56c262a734ff9e8522ebdcc20361",
+      "equal": true
+    },
+    {
+      "table": "49_ENCOUNTER_MEMBER_DB",
+      "rows": 164,
+      "semanticSha256": "ed536b16d850f7c67525c6ce2df6d4fb364420234d469dcff5cad26b75e7f57e",
+      "equal": true
+    },
+    {
+      "table": "50_BOSS_ROUTE_STEP_DB",
+      "rows": 44,
+      "semanticSha256": "dd01e52d068a41bc1ea9aaededbbc68bf1619628cc0c851faef85149346f62bf",
+      "equal": true
+    },
+    {
+      "table": "51_EVENT_DB",
+      "rows": 766,
+      "semanticSha256": "9f754d8aae41e597bd6f517cdf4324f26b7a4c53cbe5838826e0ea19ea4d7c22",
+      "equal": true
+    },
+    {
+      "table": "52_COMBAT_VAR_RUNTIME",
+      "rows": 1,
+      "semanticSha256": "7bb40cd6e913cbf5caec55c330170f8511c9dc5d04599ea476e6afaccf5b5515",
+      "equal": true
+    },
+    {
+      "table": "53_COMBAT_VAR_INIT_DB",
+      "rows": 105,
+      "semanticSha256": "d5c9c0ae77c4a4f8585d2773c84ea924e4b5470a8ab257309380d34a979d0320",
+      "equal": true
+    },
+    {
+      "table": "54_SAVE_RELATION_STATE",
+      "rows": 1,
+      "semanticSha256": "d4ea91aed1a0925a6eba313fafdbbb54d68722ae6c4d2d0fb6cfcc2435234c97",
+      "equal": true
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "rows": 8983,
+      "semanticSha256": "058342107e50560a4dbf3f50c791ae64622125c416167ea46477a0c2a3df49fe",
+      "equal": true
+    },
+    {
+      "table": "56_MOND_LEGEND_DB",
+      "rows": 87,
+      "semanticSha256": "8c2f54aa92ad5ff73767f99a1f82c03a77574ff8f4c587f6e76b56ff003637ee",
+      "equal": true
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "rows": 10852,
+      "semanticSha256": "27a454942f25f3463c249137d20573aaf6c81a8910a4cc91989464bb18e1615c",
+      "equal": true
+    },
+    {
+      "table": "58_MOND_AFFECTION_DB",
+      "rows": 459,
+      "semanticSha256": "0b41b21ad110d602356ea4db9c5671f90a6c370724697040284db5438cd6a13b",
+      "equal": true
+    },
+    {
+      "table": "59_LIYUE_LEGEND_DB",
+      "rows": 1,
+      "semanticSha256": "7908834ef0f2919c26e671e8d8f3fe7221a7a27462467d740c6fa3ff3ec59cfe",
+      "equal": true
+    },
+    {
+      "table": "60_LIYUE_STORY_SCENE_DB",
+      "rows": 1,
+      "semanticSha256": "e55f174eacd4ab39d33ae8c73356a72867aa056ff2d9cbcc318207ad1b524663",
+      "equal": true
+    },
+    {
+      "table": "61_LIYUE_AFFECTION_DB",
+      "rows": 1,
+      "semanticSha256": "281bc094fe13ae650e5a3c88721257ae37f04795277fb378a0e2379f797bb6cf",
+      "equal": true
+    }
+  ],
+  "unchangedBuildersAndSanitizer": [
+    {
+      "path": "tools/runtime_data.py",
+      "localGitBlob": "1b6a036d104d214a181de14d0296565194b0a493",
+      "remoteGitBlob": "1b6a036d104d214a181de14d0296565194b0a493",
+      "sameBytes": true
+    },
+    {
+      "path": "tools/build.py",
+      "localGitBlob": "8341f07d96000541be7835d3dd3883020801693a",
+      "remoteGitBlob": "8341f07d96000541be7835d3dd3883020801693a",
+      "sameBytes": true
+    },
+    {
+      "path": "tools/build_server.py",
+      "localGitBlob": "b4674dab48bcaa7ff282b9ee4ab94f04f372117b",
+      "remoteGitBlob": "b4674dab48bcaa7ff282b9ee4ab94f04f372117b",
+      "sameBytes": true
+    }
+  ],
+  "scope": "The current remote raw DB blob is unchanged from the artifact-backed earlier proof. Every current local runtime table matches the exact extracted published server DB. This confirms runtime semantic parity, not equality of raw editorial bytes. Remote raw DB must not be overlaid.",
+  "passed": true
+}

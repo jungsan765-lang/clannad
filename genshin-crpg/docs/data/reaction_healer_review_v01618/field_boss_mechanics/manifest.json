@@ -1,0 +1,62 @@
+{
+  "publishedBaseline": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "counts": {
+    "bossStats": 9,
+    "isolatedMoves": 26,
+    "schedules": 9,
+    "checks": 11,
+    "passed": 11,
+    "failed": 0
+  },
+  "growthCurveRows": 52,
+  "productFilesHashed": 119,
+  "productUnchanged": true,
+  "baselineCompared": 119,
+  "files": {
+    "baseline_comparison.json": {
+      "bytes": 28798,
+      "sha256": "e7956ee34b1cd4932f32f1f6e7d083e4696f54a77c0163c10ae44eb2fd2a65f9",
+      "superseded": false
+    },
+    "growth_curve.cjs": {
+      "bytes": 1435,
+      "sha256": "6cf0a01fde1c1d42f65332ddbf6b15ce96d0cf8bac9426b3c43f51bb0677975c",
+      "superseded": false
+    },
+    "growth_curve.json": {
+      "bytes": 8645,
+      "sha256": "5c3c0d336e52b339cea819ea117f30bf1e2954c6efe00c52e639e7f1742cc54b",
+      "superseded": false
+    },
+    "native_mechanics.json": {
+      "bytes": 208056,
+      "sha256": "f9e87e496edaa4a828ffdedf77b996d134a12489a1ade6a0ca0ade2f3001dba2",
+      "superseded": false
+    },
+    "native_mechanics_initial_harness.json": {
+      "bytes": 187723,
+      "sha256": "6a2a323831e5ad983a2531bff24965a89c770648ac80adbf67553888ea54fe9c",
+      "superseded": true
+    },
+    "probe.cjs": {
+      "bytes": 14011,
+      "sha256": "e68ffa8545ff2ece30410c239bcf01d9cb846119d0b2e7849e143cf9e6a210db",
+      "superseded": false
+    },
+    "source_hashes.json": {
+      "bytes": 25256,
+      "sha256": "5c44411f04e25c414de139feb02fffe64b52c249df72ea40e4d44040d47d1e04",
+      "superseded": false
+    },
+    "summary.json": {
+      "bytes": 9751,
+      "sha256": "f5e23473fba90ae9562fbe74c4583e304736ea20278bb5260bc78fef7769de9e",
+      "superseded": false
+    },
+    "summary.md": {
+      "bytes": 8648,
+      "sha256": "22a0a022b6de8f91b37a2aa5c456bb7d6ac74f83956380cc3d52e3d1da69ee5f",
+      "superseded": false
+    }
+  }
+}

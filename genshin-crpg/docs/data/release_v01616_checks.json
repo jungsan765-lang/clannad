@@ -1,0 +1,642 @@
+{
+  "version": "0.16.16",
+  "baselineRelease": "4e56987f9c357d8a7471e61adf4153d3da72ca6e",
+  "scope": "Restored 0.16.14 fixed-four material combat; changed existing gem/book reward quantities and requirements; kept v15 per-target inn pricing and old in-flight contracts",
+  "nativeHashes": {
+    "growthSha256": "f62c64529a8244e23f4ffce75f3bf6bc08027172da1b775c1aa1168210501247",
+    "innSha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+    "vmNativeOrderedSha256": "4166ab81ef963e5c75cd356209a2927fb4d53d26358e9c870d67433c566e0972",
+    "vmNativeFiles": 118,
+    "serverRuntimeOrderedSha256": "ad2d2bd11b6044a0d1aad7563e1d5107b7afbc1e64fb10cd4b1f019dab906e9a",
+    "serverRuntimeFiles": 119,
+    "algorithm": "SHA256 in source/index.html native loader order: filename + NUL + bytes + NUL; server adds presentation.js in its runtime order",
+    "cleanRuntimeDbCanonicalSha256": "083896a4aa228d3f111158d25b18034f555286e45b363d4326f6be7d4fe9e860",
+    "nativeRemoteDifferences": [
+      "genshin-crpg/source/runtime_growth_v01522.js"
+    ],
+    "allLocalJsFingerprintCaveat": "Simulation all-source JS hashes include seven pre-existing local UI copies; these are not publication-tree hashes and those copies are excluded from publication."
+  },
+  "targetReplay": {
+    "file": "docs/data/material_rewards_v01616_final.json",
+    "counts": {
+      "conditions": 72,
+      "nativeDomainBattles": 2596,
+      "wins": 2596,
+      "losses": 0,
+      "lodgingReceipts": 1174,
+      "travelEncounters": 918
+    },
+    "primaryConditions": 60,
+    "supplementalConditions": 12,
+    "analysis": {
+      "allActualTargetCompletionsSuccessful": true,
+      "allHighestStage25And50WinTargetsMet": true,
+      "allComparedHighestTargetsFaster": true,
+      "lowestActualMaterialEfficiencyRatio": 1.1334931353807252,
+      "pilotTwentyPercentImprovementNotUniversalInActualTargetCampaigns": [
+        {
+          "kind": "ASCENSION",
+          "route": "ROUTE_TRAVELER",
+          "element": "HYDRO",
+          "item": "GROWTH_GEM_HYDRO",
+          "target": 11325,
+          "highestStage": 60,
+          "bestLowerStage": 55,
+          "highestWins": 25,
+          "lowerWins": 35,
+          "highestMaterials": 11325,
+          "lowerMaterials": 11620,
+          "highestSeconds": 2860.28,
+          "lowerSeconds": 3326.5599999999995,
+          "highestLodgingCount": 15,
+          "lowerLodgingCount": 17,
+          "highestLodgingMora": 6442,
+          "lowerLodgingMora": 6358,
+          "completionTimeRatio": 1.1630190051323643,
+          "materialsPerMinuteRatio": 1.1334931353807252,
+          "highestActualTargetTimeLower": true
+        },
+        {
+          "kind": "ASCENSION",
+          "route": "ROUTE_ISEKAI",
+          "element": "HYDRO",
+          "item": "GROWTH_GEM_HYDRO",
+          "target": 11325,
+          "highestStage": 60,
+          "bestLowerStage": 55,
+          "highestWins": 25,
+          "lowerWins": 35,
+          "highestMaterials": 11325,
+          "lowerMaterials": 11620,
+          "highestSeconds": 4154.400000000001,
+          "lowerSeconds": 5106.670000000001,
+          "highestLodgingCount": 23,
+          "lowerLodgingCount": 30,
+          "highestLodgingMora": 10842,
+          "lowerLodgingMora": 11559,
+          "completionTimeRatio": 1.2292196225688428,
+          "materialsPerMinuteRatio": 1.1980131003091345,
+          "highestActualTargetTimeLower": true
+        },
+        {
+          "kind": "ASCENSION",
+          "route": "ROUTE_ISEKAI",
+          "element": "DENDRO",
+          "item": "GROWTH_GEM_DENDRO",
+          "target": 1750,
+          "highestStage": 60,
+          "bestLowerStage": 55,
+          "highestWins": 25,
+          "lowerWins": 35,
+          "highestMaterials": 1750,
+          "lowerMaterials": 1750,
+          "highestSeconds": 2019.4700000000005,
+          "lowerSeconds": 2390.9199999999996,
+          "highestLodgingCount": 7,
+          "lowerLodgingCount": 8,
+          "highestLodgingMora": 2918,
+          "lowerLodgingMora": 2929,
+          "completionTimeRatio": 1.183934398629343,
+          "materialsPerMinuteRatio": 1.1839343986293427,
+          "highestActualTargetTimeLower": true
+        }
+      ],
+      "allPaidLodgingQuoteMatches": true
+    },
+    "nativeCombatInvariantReview": {
+      "conditions": 60,
+      "battles": 708,
+      "comparedToSourceSnapshot": {
+        "sourceFingerprint": "94da4491dfe32d30b890f1acdfec585f75e3f427b412ba055da9d3ace0fd7b69",
+        "growthSourceSha256": "a0706ec6ccae4b267111ad8fbefc6707fcf70d359800c50189798ff1ad463f62",
+        "innSourceSha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+        "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "toolSha256": "944602cb3fe30ec3e1de4fe498c1f282dded845f88e54542f46227cc2be23554",
+        "packageVersion": "0.16.15",
+        "auditClockMs": 1791522000000
+      },
+      "fields": [
+        "hpBefore",
+        "hpAfter",
+        "rngBefore",
+        "rngAfter",
+        "enemies",
+        "seconds",
+        "presentationMs",
+        "inputs"
+      ],
+      "allIdentical": true,
+      "rewardsExcludedFromComparison": true,
+      "reason": "Final code changes quantities and requirements while restored native enemy and continuous HP/PRNG/presentation outcomes match original-native baseline prefixes."
+    }
+  },
+  "focusedChecks": [
+    {
+      "command": "node tests/test_material_rewards_v01616.cjs",
+      "checks": 13,
+      "passed": 13,
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/test_material_budget_v01615.cjs",
+      "checks": 9,
+      "passed": 9,
+      "exitCode": 0,
+      "nativeStartingEnemyComparisons": 216,
+      "note": "Starting stat/shield projection, not 216 full completions or every enemy card tested"
+    },
+    {
+      "command": "node tests/test_inn_pricing_v01615.cjs",
+      "checks": 13,
+      "passed": 13,
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/test_ascension_balance_v01614.cjs",
+      "checks": 9,
+      "passed": 9,
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/test_ascension_efficiency_v01613.cjs",
+      "checks": 6,
+      "passed": 6,
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/test_task_materials_v0169.cjs",
+      "checks": 8,
+      "passed": 8,
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/test_growth_v01522.cjs",
+      "checks": 17,
+      "passed": 17,
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/test_growth_online_v01522.mjs",
+      "exitCode": 0,
+      "scope": "Isolated Worker + SQLite; ascension/talent costs, movement, domain start/combat/reward, timed life inputs, atomic rejection, idempotent retries"
+    },
+    {
+      "command": "python tools/build_server.py",
+      "exitCode": 0,
+      "runtimeFiles": 119,
+      "engineBytes": 28330005,
+      "gzipBytes": 5371538
+    },
+    {
+      "command": "python tests/test_engine_identity.py",
+      "exitCode": 0,
+      "result": {
+        "ok": true,
+        "uiOnlyCompatible": true,
+        "rulesContentProtocolGatedWorkerIndependent": true
+      }
+    },
+    {
+      "command": "git diff --check and JavaScript syntax checks",
+      "exitCode": 0
+    }
+  ],
+  "relatedRegression": {
+    "programs": 22,
+    "passedAfterOriginalQaInputRecovery": 22,
+    "initialPass": 20,
+    "initialMissingInputFailures": 2,
+    "runs": [
+      {
+        "test": "tests/test_material_budget_v01615.cjs",
+        "exitCode": 0,
+        "seconds": 41.508,
+        "log": "evidence/v01616-regression/test_material_budget_v01615.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "739d173fbfb66297618ae04fbb9bdc2620e68eade76216be34217a18eedd2939"
+      },
+      {
+        "test": "tests/test_feature_boundaries_v01513.cjs",
+        "exitCode": 0,
+        "seconds": 107.765,
+        "log": "evidence/v01616-regression/test_feature_boundaries_v01513.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "675cd1a241898d60a966be700d7afdc2dd8012111fb73c535e40540e106c321f"
+      },
+      {
+        "test": "tests/test_balance_saves_v0166.cjs",
+        "exitCode": 0,
+        "seconds": 32.341,
+        "log": "evidence/v01616-regression/test_balance_saves_v0166.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "6ad2aba6007cb16155dcaf29710ee3bbdca3f3c66d6e67ee0083825ae3243a3f"
+      },
+      {
+        "test": "tests/test_growth_balance_v01522.cjs",
+        "exitCode": 0,
+        "seconds": 21.854,
+        "log": "evidence/v01616-regression/test_growth_balance_v01522.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "888f93d26e81e43cb9d5a286b571e03ab0b3d9a8ed7ad25f83bb72a951672401"
+      },
+      {
+        "test": "tests/test_rewards_balance_v0161.cjs",
+        "exitCode": 0,
+        "seconds": 33.765,
+        "log": "evidence/v01616-regression/test_rewards_balance_v0161.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "b0fe96d33b670a5a10e964d38c828e16210f52adb719360ee6c84b4b36b4042f"
+      },
+      {
+        "test": "tests/test_growth_pacing_v0161.cjs",
+        "exitCode": 0,
+        "seconds": 49.514,
+        "log": "evidence/v01616-regression/test_growth_pacing_v0161.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "b30b1376e667ba74e031169b9c29be1f7e7ae6c41751e9677b61cdc43a080876"
+      },
+      {
+        "test": "tests/test_xp_pacing_v0168.cjs",
+        "exitCode": 0,
+        "seconds": 127.391,
+        "log": "evidence/v01616-regression/test_xp_pacing_v0168.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "d9f4879dd957652f1d13d99e804e4cef20a0756169599bfa2b972f5595d25209"
+      },
+      {
+        "test": "tests/test_combat_boundaries_v0168.cjs",
+        "exitCode": 0,
+        "seconds": 31.855,
+        "log": "evidence/v01616-regression/test_combat_boundaries_v0168.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "29483e79c865d5ec7549789643dff5e23d5bb4385f21441e8fc67475d8d70ff6"
+      },
+      {
+        "test": "tests/test_control_reactions_v0168.cjs",
+        "exitCode": 0,
+        "seconds": 69.365,
+        "log": "evidence/v01616-regression/test_control_reactions_v0168.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "47be5b52ed2c86b32f5c7730928becb2a58c2a93fc9206a98f2d34047a4c3663"
+      },
+      {
+        "test": "tests/test_gear_effects_v0168.cjs",
+        "exitCode": 0,
+        "seconds": 8.193,
+        "log": "evidence/v01616-regression/test_gear_effects_v0168.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "a237a9fa5d8b5b20f6c4f49f59249932bd73ef69e6b9ec07acb90062325219c4"
+      },
+      {
+        "test": "tests/test_food_economy_v0168.cjs",
+        "exitCode": 0,
+        "seconds": 29.85,
+        "log": "evidence/v01616-regression/test_food_economy_v0168.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "42672850161264f9692bde851d122ead074cd7c9c04f9d66617a08be87e7f4ef"
+      },
+      {
+        "test": "tests/test_tasks_v0169.cjs",
+        "exitCode": 0,
+        "seconds": 53.421,
+        "log": "evidence/v01616-regression/test_tasks_v0169.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "4f18e99b235813379ec9cf72ae6394d0f3f3e4a49c2525f6ad9b61833d62e9e7"
+      },
+      {
+        "test": "tests/test_task_branches_v01611.cjs",
+        "exitCode": 0,
+        "seconds": 72.883,
+        "log": "evidence/v01616-regression/test_task_branches_v01611.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "9bc88b73a9977f83216028827b60a8a0169468ea087d50f6895f7d15d1ede0de"
+      },
+      {
+        "test": "tests/test_task_branches_v01612.cjs",
+        "exitCode": 0,
+        "seconds": 41.128,
+        "log": "evidence/v01616-regression/test_task_branches_v01612.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "e412e3a4be0a8342a131a274c867da3d5a5d18bb86f381af4f6a8a2e3015b2e8"
+      },
+      {
+        "test": "tests/test_v01525.cjs",
+        "exitCode": 0,
+        "seconds": 229.02,
+        "log": "evidence/v01616-regression/test_v01525.cjs.log",
+        "tail": ", where it comes from and what it did (no paragraph about the playback)\nPASS a 4★ met in the story joins when its chapter ends: a party of four after the first chapter, five of Mond and five of Liyue later; wishes untouched\n{\"total\":9,\"passed\":8}\nFAIL a picture for every growth material (official icons the user approved), the ley-line card without its paragraph\nAssertionError [ERR_ASSERTION]: assets/icons/UI_ItemIcon_104301.webp\n    at /workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/tests/test_v01525.cjs:83:37\n    at check (/workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/tests/test_v01525.cjs:9:44)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/tests/test_v01525.cjs:79:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47\n",
+        "initialExitCode": 1,
+        "rerun": {
+          "command": "node tests/test_v01525.cjs",
+          "exitCode": 0,
+          "checks": 9,
+          "passed": 9,
+          "report": "reports/v01525/tests.json",
+          "embeddedTutorialChecksPassed": 12
+        },
+        "initialFailureCause": "Missing original local QA input; restored exact remote parent blob and reran unchanged test",
+        "initialLogSha256": "29015a6fe218b8ac57ee03e49c46629c13be6533763cb2b0b2e587995cf29c47"
+      },
+      {
+        "test": "tests/test_v01524.cjs",
+        "exitCode": 0,
+        "seconds": 0.126,
+        "log": "evidence/v01616-regression/test_v01524.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "3b28a17758f544fdf10db18f1ed70cb6e7f976ea88708730f67bc246bf9dad7b"
+      },
+      {
+        "test": "tests/test_v0167.cjs",
+        "exitCode": 0,
+        "seconds": 4.889,
+        "log": "evidence/v01616-regression/test_v0167.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "aedca8616b888c61d59ef3cb6ff9c7f0933abda9a3a7100a6ca44636a676ba25"
+      },
+      {
+        "test": "tests/test_ui_boundaries_v01513.cjs",
+        "exitCode": 0,
+        "seconds": 0.093,
+        "log": "evidence/v01616-regression/test_ui_boundaries_v01513.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "b7363e15ab4cc1209c911e9e4320be7c620f54532570a542f031efea8679242c"
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.cjs",
+        "exitCode": 0,
+        "seconds": 7.452,
+        "log": "evidence/v01616-regression/test_release_isolation_v01513.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "39c8310fc47fb8055215a652e367edbb18b046f9758962b0d8a2a02a2d511f5e"
+      },
+      {
+        "test": "tests/test_content_boundaries_v01513.cjs",
+        "exitCode": 0,
+        "seconds": 2.1,
+        "log": "evidence/v01616-regression/test_content_boundaries_v01513.cjs.log",
+        "tail": "eadFileUtf8(path, stringToFlags(options.flag));\n                   ^\n\nError: ENOENT: no such file or directory, open '/workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/content/asset-manifest.json'\n    at Object.readFileSync (node:fs:484:20)\n    at /workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/tests/test_content_boundaries_v01513.cjs:63:88\n    at check (/workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/tests/test_content_boundaries_v01513.cjs:11:25)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/tests/test_content_boundaries_v01513.cjs:60:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'open',\n  path: '/workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg/content/asset-manifest.json'\n}\n\nNode.js v24.19.0\n",
+        "initialExitCode": 1,
+        "rerun": {
+          "command": "node tests/test_content_boundaries_v01513.cjs",
+          "exitCode": 0,
+          "checks": 5,
+          "passed": 5,
+          "builtDir": null,
+          "nodes": 27531,
+          "legends": 86,
+          "affections": 458,
+          "scope": "Static composed-content checks only; built assets/browser/full story traversal excluded"
+        },
+        "initialFailureCause": "Missing original local QA input; restored exact remote parent blob and reran unchanged test",
+        "initialLogSha256": "9a312032eda844af53b05a0123914bea810e8d17e0bec39830b9e527c1c434d0"
+      },
+      {
+        "test": "tests/test_combat_stalemate_v01523.cjs",
+        "exitCode": 0,
+        "seconds": 7.315,
+        "log": "evidence/v01616-regression/test_combat_stalemate_v01523.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "7e4c930c95ce001ae079532dad5388d68ff11f09c516e293c565b0b6c65c828e"
+      },
+      {
+        "test": "tests/test_defeat_settlement_v0166.cjs",
+        "exitCode": 0,
+        "seconds": 10.598,
+        "log": "evidence/v01616-regression/test_defeat_settlement_v0166.cjs.log",
+        "tail": "",
+        "initialExitCode": 0,
+        "initialLogSha256": "2e8578eb32669f9ea872b095909fda7e5e1aeb7aa2c738b425f8ba506f5f25ba"
+      }
+    ]
+  },
+  "originalQaInputRecovery": {
+    "repository": "jungsan765-lang/clannad",
+    "sourceCommit": "4e56987f9c357d8a7471e61adf4153d3da72ca6e",
+    "scope": "Exact original missing QA inputs restored locally only; no runtime, tests or remote repository changed",
+    "files": [
+      {
+        "path": "content/asset-manifest.json",
+        "remoteGitBlobSha": "344b801e7e7d88b86e2a36ef696baeb3e76c7d2a",
+        "sha256": "22653a774adaddcde58cd59fd92cf298beeb7c0a337055d45142d88350ff6c83",
+        "bytes": 607211,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/CREDITS.md",
+        "remoteGitBlobSha": "e8c2e5412bb219803a089bf903d03e20882278f2",
+        "sha256": "cbb77e70c7b87d10ea3b961d86d161a433a8f491aa3e7e4a1c3535500a4bd60a",
+        "bytes": 24203,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104301.webp",
+        "remoteGitBlobSha": "005963b0d3dab73ac09de9808acc74ec0ab1257b",
+        "sha256": "bc189c1f974a166f586a7fd89fec9332f8926d701bc1831f837769bcf6b8374f",
+        "bytes": 11974,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104310.webp",
+        "remoteGitBlobSha": "00400f1df51330ba8faf13d61cdca111c050b607",
+        "sha256": "7c3a05a8bc259d15a698977076601e5a3b0999a0a3b9d91eced8319f99f4b53b",
+        "bytes": 12364,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104101.webp",
+        "remoteGitBlobSha": "4f79e48fa24fe1af515afa56208138faf80d90ef",
+        "sha256": "4c77341bde433e944e9361e2cefcda9f8e96296d8bb041b7f8b02472a700c034",
+        "bytes": 11726,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104111.webp",
+        "remoteGitBlobSha": "64667c28488828399b90f8bdbdf66a4725437b18",
+        "sha256": "46774d6b1a85aad036c3e110ee30cf9cad1b4e7f645b3434d9b8569f1ca3ceb0",
+        "bytes": 4100,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104121.webp",
+        "remoteGitBlobSha": "fd19d3ea757c29ea1b6851dc676c40b2ea20b4e8",
+        "sha256": "3243f6b6f624cde6fda108d3b05733403a516e9aa4db0e1e0219abcff0c384ed",
+        "bytes": 4476,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104151.webp",
+        "remoteGitBlobSha": "6aef4aa124411b06d60ab1b4f9791742f48e6a1f",
+        "sha256": "c5539ca769e686069800d14400801c1d3a019351e60548bf0a093e8b1a31620f",
+        "bytes": 4088,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104141.webp",
+        "remoteGitBlobSha": "ac9547c06d505364df31d8fa8c5afd9998a268e2",
+        "sha256": "11f640a7c718ce4f693a44ff131afce7de7b70c24a024c0cfcf19324bdbb2c6b",
+        "bytes": 4474,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104161.webp",
+        "remoteGitBlobSha": "d91fbf758ae990bd0bbd77de6c032bcdf31493cb",
+        "sha256": "14b6312202ac378b32a02bb448511bf8891ca70af1fb5001f5ee735c972a54d2",
+        "bytes": 4364,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104171.webp",
+        "remoteGitBlobSha": "06f9d872625baba331eaed0e0c052270fc47593f",
+        "sha256": "88e8c483ad89fbbfff6b37d6eaffd63b16f2028e928496c191d28dd2c01884b6",
+        "bytes": 4076,
+        "restoredMissingInput": true
+      },
+      {
+        "path": "assets/icons/UI_ItemIcon_104131.webp",
+        "remoteGitBlobSha": "c82d34c823e7c73888d52671091af5d5e0dca35a",
+        "sha256": "d5532244b71ecf4d9812af0f6bd7657ce70e8632fefeb904baada1ef73ce9db7",
+        "bytes": 4080,
+        "restoredMissingInput": true
+      }
+    ],
+    "rerunChecks": [
+      {
+        "command": "node tests/test_v01525.cjs",
+        "exitCode": 0,
+        "checks": 9,
+        "passed": 9,
+        "report": "reports/v01525/tests.json",
+        "embeddedTutorialChecksPassed": 12
+      },
+      {
+        "command": "node tests/test_content_boundaries_v01513.cjs",
+        "exitCode": 0,
+        "checks": 5,
+        "passed": 5,
+        "builtDir": null,
+        "nodes": 27531,
+        "legends": 86,
+        "affections": 458,
+        "scope": "Static composed-content checks only; built assets/browser/full story traversal excluded"
+      }
+    ],
+    "sourceGrowthSha256": "f62c64529a8244e23f4ffce75f3bf6bc08027172da1b775c1aa1168210501247",
+    "limitedInputScope": "Only the two failing tests’ manifest, ten growth icons, and icon CREDITS were recovered. Full asset inventory/client build was not restored or verified."
+  },
+  "fullCiRunCompleted": false,
+  "liveVpsInstallPerformed": false,
+  "productionPromotionPerformed": false,
+  "mainMergePerformed": false,
+  "protectedRemoteObjects": {
+    ".github": "73148827c0c935c6117fed401b224843225e022b",
+    "genshin-crpg/assets": "c8e23881af963b1eea026ba8d0e559f9df0f2181",
+    "genshin-crpg/content/db.json": "cc3996929c885d41289038ff501640039a4cc71e",
+    "genshin-crpg/content/asset-manifest.json": "344b801e7e7d88b86e2a36ef696baeb3e76c7d2a"
+  },
+  "limits": [
+    "Highest target completion beats the selected lower tier for all sixteen ascension comparisons; pilot twenty-percent improvement is not universal in final complete campaigns.",
+    "Fixed four-star reference party, legal declared crafted equipment and mid talents; not every formation, five-star damage build, random seed or human/network delay.",
+    "Material farming time only; total character completion additionally needs XP, other materials, Mora and starting equipment. Do not claim forced multi-day completion from this evidence.",
+    "Final5star50wins tests twice the material demand with the same reference party; does not measure actual5star damage.",
+    "Existing unspent material purchasing power changes at the next unpaid upgrade; completed growth, stock quantities and historic receipts are preserved.",
+    "Weekly sixty-win three-kind model is partial; current whole weekly reporting branch needs at least140domainwins. No task changes.",
+    "Original remote assets, authored DB, workflow and UI files are kept. Local missing-QA-input recovery is not published.",
+    "Related local tests passed; no entire release CI completion, physical phone/browser sweep or live-market price guarantee."
+  ],
+  "artifacts": [
+    {
+      "path": "source/runtime_growth_v01522.js",
+      "bytes": 56051,
+      "sha256": "f62c64529a8244e23f4ffce75f3bf6bc08027172da1b775c1aa1168210501247"
+    },
+    {
+      "path": "source/runtime.js",
+      "bytes": 41136,
+      "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7"
+    },
+    {
+      "path": "tests/test_material_rewards_v01616.cjs",
+      "bytes": 16937,
+      "sha256": "46862362c10158d0cb6bc316114da9959ef917e30c35996c0fb649e49bcce2c9"
+    },
+    {
+      "path": "tests/test_material_budget_v01615.cjs",
+      "bytes": 7623,
+      "sha256": "f735ae3659175c80ce35d187978a6dd566d0ce1bd88d71f79920c29a2f9378f5"
+    },
+    {
+      "path": "tests/fixtures/material_native_v01614.json",
+      "bytes": 80798,
+      "sha256": "8097e669229bcdbd0fed6b8e21068048c75eadd7930c1e04851ea2792cd57f87"
+    },
+    {
+      "path": "tools/audit_material_rewards_v01616.cjs",
+      "bytes": 13805,
+      "sha256": "944602cb3fe30ec3e1de4fe498c1f282dded845f88e54542f46227cc2be23554"
+    },
+    {
+      "path": "tools/audit_material_targets_v01616.cjs",
+      "bytes": 3490,
+      "sha256": "6a9027c573457a6f6d452ad231724581b87cd5c983706fc5efb9b71463cb3e17"
+    },
+    {
+      "path": "docs/data/material_reward_design_v01616.json",
+      "bytes": 252527,
+      "sha256": "ac335c9494ea16920b94bb1cb7794a2b202ad47588048f4beaa29bd27afd8295"
+    },
+    {
+      "path": "docs/data/material_rewards_v01616_baseline.json",
+      "bytes": 1124882,
+      "sha256": "d9e8f4586c4d4e849c6bb373886f315a848a5c31cf629e12d4f3d794e955c252"
+    },
+    {
+      "path": "docs/data/material_rewards_v01616_baseline.json.gz",
+      "bytes": 235764,
+      "sha256": "cfae091f252abdd5c08a0a9b19618672aec7a12e05f0418e934b4803766ad368"
+    },
+    {
+      "path": "docs/data/material_rewards_v01616_early.json",
+      "bytes": 345365,
+      "sha256": "8bfd8342fb600f7d81f7ec2cf2121d6c74d85bffaa9ade15e7b8f06facd06039"
+    },
+    {
+      "path": "docs/data/material_rewards_v01616_early.json.gz",
+      "bytes": 67775,
+      "sha256": "449b74f182349587297e94ab95c3290cd1a5928cf7e64f84337f74c7a7dbcc3e"
+    },
+    {
+      "path": "docs/data/material_rewards_v01616_final.json",
+      "bytes": 1941857,
+      "sha256": "b7fd7f0754720fc882d87bcd5ff5caada5f4bb9a0b6757d964da369f903f843b"
+    },
+    {
+      "path": "docs/data/material_rewards_v01616_final.json.gz",
+      "bytes": 531246,
+      "sha256": "03aa3de610eef7cad8b6192ece64410383b739d12690cf4af4ee4d4ec4976aac"
+    },
+    {
+      "path": "docs/data/task_materials_v01616.json",
+      "bytes": 67434,
+      "sha256": "1fa8cd1d33d0d3bf8f8c676ee2faa3bd8cae3c79d87354e65f59c7ed9ff296e5"
+    }
+  ]
+}

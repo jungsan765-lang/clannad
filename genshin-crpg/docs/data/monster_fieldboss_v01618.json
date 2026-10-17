@@ -1,0 +1,87 @@
+{
+  "version": "0.16.18",
+  "owner": "fix_fieldboss_v01618",
+  "productSourceFilesChanged": [
+    "source/runtime_field_bosses.js"
+  ],
+  "testFilesAdded": [
+    "tools/test_field_boss_immunity_v01618.cjs"
+  ],
+  "changes": [
+    {
+      "id": "FB_MIMICS_HYDRO_IMMUNITY",
+      "monsterIds": [
+        "FB_MIMIC_BOAR",
+        "FB_MIMIC_CRANE",
+        "FB_MIMIC_FROG",
+        "FB_MIMIC_CRAB",
+        "FB_MIMIC_FALCON"
+      ],
+      "behavior": "Installed form source IDs now return Hydro immunity through the existing shared hasElementImmunity gate. Native direct skills, fields and final raw elemental/reaction packets preserve HP and the crab shield. Physical and other-element damage is unaffected."
+    },
+    {
+      "id": "FB_CRYO_REVIVAL_OFFTURN_BYPASS",
+      "monsterIds": [
+        "FB_CRYO_HYPOSTASIS"
+      ],
+      "behavior": "The existing Pyro/armor-break 4-hit objective is shared by direct and delayed packets. An eligible damage call advances exactly one hit and returns before normal HP subtraction; raw applyDamage also goes through the count path. The one-HP core cannot be killed by an ordinary raw packet. Zero/rounded-zero or ineligible packets do not advance. The fourth hit clears the core once. Existing claymore Cryo attacks, revival deadline, single-revival rule, save count and victory payout are preserved."
+    }
+  ],
+  "notChanged": [
+    "HP/ATK/DEF/level curves",
+    "boss rewards/cooldown",
+    "UI/DB/assets",
+    "general enemy inherent resistance or armor",
+    "Ruin Serpent pre-existing DoT while burrowed",
+    "Anemo synthetic applyDamage-only immunity candidate",
+    "new boss mechanics or Frostfruit system"
+  ],
+  "verification": {
+    "oldAuditReproductions": 7,
+    "stillReproduced": 0,
+    "reproductionErrors": 0,
+    "nativeRegressionChecks": 30,
+    "nativeRegressionPassed": 30,
+    "nativeRegressionFailed": 0,
+    "fullNativeSmokeFights": 18,
+    "nativeSmokeSeeds": [
+      71247,
+      12741
+    ],
+    "syntaxAndDiffCheck": true
+  },
+  "coverage": [
+    "Five forms: legal Barbara Hydro normal, legal Mona E/native field, final typed REACTION/REACTION_DOT/OBJECT/FIELD packet probes; physical/other damage still works; save/reload immunity and HP/shield",
+    "Amber E explosion and Xiangling E first native tick: 0/4 to 1/4, HP remains1, no victory; saved count resumes and four total hits settle one receipt and one payout",
+    "Direct/FIELD/OBJECT/REACTION_DOT advance once each, not damage+applyDamage double-count",
+    "Zero/rounded-zero, invalid-element and enemy self-packets cannot reduce the core to0 or advance",
+    "Chongyun legal Q3 hits + E fourth hit with real native claymore ARMOR_BREAK preserves the explicit CRPG alternative counter",
+    "Xiangling summons have two actual once-per-round ticks; repeated same-round calls and expired summon do not add hits",
+    "Two-round deadline still restores50% HP and the boss revives only once",
+    "Four Hypostasis bodies keep own-element immunity; Anemo raw core, Electro prisms and Geo pillars work as before",
+    "Eight other-element water-form defeats still settle victory",
+    "Nine native boss starts/AI/save validation plus nine bosses over two seeds complete without exception or stall"
+  ],
+  "fixturePolicy": "Native actors and legal cards; Lv60/phase, owned four-member party, +6 legal equipment, talent8 are fixtures. Oversized packets are declared boundary setup; typed reaction probes supplement real skills.",
+  "references": [
+    {
+      "url": "https://library.keqingmains.com/enemy-data/bosses/overworld-bosses/oceanid",
+      "checkedDate": "2026-10-09",
+      "fact": "Hydro Mimics are immune to Hydro; no original innate-resistance numbers are added in this patch."
+    },
+    {
+      "url": "https://library.keqingmains.com/enemy-data/bosses/overworld-bosses/hypostases",
+      "checkedDate": "2026-10-09",
+      "fact": "Hypostasis bodies are immune to their own element. The authored CRPG four Pyro/armor-break hit conversion remains the current rule rather than adding the original Frostfruit mechanic."
+    }
+  ],
+  "evidenceFiles": [
+    "/tmp/crpg_v01618/fieldboss_old_reproduction_after.json",
+    "/tmp/crpg_v01618/fieldboss_test_results.json"
+  ],
+  "reproduceCommand": "node tools/test_field_boss_immunity_v01618.cjs /tmp/crpg_v01618/fieldboss_test_results.json",
+  "sourceSha256": "a06cc37300871d06e8028485d865e08c3c8e71378e9f94acea7b81f79d2709b7",
+  "testSha256": "9acaf7cda10f614f3db0618708581e1a9bf23fc825994e8bc87a21152200a672",
+  "gitCommitted": false,
+  "postedOrDeployed": false
+}

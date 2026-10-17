@@ -1,0 +1,725 @@
+{
+  "approvedUTC": "2026-10-09T18:37:56.270712+00:00",
+  "baselinePublishedSHA": "da29f36312af19ca11dd2c0ac29b54d6b31ee8f4",
+  "rows": [
+    {
+      "food": "FOOD_TEA_BREAK_PANCAKE",
+      "name": "티바트 달걀 프라이",
+      "before": 90,
+      "after": 90,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_BIRD_EGG": 1
+        }
+      },
+      "reason": "새알1, 초기 1종 채집 기준식 유지",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_SWEET_MADAME",
+      "name": "달콤달콤 닭고기 스튜",
+      "before": 180,
+      "after": 180,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_FOWL": 2,
+          "ING_SWEET_FLOWER": 2
+        }
+      },
+      "reason": "사냥 새고기2+채집 꽃2; 두 활동 복합 기본식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_HASH_BROWN",
+      "name": "몬드 감자전",
+      "before": 220,
+      "after": 340,
+      "existingCraftCost": {
+        "mora": 2,
+        "items": {
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1
+        }
+      },
+      "reason": "솔방울2+잼: 일몰열매1·사과1·설탕1; 가공·다종 채집",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_MATSUTAKE_ROLL",
+      "name": "버섯고기말이",
+      "before": 240,
+      "after": 300,
+      "existingCraftCost": {
+        "mora": 2,
+        "items": {
+          "ING_MATSUTAKE": 2,
+          "ING_RAW_MEAT": 2
+        }
+      },
+      "reason": "송이버섯2 저확률 채집+짐승고기2 사냥",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_UNIVERSAL_PEACE",
+      "name": "세계 평화",
+      "before": 160,
+      "after": 280,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RICE": 2,
+          "ING_LOTUS_HEAD": 1,
+          "ING_CARROT": 1,
+          "ING_BERRY": 1
+        }
+      },
+      "reason": "리월 연꽃1+당근1+몬드 베리1, 지역 이동과 3종 채집",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_PIZZA",
+      "name": "버섯피자",
+      "before": 130,
+      "after": 260,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_MUSHROOM": 3,
+          "ING_FLOUR": 2,
+          "ING_CABBAGE": 1,
+          "ING_CHEESE": 1
+        }
+      },
+      "reason": "일반 버섯3+치즈·밀가루·양배추 구매; 재료 현금 부담별도",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_SAKURA_MOCHI",
+      "name": "벚꽃 모찌",
+      "before": 170,
+      "after": 190,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RICE": 2,
+          "ING_SUGAR": 1,
+          "ING_SWEET_FLOWER": 1
+        }
+      },
+      "reason": "꽃1+구매 쌀2·설탕1; 채집은 단순/현금 부담",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_TAHCHIN",
+      "name": "타친",
+      "before": 145,
+      "after": 240,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RICE": 2,
+          "ING_FOWL": 1,
+          "ING_FISH": 1
+        }
+      },
+      "reason": "새고기1+생선1: 사냥·낚시 복합, 쌀2 구매",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "name": "글루포프 호밀빵",
+      "before": 200,
+      "after": 200,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RYE_FLOUR": 2,
+          "ING_SALT": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "reason": "현재 호밀 수급 불가; 미래 난이도 추정 금지, 중립 유지",
+      "supplyMissing": [
+        "ING_RYE"
+      ]
+    },
+    {
+      "food": "FOOD_SNEZ_BERRY_ICE_CREAM",
+      "name": "베리 아이스크림",
+      "before": 200,
+      "after": 200,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_ICE_STAR_FRUIT": 2,
+          "ING_CREAM": 1,
+          "ING_SWEET_FLOWER": 1
+        }
+      },
+      "reason": "현재 얼음별열매 수급 불가; 미래 난이도 추정 금지, 중립 유지",
+      "supplyMissing": [
+        "ING_ICE_STAR_FRUIT"
+      ]
+    },
+    {
+      "food": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "name": "옛뜰 훈제 소시지",
+      "before": 120,
+      "after": 250,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_SAUSAGE": 2,
+          "ING_PEPPER": 1
+        }
+      },
+      "reason": "소시지2=짐승고기4·후추2+추가후추1, 2회분 45분 가공",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_SNEZ_MEDOVIK",
+      "name": "메도빅",
+      "before": 220,
+      "after": 280,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_FLOUR": 2,
+          "ING_SOUR_CREAM": 1,
+          "ING_SWEET_FLOWER": 2
+        }
+      },
+      "reason": "꽃2+사워크림 가공+밀가루2; 수집1종과 가공",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_SNEZ_ZHARKOYE",
+      "name": "자르코예",
+      "before": 260,
+      "after": 320,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 2,
+          "ING_POTATO": 2,
+          "ING_SOUR_CREAM": 1
+        }
+      },
+      "reason": "사냥고기2+감자2+사워크림 가공; 구매 우세 편의식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_STEAK",
+      "name": "스테이크",
+      "before": 110,
+      "after": 110,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_RAW_MEAT": 2
+        }
+      },
+      "reason": "초기 사냥2, 기초식 유지",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_CHICKEN_SKEWER",
+      "name": "버섯 닭꼬치",
+      "before": 100,
+      "after": 120,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        }
+      },
+      "reason": "일반버섯1+새고기1, 기본 복합식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_MOND_GRILLED_FISH",
+      "name": "몬드 생선구이",
+      "before": 100,
+      "after": 120,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_FISH": 1,
+          "ING_PEPPER": 1
+        }
+      },
+      "reason": "낚시1+후추1, 미끼·낚시 준비 고려",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_RADISH_SOUP",
+      "name": "무 수프",
+      "before": 90,
+      "after": 110,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_RADISH": 1,
+          "ING_MINT": 1
+        }
+      },
+      "reason": "흰무는 현재 리월에만 채집; 몬드 쉬운식으로 간주 금지",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_MINT_JELLY",
+      "name": "민트 젤리",
+      "before": 90,
+      "after": 110,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_MINT": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "reason": "민트1+설탕1(구매/꽃2 가공); 단순식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_PANCAKE_TEA_BREAK",
+      "name": "장원 팬케이크",
+      "before": 170,
+      "after": 240,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_BERRY": 3,
+          "ING_FLOUR": 2,
+          "ING_BIRD_EGG": 1
+        }
+      },
+      "reason": "베리3+새알1 채집, 밀가루2 구매",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_BOLOGNESE",
+      "name": "불꽃 미트 스파게티",
+      "before": 180,
+      "after": 210,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_FLOUR": 2,
+          "ING_RAW_MEAT": 2,
+          "ING_TOMATO": 1
+        }
+      },
+      "reason": "짐승고기2, 밀가루2·토마토1 구매; 직접수집 난이도 단순",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_APPLE_STEW",
+      "name": "북극 사과고기찜",
+      "before": 240,
+      "after": 380,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 3,
+          "ING_APPLE": 3,
+          "ING_BUTTER": 1,
+          "ING_PEPPER": 1
+        }
+      },
+      "reason": "사과3+짐승고기3+버터·후추; 다량 채집·사냥 복합",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_CHICKEN_BURGER",
+      "name": "바삭바삭 치킨버거",
+      "before": 250,
+      "after": 320,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_FOWL": 3,
+          "ING_FLOUR": 2,
+          "ING_CABBAGE": 2,
+          "ING_BUTTER": 1
+        }
+      },
+      "reason": "새고기3, 기타는 다수 구매; 간단사냥/고현금 편의",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_MORA_MEAT",
+      "name": "모라육",
+      "before": 100,
+      "after": 120,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "ING_FLOUR": 1
+        }
+      },
+      "reason": "짐승고기1+밀가루1, 기초식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_STIR_FRIED_FILET",
+      "name": "고기볶음",
+      "before": 110,
+      "after": 180,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "MAT_LIYUE_JUEYUN_CHILI": 1
+        }
+      },
+      "reason": "짐승고기1+절운고추1(리월채집); 수입240모라 구매는 비효율",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_CRYSTAL_SHRIMP",
+      "name": "수정 새우딤섬",
+      "before": 190,
+      "after": 220,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_RICE": 2,
+          "ING_SHRIMP": 2,
+          "ING_CARROT": 1
+        }
+      },
+      "reason": "당근1, 쌀·새우는 구매; 고현금 편의식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_VEGETARIAN_ABALONE",
+      "name": "채식 전복",
+      "before": 170,
+      "after": 360,
+      "existingCraftCost": {
+        "mora": 2,
+        "items": {
+          "ING_MATSUTAKE": 2,
+          "ING_SNAPDRAGON": 2
+        }
+      },
+      "reason": "송이버섯2+금어초2 모두 낮은 출현비율, 2종 희귀 채집",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_SQUIRREL_FISH",
+      "name": "탕수어",
+      "before": 250,
+      "after": 380,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_FISH": 3,
+          "ING_TOMATO": 2,
+          "ING_FLOUR": 2,
+          "ING_SUGAR": 1
+        }
+      },
+      "reason": "생선3 낚시, 나머지는 구매, 낚시 다량식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_SHRIMP_BALLS",
+      "name": "황금 새우볼",
+      "before": 240,
+      "after": 340,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_SHRIMP": 4,
+          "ING_POTATO": 3,
+          "ING_FLOUR": 2
+        }
+      },
+      "reason": "전량 구매 가능; 327모라/인분은 원액만으로 숙박보다 싸게 못함",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_BAMBOO_SOUP",
+      "name": "죽순 수프",
+      "before": 240,
+      "after": 400,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 2,
+          "ING_HAM": 2,
+          "ING_BAMBOO_SHOOT": 1
+        }
+      },
+      "reason": "고기2+햄2=총고기6+소금2, 리월 죽순1; 다량사냥·가공",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_PERCH_STEW",
+      "name": "삶은 검정 농어",
+      "before": 260,
+      "after": 440,
+      "existingCraftCost": {
+        "mora": 2,
+        "items": {
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1
+        }
+      },
+      "reason": "생선3+절운고추1+유리주머니1; 낚시/희귀2종 채집 최고식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_CRAB_HAM_BAKE",
+      "name": "꽃게알 야채찜",
+      "before": 230,
+      "after": 400,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_CABBAGE": 1,
+          "ING_CRAB_ROE": 1,
+          "ING_CREAM": 1,
+          "ING_HAM": 1
+        }
+      },
+      "reason": "꽃게2→알1·고기2→햄1·우유1→크림1, 가공3종",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_POTATO_SHRIMP_PLATTER",
+      "name": "바삭 쉬림프 카나페",
+      "before": 230,
+      "after": 340,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_MINT": 3,
+          "ING_BERRY": 2,
+          "ING_POTATO": 2,
+          "ING_SHRIMP": 3
+        }
+      },
+      "reason": "민트3+베리2 다량채집, 감자2·새우3 구매",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_GRILLED_TIGER_FISH",
+      "name": "흘호어 구이",
+      "before": 100,
+      "after": 120,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_PEPPER": 1,
+          "ING_FISH": 1
+        }
+      },
+      "reason": "몬드 생선구이와 같은 실제 재료·회복; 동일취급",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_RICE_BUNS",
+      "name": "쌀 찐빵",
+      "before": 100,
+      "after": 110,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        }
+      },
+      "reason": "말총1+쌀1 구매 가능/말총채집 대안; 간단식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_FINE_TEA_FULL_MOON",
+      "name": "차와 보름달",
+      "before": 240,
+      "after": 280,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_BIRD_EGG": 2,
+          "ING_CHENYU_ADEPTEA": 2,
+          "ING_FLOUR": 2,
+          "ING_SUGAR": 1
+        }
+      },
+      "reason": "새알2+차잎2·밀가루2·설탕1 구매; 희귀차로 오인 금지",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_JADEVEIN_TEA_EGGS",
+      "name": "옥무늬 찻잎 달걀",
+      "before": 90,
+      "after": 100,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_BIRD_EGG": 1,
+          "ING_CHENYU_ADEPTEA": 1
+        }
+      },
+      "reason": "달걀1+구매차잎1; 간단식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_TEA_SMOKED_SQUAB",
+      "name": "차향 훈제 비둘기",
+      "before": 180,
+      "after": 210,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_FOWL": 2,
+          "ING_CHENYU_ADEPTEA": 2
+        }
+      },
+      "reason": "새고기2+구매차잎2; 채집 없이 사냥1종",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_CHENYU_BREW",
+      "name": "침옥 차 이슬",
+      "before": 90,
+      "after": 90,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_CHENYU_ADEPTEA": 2
+        }
+      },
+      "reason": "차잎2는 전량 구매, 단순식; 51모라라 재료 현금 별도",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_CRAB_ROE_TOFU",
+      "name": "꽃게알 두부",
+      "before": 170,
+      "after": 280,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_CRAB_ROE": 1,
+          "ING_TOFU": 1
+        }
+      },
+      "reason": "꽃게2→알1 가공+두부1; 1종채집·가공",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_FULLMOON_EGG",
+      "name": "명월 딤섬",
+      "before": 230,
+      "after": 420,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_BIRD_EGG": 2,
+          "ING_FISH": 3,
+          "ING_SHRIMP": 2,
+          "ING_FLOUR": 1
+        }
+      },
+      "reason": "새알2+생선3, 채집·낚시 복합, 새우2·밀가루1 구매",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_FISH_NOODLES",
+      "name": "생선 볶음면",
+      "before": 170,
+      "after": 360,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_SNAPDRAGON": 2,
+          "ING_FISH": 2,
+          "ING_RICE": 2
+        }
+      },
+      "reason": "저확률 금어초2+생선2, 희귀채집·낚시 복합",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_HUMBLY_ENOUGH",
+      "name": "만족의 기쁨",
+      "before": 230,
+      "after": 340,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "MAT_LIYUE_JUEYUN_CHILI": 2,
+          "ING_TOFU": 2,
+          "ING_FLOUR": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "reason": "절운고추2 채집, 두부2·밀가루1·설탕1 구매",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_HONEY_CHAR_SIU",
+      "name": "꿀 차사오",
+      "before": 90,
+      "after": 120,
+      "existingCraftCost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "reason": "짐승고기1+설탕1 구매/꽃2 가공; 단순식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_LUCKY_SNOW_DELIGHT",
+      "name": "풍요 백설기",
+      "before": 270,
+      "after": 440,
+      "existingCraftCost": {
+        "mora": 2,
+        "items": {
+          "ING_LOTUS_HEAD": 2,
+          "MAT_LIYUE_QINGXIN": 2,
+          "ING_RICE": 2,
+          "ING_SUGAR": 1
+        }
+      },
+      "reason": "연꽃2+청심2, 두 지역채집과 해금 부담; 최고식",
+      "supplyMissing": []
+    },
+    {
+      "food": "FOOD_GOLDEN_TEMPERED_JADE",
+      "name": "빛나는 냉옥",
+      "before": 170,
+      "after": 180,
+      "existingCraftCost": {
+        "mora": 4,
+        "items": {
+          "ING_FOWL": 2,
+          "ING_SALT": 2
+        }
+      },
+      "reason": "새고기2+소금2, 고기1종 사냥; 희귀채집식과 차등",
+      "supplyMissing": []
+    }
+  ],
+  "scope": "Existing food numbers and dependent prepared-buy numbers only; no new food/ingredient/system/UI layout; enemy/healer/growth/rewards/lodging/market fees unchanged.",
+  "craftFees": "Keep existing per-food2-4 fixed Mora; actual opportunity cost and relative healing change. No crafter-level fee.",
+  "preparedPrices": "Changed healing: ceil(existingNPCprice*newBase/oldBase), preserve stock/gates/currency; preserve existing effective NPC resale caps 8/20/26/30/45/16 for six sold recovery foods.",
+  "beforeSourceSnapshot": "docs/data/food_balance_v01620/baseline_product_snapshot.json.gz",
+  "maxOrdinaryBase": 440,
+  "specialFood": "Barbara1.1 stays; no fixed target HP percentage claim."
+}

@@ -1,0 +1,1742 @@
+{
+  "scope": "Arithmetic projected payouts over actual native combat/recovery timing. No projected quantity is described as an actual settled reward.",
+  "sourcesRows": 751,
+  "profiles": {
+    "1": {
+      "rewards": {
+        "5": 1,
+        "10": 2,
+        "15": 3,
+        "20": 10,
+        "25": 30,
+        "30": 44,
+        "35": 98,
+        "40": 142,
+        "45": 294,
+        "50": 588,
+        "55": 1754,
+        "60": 4614
+      },
+      "costs": [
+        3,
+        6,
+        88,
+        710,
+        4704,
+        115350
+      ],
+      "assessment": {
+        "comparisons": 1905,
+        "successful": 1863,
+        "blocked": 42,
+        "noInversion": 1863,
+        "minFactor": 1.0000743952879168,
+        "adjacentSuccessful": 393,
+        "adjacentMinimum": 1.0000743952879168,
+        "worst": [
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"GEO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 55,
+            "high": 60,
+            "ratio": 2.6303630363036308,
+            "condition": {
+              "level": 55,
+              "element": "GEO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0000743952879168
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"PYRO\", \"enhance\": 10, \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": [\"MOND_KAEYA\", \"LIYUE_XINGQIU\", \"MOND_BARBARA\"], \"teamName\": \"hydro_counter4\"}",
+            "low": 50,
+            "high": 55,
+            "ratio": 2.981621162222458,
+            "condition": {
+              "level": 55,
+              "stage": 55,
+              "element": "PYRO",
+              "kind": "ASCENSION",
+              "team": [
+                "MOND_KAEYA",
+                "LIYUE_XINGQIU",
+                "MOND_BARBARA"
+              ],
+              "teamName": "hydro_counter4",
+              "constellations": 0,
+              "enhance": 10,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0004601641126771
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 45,
+            "high": 50,
+            "ratio": 1.9973183812774256,
+            "condition": {
+              "level": 55,
+              "stage": 50,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0013426095447333
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 2.066412213740458,
+            "condition": {
+              "level": 55,
+              "stage": 45,
+              "element": "NEUTRAL",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0019407170767494
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 2.066412213740458,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0019407170767494
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.4449178332318928,
+            "condition": {
+              "level": 55,
+              "stage": 40,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0028110654539828
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.4449178332318928,
+            "condition": {
+              "level": 55,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0028110654539828
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.44435548438751,
+            "condition": {
+              "level": 60,
+              "element": "ANEMO",
+              "kind": "ASCENSION",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0032015023304224
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 9031, \"team\": \"story4\"}",
+            "low": 30,
+            "high": 35,
+            "ratio": 2.2161687170474513,
+            "condition": {
+              "level": 55,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 9031,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0050104534640618
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 25, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 2.9669371019802844,
+            "condition": {
+              "level": 25,
+              "stage": 25,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0111437812408115
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 25, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 2.9669371019802844,
+            "condition": {
+              "level": 25,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0111437812408115
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 25,
+            "high": 30,
+            "ratio": 1.44435548438751,
+            "condition": {
+              "level": 60,
+              "element": "ANEMO",
+              "kind": "ASCENSION",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0154471544715447
+          }
+        ],
+        "topMinimum": 1.0000743952879168
+      }
+    },
+    "1.05": {
+      "rewards": {
+        "5": 1,
+        "10": 2,
+        "15": 3,
+        "20": 11,
+        "25": 35,
+        "30": 54,
+        "35": 126,
+        "40": 192,
+        "45": 417,
+        "50": 875,
+        "55": 2740,
+        "60": 7568
+      },
+      "costs": [
+        3,
+        6,
+        108,
+        960,
+        7000,
+        189200
+      ],
+      "assessment": {
+        "comparisons": 1905,
+        "successful": 1863,
+        "blocked": 42,
+        "noInversion": 1863,
+        "minFactor": 1.0500618194140434,
+        "adjacentSuccessful": 393,
+        "adjacentMinimum": 1.0500618194140434,
+        "worst": [
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"GEO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 55,
+            "high": 60,
+            "ratio": 2.6303630363036308,
+            "condition": {
+              "level": 55,
+              "element": "GEO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0500618194140434
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"PYRO\", \"enhance\": 10, \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": [\"MOND_KAEYA\", \"LIYUE_XINGQIU\", \"MOND_BARBARA\"], \"teamName\": \"hydro_counter4\"}",
+            "low": 50,
+            "high": 55,
+            "ratio": 2.981621162222458,
+            "condition": {
+              "level": 55,
+              "stage": 55,
+              "element": "PYRO",
+              "kind": "ASCENSION",
+              "team": [
+                "MOND_KAEYA",
+                "LIYUE_XINGQIU",
+                "MOND_BARBARA"
+              ],
+              "teamName": "hydro_counter4",
+              "constellations": 0,
+              "enhance": 10,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0502436094511916
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 45,
+            "high": 50,
+            "ratio": 1.9973183812774256,
+            "condition": {
+              "level": 55,
+              "stage": 50,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0505692845942944
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 2.066412213740458,
+            "condition": {
+              "level": 55,
+              "stage": 45,
+              "element": "NEUTRAL",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0510366642039157
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 2.066412213740458,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0510366642039157
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 9031, \"team\": \"story4\"}",
+            "low": 30,
+            "high": 35,
+            "ratio": 2.2161687170474513,
+            "condition": {
+              "level": 55,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 9031,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0528680941052078
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.4449178332318928,
+            "condition": {
+              "level": 55,
+              "stage": 40,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0545994303365829
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.4449178332318928,
+            "condition": {
+              "level": 55,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0545994303365829
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.44435548438751,
+            "condition": {
+              "level": 60,
+              "element": "ANEMO",
+              "kind": "ASCENSION",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0550100306197867
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 25,
+            "high": 30,
+            "ratio": 1.44435548438751,
+            "condition": {
+              "level": 60,
+              "element": "ANEMO",
+              "kind": "ASCENSION",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0681976560025341
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 30,
+            "high": 35,
+            "ratio": 2.183655536028119,
+            "condition": {
+              "level": 55,
+              "stage": 35,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0685446009389674
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 30,
+            "high": 35,
+            "ratio": 2.183655536028119,
+            "condition": {
+              "level": 55,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0685446009389674
+          }
+        ],
+        "topMinimum": 1.0500618194140434
+      }
+    },
+    "1.1": {
+      "rewards": {
+        "5": 1,
+        "10": 2,
+        "15": 3,
+        "20": 11,
+        "25": 36,
+        "30": 58,
+        "35": 142,
+        "40": 226,
+        "45": 514,
+        "50": 1130,
+        "55": 3707,
+        "60": 10726
+      },
+      "costs": [
+        3,
+        6,
+        116,
+        1130,
+        9040,
+        268150
+      ],
+      "assessment": {
+        "comparisons": 1905,
+        "successful": 1863,
+        "blocked": 42,
+        "noInversion": 1863,
+        "minFactor": 1.1000172957736372,
+        "adjacentSuccessful": 393,
+        "adjacentMinimum": 1.1000172957736372,
+        "worst": [
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"GEO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 55,
+            "high": 60,
+            "ratio": 2.6303630363036308,
+            "condition": {
+              "level": 55,
+              "element": "GEO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1000172957736372
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"PYRO\", \"enhance\": 10, \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": [\"MOND_KAEYA\", \"LIYUE_XINGQIU\", \"MOND_BARBARA\"], \"teamName\": \"hydro_counter4\"}",
+            "low": 50,
+            "high": 55,
+            "ratio": 2.981621162222458,
+            "condition": {
+              "level": 55,
+              "stage": 55,
+              "element": "PYRO",
+              "kind": "ASCENSION",
+              "team": [
+                "MOND_KAEYA",
+                "LIYUE_XINGQIU",
+                "MOND_BARBARA"
+              ],
+              "teamName": "hydro_counter4",
+              "constellations": 0,
+              "enhance": 10,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1002507679433244
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 2.066412213740458,
+            "condition": {
+              "level": 55,
+              "stage": 45,
+              "element": "NEUTRAL",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1006208093732737
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 2.066412213740458,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1006208093732737
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 45,
+            "high": 50,
+            "ratio": 1.9973183812774256,
+            "condition": {
+              "level": 55,
+              "stage": 50,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1006976155501447
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.4449178332318928,
+            "condition": {
+              "level": 55,
+              "stage": 40,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.101480831068975
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.4449178332318928,
+            "condition": {
+              "level": 55,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.101480831068975
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 35,
+            "high": 40,
+            "ratio": 1.44435548438751,
+            "condition": {
+              "level": 60,
+              "element": "ANEMO",
+              "kind": "ASCENSION",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.101909684269698
+          },
+          {
+            "key": "old{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 25, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 2.9669371019802844,
+            "condition": {
+              "level": 25,
+              "stage": 25,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1030659431717944
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 25, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 2.9669371019802844,
+            "condition": {
+              "level": 25,
+              "element": "ELECTRO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1030659431717944
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 9031, \"team\": \"story4\"}",
+            "low": 30,
+            "high": 35,
+            "ratio": 2.2161687170474513,
+            "condition": {
+              "level": 55,
+              "element": "CRYO",
+              "kind": "ASCENSION",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 9031,
+              "limit": 3,
+              "restBelow": 0.35
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1047335174601438
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 9031, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 10,
+            "high": 15,
+            "ratio": 1.3536764705882351,
+            "condition": {
+              "level": 60,
+              "element": "ANEMO",
+              "kind": "ASCENSION",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 9031,
+              "limit": 3,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1080934274850627
+          }
+        ],
+        "topMinimum": 1.1000172957736372
+      }
+    }
+  },
+  "rounded5pct": {
+    "rewards": {
+      "5": 1,
+      "10": 2,
+      "15": 3,
+      "20": 11,
+      "25": 35,
+      "30": 54,
+      "35": 126,
+      "40": 192,
+      "45": 417,
+      "50": 875,
+      "55": 2740,
+      "60": 7600
+    },
+    "costs": [
+      3,
+      6,
+      108,
+      960,
+      7000,
+      190000
+    ],
+    "assessment": {
+      "comparisons": 1905,
+      "successful": 1863,
+      "blocked": 42,
+      "noInversion": 1863,
+      "minFactor": 1.0502436094511916,
+      "adjacentSuccessful": 393,
+      "adjacentMinimum": 1.0502436094511916,
+      "worst": [
+        {
+          "key": "old{\"constellations\": 0, \"element\": \"PYRO\", \"enhance\": 10, \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": [\"MOND_KAEYA\", \"LIYUE_XINGQIU\", \"MOND_BARBARA\"], \"teamName\": \"hydro_counter4\"}",
+          "low": 50,
+          "high": 55,
+          "ratio": 2.981621162222458,
+          "condition": {
+            "level": 55,
+            "stage": 55,
+            "element": "PYRO",
+            "kind": "ASCENSION",
+            "team": [
+              "MOND_KAEYA",
+              "LIYUE_XINGQIU",
+              "MOND_BARBARA"
+            ],
+            "teamName": "hydro_counter4",
+            "constellations": 0,
+            "enhance": 10,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0502436094511916
+        },
+        {
+          "key": "old{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 45,
+          "high": 50,
+          "ratio": 1.9973183812774256,
+          "condition": {
+            "level": 55,
+            "stage": 50,
+            "element": "CRYO",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0505692845942944
+        },
+        {
+          "key": "old{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 40,
+          "high": 45,
+          "ratio": 2.066412213740458,
+          "condition": {
+            "level": 55,
+            "stage": 45,
+            "element": "NEUTRAL",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0510366642039157
+        },
+        {
+          "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 40,
+          "high": 45,
+          "ratio": 2.066412213740458,
+          "condition": {
+            "level": 55,
+            "element": "NEUTRAL",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0510366642039157
+        },
+        {
+          "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 9031, \"team\": \"story4\"}",
+          "low": 30,
+          "high": 35,
+          "ratio": 2.2161687170474513,
+          "condition": {
+            "level": 55,
+            "element": "CRYO",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 9031,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0528680941052078
+        },
+        {
+          "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"GEO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 55,
+          "high": 60,
+          "ratio": 2.6303630363036308,
+          "condition": {
+            "level": 55,
+            "element": "GEO",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.054501827107126
+        },
+        {
+          "key": "old{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 35,
+          "high": 40,
+          "ratio": 1.4449178332318928,
+          "condition": {
+            "level": 55,
+            "stage": 40,
+            "element": "ELECTRO",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0545994303365829
+        },
+        {
+          "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"ELECTRO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 35,
+          "high": 40,
+          "ratio": 1.4449178332318928,
+          "condition": {
+            "level": 55,
+            "element": "ELECTRO",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0545994303365829
+        },
+        {
+          "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+          "low": 35,
+          "high": 40,
+          "ratio": 1.44435548438751,
+          "condition": {
+            "level": 60,
+            "element": "ANEMO",
+            "kind": "ASCENSION",
+            "team": "five0",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 1,
+            "restBelow": 0.35,
+            "enhance": 12,
+            "talent": "cap"
+          },
+          "lowWins": 1,
+          "highWins": 1,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0550100306197867
+        },
+        {
+          "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"ANEMO\", \"enhance\": 12, \"kind\": \"ASCENSION\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+          "low": 25,
+          "high": 30,
+          "ratio": 1.44435548438751,
+          "condition": {
+            "level": 60,
+            "element": "ANEMO",
+            "kind": "ASCENSION",
+            "team": "five0",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 1,
+            "restBelow": 0.35,
+            "enhance": 12,
+            "talent": "cap"
+          },
+          "lowWins": 1,
+          "highWins": 1,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0681976560025341
+        },
+        {
+          "key": "old{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 30,
+          "high": 35,
+          "ratio": 2.183655536028119,
+          "condition": {
+            "level": 55,
+            "stage": 35,
+            "element": "CRYO",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0685446009389674
+        },
+        {
+          "key": "pressure_candidate_native{\"constellations\": 0, \"element\": \"CRYO\", \"kind\": \"ASCENSION\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"team\": \"story4\"}",
+          "low": 30,
+          "high": 35,
+          "ratio": 2.183655536028119,
+          "condition": {
+            "level": 55,
+            "element": "CRYO",
+            "kind": "ASCENSION",
+            "team": "story4",
+            "constellations": 0,
+            "seed": 717,
+            "limit": 3,
+            "restBelow": 0.35
+          },
+          "lowWins": 3,
+          "highWins": 3,
+          "lowLosses": 0,
+          "highLosses": 0,
+          "factor": 1.0685446009389674
+        }
+      ],
+      "topMinimum": 1.054501827107126
+    },
+    "total4": 198077,
+    "total5": 396154
+  },
+  "talentProfiles": {
+    "MOND": {
+      "minimum5pct": {
+        "5": 1,
+        "10": 2,
+        "15": 3,
+        "20": 6,
+        "25": 9
+      },
+      "assessment": {
+        "comparisons": 100,
+        "successful": 100,
+        "blocked": 0,
+        "noInversion": 100,
+        "minFactor": 1.1703857791225416,
+        "adjacentSuccessful": 40,
+        "adjacentMinimum": 1.1703857791225416,
+        "worst": [
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.2816286960736791,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1703857791225416
+          },
+          {
+            "key": "oldtalent{\"constellations\": 0, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.2816286960736791,
+            "condition": {
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1703857791225416
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 15,
+            "high": 20,
+            "ratio": 1.6517213771016812,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.2108579738245275
+          },
+          {
+            "key": "oldtalent{\"constellations\": 0, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 15,
+            "high": 20,
+            "ratio": 1.6517213771016812,
+            "condition": {
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.2108579738245275
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 6, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.141491395793499,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "story4",
+              "constellations": 6,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.3140703517587942
+          },
+          {
+            "key": "oldtalent{\"constellations\": 6, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.141491395793499,
+            "condition": {
+              "team": "story4",
+              "constellations": 6,
+              "seed": 717
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.3140703517587942
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"five0\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.1088235294117645,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.3527851458885944
+          },
+          {
+            "key": "oldtalent{\"constellations\": 0, \"seed\": 717, \"team\": \"five0\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.1088235294117645,
+            "condition": {
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.3527851458885944
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 15,
+            "high": 25,
+            "ratio": 2.1168935148118493,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.4171709531013617
+          },
+          {
+            "key": "oldtalent{\"constellations\": 0, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 15,
+            "high": 25,
+            "ratio": 2.1168935148118493,
+            "condition": {
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.4171709531013617
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 6, \"element\": \"NEUTRAL\", \"enhance\": 12, \"kind\": \"TALENT\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"story4\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.0,
+            "condition": {
+              "level": 60,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "story4",
+              "constellations": 6,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.5
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"NEUTRAL\", \"enhance\": 12, \"kind\": \"TALENT\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 20,
+            "high": 25,
+            "ratio": 1.0,
+            "condition": {
+              "level": 60,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.5
+          }
+        ],
+        "topMinimum": 1.1703857791225416
+      }
+    },
+    "LIYUE": {
+      "minimum5pct": {
+        "30": 1,
+        "35": 2,
+        "40": 4,
+        "45": 5,
+        "50": 11,
+        "55": 16,
+        "60": 37
+      },
+      "assessment": {
+        "comparisons": 310,
+        "successful": 310,
+        "blocked": 0,
+        "noInversion": 310,
+        "minFactor": 1.0688540369746493,
+        "adjacentSuccessful": 100,
+        "adjacentMinimum": 1.0688540369746493,
+        "worst": [
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"five0\"}",
+            "low": 50,
+            "high": 55,
+            "ratio": 1.3608457321848082,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0688540369746493
+          },
+          {
+            "key": "oldtalent{\"constellations\": 0, \"seed\": 717, \"team\": \"five0\"}",
+            "low": 50,
+            "high": 55,
+            "ratio": 1.3608457321848082,
+            "condition": {
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0688540369746493
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 55,
+            "high": 60,
+            "ratio": 2.1522727272727273,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0744456177402322
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 6, \"element\": \"NEUTRAL\", \"enhance\": 12, \"kind\": \"TALENT\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 1.1522633744855968,
+            "condition": {
+              "level": 60,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "story4",
+              "constellations": 6,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.0848214285714286
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 6, \"element\": \"NEUTRAL\", \"enhance\": 12, \"kind\": \"TALENT\", \"level\": 60, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 9031, \"talent\": \"cap\", \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 1.1237458193979932,
+            "condition": {
+              "level": 60,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "story4",
+              "constellations": 6,
+              "seed": 9031,
+              "limit": 3,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1123511904761905
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 45,
+            "high": 50,
+            "ratio": 1.9643101092896176,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1199860905850647
+          },
+          {
+            "key": "oldtalent{\"constellations\": 0, \"seed\": 717, \"team\": \"heal4\"}",
+            "low": 45,
+            "high": 50,
+            "ratio": 1.9643101092896176,
+            "condition": {
+              "team": "heal4",
+              "constellations": 0,
+              "seed": 717
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1199860905850647
+          },
+          {
+            "key": "oldtalent{\"constellations\": 0, \"seed\": 9031, \"team\": \"five0\"}",
+            "low": 55,
+            "high": 60,
+            "ratio": 2.058698820723466,
+            "condition": {
+              "team": "five0",
+              "constellations": 0,
+              "seed": 9031
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1232823260603721
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 9031, \"team\": \"five0\"}",
+            "low": 55,
+            "high": 60,
+            "ratio": 2.0189479263283423,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 9031,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1453985364573078
+          },
+          {
+            "key": "pressure_candidate_native{\"constellations\": 6, \"element\": \"NEUTRAL\", \"enhance\": 12, \"kind\": \"TALENT\", \"level\": 60, \"limit\": 3, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"story4\"}",
+            "low": 40,
+            "high": 45,
+            "ratio": 1.0724543080939948,
+            "condition": {
+              "level": 60,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "story4",
+              "constellations": 6,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.165550821667681
+          },
+          {
+            "key": "maximum_party_baseline{\"constellations\": 0, \"element\": \"NEUTRAL\", \"enhance\": 12, \"kind\": \"TALENT\", \"level\": 60, \"limit\": 1, \"restBelow\": 0.35, \"seed\": 717, \"talent\": \"cap\", \"team\": \"five0\"}",
+            "low": 50,
+            "high": 55,
+            "ratio": 1.2448529411764706,
+            "condition": {
+              "level": 60,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "five0",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 1,
+              "restBelow": 0.35,
+              "enhance": 12,
+              "talent": "cap"
+            },
+            "lowWins": 1,
+            "highWins": 1,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1684476185362187
+          },
+          {
+            "key": "talent_pressure_native{\"constellations\": 0, \"element\": \"NEUTRAL\", \"kind\": \"TALENT\", \"level\": 55, \"limit\": 3, \"restBelow\": 0.5, \"seed\": 717, \"team\": \"story4\"}",
+            "low": 50,
+            "high": 55,
+            "ratio": 1.2296021577882672,
+            "condition": {
+              "level": 55,
+              "element": "NEUTRAL",
+              "kind": "TALENT",
+              "team": "story4",
+              "constellations": 0,
+              "seed": 717,
+              "limit": 3,
+              "restBelow": 0.5
+            },
+            "lowWins": 3,
+            "highWins": 3,
+            "lowLosses": 0,
+            "highLosses": 0,
+            "factor": 1.1829399007901886
+          }
+        ],
+        "topMinimum": 1.0744456177402322
+      }
+    }
+  }
+}

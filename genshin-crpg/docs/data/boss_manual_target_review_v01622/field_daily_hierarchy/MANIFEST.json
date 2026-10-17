@@ -1,0 +1,47 @@
+{
+  "files": [
+    {
+      "path": "README_KO.md",
+      "bytes": 3943,
+      "sha256": "5f697eca78603c83c37da36e7740ecf5039415196fbfde874f6358e6787080bc"
+    },
+    {
+      "path": "counter_hierarchy_evidence.json",
+      "bytes": 6679,
+      "sha256": "5e9d6d9365a59a66e772f2988839b91502f2ef8c3dd8bafcfaa6dd6b2edaa826"
+    },
+    {
+      "path": "inputs_after.json",
+      "bytes": 12675,
+      "sha256": "8485eaf526ee9e572335f145658d9a226aa47dee3bbbc5e2346ad92d2d5a3de6"
+    },
+    {
+      "path": "inputs_before.json",
+      "bytes": 12675,
+      "sha256": "8485eaf526ee9e572335f145658d9a226aa47dee3bbbc5e2346ad92d2d5a3de6"
+    },
+    {
+      "path": "native.json.gz",
+      "bytes": 20871,
+      "sha256": "211d8b7876380ad1c90ea1fb131773b25fd7ea50d0b26044577f934f4bde62c6"
+    },
+    {
+      "path": "same_inputs_as_daily.json",
+      "bytes": 162,
+      "sha256": "3f29d958bff2e6e5d6357232ab1c3145453962393f2f85d2f52d48108aa76085"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 2798,
+      "sha256": "e68f8351784ff1942e9a5f8447cdb92d5a2a55a18090a30e0aa244490724def1"
+    }
+  ],
+  "script": {
+    "path": "../audit_field_daily_hierarchy.cjs",
+    "sha256": "c8ae02438d24e4f9f340831ad1d142aedf61b7f41340a2eb56b4582c1a533e25"
+  },
+  "nativeProcessesRunning": 0,
+  "originalEntryBlockedAttempts": "../field_daily_hierarchy_entry_required_attempt",
+  "originalField18EvidenceEdits": 0,
+  "originalDaily8EvidenceEdits": 0
+}

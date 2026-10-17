@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "failedRun": 312,
+  "originalCiPrograms": 197,
+  "originalCiPassed": 189,
+  "originalCiFailed": 8,
+  "originalSourceUi": "success",
+  "localFinalPrograms": 10,
+  "localFinalPassed": 10,
+  "originalFailedProgramsRetestedAndPassed": 8,
+  "newOptimizationProgramsRetestedAndPassed": 2,
+  "finalResultMode": "Latest successful execution of each program; two initial attempts had missing local sparse-checkout diagnostic files and were rerun after materializing existing committed fixtures. No product, assertion or recorded historical manifest changes.",
+  "fullFreshLocalReleaseRun": false,
+  "newWorkflowSuccessConfirmed": false,
+  "gameSourceAndBalanceChanged": false,
+  "originalTestAssertionsChanged": false,
+  "focusedCheckerCount": 34,
+  "releaseRegistryCount": 197,
+  "results": "after/results.json"
+}

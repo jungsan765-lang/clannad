@@ -1,0 +1,641 @@
+{
+  "method": "Historical explicit-origin reference fights plus current public Geo/Electro counterplay; synthetic legal ownership, levels, native stat/damage formulas, enhancement and natural artifact selection. No enemy stat edits; no forced win. Reachability and natural acquisition are tested separately. Samples are not exhaustive balance guarantees.",
+  "results": [
+    {
+      "name": "Dvalin: geared 4/4/3/3 loses, prepared level 28 party wins, five seeds each",
+      "ok": true,
+      "evidence": [
+        {
+          "seed": 717,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 4
+        },
+        {
+          "seed": 717,
+          "levels": "28/28/28/28",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 4
+        },
+        {
+          "seed": 718,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 3
+        },
+        {
+          "seed": 718,
+          "levels": "28/28/28/28",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 3
+        },
+        {
+          "seed": 719,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 3
+        },
+        {
+          "seed": 719,
+          "levels": "28/28/28/28",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 3
+        },
+        {
+          "seed": 720,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 5
+        },
+        {
+          "seed": 720,
+          "levels": "28/28/28/28",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 3
+        },
+        {
+          "seed": 721,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 3
+        },
+        {
+          "seed": 721,
+          "levels": "28/28/28/28",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 4
+        }
+      ]
+    },
+    {
+      "name": "FB_ANEMO_HYPOSTASIS: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 18,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 7,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            18,
+            4441,
+            726,
+            296
+          ],
+          [
+            "MOND_AMBER",
+            18,
+            4164,
+            745.8,
+            422.4
+          ],
+          [
+            "MOND_LISA",
+            18,
+            4086,
+            874.1999999999999,
+            429.59999999999997
+          ],
+          [
+            "MOND_BENNETT",
+            18,
+            4958,
+            772.8,
+            412.8
+          ],
+          [
+            "FB_ANEMO_HYPOSTASIS",
+            18,
+            13182,
+            1281,
+            164
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_ELECTRO_HYPOSTASIS: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_KLEE",
+          "MOND_NOELLE",
+          "MOND_BENNETT"
+        ],
+        "weapon": null,
+        "armor": "EQ_LY_ARMOR_THUNDERWARD",
+        "level": 20,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 3,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            20,
+            4600,
+            768,
+            259
+          ],
+          [
+            "MOND_KLEE",
+            20,
+            4775,
+            1124.48,
+            413.44
+          ],
+          [
+            "MOND_NOELLE",
+            20,
+            5209,
+            805.8,
+            643.1999999999999
+          ],
+          [
+            "MOND_BENNETT",
+            20,
+            5192,
+            820.8,
+            393.59999999999997
+          ],
+          [
+            "FB_ELECTRO_HYPOSTASIS",
+            20,
+            16000,
+            1700,
+            210
+          ]
+        ],
+        "counterplay": {
+          "publicEntry": true,
+          "inputs": [
+            "PLAYER_ISEKAI_E",
+            "PLAYER_ISEKAI_Q",
+            "PLAYER_ISEKAI_E"
+          ],
+          "ordinaryPrismGate": true,
+          "revivalInterrupted": true
+        }
+      }
+    },
+    {
+      "name": "FB_CRYO_REGISVINE: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 22,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 3,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            22,
+            5663,
+            945.5999999999999,
+            384
+          ],
+          [
+            "MOND_AMBER",
+            22,
+            5446,
+            982.0999999999999,
+            564.1999999999999
+          ],
+          [
+            "MOND_LISA",
+            22,
+            5380,
+            1165.5,
+            572.5999999999999
+          ],
+          [
+            "MOND_BENNETT",
+            22,
+            6426,
+            1016.4,
+            562.8
+          ],
+          [
+            "FB_CRYO_REGISVINE",
+            22,
+            18264,
+            1689,
+            203
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_CRYO_HYPOSTASIS: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 30,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 7,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            30,
+            7023,
+            1170,
+            475
+          ],
+          [
+            "MOND_AMBER",
+            30,
+            7024,
+            1242.5,
+            730.8
+          ],
+          [
+            "MOND_LISA",
+            30,
+            7012,
+            1504.3,
+            735
+          ],
+          [
+            "MOND_BENNETT",
+            30,
+            8174,
+            1282.3999999999999,
+            750.4
+          ],
+          [
+            "FB_CRYO_HYPOSTASIS",
+            30,
+            25550,
+            1509,
+            294
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_GEO_HYPOSTASIS: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_NOELLE",
+          "LIYUE_NINGGUANG",
+          "MOND_BENNETT"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "level": 45,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 13,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            45,
+            11938,
+            2239.2,
+            919
+          ],
+          [
+            "MOND_NOELLE",
+            45,
+            16093,
+            2423.7000000000003,
+            2334.6
+          ],
+          [
+            "LIYUE_NINGGUANG",
+            45,
+            13458,
+            2922.3,
+            1526.4
+          ],
+          [
+            "MOND_BENNETT",
+            45,
+            15045,
+            2455.2000000000003,
+            1531.8
+          ],
+          [
+            "FB_GEO_HYPOSTASIS",
+            45,
+            52113,
+            4117,
+            508
+          ]
+        ],
+        "counterplay": {
+          "publicEntry": true,
+          "pillarInputs": 2,
+          "ordinaryPillarGate": true,
+          "revivalInterrupted": true
+        }
+      }
+    },
+    {
+      "name": "FB_PYRO_REGISVINE: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_KAEYA",
+          "MOND_BARBARA",
+          "MOND_LISA"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "armor": "EQ_LY_ARMOR_JADEFLAME",
+        "level": 38,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 8,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            38,
+            8901,
+            1688.3999999999999,
+            636
+          ],
+          [
+            "MOND_KAEYA",
+            38,
+            10347,
+            1964,
+            1139.2
+          ],
+          [
+            "MOND_BARBARA",
+            38,
+            10266,
+            1479.2,
+            1064
+          ],
+          [
+            "MOND_LISA",
+            38,
+            9988,
+            2195.2000000000003,
+            931.2
+          ],
+          [
+            "FB_PYRO_REGISVINE",
+            38,
+            37953,
+            2644,
+            401
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_OCEANID: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 40,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 4,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            40,
+            10080,
+            1723.2,
+            698
+          ],
+          [
+            "MOND_AMBER",
+            40,
+            10435,
+            1866.4,
+            1120
+          ],
+          [
+            "MOND_LISA",
+            40,
+            10508,
+            2300,
+            1120
+          ],
+          [
+            "MOND_BENNETT",
+            40,
+            12001,
+            1921.6000000000001,
+            1179.2
+          ],
+          [
+            "FB_OCEANID",
+            40,
+            40457,
+            2919,
+            430
+          ],
+          [
+            "FB_MIMIC_BOAR",
+            40,
+            1564,
+            2627,
+            615
+          ],
+          [
+            "FB_MIMIC_CRANE",
+            40,
+            1079,
+            2335,
+            461
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_PRIMO_GEOVISHAP: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_NOELLE",
+          "MOND_DIONA",
+          "MOND_BENNETT"
+        ],
+        "level": 48,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 17,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            48,
+            13388,
+            2344.7999999999997,
+            950
+          ],
+          [
+            "MOND_NOELLE",
+            48,
+            17352,
+            2609.1,
+            2534.4
+          ],
+          [
+            "MOND_DIONA",
+            48,
+            14616,
+            2178.9,
+            1792.8
+          ],
+          [
+            "MOND_BENNETT",
+            48,
+            16150,
+            2640.6,
+            1665
+          ],
+          [
+            "FB_PRIMO_GEOVISHAP",
+            48,
+            56718,
+            4694,
+            557
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_RUIN_SERPENT: a prepared party at the boss level can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_NOELLE",
+          "MOND_DIONA",
+          "MOND_BENNETT"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "level": 56,
+        "enhance": 10,
+        "seed": 717,
+        "rounds": 33,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            56,
+            18227,
+            3488.4,
+            1425
+          ],
+          [
+            "MOND_NOELLE",
+            56,
+            25032,
+            3848.9,
+            3801.6000000000004
+          ],
+          [
+            "MOND_DIONA",
+            56,
+            20987,
+            3186.7000000000003,
+            2670.8
+          ],
+          [
+            "MOND_BENNETT",
+            56,
+            23072,
+            3887.4,
+            2499.2000000000003
+          ],
+          [
+            "FB_RUIN_SERPENT",
+            56,
+            83496,
+            7840,
+            700
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Liyue ESCORT: native level 6 solo fails; regional-level equipped party survives",
+      "ok": true,
+      "evidence": [
+        {
+          "anchor": "ISK_L01_B_038",
+          "team": [],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": false,
+          "rounds": 2
+        },
+        {
+          "anchor": "ISK_L01_B_038",
+          "team": [
+            "MOND_AMBER",
+            "MOND_KAEYA",
+            "MOND_BARBARA"
+          ],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": true,
+          "rounds": 4
+        }
+      ]
+    },
+    {
+      "name": "Liyue DEFEND: native level 6 solo fails; regional-level equipped party survives",
+      "ok": true,
+      "evidence": [
+        {
+          "anchor": "ISK_L02_K1_001",
+          "team": [],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": false,
+          "rounds": 2
+        },
+        {
+          "anchor": "ISK_L02_K1_001",
+          "team": [
+            "MOND_AMBER",
+            "MOND_KAEYA",
+            "MOND_BARBARA"
+          ],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": true,
+          "rounds": 6
+        }
+      ]
+    }
+  ]
+}

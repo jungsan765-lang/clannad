@@ -1,0 +1,1053 @@
+{
+  "scope": "Read-only comparison from already executed results. No further battle, inn purchase, travel, or recovery execution. Inn formula uses source/runtime.js innRecoveryQuote room20rate + each ceil(4*level*missingHp/maxHp*rate). Actual business stock/gate/travel not sampled.",
+  "rows": [
+    {
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 107,
+          "final": 107
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 132,
+          "final": 132
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 3479,
+          "maxHp": 4749
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 3869,
+          "maxHp": 5168
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 3663,
+          "maxHp": 4958
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 25,
+          "hp": 4779,
+          "maxHp": 5098
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_BOW_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "equip": "EQ_CATALYST_MAPPA",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    },
+    {
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 77,
+          "final": 77
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 94,
+          "final": 94
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 3888,
+          "maxHp": 4749
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 10008,
+          "maxHp": 10686
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 5928,
+          "maxHp": 7166
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 6254,
+          "maxHp": 7166
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_CLAYMORE_WHITEBLIND",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C6",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 20,
+          "final": 20
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 25,
+          "final": 25
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 5301,
+          "maxHp": 5301
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 28,
+          "hp": 5774,
+          "maxHp": 5774
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 28,
+          "hp": 5537,
+          "maxHp": 5537
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 28,
+          "hp": 5694,
+          "maxHp": 5694
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_BOW_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "equip": "EQ_CATALYST_MAPPA",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "investment": "FIVE_C0",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 20,
+          "final": 20
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 25,
+          "final": 25
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 5301,
+          "maxHp": 5301
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 28,
+          "hp": 12012,
+          "maxHp": 12012
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 28,
+          "hp": 8028,
+          "maxHp": 8028
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 28,
+          "hp": 8028,
+          "maxHp": 8028
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_CLAYMORE_WHITEBLIND",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 166,
+          "final": 172
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 208,
+          "final": 215
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 6563,
+          "maxHp": 12690
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 50,
+          "hp": 10104,
+          "maxHp": 13889
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "level": 50,
+          "hp": 14288,
+          "maxHp": 14288
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 50,
+          "hp": 15086,
+          "maxHp": 15086
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XINGQIU",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 20,
+          "final": 20
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 25,
+          "final": 25
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 12690,
+          "maxHp": 12690
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 31556,
+          "maxHp": 31556
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 20798,
+          "maxHp": 20798
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 50,
+          "hp": 20798,
+          "maxHp": 20798
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_CLAYMORE_WHITEBLIND",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FOUR_C6",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 430,
+          "final": 430
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 538,
+          "final": 538
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 4545,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 11939,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 10000,
+          "maxHp": 20155
+        },
+        {
+          "owner": "MOND_NOELLE",
+          "level": 60,
+          "hp": 25976,
+          "maxHp": 25976
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_BOW_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_NOELLE",
+          "equip": "EQ_CLAYMORE_WHITEBLIND",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_NOELLE",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_NOELLE",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "rewardDelta": {},
+      "admissionBefore": {},
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      },
+      "innFormulaComparisonNotPurchase": {
+        "MondFormulaOnly": {
+          "baseline": 41,
+          "final": 41
+        },
+        "LiyueFormulaOnly": {
+          "baseline": 50,
+          "final": 50
+        }
+      },
+      "allyEndingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 18162,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32109,
+          "maxHp": 32947
+        }
+      ],
+      "equipmentInitial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "PLAYER_CUSTOM",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_CLAYMORE_WHITEBLIND",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_DILUC",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_SWORD_RANCOUR",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        },
+        {
+          "owner": "MOND_JEAN",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "enhance": 10,
+          "enhancementCap": 10,
+          "artifact": null
+        }
+      ]
+    }
+  ]
+}

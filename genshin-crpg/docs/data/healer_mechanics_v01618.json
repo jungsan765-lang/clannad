@@ -1,0 +1,1720 @@
+[
+  {
+    "level": 10,
+    "talent": 1,
+    "party": [
+      {
+        "source": "PLAYER_CUSTOM",
+        "maxHp": 1399,
+        "atk": 208.79999999999998
+      },
+      {
+        "source": "MOND_FISCHL",
+        "maxHp": 1469,
+        "atk": 275
+      },
+      {
+        "source": "MOND_BARBARA",
+        "maxHp": 1592,
+        "atk": 191
+      },
+      {
+        "source": "MOND_JEAN",
+        "maxHp": 1950,
+        "atk": 305
+      }
+    ],
+    "barbaraQ": {
+      "actor": {
+        "name": "바바라",
+        "hpMax": 1592,
+        "atk": 191,
+        "combatAtk": 202.46
+      },
+      "card": {
+        "id": "MOND_BARBARA_Q",
+        "cd": 6
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 597
+        },
+        {
+          "target": "피슬",
+          "heal": 597
+        },
+        {
+          "target": "바바라",
+          "heal": 597
+        },
+        {
+          "target": "진",
+          "heal": 597
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-10-717:B1:F1"
+        }
+      ]
+    },
+    "jeanQ": {
+      "actor": {
+        "name": "진",
+        "hpMax": 1950,
+        "atk": 305,
+        "combatAtk": 323.3
+      },
+      "card": {
+        "id": "MOND_JEAN_Q",
+        "cd": 5
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 582
+        },
+        {
+          "target": "피슬",
+          "heal": 582
+        },
+        {
+          "target": "바바라",
+          "heal": 582
+        },
+        {
+          "target": "진",
+          "heal": 582
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-10-717:B1:F1"
+        }
+      ]
+    },
+    "fieldTicks": [
+      {
+        "round": 1,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 113
+          },
+          {
+            "target": "피슬",
+            "heal": 113
+          },
+          {
+            "target": "바바라",
+            "heal": 113
+          },
+          {
+            "target": "진",
+            "heal": 113
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 2,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 113
+          },
+          {
+            "target": "피슬",
+            "heal": 113
+          },
+          {
+            "target": "바바라",
+            "heal": 113
+          },
+          {
+            "target": "진",
+            "heal": 113
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 1,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 113
+          },
+          {
+            "target": "피슬",
+            "heal": 113
+          },
+          {
+            "target": "바바라",
+            "heal": 113
+          },
+          {
+            "target": "진",
+            "heal": 113
+          }
+        ],
+        "remaining": []
+      },
+      {
+        "round": 4,
+        "heals": [],
+        "remaining": []
+      }
+    ]
+  },
+  {
+    "level": 30,
+    "talent": 1,
+    "party": [
+      {
+        "source": "PLAYER_CUSTOM",
+        "maxHp": 5110,
+        "atk": 882
+      },
+      {
+        "source": "MOND_FISCHL",
+        "maxHp": 5366,
+        "atk": 1065.3999999999999
+      },
+      {
+        "source": "MOND_BARBARA",
+        "maxHp": 5813,
+        "atk": 712.5999999999999
+      },
+      {
+        "source": "MOND_JEAN",
+        "maxHp": 7983,
+        "atk": 1329.1200000000001
+      }
+    ],
+    "barbaraQ": {
+      "actor": {
+        "name": "바바라",
+        "hpMax": 5813,
+        "atk": 712.5999999999999,
+        "combatAtk": 755.356
+      },
+      "card": {
+        "id": "MOND_BARBARA_Q",
+        "cd": 6
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 2180
+        },
+        {
+          "target": "피슬",
+          "heal": 2180
+        },
+        {
+          "target": "바바라",
+          "heal": 2180
+        },
+        {
+          "target": "진",
+          "heal": 2180
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-30-717:B1:F1"
+        }
+      ]
+    },
+    "jeanQ": {
+      "actor": {
+        "name": "진",
+        "hpMax": 7983,
+        "atk": 1329.1200000000001,
+        "combatAtk": 1408.8672000000001
+      },
+      "card": {
+        "id": "MOND_JEAN_Q",
+        "cd": 5
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 2536
+        },
+        {
+          "target": "피슬",
+          "heal": 2536
+        },
+        {
+          "target": "바바라",
+          "heal": 2536
+        },
+        {
+          "target": "진",
+          "heal": 2536
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-30-717:B1:F1"
+        }
+      ]
+    },
+    "fieldTicks": [
+      {
+        "round": 1,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 493
+          },
+          {
+            "target": "피슬",
+            "heal": 493
+          },
+          {
+            "target": "바바라",
+            "heal": 493
+          },
+          {
+            "target": "진",
+            "heal": 493
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 2,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 493
+          },
+          {
+            "target": "피슬",
+            "heal": 493
+          },
+          {
+            "target": "바바라",
+            "heal": 493
+          },
+          {
+            "target": "진",
+            "heal": 493
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 1,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 493
+          },
+          {
+            "target": "피슬",
+            "heal": 493
+          },
+          {
+            "target": "바바라",
+            "heal": 493
+          },
+          {
+            "target": "진",
+            "heal": 493
+          }
+        ],
+        "remaining": []
+      },
+      {
+        "round": 4,
+        "heals": [],
+        "remaining": []
+      }
+    ]
+  },
+  {
+    "level": 30,
+    "talent": 4,
+    "party": [
+      {
+        "source": "PLAYER_CUSTOM",
+        "maxHp": 5110,
+        "atk": 882
+      },
+      {
+        "source": "MOND_FISCHL",
+        "maxHp": 5366,
+        "atk": 1065.3999999999999
+      },
+      {
+        "source": "MOND_BARBARA",
+        "maxHp": 5813,
+        "atk": 712.5999999999999
+      },
+      {
+        "source": "MOND_JEAN",
+        "maxHp": 7983,
+        "atk": 1329.1200000000001
+      }
+    ],
+    "barbaraQ": {
+      "actor": {
+        "name": "바바라",
+        "hpMax": 5813,
+        "atk": 712.5999999999999,
+        "combatAtk": 755.356
+      },
+      "card": {
+        "id": "MOND_BARBARA_Q",
+        "cd": 6
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 2768
+        },
+        {
+          "target": "피슬",
+          "heal": 2768
+        },
+        {
+          "target": "바바라",
+          "heal": 2768
+        },
+        {
+          "target": "진",
+          "heal": 2768
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-30-717:B1:F1"
+        }
+      ]
+    },
+    "jeanQ": {
+      "actor": {
+        "name": "진",
+        "hpMax": 7983,
+        "atk": 1329.1200000000001,
+        "combatAtk": 1408.8672000000001
+      },
+      "card": {
+        "id": "MOND_JEAN_Q",
+        "cd": 5
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 3221
+        },
+        {
+          "target": "피슬",
+          "heal": 3221
+        },
+        {
+          "target": "바바라",
+          "heal": 3221
+        },
+        {
+          "target": "진",
+          "heal": 3221
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-30-717:B1:F1"
+        }
+      ]
+    },
+    "fieldTicks": [
+      {
+        "round": 1,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 493
+          },
+          {
+            "target": "피슬",
+            "heal": 493
+          },
+          {
+            "target": "바바라",
+            "heal": 493
+          },
+          {
+            "target": "진",
+            "heal": 493
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 2,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 493
+          },
+          {
+            "target": "피슬",
+            "heal": 493
+          },
+          {
+            "target": "바바라",
+            "heal": 493
+          },
+          {
+            "target": "진",
+            "heal": 493
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 1,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 493
+          },
+          {
+            "target": "피슬",
+            "heal": 493
+          },
+          {
+            "target": "바바라",
+            "heal": 493
+          },
+          {
+            "target": "진",
+            "heal": 493
+          }
+        ],
+        "remaining": []
+      },
+      {
+        "round": 4,
+        "heals": [],
+        "remaining": []
+      }
+    ]
+  },
+  {
+    "level": 60,
+    "talent": 1,
+    "party": [
+      {
+        "source": "PLAYER_CUSTOM",
+        "maxHp": 18383,
+        "atk": 3667.2
+      },
+      {
+        "source": "MOND_FISCHL",
+        "maxHp": 19302,
+        "atk": 4309.8
+      },
+      {
+        "source": "MOND_BARBARA",
+        "maxHp": 20912,
+        "atk": 2844.6000000000004
+      },
+      {
+        "source": "MOND_JEAN",
+        "maxHp": 31886,
+        "atk": 5896
+      }
+    ],
+    "barbaraQ": {
+      "actor": {
+        "name": "바바라",
+        "hpMax": 20912,
+        "atk": 2844.6000000000004,
+        "combatAtk": 3015.2760000000007
+      },
+      "card": {
+        "id": "MOND_BARBARA_Q",
+        "cd": 6
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 7842
+        },
+        {
+          "target": "피슬",
+          "heal": 7842
+        },
+        {
+          "target": "바바라",
+          "heal": 7842
+        },
+        {
+          "target": "진",
+          "heal": 7842
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1"
+        }
+      ]
+    },
+    "jeanQ": {
+      "actor": {
+        "name": "진",
+        "hpMax": 31886,
+        "atk": 5896,
+        "combatAtk": 6249.76
+      },
+      "card": {
+        "id": "MOND_JEAN_Q",
+        "cd": 5
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 11250
+        },
+        {
+          "target": "피슬",
+          "heal": 11250
+        },
+        {
+          "target": "바바라",
+          "heal": 11250
+        },
+        {
+          "target": "진",
+          "heal": 11250
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1"
+        }
+      ]
+    },
+    "fieldTicks": [
+      {
+        "round": 1,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 2187
+          },
+          {
+            "target": "피슬",
+            "heal": 2187
+          },
+          {
+            "target": "바바라",
+            "heal": 2187
+          },
+          {
+            "target": "진",
+            "heal": 2187
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 2,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 2187
+          },
+          {
+            "target": "피슬",
+            "heal": 2187
+          },
+          {
+            "target": "바바라",
+            "heal": 2187
+          },
+          {
+            "target": "진",
+            "heal": 2187
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 1,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 2187
+          },
+          {
+            "target": "피슬",
+            "heal": 2187
+          },
+          {
+            "target": "바바라",
+            "heal": 2187
+          },
+          {
+            "target": "진",
+            "heal": 2187
+          }
+        ],
+        "remaining": []
+      },
+      {
+        "round": 4,
+        "heals": [],
+        "remaining": []
+      }
+    ]
+  },
+  {
+    "level": 60,
+    "talent": 7,
+    "party": [
+      {
+        "source": "PLAYER_CUSTOM",
+        "maxHp": 18383,
+        "atk": 3667.2
+      },
+      {
+        "source": "MOND_FISCHL",
+        "maxHp": 19302,
+        "atk": 4309.8
+      },
+      {
+        "source": "MOND_BARBARA",
+        "maxHp": 20912,
+        "atk": 2844.6000000000004
+      },
+      {
+        "source": "MOND_JEAN",
+        "maxHp": 31886,
+        "atk": 5896
+      }
+    ],
+    "barbaraQ": {
+      "actor": {
+        "name": "바바라",
+        "hpMax": 20912,
+        "atk": 2844.6000000000004,
+        "combatAtk": 3015.2760000000007
+      },
+      "card": {
+        "id": "MOND_BARBARA_Q",
+        "cd": 6
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 12782
+        },
+        {
+          "target": "피슬",
+          "heal": 12782
+        },
+        {
+          "target": "바바라",
+          "heal": 12782
+        },
+        {
+          "target": "진",
+          "heal": 12782
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1"
+        }
+      ]
+    },
+    "jeanQ": {
+      "actor": {
+        "name": "진",
+        "hpMax": 31886,
+        "atk": 5896,
+        "combatAtk": 6249.76
+      },
+      "card": {
+        "id": "MOND_JEAN_Q",
+        "cd": 5
+      },
+      "heals": [
+        {
+          "target": "동일 조건 비교",
+          "heal": 18337
+        },
+        {
+          "target": "피슬",
+          "heal": 18337
+        },
+        {
+          "target": "바바라",
+          "heal": 18337
+        },
+        {
+          "target": "진",
+          "heal": 18337
+        }
+      ],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        }
+      ],
+      "fields": [
+        {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 0,
+          "createdRound": 1,
+          "sourceCardId": "MOND_JEAN_Q",
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1"
+        }
+      ]
+    },
+    "fieldTicks": [
+      {
+        "round": 1,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 2187
+          },
+          {
+            "target": "피슬",
+            "heal": 2187
+          },
+          {
+            "target": "바바라",
+            "heal": 2187
+          },
+          {
+            "target": "진",
+            "heal": 2187
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 2,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 2187
+          },
+          {
+            "target": "피슬",
+            "heal": 2187
+          },
+          {
+            "target": "바바라",
+            "heal": 2187
+          },
+          {
+            "target": "진",
+            "heal": 2187
+          }
+        ],
+        "remaining": [
+          {
+            "kind": "DANDELION",
+            "rounds": 1,
+            "created": 1
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 2187
+          },
+          {
+            "target": "피슬",
+            "heal": 2187
+          },
+          {
+            "target": "바바라",
+            "heal": 2187
+          },
+          {
+            "target": "진",
+            "heal": 2187
+          }
+        ],
+        "remaining": []
+      },
+      {
+        "round": 4,
+        "heals": [],
+        "remaining": []
+      }
+    ]
+  },
+  {
+    "name": "Barbara_E_duration",
+    "e": {
+      "actor": {
+        "name": "바바라",
+        "hpMax": 20912,
+        "atk": 2844.6000000000004,
+        "combatAtk": 3015.2760000000007
+      },
+      "card": {
+        "id": "MOND_BARBARA_E",
+        "cd": 4
+      },
+      "heals": [],
+      "statuses": [
+        {
+          "id": "FORMATION",
+          "rounds": null,
+          "createdRound": 1,
+          "mods": {
+            "atk": {
+              "pct": 6,
+              "flat": 0
+            },
+            "hit": {
+              "pct": 0,
+              "flat": 10
+            }
+          },
+          "taken": 1,
+          "reactionOut": 1,
+          "supportOut": 1,
+          "formation": "DOUBLE_LINE"
+        },
+        {
+          "id": "STATUS_BARBARA_MELODY_LOOP",
+          "rounds": 0,
+          "createdRound": 1
+        }
+      ],
+      "fields": []
+    },
+    "loops": [
+      {
+        "round": 1,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 1255
+          },
+          {
+            "target": "피슬",
+            "heal": 1255
+          },
+          {
+            "target": "바바라",
+            "heal": 1255
+          },
+          {
+            "target": "진",
+            "heal": 1255
+          }
+        ],
+        "status": {
+          "id": "STATUS_BARBARA_MELODY_LOOP",
+          "rounds": 0,
+          "createdRound": 1
+        }
+      },
+      {
+        "round": 2,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 1255
+          },
+          {
+            "target": "피슬",
+            "heal": 1255
+          },
+          {
+            "target": "바바라",
+            "heal": 1255
+          },
+          {
+            "target": "진",
+            "heal": 1255
+          }
+        ],
+        "status": {
+          "id": "STATUS_BARBARA_MELODY_LOOP",
+          "rounds": 0,
+          "createdRound": 1
+        }
+      },
+      {
+        "round": 3,
+        "heals": [
+          {
+            "target": "동일 조건 비교",
+            "heal": 1255
+          },
+          {
+            "target": "피슬",
+            "heal": 1255
+          },
+          {
+            "target": "바바라",
+            "heal": 1255
+          },
+          {
+            "target": "진",
+            "heal": 1255
+          }
+        ],
+        "status": {
+          "id": "STATUS_BARBARA_MELODY_LOOP",
+          "rounds": 0,
+          "createdRound": 1
+        }
+      },
+      {
+        "round": 4,
+        "heals": []
+      }
+    ]
+  },
+  {
+    "name": "Jean_dead_field",
+    "heals": [
+      {
+        "actor": "진",
+        "target": "동일 조건 비교",
+        "heal": 493,
+        "presentationActorsBefore": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "hp": 3222
+          },
+          {
+            "id": "MOND_FISCHL",
+            "hp": 3222
+          },
+          {
+            "id": "MOND_BARBARA",
+            "hp": 3222
+          },
+          {
+            "id": "MOND_JEAN",
+            "hp": 3222
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "hp": 494
+          },
+          {
+            "id": "MOND_FISCHL",
+            "hp": 1
+          },
+          {
+            "id": "MOND_BARBARA",
+            "hp": 1
+          },
+          {
+            "id": "MOND_JEAN",
+            "hp": 0
+          }
+        ],
+        "targetId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1,
+        "hpAfter": 494,
+        "maxHp": 5110
+      },
+      {
+        "actor": "진",
+        "target": "피슬",
+        "heal": 493,
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_FISCHL",
+            "hp": 1
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_FISCHL",
+            "hp": 494
+          }
+        ],
+        "targetId": "MOND_FISCHL",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1,
+        "hpAfter": 494,
+        "maxHp": 5366
+      },
+      {
+        "actor": "진",
+        "target": "바바라",
+        "heal": 493,
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_BARBARA",
+            "hp": 1
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_BARBARA",
+            "hp": 494
+          }
+        ],
+        "targetId": "MOND_BARBARA",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1,
+        "hpAfter": 494,
+        "maxHp": 5813
+      }
+    ]
+  },
+  {
+    "name": "Jean_frozen_field",
+    "heals": [
+      {
+        "actor": "진",
+        "target": "동일 조건 비교",
+        "heal": 493,
+        "presentationActorsBefore": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "hp": 3222
+          },
+          {
+            "id": "MOND_FISCHL",
+            "hp": 3222
+          },
+          {
+            "id": "MOND_BARBARA",
+            "hp": 3222
+          },
+          {
+            "id": "MOND_JEAN",
+            "hp": 3222
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "hp": 494
+          },
+          {
+            "id": "MOND_FISCHL",
+            "hp": 1
+          },
+          {
+            "id": "MOND_BARBARA",
+            "hp": 1
+          },
+          {
+            "id": "MOND_JEAN",
+            "hp": 1
+          }
+        ],
+        "targetId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1,
+        "hpAfter": 494,
+        "maxHp": 5110
+      },
+      {
+        "actor": "진",
+        "target": "피슬",
+        "heal": 493,
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_FISCHL",
+            "hp": 1
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_FISCHL",
+            "hp": 494
+          }
+        ],
+        "targetId": "MOND_FISCHL",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1,
+        "hpAfter": 494,
+        "maxHp": 5366
+      },
+      {
+        "actor": "진",
+        "target": "바바라",
+        "heal": 493,
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_BARBARA",
+            "hp": 1
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_BARBARA",
+            "hp": 494
+          }
+        ],
+        "targetId": "MOND_BARBARA",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1,
+        "hpAfter": 494,
+        "maxHp": 5813
+      },
+      {
+        "actor": "진",
+        "target": "진",
+        "heal": 493,
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_JEAN",
+            "hp": 1
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_JEAN",
+            "hp": 494
+          }
+        ],
+        "targetId": "MOND_JEAN",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1,
+        "hpAfter": 494,
+        "maxHp": 7983
+      }
+    ]
+  },
+  {
+    "name": "battle_reset",
+    "cdBefore": [
+      {
+        "source": "PLAYER_CUSTOM",
+        "cd": {}
+      },
+      {
+        "source": "MOND_FISCHL",
+        "cd": {}
+      },
+      {
+        "source": "MOND_BARBARA",
+        "cd": {
+          "MOND_BARBARA_Q": 6
+        }
+      },
+      {
+        "source": "MOND_JEAN",
+        "cd": {
+          "MOND_JEAN_Q": 5
+        }
+      }
+    ],
+    "persistent": [
+      {
+        "owner": "PLAYER_CUSTOM",
+        "level": 30,
+        "hp": 5110,
+        "maxHp": 5110
+      },
+      {
+        "owner": "MOND_FISCHL",
+        "level": 30,
+        "hp": 5366,
+        "maxHp": 5366
+      },
+      {
+        "owner": "MOND_BARBARA",
+        "level": 30,
+        "hp": 5536,
+        "maxHp": 5536
+      },
+      {
+        "owner": "MOND_JEAN",
+        "level": 30,
+        "hp": 5990,
+        "maxHp": 7983
+      }
+    ],
+    "afterStatuses": {
+      "MOND_BARBARA": [],
+      "MOND_JEAN": []
+    },
+    "cdAfter": [
+      {
+        "source": "PLAYER_CUSTOM",
+        "cd": {},
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ]
+      },
+      {
+        "source": "MOND_FISCHL",
+        "cd": {},
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ]
+      },
+      {
+        "source": "MOND_BARBARA",
+        "cd": {},
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ]
+      },
+      {
+        "source": "MOND_JEAN",
+        "cd": {},
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ]
+      }
+    ]
+  }
+]

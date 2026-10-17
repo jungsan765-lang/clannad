@@ -1,0 +1,475 @@
+{
+  "scope": "Five declared pivot35 native conditions and two recovery/equipment followups, seed717; not a full1-60 journey. Four heal4 conditions compare recovery threshold0.5, and one story4 condition compares threshold0.35. Followups intentionally change recovery threshold and one also changes gear; they do not isolate damage coefficient effects.",
+  "candidateSummarySha256": "d23a894923895d870c7f4af29d87fdb7e3de31998926a6f75ecc0a80d40ea831",
+  "recoverySummarySha256": "f3051036d160af15f85cfa568eaf0cccf4806ecfbbe6ea237c882f497515ebcb",
+  "beforeSummarySha256": {
+    "xp_impact_before": "0f7f0362e831363ff90eb191a2602ea683c8f9c73ccbbfb7ac6577f0abe29590",
+    "xp_support_impact_before": "2a5d66a7a689367985ae7c274438e323883d246ee0522e34674f02eb19e1796b"
+  },
+  "candidateCounts": {
+    "conditions": 5,
+    "nativeBattles": 30,
+    "wins": 29,
+    "losses": 1,
+    "recoveries": 25
+  },
+  "recoveryCounts": {
+    "conditions": 2,
+    "nativeBattles": 12,
+    "wins": 12,
+    "losses": 0,
+    "recoveries": 10
+  },
+  "rows": [
+    {
+      "level": 40,
+      "stage": 40,
+      "route": "ROUTE_TRAVELER",
+      "team": "heal4",
+      "seed": 717,
+      "restBelow": 0.5,
+      "equippedEnhanceLevels": [
+        6
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_AMBER": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_KAEYA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_LISA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_FISCHL": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "LIYUE_XIANGLING": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_BARBARA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        }
+      },
+      "beforeWins": 6,
+      "beforeLosses": 0,
+      "finalWins": 6,
+      "finalLosses": 0,
+      "beforeTotalElapsedSeconds": 1163.67,
+      "finalTotalElapsedSeconds": 1175.07,
+      "beforeCycleSecondsPerVictoryIncludingLodgingAndFailure": 193.94500000000002,
+      "finalCycleSecondsPerVictoryIncludingLodgingAndFailure": 195.845,
+      "timePerVictoryPercentChange": 0.9796591817267775,
+      "beforeTotalInnMora": 1190,
+      "finalTotalInnMora": 1526,
+      "additionalTotalInnMora": 336,
+      "beforeInnCount": 4,
+      "finalInnCount": 5,
+      "beforeStop": "LIMIT",
+      "finalStop": "LIMIT",
+      "beforeRestBelow": 0.5
+    },
+    {
+      "level": 40,
+      "stage": 40,
+      "route": "ROUTE_ISEKAI",
+      "team": "heal4",
+      "seed": 717,
+      "restBelow": 0.5,
+      "equippedEnhanceLevels": [
+        6
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_AMBER": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_KAEYA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_LISA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_FISCHL": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "LIYUE_XIANGLING": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_BARBARA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        }
+      },
+      "beforeWins": 6,
+      "beforeLosses": 0,
+      "finalWins": 6,
+      "finalLosses": 0,
+      "beforeTotalElapsedSeconds": 1452.3500000000001,
+      "finalTotalElapsedSeconds": 1560.52,
+      "beforeCycleSecondsPerVictoryIncludingLodgingAndFailure": 242.05833333333337,
+      "finalCycleSecondsPerVictoryIncludingLodgingAndFailure": 260.08666666666664,
+      "timePerVictoryPercentChange": 7.44792921816364,
+      "beforeTotalInnMora": 1463,
+      "finalTotalInnMora": 2370,
+      "additionalTotalInnMora": 907,
+      "beforeInnCount": 5,
+      "finalInnCount": 5,
+      "beforeStop": "LIMIT",
+      "finalStop": "LIMIT",
+      "beforeRestBelow": 0.5
+    },
+    {
+      "level": 60,
+      "stage": 60,
+      "route": "ROUTE_TRAVELER",
+      "team": "heal4",
+      "seed": 717,
+      "restBelow": 0.5,
+      "equippedEnhanceLevels": [
+        6
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_AMBER": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_KAEYA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_LISA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_FISCHL": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "LIYUE_XIANGLING": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_BARBARA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        }
+      },
+      "beforeWins": 6,
+      "beforeLosses": 0,
+      "finalWins": 6,
+      "finalLosses": 0,
+      "beforeTotalElapsedSeconds": 918.76,
+      "finalTotalElapsedSeconds": 1248.0099999999998,
+      "beforeCycleSecondsPerVictoryIncludingLodgingAndFailure": 153.12666666666667,
+      "finalCycleSecondsPerVictoryIncludingLodgingAndFailure": 208.00166666666664,
+      "timePerVictoryPercentChange": 35.836344638425686,
+      "beforeTotalInnMora": 1624,
+      "finalTotalInnMora": 3530,
+      "additionalTotalInnMora": 1906,
+      "beforeInnCount": 3,
+      "finalInnCount": 5,
+      "beforeStop": "LIMIT",
+      "finalStop": "LIMIT",
+      "beforeRestBelow": 0.5
+    },
+    {
+      "level": 60,
+      "stage": 60,
+      "route": "ROUTE_ISEKAI",
+      "team": "heal4",
+      "seed": 717,
+      "restBelow": 0.5,
+      "equippedEnhanceLevels": [
+        6
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_AMBER": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_KAEYA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_LISA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_FISCHL": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "LIYUE_XIANGLING": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_BARBARA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        }
+      },
+      "beforeWins": 6,
+      "beforeLosses": 0,
+      "finalWins": 5,
+      "finalLosses": 1,
+      "beforeTotalElapsedSeconds": 979.09,
+      "finalTotalElapsedSeconds": 1351.92,
+      "beforeCycleSecondsPerVictoryIncludingLodgingAndFailure": 163.18166666666667,
+      "finalCycleSecondsPerVictoryIncludingLodgingAndFailure": 270.384,
+      "timePerVictoryPercentChange": 65.69508421084885,
+      "beforeTotalInnMora": 1509,
+      "finalTotalInnMora": 2833,
+      "additionalTotalInnMora": 1324,
+      "beforeInnCount": 3,
+      "finalInnCount": 5,
+      "beforeStop": "LIMIT",
+      "finalStop": "DEFEAT",
+      "beforeRestBelow": 0.5
+    },
+    {
+      "level": 40,
+      "stage": 40,
+      "route": "ROUTE_ISEKAI",
+      "team": "story4",
+      "seed": 717,
+      "restBelow": 0.35,
+      "equippedEnhanceLevels": [
+        6
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_AMBER": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_KAEYA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        },
+        "MOND_LISA": {
+          "na": 3,
+          "e": 3,
+          "q": 3
+        }
+      },
+      "beforeWins": 6,
+      "beforeLosses": 0,
+      "finalWins": 6,
+      "finalLosses": 0,
+      "beforeTotalElapsedSeconds": 1256.3,
+      "finalTotalElapsedSeconds": 1197.7300000000002,
+      "beforeCycleSecondsPerVictoryIncludingLodgingAndFailure": 209.38333333333333,
+      "finalCycleSecondsPerVictoryIncludingLodgingAndFailure": 199.6216666666667,
+      "timePerVictoryPercentChange": -4.662103000875573,
+      "beforeTotalInnMora": 2329,
+      "finalTotalInnMora": 2627,
+      "additionalTotalInnMora": 298,
+      "beforeInnCount": 5,
+      "finalInnCount": 5,
+      "beforeStop": "LIMIT",
+      "finalStop": "LIMIT",
+      "beforeRestBelow": 0.35
+    }
+  ],
+  "recoveryEquipmentFollowups": [
+    {
+      "level": 60,
+      "stage": 60,
+      "route": "ROUTE_ISEKAI",
+      "team": "heal4",
+      "seed": 717,
+      "restBelow": 0.7,
+      "equippedEnhanceLevels": [
+        6
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_AMBER": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_KAEYA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_LISA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_FISCHL": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "LIYUE_XIANGLING": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_BARBARA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        }
+      },
+      "beforeWins": 6,
+      "beforeLosses": 0,
+      "finalWins": 6,
+      "finalLosses": 0,
+      "beforeTotalElapsedSeconds": 979.09,
+      "finalTotalElapsedSeconds": 1335.4199999999998,
+      "beforeCycleSecondsPerVictoryIncludingLodgingAndFailure": 163.18166666666667,
+      "finalCycleSecondsPerVictoryIncludingLodgingAndFailure": 222.56999999999996,
+      "timePerVictoryPercentChange": 36.393998508819394,
+      "beforeTotalInnMora": 1509,
+      "finalTotalInnMora": 2538,
+      "additionalTotalInnMora": 1029,
+      "beforeInnCount": 3,
+      "finalInnCount": 5,
+      "beforeStop": "LIMIT",
+      "finalStop": "LIMIT",
+      "beforeRestBelow": 0.5
+    },
+    {
+      "level": 60,
+      "stage": 60,
+      "route": "ROUTE_ISEKAI",
+      "team": "heal4",
+      "seed": 717,
+      "restBelow": 0.5,
+      "equippedEnhanceLevels": [
+        9
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_AMBER": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_KAEYA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_LISA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_FISCHL": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "LIYUE_XIANGLING": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        },
+        "MOND_BARBARA": {
+          "na": 6,
+          "e": 6,
+          "q": 6
+        }
+      },
+      "beforeWins": 6,
+      "beforeLosses": 0,
+      "finalWins": 6,
+      "finalLosses": 0,
+      "beforeTotalElapsedSeconds": 979.09,
+      "finalTotalElapsedSeconds": 1263.27,
+      "beforeCycleSecondsPerVictoryIncludingLodgingAndFailure": 163.18166666666667,
+      "finalCycleSecondsPerVictoryIncludingLodgingAndFailure": 210.545,
+      "timePerVictoryPercentChange": 29.02491088663963,
+      "beforeTotalInnMora": 1509,
+      "finalTotalInnMora": 2970,
+      "additionalTotalInnMora": 1461,
+      "beforeInnCount": 3,
+      "finalInnCount": 5,
+      "beforeStop": "LIMIT",
+      "finalStop": "LIMIT",
+      "beforeRestBelow": 0.5
+    }
+  ],
+  "limits": [
+    "K25 failures are retained as diagnostic discarded evidence, not finalproduct outcomes.",
+    "Pivot35 Lv40 story4 Isekai and heal4 bothroutes complete6wins; Lv60 heal4 Traveler complete6wins.",
+    "Lv60 heal4 Isekai+6/talents6/restBelow.5 still5wins1loss. Pre-entry actorHP75/84/98/91.5% after inn-return encounter is parent-observed cause context; final failure is not erased.",
+    "Lv60Isekai+6/restBelow.7 and+9/restBelow.5 each complete6wins. Two jointlychanged recovery/gear conditions, not proof of allnormalparty safety.",
+    "Inn quote not actual paid; recoveryMora numbers here are actual journey payments.",
+    "Old13.22/16.25hfullgrowthtimings cannot be reused as final policy timing."
+  ]
+}

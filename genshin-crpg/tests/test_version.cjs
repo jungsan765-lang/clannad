@@ -20,12 +20,12 @@ class Element extends Events{
 }
 async function harness(options={}){
  const calls={save:0,reload:0,updates:0,messages:[],posts:[],fetch:[],renders:0,storage:0,workerVersions:[]},timers=new Map();let nextTimer=0;
- const serviceWorker=new Events(),worker=(version,state='installed')=>Object.assign(new Events(),{testVersion:version,state,postMessage(message){calls.posts.push(message);if(message.type==='ACTIVATE_UPDATE'&&options.activate!==false){reg.active=this;reg.waiting=null;serviceWorker.controller=this;this.state='activated';queueMicrotask(()=>serviceWorker.dispatch('controllerchange'));}}});
+ const serviceWorker=new Events(),worker=(version,state='installed')=>Object.assign(new Events(),{testVersion:version,state,postMessage(message,ports){calls.posts.push(message);if(message.type==='GET_VERSION'&&ports?.[0]){ports[0].postMessage({version:this.testVersion});ports[0].close();}if(message.type==='ACTIVATE_UPDATE'&&options.activate!==false&&this.state!=='activated'){reg.active=this;reg.waiting=null;serviceWorker.controller=this;this.state='activated';queueMicrotask(()=>serviceWorker.dispatch('controllerchange'));}}});
  const active=worker(options.activeVersion||'pack-old','activated'),waiting=options.waiting===false?null:worker(options.waitingVersion||'pack-new');
  const installing=options.installing?worker('pack-new',options.installing):null;
  const reg={active,waiting,installing,async update(){calls.updates++;if(options.updateError)throw Error(options.updateError);}};
  serviceWorker.controller=options.controlled===false?null:active;serviceWorker.getRegistration=async()=>reg;
- const body=new Element('body'),doc=new Events();doc.body=body;doc.hidden=false;doc.getElementById=id=>body.children.find(x=>x.id===id)||null;
+ const body=new Element('body'),doc=new Events();doc.body=body;doc.hidden=false;doc.getElementById=id=>body.children.find(x=>x.id===id)||null;doc.querySelector=()=>null;
  const saves={manual:{id:'manual:original',revision:4,state:{name:'historical'}},auto:{id:'auto:current',revision:7,state:{name:'current'}}},original=JSON.stringify(saves);
  const tripwire=new Proxy({}, {get(){calls.storage++;throw Error('version module accessed persistent storage directly');}});
  const ctx=vm.createContext({console,Promise,Map,Set,URL,JSON,Date,Number,String,Array,Math,MessageChannel,MANIFEST:{appVersion:'0.7.0',contentVersion:'pack-old'},document:doc,navigator:options.noServiceWorker?{}:{serviceWorker},location:{href:'https://example.test/game/?old=1',replace(url){calls.reload++;calls.target=url;}},game:options.game===false?null:{s:{global:{SAVE_ID:'current',SAVE_REVISION:7}}},autoSavePaused:!!options.paused,busy:false,saveQueue:options.queue||Promise.resolve(),
@@ -35,7 +35,7 @@ async function harness(options={}){
   render:()=>{calls.renders++;},say:message=>calls.messages.push(message),showModal:()=>{},el:(...args)=>new Element(...args),button:(text,fn,disabled=false)=>Object.assign(new Element('button','',text),{onclick:fn,disabled}),
   storeSave:async()=>{calls.save++;if(options.saveError)throw Error(options.saveError);if(options.saveWait)await options.saveWait;return{slotRevision:8};}
  });
- vm.runInContext(appSource,ctx,{filename:'app_version.js'});await tick();
+ ctx.window=ctx;vm.runInContext(appSource,ctx,{filename:'app_version.js'});await tick();
  const api=vm.runInContext('GameVersion',ctx);
  // This isolates update policy from MessageChannel scheduling. The service worker
  // GET_VERSION responder is tested with the actual message handler below.
@@ -65,12 +65,25 @@ function swHarness(){
  await test('installation timeout without waiting worker blocks reload',async()=>{const h=await harness({waiting:false,installing:'installing'}),applied=h.api.apply();await tick();await h.flushTimers();await applied;assert.equal(h.calls.reload,0,'installation timed out but page reloaded');assert.ok(h.calls.messages.length);});
  await test('old active worker without update blocks a misleading same-version reload',async()=>{const h=await harness({waiting:false,activeVersion:'pack-old'});await h.api.apply();assert.equal(h.calls.reload,0,'old active worker silently reloaded old pack');assert.ok(h.calls.messages.length);});
  await test('already active matching pack allows saved reload without skipWaiting',async()=>{const h=await harness({waiting:false,activeVersion:'pack-new'});await h.api.apply();assert.equal(h.calls.save,1);assert.equal(h.calls.posts.length,0);assert.equal(h.calls.reload,1);});
+ await test('automatic activation before the installation continuation does not wait for a second controllerchange',async()=>{
+  const h=await harness({waiting:false,installing:'installing'}),applied=h.api.apply();await tick();
+  const installed=h.reg.installing;installed.state='installed';h.reg.installing=null;h.reg.waiting=installed;
+  // The waiting pointer is captured by the installed listener, but activation/claim
+  // finishes before the awaiting apply continuation resumes. skipWaiting on an
+  // already activated worker does not emit another controllerchange.
+  queueMicrotask(()=>{installed.state='activated';h.reg.waiting=null;h.reg.active=installed;h.serviceWorker.controller=installed;h.serviceWorker.dispatch('controllerchange');});
+  installed.dispatch('statechange');await tick();await h.flushTimers();await applied;
+  assert.equal(h.calls.reload,1,'the verified active target must be enough, even after an earlier controllerchange');
+  assert.equal(h.calls.posts.filter(message=>message.type==='ACTIVATE_UPDATE').length,0);
+  assert.equal(h.calls.messages.length,0);assert.equal(h.ctx.busy,false);assert.equal(h.api.updating,false);
+  assert.equal(h.timers.size,0);assert.equal((h.serviceWorker.listeners.get('controllerchange')||[]).length,0);
+ });
  await test('controllerchange alone cannot approve a worker from a different pack',async()=>{const h=await harness({waitingVersion:'pack-other'});await h.api.apply();assert.equal(h.calls.posts.length,1);assert.equal(h.calls.reload,0);assert.match(h.calls.messages.at(-1),/최신 버전/);});
  await test('actual workerVersion helper uses a request port and returns its version',async()=>{const h=await harness({nativeChannel:true}),messages=[];const version=await h.api.workerVersion({postMessage(message,ports){messages.push(message);ports[0].postMessage({version:'pack-native'});ports[0].close();}});assert.equal(version,'pack-native');assert.equal(messages.length,1);assert.equal(messages[0].type,'GET_VERSION');assert.equal(h.timers.size,0);});
  await test('actual workerVersion helper times out cleanly for older workers without GET_VERSION',async()=>{const h=await harness({nativeChannel:true});let port;const pending=h.api.workerVersion({postMessage(_message,ports){port=ports[0];}});await h.flushTimers();assert.equal(await pending,null);port.close();});
- await test('recovery worker activates after validated core; pack/status messages never activate it',async()=>{const h=swHarness();await h.fire('install');assert.ok(h.calls.added.length>20);assert.ok(h.calls.added.every(r=>r.cache==='reload'));assert.ok(h.calls.added.filter(r=>/\.(js|css)$/.test(new URL(r.url).pathname)).every(r=>new URL(r.url).searchParams.get('v')==='pack-test'));await h.fire('message',{data:{type:'PACK_STATUS'},source:{postMessage:()=>{}}});await h.fire('message',{data:{type:'DOWNLOAD_PACK'},ports:[{postMessage:()=>{}}]});assert.equal(h.calls.skipWaiting,1);await h.fire('message',{data:{type:'ACTIVATE_UPDATE'}});assert.equal(h.calls.skipWaiting,2);});
+ await test('recovery worker activates after validated core; pack/status messages never activate it',async()=>{const h=swHarness();await h.fire('install');assert.deepEqual(h.calls.added.map(r=>new URL(r.url).pathname),['/game/app.js','/game/manifest.webmanifest','/game/offline-pack.json','/game/NotoSansKR_subset.woff']);assert.ok(h.calls.added.every(r=>r.cache==='reload'));assert.ok(h.calls.added.filter(r=>/\.(js|css)$/.test(new URL(r.url).pathname)).every(r=>new URL(r.url).searchParams.get('v')==='pack-test'));await h.fire('message',{data:{type:'PACK_STATUS'},source:{postMessage:()=>{}}});await h.fire('message',{data:{type:'DOWNLOAD_PACK'},ports:[{postMessage:()=>{}}]});assert.equal(h.calls.skipWaiting,1);await h.fire('message',{data:{type:'ACTIVATE_UPDATE'}});assert.equal(h.calls.skipWaiting,2);});
  await test('worker release fetch bypasses caches and uses no-store',async()=>{const h=swHarness();await h.fire('fetch',{request:new Request('https://example.test/game/release.json')});assert.equal(h.calls.opened.length,0);assert.equal(h.calls.fetch.length,1);assert.equal(h.calls.fetch[0].options.cache,'no-store');});
- await test('worker activation claims clients without deleting cached packs or user saves',async()=>{const h=swHarness();await h.fire('activate');assert.equal(h.calls.claim,1);assert.equal(h.calls.deleted,0);assert.equal(h.calls.skipWaiting,0);});
+ await test('worker activation still claims clients when cache enumeration is unavailable, without touching user saves',async()=>{const h=swHarness();await h.fire('activate');assert.equal(h.calls.claim,1);assert.equal(h.calls.deleted,0);assert.equal(h.calls.skipWaiting,0);});
  await test('worker GET_VERSION reports the loaded pack through the requesting port',async()=>{const h=swHarness(),messages=[];await h.fire('message',{data:{type:'GET_VERSION'},ports:[{postMessage:message=>messages.push(message)}],source:{postMessage:message=>messages.push(message)}});assert.equal(messages.length,1);assert.ok(messages[0].version==='pack-test'||messages[0].packVersion==='pack-test',JSON.stringify(messages[0]));assert.equal(h.calls.skipWaiting,0);});
  const report={source,sourceHashes:{'app_version.js':crypto.createHash('sha256').update(appSource).digest('hex'),'sw.js':crypto.createHash('sha256').update(swSource).digest('hex')},total:results.length,passed:results.filter(x=>x.ok).length,failed:results.filter(x=>!x.ok).length,results};
  fs.writeFileSync(path.resolve(__dirname,'../reports/version-tests.json'),JSON.stringify(report,null,2));if(report.failed)process.exitCode=1;

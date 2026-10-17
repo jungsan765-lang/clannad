@@ -1,0 +1,11 @@
+{
+  "test": "tests/test_combat_boundaries_v0168.cjs",
+  "beforeSha256": "0b02a111b8483d391669a99b379c9e4929f9f4307a359271cf5e0ac08492fe6a",
+  "afterSha256": "bdb86ffc15ebf97cf28fc33d5ab8d63d1ac801f9899294707d736b6504d2a687",
+  "authorizedAt": "2026-10-10T06:06:02.724033+00:00",
+  "authorization": "Root: only existing once-revival contract should explicitly use saved behaviorRevision2; preserve original failure and rerun whole program. Product unchanged.",
+  "codeDelta": "Only the old countdown/once-revival case sets b.fieldBoss.behaviorRevision=2 and names its legacy2 policy; shared guardedBoss helper and other assertions unchanged. Its two GEO/ELECTRO parametrizations preserve former compatibility.",
+  "originalFailRawSha256": "1ce1727e33f13fc50cd23b1fb2b0b11c7fdf89f981a0c68d5737f3bc3be9f22b",
+  "productEdits": 0,
+  "new3Coverage": "Exact18 contract QA across3 actual engine classes=54PASS, original QA SHA888b; no new3 assertion weakened."
+}

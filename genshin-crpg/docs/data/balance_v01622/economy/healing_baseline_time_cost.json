@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "scope": "Arithmetic on healing agent current native baseline, pays are current unboosted talent quantities. Bonus excluded; book/min denominator includes failed final battle. Inn quote is not bought, full HP optional room fee is not recovery demand. Not candidate result.",
+  "source": "../healing/baseline_current.summary.json",
+  "rows": [
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 25,
+      "wins": 1,
+      "losses": 1,
+      "totalNativeSeconds": 235.93,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 8.13800703598525,
+      "lodgingQuoteMoraNotPaid": 420,
+      "lodgingRecoveryPartMoraNotPaid": 400
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 25,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 278.79,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 27.54761648552674,
+      "lodgingQuoteMoraNotPaid": 207,
+      "lodgingRecoveryPartMoraNotPaid": 187
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 25,
+      "wins": 2,
+      "losses": 1,
+      "totalNativeSeconds": 297.26,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 12.917984256206687,
+      "lodgingQuoteMoraNotPaid": 420,
+      "lodgingRecoveryPartMoraNotPaid": 400
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 25,
+      "wins": 3,
+      "losses": 1,
+      "totalNativeSeconds": 375.82,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 15.326486083763504,
+      "lodgingQuoteMoraNotPaid": 420,
+      "lodgingRecoveryPartMoraNotPaid": 400
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "wins": 2,
+      "losses": 1,
+      "totalNativeSeconds": 339.76,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 11.302095596891924,
+      "lodgingQuoteMoraNotPaid": 420,
+      "lodgingRecoveryPartMoraNotPaid": 400
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 25,
+      "wins": 1,
+      "losses": 1,
+      "totalNativeSeconds": 207.4,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 9.257473481195758,
+      "lodgingQuoteMoraNotPaid": 420,
+      "lodgingRecoveryPartMoraNotPaid": 400
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 25,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 403.9,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 19.014607576132708,
+      "lodgingQuoteMoraNotPaid": 20,
+      "lodgingRecoveryPartMoraNotPaid": 0
+    },
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 60,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 168.0,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 114.28571428571429,
+      "lodgingQuoteMoraNotPaid": 77,
+      "lodgingRecoveryPartMoraNotPaid": 57
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 60,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 155.79000000000002,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 123.2428268823416,
+      "lodgingQuoteMoraNotPaid": 45,
+      "lodgingRecoveryPartMoraNotPaid": 25
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 60,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 163.56,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 117.38811445341159,
+      "lodgingQuoteMoraNotPaid": 32,
+      "lodgingRecoveryPartMoraNotPaid": 12
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 60,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 270.43,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 70.99804015826646,
+      "lodgingQuoteMoraNotPaid": 20,
+      "lodgingRecoveryPartMoraNotPaid": 0
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 177.99,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 107.87122872071464,
+      "lodgingQuoteMoraNotPaid": 20,
+      "lodgingRecoveryPartMoraNotPaid": 0
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 60,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 184.64999999999998,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 103.98050365556459,
+      "lodgingQuoteMoraNotPaid": 254,
+      "lodgingRecoveryPartMoraNotPaid": 234
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 60,
+      "wins": 4,
+      "losses": 0,
+      "totalNativeSeconds": 310.09,
+      "unboostedBooksPerMinuteIncludingFailedBattle": 61.91750782031024,
+      "lodgingQuoteMoraNotPaid": 20,
+      "lodgingRecoveryPartMoraNotPaid": 0
+    }
+  ]
+}

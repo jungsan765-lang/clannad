@@ -1,0 +1,10 @@
+--- before_verify_release.py
++++ tools/verify_release.py
+@@ -23,6 +23,7 @@
+     'tests/test_shield_meter_v01619.cjs',
+     'tests/test_shield_playback_v01619.cjs',
+     'tools/test_boss_boundaries_v01619.cjs',
++    'tools/test_field_boss_strategy_v01622.cjs',
+     'tools/test_other_healers_v01619.cjs',
+     'tests/test_element_immunity_v01618.cjs',
+     'tests/test_monster_control_fixes_v01618.cjs',

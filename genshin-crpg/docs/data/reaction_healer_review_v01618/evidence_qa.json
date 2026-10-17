@@ -1,0 +1,807 @@
+{
+  "checkedUTC": "2026-10-09T15:24:22.793431+00:00",
+  "sourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "readOnlyProduct": true,
+  "inputsBefore": {
+    "/tmp/crpg_reaction_plan/healer_candidates/candidate_summary.json": {
+      "path": "/tmp/crpg_reaction_plan/healer_candidates/candidate_summary.json",
+      "mtime": 1791559197.9775584,
+      "bytes": 838355,
+      "sha256": "6c1e4a499a98cfaefe4fb171ff8e5ea500ed7122e6596378448741f43e5d663d"
+    },
+    "/tmp/crpg_reaction_plan/healer_candidates/candidate_native.json.gz": {
+      "path": "/tmp/crpg_reaction_plan/healer_candidates/candidate_native.json.gz",
+      "mtime": 1791559201.868267,
+      "bytes": 1074524,
+      "sha256": "35206a27c93b5d5a32d60a66d94025a07b5a686142dd6bf349d24dd12dad9ae9"
+    },
+    "/tmp/crpg_reaction_plan/healer_candidates/candidate_manifest.json": {
+      "path": "/tmp/crpg_reaction_plan/healer_candidates/candidate_manifest.json",
+      "mtime": 1791559225.101558,
+      "bytes": 72660,
+      "sha256": "49ca5c034c8a1f1d523f5e54401e534eadbd10d88656eff436e0bbf20ad099f0"
+    },
+    "/tmp/crpg_reaction_plan/native_roles/native_roles.json": {
+      "path": "/tmp/crpg_reaction_plan/native_roles/native_roles.json",
+      "mtime": 1791558741.962414,
+      "bytes": 521264,
+      "sha256": "d73f54620747693ba685dc6330c058200138278d1146515496ab995e20790083"
+    },
+    "/tmp/crpg_reaction_plan/native_roles/summary.json": {
+      "path": "/tmp/crpg_reaction_plan/native_roles/summary.json",
+      "mtime": 1791558964.3278189,
+      "bytes": 15955,
+      "sha256": "2db779da60eb17eeacd396dfd1f367e9c4bdc3de75733bbc59726dd391bf2ace"
+    },
+    "/tmp/crpg_reaction_plan/native_roles/source_hashes.json": {
+      "path": "/tmp/crpg_reaction_plan/native_roles/source_hashes.json",
+      "mtime": 1791558964.3280032,
+      "bytes": 23439,
+      "sha256": "0e6f8e89d4ce5bbca24eeab8af7a0b3feb3b488df53fcc4f4e44d0175bf681f0"
+    },
+    "/tmp/crpg_reaction_plan/dendro/campaign_summary.json": {
+      "path": "/tmp/crpg_reaction_plan/dendro/campaign_summary.json",
+      "mtime": 1791558950.750895,
+      "bytes": 116118,
+      "sha256": "2edaa29fdd81bc7ea4899f7dcdcb3ec2e657c2efe3a69d814ef692566d94a057"
+    },
+    "/tmp/crpg_reaction_plan/dendro/campaign_native.json.gz": {
+      "path": "/tmp/crpg_reaction_plan/dendro/campaign_native.json.gz",
+      "mtime": 1791558950.7388947,
+      "bytes": 2732429,
+      "sha256": "2491800cd58fa869bc91554b1a95ce25c51eb06a3f8830ac95725f9a583d8472"
+    }
+  },
+  "inputsStableDuringCheck": true,
+  "inputsAfter": {
+    "/tmp/crpg_reaction_plan/healer_candidates/candidate_summary.json": {
+      "path": "/tmp/crpg_reaction_plan/healer_candidates/candidate_summary.json",
+      "mtime": 1791559197.9775584,
+      "bytes": 838355,
+      "sha256": "6c1e4a499a98cfaefe4fb171ff8e5ea500ed7122e6596378448741f43e5d663d"
+    },
+    "/tmp/crpg_reaction_plan/healer_candidates/candidate_native.json.gz": {
+      "path": "/tmp/crpg_reaction_plan/healer_candidates/candidate_native.json.gz",
+      "mtime": 1791559201.868267,
+      "bytes": 1074524,
+      "sha256": "35206a27c93b5d5a32d60a66d94025a07b5a686142dd6bf349d24dd12dad9ae9"
+    },
+    "/tmp/crpg_reaction_plan/healer_candidates/candidate_manifest.json": {
+      "path": "/tmp/crpg_reaction_plan/healer_candidates/candidate_manifest.json",
+      "mtime": 1791559225.101558,
+      "bytes": 72660,
+      "sha256": "49ca5c034c8a1f1d523f5e54401e534eadbd10d88656eff436e0bbf20ad099f0"
+    },
+    "/tmp/crpg_reaction_plan/native_roles/native_roles.json": {
+      "path": "/tmp/crpg_reaction_plan/native_roles/native_roles.json",
+      "mtime": 1791558741.962414,
+      "bytes": 521264,
+      "sha256": "d73f54620747693ba685dc6330c058200138278d1146515496ab995e20790083"
+    },
+    "/tmp/crpg_reaction_plan/native_roles/summary.json": {
+      "path": "/tmp/crpg_reaction_plan/native_roles/summary.json",
+      "mtime": 1791558964.3278189,
+      "bytes": 15955,
+      "sha256": "2db779da60eb17eeacd396dfd1f367e9c4bdc3de75733bbc59726dd391bf2ace"
+    },
+    "/tmp/crpg_reaction_plan/native_roles/source_hashes.json": {
+      "path": "/tmp/crpg_reaction_plan/native_roles/source_hashes.json",
+      "mtime": 1791558964.3280032,
+      "bytes": 23439,
+      "sha256": "0e6f8e89d4ce5bbca24eeab8af7a0b3feb3b488df53fcc4f4e44d0175bf681f0"
+    },
+    "/tmp/crpg_reaction_plan/dendro/campaign_summary.json": {
+      "path": "/tmp/crpg_reaction_plan/dendro/campaign_summary.json",
+      "mtime": 1791558950.750895,
+      "bytes": 116118,
+      "sha256": "2edaa29fdd81bc7ea4899f7dcdcb3ec2e657c2efe3a69d814ef692566d94a057"
+    },
+    "/tmp/crpg_reaction_plan/dendro/campaign_native.json.gz": {
+      "path": "/tmp/crpg_reaction_plan/dendro/campaign_native.json.gz",
+      "mtime": 1791558950.7388947,
+      "bytes": 2732429,
+      "sha256": "2491800cd58fa869bc91554b1a95ce25c51eb06a3f8830ac95725f9a583d8472"
+    }
+  },
+  "checks": {
+    "product233": {
+      "count": 233,
+      "equal": true,
+      "changes": {}
+    },
+    "healerCounts": {
+      "recomputed": {
+        "campaigns": 438,
+        "nativeMainFights": 2661,
+        "mainWins": 2480,
+        "mainLosses": 181,
+        "executionErrors": []
+      },
+      "summaryMatches": true,
+      "summaryRows": 438,
+      "nativeRows": 438,
+      "groupRows": 438
+    },
+    "healerConditions": {
+      "rows": 438,
+      "unique": 426,
+      "uniqueExecutionTotals": {
+        "mainFights": 2565,
+        "wins": 2384,
+        "losses": 181
+      },
+      "duplicates": [
+        {
+          "key": "('BASELINE', 60, 'TALENT', 'TAISHAN_MANSION', 'Jean', 717, 6, (('e', 6), ('na', 6), ('q', 6)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "broad_BASELINE_60.result.json",
+            "cause_Jean.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 60, 'TALENT', 'TAISHAN_MANSION', 'Jean', 925, 6, (('e', 6), ('na', 6), ('q', 6)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "broad_BASELINE_60.result.json",
+            "cause_Jean.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 60, 'ASCENSION', 'LIANSHAN_FORMULA', 'Jean', 717, 6, (('e', 6), ('na', 6), ('q', 6)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "broad_BASELINE_60.result.json",
+            "cause_Jean.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 60, 'ASCENSION', 'LIANSHAN_FORMULA', 'Jean', 925, 6, (('e', 6), ('na', 6), ('q', 6)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "broad_BASELINE_60.result.json",
+            "cause_Jean.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'TALENT', 'TAISHAN_MANSION', 'Jean', 717, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Jean.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'TALENT', 'TAISHAN_MANSION', 'Jean', 925, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Jean.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'ASCENSION', 'LIANSHAN_FORMULA', 'Jean', 717, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Jean.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'ASCENSION', 'LIANSHAN_FORMULA', 'Jean', 925, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Jean.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'TALENT', 'TAISHAN_MANSION', 'Sucrose', 717, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Sucrose.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'TALENT', 'TAISHAN_MANSION', 'Sucrose', 925, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Sucrose.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'ASCENSION', 'LIANSHAN_FORMULA', 'Sucrose', 717, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Sucrose.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        },
+        {
+          "key": "('BASELINE', 50, 'ASCENSION', 'LIANSHAN_FORMULA', 'Sucrose', 925, 6, (('e', 5), ('na', 5), ('q', 5)), 'NO_INTERMEDIATE_RECOVERY')",
+          "files": [
+            "cause_Sucrose.result.json",
+            "pilot_BASELINE_50.result.json"
+          ]
+        }
+      ],
+      "battleOrCampaignAggregationMismatch": [],
+      "hookVsNativeHealingLogMismatch": [],
+      "illegalTalentConditions": [],
+      "legalCapsIndependentlyLoaded": {
+        "10": 1,
+        "15": 2,
+        "20": 2,
+        "25": 4,
+        "30": 4,
+        "40": 6,
+        "50": 8,
+        "60": 10
+      }
+    },
+    "healerInnComparison": {
+      "incorrectComparableValues": [],
+      "excludedCount": 182,
+      "excludedWithMainLoss": 181,
+      "excludedWithoutMainLoss": [
+        {
+          "rawFile": "extra_JEAN_Q020_F003.result.json",
+          "candidate": "JEAN_Q020_F003",
+          "level": 20,
+          "support": "Jean",
+          "seed": 717,
+          "wins": 8,
+          "losses": 0,
+          "lodgingMora": 0,
+          "innCostComparable": null,
+          "recoveryFailure": "TRAVEL_DEFEAT"
+        }
+      ],
+      "comparableZeroCount": 54,
+      "excludeFailedZeroAsFreeRecovery": true
+    },
+    "healerCandidateSubstitutions": {
+      "files": 14,
+      "allPass": true,
+      "details": [
+        {
+          "candidate": "LOW",
+          "file": "vm_sources/LOW/runtime_combat.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "LOW",
+          "file": "vm_sources/LOW/runtime_rules.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_Q020_F003",
+          "file": "vm_sources/JEAN_Q020_F003/runtime_combat.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_Q020_F003",
+          "file": "vm_sources/JEAN_Q020_F003/runtime_rules.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_Q030_F004",
+          "file": "vm_sources/JEAN_Q030_F004/runtime_combat.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_Q030_F004",
+          "file": "vm_sources/JEAN_Q030_F004/runtime_rules.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_LATE_Q010_F002",
+          "file": "vm_sources/JEAN_LATE_Q010_F002/runtime_combat.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_LATE_Q010_F002",
+          "file": "vm_sources/JEAN_LATE_Q010_F002/runtime_rules.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "MID",
+          "file": "vm_sources/MID/runtime_combat.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "MID",
+          "file": "vm_sources/MID/runtime_rules.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "MILD",
+          "file": "vm_sources/MILD/runtime_combat.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "MILD",
+          "file": "vm_sources/MILD/runtime_rules.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_ZERO_COUNTERFACTUAL",
+          "file": "vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_combat.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        },
+        {
+          "candidate": "JEAN_ZERO_COUNTERFACTUAL",
+          "file": "vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_rules.js",
+          "eachReplacementExactlyOne": true,
+          "originalHashMatches": true,
+          "reconstructedVMHashMatches": true,
+          "snapshotHashMatches": true
+        }
+      ],
+      "manifestGameHashesMatch233": true
+    },
+    "nativeRoleCounts": {
+      "actual": {
+        "normalized_packet_rows": 176,
+        "superconduct_two_round_sequences": 64,
+        "electrocharged_timelines": 16,
+        "crystal_absorption_sequences": 24,
+        "freeze_melt_shatter_class_sequences": 4
+      },
+      "summaryMatches": true,
+      "sourceSubsetCount": 118,
+      "sourceBeforeAfterEqual": true,
+      "currentSubsetMatches": true
+    },
+    "nativeElectrochargedBudget": {
+      "allPass": true,
+      "cases": [
+        {
+          "level": 10,
+          "targets": 1,
+          "expectedRoundedTotal": 522,
+          "baselineTotal": 522,
+          "candidateTotal": 522,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 174
+        },
+        {
+          "level": 10,
+          "targets": 4,
+          "expectedRoundedTotal": 1566,
+          "baselineTotal": 1566,
+          "candidateTotal": 1566,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 696
+        },
+        {
+          "level": 20,
+          "targets": 1,
+          "expectedRoundedTotal": 1332,
+          "baselineTotal": 1332,
+          "candidateTotal": 1332,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 444
+        },
+        {
+          "level": 20,
+          "targets": 4,
+          "expectedRoundedTotal": 3996,
+          "baselineTotal": 3996,
+          "candidateTotal": 3996,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 1776
+        },
+        {
+          "level": 40,
+          "targets": 1,
+          "expectedRoundedTotal": 5523,
+          "baselineTotal": 5523,
+          "candidateTotal": 5523,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 1841
+        },
+        {
+          "level": 40,
+          "targets": 4,
+          "expectedRoundedTotal": 16569,
+          "baselineTotal": 16569,
+          "candidateTotal": 16569,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 7364
+        },
+        {
+          "level": 60,
+          "targets": 1,
+          "expectedRoundedTotal": 13974,
+          "baselineTotal": 13974,
+          "candidateTotal": 13974,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 4658
+        },
+        {
+          "level": 60,
+          "targets": 4,
+          "expectedRoundedTotal": 41922,
+          "baselineTotal": 41922,
+          "candidateTotal": 41922,
+          "match": true,
+          "baselineImmediate": 0,
+          "candidateImmediate": 18632
+        }
+      ],
+      "scope": "single isolated application only; not repeat application, ownership replacement, player restore, revive, or campaign validation"
+    },
+    "nativeRoleTalentLabels": {
+      "requestedVsStored": [
+        {
+          "level": 10,
+          "reportedRequestedTalent": 1,
+          "actualStoredTalent": 1
+        },
+        {
+          "level": 20,
+          "reportedRequestedTalent": 1,
+          "actualStoredTalent": 1
+        },
+        {
+          "level": 20,
+          "reportedRequestedTalent": 3,
+          "actualStoredTalent": 2
+        },
+        {
+          "level": 40,
+          "reportedRequestedTalent": 1,
+          "actualStoredTalent": 1
+        },
+        {
+          "level": 40,
+          "reportedRequestedTalent": 5,
+          "actualStoredTalent": 5
+        },
+        {
+          "level": 60,
+          "reportedRequestedTalent": 1,
+          "actualStoredTalent": 1
+        },
+        {
+          "level": 60,
+          "reportedRequestedTalent": 7,
+          "actualStoredTalent": 7
+        }
+      ],
+      "mislabeledRowsCount": 22
+    },
+    "dendroCounts": {
+      "datasets": [
+        {
+          "mode": "baseline",
+          "level": 20,
+          "variant": false,
+          "conditions": 10,
+          "errors": 0
+        },
+        {
+          "mode": "baseline",
+          "level": 40,
+          "variant": false,
+          "conditions": 10,
+          "errors": 0
+        },
+        {
+          "mode": "baseline",
+          "level": 60,
+          "variant": false,
+          "conditions": 10,
+          "errors": 0
+        },
+        {
+          "mode": "rule_candidate",
+          "level": 20,
+          "variant": false,
+          "conditions": 10,
+          "errors": 0
+        },
+        {
+          "mode": "rule_candidate",
+          "level": 40,
+          "variant": false,
+          "conditions": 10,
+          "errors": 0
+        },
+        {
+          "mode": "rule_candidate",
+          "level": 60,
+          "variant": false,
+          "conditions": 10,
+          "errors": 0
+        },
+        {
+          "mode": "baseline",
+          "level": 40,
+          "variant": true,
+          "conditions": 4,
+          "errors": 0
+        },
+        {
+          "mode": "baseline",
+          "level": 60,
+          "variant": true,
+          "conditions": 4,
+          "errors": 0
+        }
+      ],
+      "baseRecomputed": {
+        "conditions": 60,
+        "mainBattles": 188,
+        "wins": 170,
+        "losses": 18
+      },
+      "baseSummaryMatches": true,
+      "allRecomputed": {
+        "conditions": 68,
+        "mainBattles": 220,
+        "wins": 202,
+        "losses": 18,
+        "allActualMainAndTravelBattles": 241
+      },
+      "allSummaryMatches": true,
+      "executionErrors": [],
+      "uniqueConditions": 68,
+      "duplicates": [],
+      "failedZeroCostConditionsExcludedFromEconomy": [
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "burning",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "burning",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "bloom",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "bloom",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "hyperbloom",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "hyperbloom",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "burgeon",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "baseline",
+          "name": "burgeon",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "burning",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "burning",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "bloom",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "bloom",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "hyperbloom",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "hyperbloom",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "burgeon",
+          "seed": 717,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        },
+        {
+          "level": 20,
+          "mode": "rule_candidate",
+          "name": "burgeon",
+          "seed": 4242,
+          "wins": 0,
+          "losses": 1,
+          "stopReason": "DEFEAT",
+          "endpoint": null,
+          "zeroNotComparable": true
+        }
+      ]
+    },
+    "dendroCandidateSubstitutions": {
+      "exactOriginalMatchCounts": [
+        1,
+        1,
+        1
+      ],
+      "allExactlyOne": true,
+      "originalSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "independentlyReconstructedVMRuntimeRulesSHA256": "da88ed670bc24d7e7630cc20340fbc658d0b80cd00fb3208fd3a50fc5c24e1f7",
+      "reportedReplacements": [
+        {
+          "mode": "baseline",
+          "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+          "replacements": []
+        },
+        {
+          "mode": "rule_candidate",
+          "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+          "replacements": [
+            "additive talent separation",
+            "burn extinguish when Pyro aura consumed",
+            "core cap five oldest detonation"
+          ]
+        }
+      ],
+      "probeNativeDifferenceConfirmed": true
+    }
+  },
+  "interpretationWarnings": [
+    "native_roles rows.talent is a requested input, not actual stored talent. Lv20 craft input3 clamps to legal2; 22 Lv20 normalized rows are labeled with requested talent3. Healer actualTalent fields are actual stored values.",
+    "native reaction packet fixtures inflate enemy HP to 10,000,000 and suppress variance; they verify mechanics and budget, not real win rate or lodging burden.",
+    "Dendro mainCounts counts reactionName log entries, which may include sustained ticks and multiple targets; it is not a number of distinct reaction applications or skill casts.",
+    "Dendro damage for amplifying/additive reactions is the full amplified/additive hit, not solely incremental reaction damage; do not compare it directly against separate transformative packets.",
+    "Healer mainSeconds excludes travel. Compare successful same-length runs with totalSeconds and innCostComparable; no-intermediate-inn wipe campaigns are shorter and must not be advertised as fast/free.",
+    "Native recovery road fights can heal, injure, kill, or level actors before the inn. Final inn cost need not equal HP loss immediately after the last domain fight.",
+    "Lv15 reward level-ups and Player10% post-victory recovery are explicitly counted separately from skill healing. Formation third-slot combat-only HP is clipped after battle.",
+    "Candidate coefficients are VM-only and product233 current hashes match previous source snapshot. No server deployment is independently asserted by file hashes.",
+    "Canonical coefficients cannot be directly transplanted into CRPG without comparison because CRPG reactionBase uses the HP-growth curve and current transformative packets bypass enemy DEF differently from primary hits."
+  ]
+}

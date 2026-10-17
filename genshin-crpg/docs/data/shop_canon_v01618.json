@@ -1,0 +1,351 @@
+{
+  "retrievedAt": "2026-10-09",
+  "scope": "원작 일반 NPC 재료 판매와 CRPG 현재 판매 8종 특산물 비교; 파일/게임 소스 변경 없음",
+  "evidenceLimit": [
+    "HoYoWiki는 HoYoLAB이 제공하되 커뮤니티와 공동 구축하는 자료다. 상점 페이지의 최신 검색 색인과 여러 언어의 같은 페이지를 검증했다. 직접 로그인한 원작 최신 버전의 인게임 상점 전체를 실측한 것은 아니다.",
+    "공식 게시된 전체 NPC 재입고 총량표 및 KQM 요리재료 상점 총량표는 확인하지 못했다. 따라서 전 세계 최신 상점 합계로 표시하지 않고 확인한 사례/최소 공급량으로만 표시한다.",
+    "HoYoWiki 페이지 본문 open은 0행으로 반환돼 검색 색인의 명시적 품목/가격/재입고 정보를 사용했다.",
+    "유리백합 재입고 기간은 HoYoWiki의 30일/1개월 표기와 다른 관찰 기반 자료의 3일 표기가 충돌하여 정확한 현재 기간을 확정하지 않는다. 3개 및 50,000모라는 일치한다."
+  ],
+  "canonicalNames": {
+    "ING_MEAT": "짐승고기",
+    "ING_FOWL": "새고기",
+    "ING_FISH": "생선 살코기",
+    "ING_CRAB": "꽃게",
+    "ING_SHRIMP": "생새우살",
+    "ING_BUTTER": "버터",
+    "ING_CHEESE": "치즈",
+    "ING_HAM": "햄",
+    "ING_SAUSAGE": "소시지",
+    "ING_BACON": "베이컨",
+    "ING_FLOUR": "밀가루",
+    "ING_SUGAR": "설탕",
+    "ING_TOFU": "두부"
+  },
+  "findings": [
+    {
+      "category": "기본 구매 식자재",
+      "original": "소금·후추·양파·우유·토마토 등 잡화점 재료는 일반 NPC 판매. 확인한 블랑키 상점은 각 100개.",
+      "stock": "많은 기본 재료는 일일 재입고. 이 자료에서 확인한 가격/수량 예: 소금60모라,후추80모라,양파80모라,우유100모라,토마토120모라,각100개. 해당 페이지 색인은 재입고 기간을 명시하지 않아 정확 총량은 미확정.",
+      "sources": [
+        "https://wiki.hoyolab.com/m/genshin/entry/2481?lang=ko-kr"
+      ],
+      "refs": [
+        "turn62search14"
+      ]
+    },
+    {
+      "category": "짐승고기·새고기",
+      "original": "원작에서도 판매한다. 두라프 짐승고기·새고기 각10개/1일,각240모라. 아잘라이는 짐승고기10개/1일,280모라.",
+      "aggregate": "짐승고기는 이 두 확인 판매처만 합쳐도 최소20개/일; 새고기는 확인된 두라프만 최소10개/일. 최신 전세계 합계가 아니다.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/3717?lang=ja-jp",
+        "https://wiki.hoyolab.com/pc/genshin/entry/3717?lang=en-us",
+        "https://wiki.hoyolab.com/pc/genshin/entry/3426?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/300?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/1284?lang=ko-kr"
+      ],
+      "refs": [
+        "turn71search0",
+        "turn71search1",
+        "turn63search7",
+        "turn63search0",
+        "turn56search1"
+      ]
+    },
+    {
+      "category": "생선 살코기·꽃게",
+      "original": "원작에서도 판매한다. 묘 사부·람바드 상점에서 생선 살코기와 꽃게 각각10개 확인; 아잘라이 생선 살코기10개/1일 확인.",
+      "aggregate": "묘 사부·람바드의 색인만으로 판매수량은 확인되나 이 두 페이지의 정확 재입고 주기까지 확인하지 못했다. 일일 전체합계로 섞어 계산하지 않는다.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/2463?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/3433?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/3426?lang=ko-kr"
+      ],
+      "refs": [
+        "turn60search1",
+        "turn60search2",
+        "turn63search7"
+      ]
+    },
+    {
+      "category": "생새우살·두부",
+      "original": "생새우살과 두부는 원작 기본 구매 가능한 식자재다. 동승 판매는 생새우살100개/일·120모라, 두부100개·100모라 확인. 두부 동승 재입고 정확 기간은 이 자료의 명시적 색인으로 검증하지 않았다. 소백 두부10개/3일·120모라 확인.",
+      "note": "생새우살은 원작 낚시 미니게임 보상 어종과 같은 것이 아니다. 현재 CRPG에 채집/어획 획득 경로가 있다면 CRPG 고유 설계로 다룬다.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/1556?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/2478?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/1556?lang=fr-fr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/4411?lang=id-id"
+      ],
+      "refs": [
+        "turn58search1",
+        "turn58search13",
+        "turn73search1",
+        "turn73search5"
+      ]
+    },
+    {
+      "category": "가공 육류",
+      "original": "사라 상점의 훈제 새고기·햄·베이컨·소시지 모두 각10개 판매. 사라의 식자재 재입고는 주간이라고 HoYoWiki 색인에서 확인. 묘 사부 햄·소시지 각각10개도 확인(그 페이지의 정확 주기는 미확정).",
+      "stock": "사라 기준 햄630모라,베이컨720모라,소시지840모라,훈제 새고기900모라; 각10개/주.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/2543?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/2543?lang=zh-tw",
+        "https://wiki.hoyolab.com/pc/genshin/entry/2463?lang=ko-kr"
+      ],
+      "refs": [
+        "turn60search0",
+        "turn63search1",
+        "turn68search0",
+        "turn56search10"
+      ]
+    },
+    {
+      "category": "기타 가공 식자재",
+      "original": "사라 밀가루·크림·버터·과일잼·치즈 판매(각10개). 사라 식자재 주간 재입고. 묘 사부 밀가루·설탕도각10개,아잘라이설탕10개/7일.",
+      "stock": "사라 밀가루150,버터270,치즈420모라;각10개/주.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/2543?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/2543?lang=zh-tw",
+        "https://wiki.hoyolab.com/pc/genshin/entry/3426?lang=ko-kr"
+      ],
+      "refs": [
+        "turn60search0",
+        "turn63search1",
+        "turn68search0",
+        "turn63search7"
+      ]
+    },
+    {
+      "category": "돌파 보석",
+      "original": "저등급 돌파 보석은 기념품 상점에서 인장으로 유한 횟수 교환 가능. 원작 돌파 재료는 상점에 전혀 없다는 표현은 틀림.",
+      "stock": "마죠리 불타오르는 마노 가루: 바람의 인장10개,6회. 모라로 상시 무한 구매가 아님.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/2516?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/1100?lang=ko-kr"
+      ],
+      "refs": [
+        "turn69search4",
+        "turn69search0"
+      ]
+    },
+    {
+      "category": "일반 적 전리품",
+      "original": "일부 일반 적 육성 소재는 월간 스타더스트/스타라이트 교환으로 제공한다. 모라 무제한 일반 판매와 구분해야 한다.",
+      "stock": "확인 예: 슬라임 응축액3개×최대15회/월,회당 주인 없는 스타더스트5개.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/396?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/4069?lang=ko-kr"
+      ],
+      "refs": [
+        "turn70search1",
+        "turn55search24"
+      ]
+    },
+    {
+      "category": "필드보스 전리품·특수 낚시 어종",
+      "original": "일반 NPC의 모라 재입고 판매를 확인하지 못했다. 전체 예외 없음까지 단정하지 않음. 낚시 협회에서는 잡은 특정 어종을 지불해 장비로 교환하는 방향의 구조를 확인했다.",
+      "example": "「어획」은 이나즈마 낚시 협회에서 금적빛 용 물고기·녹빛 용 물고기 등으로 교환. 생선 살코기 판매와 특수 낚시 어종 판매는 다름.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/1930?lang=ko-kr"
+      ],
+      "refs": [
+        "turn70search0"
+      ]
+    }
+  ],
+  "liyueSpecialtyComparison": [
+    {
+      "id": "MAT_LIYUE_JUEYUN_CHILI",
+      "ko": "절운고추",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "묘 사부",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        }
+      ],
+      "confidence": "confirmed example",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/1349?lang=ko-kr",
+      "ref": "turn65search5"
+    },
+    {
+      "id": "MAT_LIYUE_SILK_FLOWER",
+      "ko": "예상꽃",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "소백",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        },
+        {
+          "vendor": "베르 고데트",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        }
+      ],
+      "additionalVendor": "수입 판매처도 존재. 정확 한국명/전체총량 검증 생략.",
+      "confidence": "confirmed examples,not complete catalog",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/1730?lang=ko-kr",
+      "refs": [
+        "turn64search1",
+        "turn66search0"
+      ]
+    },
+    {
+      "id": "MAT_LIYUE_COR_LAPIS",
+      "ko": "콜 라피스",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "창순",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1500
+        },
+        {
+          "vendor": "추위",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        }
+      ],
+      "additionalVendor": "영문 같은 페이지에는 Fengtai(한국 공식 표기 확인 못 함) 추가5개/3일·1000모라가 표시.",
+      "confidence": "confirmed examples,not complete catalog",
+      "sources": [
+        "https://wiki.hoyolab.com/m/genshin/entry/1242?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/1242?lang=en-us"
+      ],
+      "refs": [
+        "turn64search2",
+        "turn67search3"
+      ]
+    },
+    {
+      "id": "MAT_LIYUE_NOCTILUCOUS_JADE",
+      "ko": "야박석",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "석두",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        },
+        {
+          "vendor": "추위",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        }
+      ],
+      "periodNote": "한국색인의잘린재입고기간은영문동일공식호스팅페이지에서3일로확인.",
+      "confidence": "confirmed examples,not complete catalog",
+      "refs": [
+        "turn64search3",
+        "turn64search8",
+        "turn73search0"
+      ],
+      "additionalVendor": "영문 같은 페이지에 Fengtai(한국 공식 표기 확인 못 함) 추가5개/3일·1000모라가 표시.",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/471?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/471?lang=en-us"
+      ]
+    },
+    {
+      "id": "MAT_LIYUE_GLAZE_LILY",
+      "ko": "유리백합",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "소백",
+          "stock": 3,
+          "price": 50000
+        }
+      ],
+      "periodNote": "HoYoWiki 30일/1개월. 다른 자료 3일과 충돌하여 정확 현행 기간은 유보.",
+      "confidence": "confirmed sale/stock/price,period conflict",
+      "sources": [
+        "https://wiki.hoyolab.com/pc/genshin/entry/1183?lang=ko-kr",
+        "https://wiki.hoyolab.com/pc/genshin/entry/2478?lang=ko-kr"
+      ],
+      "refs": [
+        "turn65search0",
+        "turn65search4"
+      ]
+    },
+    {
+      "id": "MAT_LIYUE_VIOLETGRASS",
+      "ko": "유리주머니",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "베르 고데트",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        },
+        {
+          "vendor": "바바크",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        }
+      ],
+      "additionalVendor": "아규 판매도 있음; 전체 합계 미확정.",
+      "confidence": "confirmed examples,not complete catalog",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/1184?lang=ko-kr",
+      "ref": "turn65search1"
+    },
+    {
+      "id": "MAT_LIYUE_STARCONCH",
+      "ko": "별소라",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "박래",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        }
+      ],
+      "nameNote": "한국 항목의 상점 표 일부가 스페인어/영문으로 섞여 표기. 한국 이름은 항목제목에서 확인.",
+      "confidence": "confirmed example",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/891?lang=ko-kr",
+      "refs": [
+        "turn65search2",
+        "turn66search1"
+      ]
+    },
+    {
+      "id": "MAT_LIYUE_QINGXIN",
+      "ko": "청심",
+      "verifiedVendorStocks": [
+        {
+          "vendor": "아규",
+          "stock": 10,
+          "periodDays": 3,
+          "price": 600
+        },
+        {
+          "vendor": "바바크",
+          "stock": 5,
+          "periodDays": 3,
+          "price": 1000
+        }
+      ],
+      "confidence": "confirmed examples,not complete catalog",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/1048?lang=ko-kr",
+      "ref": "turn66search2"
+    }
+  ],
+  "crpgPolicyAssessment": [
+    "원작과 비교할 때 핵심은 모든 재료 미판매가 아니라 기본 잡화와 야외 재료의 판매량·판매처·재입고 간격 구분이다.",
+    "사냥·낚시 콘텐츠의 필요성을 더 강하게 보존하기 위해 CRPG에서 짐승고기/새고기/생선 살코기와 가공육 판매를 제외하는 것은 사용자 요구에 맞는 CRPG 고유 정책이다. 원작에서 안 팔아서 제거했다라고 쓰면 안 된다.",
+    "가공육 판매를 남기면 조리법에 필요한 사냥 재료를 햄·베이컨·소시지 구매로 우회할 수 있다. 부모 제안처럼 가공육도 제외하면 사냥 필요성을 보존할 수 있다.",
+    "수입 특산물 8종 각4개/매일을 원작 일반 판매와 같은 것으로 볼 수 없다. 최소한3일등 재입고 단위·소량 보조 공급으로 분리하는 것이 타당하다. 각2개/3일 공통화는 원작 수치를 복제한 것이 아니라 CRPG의 미해금 캐릭터 소량지원 설계다.",
+    "원작 요리의 거의 대부분이 필수적으로 직접 채집해야 하는 재료를 포함한다라는 비율 주장은 전체 최신 조리법/상점 교집합을 세지 않았으므로 수치 또는 엄밀한 사실로 확인하지 않는다. NPC를 두루 돌면 사냥·어획 재료도 구매 가능하므로 재료칸에 그 재료가 있다는 사실만으로 직접 수급 강제가 되지는 않는다.",
+    "특수 낚시 어종의 보존과 일반 생선 살코기의 판매 정책은 별도로 취급한다. 현재 CRPG는 희귀어종 판매가 없다는 부모 현황에 부합한다."
+  ],
+  "notChanged": true,
+  "officialWikiProvenanceSource": "https://genshin.hoyoverse.com/ko/news/detail/20827"
+}

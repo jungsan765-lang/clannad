@@ -1,0 +1,33 @@
+PASS eight elements share the selected table and future 25/50-win final payments
+{"ascensionObserved":{"successful":1863,"blocked":42,"min":1.010000179315889,"top":1.113916742858971}}
+PASS all 1863 successfully completed low/high ascension observations keep at least one percent, highest at least ten
+{"region":"MOND","talentObserved":{"successful":100,"blocked":0,"min":1.2108579738245273,"top":1.248411497730711}}
+{"region":"LIYUE","talentObserved":{"successful":310,"blocked":0,"min":1.0581125058112504,"top":1.327500377130789}}
+PASS regional talent currencies retain 63 highest wins and every successful observation has at least five percent
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+342.32 !== 340.1
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_material_efficiency_v01622.cjs:18:493
+    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_material_efficiency_v01622.cjs:9:38)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_material_efficiency_v01622.cjs:18:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 342.32,
+  expected: 340.1,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

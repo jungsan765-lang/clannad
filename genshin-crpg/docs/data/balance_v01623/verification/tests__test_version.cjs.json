@@ -1,0 +1,13 @@
+{
+  "test": "tests/test_version.cjs",
+  "command": [
+    "node",
+    "tests/test_version.cjs"
+  ],
+  "exitCode": 0,
+  "ok": true,
+  "error": null,
+  "seconds": 0.115,
+  "log": "tests__test_version.cjs.log.gz",
+  "logSha256": "4a69f7f3df9fac17d003dbc2cf6dbcaad86708e51d13c400c5e45ccef801a7b9"
+}

@@ -1,0 +1,27 @@
+node:internal/assert/utils:77
+    throw err;
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(roll>=0&&roll<=9)
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:101:159
+    at Array.map (<anonymous>)
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:101:53
+    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:12:36)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:96:35)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

@@ -1,0 +1,2207 @@
+{
+  "schema": 1,
+  "version": "0.16.21",
+  "sourceDigest": "d36e8fb8656614575055ff7d68b4236cacdf2cb7ced0996911029b3d2a3f4e04",
+  "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "beforeVersion": "0.16.19",
+  "assumptions": {
+    "noProductWrites": true,
+    "nativeActions": "Existing BUY and SELL at actual food shop; initial ownership/wallet/level/map/time are stated synthetic setup. No real server or account.",
+    "noLiveMarketQuotes": true,
+    "priceCheck": "Only before-listed prepared recovery foods; no claim that every player should buy them. Market commission unchanged.",
+    "collection": "384 real LIFE scene samples; already-at-map perfect scene timing excludes travel/human latency and encounter settlement."
+  },
+  "comparisons": [
+    {
+      "food": "FOOD_TEA_BREAK_PANCAKE",
+      "name": "티바트 달걀 프라이",
+      "before": {
+        "heal": 90,
+        "fee": 4,
+        "materialOpportunity": 3,
+        "totalOpportunity": 7,
+        "npcSale": 8
+      },
+      "after": {
+        "heal": 90,
+        "fee": 4,
+        "materialOpportunity": 3,
+        "totalOpportunity": 7,
+        "npcSale": 8
+      },
+      "readyStocks": [
+        {
+          "stock": "STK_MOND_SARA_EGG",
+          "beforePrice": 35,
+          "afterPrice": 35,
+          "ratioPreservingMinimum": 35,
+          "oldHealingMora": 0.3888888888888889,
+          "newHealingMora": 0.3888888888888889
+        },
+        {
+          "stock": "STK_LY_WANMIN_EGG",
+          "beforePrice": 35,
+          "afterPrice": 35,
+          "ratioPreservingMinimum": 35,
+          "oldHealingMora": 0.3888888888888889,
+          "newHealingMora": 0.3888888888888889
+        },
+        {
+          "stock": "STK_LY_WANGSHU_EGG",
+          "beforePrice": 35,
+          "afterPrice": 35,
+          "ratioPreservingMinimum": 35,
+          "oldHealingMora": 0.3888888888888889,
+          "newHealingMora": 0.3888888888888889
+        }
+      ]
+    },
+    {
+      "food": "FOOD_SWEET_MADAME",
+      "name": "달콤달콤 닭고기 스튜",
+      "before": {
+        "heal": 180,
+        "fee": 4,
+        "materialOpportunity": 20,
+        "totalOpportunity": 24,
+        "npcSale": 20
+      },
+      "after": {
+        "heal": 180,
+        "fee": 4,
+        "materialOpportunity": 20,
+        "totalOpportunity": 24,
+        "npcSale": 20
+      },
+      "readyStocks": [
+        {
+          "stock": "STK_MOND_SARA_CHICKEN",
+          "beforePrice": 80,
+          "afterPrice": 80,
+          "ratioPreservingMinimum": 80,
+          "oldHealingMora": 0.4444444444444444,
+          "newHealingMora": 0.4444444444444444
+        }
+      ]
+    },
+    {
+      "food": "FOOD_HASH_BROWN",
+      "name": "몬드 감자전",
+      "before": {
+        "heal": 220,
+        "fee": 2,
+        "materialOpportunity": 24,
+        "totalOpportunity": 26,
+        "npcSale": 26
+      },
+      "after": {
+        "heal": 340,
+        "fee": 2,
+        "materialOpportunity": 24,
+        "totalOpportunity": 26,
+        "npcSale": 26
+      },
+      "readyStocks": [
+        {
+          "stock": "STK_MOND_SARA_POTATO",
+          "beforePrice": 105,
+          "afterPrice": 163,
+          "ratioPreservingMinimum": 163,
+          "oldHealingMora": 0.4772727272727273,
+          "newHealingMora": 0.47941176470588237
+        }
+      ]
+    },
+    {
+      "food": "FOOD_MATSUTAKE_ROLL",
+      "name": "버섯고기말이",
+      "before": {
+        "heal": 240,
+        "fee": 2,
+        "materialOpportunity": 48,
+        "totalOpportunity": 50,
+        "npcSale": 30
+      },
+      "after": {
+        "heal": 300,
+        "fee": 2,
+        "materialOpportunity": 48,
+        "totalOpportunity": 50,
+        "npcSale": 30
+      },
+      "readyStocks": [
+        {
+          "stock": "STK_LY_WANMIN_MATSUTAKE",
+          "beforePrice": 120,
+          "afterPrice": 150,
+          "ratioPreservingMinimum": 150,
+          "oldHealingMora": 0.5,
+          "newHealingMora": 0.5
+        }
+      ]
+    },
+    {
+      "food": "FOOD_UNIVERSAL_PEACE",
+      "name": "세계 평화",
+      "before": {
+        "heal": 160,
+        "fee": 3,
+        "materialOpportunity": 28,
+        "totalOpportunity": 31,
+        "npcSale": 45
+      },
+      "after": {
+        "heal": 280,
+        "fee": 3,
+        "materialOpportunity": 28,
+        "totalOpportunity": 31,
+        "npcSale": 45
+      },
+      "readyStocks": [
+        {
+          "stock": "STK_LY_WANMIN_PEACE",
+          "beforePrice": 180,
+          "afterPrice": 315,
+          "ratioPreservingMinimum": 315,
+          "oldHealingMora": 1.125,
+          "newHealingMora": 1.125
+        }
+      ]
+    },
+    {
+      "food": "FOOD_PIZZA",
+      "name": "버섯피자",
+      "before": {
+        "heal": 130,
+        "fee": 4,
+        "materialOpportunity": 34,
+        "totalOpportunity": 38,
+        "npcSale": 16
+      },
+      "after": {
+        "heal": 260,
+        "fee": 4,
+        "materialOpportunity": 34,
+        "totalOpportunity": 38,
+        "npcSale": 16
+      },
+      "readyStocks": [
+        {
+          "stock": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+          "beforePrice": 65,
+          "afterPrice": 130,
+          "ratioPreservingMinimum": 130,
+          "oldHealingMora": 0.5,
+          "newHealingMora": 0.5
+        }
+      ]
+    },
+    {
+      "food": "FOOD_SAKURA_MOCHI",
+      "name": "벚꽃 모찌",
+      "before": {
+        "heal": 170,
+        "fee": 3,
+        "materialOpportunity": 23,
+        "totalOpportunity": 26,
+        "npcSale": 50
+      },
+      "after": {
+        "heal": 190,
+        "fee": 3,
+        "materialOpportunity": 23,
+        "totalOpportunity": 26,
+        "npcSale": 50
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_TAHCHIN",
+      "name": "타친",
+      "before": {
+        "heal": 145,
+        "fee": 3,
+        "materialOpportunity": 31,
+        "totalOpportunity": 34,
+        "npcSale": 80
+      },
+      "after": {
+        "heal": 240,
+        "fee": 3,
+        "materialOpportunity": 31,
+        "totalOpportunity": 34,
+        "npcSale": 80
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "name": "글루포프 호밀빵",
+      "before": {
+        "heal": 200,
+        "fee": 3,
+        "materialOpportunity": 32,
+        "totalOpportunity": 35,
+        "npcSale": 50
+      },
+      "after": {
+        "heal": 200,
+        "fee": 3,
+        "materialOpportunity": 32,
+        "totalOpportunity": 35,
+        "npcSale": 50
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_BERRY_ICE_CREAM",
+      "name": "베리 아이스크림",
+      "before": {
+        "heal": 200,
+        "fee": 3,
+        "materialOpportunity": 41,
+        "totalOpportunity": 44,
+        "npcSale": 75
+      },
+      "after": {
+        "heal": 200,
+        "fee": 3,
+        "materialOpportunity": 41,
+        "totalOpportunity": 44,
+        "npcSale": 75
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "name": "옛뜰 훈제 소시지",
+      "before": {
+        "heal": 120,
+        "fee": 4,
+        "materialOpportunity": 30,
+        "totalOpportunity": 34,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 250,
+        "fee": 4,
+        "materialOpportunity": 30,
+        "totalOpportunity": 34,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_MEDOVIK",
+      "name": "메도빅",
+      "before": {
+        "heal": 220,
+        "fee": 3,
+        "materialOpportunity": 29,
+        "totalOpportunity": 32,
+        "npcSale": 65
+      },
+      "after": {
+        "heal": 280,
+        "fee": 3,
+        "materialOpportunity": 29,
+        "totalOpportunity": 32,
+        "npcSale": 65
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_ZHARKOYE",
+      "name": "자르코예",
+      "before": {
+        "heal": 260,
+        "fee": 3,
+        "materialOpportunity": 41,
+        "totalOpportunity": 44,
+        "npcSale": 85
+      },
+      "after": {
+        "heal": 320,
+        "fee": 3,
+        "materialOpportunity": 41,
+        "totalOpportunity": 44,
+        "npcSale": 85
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_STEAK",
+      "name": "스테이크",
+      "before": {
+        "heal": 110,
+        "fee": 4,
+        "materialOpportunity": 18,
+        "totalOpportunity": 22,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 110,
+        "fee": 4,
+        "materialOpportunity": 18,
+        "totalOpportunity": 22,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_CHICKEN_SKEWER",
+      "name": "버섯 닭꼬치",
+      "before": {
+        "heal": 100,
+        "fee": 3,
+        "materialOpportunity": 10,
+        "totalOpportunity": 13,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 120,
+        "fee": 3,
+        "materialOpportunity": 10,
+        "totalOpportunity": 13,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_MOND_GRILLED_FISH",
+      "name": "몬드 생선구이",
+      "before": {
+        "heal": 100,
+        "fee": 3,
+        "materialOpportunity": 14,
+        "totalOpportunity": 17,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 120,
+        "fee": 3,
+        "materialOpportunity": 14,
+        "totalOpportunity": 17,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_RADISH_SOUP",
+      "name": "무 수프",
+      "before": {
+        "heal": 90,
+        "fee": 4,
+        "materialOpportunity": 6,
+        "totalOpportunity": 10,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 110,
+        "fee": 4,
+        "materialOpportunity": 6,
+        "totalOpportunity": 10,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_MINT_JELLY",
+      "name": "민트 젤리",
+      "before": {
+        "heal": 90,
+        "fee": 4,
+        "materialOpportunity": 9,
+        "totalOpportunity": 13,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 110,
+        "fee": 4,
+        "materialOpportunity": 9,
+        "totalOpportunity": 13,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_PANCAKE_TEA_BREAK",
+      "name": "장원 팬케이크",
+      "before": {
+        "heal": 170,
+        "fee": 3,
+        "materialOpportunity": 26,
+        "totalOpportunity": 29,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 240,
+        "fee": 3,
+        "materialOpportunity": 26,
+        "totalOpportunity": 29,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_BOLOGNESE",
+      "name": "불꽃 미트 스파게티",
+      "before": {
+        "heal": 180,
+        "fee": 4,
+        "materialOpportunity": 30,
+        "totalOpportunity": 34,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 210,
+        "fee": 4,
+        "materialOpportunity": 30,
+        "totalOpportunity": 34,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_APPLE_STEW",
+      "name": "북극 사과고기찜",
+      "before": {
+        "heal": 240,
+        "fee": 3,
+        "materialOpportunity": 50,
+        "totalOpportunity": 53,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 380,
+        "fee": 3,
+        "materialOpportunity": 50,
+        "totalOpportunity": 53,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_CHICKEN_BURGER",
+      "name": "바삭바삭 치킨버거",
+      "before": {
+        "heal": 250,
+        "fee": 4,
+        "materialOpportunity": 47,
+        "totalOpportunity": 51,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 320,
+        "fee": 4,
+        "materialOpportunity": 47,
+        "totalOpportunity": 51,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_MORA_MEAT",
+      "name": "모라육",
+      "before": {
+        "heal": 100,
+        "fee": 4,
+        "materialOpportunity": 13,
+        "totalOpportunity": 17,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 120,
+        "fee": 4,
+        "materialOpportunity": 13,
+        "totalOpportunity": 17,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_STIR_FRIED_FILET",
+      "name": "고기볶음",
+      "before": {
+        "heal": 110,
+        "fee": 3,
+        "materialOpportunity": 29,
+        "totalOpportunity": 32,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 180,
+        "fee": 3,
+        "materialOpportunity": 29,
+        "totalOpportunity": 32,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_CRYSTAL_SHRIMP",
+      "name": "수정 새우딤섬",
+      "before": {
+        "heal": 190,
+        "fee": 4,
+        "materialOpportunity": 47,
+        "totalOpportunity": 51,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 220,
+        "fee": 4,
+        "materialOpportunity": 47,
+        "totalOpportunity": 51,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_VEGETARIAN_ABALONE",
+      "name": "채식 전복",
+      "before": {
+        "heal": 170,
+        "fee": 2,
+        "materialOpportunity": 40,
+        "totalOpportunity": 42,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 360,
+        "fee": 2,
+        "materialOpportunity": 40,
+        "totalOpportunity": 42,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_SQUIRREL_FISH",
+      "name": "탕수어",
+      "before": {
+        "heal": 250,
+        "fee": 3,
+        "materialOpportunity": 52,
+        "totalOpportunity": 55,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 380,
+        "fee": 3,
+        "materialOpportunity": 52,
+        "totalOpportunity": 55,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_SHRIMP_BALLS",
+      "name": "황금 새우볼",
+      "before": {
+        "heal": 240,
+        "fee": 3,
+        "materialOpportunity": 80,
+        "totalOpportunity": 83,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 340,
+        "fee": 3,
+        "materialOpportunity": 80,
+        "totalOpportunity": 83,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_BAMBOO_SOUP",
+      "name": "죽순 수프",
+      "before": {
+        "heal": 240,
+        "fee": 3,
+        "materialOpportunity": 50,
+        "totalOpportunity": 53,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 400,
+        "fee": 3,
+        "materialOpportunity": 50,
+        "totalOpportunity": 53,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_PERCH_STEW",
+      "name": "삶은 검정 농어",
+      "before": {
+        "heal": 260,
+        "fee": 2,
+        "materialOpportunity": 72,
+        "totalOpportunity": 74,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 440,
+        "fee": 2,
+        "materialOpportunity": 72,
+        "totalOpportunity": 74,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_CRAB_HAM_BAKE",
+      "name": "꽃게알 야채찜",
+      "before": {
+        "heal": 230,
+        "fee": 3,
+        "materialOpportunity": 55,
+        "totalOpportunity": 58,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 400,
+        "fee": 3,
+        "materialOpportunity": 55,
+        "totalOpportunity": 58,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_POTATO_SHRIMP_PLATTER",
+      "name": "바삭 쉬림프 카나페",
+      "before": {
+        "heal": 230,
+        "fee": 4,
+        "materialOpportunity": 72,
+        "totalOpportunity": 76,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 340,
+        "fee": 4,
+        "materialOpportunity": 72,
+        "totalOpportunity": 76,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_GRILLED_TIGER_FISH",
+      "name": "흘호어 구이",
+      "before": {
+        "heal": 100,
+        "fee": 3,
+        "materialOpportunity": 14,
+        "totalOpportunity": 17,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 120,
+        "fee": 3,
+        "materialOpportunity": 14,
+        "totalOpportunity": 17,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_RICE_BUNS",
+      "name": "쌀 찐빵",
+      "before": {
+        "heal": 100,
+        "fee": 3,
+        "materialOpportunity": 10,
+        "totalOpportunity": 13,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 110,
+        "fee": 3,
+        "materialOpportunity": 10,
+        "totalOpportunity": 13,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_FINE_TEA_FULL_MOON",
+      "name": "차와 보름달",
+      "before": {
+        "heal": 240,
+        "fee": 3,
+        "materialOpportunity": 32,
+        "totalOpportunity": 35,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 280,
+        "fee": 3,
+        "materialOpportunity": 32,
+        "totalOpportunity": 35,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_JADEVEIN_TEA_EGGS",
+      "name": "옥무늬 찻잎 달걀",
+      "before": {
+        "heal": 90,
+        "fee": 3,
+        "materialOpportunity": 9,
+        "totalOpportunity": 12,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 100,
+        "fee": 3,
+        "materialOpportunity": 9,
+        "totalOpportunity": 12,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_TEA_SMOKED_SQUAB",
+      "name": "차향 훈제 비둘기",
+      "before": {
+        "heal": 180,
+        "fee": 3,
+        "materialOpportunity": 26,
+        "totalOpportunity": 29,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 210,
+        "fee": 3,
+        "materialOpportunity": 26,
+        "totalOpportunity": 29,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_CHENYU_BREW",
+      "name": "침옥 차 이슬",
+      "before": {
+        "heal": 90,
+        "fee": 3,
+        "materialOpportunity": 12,
+        "totalOpportunity": 15,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 90,
+        "fee": 3,
+        "materialOpportunity": 12,
+        "totalOpportunity": 15,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_CRAB_ROE_TOFU",
+      "name": "꽃게알 두부",
+      "before": {
+        "heal": 170,
+        "fee": 3,
+        "materialOpportunity": 26,
+        "totalOpportunity": 29,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 280,
+        "fee": 3,
+        "materialOpportunity": 26,
+        "totalOpportunity": 29,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_FULLMOON_EGG",
+      "name": "명월 딤섬",
+      "before": {
+        "heal": 230,
+        "fee": 3,
+        "materialOpportunity": 70,
+        "totalOpportunity": 73,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 420,
+        "fee": 3,
+        "materialOpportunity": 70,
+        "totalOpportunity": 73,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_FISH_NOODLES",
+      "name": "생선 볶음면",
+      "before": {
+        "heal": 170,
+        "fee": 3,
+        "materialOpportunity": 44,
+        "totalOpportunity": 47,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 360,
+        "fee": 3,
+        "materialOpportunity": 44,
+        "totalOpportunity": 47,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_HUMBLY_ENOUGH",
+      "name": "만족의 기쁨",
+      "before": {
+        "heal": 230,
+        "fee": 3,
+        "materialOpportunity": 62,
+        "totalOpportunity": 65,
+        "npcSale": 60
+      },
+      "after": {
+        "heal": 340,
+        "fee": 3,
+        "materialOpportunity": 62,
+        "totalOpportunity": 65,
+        "npcSale": 60
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_HONEY_CHAR_SIU",
+      "name": "꿀 차사오",
+      "before": {
+        "heal": 90,
+        "fee": 3,
+        "materialOpportunity": 15,
+        "totalOpportunity": 18,
+        "npcSale": 15
+      },
+      "after": {
+        "heal": 120,
+        "fee": 3,
+        "materialOpportunity": 15,
+        "totalOpportunity": 18,
+        "npcSale": 15
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_LUCKY_SNOW_DELIGHT",
+      "name": "풍요 백설기",
+      "before": {
+        "heal": 270,
+        "fee": 2,
+        "materialOpportunity": 72,
+        "totalOpportunity": 74,
+        "npcSale": 100
+      },
+      "after": {
+        "heal": 440,
+        "fee": 2,
+        "materialOpportunity": 72,
+        "totalOpportunity": 74,
+        "npcSale": 100
+      },
+      "readyStocks": []
+    },
+    {
+      "food": "FOOD_GOLDEN_TEMPERED_JADE",
+      "name": "빛나는 냉옥",
+      "before": {
+        "heal": 170,
+        "fee": 4,
+        "materialOpportunity": 18,
+        "totalOpportunity": 22,
+        "npcSale": 35
+      },
+      "after": {
+        "heal": 180,
+        "fee": 4,
+        "materialOpportunity": 18,
+        "totalOpportunity": 22,
+        "npcSale": 35
+      },
+      "readyStocks": []
+    }
+  ],
+  "checks": [
+    {
+      "name": "same existing recovery food IDs",
+      "passed": true
+    },
+    {
+      "name": "FOOD_TEA_BREAK_PANCAKE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_TEA_BREAK_PANCAKE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 8,
+        "after": 8
+      }
+    },
+    {
+      "name": "FOOD_TEA_BREAK_PANCAKE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "STK_MOND_SARA_EGG preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_MOND_SARA_EGG quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANMIN_EGG preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANMIN_EGG quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANGSHU_EGG preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANGSHU_EGG quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SWEET_MADAME ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SWEET_MADAME NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 20,
+        "after": 20
+      }
+    },
+    {
+      "name": "FOOD_SWEET_MADAME trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "STK_MOND_SARA_CHICKEN preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_MOND_SARA_CHICKEN quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_HASH_BROWN ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_HASH_BROWN NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 26,
+        "after": 26
+      }
+    },
+    {
+      "name": "FOOD_HASH_BROWN trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "STK_MOND_SARA_POTATO preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_MOND_SARA_POTATO quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MATSUTAKE_ROLL ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MATSUTAKE_ROLL NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 30,
+        "after": 30
+      }
+    },
+    {
+      "name": "FOOD_MATSUTAKE_ROLL trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANMIN_MATSUTAKE preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANMIN_MATSUTAKE quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_UNIVERSAL_PEACE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_UNIVERSAL_PEACE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 45,
+        "after": 45
+      }
+    },
+    {
+      "name": "FOOD_UNIVERSAL_PEACE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANMIN_PEACE preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_LY_WANMIN_PEACE quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_PIZZA ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_PIZZA NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 16,
+        "after": 16
+      }
+    },
+    {
+      "name": "FOOD_PIZZA trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA preserves previous purchased-healing Mora per HP",
+      "passed": true
+    },
+    {
+      "name": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA quantity/restock/condition retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SAKURA_MOCHI ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SAKURA_MOCHI NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 50,
+        "after": 50
+      }
+    },
+    {
+      "name": "FOOD_SAKURA_MOCHI trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_TAHCHIN ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_TAHCHIN NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 80,
+        "after": 80
+      }
+    },
+    {
+      "name": "FOOD_TAHCHIN trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_GLUPOV_RYE_BREAD ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_GLUPOV_RYE_BREAD NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 50,
+        "after": 50
+      }
+    },
+    {
+      "name": "FOOD_SNEZ_GLUPOV_RYE_BREAD trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_BERRY_ICE_CREAM ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_BERRY_ICE_CREAM NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 75,
+        "after": 75
+      }
+    },
+    {
+      "name": "FOOD_SNEZ_BERRY_ICE_CREAM trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_MEDOVIK ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_MEDOVIK NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 65,
+        "after": 65
+      }
+    },
+    {
+      "name": "FOOD_SNEZ_MEDOVIK trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_ZHARKOYE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SNEZ_ZHARKOYE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 85,
+        "after": 85
+      }
+    },
+    {
+      "name": "FOOD_SNEZ_ZHARKOYE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_STEAK ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_STEAK NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_STEAK trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CHICKEN_SKEWER ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CHICKEN_SKEWER NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_CHICKEN_SKEWER trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MOND_GRILLED_FISH ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MOND_GRILLED_FISH NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_MOND_GRILLED_FISH trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_RADISH_SOUP ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_RADISH_SOUP NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_RADISH_SOUP trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MINT_JELLY ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MINT_JELLY NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_MINT_JELLY trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_PANCAKE_TEA_BREAK ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_PANCAKE_TEA_BREAK NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_PANCAKE_TEA_BREAK trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_BOLOGNESE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_BOLOGNESE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_BOLOGNESE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_APPLE_STEW ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_APPLE_STEW NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_APPLE_STEW trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CHICKEN_BURGER ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CHICKEN_BURGER NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_CHICKEN_BURGER trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MORA_MEAT ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_MORA_MEAT NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_MORA_MEAT trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_STIR_FRIED_FILET ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_STIR_FRIED_FILET NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_STIR_FRIED_FILET trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CRYSTAL_SHRIMP ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CRYSTAL_SHRIMP NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_CRYSTAL_SHRIMP trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_VEGETARIAN_ABALONE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_VEGETARIAN_ABALONE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_VEGETARIAN_ABALONE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SQUIRREL_FISH ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SQUIRREL_FISH NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_SQUIRREL_FISH trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SHRIMP_BALLS ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_SHRIMP_BALLS NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_SHRIMP_BALLS trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_BAMBOO_SOUP ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_BAMBOO_SOUP NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_BAMBOO_SOUP trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_PERCH_STEW ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_PERCH_STEW NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_PERCH_STEW trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CRAB_HAM_BAKE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CRAB_HAM_BAKE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_CRAB_HAM_BAKE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_POTATO_SHRIMP_PLATTER ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_POTATO_SHRIMP_PLATTER NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_POTATO_SHRIMP_PLATTER trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_GRILLED_TIGER_FISH ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_GRILLED_TIGER_FISH NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_GRILLED_TIGER_FISH trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_RICE_BUNS ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_RICE_BUNS NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_RICE_BUNS trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_FINE_TEA_FULL_MOON ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_FINE_TEA_FULL_MOON NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_FINE_TEA_FULL_MOON trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_JADEVEIN_TEA_EGGS ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_JADEVEIN_TEA_EGGS NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_JADEVEIN_TEA_EGGS trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_TEA_SMOKED_SQUAB ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_TEA_SMOKED_SQUAB NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_TEA_SMOKED_SQUAB trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CHENYU_BREW ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CHENYU_BREW NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_CHENYU_BREW trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CRAB_ROE_TOFU ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_CRAB_ROE_TOFU NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_CRAB_ROE_TOFU trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_FULLMOON_EGG ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_FULLMOON_EGG NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_FULLMOON_EGG trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_FISH_NOODLES ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_FISH_NOODLES NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_FISH_NOODLES trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_HUMBLY_ENOUGH ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_HUMBLY_ENOUGH NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "FOOD_HUMBLY_ENOUGH trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_HONEY_CHAR_SIU ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_HONEY_CHAR_SIU NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 15,
+        "after": 15
+      }
+    },
+    {
+      "name": "FOOD_HONEY_CHAR_SIU trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_LUCKY_SNOW_DELIGHT ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_LUCKY_SNOW_DELIGHT NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 100,
+        "after": 100
+      }
+    },
+    {
+      "name": "FOOD_LUCKY_SNOW_DELIGHT trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_GOLDEN_TEMPERED_JADE ingredients and output retained",
+      "passed": true
+    },
+    {
+      "name": "FOOD_GOLDEN_TEMPERED_JADE NPC resale retained",
+      "passed": true,
+      "detail": {
+        "before": 35,
+        "after": 35
+      }
+    },
+    {
+      "name": "FOOD_GOLDEN_TEMPERED_JADE trade policy retained",
+      "passed": true
+    },
+    {
+      "name": "Lv1 loss0.25 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv1 loss0.25 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv1 loss0.5 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv1 loss0.5 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv1 loss0.75 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv1 loss0.75 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv10 loss0.25 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv10 loss0.25 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv10 loss0.5 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv10 loss0.5 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv10 loss0.75 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv10 loss0.75 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv20 loss0.25 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv20 loss0.25 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv20 loss0.5 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv20 loss0.5 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv20 loss0.75 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv20 loss0.75 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv30 loss0.25 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv30 loss0.25 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv30 loss0.5 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv30 loss0.5 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv30 loss0.75 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv30 loss0.75 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv40 loss0.25 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv40 loss0.25 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv40 loss0.5 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv40 loss0.5 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv40 loss0.75 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv40 loss0.75 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv50 loss0.25 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv50 loss0.25 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv50 loss0.5 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv50 loss0.5 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv50 loss0.75 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv50 loss0.75 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv60 loss0.25 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv60 loss0.25 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv60 loss0.5 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv60 loss0.5 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "Lv60 loss0.75 inn target quote retained",
+      "passed": true
+    },
+    {
+      "name": "Lv60 loss0.75 native HP retained",
+      "passed": true
+    },
+    {
+      "name": "trade rules retained",
+      "passed": true
+    },
+    {
+      "name": "no NPC purchase/craft/resale arbitrage",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "STK_MOND_SARA_EGG actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_MOND_SARA_EGG",
+        "quantity": 1,
+        "cost": 35
+      }
+    },
+    {
+      "name": "STK_MOND_SARA_EGG actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_TEA_BREAK_PANCAKE",
+        "name": "티바트 달걀 프라이",
+        "quantity": 1,
+        "mora": 8
+      }
+    },
+    {
+      "name": "STK_LY_WANMIN_EGG actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_LY_WANMIN_EGG",
+        "quantity": 1,
+        "cost": 35
+      }
+    },
+    {
+      "name": "STK_LY_WANMIN_EGG actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_TEA_BREAK_PANCAKE",
+        "name": "티바트 달걀 프라이",
+        "quantity": 1,
+        "mora": 8
+      }
+    },
+    {
+      "name": "STK_LY_WANGSHU_EGG actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_LY_WANGSHU_EGG",
+        "quantity": 1,
+        "cost": 35
+      }
+    },
+    {
+      "name": "STK_LY_WANGSHU_EGG actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_TEA_BREAK_PANCAKE",
+        "name": "티바트 달걀 프라이",
+        "quantity": 1,
+        "mora": 8
+      }
+    },
+    {
+      "name": "STK_MOND_SARA_CHICKEN actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_MOND_SARA_CHICKEN",
+        "quantity": 1,
+        "cost": 80
+      }
+    },
+    {
+      "name": "STK_MOND_SARA_CHICKEN actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_SWEET_MADAME",
+        "name": "달콤달콤 닭고기 스튜",
+        "quantity": 1,
+        "mora": 20
+      }
+    },
+    {
+      "name": "STK_MOND_SARA_POTATO actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_MOND_SARA_POTATO",
+        "quantity": 1,
+        "cost": 163
+      }
+    },
+    {
+      "name": "STK_MOND_SARA_POTATO actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_HASH_BROWN",
+        "name": "몬드 감자전",
+        "quantity": 1,
+        "mora": 26
+      }
+    },
+    {
+      "name": "STK_LY_WANMIN_MATSUTAKE actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_LY_WANMIN_MATSUTAKE",
+        "quantity": 1,
+        "cost": 150
+      }
+    },
+    {
+      "name": "STK_LY_WANMIN_MATSUTAKE actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_MATSUTAKE_ROLL",
+        "name": "버섯고기말이",
+        "quantity": 1,
+        "mora": 30
+      }
+    },
+    {
+      "name": "STK_LY_WANMIN_PEACE actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_LY_WANMIN_PEACE",
+        "quantity": 1,
+        "cost": 315
+      }
+    },
+    {
+      "name": "STK_LY_WANMIN_PEACE actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_UNIVERSAL_PEACE",
+        "name": "세계 평화",
+        "quantity": 1,
+        "mora": 45
+      }
+    },
+    {
+      "name": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA actual BUY matches quote",
+      "passed": true,
+      "detail": {
+        "stock": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+        "quantity": 1,
+        "cost": 130
+      }
+    },
+    {
+      "name": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA actual SELL keeps previous cash value",
+      "passed": true,
+      "detail": {
+        "sold": "FOOD_PIZZA",
+        "name": "버섯피자",
+        "quantity": 1,
+        "mora": 16
+      }
+    },
+    {
+      "name": "starter meals retain two plus two once",
+      "passed": true,
+      "detail": {
+        "FOOD_SWEET_MADAME": 2,
+        "FOOD_HASH_BROWN": 2
+      }
+    }
+  ],
+  "counts": {
+    "checks": 213,
+    "passed": 213,
+    "failed": 0,
+    "nativeReadyFoodBuys": 8,
+    "nativeReadyFoodSales": 8,
+    "resourceSamples": 384,
+    "npcArbitrageViolations": 0
+  },
+  "receipts": [
+    {
+      "stock": "STK_MOND_SARA_EGG",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_SCHEDULE_NPC_MOND_SARA",
+      "buy": {
+        "stock": "STK_MOND_SARA_EGG",
+        "quantity": 1,
+        "cost": 35
+      },
+      "sell": {
+        "sold": "FOOD_TEA_BREAK_PANCAKE",
+        "name": "티바트 달걀 프라이",
+        "quantity": 1,
+        "mora": 8
+      }
+    },
+    {
+      "stock": "STK_LY_WANMIN_EGG",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_CRPG_LIYUE_WANMIN",
+      "buy": {
+        "stock": "STK_LY_WANMIN_EGG",
+        "quantity": 1,
+        "cost": 35
+      },
+      "sell": {
+        "sold": "FOOD_TEA_BREAK_PANCAKE",
+        "name": "티바트 달걀 프라이",
+        "quantity": 1,
+        "mora": 8
+      }
+    },
+    {
+      "stock": "STK_LY_WANGSHU_EGG",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_CRPG_LIYUE_WANGSHU_DINING",
+      "buy": {
+        "stock": "STK_LY_WANGSHU_EGG",
+        "quantity": 1,
+        "cost": 35
+      },
+      "sell": {
+        "sold": "FOOD_TEA_BREAK_PANCAKE",
+        "name": "티바트 달걀 프라이",
+        "quantity": 1,
+        "mora": 8
+      }
+    },
+    {
+      "stock": "STK_MOND_SARA_CHICKEN",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_SCHEDULE_NPC_MOND_SARA",
+      "buy": {
+        "stock": "STK_MOND_SARA_CHICKEN",
+        "quantity": 1,
+        "cost": 80
+      },
+      "sell": {
+        "sold": "FOOD_SWEET_MADAME",
+        "name": "달콤달콤 닭고기 스튜",
+        "quantity": 1,
+        "mora": 20
+      }
+    },
+    {
+      "stock": "STK_MOND_SARA_POTATO",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_SCHEDULE_NPC_MOND_SARA",
+      "buy": {
+        "stock": "STK_MOND_SARA_POTATO",
+        "quantity": 1,
+        "cost": 163
+      },
+      "sell": {
+        "sold": "FOOD_HASH_BROWN",
+        "name": "몬드 감자전",
+        "quantity": 1,
+        "mora": 26
+      }
+    },
+    {
+      "stock": "STK_LY_WANMIN_MATSUTAKE",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_CRPG_LIYUE_WANMIN",
+      "buy": {
+        "stock": "STK_LY_WANMIN_MATSUTAKE",
+        "quantity": 1,
+        "cost": 150
+      },
+      "sell": {
+        "sold": "FOOD_MATSUTAKE_ROLL",
+        "name": "버섯고기말이",
+        "quantity": 1,
+        "mora": 30
+      }
+    },
+    {
+      "stock": "STK_LY_WANMIN_PEACE",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_CRPG_LIYUE_WANMIN",
+      "buy": {
+        "stock": "STK_LY_WANMIN_PEACE",
+        "quantity": 1,
+        "cost": 315
+      },
+      "sell": {
+        "sold": "FOOD_UNIVERSAL_PEACE",
+        "name": "세계 평화",
+        "quantity": 1,
+        "mora": 45
+      }
+    },
+    {
+      "stock": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+      "syntheticAlreadyAtShop": true,
+      "entry": "EVT_SCHEDULE_NPC_MOND_SARA",
+      "buy": {
+        "stock": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+        "quantity": 1,
+        "cost": 130
+      },
+      "sell": {
+        "sold": "FOOD_PIZZA",
+        "name": "버섯피자",
+        "quantity": 1,
+        "mora": 16
+      }
+    }
+  ]
+}

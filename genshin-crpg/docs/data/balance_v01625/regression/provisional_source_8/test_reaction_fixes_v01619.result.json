@@ -1,0 +1,28 @@
+{
+  "test": "tests/test_reaction_fixes_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_reaction_fixes_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T10:03:59.752466+00:00",
+  "endedAt": "2026-10-10T10:05:06.493636+00:00",
+  "seconds": 66.565,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "source/runtime_constellations_v01411.js": {
+      "before": "03e58d05dfde1847550d73d46aca73e4889e45265c30d523aa6764ee5936c147",
+      "after": "ea9f4e9f23bec718cea07acd0a62fb4e2461aa967f4aeff7c344eebf9cf9e28f"
+    },
+    "tests/test_character_balance_v01625.cjs": {
+      "before": "6163c4b37e13258358e699e2d0004d4045d07f21ce396b87e30484cf5de64af4",
+      "after": "9bcdf115e8277fdc4365b05c5c1536b0ac510cc8cfd8b6f252c89c4ac4e503cf"
+    }
+  },
+  "testSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_reaction_fixes_v01619.stdout.log",
+  "stderrLog": "test_reaction_fixes_v01619.stderr.log"
+}

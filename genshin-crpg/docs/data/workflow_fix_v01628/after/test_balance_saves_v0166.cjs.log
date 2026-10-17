@@ -1,0 +1,8 @@
+PASS 0.16.5 XP migrates once for player, owned companion and bench without changing levels or belongings
+PASS a prior-curve battle keeps its actors and initiative while only stored XP converts
+PASS Lv3 loses fixed Lv10 and Lv12 fights; correctly levelled four-person starter-weapon parties can win
+PASS genuine 0.16.26 prepared Lv27 counter party retains three native wins and exact loaded-save continuation
+PASS current gradual Lv27 budget has two native scripted wins and one loss, with exact saved continuation and payouts
+PASS late story foes use fixed chapter levels while ordinary visits retain their regional levels
+PASS high-enhancement success, hold and downgrade all pay the quoted cost exactly once
+{"passed":7,"nativeBalanceCases":3,"saveMigrationCases":2,"genuineBeforeSaveReplayCases":1,"currentBudgetReplayCases":1,"fixedLevelCase":1,"isolatedSettlementCase":1}

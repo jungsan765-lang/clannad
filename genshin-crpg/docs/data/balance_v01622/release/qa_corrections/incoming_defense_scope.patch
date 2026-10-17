@@ -1,0 +1,13 @@
+--- incoming_defense_before.cjs
++++ incoming_defense_after.cjs
+@@ -9,4 +9,9 @@
+  const old=copy(r.s);delete old.runtime.defenseRevision;delete old.runtime.healingBalanceRevision;r.validateSave(old);assert.equal(old.runtime.defenseRevision,undefined);assert.equal(old.runtime.healingBalanceRevision,undefined);checked++;
+  for(const key of ['defenseRevision','healingBalanceRevision']){const bad=copy(r.s);bad.runtime[key]=2;assert.throws(()=>r.validateSave(bad),e=>e.code===(key==='defenseRevision'?'DEFENSE_VERSION':'HEALING_BALANCE_SAVE'));checked++;}
+ }
+-console.log(JSON.stringify({test:'incoming_defense_v01622',checks:checked,result:'PASS',contracts:'Native incoming packets at5 levels; outgoing unchanged; raw effective DEF preserved; old save markers remain absent; unknown policies rejected.'}));
++for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI']){
++ const team=['MOND_FISCHL','LIYUE_XIANGLING','MOND_BARBARA'],r=H.setup(E,{level:60,team,route,map:'MAP_OSIAL_BATTLE'}),node=route==='ROUTE_TRAVELER'?'TRV_LY4_OSIAL_COMBAT':'ISK_L04_K1_040',group=route==='ROUTE_TRAVELER'?'EG_BOSS_OSIAL':'EG_ISK_L04_OSIAL';
++ r.s.flags.FLAG_ISK_L01_LEAF='K1';r.storySetCursor(node);r.startBattle(group,'STORY:'+node,{confirmed:true,companions:team});
++ const b=r.s.runtime;assert.equal(b.storyConfig.objective.kind,'PROTECT_FORMATION');assert.equal(b.defenseRevision,1);const enemy=b.actors.find(a=>a.side==='ENEMY'),ally=b.actors.find(a=>a.source==='PLAYER_CUSTOM');assert.equal(packet(r,enemy,ally,1),packet(r,enemy,ally,undefined));checked++;
++}
++console.log(JSON.stringify({test:'incoming_defense_v01622',checks:checked,result:'PASS',contracts:'Native incoming packets at5 levels; Osial formation defense keeps its original mitigation on both routes; outgoing unchanged; raw effective DEF preserved; old save markers remain absent; unknown policies rejected.'}));

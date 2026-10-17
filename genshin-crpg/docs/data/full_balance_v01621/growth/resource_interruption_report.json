@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "observedSharedMemoryLimit": "8 GiB reported by root; concurrent QA combined resident use exceeded it",
+  "rows": [
+    {
+      "program": "ascension_balance_final_readable.log",
+      "exitCode": 137,
+      "preservedLog": "oom_interrupted_ascension_balance_final_readable.log",
+      "classification": "Environment process killed under observed shared memory pressure; not a passing test and not diagnosed as a product regression. Retry sequentially."
+    },
+    {
+      "program": "ascension_efficiency_final_readable.log",
+      "exitCode": 137,
+      "preservedLog": "oom_interrupted_ascension_efficiency_final_readable.log",
+      "classification": "Environment process killed under observed shared memory pressure; not a passing test and not diagnosed as a product regression. Retry sequentially."
+    },
+    {
+      "program": "task_materials_final_readable.log",
+      "exitCode": 137,
+      "preservedLog": "oom_interrupted_task_materials_final_readable.log",
+      "classification": "Environment process killed under observed shared memory pressure; not a passing test and not diagnosed as a product regression. Retry sequentially."
+    },
+    {
+      "program": "audit_growth_v01621.cjs final255",
+      "exitCode": 137,
+      "completedNativeConditions": 30,
+      "remainingConditions": 225,
+      "preservedEvidence": "ascension_final_readable_partial",
+      "resumePolicy": "Do not repeat 30 completed cases; run only original remaining ordered cases and verify same loaded source digest."
+    }
+  ]
+}

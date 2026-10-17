@@ -1,0 +1,89 @@
+{
+  "authorizedBy": "root cashmargin adoption; growthowner frozen finalQA corresponds actual new quantities and new6th native/cashproof; old5checks retain historical sources, no olddata rewrite",
+  "qaChanges": [
+    {
+      "path": "tests/test_material_efficiency_v01622.cjs",
+      "before": {
+        "path": "tests/test_material_efficiency_v01622.cjs",
+        "bytes": 6227,
+        "sha256": "cdd321580c838495df020370c007a257672f57d61ec5c9a1fcb22b70f630c617"
+      },
+      "after": {
+        "path": "tests/test_material_efficiency_v01622.cjs",
+        "bytes": 8306,
+        "sha256": "a0be0ddb73f354bad0f6cd4a94273f4461aa883317b9e6a62fb553c8eff324f0"
+      }
+    },
+    {
+      "path": "tests/test_material_rewards_v01616.cjs",
+      "before": {
+        "path": "tests/test_material_rewards_v01616.cjs",
+        "bytes": 18045,
+        "sha256": "14efe9d79986576f9c4e155cef29d9e56fffd258c2871cb1943f1d40de9c5500"
+      },
+      "after": {
+        "path": "tests/test_material_rewards_v01616.cjs",
+        "bytes": 18046,
+        "sha256": "0e8451fc50905ab0d643c97c9ea402c5a8863993343f6d2f6a4c28dd633c3d83"
+      }
+    },
+    {
+      "path": "tests/test_ascension_balance_v01614.cjs",
+      "before": {
+        "path": "tests/test_ascension_balance_v01614.cjs",
+        "bytes": 36884,
+        "sha256": "b3d686d24d76b806998fd10c616b2a4a17d30cff9de86c2b30221efcdc94cfbd"
+      },
+      "after": {
+        "path": "tests/test_ascension_balance_v01614.cjs",
+        "bytes": 36884,
+        "sha256": "49f893044aca9f011c7ff3c0551e4d4f3b3441a7214c83b897c27be79254afaa"
+      }
+    },
+    {
+      "path": "tests/test_ascension_efficiency_v01613.cjs",
+      "before": {
+        "path": "tests/test_ascension_efficiency_v01613.cjs",
+        "bytes": 10386,
+        "sha256": "6e4db0bd8922177809d87dd277d8b134df791938b9c6bfff7e71f8a2375fd560"
+      },
+      "after": {
+        "path": "tests/test_ascension_efficiency_v01613.cjs",
+        "bytes": 10387,
+        "sha256": "593a18f606ae5c7456cce3bf729d70d0dfc8b4f80613650d666af9008f06ad57"
+      }
+    },
+    {
+      "path": "tests/test_task_materials_v0169.cjs",
+      "before": {
+        "path": "tests/test_task_materials_v0169.cjs",
+        "bytes": 8214,
+        "sha256": "baf24ff4d1e11539c938359eeb118f9a8844b6519f71a3083afa40ed5ead12c9"
+      },
+      "after": {
+        "path": "tests/test_task_materials_v0169.cjs",
+        "bytes": 8214,
+        "sha256": "dcbc85b925ac9278197e4aa3598ed14149abc0bbf72d5dd4e0b632007d143b0b"
+      }
+    }
+  ],
+  "recordedDependencies": [
+    "docs/data/balance_v01622/growth/cash_cost_adjustment/assessment.json",
+    "docs/data/balance_v01622/growth/cash_cost_adjustment/before_runtime_growth_v01522.js",
+    "docs/data/balance_v01622/growth/cash_cost_adjustment/cash_model.json",
+    "docs/data/balance_v01622/growth/cash_cost_adjustment/native/native.json.gz",
+    "docs/data/balance_v01622/growth/cash_cost_adjustment/native/summary.json",
+    "docs/data/balance_v01622/growth/maximum_party_baseline/summary.json",
+    "docs/data/balance_v01622/growth/pressure_candidate_native/summary.json",
+    "docs/data/balance_v01622/growth/release_final_assessment.json",
+    "docs/data/balance_v01622/growth/release_final_native/native.json.gz",
+    "docs/data/balance_v01622/growth/release_final_native/summary.json",
+    "docs/data/balance_v01622/growth/representative_before_final_rules_native/summary.json",
+    "docs/data/balance_v01622/growth/representative_before_native.json.gz",
+    "docs/data/balance_v01622/growth/representative_final_native/native.json.gz",
+    "docs/data/balance_v01622/growth/talent_pressure_native/summary.json",
+    "docs/data/full_balance_v01621/growth/ascension_final_comparison.json",
+    "docs/data/full_balance_v01621/growth/historical_growth_saves_v01620.json.gz",
+    "docs/data/full_balance_v01621/growth/talent_comparison.json"
+  ]
+}

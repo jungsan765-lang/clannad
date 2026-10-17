@@ -1,0 +1,134 @@
+{
+  "fixture": "Native legal Lv20 four-person party and native cards. Target HP raised only to observe all packets; not a fight or turn-order policy benchmark.",
+  "hydro": {
+    "actor": "LIYUE_XINGQIU",
+    "card": "LIYUE_XINGQIU_E",
+    "reason": "",
+    "packets": [
+      {
+        "damage": 573,
+        "element": "물",
+        "reaction": null,
+        "sourceKind": null
+      }
+    ],
+    "auras": [
+      {
+        "element": "물",
+        "rounds": 2,
+        "createdRound": 1
+      }
+    ],
+    "statuses": []
+  },
+  "cryo": {
+    "actor": "MOND_KAEYA",
+    "card": "MOND_KAEYA_E",
+    "reason": "",
+    "packets": [
+      {
+        "damage": 517,
+        "element": "얼음",
+        "reaction": "RX_FROZEN",
+        "sourceKind": null
+      }
+    ],
+    "auras": [
+      {
+        "element": "물",
+        "rounds": 2,
+        "createdRound": 1
+      },
+      {
+        "element": "얼음",
+        "rounds": 2,
+        "createdRound": 1
+      }
+    ],
+    "statuses": [
+      {
+        "id": "STATUS_FREEZE",
+        "rounds": 1,
+        "createdRound": 1,
+        "coexist": [
+          "물",
+          "얼음"
+        ],
+        "untilTurn": 2
+      }
+    ]
+  },
+  "pyro": {
+    "actor": "MOND_DILUC",
+    "card": "MOND_DILUC_E",
+    "reason": "",
+    "packets": [
+      {
+        "damage": 703,
+        "element": "불",
+        "reaction": "RX_MELT_PYRO",
+        "sourceKind": null
+      },
+      {
+        "damage": 390,
+        "element": "불",
+        "reaction": null,
+        "sourceKind": null
+      },
+      {
+        "damage": 507,
+        "element": "불",
+        "reaction": null,
+        "sourceKind": null
+      }
+    ],
+    "auras": [
+      {
+        "element": "물",
+        "rounds": 2,
+        "createdRound": 1
+      }
+    ],
+    "statuses": [
+      {
+        "id": "STATUS_FREEZE",
+        "rounds": 1,
+        "createdRound": 1,
+        "coexist": [
+          "물",
+          "얼음"
+        ],
+        "untilTurn": 2
+      }
+    ]
+  },
+  "basic": {
+    "packets": [
+      {
+        "damage": 390,
+        "element": "물리",
+        "reaction": null,
+        "sourceKind": null
+      }
+    ],
+    "auras": [
+      {
+        "element": "물",
+        "rounds": 2,
+        "createdRound": 1
+      }
+    ],
+    "statuses": [
+      {
+        "id": "STATUS_FREEZE",
+        "rounds": 1,
+        "createdRound": 1,
+        "coexist": [
+          "물",
+          "얼음"
+        ],
+        "untilTurn": 2
+      }
+    ]
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "status": "effective_current11_pass_original10pass1legacy_scope_fail_plus_approved_recheck1pass",
+  "verifiedAt": "2026-10-10T06:06:50.051386+00:00",
+  "selectedPrograms": 11,
+  "originalRunPassedPrograms": 10,
+  "originalRunFailedPrograms": 1,
+  "effectiveCurrentPassedPrograms": 11,
+  "effectiveCurrentFailedPrograms": 0,
+  "fresh11AllPassedClaim": false,
+  "registeredPrograms": 182,
+  "allRegistered182ProgramsRetested": false,
+  "earlier36ProgramsRetestedInThisFolder": false,
+  "timeouts": 0,
+  "signals": 0,
+  "inputFiles": 450,
+  "originalInputDrift": [],
+  "approvedPostRunQaDrift": [
+    {
+      "path": "tests/test_combat_boundaries_v0168.cjs",
+      "before": {
+        "path": "tests/test_combat_boundaries_v0168.cjs",
+        "bytes": 13456,
+        "sha256": "0b02a111b8483d391669a99b379c9e4929f9f4307a359271cf5e0ac08492fe6a"
+      },
+      "after": {
+        "path": "tests/test_combat_boundaries_v0168.cjs",
+        "bytes": 13495,
+        "sha256": "bdb86ffc15ebf97cf28fc33d5ab8d63d1ac801f9899294707d736b6504d2a687"
+      }
+    }
+  ],
+  "unexpectedInputDrift": [],
+  "dependencyChecks": [
+    {
+      "manifest": "prebuild_product_manifest.json",
+      "files": 236,
+      "drift": []
+    },
+    {
+      "manifest": "supplemental_dependency_manifest.json",
+      "files": 214,
+      "drift": [
+        {
+          "path": "tests/test_combat_boundaries_v0168.cjs",
+          "before": {
+            "path": "tests/test_combat_boundaries_v0168.cjs",
+            "bytes": 13456,
+            "sha256": "0b02a111b8483d391669a99b379c9e4929f9f4307a359271cf5e0ac08492fe6a"
+          },
+          "after": {
+            "path": "tests/test_combat_boundaries_v0168.cjs",
+            "bytes": 13495,
+            "sha256": "bdb86ffc15ebf97cf28fc33d5ab8d63d1ac801f9899294707d736b6504d2a687"
+          }
+        }
+      ]
+    }
+  ],
+  "originalDependencyChecks": [
+    {
+      "manifest": "input_manifest.json",
+      "files": 450,
+      "drift": []
+    },
+    {
+      "manifest": "prebuild_product_manifest.json",
+      "files": 236,
+      "drift": []
+    },
+    {
+      "manifest": "supplemental_dependency_manifest.json",
+      "files": 214,
+      "drift": []
+    }
+  ],
+  "approvedQaCorrection": {
+    "test": "tests/test_combat_boundaries_v0168.cjs",
+    "beforeSha256": "0b02a111b8483d391669a99b379c9e4929f9f4307a359271cf5e0ac08492fe6a",
+    "afterSha256": "bdb86ffc15ebf97cf28fc33d5ab8d63d1ac801f9899294707d736b6504d2a687",
+    "authorizedAt": "2026-10-10T06:06:02.724033+00:00",
+    "authorization": "Root: only existing once-revival contract should explicitly use saved behaviorRevision2; preserve original failure and rerun whole program. Product unchanged.",
+    "codeDelta": "Only the old countdown/once-revival case sets b.fieldBoss.behaviorRevision=2 and names its legacy2 policy; shared guardedBoss helper and other assertions unchanged. Its two GEO/ELECTRO parametrizations preserve former compatibility.",
+    "originalFailRawSha256": "1ce1727e33f13fc50cd23b1fb2b0b11c7fdf89f981a0c68d5737f3bc3be9f22b",
+    "productEdits": 0,
+    "new3Coverage": "Exact18 contract QA across3 actual engine classes=54PASS, original QA SHA888b; no new3 assertion weakened."
+  },
+  "recheckPrograms": 1,
+  "recheckPassed": 1,
+  "recheckFailed": 0,
+  "recheckContractsPassed": 26,
+  "recheckInputFiles": 450,
+  "recheckInputDrift": [],
+  "rawLogsVerified": 11,
+  "perGateMatchesResults": true,
+  "originalJournalLines": 11,
+  "originalJournalMatchesPerGate": true,
+  "buildProgramsPassed": 4,
+  "buildRawLogsVerified": 4,
+  "generalThreeEngineChecks": 218,
+  "generalThreeEnginePassed": 218,
+  "generalParityScope": "Actual built119 runtime scripts / authored-clean DB / existing food, recovery and engine contracts. The218 count does not itself cover the new repeat-revival mechanics.",
+  "strategyThreeEngineProgramRuns": 3,
+  "strategyThreeEngineContracts": 54,
+  "strategyThreeEnginePassed": 54,
+  "strategyThreeEngineFailed": 0,
+  "strategyInputFiles": 784,
+  "strategyInputDrift": [],
+  "strategyApprovedPostRunQaDrift": [
+    {
+      "path": "tests/test_combat_boundaries_v0168.cjs",
+      "before": {
+        "path": "tests/test_combat_boundaries_v0168.cjs",
+        "bytes": 13456,
+        "sha256": "0b02a111b8483d391669a99b379c9e4929f9f4307a359271cf5e0ac08492fe6a"
+      },
+      "after": {
+        "path": "tests/test_combat_boundaries_v0168.cjs",
+        "bytes": 13495,
+        "sha256": "bdb86ffc15ebf97cf28fc33d5ab8d63d1ac801f9899294707d736b6504d2a687"
+      }
+    }
+  ],
+  "strategyRawLogsVerified": 1,
+  "strategyOutputReportsVerified": 3,
+  "strategyScope": "Exact frozen18contract program executes against actual source/browser/server engine classes; only environment loader/report destination adapter. Oversized phase-boundary packets declared in originaltool, not fullfight difficulty or winrate proof.",
+  "nativeWorkersMaximumObserved": 2,
+  "memoryPeakBytes": 4035710976,
+  "approvedProductDeltaFromSealedCashmargin": [
+    {
+      "path": "content/release-notes.json",
+      "before": {
+        "path": "content/release-notes.json",
+        "bytes": 322210,
+        "sha256": "bc5013378715251ad80da29279ff0434142f421ea51eff45b22974d5997d8690"
+      },
+      "after": {
+        "path": "content/release-notes.json",
+        "bytes": 322531,
+        "sha256": "c15a2c6bbe7581aa59b436b16e1ffa2f962ddcba7c563db7dd9a38aad4693fa1"
+      }
+    },
+    {
+      "path": "source/runtime_field_bosses.js",
+      "before": {
+        "path": "source/runtime_field_bosses.js",
+        "bytes": 58758,
+        "sha256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563"
+      },
+      "after": {
+        "path": "source/runtime_field_bosses.js",
+        "bytes": 59740,
+        "sha256": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b"
+      }
+    }
+  ],
+  "approvedQAChanges": "Three legacy once-revival QA fixtures explicitly target2, boundary new marker3, new exact18contract gate registered182, fieldboss report argument added. See exact before/final copies and diffs.",
+  "ownerPreparationFailuresPreserved": [
+    "docs/data/balance_v01622/field_boss_strategy/first_preparation_failures.json",
+    "docs/data/balance_v01622/field_boss_strategy/guoba_preparation_failure.json"
+  ],
+  "priorSealedCandidatesPreserved": [
+    {
+      "folder": "../final_cash_margin",
+      "manifestSha256": "6b7af58bd166be5aac3029aa5769fc8f849c34c475c08fd181a831ddd2518f4a",
+      "verifiedFiles": 116,
+      "unchanged": true
+    },
+    {
+      "folder": "../final_protect_formation",
+      "manifestSha256": "d20aed3fa843a19c40a0ea96d8f772cbfe818c6c6c0a334bb9fcf4670834483a",
+      "verifiedFiles": 100,
+      "unchanged": true
+    }
+  ],
+  "historicalInputGaps": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ],
+  "historicalInputGapsRetested": false,
+  "engineProvenance": {
+    "engineVersion": "0.16.22",
+    "engineFingerprint": "engine3-c6f96ce3d15ca517fc6853efc6d2e544e201c0c9fd315e3b884d4d0230a652b0",
+    "recomputedEngineFingerprint": "engine3-c6f96ce3d15ca517fc6853efc6d2e544e201c0c9fd315e3b884d4d0230a652b0",
+    "serverBuild": "server-54ca6e0713c30a04d856",
+    "serverEngine": {
+      "bytes": 28362900,
+      "sha256": "660db67fa0967169bdbb4a5963a358d28627cb42eaefda1afbb30fde01206045",
+      "gzipBytesLevel6": 5436694
+    },
+    "browserRelease": {
+      "appVersion": "0.16.22",
+      "packVersion": "2026-09-24-c3d5eef26ac2-936b1e9167ec",
+      "engineVersion": "engine3-c6f96ce3d15ca517fc6853efc6d2e544e201c0c9fd315e3b884d4d0230a652b0"
+    }
+  },
+  "finalSevenProductSha256": {
+    "source/runtime_growth_v01522.js": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+    "source/runtime_rules.js": "cfe4c9ffb128478deb84a6abacba9b927bc8262078dce044f1c9e19db9674b9f",
+    "source/runtime_liyue.js": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163",
+    "source/runtime_liyue_artifacts.js": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+    "source/runtime_combat.js": "d9ca3895454ffcbb7a6d94783683bdbbf6d439594658dc8f17dda4ea19c9c6ee",
+    "source/runtime_liyue_cards.js": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94",
+    "source/runtime_field_bosses.js": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b"
+  },
+  "finalNotesSha256": "c15a2c6bbe7581aa59b436b16e1ffa2f962ddcba7c563db7dd9a38aad4693fa1",
+  "qaRawDbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "actualServerSha256": "660db67fa0967169bdbb4a5963a358d28627cb42eaefda1afbb30fde01206045",
+  "selectedQASha256": {
+    "tools/test_field_bosses.cjs": "26355ba3b05b0c9a9229b01f97aeb8616ca64cdd6743173cb9573a3ce537e1a2",
+    "tools/test_boss_boundaries_v01619.cjs": "4512acb719ac75ef97fbc25c67133b39b4e319b414b61110e2361d10930536e0",
+    "tools/test_field_boss_immunity_v01618.cjs": "e2014322a5afb05acd43a491003b0dbde71ba55a30f889d12110c3dfc8e39119",
+    "tests/test_save_revision.cjs": "3a649391be6fe91f37ffb8abbff438d7aa15cd16bcf212bbd7812d0a6b14aa5d",
+    "tests/test_balance_saves_v0166.cjs": "30d8631217a9e6da64457b61a9eeb3af235046824e7e430212da039e57352365",
+    "tests/test_defeat_settlement_v0166.cjs": "c31be531d11cafe522b49464e96297c1f94fc7e077416feba10f0258e18086c5",
+    "tests/test_combat_boundaries_v0168.cjs": "bdb86ffc15ebf97cf28fc33d5ab8d63d1ac801f9899294707d736b6504d2a687",
+    "tests/test_element_immunity_v01618.cjs": "7a4d0c8226eba7fa9623fefb2cde06ef98a326773101eb618f50410a229e9288",
+    "tests/test_monster_control_fixes_v01618.cjs": "18e30843af97fc199d224b69376cefe988d6ad78180127a8eeb489b2a6093447",
+    "tests/test_version.cjs": "a4ddd8c0ee5c7b0c96c56e9814be74352514bb0d84eef6a5bec507c61a20b0fc",
+    "tools/test_field_boss_strategy_v01622.cjs": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322"
+  },
+  "unverifiedClaims": [
+    "No actual graphical/mobile UI test in this folder.",
+    "No live server account execution or remote CI workflow completion verified here.",
+    "Oversized mechanic packets are boundary probes, not complete combat difficulty, winrate, farming-time or acquisition proofs.",
+    "No new claim that every first Lv55 party wins highest ascension tier."
+  ]
+}

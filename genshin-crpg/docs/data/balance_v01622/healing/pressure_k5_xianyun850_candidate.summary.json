@@ -1,0 +1,4074 @@
+{
+  "schema": 1,
+  "sourceRoot": "/workspace/scratch/a62414469990/crpg-v01618-work/v01622-verification-work/pressure-k5-xianyun850",
+  "fingerprint": "6876ff102ebd8f15532b6b720591078e5377d85ab666392de94452afc8ad83e1",
+  "provenance": {
+    "toolSha256": "c1585a410b8105e5a173952fef20f67b3a4e3859269519a52a23fdd014313c37",
+    "helperSha256": "b6976b721410d2a1acbebbdf74b7d2b462717b69efd997c40ce4306d945e991d",
+    "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  },
+  "assumptions": {
+    "party": "Fixed four, representative declared fixtures, not the user save; user constellation/save not provided. 4-star C0/C6 and 5-star C0 are explicit.",
+    "repeat": "4 successive native same-level talent-domain battles with no inn, food, forced heal, HP/level/RNG reset, or enemy change; stop on defeat.",
+    "gear": "Same craft weapon, reinforced leather and healer brooch; enhancement3 at25 and6 at60, native phase and65%cap talents.",
+    "time": "Actual 2x presentation uses recorded frame ms/1000; +3sec per manual COMBAT and6sec receipt/reentry. No human/network/acquisition time claim.",
+    "observation": "Existing helper inserts only a nominal-heal observation callback before base heal clamping. r.action/damage/heal/finish wrappers record and call the native original. No heal or combat result is replaced.",
+    "healing": "Final nominal heal after constellation/talent/gear scaling, actual applied, cap loss, combat-end clipping and settlement level-up gain are distinct."
+  },
+  "conditions": [
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "LIYUE_XIANYUN"
+      ],
+      "constellations": {},
+      "lane": "HEALER_REPEAT",
+      "seed": 717,
+      "domain": "FORSAKEN_RIFT:25",
+      "fixtureHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 4616,
+          "maxHp": 4616
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 5034,
+          "maxHp": 5034
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 4825,
+          "maxHp": 4825
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 25,
+          "hp": 8531,
+          "maxHp": 8531
+        }
+      ],
+      "equipment": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000021",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "effectiveTalents": {
+        "PLAYER_CUSTOM": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "LIYUE_XIANGLING": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_FISCHL": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "LIYUE_XIANYUN": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        }
+      },
+      "wins": 2,
+      "losses": 1,
+      "stopReason": "DEFEAT",
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 4616
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 5034
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 4825
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 8531
+        }
+      ],
+      "hpRatio": 0,
+      "allFull": false,
+      "koBattles": 2,
+      "healApplied": 16624,
+      "healNominal": 22342.378680864007,
+      "overCap": 5719.202551968002,
+      "quote": {
+        "cost": 420,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 100,
+        "weightedHpLoss": 100,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 4616,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 5034,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 4825,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          },
+          {
+            "owner": "LIYUE_XIANYUN",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 8531,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 4616,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 5034,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8531,
+              "maxHp": 8531
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 4616,
+              "maxHp": 4616,
+              "atk": 831.6,
+              "def": 414
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 5034,
+              "maxHp": 5034,
+              "atk": 916.9999999999999,
+              "def": 501.2
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 5066,
+              "atk": 916.9999999999999,
+              "def": 470.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 8531,
+              "maxHp": 8531,
+              "atk": 1176.24,
+              "def": 706.6800000000001
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "source": "MON_MITACHURL_AXE",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SAMACHURL_ANEMO#1",
+              "source": "MON_SAMACHURL_ANEMO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SLIME_LARGE_HYDRO#1",
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_HILI_SHOOTER#1",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            },
+            {
+              "id": "MON_HILI_SHOOTER#2",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": true,
+            "xp": 220,
+            "loot": {
+              "MAT_DAMAGED_MASK": 6,
+              "MAT_STAINED_MASK": 1,
+              "MAT_SLIME_CONDENSATE": 3,
+              "MAT_SLIME_SECRETIONS": 2,
+              "MAT_SLIME_CONCENTRATE": 1,
+              "GROWTH_TALENT_MOND": 32
+            },
+            "rounds": 4,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "FORSAKEN_RIFT:25",
+              "level": 25,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_MOND": 32
+              }
+            }
+          },
+          "seconds": 83.52,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 3623,
+              "maxHp": 4616,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 2410,
+              "maxHp": 5034,
+              "level": 25
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 5066,
+              "maxHp": 5066,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 8160,
+              "maxHp": 8531,
+              "level": 25
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 3623,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 2410,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8160,
+              "maxHp": 8531
+            }
+          ],
+          "healApplied": 4749,
+          "healNominal": 7974.5777928960015
+        },
+        {
+          "n": 2,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 3623,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 2410,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8160,
+              "maxHp": 8531
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 3623,
+              "maxHp": 4616,
+              "atk": 831.6,
+              "def": 414
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 2410,
+              "maxHp": 5034,
+              "atk": 916.9999999999999,
+              "def": 501.2
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 5066,
+              "atk": 916.9999999999999,
+              "def": 470.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 8160,
+              "maxHp": 8531,
+              "atk": 1176.24,
+              "def": 706.6800000000001
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "source": "MON_MITACHURL_AXE",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SAMACHURL_ANEMO#1",
+              "source": "MON_SAMACHURL_ANEMO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SLIME_LARGE_HYDRO#1",
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_HILI_SHOOTER#1",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            },
+            {
+              "id": "MON_HILI_SHOOTER#2",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B19",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B19",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": true,
+            "xp": 220,
+            "loot": {
+              "MAT_DAMAGED_MASK": 7,
+              "MAT_STAINED_MASK": 2,
+              "MAT_SLIME_CONDENSATE": 4,
+              "MAT_SLIME_SECRETIONS": 1,
+              "MAT_OMINOUS_MASK": 1,
+              "GROWTH_TALENT_MOND": 32
+            },
+            "rounds": 5,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "protagonistRevived": 462,
+            "domain": {
+              "id": "FORSAKEN_RIFT:25",
+              "level": 25,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_MOND": 32
+              }
+            }
+          },
+          "seconds": 92.73,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 0,
+              "maxHp": 4616,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 0,
+              "maxHp": 5034,
+              "level": 25
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 4082,
+              "maxHp": 5066,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 8283,
+              "maxHp": 8531,
+              "level": 25
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 462,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4082,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8283,
+              "maxHp": 8531
+            }
+          ],
+          "healApplied": 6361,
+          "healNominal": 7974.5777928960015
+        },
+        {
+          "n": 3,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 462,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4082,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8283,
+              "maxHp": 8531
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 462,
+              "maxHp": 4616,
+              "atk": 831.6,
+              "def": 414
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034,
+              "atk": 916.9999999999999,
+              "def": 501.2
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 4082,
+              "maxHp": 5066,
+              "atk": 916.9999999999999,
+              "def": 470.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 8283,
+              "maxHp": 8531,
+              "atk": 1176.24,
+              "def": 706.6800000000001
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "source": "MON_MITACHURL_AXE",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SAMACHURL_ANEMO#1",
+              "source": "MON_SAMACHURL_ANEMO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SLIME_LARGE_HYDRO#1",
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_HILI_SHOOTER#1",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            },
+            {
+              "id": "MON_HILI_SHOOTER#2",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B24",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B24",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": false,
+            "xp": 0,
+            "loot": {},
+            "rounds": 10,
+            "result": "DEFEAT",
+            "unsupportedEffects": [],
+            "defeatPenalty": {
+              "mora": 100000,
+              "seconds": 60
+            }
+          },
+          "seconds": 140.2,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 0,
+              "maxHp": 4616,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 0,
+              "maxHp": 5034,
+              "level": 25
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 0,
+              "maxHp": 5066,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 0,
+              "maxHp": 8531,
+              "level": 25
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 8531
+            }
+          ],
+          "healApplied": 5514,
+          "healNominal": 6393.223095072001
+        }
+      ]
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "LIYUE_XIANYUN"
+      ],
+      "constellations": {},
+      "lane": "HEALER_REPEAT",
+      "seed": 925,
+      "domain": "FORSAKEN_RIFT:25",
+      "fixtureHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 4616,
+          "maxHp": 4616
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 5034,
+          "maxHp": 5034
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 4825,
+          "maxHp": 4825
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 25,
+          "hp": 8531,
+          "maxHp": 8531
+        }
+      ],
+      "equipment": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000021",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 3,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "effectiveTalents": {
+        "PLAYER_CUSTOM": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "LIYUE_XIANGLING": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_FISCHL": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "LIYUE_XIANYUN": {
+          "na": 2,
+          "e": 2,
+          "q": 2,
+          "base": {
+            "na": 2,
+            "e": 2,
+            "q": 2
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        }
+      },
+      "wins": 2,
+      "losses": 1,
+      "stopReason": "DEFEAT",
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 4616
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 5034
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 4825
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 8531
+        }
+      ],
+      "hpRatio": 0,
+      "allFull": false,
+      "koBattles": 2,
+      "healApplied": 12372,
+      "healNominal": 16498.87525299201,
+      "overCap": 4127.4187912960015,
+      "quote": {
+        "cost": 420,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 100,
+        "weightedHpLoss": 100,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 4616,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 5034,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 4825,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          },
+          {
+            "owner": "LIYUE_XIANYUN",
+            "level": 25,
+            "hp": 0,
+            "maxHp": 8531,
+            "lostHpRatio": 1,
+            "recoveryCost": 100
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 4616,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 5034,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8531,
+              "maxHp": 8531
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 4616,
+              "maxHp": 4616,
+              "atk": 831.6,
+              "def": 414
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 5034,
+              "maxHp": 5034,
+              "atk": 916.9999999999999,
+              "def": 501.2
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 5066,
+              "atk": 916.9999999999999,
+              "def": 470.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 8531,
+              "maxHp": 8531,
+              "atk": 1176.24,
+              "def": 706.6800000000001
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "source": "MON_MITACHURL_AXE",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SAMACHURL_ANEMO#1",
+              "source": "MON_SAMACHURL_ANEMO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SLIME_LARGE_HYDRO#1",
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_HILI_SHOOTER#1",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            },
+            {
+              "id": "MON_HILI_SHOOTER#2",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": true,
+            "xp": 220,
+            "loot": {
+              "MAT_DAMAGED_MASK": 7,
+              "MAT_STAINED_MASK": 4,
+              "MAT_SLIME_CONDENSATE": 4,
+              "GROWTH_TALENT_MOND": 32
+            },
+            "rounds": 4,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "FORSAKEN_RIFT:25",
+              "level": 25,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_MOND": 32
+              }
+            }
+          },
+          "seconds": 84.63,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 2765,
+              "maxHp": 4616,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 1547,
+              "maxHp": 5034,
+              "level": 25
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 5066,
+              "maxHp": 5066,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 8060,
+              "maxHp": 8531,
+              "level": 25
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 2765,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 1547,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8060,
+              "maxHp": 8531
+            }
+          ],
+          "healApplied": 5053,
+          "healNominal": 7974.5777928960015
+        },
+        {
+          "n": 2,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 2765,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 1547,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8060,
+              "maxHp": 8531
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 2765,
+              "maxHp": 4616,
+              "atk": 831.6,
+              "def": 414
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 1547,
+              "maxHp": 5034,
+              "atk": 916.9999999999999,
+              "def": 501.2
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 4825,
+              "maxHp": 5066,
+              "atk": 916.9999999999999,
+              "def": 470.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 8060,
+              "maxHp": 8531,
+              "atk": 1176.24,
+              "def": 706.6800000000001
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "source": "MON_MITACHURL_AXE",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SAMACHURL_ANEMO#1",
+              "source": "MON_SAMACHURL_ANEMO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SLIME_LARGE_HYDRO#1",
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_HILI_SHOOTER#1",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            },
+            {
+              "id": "MON_HILI_SHOOTER#2",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925:B19",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925:B19",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": true,
+            "xp": 220,
+            "loot": {
+              "MAT_DAMAGED_MASK": 6,
+              "MAT_SLIME_CONDENSATE": 4,
+              "GROWTH_TALENT_MOND": 32
+            },
+            "rounds": 7,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "protagonistRevived": 462,
+            "domain": {
+              "id": "FORSAKEN_RIFT:25",
+              "level": 25,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_MOND": 32
+              }
+            }
+          },
+          "seconds": 90.51,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 0,
+              "maxHp": 4616,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 0,
+              "maxHp": 5034,
+              "level": 25
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 45,
+              "maxHp": 5066,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 5838,
+              "maxHp": 8531,
+              "level": 25
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 462,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 45,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 5838,
+              "maxHp": 8531
+            }
+          ],
+          "healApplied": 5188,
+          "healNominal": 6393.223095072001
+        },
+        {
+          "n": 3,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 462,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 45,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 5838,
+              "maxHp": 8531
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 462,
+              "maxHp": 4616,
+              "atk": 831.6,
+              "def": 414
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034,
+              "atk": 916.9999999999999,
+              "def": 501.2
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 45,
+              "maxHp": 5066,
+              "atk": 916.9999999999999,
+              "def": 470.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 25,
+              "hp": 5838,
+              "maxHp": 8531,
+              "atk": 1176.24,
+              "def": 706.6800000000001
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "source": "MON_MITACHURL_AXE",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SAMACHURL_ANEMO#1",
+              "source": "MON_SAMACHURL_ANEMO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_SLIME_LARGE_HYDRO#1",
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 13650,
+              "maxHp": 13650,
+              "atk": 2043,
+              "def": 157
+            },
+            {
+              "id": "MON_HILI_SHOOTER#1",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            },
+            {
+              "id": "MON_HILI_SHOOTER#2",
+              "source": "MON_HILI_SHOOTER",
+              "side": "ENEMY",
+              "level": 25,
+              "hp": 5200,
+              "maxHp": 5200,
+              "atk": 1440,
+              "def": 112
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925:B24",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925:B24",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-925",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": false,
+            "xp": 0,
+            "loot": {},
+            "rounds": 5,
+            "result": "DEFEAT",
+            "unsupportedEffects": [],
+            "defeatPenalty": {
+              "mora": 100000,
+              "seconds": 60
+            }
+          },
+          "seconds": 111.34,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 0,
+              "maxHp": 4616,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 0,
+              "maxHp": 5034,
+              "level": 25
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 0,
+              "maxHp": 5066,
+              "level": 25
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 0,
+              "maxHp": 8531,
+              "level": 25
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 4616
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 5034
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 4825
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 0,
+              "maxHp": 8531
+            }
+          ],
+          "healApplied": 2131,
+          "healNominal": 2131.0743650240006
+        }
+      ]
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "LIYUE_XIANYUN"
+      ],
+      "constellations": {},
+      "lane": "HEALER_REPEAT",
+      "seed": 717,
+      "domain": "TAISHAN_MANSION:60",
+      "fixtureHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19122,
+          "maxHp": 19122
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 20960,
+          "maxHp": 20960
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 20041,
+          "maxHp": 20041
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 60,
+          "hp": 40206,
+          "maxHp": 40206
+        }
+      ],
+      "equipment": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000021",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "effectiveTalents": {
+        "PLAYER_CUSTOM": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "LIYUE_XIANGLING": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_FISCHL": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "LIYUE_XIANYUN": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        }
+      },
+      "wins": 4,
+      "losses": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 14474,
+          "maxHp": 19122
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 15376,
+          "maxHp": 20960
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 20041,
+          "maxHp": 20041
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 60,
+          "hp": 40206,
+          "maxHp": 40206
+        }
+      ],
+      "hpRatio": 0.8980155289098865,
+      "allFull": false,
+      "koBattles": 0,
+      "healApplied": 33546,
+      "healNominal": 49816.13975360001,
+      "overCap": 16274.532605000008,
+      "quote": {
+        "cost": 143,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 30.56898133399761,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 14474,
+            "maxHp": 19122,
+            "lostHpRatio": 0.24307080849283547,
+            "recoveryCost": 59
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 60,
+            "hp": 15376,
+            "maxHp": 20960,
+            "lostHpRatio": 0.26641221374045804,
+            "recoveryCost": 64
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 60,
+            "hp": 20041,
+            "maxHp": 20041,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_XIANYUN",
+            "level": 60,
+            "hp": 40206,
+            "maxHp": 40206,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_RECRUIT_INSIGNIA": 2,
+              "MAT_SERGEANT_INSIGNIA": 1,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 44.22,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 17524,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 18452,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 21043,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 40206,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 17524,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 18452,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 4225,
+          "healNominal": 12454.034938400004
+        },
+        {
+          "n": 2,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 17524,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 18452,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 17524,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 18452,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B17",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B17",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_RECRUIT_INSIGNIA": 2,
+              "MAT_STAINED_MASK": 2,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 46.44,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 18558,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 15761,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 21043,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 39222,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 18558,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 15761,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 39222,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 8258,
+          "healNominal": 12454.034938400004
+        },
+        {
+          "n": 3,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 18558,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 15761,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 39222,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 18558,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 15761,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 39222,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B21",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B21",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_RECRUIT_INSIGNIA": 3,
+              "MAT_DAMAGED_MASK": 2,
+              "MAT_OMINOUS_MASK": 1,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 44.22,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 13386,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 15532,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 21043,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 39380,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 13386,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 15532,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 39380,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 10381,
+          "healNominal": 12454.034938400004
+        },
+        {
+          "n": 4,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 13386,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 15532,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 39380,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 13386,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 15532,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 39380,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B25",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B25",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_DAMAGED_MASK": 1,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 43.11,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 14474,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 15376,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 20894,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 40206,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 14474,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 15376,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 10682,
+          "healNominal": 12454.034938400004
+        }
+      ]
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "LIYUE_XIANYUN"
+      ],
+      "constellations": {},
+      "lane": "HEALER_REPEAT",
+      "seed": 925,
+      "domain": "TAISHAN_MANSION:60",
+      "fixtureHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19122,
+          "maxHp": 19122
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 20960,
+          "maxHp": 20960
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 20041,
+          "maxHp": 20041
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 60,
+          "hp": 40206,
+          "maxHp": 40206
+        }
+      ],
+      "equipment": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000021",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANYUN",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "effectiveTalents": {
+        "PLAYER_CUSTOM": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "LIYUE_XIANGLING": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_FISCHL": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "LIYUE_XIANYUN": {
+          "na": 6,
+          "e": 6,
+          "q": 6,
+          "base": {
+            "na": 6,
+            "e": 6,
+            "q": 6
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        }
+      },
+      "wins": 4,
+      "losses": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 12033,
+          "maxHp": 19122
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 14867,
+          "maxHp": 20960
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 20041,
+          "maxHp": 20041
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 60,
+          "hp": 40206,
+          "maxHp": 40206
+        }
+      ],
+      "hpRatio": 0.8686122656460246,
+      "allFull": false,
+      "koBattles": 0,
+      "healApplied": 28470,
+      "healNominal": 49816.13975360001,
+      "overCap": 21350.09521340001,
+      "quote": {
+        "cost": 179,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 39.68528306790228,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 12033,
+            "maxHp": 19122,
+            "lostHpRatio": 0.3707248195795419,
+            "recoveryCost": 89
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 60,
+            "hp": 14867,
+            "maxHp": 20960,
+            "lostHpRatio": 0.29069656488549617,
+            "recoveryCost": 70
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 60,
+            "hp": 20041,
+            "maxHp": 20041,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_XIANYUN",
+            "level": 60,
+            "hp": 40206,
+            "maxHp": 40206,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_RECRUIT_INSIGNIA": 2,
+              "MAT_SERGEANT_INSIGNIA": 1,
+              "MAT_DAMAGED_MASK": 1,
+              "MAT_STAINED_MASK": 1,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 45.33,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 18619,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 20960,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 20371,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 40206,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 18619,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 4399,
+          "healNominal": 12454.034938400004
+        },
+        {
+          "n": 2,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 18619,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 18619,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B17",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B17",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_RECRUIT_INSIGNIA": 3,
+              "MAT_DAMAGED_MASK": 2,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 46.44,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 15220,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 20685,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 21043,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 40206,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 15220,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20685,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 6161,
+          "healNominal": 12454.034938400004
+        },
+        {
+          "n": 3,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 15220,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20685,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 15220,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20685,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B21",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B21",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_DAMAGED_MASK": 3,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 46.44,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 13150,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 18333,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 19330,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 40206,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 13150,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 18333,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 19330,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 8054,
+          "healNominal": 12454.034938400004
+        },
+        {
+          "n": 4,
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 13150,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 18333,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 19330,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "initial": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 13150,
+              "maxHp": 19122,
+              "atk": 3889.2,
+              "def": 1943
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 18333,
+              "maxHp": 20960,
+              "atk": 4417.6,
+              "def": 2389.2000000000003
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 19330,
+              "maxHp": 21043,
+              "atk": 4417.6,
+              "def": 2226.4
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "side": "ALLY",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "atk": 6300.68,
+              "def": 3754.6800000000003
+            },
+            {
+              "id": "MON_FATUI_GEO#1",
+              "source": "MON_FATUI_GEO",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_MITACHURL_ROCK#1",
+              "source": "MON_MITACHURL_ROCK",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 49471,
+              "maxHp": 49471,
+              "atk": 8015,
+              "def": 519
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#1",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            },
+            {
+              "id": "MON_GEOVISHAP_HATCHLING#2",
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "side": "ENEMY",
+              "level": 60,
+              "hp": 17000,
+              "maxHp": 17000,
+              "atk": 4900,
+              "def": 370
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B25",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925:B25",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-925",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 1600,
+            "loot": {
+              "MAT_RECRUIT_INSIGNIA": 2,
+              "MAT_SERGEANT_INSIGNIA": 1,
+              "MAT_DAMAGED_MASK": 3,
+              "MAT_STAINED_MASK": 1,
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "rounds": 3,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              }
+            }
+          },
+          "seconds": 46.44,
+          "hpBeforeSettlement": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "hp": 12033,
+              "maxHp": 19122,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "hp": 14867,
+              "maxHp": 20960,
+              "level": 60
+            },
+            {
+              "id": "MOND_FISCHL",
+              "source": "MOND_FISCHL",
+              "hp": 20764,
+              "maxHp": 21043,
+              "level": 60
+            },
+            {
+              "id": "LIYUE_XIANYUN",
+              "source": "LIYUE_XIANYUN",
+              "hp": 40206,
+              "maxHp": 40206,
+              "level": 60
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 12033,
+              "maxHp": 19122
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 14867,
+              "maxHp": 20960
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206
+            }
+          ],
+          "healApplied": 9856,
+          "healNominal": 12454.034938400004
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "runsPerCondition": 4,
+  "counts": {
+    "conditions": 4,
+    "battles": 14,
+    "wins": 12,
+    "losses": 2,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 2,
+    "completeAllFull": 0
+  }
+}

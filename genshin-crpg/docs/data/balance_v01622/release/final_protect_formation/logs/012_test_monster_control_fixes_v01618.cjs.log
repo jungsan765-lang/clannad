@@ -1,0 +1,12 @@
+PASS enemy guardian KO sends remaining legal Diluc hits to original target
+PASS enemy guardian KO sends remaining legal Diluc hits to original target after restore
+PASS ally cover KO sends remaining legal enemy barrage hits to original target
+PASS ally cover KO sends remaining legal enemy barrage hits to original target after restore
+PASS living cover choices keep one roll; disabled cached guards stop redirecting without re-roll
+PASS native DRENCH creates finite Hydro aura through complete round boundary
+PASS native DRENCH creates finite Hydro aura through complete round boundary after restore
+PASS flood Hydro supports a legal cryo card and preserves waterproof mitigation
+PASS legal petrify immediately cancels PYRO charge and expires exposed at own turn
+PASS legal petrify immediately cancels PYRO charge and expires exposed at own turn after restore
+PASS legal petrify immediately cancels CRYO charge and expires exposed at own turn
+PASS legal petrify immediately cancels CRYO charge and expires exposed at own turn after restore

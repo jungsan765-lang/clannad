@@ -1,0 +1,328 @@
+{
+  "fixture": "Actual enemy and its actual charge card. Own-turn boundaries advanced explicitly; observation of a rejected-control return path, not natural full battle policy.",
+  "before": {
+    "charge": {
+      "card": "ECARD_WHOPPER_PYRO_CHARGE",
+      "name": "화염 원소 폭발",
+      "resolveTurn": 3,
+      "target": "PLAYER_CUSTOM",
+      "element": "PYRO",
+      "coefficient": 1.15
+    },
+    "guard": 3,
+    "statuses": [],
+    "turns": 2
+  },
+  "result": true,
+  "after": {
+    "charge": null,
+    "guard": 3,
+    "statuses": [
+      {
+        "id": "ENEMY_CHARGE_EXPOSED",
+        "rounds": null,
+        "createdRound": 1,
+        "untilTurn": 3,
+        "enemySkillStatus": true,
+        "damageTaken": 1.2
+      }
+    ],
+    "turns": 2
+  },
+  "logs": [
+    {
+      "target": "뜨거운 구라구라꽃",
+      "targetId": "MON_WHOPPER_PYRO#1",
+      "actorId": "MON_WHOPPER_PYRO#1",
+      "actor": "뜨거운 구라구라꽃",
+      "round": 1,
+      "actionSequence": 0,
+      "statusApplied": {
+        "id": "STATUS_FREEZE",
+        "rounds": 1,
+        "createdRound": 1,
+        "coexist": [
+          "물",
+          "얼음"
+        ],
+        "untilTurn": 2
+      },
+      "presentationActorsBefore": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "side": "ALLY",
+          "level": 40,
+          "hp": 7552,
+          "maxHp": 7552,
+          "atk": 1219.2,
+          "def": 491,
+          "spd": 70,
+          "crit": 5,
+          "critDmg": 50,
+          "hit": 80,
+          "eva": 5,
+          "resist": 5,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "guest": false,
+          "protagonist": {
+            "version": 1,
+            "route": "ROUTE_ISEKAI",
+            "skillIds": [
+              "PLAYER_ISEKAI_E",
+              "PLAYER_ISEKAI_Q"
+            ]
+          }
+        },
+        {
+          "id": "MOND_KAEYA",
+          "source": "MOND_KAEYA",
+          "name": "케이아",
+          "side": "ALLY",
+          "level": 40,
+          "hp": 9439,
+          "maxHp": 9439,
+          "atk": 1659.2,
+          "def": 1049.6000000000001,
+          "spd": 83,
+          "crit": 26,
+          "critDmg": 71,
+          "hit": 95,
+          "eva": 7,
+          "resist": 27,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "guest": false,
+          "tags": [
+            "[광계]",
+            "[얼음]"
+          ]
+        },
+        {
+          "id": "MON_WHOPPER_PYRO#1",
+          "source": "MON_WHOPPER_PYRO",
+          "name": "뜨거운 구라구라꽃",
+          "side": "ENEMY",
+          "level": 2,
+          "hp": 789,
+          "maxHp": 789,
+          "atk": 55,
+          "def": 31,
+          "spd": 78,
+          "crit": 10,
+          "critDmg": 60,
+          "hit": 80,
+          "eva": 6,
+          "resist": 10,
+          "range": "중거리",
+          "grade": "정예",
+          "element": "불",
+          "aura": null,
+          "nativeAura": null,
+          "airborne": false,
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "tags": [
+            "[광계]",
+            "[불]"
+          ]
+        },
+        {
+          "id": "MON_SLIME_PYRO#1",
+          "source": "MON_SLIME_PYRO",
+          "name": "화염 슬라임",
+          "side": "ENEMY",
+          "level": 2,
+          "hp": 244,
+          "maxHp": 244,
+          "atk": 35,
+          "def": 22,
+          "spd": 64,
+          "crit": 5,
+          "critDmg": 50,
+          "hit": 80,
+          "eva": 4,
+          "resist": 5,
+          "range": "중거리",
+          "grade": "일반",
+          "element": "불",
+          "aura": "불",
+          "nativeAura": "불",
+          "airborne": false,
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "tags": [
+            "[광계]",
+            "[불]"
+          ]
+        }
+      ],
+      "presentationActorsAfter": [
+        {
+          "id": "MON_WHOPPER_PYRO#1",
+          "statuses": [
+            {
+              "id": "STATUS_FREEZE",
+              "rounds": 1,
+              "createdRound": 1,
+              "coexist": [
+                "물",
+                "얼음"
+              ],
+              "untilTurn": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "actor": "뜨거운 구라구라꽃",
+      "actorId": "MON_WHOPPER_PYRO#1",
+      "card": "ECARD_WHOPPER_PYRO_CHARGE",
+      "cardName": "화염 원소 폭발",
+      "round": 1,
+      "actionSequence": 0,
+      "enemySkill": true,
+      "charging": true,
+      "text": "뜨거운 구라구라꽃 · 화염 원소 폭발 준비! 다음 자기 차례에 최대 3명 공격. 빙결·띄우기·밀치기로 중단 가능.",
+      "presentationActorsBefore": [
+        {
+          "id": "MON_WHOPPER_PYRO#1",
+          "statuses": [
+            {
+              "id": "STATUS_FREEZE",
+              "rounds": 1,
+              "createdRound": 1,
+              "coexist": [
+                "물",
+                "얼음"
+              ],
+              "untilTurn": 2
+            }
+          ],
+          "cooldowns": {},
+          "turns": 0
+        }
+      ],
+      "presentationActorsAfter": [
+        {
+          "id": "MON_WHOPPER_PYRO#1",
+          "statuses": [],
+          "cooldowns": {
+            "ECARD_WHOPPER_PYRO_CHARGE": 3
+          },
+          "turns": 2
+        }
+      ]
+    },
+    {
+      "target": "뜨거운 구라구라꽃",
+      "targetId": "MON_WHOPPER_PYRO#1",
+      "resisted": "STATUS_FREEZE",
+      "text": "뜨거운 구라구라꽃 · 막 풀려나 다시 얼지 않는다",
+      "round": 1
+    },
+    {
+      "target": "뜨거운 구라구라꽃",
+      "targetId": "MON_WHOPPER_PYRO#1",
+      "actorId": "MON_WHOPPER_PYRO#1",
+      "actor": "뜨거운 구라구라꽃",
+      "round": 1,
+      "actionSequence": 0,
+      "statusApplied": {
+        "id": "ENEMY_CHARGE_EXPOSED",
+        "rounds": null,
+        "createdRound": 1,
+        "untilTurn": 3,
+        "enemySkillStatus": true,
+        "damageTaken": 1.2
+      },
+      "presentationActorsBefore": [
+        {
+          "id": "MON_WHOPPER_PYRO#1",
+          "statuses": []
+        }
+      ],
+      "presentationActorsAfter": [
+        {
+          "id": "MON_WHOPPER_PYRO#1",
+          "statuses": [
+            {
+              "id": "ENEMY_CHARGE_EXPOSED",
+              "rounds": null,
+              "createdRound": 1,
+              "untilTurn": 3,
+              "enemySkillStatus": true,
+              "damageTaken": 1.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "actor": "뜨거운 구라구라꽃",
+      "actorId": "MON_WHOPPER_PYRO#1",
+      "card": "ECARD_WHOPPER_PYRO_CHARGE",
+      "cardName": "화염 원소 폭발",
+      "round": 1,
+      "actionSequence": 0,
+      "enemySkill": true,
+      "interrupted": true,
+      "text": "뜨거운 구라구라꽃 · 화염 원소 폭발 중단! 다음 자기 차례까지 받는 피해 +20%. (빙결)"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+최초3군 병렬 실행에서six가34/108조건 기록 뒤 종료되어 전체driver의code는1이었다. child exit code는null이고 신호/원인은 원래driver가 기록하지 않았다. 제품 실행ERROR 행은 없지만 이 부분 실행을108조건 완료로 계산하지 않는다. 완료Electro18/trees36을 그대로 보존했고six는6보스별18조건의짧은별도process로최종동일입력에서재실행했다. 최종162 고유조건은상위summary와native manifest에기록했다.

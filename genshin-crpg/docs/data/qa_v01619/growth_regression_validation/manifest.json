@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "baselinePublishedCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "conditionsPerNativeEngine": 18,
+  "nativeBattles": 36,
+  "isolatedCounterfactualBattles": 4,
+  "additionalRecoveryReproductions": 2,
+  "recoveryProbeMeaning": "First same-field inn attempt failed because no inn exists on the wilderness map. This diagnostic assumption is preserved in recovery_inn_probe.json; native RECOVER is the actual legal path and passed in recovery_validation.json. These are not extra unique matchup conditions.",
+  "files": [
+    {
+      "path": "README_KO.md",
+      "bytes": 11631,
+      "sha256": "1d9dfe48d99c2bdd65b74d8509fe5203ace36d34c1a9aac284fd19d589fb005e"
+    },
+    {
+      "path": "comparison.json",
+      "bytes": 20347,
+      "sha256": "0c9559a098f18bd73011be44ea1ff3b517ebd4194b6a71532b40728fc0b76b59"
+    },
+    {
+      "path": "native.json.gz",
+      "bytes": 348652,
+      "sha256": "cc154aa1bbb1c6d1c51abc2014c56d9c910d7bcd602be4576e86166bd3c7e41e"
+    },
+    {
+      "path": "recovery_inn_probe.json",
+      "bytes": 2598,
+      "sha256": "d1197f934b2a6e128e7db2f26b1230cf6584edef468ac2087aad268f4455de39"
+    },
+    {
+      "path": "recovery_validation.json",
+      "bytes": 4251,
+      "sha256": "db9435406bfc7147ae8c1d40c5f4f7ba8f15ec3ee72dffaf994e6af0827a74cd"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1559579,
+      "sha256": "b33404aacfec84e9955a76491f446f188f2d76738e6eb3409590d9e8e8f312e8"
+    },
+    {
+      "path": "test_growth_balance_v01522_before.cjs.txt",
+      "bytes": 1771,
+      "sha256": "f462a763469f4759309653b257ef3debf58bb745e067676fc8ad9e316927fd99"
+    },
+    {
+      "path": "updated_growth_balance.json",
+      "bytes": 12657,
+      "sha256": "61eea14d2289d2ebd84eb41d0f236b7fae64c8e07f4b034c166d28934028f7af"
+    },
+    {
+      "path": "updated_test_native.log",
+      "bytes": 495,
+      "sha256": "f6f15c8af5e143ed11415b0d4203051d855d61c57a268fdcb85e0c13d2e5ce19"
+    },
+    {
+      "path": "updated_test_result.json",
+      "bytes": 1102,
+      "sha256": "bc01896e35de0616affb9d8f83d319aedb2db108a6d463c51f9316a6275d8338"
+    }
+  ],
+  "tools": [
+    {
+      "path": "tools/audit_growth_regression_v01619.cjs",
+      "bytes": 10697,
+      "sha256": "9561e1226db1640911f83e25b8d5e78ae16bc8930ef01d87616a114f04209af3"
+    },
+    {
+      "path": "tools/audit_growth_recovery_v01619.cjs",
+      "bytes": 2417,
+      "sha256": "1855a1bb06055ce584500250b0c83ab4a15f6fd30b2f61f42241c78c1c11fcb5"
+    },
+    {
+      "path": "tests/helpers_balance_v0141.cjs",
+      "bytes": 2495,
+      "sha256": "ae6fd750d98895a98b88ea91858d7f6ba08960a633cd274be21d4e4fe44630c1"
+    },
+    {
+      "path": "tests/helpers_v011.cjs",
+      "bytes": 1091,
+      "sha256": "8b2bf05f22d44aacf0788e80bb75a013373dd4b3665a521e52976ce39ae01ada"
+    },
+    {
+      "path": "tests/test_growth_balance_v01522.cjs",
+      "bytes": 1771,
+      "sha256": "f462a763469f4759309653b257ef3debf58bb745e067676fc8ad9e316927fd99",
+      "observation": "Original unchanged test at the diagnostic run; preserved as test_growth_balance_v01522_before.cjs.txt. Approved replacement hash recorded separately in updated_test_result.json."
+    }
+  ],
+  "fingerprints": {
+    "baseline": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+    "final": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+    "OLD_SEQUENTIAL_SHIELDS": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+    "OLD_MELT_FREEZE": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+    "OLD_REACTION_SELECTION": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+    "OLD_ALL_THREE": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42"
+  },
+  "warning": "VM environment fingerprints cover original source bytes; substitutions are recorded separately in summary.json and native.json.gz.",
+  "updatedTestExecution": "updated_test_result.json"
+}

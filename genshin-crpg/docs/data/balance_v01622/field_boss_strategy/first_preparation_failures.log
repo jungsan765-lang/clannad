@@ -1,0 +1,21 @@
+FAIL new3_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS Cannot convert undefined or null to object
+FAIL new3_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS Cannot convert undefined or null to object
+FAIL new3_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS Cannot convert undefined or null to object
+FAIL new3_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS Cannot convert undefined or null to object
+PASS legacy_one_timeout_then_body_kill:2:FB_ANEMO_HYPOSTASIS
+PASS legacy_one_timeout_then_body_kill:2:FB_ELECTRO_HYPOSTASIS
+PASS legacy_one_timeout_then_body_kill:2:FB_GEO_HYPOSTASIS
+PASS legacy_one_timeout_then_body_kill:2:FB_CRYO_HYPOSTASIS
+PASS legacy_one_timeout_then_body_kill:unmarked:FB_ANEMO_HYPOSTASIS
+PASS legacy_one_timeout_then_body_kill:unmarked:FB_ELECTRO_HYPOSTASIS
+PASS legacy_one_timeout_then_body_kill:unmarked:FB_GEO_HYPOSTASIS
+FAIL legacy_one_timeout_then_body_kill:unmarked:FB_CRYO_HYPOSTASIS Expected values to be strictly equal:
+
+2 !== 3
+
+PASS new3_native_air_access_and_typed_delayed_packets
+PASS new3_range_scope_does_not_leak_into_nested_reaction_or_throw
+PASS legacy2_air_core_gate_stays_unchanged
+FAIL repeated_revival_does_not_multiply_final_rewards_or_wins Cannot convert undefined or null to object
+PASS new_and_saved_behavior_versions_and_cryo_countdown_validation
+{"output":"docs/data/balance_v01622/field_boss_strategy/contracts.json","total":17,"passed":11,"failed":6}

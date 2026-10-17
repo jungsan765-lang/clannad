@@ -1,0 +1,12 @@
+{
+  "test": "tests/test_material_efficiency_v01622.cjs",
+  "failedAssertion": "Last cash-margin check exact historical runtime_growth source SHA256",
+  "historical": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+  "published01623": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+  "current": "8e0bb024a3a4586b5457b09a4ef81baea6c5dcf264f7edd255efee202e774632",
+  "currentRulesMatchesHistorical": true,
+  "sourceDiff": "material_efficiency_source_change.diff",
+  "priorChecksPassed": 5,
+  "expectationsChanged": false,
+  "classification": "Historical full-file hash differs due to scoped boss profile/summon tuning edits. This is retained as a failing regression; the historic combat timing ledger is not a fresh 0.16.24 timing measurement."
+}

@@ -1,15 +1,19 @@
-/* v0.14.4 지맥의 꽃 (ley line blossoms): repeatable battles with five difficulty steps (enemy Lv.6-20).
+/* v0.14.4 지맥의 꽃 (ley line blossoms): repeatable battles with five difficulty steps (regional enemy Lv.6-58).
  * Every real-time hour at :00 the blossoms move: each region (Mond, Liyue) gets one 계시의 꽃 (experience books)
  * and one 부의 꽃 (Mora) on maps the DB marks as ley line ground (32_MAP_DB "지맥 이벤트 허용" = Y). The player picks
  * a step the protagonist has reached; higher steps hit harder and pay more. Each kind pays out once per hour, whatever
  * the step; a defeat can be retried inside the same hour. Real time comes from the server's action clock
  * (actionStartedAt) and falls back to the device clock offline. Labels and numbers are CRPG rules.
+ * 0.16.48 (user, 2026-10-16: 「지맥도 효율 좀 늘리고 하루에 두번만 할 수 있게 하자」 → 「0시에 계시의 꽃 부의 꽃 1번씩 돌 수 있고, 12시에
+ * 계시의 꽃 부의 꽃 1번씩 돌 수 있고. 그래야 일일퀘 다 깰 수 있을듯」): the blossoms now stay for half a day — Korean 0:00 to 12:00 and
+ * 12:00 to 24:00 — and each kind pays once in each half (twice a day), at twice the old payout. Fights entered before keep
+ * the hour and payout they started with.
  * Load after runtime_formations.js. */
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.leyLineVersion)return;
 const copy=x=>JSON.parse(JSON.stringify(x)),fail=(c,m)=>{throw new api.RuleError(c,m);};
-const HOUR=3600000,FLAG='FLAG_CRPG_LEYLINE_CLEAR';
+const HOUR=3600000,HALF_DAY=12*HOUR,KST=9*HOUR,FLAG='FLAG_CRPG_LEYLINE_CLEAR';
 const KINDS={
  REVELATION:{name:'계시의 꽃',reward:'경험치 책'},
  WEALTH:{name:'부의 꽃',reward:'모라'}
@@ -41,7 +45,16 @@ const REGIONS=['몬드','리월'];
 // level above 5 so that geared parties still have to pay attention.
 const SCALE={hp:.7,atk:2.8},GROWTH={hp:.03,atk:.1,def:.03};
 const BOOK_XP={MAT_CHAR_EXP_WANDERER:50,MAT_CHAR_EXP_ADVENTURER:250,MAT_CHAR_EXP_HERO:1000};
-const tierOf=n=>TIERS.find(t=>t.tier===Number(n))||null;
+// Both regions use the same five level-selected difficulties, with the existing selection flow.
+const LEVELS=[6,15,30,45,60],HERO_BOOKS=[6,18,50,100,180],DIRECT_XP=[20,50,90,220,400],WEALTH_MORA=[1800,5000,14000,27000,40000];
+// 0.16.48: twice the payout for the two blossoms a day (version 3 fights).
+const HERO_BOOKS_V3=HERO_BOOKS.map(n=>n*2),DIRECT_XP_V3=DIRECT_XP.map(n=>n*2),WEALTH_MORA_V3=WEALTH_MORA.map(n=>n*2);
+const tierOf3=n=>{const t=tierOf(n);if(!t)return null;const i=t.tier-1;return {...t,books:{MAT_CHAR_EXP_HERO:HERO_BOOKS_V3[i]},mora:WEALTH_MORA_V3[i],directXp:DIRECT_XP_V3[i]};};
+const windowOf=now=>Math.floor((Number(now)+KST)/HALF_DAY);
+const tierOf=n=>{const base=TIERS.find(t=>t.tier===Number(n));if(!base)return null;const i=base.tier-1,level=LEVELS[i];return {...base,level,minLevel:Math.max(5,level-5),books:{MAT_CHAR_EXP_HERO:HERO_BOOKS[i]},mora:WEALTH_MORA[i],directXp:DIRECT_XP[i]};};
+// Battles already saved by 0.16.0 retain the difficulty and blossom payout they entered with.
+const legacyTierOf=(n,region)=>{const base=TIERS.find(t=>t.tier===Number(n));if(!base)return null;const level=(region==='리월'?[30,38,44,50,58]:[6,10,15,20,28])[base.tier-1];return {...base,level,minLevel:Math.max(5,level-5),books:{MAT_CHAR_EXP_HERO:Math.ceil(level/3)},mora:Math.round(600+level*80+level*level*2)};};
+const regionalTiers=region=>TIERS.map(t=>tierOf3(t.tier,region));
 const route=(kind,map)=>'BRT_LEY_'+kind+'_'+map.replace(/^MAP_/,''),group=map=>'EG_LEY_'+map.replace(/^MAP_/,'');
 const ROUTES=Object.fromEntries(SITES.flatMap(s=>Object.keys(KINDS).map(k=>[route(k,s.map),{kind:k,map:s.map,region:s.region}])));
 const hash=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h;};
@@ -52,7 +65,9 @@ function sitesAt(hour){
   out.push({kind:'REVELATION',map:list[a].map,region},{kind:'WEALTH',map:list[b].map,region});}
  return out;
 }
-api.leyLines={version:1,hourMs:HOUR,minLevel:MIN_LEVEL,kinds:copy(KINDS),tiers:copy(TIERS),sites:copy(SITES),scale:copy(SCALE),growth:copy(GROWTH),bookXp:copy(BOOK_XP),route,sitesAt};
+api.leyLines={version:3,hourMs:HOUR,halfDayMs:HALF_DAY,windowOf,minLevel:MIN_LEVEL,kinds:copy(KINDS),tiers:copy(regionalTiers('몬드')),regionalTiers,sites:copy(SITES),scale:copy(SCALE),growth:copy(GROWTH),bookXp:copy(BOOK_XP),route,
+ // 0.16.48: the places at a given hour are those of the half day it falls in.
+ sitesAt:hour=>sitesAt('D'+windowOf(Number(hour)*HOUR)),sitesAtWindow:win=>sitesAt('D'+win)};
 
 const old=Object.fromEntries(['installMarketContent','placeBossReason','placeEntries','actionReason','apply','startBattle','finishBattle','validateSave'].map(k=>[k,P[k]]));
 P.installLeyLines=function(){
@@ -65,7 +80,7 @@ P.installLeyLines=function(){
    s.members.slice(0,5).forEach(([id,n],i)=>{r[7+i*3]=id;r[8+i*3]=n;r[9+i*3]=n;});rows['33_ENCOUNTER_GROUP_DB'].push(r);}
   s.members.forEach(([id,n],i)=>{const mid='EM_'+g+'_'+(i+1);if(!has('49_ENCOUNTER_MEMBER_DB',mid))rows['49_ENCOUNTER_MEMBER_DB'].push([mid,g,i+1,id,n,n,'MON'+(i+1),'CRPG_LEYLINE_V1','지맥의 꽃 · 지역 기존 몬스터']);});
   for(const [k,d]of Object.entries(KINDS)){const id=route(k,s.map);
-   if(!has('35_BOSS_ROUTE_DB',id))rows['35_BOSS_ROUTE_DB'].push([id,'지맥 · '+d.name,s.map,'DIRECT','','','',g,'Y','N','CURRENT_STEP','N','',FLAG,'Y','매시 정각에 자리를 옮기는 지맥의 꽃 · '+d.reward+' 보상은 한 시간에 한 번']);
+   if(!has('35_BOSS_ROUTE_DB',id))rows['35_BOSS_ROUTE_DB'].push([id,'지맥 · '+d.name,s.map,'DIRECT','','','',g,'Y','N','CURRENT_STEP','N','',FLAG,'Y','하루 두 번(0시·12시) 자리를 옮기는 지맥의 꽃 · '+d.reward+' 보상은 그때마다 한 번']);
    if(!has('50_BOSS_ROUTE_STEP_DB','BRS_'+id+'_1'))rows['50_BOSS_ROUTE_STEP_DB'].push(['BRS_'+id+'_1',id,1,'BOSS',g,'지맥']);}
  }
  this.db={...this.db,...rows};for(const n of names)this.tables[n]=new Map(rows[n].slice(1).filter(r=>r[0]).map(r=>[r[0],r]));
@@ -75,36 +90,40 @@ P.installMarketContent=function(...args){const out=old.installMarketContent.appl
 
 P.leyLineNow=function(){return Number(this.actionStartedAt??Date.now());};
 P.leyLineHour=function(now=this.leyLineNow()){return Math.floor(now/HOUR);};
-P.leyLineClaimed=function(kind,hour=this.leyLineHour()){return this.s.leyLine?.[kind]===hour;};
-P.leyLineTierReason=function(n){const t=tierOf(n);if(!t)return '지맥의 꽃 단계를 확인해 주세요.';return (Number(this.s.global.PLAYER_LEVEL_STATE)||1)<t.minLevel?t.tier+'단계는 주인공 Lv. '+t.minLevel+'부터 도전할 수 있습니다.':'';};
-P.leyLineTopTier=function(){return TIERS.filter(t=>!this.leyLineTierReason(t.tier)).at(-1)?.tier||1;};
+P.leyLineWindow=function(now=this.leyLineNow()){return windowOf(now);};
+P.leyLineClaimed=function(kind,win=this.leyLineWindow()){return this.s.leyLine?.version===2&&this.s.leyLine[kind]===win;};
+// The time of the next new blossoms (the next Korean 0:00 or 12:00).
+const nextText=(win)=>(((win+1)%2)?'12시':'0시');
+P.leyLineTierReason=function(n,region=this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[1]){const t=tierOf(n,region);if(!t)return '지맥의 꽃 단계를 확인해 주세요.';return (Number(this.s.global.PLAYER_LEVEL_STATE)||1)<t.minLevel?t.tier+'단계는 주인공 Lv. '+t.minLevel+'부터 도전할 수 있습니다.':'';};
+P.leyLineTopTier=function(region=this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[1]){return regionalTiers(region).filter(t=>!this.leyLineTierReason(t.tier,region)).at(-1)?.tier||1;};
 P.leyLineStatus=function(now=this.leyLineNow()){
- const hour=this.leyLineHour(now),level=Number(this.s.global.PLAYER_LEVEL_STATE)||1,map=this.s.global.CURRENT_MAP_ID;
- const blossoms=sitesAt(hour).filter(x=>this.tables['32_MAP_DB'].has(x.map)).map(x=>({...x,route:route(x.kind,x.map),name:KINDS[x.kind].name,reward:KINDS[x.kind].reward,mapName:this.row('32_MAP_DB',x.map)[2],claimed:this.leyLineClaimed(x.kind,hour),here:x.map===map}));
- return {hour,endsAt:(hour+1)*HOUR,minutesLeft:Math.max(1,Math.ceil(((hour+1)*HOUR-now)/60000)),unlocked:level>=MIN_LEVEL,minLevel:MIN_LEVEL,topTier:this.leyLineTopTier(),blossoms};
+ const win=this.leyLineWindow(now),hour=win,level=Number(this.s.global.PLAYER_LEVEL_STATE)||1,map=this.s.global.CURRENT_MAP_ID;
+ const blossoms=sitesAt('D'+win).filter(x=>this.tables['32_MAP_DB'].has(x.map)).map(x=>({...x,route:route(x.kind,x.map),name:KINDS[x.kind].name,reward:KINDS[x.kind].reward,mapName:this.row('32_MAP_DB',x.map)[2],claimed:this.leyLineClaimed(x.kind,win),here:x.map===map}));
+ const endsAt=(win+1)*HALF_DAY-KST;
+ return {hour,window:win,endsAt,nextAt:nextText(win),minutesLeft:Math.max(1,Math.ceil((endsAt-now)/60000)),unlocked:level>=MIN_LEVEL,minLevel:MIN_LEVEL,topTier:this.leyLineTopTier(),blossoms};
 };
 P.leyLineRouteInfo=function(id){
- const r=ROUTES[id];if(!r)return null;const st=this.leyLineStatus(),top=this.leyLineTopTier();
- return {route:id,kind:r.kind,name:KINDS[r.kind].name,reward:KINDS[r.kind].reward,map:r.map,active:st.blossoms.some(b=>b.route===id),claimed:this.leyLineClaimed(r.kind),minutesLeft:st.minutesLeft,unlocked:st.unlocked,
-  tiers:TIERS.map(t=>({tier:t.tier,level:t.level,minLevel:t.minLevel,books:r.kind==='REVELATION'?copy(t.books):null,mora:r.kind==='WEALTH'?t.mora:null,reason:this.leyLineTierReason(t.tier),recommended:t.tier===top}))};
+ const r=ROUTES[id];if(!r)return null;const st=this.leyLineStatus(),top=this.leyLineTopTier(r.region);
+ return {route:id,kind:r.kind,name:KINDS[r.kind].name,reward:KINDS[r.kind].reward,map:r.map,active:st.blossoms.some(b=>b.route===id),claimed:this.leyLineClaimed(r.kind),minutesLeft:st.minutesLeft,nextAt:st.nextAt,unlocked:st.unlocked,
+  tiers:regionalTiers(r.region).map(t=>({tier:t.tier,level:t.level,minLevel:t.minLevel,books:r.kind==='REVELATION'?copy(t.books):null,mora:r.kind==='WEALTH'?t.mora:null,reason:this.leyLineTierReason(t.tier,r.region),recommended:t.tier===top}))};
 };
 P.placeBossReason=function(id,entry,options={}){
  const r=ROUTES[id];if(!r)return old.placeBossReason.call(this,id,entry,options);
  const base=old.placeBossReason.call(this,id,entry,options);if(base)return base;
  if((Number(this.s.global.PLAYER_LEVEL_STATE)||1)<MIN_LEVEL)return '지맥의 꽃은 주인공 Lv. '+MIN_LEVEL+'부터 도전할 수 있습니다.';
- const st=this.leyLineStatus();if(!st.blossoms.some(b=>b.route===id))return '지맥의 꽃이 다른 곳으로 옮겨 갔습니다. 매시 정각에 새 자리에 핍니다.';
- if(this.leyLineClaimed(r.kind))return '이번 시간의 '+KINDS[r.kind].name+' 보상은 이미 받았습니다. '+st.minutesLeft+'분 뒤 정각에 새 꽃이 핍니다.';
+ const st=this.leyLineStatus();if(!st.blossoms.some(b=>b.route===id))return '지맥의 꽃이 다른 곳으로 옮겨 갔습니다. 하루 두 번(0시·12시) 새 자리에 핍니다.';
+ if(this.leyLineClaimed(r.kind))return '이번 차례의 '+KINDS[r.kind].name+' 보상은 이미 받았습니다. '+st.nextAt+'에 새 꽃이 핍니다.';
  return '';
 };
-// Only this hour's blossoms show up among the places of a map.
+// Only this half-day's blossoms show up among the places of a map.
 P.placeEntries=function(...args){const out=old.placeEntries.apply(this,args);const live=new Set(this.leyLineStatus().blossoms.map(b=>'BOSS:'+b.route));return out.filter(x=>!(x.kind==='BOSS'&&ROUTES[x.route])||live.has(x.id));};
 P.actionReason=function(type,a={}){
- if(type==='BOSS_ROUTE'&&ROUTES[a.route]&&a.tier!==undefined){const why=this.leyLineTierReason(a.tier);if(why)return why;}
+ if(type==='BOSS_ROUTE'&&ROUTES[a.route]&&a.tier!==undefined){const why=this.leyLineTierReason(a.tier,ROUTES[a.route].region);if(why)return why;}
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){
  if(a.type!=='BOSS_ROUTE'||!ROUTES[a.route])return old.apply.call(this,a);
- const tier=a.tier===undefined?this.leyLineTopTier():Number(a.tier),why=this.leyLineTierReason(tier);if(why)fail('LEYLINE_TIER',why);
+ const tier=a.tier===undefined?this.leyLineTopTier(ROUTES[a.route].region):Number(a.tier),why=this.leyLineTierReason(tier,ROUTES[a.route].region);if(why)fail('LEYLINE_TIER',why);
  // The chosen step is kept on the route progress, so a retry after a defeat fights the same step.
  this._leyTier=tier;try{const out=old.apply.call(this,a),p=this.s.bossRouteProgress;if(p&&p.route===a.route)p.leyTier=tier;return out;}finally{this._leyTier=null;}
 };
@@ -118,20 +137,22 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
  const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;
  const id=String(origin).startsWith('BOSS:')?String(origin).slice(5):null,r=id&&ROUTES[id];
  if(!r||!b||b===before||b.leyLine)return out;
- const p=this.s.bossRouteProgress,t=tierOf(this._leyTier)||(p?.route===id&&tierOf(p.leyTier))||tierOf(this.leyLineTopTier()),level=t.level,k=level-MIN_LEVEL,foes=b.actors.filter(a=>a.side==='ENEMY');
+ const p=this.s.bossRouteProgress,t=tierOf3(this._leyTier,r.region)||(p?.route===id&&tierOf3(p.leyTier,r.region))||tierOf3(this.leyLineTopTier(r.region),r.region),level=t.level,k=level-MIN_LEVEL,foes=b.actors.filter(a=>a.side==='ENEMY');
  for(const a of foes){relevel(this,a,level);a.maxHp=Math.max(1,Math.round(a.maxHp*SCALE.hp*(1+GROWTH.hp*k)));a.hp=a.maxHp;a.atk=Math.round(a.atk*SCALE.atk*(1+GROWTH.atk*k));a.def=Math.round(a.def*(1+GROWTH.def*k));
   for(const s of a.shields||[])if(Number.isFinite(s.value))s.value=Math.round(s.value*SCALE.hp*(1+GROWTH.hp*k));}
- b.leyLine={version:1,kind:r.kind,route:id,map:r.map,hour:this.leyLineHour(),tier:t.tier,level};
- const parts=foes.map(a=>({source:a.source,level:a.level,grade:a.grade,xp:Math.round((30+15*a.level)*({일반:1,정예:2,강적:4}[a.grade]||1)*.45),mora:Math.round((8+5*a.level)*({일반:1,정예:2,강적:4}[a.grade]||1))}));
+ b.leyLine={version:3,kind:r.kind,route:id,map:r.map,hour:this.leyLineHour(),window:this.leyLineWindow(),tier:t.tier,level};
+ const parts=foes.map((a,i)=>({source:a.source,level:a.level,grade:a.grade,xp:Math.floor(t.directXp/foes.length)+(i<t.directXp%foes.length?1:0),mora:0}));
  if(!b.storyConfig?.noRewards)b.mondBalance={version:1,kind:'BOSS',risk:0,rewards:{xp:parts.reduce((n,x)=>n+x.xp,0),mora:parts.reduce((n,x)=>n+x.mora,0),parts}};
  return out;
 };
 P.finishBattle=function(victory){
  const b=this.s.runtime,ley=b?.leyLine?copy(b.leyLine):null,result=old.finishBattle.call(this,victory);
  if(!ley||!result||typeof result!=='object')return result;
- const t=tierOf(ley.tier);result.leyLine={kind:ley.kind,name:KINDS[ley.kind].name,tier:ley.tier,level:ley.level,claimed:false};
- if(victory&&t&&!b.storyConfig?.noRewards&&this.s.leyLine?.[ley.kind]!==ley.hour){
-  (this.s.leyLine??={version:1})[ley.kind]=ley.hour;const loot={};
+ const t=ley.version===1?legacyTierOf(ley.tier,ROUTES[ley.route].region):ley.version===3?tierOf3(ley.tier):tierOf(ley.tier);result.leyLine={kind:ley.kind,name:KINDS[ley.kind].name,tier:ley.tier,level:ley.level,claimed:false};
+ // 0.16.48: a claim is kept per half day (version 2 record). A fight entered before keeps its own hour's claim rule.
+ const win=ley.version===3?ley.window:this.leyLineWindow(),taken=ley.version===3?this.leyLineClaimed(ley.kind,win):(this.s.leyLine?.version===1&&this.s.leyLine[ley.kind]===ley.hour)||this.leyLineClaimed(ley.kind,win);
+ if(victory&&t&&!b.storyConfig?.noRewards&&!taken){
+  const prior=this.s.leyLine?.version===2?this.s.leyLine:{version:2};this.s.leyLine={...prior,version:2,[ley.kind]:win};const loot={};
   if(ley.kind==='REVELATION')for(const [id,n]of Object.entries(t.books)){this.giveItem(id,n);loot[id]=n;}
   else{this.s.global.MORA+=t.mora;result.mora=(Number(result.mora)||0)+t.mora;result.leyLine.mora=t.mora;}
   result.loot={...(result.loot||{})};for(const [id,n]of Object.entries(loot))result.loot[id]=(result.loot[id]||0)+n;
@@ -143,9 +164,9 @@ P.finishBattle=function(victory){
 };
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s,l=out.leyLine;
- if(l!==undefined&&(!l||typeof l!=='object'||Array.isArray(l)||l.version!==1||Object.entries(l).some(([k,v])=>k!=='version'&&(!KINDS[k]||!Number.isSafeInteger(v)||v<0))))fail('LEYLINE_SAVE','지맥의 꽃 기록이 올바르지 않습니다.');
- const b=out.runtime?.leyLine;if(b&&(b.version!==1||!KINDS[b.kind]||!ROUTES[b.route]||!Number.isSafeInteger(b.hour)||!tierOf(b.tier)||b.level!==tierOf(b.tier).level))fail('LEYLINE_SAVE','지맥의 꽃 전투 기록이 올바르지 않습니다.');
+ if(l!==undefined&&(!l||typeof l!=='object'||Array.isArray(l)||![1,2].includes(l.version)||Object.entries(l).some(([k,v])=>k!=='version'&&(!KINDS[k]||!Number.isSafeInteger(v)||v<0))))fail('LEYLINE_SAVE','지맥의 꽃 기록이 올바르지 않습니다.');
+ const b=out.runtime?.leyLine,t=b&&(b.version===1?legacyTierOf(b.tier,ROUTES[b.route]?.region):b.version===3?tierOf3(b.tier):tierOf(b.tier));if(b&&(![1,2,3].includes(b.version)||b.version===3&&!Number.isSafeInteger(b.window)||!KINDS[b.kind]||!ROUTES[b.route]||!Number.isSafeInteger(b.hour)||!t||b.level!==t.level))fail('LEYLINE_SAVE','지맥의 꽃 전투 기록이 올바르지 않습니다.');
  return out;
 };
-P.leyLineVersion=1;
+P.leyLineVersion=3;
 })(globalThis);

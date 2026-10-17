@@ -1,0 +1,301 @@
+{
+  "fingerprint": "2a143c669f2e73ee1921e255ae795a9088957da75acafa076de2f0264faf11bc",
+  "conditions": 8,
+  "wins": 8,
+  "defeats": 0,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 122,
+  "drift": [],
+  "rows": [
+    {
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_BARBARA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 44.22,
+      "cpuSeconds": 0.12901421,
+      "hp": 0.790567265808842,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 11482,
+          "maxHp": 11482,
+          "atk": 934,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 4,
+      "seconds": 64.13,
+      "cpuSeconds": 0.122099748,
+      "hp": 0.876070816676185,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 11482,
+          "maxHp": 11482,
+          "atk": 934,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_BARBARA"
+      ],
+      "state": "WIN",
+      "rounds": 2,
+      "inputs": 2,
+      "seconds": 34.36,
+      "cpuSeconds": 0.049658315,
+      "hp": 1,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 10635,
+          "maxHp": 10635,
+          "atk": 1337,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 2,
+      "inputs": 2,
+      "seconds": 28.68,
+      "cpuSeconds": 0.057254003,
+      "hp": 1,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 10635,
+          "maxHp": 10635,
+          "atk": 1337,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "LIYUE_XINGQIU",
+        "MOND_BENNETT"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 43.760000000000005,
+      "cpuSeconds": 0.101798327,
+      "hp": 0.826854681607778,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 59886,
+          "maxHp": 59886,
+          "atk": 5107,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 4,
+      "seconds": 45.39,
+      "cpuSeconds": 0.096806795,
+      "hp": 1,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 59886,
+          "maxHp": 59886,
+          "atk": 5107,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_NOELLE"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 40.629999999999995,
+      "cpuSeconds": 0.098889913,
+      "hp": 0.6068949560388709,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 91916,
+          "maxHp": 91916,
+          "atk": 9096,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 47.81,
+      "cpuSeconds": 0.100361771,
+      "hp": 0.9858735344993274,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 91916,
+          "maxHp": 91916,
+          "atk": 9096,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    }
+  ]
+}

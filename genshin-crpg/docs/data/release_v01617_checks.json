@@ -1,0 +1,46 @@
+{
+  "version": "0.16.17",
+  "parentSourceSha": "11b45a5ce8a870fdfc5be74b80aa41683201ed18",
+  "regressions": {
+    "files": 8,
+    "passes": 85,
+    "allPassed": true,
+    "evidence": "docs/data/food_release_regressions_v01617.json"
+  },
+  "additionalChecks": [
+    {
+      "command": "python tests/test_engine_identity.py",
+      "exitCode": 0
+    },
+    {
+      "command": "node tests/test_test_release_pin.cjs",
+      "exitCode": 0
+    }
+  ],
+  "serverBuild": {
+    "command": "python tools/build_server.py",
+    "exitCode": 0,
+    "version": "0.16.17",
+    "runtimeFiles": 119,
+    "bytes": 28331387,
+    "gzipBytes": 5372505
+  },
+  "staticBuild": {
+    "command": "python tools/build.py",
+    "exitCode": 1,
+    "reason": "Existing local assets missing: bg_mondstadt_city_day.png",
+    "remoteAssetsPreserved": true
+  },
+  "sourceSha256": {
+    "source/runtime_economy.js": "ec7fe052ab138e7d2e917a31745b8c07346430b3c2950eb103869e3676371174",
+    "source/app_cooking.js": "464f8d7b38636b04b8dff44543d42e2ba58b92dbdd7022ebd71a49988bf476ea",
+    "source/runtime.js": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+    "source/runtime_growth_v01522.js": "f62c64529a8244e23f4ffce75f3bf6bc08027172da1b775c1aa1168210501247",
+    "source/runtime_passives.js": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7"
+  },
+  "fullCiWaited": false,
+  "actualServersInstalled": false,
+  "productionPromoted": false,
+  "mainMerged": false,
+  "scope": "Only two product files plus release metadata/tests/audits/docs; raw recovered QA DB and local authored/UI drift excluded from publication."
+}

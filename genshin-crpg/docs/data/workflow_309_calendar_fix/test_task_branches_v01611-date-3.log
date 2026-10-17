@@ -1,0 +1,25 @@
+PASS only the specified five are retired, every other objective and payout remains
+PASS a new account sees only reception practice, with no empty-board bonus
+PASS native reception followed by report unlocks siblings and replay cannot pay twice
+PASS direct acceptance cannot bypass an unreported one-time predecessor
+PASS daily successors receive only new victories after the first payout
+PASS weekly long operations stay hidden until predecessor rewards are collected
+PASS a two-parent operation opens only after both reports
+PASS an event captured before unlock cannot leak progress into a successor
+PASS bulk payout cannot clear hidden branches or pay an early all-complete bonus
+PASS all-complete is paid once only after the entire fixed branch manifest
+PASS daily reset closes daily successors but retains weekly progress and claims
+PASS weekly reset restarts its roots and rejects delayed prior-week events
+PASS period assignment and rewards do not change when level or inventory changes
+PASS legacy removed assignments disappear while earned currency and valid snapshots survive
+PASS a strict 171 Liyue assignment retires while other frozen branch records survive
+PASS a genuinely accepted old reception lesson becomes reportable without inventing another quest
+PASS a legacy accepted activity retains its frozen goal and can finish before reception practice
+PASS two one-time prerequisites are both required and cannot be bypassed by direct API
+PASS tampered branch rewards, prerequisites and activation times are rejected
+PASS prior genuine ordinary report teaches reporting without refilling weekly counters
+PASS an accepted 169 reporting lesson uses prior native report and preserves its frozen definition
+PASS five daily reports remains a weekly root only when enough reporting days remain
+PASS the first native battle after midnight counts without opening the task screen
+PASS the first public gathering activity after midnight counts before any task view
+{"ok":true,"checks":24}

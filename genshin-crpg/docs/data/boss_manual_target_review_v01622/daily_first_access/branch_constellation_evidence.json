@@ -1,0 +1,1521 @@
+[
+  {
+    "boss": "BOSS_ANDRIUS",
+    "investment": "FOUR_C6",
+    "level": 25,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_XIANGLING": 6,
+      "MOND_FISCHL": 6,
+      "MOND_BARBARA": 6
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_XIANGLING": {
+        "na": 4,
+        "e": 7,
+        "q": 7,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "MOND_FISCHL": {
+        "na": 4,
+        "e": 7,
+        "q": 7,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_BARBARA": {
+        "na": 4,
+        "e": 7,
+        "q": 7,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      }
+    },
+    "phaseLog": [
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_RUN_PHASE",
+        "cardName": "북풍의 질주",
+        "phase": 2,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {}
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0
+            }
+          }
+        ],
+        "round": 1,
+        "actionSequence": 1
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_LEAP",
+        "cardName": "왕랑의 도약",
+        "phase": 2,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_LEAP": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 1,
+        "actionSequence": 3
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_PHASE3",
+        "cardName": "폭풍과 빙설의 왕",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "atk": 934,
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_LEAP": 2
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "atk": 1027.4,
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_LEAP": 2,
+              "ECARD_ANDRIUS_PHASE3": 0
+            }
+          }
+        ]
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_WIND_BLADE",
+        "cardName": "북풍 칼날",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 2,
+        "actionSequence": 9
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_SWEEP",
+        "cardName": "빙원의 휩쓸기",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 2
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 2,
+              "ECARD_ANDRIUS_SWEEP": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 2,
+        "actionSequence": 10
+      }
+    ],
+    "windRouteUsed": false,
+    "finalAzhdaha": []
+  },
+  {
+    "boss": "BOSS_ANDRIUS",
+    "investment": "FIVE_C0",
+    "level": 25,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_ZHONGLI": 0,
+      "MOND_DILUC": 0,
+      "MOND_JEAN": 0
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_ZHONGLI": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_DILUC": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_JEAN": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      }
+    },
+    "phaseLog": [
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_LEAP",
+        "cardName": "왕랑의 도약",
+        "phase": 1,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {}
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 1,
+        "actionSequence": 2
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_RUN_PHASE",
+        "cardName": "북풍의 질주",
+        "phase": 2,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 2
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 2,
+              "ECARD_ANDRIUS_RUN_PHASE": 0
+            }
+          }
+        ],
+        "round": 2,
+        "actionSequence": 5
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_SWEEP",
+        "cardName": "빙원의 휩쓸기",
+        "phase": 2,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 2,
+        "actionSequence": 6
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_PHASE3",
+        "cardName": "폭풍과 빙설의 왕",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 2
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 2,
+              "ECARD_ANDRIUS_PHASE3": 0
+            }
+          }
+        ],
+        "round": 2,
+        "actionSequence": 9
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_WIND_BLADE",
+        "cardName": "북풍 칼날",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 0,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0
+            },
+            "statuses": [
+              {
+                "id": "LIYUE_BOSS_PETRIFY",
+                "rounds": null,
+                "createdRound": 2,
+                "actor": "LIYUE_ZHONGLI",
+                "nextDamage": true,
+                "resolveTurn": 3,
+                "consumeAction": "3:BOSS_ANDRIUS#1:14"
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 0,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 2
+            },
+            "statuses": []
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 3,
+        "actionSequence": 14
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_LEAP",
+        "cardName": "왕랑의 도약",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 0,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 2
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 2,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 1,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 3,
+        "actionSequence": 15
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_ROAR",
+        "cardName": "왕랑의 포효",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 0,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 1
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 0,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 1,
+              "ECARD_ANDRIUS_ROAR": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 4,
+        "actionSequence": 16
+      },
+      {
+        "actor": "안드리우스",
+        "card": "ECARD_ANDRIUS_SWEEP",
+        "cardName": "빙원의 휩쓸기",
+        "phase": 3,
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 0,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 1,
+              "ECARD_ANDRIUS_ROAR": 2
+            }
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "cooldowns": {
+              "ECARD_ANDRIUS_LEAP": 1,
+              "ECARD_ANDRIUS_RUN_PHASE": 0,
+              "ECARD_ANDRIUS_SWEEP": 2,
+              "ECARD_ANDRIUS_PHASE3": 0,
+              "ECARD_ANDRIUS_WIND_BLADE": 1,
+              "ECARD_ANDRIUS_ROAR": 2
+            }
+          }
+        ],
+        "actorId": "BOSS_ANDRIUS#1",
+        "round": 4,
+        "actionSequence": 17
+      }
+    ],
+    "windRouteUsed": false,
+    "finalAzhdaha": []
+  },
+  {
+    "boss": "BOSS_DVALIN",
+    "investment": "FOUR_C6",
+    "level": 28,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_XIANGLING": 6,
+      "MOND_FISCHL": 6,
+      "MOND_BARBARA": 6
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_XIANGLING": {
+        "na": 4,
+        "e": 7,
+        "q": 7,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "MOND_FISCHL": {
+        "na": 4,
+        "e": 7,
+        "q": 7,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_BARBARA": {
+        "na": 4,
+        "e": 7,
+        "q": 7,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      }
+    },
+    "phaseLog": [],
+    "windRouteUsed": true,
+    "finalAzhdaha": []
+  },
+  {
+    "boss": "BOSS_DVALIN",
+    "investment": "FIVE_C0",
+    "level": 28,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_ZHONGLI": 0,
+      "MOND_DILUC": 0,
+      "MOND_JEAN": 0
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_ZHONGLI": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_DILUC": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_JEAN": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      }
+    },
+    "phaseLog": [],
+    "windRouteUsed": true,
+    "finalAzhdaha": []
+  },
+  {
+    "boss": "BOSS_TARTAGLIA",
+    "investment": "FOUR_C6",
+    "level": 50,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_XIANGLING": 6,
+      "LIYUE_XINGQIU": 6,
+      "MOND_BENNETT": 6
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 8,
+        "e": 8,
+        "q": 8,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_XIANGLING": {
+        "na": 8,
+        "e": 11,
+        "q": 11,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_XINGQIU": {
+        "na": 8,
+        "e": 11,
+        "q": 11,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "MOND_BENNETT": {
+        "na": 8,
+        "e": 11,
+        "q": 11,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      }
+    },
+    "phaseLog": [
+      {
+        "phase": 2,
+        "actor": "타르탈리아",
+        "text": "교전 방식이 바뀐다.",
+        "round": 2,
+        "actionSequence": 8
+      },
+      {
+        "phase": 3,
+        "actor": "타르탈리아",
+        "text": "상대가 마지막 전투 태세를 취한다.",
+        "presentationActorsBefore": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "TRAIT_STACK_ATK",
+                "rounds": 2,
+                "createdRound": 2,
+                "stacks": 3,
+                "mods": {
+                  "atk": {
+                    "pct": 9
+                  }
+                },
+                "traitStatus": true
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_XIANGLING",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_XINGQIU",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "TRAIT_STACK_ATK",
+                "rounds": 2,
+                "createdRound": 1,
+                "stacks": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 3
+                  }
+                },
+                "traitStatus": true
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              }
+            ]
+          },
+          {
+            "id": "MOND_BENNETT",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              },
+              {
+                "id": "TRAIT_STACK_ATK",
+                "rounds": 2,
+                "createdRound": 2,
+                "stacks": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 3
+                  }
+                },
+                "traitStatus": true
+              }
+            ]
+          },
+          {
+            "id": "BOSS_TARTAGLIA#1",
+            "spd": 86
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "TRAIT_STACK_ATK",
+                "rounds": 2,
+                "createdRound": 2,
+                "stacks": 3,
+                "mods": {
+                  "atk": {
+                    "pct": 9
+                  }
+                },
+                "traitStatus": true
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_XIANGLING",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_XINGQIU",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "TRAIT_STACK_ATK",
+                "rounds": 1,
+                "createdRound": 1,
+                "stacks": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 3
+                  }
+                },
+                "traitStatus": true
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              }
+            ]
+          },
+          {
+            "id": "MOND_BENNETT",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              },
+              {
+                "id": "ENCOURAGEMENT_TAG",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "fieldId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B31:F3"
+              },
+              {
+                "id": "CONS_BENNETT_1",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true,
+                "mods": {}
+              },
+              {
+                "id": "DILUC_INFUSION",
+                "rounds": 1,
+                "createdRound": 1,
+                "actor": "MOND_BENNETT",
+                "cons": true
+              },
+              {
+                "id": "TRAIT_STACK_ATK",
+                "rounds": 2,
+                "createdRound": 2,
+                "stacks": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 3
+                  }
+                },
+                "traitStatus": true
+              }
+            ]
+          },
+          {
+            "id": "BOSS_TARTAGLIA#1",
+            "spd": 94
+          }
+        ]
+      }
+    ],
+    "windRouteUsed": false,
+    "finalAzhdaha": []
+  },
+  {
+    "boss": "BOSS_TARTAGLIA",
+    "investment": "FIVE_C0",
+    "level": 50,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_ZHONGLI": 0,
+      "MOND_DILUC": 0,
+      "MOND_JEAN": 0
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 8,
+        "e": 8,
+        "q": 8,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_ZHONGLI": {
+        "na": 8,
+        "e": 8,
+        "q": 8,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_DILUC": {
+        "na": 8,
+        "e": 8,
+        "q": 8,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_JEAN": {
+        "na": 8,
+        "e": 8,
+        "q": 8,
+        "base": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      }
+    },
+    "phaseLog": [
+      {
+        "phase": 2,
+        "actor": "타르탈리아",
+        "text": "교전 방식이 바뀐다."
+      },
+      {
+        "phase": 3,
+        "actor": "타르탈리아",
+        "text": "상대가 마지막 전투 태세를 취한다.",
+        "presentationActorsBefore": [
+          {
+            "id": "BOSS_TARTAGLIA#1",
+            "spd": 86
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "BOSS_TARTAGLIA#1",
+            "spd": 94
+          }
+        ],
+        "round": 2,
+        "actionSequence": 8,
+        "cardName": "풍압검"
+      }
+    ],
+    "windRouteUsed": false,
+    "finalAzhdaha": []
+  },
+  {
+    "boss": "BOSS_AZHDAHA",
+    "investment": "FOUR_C6",
+    "level": 60,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_XIANGLING": 6,
+      "MOND_FISCHL": 6,
+      "MOND_NOELLE": 6
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 10,
+        "e": 10,
+        "q": 10,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_XIANGLING": {
+        "na": 10,
+        "e": 13,
+        "q": 13,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "MOND_FISCHL": {
+        "na": 10,
+        "e": 13,
+        "q": 13,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_NOELLE": {
+        "na": 10,
+        "e": 13,
+        "q": 13,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      }
+    },
+    "phaseLog": [
+      {
+        "actor": "야타용왕",
+        "actorId": "BOSS_AZHDAHA#1",
+        "phase": 2,
+        "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+        "cardName": "지맥의 원소 전환",
+        "text": "야타용왕이 불 원소를 흡수했다. 해당 원소 피해에 완전면역이 된다.",
+        "round": 2,
+        "actionSequence": 5
+      },
+      {
+        "actor": "야타용왕",
+        "actorId": "BOSS_AZHDAHA#1",
+        "phase": 3,
+        "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+        "cardName": "지맥의 원소 전환",
+        "text": "야타용왕이 얼음 원소를 흡수했다. 해당 원소 피해에 완전면역이 된다.",
+        "round": 2,
+        "actionSequence": 8
+      }
+    ],
+    "windRouteUsed": false,
+    "finalAzhdaha": [
+      {
+        "version": 1,
+        "element1": "PYRO",
+        "element2": "CRYO",
+        "current": "CRYO",
+        "phase": 3,
+        "zhongliBound": false,
+        "neutralUsedRound": 0
+      }
+    ]
+  },
+  {
+    "boss": "BOSS_AZHDAHA",
+    "investment": "FIVE_C0",
+    "level": 60,
+    "constellations": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_ZHONGLI": 0,
+      "MOND_DILUC": 0,
+      "MOND_JEAN": 0
+    },
+    "talents": {
+      "PLAYER_CUSTOM": {
+        "na": 10,
+        "e": 10,
+        "q": 10,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      },
+      "LIYUE_ZHONGLI": {
+        "na": 10,
+        "e": 10,
+        "q": 10,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_DILUC": {
+        "na": 10,
+        "e": 10,
+        "q": 10,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "MOND_JEAN": {
+        "na": 10,
+        "e": 10,
+        "q": 10,
+        "base": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "kinds": {
+          "c3": "q",
+          "c5": "e"
+        }
+      }
+    },
+    "phaseLog": [
+      {
+        "actor": "야타용왕",
+        "actorId": "BOSS_AZHDAHA#1",
+        "phase": 2,
+        "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+        "cardName": "지맥의 원소 전환",
+        "text": "야타용왕이 불 원소를 흡수했다. 해당 원소 피해에 완전면역이 된다.",
+        "round": 1,
+        "actionSequence": 2
+      },
+      {
+        "actor": "야타용왕",
+        "actorId": "BOSS_AZHDAHA#1",
+        "phase": 3,
+        "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+        "cardName": "지맥의 원소 전환",
+        "text": "야타용왕이 얼음 원소를 흡수했다. 해당 원소 피해에 완전면역이 된다.",
+        "round": 2,
+        "actionSequence": 8
+      }
+    ],
+    "windRouteUsed": false,
+    "finalAzhdaha": [
+      {
+        "version": 1,
+        "element1": "PYRO",
+        "element2": "CRYO",
+        "current": "CRYO",
+        "phase": 3,
+        "zhongliBound": true,
+        "neutralUsedRound": 0
+      }
+    ]
+  }
+]

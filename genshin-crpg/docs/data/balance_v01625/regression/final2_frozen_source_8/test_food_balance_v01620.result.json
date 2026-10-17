@@ -1,0 +1,28 @@
+{
+  "test": "tests/test_food_balance_v01620.cjs",
+  "command": [
+    "node",
+    "tests/test_food_balance_v01620.cjs"
+  ],
+  "startedAt": "2026-10-10T10:26:18.301178+00:00",
+  "endedAt": "2026-10-10T10:26:46.220039+00:00",
+  "seconds": 27.754,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_character_balance_v01625.cjs": {
+      "before": "ba4fb8172931fc4b3896b045753d8313280cd47665efa06521592eb9b5a24b06",
+      "after": "3a2da29b8c954510617bb30682eb67167aae2321f94cbae91345b86fad9dea0f"
+    },
+    "tools/audit_balance_engines_v01625.cjs": {
+      "before": "4a9ab5613754c256415834062e06fc6436eeb0d475f1a0293a5a8b4ef4a8e5be",
+      "after": "f036de398b7afb35aca8f78bda01d117439b9dcf39dd838a23c70a43d3444248"
+    }
+  },
+  "testSha256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+  "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+  "stdoutSha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_food_balance_v01620.stdout.log",
+  "stderrLog": "test_food_balance_v01620.stderr.log"
+}

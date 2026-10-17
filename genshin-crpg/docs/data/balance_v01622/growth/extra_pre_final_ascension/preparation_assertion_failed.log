@@ -1,0 +1,27 @@
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+6 !== 5
+
+    at setup (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/balance_v01622/growth/extra_pre_final_ascension/audit_pre_final_ascension.cjs:15:166)
+    at catalog (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/balance_v01622/growth/extra_pre_final_ascension/audit_pre_final_ascension.cjs:25:30)
+    at main (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/balance_v01622/growth/extra_pre_final_ascension/audit_pre_final_ascension.cjs:26:1093)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/balance_v01622/growth/extra_pre_final_ascension/audit_pre_final_ascension.cjs:27:26)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 6,
+  expected: 5,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

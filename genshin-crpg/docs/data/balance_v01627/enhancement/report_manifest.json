@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "sourceFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "dbSha256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "artifacts": [
+    {
+      "path": "docs/data/balance_v01627/enhancement/README_KO.md",
+      "sha256": "0c844b180b6d584dbcc6e0d49c28c674193955956001f23e49867b86ac0cf4cf",
+      "bytes": 13314
+    },
+    {
+      "path": "docs/data/balance_v01627/enhancement/summary.json",
+      "sha256": "6eca58244c91ffb1470492728c118b202bfea1a4e4de8d796177819943a81ffa",
+      "bytes": 9555
+    },
+    {
+      "path": "docs/data/balance_v01627/enhancement/manifest.json",
+      "sha256": "bcb0024f4d17cf55960d719b3ec17797c5e30318036853a27e0eeafb028eadd7",
+      "bytes": 478
+    },
+    {
+      "path": "docs/data/balance_v01627/enhancement/native.json.gz",
+      "sha256": "c0a9eae94c0d6499a225700c929945f13a63d21423332ddcc8e0e335f1f17f03",
+      "bytes": 261928
+    }
+  ],
+  "tools": [
+    {
+      "path": "tools/audit_enhancement_impact_v01627.cjs",
+      "sha256": "695bb0fddb54f819b41228089c3178be3bee03c56d4bf384a63d9ef4839065f4"
+    },
+    {
+      "path": "tools/summarize_enhancement_v01627.py",
+      "sha256": "5ab14d99c89d255fb39233a1fe4506fda5f4de2a19a8ef4cb8cca648adc38d9f"
+    }
+  ]
+}

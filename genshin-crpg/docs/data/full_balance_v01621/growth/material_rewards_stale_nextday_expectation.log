@@ -1,0 +1,38 @@
+PASS current hard-coded element quantities and historical tables are separate snapshots
+PASS all new entrance previews carry the same marker and quantity as their saved battle
+PASS actual new settlements pay large quantities exactly once without XP books or Mora
+PASS old marked and unmarked version-four ascension promises settle with their old table
+PASS old version-four talent fights retain old books and never receive new book rewards on reload
+PASS legacy versions one, two and three keep their original unmarked material payout
+PASS unsupported, misplaced and impossible old-budget/new-reward marker combinations reject
+PASS every own-element phase uses its fixed coupled gems with unchanged Mora and other costs
+PASS 37500/75000 future gem payments are atomic, valid on reload and paid once
+PASS book requirements follow the nine-step profile without changing Mora or slime costs
+PASS unpaid talent changes use the current book cost and trained levels stay unchanged
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+3000 !== 400
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_material_rewards_v01616.cjs:94:48
+    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_material_rewards_v01616.cjs:20:25)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_material_rewards_v01616.cjs:90:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 3000,
+  expected: 400,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

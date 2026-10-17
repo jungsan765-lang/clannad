@@ -1,0 +1,542 @@
+{
+  "clock": 1791648240000,
+  "clockPolicy": "Identical fixed real clock in both comparison VM engines, including native defeat cooldown; no battle HP/action/stat overrides.",
+  "oldFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "newFingerprint": "80e3ff67df4d87af59687d5f4cfad4f9476600b3ec89fdc481cd8f278900cc95",
+  "conditions": 8,
+  "rows": [
+    {
+      "boss": "BOSS_ANDRIUS",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_FISCHL": 0,
+        "MOND_DIONA": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "hp": 20094,
+          "atk": 2055,
+          "def": 236,
+          "level": 25
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717",
+        "group": "EG_BOSS_ANDRIUS",
+        "origin": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "gate": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 6,
+        "result": "DEFEAT",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_ANDRIUS",
+          "seen": [
+            "HUNT_MARK",
+            "FROST_FIELD"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_ANDRIUS",
+          "level": 25
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_ANDRIUS",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_ZHONGLI": 0,
+        "MOND_DILUC": 0,
+        "MOND_JEAN": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "hp": 20094,
+          "atk": 2055,
+          "def": 236,
+          "level": 25
+        }
+      ],
+      "result": {
+        "mora": 151,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717",
+        "group": "EG_BOSS_ANDRIUS",
+        "origin": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "gate": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "branch": null,
+        "victory": true,
+        "xp": 1575,
+        "loot": {
+          "TRPG_BOSS_ESSENCE": 1,
+          "MAT_CHAR_EXP_HERO": 2
+        },
+        "rounds": 6,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "enhancementLootVersion": 1,
+        "protagonistRevived": 475,
+        "twinBoss": {
+          "boss": "BOSS_ANDRIUS",
+          "seen": [
+            "HUNT_MARK",
+            "FROST_FIELD"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_ANDRIUS",
+          "level": 25
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_FISCHL": 0,
+        "MOND_DIONA": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_ZHONGLI": 0,
+        "MOND_DILUC": 0,
+        "MOND_JEAN": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_BENNETT": 0,
+        "MOND_DAHLIA": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "hp": 125761,
+          "atk": 9703,
+          "def": 591,
+          "level": 50
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717",
+        "group": "EG_BOSS_TARTAGLIA",
+        "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "gate": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 9,
+        "result": "DEFEAT",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_ZHONGLI": 0,
+        "MOND_DILUC": 0,
+        "MOND_JEAN": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "hp": 125761,
+          "atk": 9703,
+          "def": 591,
+          "level": 50
+        }
+      ],
+      "result": {
+        "mora": 320,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717",
+        "group": "EG_BOSS_TARTAGLIA",
+        "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "gate": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "branch": null,
+        "victory": true,
+        "xp": 4200,
+        "loot": {},
+        "rounds": 8,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "liyueFarm": {
+          "boss": "LIYUE_TARTAGLIA_FARM",
+          "artifact": {
+            "slot": "EQI_000023",
+            "equip": "EQ_ARTIFACT_TIDE",
+            "name": "성유물 · 격류형",
+            "quality": 3,
+            "grade": "조악",
+            "level": 0,
+            "stats": {
+              "ATK": 3,
+              "SPD": 0.6,
+              "HIT": 0.6,
+              "CRIT": 0.2,
+              "DEF": 1,
+              "EVA": 0.4
+            }
+          }
+        },
+        "protagonistRevived": 1269
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_BENNETT": 0,
+        "MOND_DAHLIA": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "hp": 137874,
+          "atk": 13189,
+          "def": 778,
+          "level": 60
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+        "group": "EG_BOSS_AZHDAHA",
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "gate": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_ZHONGLI": 0,
+        "MOND_DILUC": 0,
+        "MOND_JEAN": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "hp": 137874,
+          "atk": 13189,
+          "def": 778,
+          "level": 60
+        }
+      ],
+      "result": {
+        "mora": 398,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+        "group": "EG_BOSS_AZHDAHA",
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "gate": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "branch": null,
+        "victory": true,
+        "xp": 5600,
+        "loot": {
+          "MAT_AZHDAHA_ARTIFACT_CRYSTAL": 4
+        },
+        "rounds": 6,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "liyueFarm": {
+          "boss": "LIYUE_AZHDAHA_FARM",
+          "items": {
+            "MAT_AZHDAHA_ARTIFACT_CRYSTAL": 4
+          }
+        },
+        "protagonistRevived": 1924
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    }
+  ]
+}

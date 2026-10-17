@@ -1,0 +1,23 @@
+{
+  "hypothesis": "exclusive inner forwarder might hide FIELD/FOLLOWUP from constellation/rhythm",
+  "classification": "cleared_by_actual_load_order_and_isolated_native_execution",
+  "loadOrder": "exclusive -> formations -> rhythm -> constellations -> growth -> admin",
+  "callOrder": "admin -> constellations -> rhythm -> formations -> exclusive -> base",
+  "sixActualAmounts": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "sameAsControl": true,
+  "nominalHookAvailable": false,
+  "scope": "Explicit synthetic cast contexts in the real source loader. Parent natural effect integration suite is separate. No product patch made for this hypothesis.",
+  "originalEvidence": "persistent_heal_context_before.json",
+  "hashes": {
+    "source/runtime_exclusive_weapons.js": "fb3a5580a1feefe0990f3520de15b70b711b7c69b4a3e6e732490c5f330c8649",
+    "source/runtime_constellations_v01411.js": "cd8297ea56598788b531102d1cc07cab956e6ce716ea1d69dbeb25031a87a19a",
+    "source/runtime_skill_rhythm.js": "f7c92f32f6ae9206b71a7cba4df47665b471c6ea11adfb56cdbb08f243036485"
+  }
+}

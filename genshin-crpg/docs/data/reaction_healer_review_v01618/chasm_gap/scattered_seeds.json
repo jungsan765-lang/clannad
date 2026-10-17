@@ -1,0 +1,1202 @@
+{
+  "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "notes": "Read-only public action witnesses. Initial declared ownership/free-journey flags only. Natural seed search selects encounter illustrations, not unbiased win-rate samples.",
+  "moves": [
+    {
+      "map": "MAP_LY_DETAIL_LINGJU",
+      "edge": "EDGE_LY_DETAIL_036_A",
+      "reason": "",
+      "result": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_LY_DETAIL_CHASM_GATE",
+          "minutes": 30,
+          "encounter": null
+        },
+        "revision": 13
+      },
+      "destination": "MAP_LY_DETAIL_CHASM_GATE",
+      "destinationLevel": 50,
+      "startedCombat": false
+    },
+    {
+      "map": "MAP_LY_DETAIL_CHASM_GATE",
+      "edge": "EDGE_LY_DETAIL_037_A",
+      "reason": "",
+      "result": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_LY_DETAIL_CHASM_RIM",
+          "minutes": 15,
+          "encounter": null
+        },
+        "revision": 13
+      },
+      "destination": "MAP_LY_DETAIL_CHASM_RIM",
+      "destinationLevel": 52,
+      "startedCombat": false
+    },
+    {
+      "map": "MAP_LY_DETAIL_CHASM_RIM",
+      "edge": "EDGE_LY_DETAIL_038_A",
+      "reason": "",
+      "result": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_SURFACE",
+          "minutes": 20,
+          "encounter": null
+        },
+        "revision": 13
+      },
+      "destination": "MAP_CHASM_SURFACE",
+      "destinationLevel": 50,
+      "startedCombat": false
+    },
+    {
+      "map": "MAP_CHASM_SURFACE",
+      "edge": "EDGE_CHASM_SURFACE_TO_DEEP",
+      "reason": "",
+      "result": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_DEEP",
+          "minutes": 30,
+          "encounter": null
+        },
+        "revision": 13
+      },
+      "destination": "MAP_CHASM_DEEP",
+      "destinationLevel": 56,
+      "startedCombat": false
+    }
+  ],
+  "talents": [
+    {
+      "base": 2,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "cons": 3,
+          "growth": {
+            "owner": "PLAYER_CUSTOM",
+            "name": "동일 조건 비교",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 2,
+            "e": 2,
+            "q": 5,
+            "base": {
+              "na": 2,
+              "e": 2,
+              "q": 2
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "eMultiplier": 1.08
+        },
+        {
+          "id": "MOND_DILUC",
+          "cons": 2,
+          "growth": {
+            "owner": "MOND_DILUC",
+            "name": "다이루크",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 2,
+            "e": 2,
+            "q": 2,
+            "base": {
+              "na": 2,
+              "e": 2,
+              "q": 2
+            },
+            "kinds": {
+              "c3": "e",
+              "c5": "q"
+            }
+          },
+          "eMultiplier": 1.08
+        },
+        {
+          "id": "LIYUE_GANYU",
+          "cons": 0,
+          "growth": {
+            "owner": "LIYUE_GANYU",
+            "name": "감우",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 2,
+            "e": 2,
+            "q": 2,
+            "base": {
+              "na": 2,
+              "e": 2,
+              "q": 2
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "eMultiplier": 1.08
+        },
+        {
+          "id": "MOND_JEAN",
+          "cons": 2,
+          "growth": {
+            "owner": "MOND_JEAN",
+            "name": "진",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 2,
+            "e": 2,
+            "q": 2,
+            "base": {
+              "na": 2,
+              "e": 2,
+              "q": 2
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "eMultiplier": 1.08
+        }
+      ]
+    },
+    {
+      "base": 4,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "cons": 3,
+          "growth": {
+            "owner": "PLAYER_CUSTOM",
+            "name": "동일 조건 비교",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 4,
+            "e": 4,
+            "q": 7,
+            "base": {
+              "na": 4,
+              "e": 4,
+              "q": 4
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "eMultiplier": 1.27
+        },
+        {
+          "id": "MOND_DILUC",
+          "cons": 2,
+          "growth": {
+            "owner": "MOND_DILUC",
+            "name": "다이루크",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 4,
+            "e": 4,
+            "q": 4,
+            "base": {
+              "na": 4,
+              "e": 4,
+              "q": 4
+            },
+            "kinds": {
+              "c3": "e",
+              "c5": "q"
+            }
+          },
+          "eMultiplier": 1.27
+        },
+        {
+          "id": "LIYUE_GANYU",
+          "cons": 0,
+          "growth": {
+            "owner": "LIYUE_GANYU",
+            "name": "감우",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 4,
+            "e": 4,
+            "q": 4,
+            "base": {
+              "na": 4,
+              "e": 4,
+              "q": 4
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "eMultiplier": 1.27
+        },
+        {
+          "id": "MOND_JEAN",
+          "cons": 2,
+          "growth": {
+            "owner": "MOND_JEAN",
+            "name": "진",
+            "level": 25,
+            "xp": 0,
+            "next": 11160,
+            "remaining": 11160,
+            "cap": 30,
+            "phase": 2,
+            "talentCap": 4,
+            "max": false,
+            "final": false
+          },
+          "levels": {
+            "na": 4,
+            "e": 4,
+            "q": 4,
+            "base": {
+              "na": 4,
+              "e": 4,
+              "q": 4
+            },
+            "kinds": {
+              "c3": "q",
+              "c5": "e"
+            }
+          },
+          "eMultiplier": 1.27
+        }
+      ]
+    }
+  ],
+  "seeds": [
+    {
+      "seed": 3,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 53,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+      "template": "SERPENT_ESCORT",
+      "enemies": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 56,
+          "hp": 98702,
+          "maxHp": 98702,
+          "atk": 12265,
+          "def": 584,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "FEROCIOUS",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 117,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+      "template": "SERPENT_ESCORT",
+      "enemies": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 56,
+          "hp": 98702,
+          "maxHp": 98702,
+          "atk": 10221,
+          "def": 584
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "SNIPER",
+              "SWIFT"
+            ],
+            "acts": 0
+          }
+        }
+      ]
+    },
+    {
+      "seed": 251,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_4",
+      "template": "RUIN_TWIN",
+      "enemies": [
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 56,
+          "hp": 70569,
+          "maxHp": 70569,
+          "atk": 9737,
+          "def": 514,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "FEROCIOUS",
+              "SCORCH"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 601,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_2",
+      "template": "HUSK_LINE",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "SWIFT",
+              "HUNTER"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 1583,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_2",
+      "template": "HUSK_LINE",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 4093,
+      "waits": 10,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_4",
+      "template": "RUIN_TWIN",
+      "enemies": [
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 10711,
+      "waits": 3,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_2",
+      "template": "HUSK_LINE",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 8467,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "SNIPER",
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 8467,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "SNIPER",
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        }
+      ]
+    },
+    {
+      "seed": 21911,
+      "waits": 5,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_2",
+      "template": "HUSK_LINE",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 8467,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "FEROCIOUS",
+              "SWIFT"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 62479,
+      "waits": 33,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "SNIPER",
+              "HUNTER"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 102101,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 719333,
+      "waits": 11,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_4",
+      "template": "RUIN_TWIN",
+      "enemies": [
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 2398121,
+      "waits": 8,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "CORROSIVE",
+              "MENDER"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 8593281,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+      "template": "SERPENT_ESCORT",
+      "enemies": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 56,
+          "hp": 98702,
+          "maxHp": 98702,
+          "atk": 10221,
+          "def": 584
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 21912431,
+      "waits": 3,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 29138171,
+      "waits": 14,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_2",
+      "template": "HUSK_LINE",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 8467,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "HUNTER",
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 41093429,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+      "template": "SERPENT_ESCORT",
+      "enemies": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 56,
+          "hp": 98702,
+          "maxHp": 98702,
+          "atk": 12265,
+          "def": 584,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "FEROCIOUS",
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 93777123,
+      "waits": 24,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "HUNTER",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        }
+      ]
+    },
+    {
+      "seed": 77139833,
+      "waits": 7,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+      "template": "SERPENT_ESCORT",
+      "enemies": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 56,
+          "hp": 133248,
+          "maxHp": 133248,
+          "atk": 10221,
+          "def": 584,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "VANGUARD",
+              "STURDY"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    {
+      "seed": 318012461,
+      "waits": 5,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 70569,
+          "maxHp": 70569,
+          "atk": 9737,
+          "def": 514,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "FEROCIOUS",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    }
+  ],
+  "firstByTemplate": {
+    "HUSK_ARCHERS": {
+      "seed": 3,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "template": "HUSK_ARCHERS",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    "SERPENT_ESCORT": {
+      "seed": 53,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+      "template": "SERPENT_ESCORT",
+      "enemies": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 56,
+          "hp": 98702,
+          "maxHp": 98702,
+          "atk": 12265,
+          "def": 584,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "FEROCIOUS",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    "RUIN_TWIN": {
+      "seed": 251,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_4",
+      "template": "RUIN_TWIN",
+      "enemies": [
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 56,
+          "hp": 70569,
+          "maxHp": 70569,
+          "atk": 9737,
+          "def": 514,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "FEROCIOUS",
+              "SCORCH"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    },
+    "HUSK_LINE": {
+      "seed": 601,
+      "waits": 2,
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_2",
+      "template": "HUSK_LINE",
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "SWIFT",
+              "HUNTER"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "maxHp": 44105,
+          "atk": 7056,
+          "def": 467
+        }
+      ]
+    }
+  },
+  "twoHusks": {
+    "seed": 3,
+    "waits": 2,
+    "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+    "template": "HUSK_ARCHERS",
+    "enemies": [
+      {
+        "source": "MON_HUSK_STANDARD",
+        "level": 56,
+        "hp": 44105,
+        "maxHp": 44105,
+        "atk": 7056,
+        "def": 467
+      },
+      {
+        "source": "MON_HUSK_BOW",
+        "level": 56,
+        "hp": 44105,
+        "maxHp": 44105,
+        "atk": 7056,
+        "def": 467
+      }
+    ]
+  },
+  "rareTwoHusks": {
+    "seed": 318012461,
+    "waits": 5,
+    "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+    "template": "HUSK_ARCHERS",
+    "enemies": [
+      {
+        "source": "MON_HUSK_STANDARD",
+        "level": 56,
+        "hp": 70569,
+        "maxHp": 70569,
+        "atk": 9737,
+        "def": 514,
+        "variant": {
+          "version": 1,
+          "tier": 5,
+          "label": "지역 위험 개체",
+          "affixes": [
+            "FEROCIOUS",
+            "CORROSIVE"
+          ],
+          "acts": 0
+        }
+      },
+      {
+        "source": "MON_HUSK_BOW",
+        "level": 56,
+        "hp": 44105,
+        "maxHp": 44105,
+        "atk": 7056,
+        "def": 467
+      }
+    ]
+  }
+}

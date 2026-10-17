@@ -1,0 +1,28 @@
+{
+  "kind": "old-numeric-18-same-preparation-seed717-with-confirmed-range-fix",
+  "fingerprint": "6a13b07940ebe22617caa508eccaa8ab4eaaad02c5bb8985042d677e7f1e3253",
+  "count": 18,
+  "inputs": [
+    {
+      "group": "six",
+      "path": "native/six-rows.json.gz",
+      "rawSHA256": "12ea368e19fd1f291f3f8a803e30ee319752ef44039c969bc71484998f3e84f3",
+      "gzipSHA256": "4ca2f7c08e9f6f11495952ede95ea092b0a37185519c05369c8315120b5de1ed",
+      "rows": 12
+    },
+    {
+      "group": "electro",
+      "path": "native/electro-rows.json.gz",
+      "rawSHA256": "a5314e6dfa0935e267f34a54b94cd1b310652532c544795c1ab9d26ad4f513a3",
+      "gzipSHA256": "ff60b9983c5fea17e4058ae79667173ceeb1cde106b839931285f69e719bbcff",
+      "rows": 2
+    },
+    {
+      "group": "trees",
+      "path": "native/trees-rows.json.gz",
+      "rawSHA256": "0eb9bf651450b56262065c0b61c8c0cbb39859ecfb386450644fad4c3b2ea940",
+      "gzipSHA256": "8d944244921c4b3ecf012f3175969de93f02e5df2991b418e9445e13c0878a58",
+      "rows": 4
+    }
+  ]
+}

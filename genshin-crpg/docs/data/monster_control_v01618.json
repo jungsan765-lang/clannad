@@ -1,0 +1,202 @@
+{
+  "version": "0.16.18",
+  "status": "complete",
+  "filesChanged": [
+    "source/runtime_enemy_tiers.js",
+    "source/runtime_gear_traits.js",
+    "source/runtime_enemy_skills.js",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tests/test_control_reactions_v0168.cjs"
+  ],
+  "fixes": [
+    {
+      "id": "DEAD_ENEMY_GUARD_CACHED_MULTIHIT",
+      "source": "source/runtime_enemy_tiers.js",
+      "change": "Keep one guard probability roll per action; cached choice must remain alive, assigned guard role, and able to act for each hit. Invalidation returns later hits to their original living target without a new random roll.",
+      "nativeEvidence": [
+        {
+          "name": "enemy guardian KO sends remaining legal Diluc hits to original target",
+          "ok": true,
+          "evidence": {
+            "reloaded": false,
+            "guardHp": 0,
+            "targetHpBefore": 3880,
+            "targetHpAfter": 1053,
+            "remainingHits": 2
+          }
+        },
+        {
+          "name": "enemy guardian KO sends remaining legal Diluc hits to original target after restore",
+          "ok": true,
+          "evidence": {
+            "reloaded": true,
+            "guardHp": 0,
+            "targetHpBefore": 3880,
+            "targetHpAfter": 1053,
+            "remainingHits": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "DEAD_ALLY_COVER_CACHED_MULTIHIT",
+      "source": "source/runtime_gear_traits.js",
+      "change": "Keep the initial cover roll; every hit requires the cached cover actor to remain alive, adjacent and able to act. No re-roll after KO/disable.",
+      "nativeEvidence": [
+        {
+          "name": "ally cover KO sends remaining legal enemy barrage hits to original target",
+          "ok": true,
+          "evidence": {
+            "reloaded": false,
+            "coverHp": 0,
+            "targetHpBefore": 4769,
+            "targetHpAfter": 4747,
+            "remainingHits": 2
+          }
+        },
+        {
+          "name": "ally cover KO sends remaining legal enemy barrage hits to original target after restore",
+          "ok": true,
+          "evidence": {
+            "reloaded": true,
+            "coverHp": 0,
+            "targetHpBefore": 4769,
+            "targetHpAfter": 4747,
+            "remainingHits": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "FLOOD_AURA_NOT_ATTACHED",
+      "source": "source/runtime_gear_traits.js",
+      "change": "Replace direct aura label assignment with existing setAura Hydro path. Existing aura lists, finite expiry, native element rules and mitigation remain authoritative.",
+      "nativeEvidence": [
+        {
+          "name": "native DRENCH creates finite Hydro aura through complete round boundary",
+          "ok": true,
+          "evidence": {
+            "reloaded": false,
+            "expiryBoundaries": 3,
+            "permanentAura": null
+          }
+        },
+        {
+          "name": "native DRENCH creates finite Hydro aura through complete round boundary after restore",
+          "ok": true,
+          "evidence": {
+            "reloaded": true,
+            "expiryBoundaries": 3,
+            "permanentAura": null
+          }
+        },
+        {
+          "name": "flood Hydro supports a legal cryo card and preserves waterproof mitigation",
+          "ok": true,
+          "evidence": {
+            "freeze": true,
+            "waterproofThresholdPreserved": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "PETRIFY_CHARGE_INTERRUPT_DELAYED",
+      "source": "source/runtime_enemy_skills.js",
+      "change": "Successful LIYUE_PETRIFY application cancels existing charge immediately through cancelEnemyCharge, using the existing +20% exposed status. Rejected control cannot cancel charge. Expiry and control guard unchanged.",
+      "nativeEvidence": [
+        {
+          "name": "legal petrify immediately cancels PYRO charge and expires exposed at own turn",
+          "ok": true,
+          "evidence": {
+            "element": "PYRO",
+            "reloaded": false,
+            "immediateExposure": true,
+            "skippedFirstOwnTurn": true,
+            "nextTurnFree": true
+          }
+        },
+        {
+          "name": "legal petrify immediately cancels PYRO charge and expires exposed at own turn after restore",
+          "ok": true,
+          "evidence": {
+            "element": "PYRO",
+            "reloaded": true,
+            "immediateExposure": true,
+            "skippedFirstOwnTurn": true,
+            "nextTurnFree": true
+          }
+        },
+        {
+          "name": "legal petrify immediately cancels CRYO charge and expires exposed at own turn",
+          "ok": true,
+          "evidence": {
+            "element": "CRYO",
+            "reloaded": false,
+            "immediateExposure": true,
+            "skippedFirstOwnTurn": true,
+            "nextTurnFree": true
+          }
+        },
+        {
+          "name": "legal petrify immediately cancels CRYO charge and expires exposed at own turn after restore",
+          "ok": true,
+          "evidence": {
+            "element": "CRYO",
+            "reloaded": true,
+            "immediateExposure": true,
+            "skippedFirstOwnTurn": true,
+            "nextTurnFree": true
+          }
+        },
+        {
+          "name": "rejected petrify during control grace does not interrupt a valid new charge",
+          "ok": true,
+          "evidence": {
+            "gracePreserved": true
+          }
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "newNativeRegression": {
+      "total": 13,
+      "passed": 13,
+      "ok": true,
+      "command": "node tests/test_monster_control_fixes_v01618.cjs"
+    },
+    "inMemoryPriorImplementation": {
+      "total": 13,
+      "passed": 1,
+      "expectedFailed": 12,
+      "method": "Read interceptor reverts the four changes in memory only, then executes identical regression suite; no repository rewrites."
+    },
+    "existingControlReactions": {
+      "ok": true,
+      "total": 14,
+      "passed": 14,
+      "command": "node tests/test_control_reactions_v0168.cjs"
+    },
+    "gearEffects": {
+      "total": 4,
+      "passed": 4,
+      "command": "node tests/test_gear_effects_v0168.cjs"
+    },
+    "syntax": "node --check passed for three owned source files",
+    "fixtures": "Native generated actors; installed legal cards; actual guardian accessory. Admin recruit/level establish reproducible test conditions. Prior native damage creates HP1 KO boundary. Opening AI held for isolation; save boundaries reached through native turn walker. No synthetic combat stats replace production actors."
+  },
+  "existingFixtureCorrection": {
+    "case": "C05 native Dahlia own-turn contact and save restore",
+    "reason": "An elemental Cryo slime now correctly rejects its own-element control. Existing purpose retained by using native Cryo shooter with actual Kaeya E-applied Cryo before actual Dahlia E contact. Duration, guard, and restore assertions are unchanged."
+  },
+  "boundaries": "No DB, UI, HP/ATK profiles, rewards, source/runtime_combat.js, source/runtime_rules.js or source/runtime_field_bosses.js edits by this agent. No commits or deployment.",
+  "evidenceFiles": [
+    "/tmp/crpg_v01618/control-tests.log",
+    "/tmp/crpg_v01618/control-baseline-tests.log",
+    "/tmp/crpg_v01618/control_baseline_preload.cjs",
+    "/tmp/crpg_v01618/control-reactions-tests.log",
+    "/tmp/crpg_v01618/control-contact-tests.log",
+    "/tmp/crpg_v01618/control-gear-tests.log"
+  ]
+}

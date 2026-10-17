@@ -1,0 +1,2969 @@
+{
+  "nativeRelease": "443d4a2e8b8959ce15a13e7cca4a5e87863e26f8",
+  "nativeGrowthSourceSha256": "5ed4fdca03d4ccebc8cf315775d79bc8eef5e73b3c87708eaca4fbcbdf5b541d",
+  "legacyRelease": "4e56987f9c357d8a7471e61adf4153d3da72ca6e",
+  "legacyGrowthSourceSha256": "7aec037900c70d89382d1474d340a80a14c02986c6336e8a542cd7a62caffd1c",
+  "projection": "enemy source/hp/maxHp/atk/def/spd/hit/grade/level/shields/enemySkills; stored start or mutated in-flight HP",
+  "probes": [
+    {
+      "domain": "FORSAKEN_RIFT:5",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "c6fdc1e0dd3d3ba83f63c6c0d1b0af9f2bcdd36fbe2589614ce28dc62b1e303b",
+      "hp": 2700,
+      "attack": 540
+    },
+    {
+      "domain": "FORSAKEN_RIFT:5",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "c6fdc1e0dd3d3ba83f63c6c0d1b0af9f2bcdd36fbe2589614ce28dc62b1e303b",
+      "hp": 2700,
+      "attack": 540
+    },
+    {
+      "domain": "FORSAKEN_RIFT:10",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "64cbe3e8e7c7536cbb4af5913e358d41f30022c5a48cd577504cdad63ba34f91",
+      "hp": 11200,
+      "attack": 3480
+    },
+    {
+      "domain": "FORSAKEN_RIFT:10",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "64cbe3e8e7c7536cbb4af5913e358d41f30022c5a48cd577504cdad63ba34f91",
+      "hp": 11200,
+      "attack": 3480
+    },
+    {
+      "domain": "FORSAKEN_RIFT:15",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "3fc5dc1b82b26a81c0f2d91ba81751f4a9a3304d7d1bd1cff464aa25952c69a1",
+      "hp": 25326,
+      "attack": 4982
+    },
+    {
+      "domain": "FORSAKEN_RIFT:15",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "3fc5dc1b82b26a81c0f2d91ba81751f4a9a3304d7d1bd1cff464aa25952c69a1",
+      "hp": 25326,
+      "attack": 4982
+    },
+    {
+      "domain": "FORSAKEN_RIFT:20",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "5e6f1b24b77d75599329a3d22c502b84b159a4913a202b5cb6020c3b866d2da9",
+      "hp": 41561,
+      "attack": 7651
+    },
+    {
+      "domain": "FORSAKEN_RIFT:20",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "5e6f1b24b77d75599329a3d22c502b84b159a4913a202b5cb6020c3b866d2da9",
+      "hp": 41561,
+      "attack": 7651
+    },
+    {
+      "domain": "FORSAKEN_RIFT:25",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "882b3ff3f0dc8d61c2ad255e101013b7f6961fb7fc4053ab5c3c85fde1ed933e",
+      "hp": 51350,
+      "attack": 9009
+    },
+    {
+      "domain": "FORSAKEN_RIFT:25",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "882b3ff3f0dc8d61c2ad255e101013b7f6961fb7fc4053ab5c3c85fde1ed933e",
+      "hp": 51350,
+      "attack": 9009
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "54955aca4649516dcc0ac21132ae27d957db238910bb7c51bc774ce8a1a37aa0",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "54955aca4649516dcc0ac21132ae27d957db238910bb7c51bc774ce8a1a37aa0",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "fd53448d338232e4c1ec2c81713bc71690d1922823f32e693623791cad3a81aa",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "fd53448d338232e4c1ec2c81713bc71690d1922823f32e693623791cad3a81aa",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "041c7bcaa35ba1596978e1f393984779ab11be0f152b11777de0ecb4dad36c70",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "041c7bcaa35ba1596978e1f393984779ab11be0f152b11777de0ecb4dad36c70",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "b1048a66cae1172300c21dfa54743f70f7fddf33b723a3c85500060604fae874",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "b1048a66cae1172300c21dfa54743f70f7fddf33b723a3c85500060604fae874",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "7bcd78ec1c81dd455655de6ba92718ca7dfe0c0c19d8b4cb62180ef54fd29acd",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "7bcd78ec1c81dd455655de6ba92718ca7dfe0c0c19d8b4cb62180ef54fd29acd",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "3d5dd48a35ff83f2b6a5add81b0b9453ffe3473663c930fb79b188b46fe99c38",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "3d5dd48a35ff83f2b6a5add81b0b9453ffe3473663c930fb79b188b46fe99c38",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "9bc25450943608e2faa411ab78e1f11f2764b47938b47eb86d16490466947c6f",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "9bc25450943608e2faa411ab78e1f11f2764b47938b47eb86d16490466947c6f",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "46f5dc2edc643dbf67b2db339ef935cdf3b7ab0ccf85f6bd84386bc789557a62",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:5",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "46f5dc2edc643dbf67b2db339ef935cdf3b7ab0ccf85f6bd84386bc789557a62",
+      "hp": 1800,
+      "attack": 360
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "0cfd88b160043332053116f63fda576aab022be55a6b08cfe2171729e9d109e8",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "0cfd88b160043332053116f63fda576aab022be55a6b08cfe2171729e9d109e8",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "daa74f22d4f35a81679aae081928e80ea05f6b3c4d60dd1a4b3a6386f7e8d134",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "daa74f22d4f35a81679aae081928e80ea05f6b3c4d60dd1a4b3a6386f7e8d134",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "05e9f546b8a8bbb8366482e5b9cefbca75aa1c4f3704de76a75e9322ed1682f7",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "05e9f546b8a8bbb8366482e5b9cefbca75aa1c4f3704de76a75e9322ed1682f7",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "3091bc75088209f9fd7cb22abd5d50ea050329d6a39c21e10f7ab074e1e23189",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "3091bc75088209f9fd7cb22abd5d50ea050329d6a39c21e10f7ab074e1e23189",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "e91bb904cc1b85ba856eded07968e58f649044c219fb73181327e104a5276e7d",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "e91bb904cc1b85ba856eded07968e58f649044c219fb73181327e104a5276e7d",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "d3ab9a8186566db04616bb62b7b4ad0d53071c12820f54e6d3b40036fff6879b",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "d3ab9a8186566db04616bb62b7b4ad0d53071c12820f54e6d3b40036fff6879b",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "867f69cd22245d07bb0113763ffd4c8b0d3da50f7a96456d34ee079514aef192",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "867f69cd22245d07bb0113763ffd4c8b0d3da50f7a96456d34ee079514aef192",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "85ba83932bd603df54a0d8c50afb09e00863ca37a1244fd76103ec24ac152495",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:10",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "85ba83932bd603df54a0d8c50afb09e00863ca37a1244fd76103ec24ac152495",
+      "hp": 8400,
+      "attack": 2610
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "f383beb80a30f407722899b141bdd5084d91feb043f7364fdf312e40b7ff316c",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "f383beb80a30f407722899b141bdd5084d91feb043f7364fdf312e40b7ff316c",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "5ec6ecef11d76a766c521a5245c5614eabb8fb41b8b0e55eec744b0195f1356b",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "5ec6ecef11d76a766c521a5245c5614eabb8fb41b8b0e55eec744b0195f1356b",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "b3b12b8004df2329d2fcb94ed11efd4edae5fd956c247e42f1b3cd4d444a8f99",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "b3b12b8004df2329d2fcb94ed11efd4edae5fd956c247e42f1b3cd4d444a8f99",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "f140a862fe6719b3c77930b6db20a417cf6e939ed9937f391a1fd1f5cd1686ac",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "f140a862fe6719b3c77930b6db20a417cf6e939ed9937f391a1fd1f5cd1686ac",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "42c3aa53622ab6a180e6b939a232764ace1d8a2baf48aeaa988c1092a6bc0b19",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "42c3aa53622ab6a180e6b939a232764ace1d8a2baf48aeaa988c1092a6bc0b19",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "5df2da94822426bac90a437a6f8dddb3e7b81e590a5c3b6527af50b801bcccf8",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "5df2da94822426bac90a437a6f8dddb3e7b81e590a5c3b6527af50b801bcccf8",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "b20d14e57892c6e1fb9abeb82c1c456c3df85725e5c9c8ae4cd986ff73d555ca",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "b20d14e57892c6e1fb9abeb82c1c456c3df85725e5c9c8ae4cd986ff73d555ca",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "e76b213f86ba7088014e56a5266c25dcafb7f1bf80a69dfc4258bcd734eaa729",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "VALLEY_OF_REMEMBRANCE:15",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "e76b213f86ba7088014e56a5266c25dcafb7f1bf80a69dfc4258bcd734eaa729",
+      "hp": 10800,
+      "attack": 3180
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "3ccf9722bf22eebe220ef90bb594c4985a9dc910e8ef7205b1ba594a2d7189f5",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "3ccf9722bf22eebe220ef90bb594c4985a9dc910e8ef7205b1ba594a2d7189f5",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "3d0dfcc53b5d5894da25add8ae17ba8f51e71ba41a37eca2d274741e6a18b5ee",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "3d0dfcc53b5d5894da25add8ae17ba8f51e71ba41a37eca2d274741e6a18b5ee",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "5ba35f4d160cc08cad4033b414cad9fe9414a0a86506894dccc5609e09c0002c",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "5ba35f4d160cc08cad4033b414cad9fe9414a0a86506894dccc5609e09c0002c",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "d0f5ceeab1b039c4a2e6050697d45bc21596bd6a16c0445f21afd1c9d2409941",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "d0f5ceeab1b039c4a2e6050697d45bc21596bd6a16c0445f21afd1c9d2409941",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "c8a2eb635d56144014f4d665944e0d1b593dfb27e7af4d8fc4365b25ef573944",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "c8a2eb635d56144014f4d665944e0d1b593dfb27e7af4d8fc4365b25ef573944",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "fdd8f9e0ea857bcbedea2be1c2442bf8392b59807b436bfdfa6d1fcd7ae0c72f",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "fdd8f9e0ea857bcbedea2be1c2442bf8392b59807b436bfdfa6d1fcd7ae0c72f",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "30c9193fb4912c21891c2364b8b35c847d4df33acd45d2fba1910d032d913ea0",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "30c9193fb4912c21891c2364b8b35c847d4df33acd45d2fba1910d032d913ea0",
+      "hp": 19587,
+      "attack": 4217
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "a16aa284ed7a8f2317d72c899ecd5cacc1d141c8baf573f55fc413ff10f7a5d2",
+      "hp": 12900,
+      "attack": 3750
+    },
+    {
+      "domain": "CECILIA_GARDEN:20",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "a16aa284ed7a8f2317d72c899ecd5cacc1d141c8baf573f55fc413ff10f7a5d2",
+      "hp": 12900,
+      "attack": 3750
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "169dda5a8c10a432f64118621c30912cbeb203f34e20ea009f02c36e5fb8b2c4",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "169dda5a8c10a432f64118621c30912cbeb203f34e20ea009f02c36e5fb8b2c4",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "781cbaa9c18abed742e2d41684879a4d45f44cfc5ca93c88b32fc4e7bb10bf1d",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "781cbaa9c18abed742e2d41684879a4d45f44cfc5ca93c88b32fc4e7bb10bf1d",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "93c38763cf44dfe427e22a137b10e798ef73552aec1167398ad8b349ae23e0b0",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "93c38763cf44dfe427e22a137b10e798ef73552aec1167398ad8b349ae23e0b0",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "d32fa52b19f2102c84b3ff023fb9f51cde7ee9df2edb46f396c98a233aaf1e79",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "d32fa52b19f2102c84b3ff023fb9f51cde7ee9df2edb46f396c98a233aaf1e79",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "872c3a8d3035de4d34e9ef273343a177a6c9e2d09547747566bb467c1933cdc6",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "872c3a8d3035de4d34e9ef273343a177a6c9e2d09547747566bb467c1933cdc6",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "52562666efffa0438b7a9fd3248e5359b4a564a6326065b8d782920494474438",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "52562666efffa0438b7a9fd3248e5359b4a564a6326065b8d782920494474438",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "dea645a3b5232fcdb68e839a767f63fa4c8df785f465305b56972332fdcecdaa",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "dea645a3b5232fcdb68e839a767f63fa4c8df785f465305b56972332fdcecdaa",
+      "hp": 37700,
+      "attack": 6966
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "d95258515afc76d30c68f11ae06eedf19e861a667f18e3cd00a3964bfc4edb31",
+      "hp": 20800,
+      "attack": 5760
+    },
+    {
+      "domain": "CECILIA_GARDEN:25",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "d95258515afc76d30c68f11ae06eedf19e861a667f18e3cd00a3964bfc4edb31",
+      "hp": 20800,
+      "attack": 5760
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "14dfeda49b7ff2941082ccf746599db285e8f97db79862a5930241087e17e375",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "14dfeda49b7ff2941082ccf746599db285e8f97db79862a5930241087e17e375",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "26e9150bbbe9eaa76b9d88e239b85c659b003af656e0b2ac1f18b7432deab092",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "26e9150bbbe9eaa76b9d88e239b85c659b003af656e0b2ac1f18b7432deab092",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "389e15a6c439724063919e19ba3b1131df82cdd4fa7b47bfa44e142d24ef2585",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "389e15a6c439724063919e19ba3b1131df82cdd4fa7b47bfa44e142d24ef2585",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "168ce473d2b6a30dfa26c76bf3f1917c846475ace4b5479a8a1a06ef819c2153",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "168ce473d2b6a30dfa26c76bf3f1917c846475ace4b5479a8a1a06ef819c2153",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "07457dd4049493d0876539886fcb469587f3160c6d17ea1846f1849c1a4de675",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "07457dd4049493d0876539886fcb469587f3160c6d17ea1846f1849c1a4de675",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "ef7ce5029ca3f43e66621e8027ab529e98142e43beb45637953e75b4cc5382e5",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "ef7ce5029ca3f43e66621e8027ab529e98142e43beb45637953e75b4cc5382e5",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "dcffa7b5047193de6faa2ae775805b3c89713a28af9ced320ca0f5b82f082d78",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "dcffa7b5047193de6faa2ae775805b3c89713a28af9ced320ca0f5b82f082d78",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "9be964b0b52b60e2d5baebddccf5d664516faef31e7d22efc510e5e82e2e92d5",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:30",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "9be964b0b52b60e2d5baebddccf5d664516faef31e7d22efc510e5e82e2e92d5",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "5e7cff7afb4e6362f4a5c56f1554f7bd93e1c15639e5fd28f7b407467db588cf",
+      "hp": 23250,
+      "attack": 6375
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "5e7cff7afb4e6362f4a5c56f1554f7bd93e1c15639e5fd28f7b407467db588cf",
+      "hp": 23250,
+      "attack": 6375
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "5e1cbe41ac63e1c1ecf3cd0e7e35e6a70103f40852b8ec02b3fac09c1203239d",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "5e1cbe41ac63e1c1ecf3cd0e7e35e6a70103f40852b8ec02b3fac09c1203239d",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "d65cb6218f0af5bf16ff7ec20f3b4fe653d891b4489ffa0cad2a108fcc3c690d",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "d65cb6218f0af5bf16ff7ec20f3b4fe653d891b4489ffa0cad2a108fcc3c690d",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "5a85f64931b59220256b7fad6808769581ea9d96227220af3bd2733723a23fc5",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "5a85f64931b59220256b7fad6808769581ea9d96227220af3bd2733723a23fc5",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "41b55da34dac8e0da3b14378d5866e8206e96425ac9d0acbf660fa03f62fddc0",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "41b55da34dac8e0da3b14378d5866e8206e96425ac9d0acbf660fa03f62fddc0",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "758e3e392be4ef264acb22f88c4dc6c1048c68a7e2d96f0f7a7d71c05cfcdfaf",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "758e3e392be4ef264acb22f88c4dc6c1048c68a7e2d96f0f7a7d71c05cfcdfaf",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "588c8d305baa774404ceff685d5d270b694b84c0060b113fe3ef978bd8e5b708",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "588c8d305baa774404ceff685d5d270b694b84c0060b113fe3ef978bd8e5b708",
+      "hp": 36422,
+      "attack": 7391
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "e0115db855d86c1bb6d1afd4699ca3692537301e7bb915e51359d52f81c8d5a0",
+      "hp": 23250,
+      "attack": 6375
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:35",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "e0115db855d86c1bb6d1afd4699ca3692537301e7bb915e51359d52f81c8d5a0",
+      "hp": 23250,
+      "attack": 6375
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "331c545a12b390f00caf41476e3c47041204882f28e53e25c3d159d606878eeb",
+      "hp": 27000,
+      "attack": 7500
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "331c545a12b390f00caf41476e3c47041204882f28e53e25c3d159d606878eeb",
+      "hp": 27000,
+      "attack": 7500
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "16bda0c9471c31a4da7b625438114c267b61b51e0ba134bb8c3e699135cfd511",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "16bda0c9471c31a4da7b625438114c267b61b51e0ba134bb8c3e699135cfd511",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "0b902197b5868c4a765de0d2b67e3b62e2a855b4f5de44fd8cec7433ac361148",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "0b902197b5868c4a765de0d2b67e3b62e2a855b4f5de44fd8cec7433ac361148",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "ba096f8fc516dbd2392168637e9f8e82ff4f2342834666975523d8d1124b313c",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "ba096f8fc516dbd2392168637e9f8e82ff4f2342834666975523d8d1124b313c",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "b83215e0faf495bf3a8c39d8636568bf563cb0b3fe5d0491f0ff26734b8354a6",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "b83215e0faf495bf3a8c39d8636568bf563cb0b3fe5d0491f0ff26734b8354a6",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "0d6a270dd7de13e4e596d0b88eec10cf424631d22e8534d47d5f67208c101ce6",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "0d6a270dd7de13e4e596d0b88eec10cf424631d22e8534d47d5f67208c101ce6",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "85326f430a21c02146a95b9eaf811244d53638d47455dfc0e6f091a8bd580c42",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "85326f430a21c02146a95b9eaf811244d53638d47455dfc0e6f091a8bd580c42",
+      "hp": 42527,
+      "attack": 8747
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "4264588ad05943966c2233e5797e26dcf85e35a226fb28f4fff27e942d398a24",
+      "hp": 27000,
+      "attack": 7500
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:40",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "4264588ad05943966c2233e5797e26dcf85e35a226fb28f4fff27e942d398a24",
+      "hp": 27000,
+      "attack": 7500
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "b6fbdbfe505b130509ba925a0ead98a058e43fd7618dc237cb6d66029b61170e",
+      "hp": 51404,
+      "attack": 10618
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "076c04ece483a61dfc35b97d6a27307c3116f86a581745181861f0948e37c87b",
+      "hp": 51404,
+      "attack": 10618
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "566d33cd67ea808a86a6a1f57cf7bb615d026b12a94e9ef248cf40cee5e7b712",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "566d33cd67ea808a86a6a1f57cf7bb615d026b12a94e9ef248cf40cee5e7b712",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "b859555293ecce49f277f4f14df33ec7171143afbb9fd05280b394af14c3dd3d",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "b859555293ecce49f277f4f14df33ec7171143afbb9fd05280b394af14c3dd3d",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "88d0a2be0d384d35a0ebf9830a3d25ca59f428d91e14ab7ad59742c18686f848",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "88d0a2be0d384d35a0ebf9830a3d25ca59f428d91e14ab7ad59742c18686f848",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "68fe74b17ea04a7913c11d430143894515bbb4055c83541b9f2d4a2816b236c2",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "68fe74b17ea04a7913c11d430143894515bbb4055c83541b9f2d4a2816b236c2",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "0b1658ec4815b67b0625e4c76172e2ad0a453ffe44828da7d53191fe5a7834e2",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "0b1658ec4815b67b0625e4c76172e2ad0a453ffe44828da7d53191fe5a7834e2",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "42d9912d5dbbb3b2f211cc980cca5773bb65a5ecf07c07c6f8464759f83f4a02",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "42d9912d5dbbb3b2f211cc980cca5773bb65a5ecf07c07c6f8464759f83f4a02",
+      "hp": 70558,
+      "attack": 12236
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "a3423d4eb6dbd53acab577a65839c10bceccbef99332f3a368079eb5843879bb",
+      "hp": 32250,
+      "attack": 9000
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:45",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "a3423d4eb6dbd53acab577a65839c10bceccbef99332f3a368079eb5843879bb",
+      "hp": 32250,
+      "attack": 9000
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "7309b03123794b9ee8fe16b8ce09df961efb31fafec27789ec81a618ce309b5d",
+      "hp": 59951,
+      "attack": 12448
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "1b4f85e62a545cedcf94093c41500a98dac49c4b544becf44bd6876e39a85c42",
+      "hp": 59951,
+      "attack": 12448
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "3d03b1acb3c196b9df42c4f99a9023402e820417bf8a7180606510fd64b66862",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "3d03b1acb3c196b9df42c4f99a9023402e820417bf8a7180606510fd64b66862",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "b8662c57be79059b7a7914e06df5559dab2b9479bfa6e5ca59c0e1bb9cb0faaa",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "b8662c57be79059b7a7914e06df5559dab2b9479bfa6e5ca59c0e1bb9cb0faaa",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "89f69312d4121ee7a79309d1c5b8433c59d8d0ee50cd583918dd6d4f3b238df7",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "89f69312d4121ee7a79309d1c5b8433c59d8d0ee50cd583918dd6d4f3b238df7",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "15c30b0a008427a1c8cea61ceabb5d598c52f866f7a60794366b5c84fa105512",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "15c30b0a008427a1c8cea61ceabb5d598c52f866f7a60794366b5c84fa105512",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "c0a408796a8345d26da6e666f42823bb10746410c5aa4af1c407ab1efb712c0a",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "c0a408796a8345d26da6e666f42823bb10746410c5aa4af1c407ab1efb712c0a",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "fe8d6ec1c66165debc5fad2d935eb901af98e35a9c3b236b597c7f7f84c2eef3",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "fe8d6ec1c66165debc5fad2d935eb901af98e35a9c3b236b597c7f7f84c2eef3",
+      "hp": 82402,
+      "attack": 14396
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "0ffdc6a9c5d163ea1fd987a581821c324b425b301a037a8be6d0659655b9412e",
+      "hp": 37500,
+      "attack": 10500
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:50",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "0ffdc6a9c5d163ea1fd987a581821c324b425b301a037a8be6d0659655b9412e",
+      "hp": 37500,
+      "attack": 10500
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "732c6104d7372e240f8193b4da6432182263a46e4b5b9ea109d774a224b40486",
+      "hp": 71517,
+      "attack": 15090
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "732c6104d7372e240f8193b4da6432182263a46e4b5b9ea109d774a224b40486",
+      "hp": 71517,
+      "attack": 15090
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "94a20a0780b629ace7832163970541771aaa94f0a7f6043234a661cf306dc456",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "730c03512231dba8b05626917513e79bf8d4ec057f0846beeb5979f2bedb8856",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "fe03f367fa4fdfe971ef76db6b562dba01f9c0a068238818b128674610181b72",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "44a4d1cfb4299bda4d530e0302ff6d53cc660a38388b857cfd0bdda8d13cf08a",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "66fe06865b703456ec7eba06157710c69f2305d2afa7f442b835b7eda3bbbe19",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "66fe06865b703456ec7eba06157710c69f2305d2afa7f442b835b7eda3bbbe19",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "960fcda2002f47ab900edc8d4bc0bc023db3c0c4e63a6c9662391e3eb3249b31",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "960fcda2002f47ab900edc8d4bc0bc023db3c0c4e63a6c9662391e3eb3249b31",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "c64da7f145f0de6751f94984e5b16eae83730124abf4dd484ae8a4e928fc60dd",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "69438a9390fb889bcd5012a258f64479b9473ad10de7b6f371cc8509844e32e7",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "55f4fbc8675da16cb2419943892a42adf3d7a0bc47f31818552c4104d094c1b8",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "55f4fbc8675da16cb2419943892a42adf3d7a0bc47f31818552c4104d094c1b8",
+      "hp": 155551,
+      "attack": 28470
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "15c1c2bf90e2f22c2b6578c0d80749575b03ba0ee4c0c5172058a92d118257b3",
+      "hp": 73750,
+      "attack": 21000
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "15c1c2bf90e2f22c2b6578c0d80749575b03ba0ee4c0c5172058a92d118257b3",
+      "hp": 73750,
+      "attack": 21000
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "83c317d2dc39ea8e5b6eea2dfd73eb28026777a3ec515c5b059a0aaecde59811",
+      "hp": 83471,
+      "attack": 17815
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "83c317d2dc39ea8e5b6eea2dfd73eb28026777a3ec515c5b059a0aaecde59811",
+      "hp": 83471,
+      "attack": 17815
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "PYRO",
+      "scenario": "four-traveler",
+      "hash": "db406a14873bf9f7ed5cc297824b9a97672170b4b789c9f19bd9aa5ed9b88b07",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "PYRO",
+      "scenario": "one-isekai",
+      "hash": "3c6333b9b287b0ac7647affa71d06bd20f50f0b5284fa5e043e1a7f88318dc8f",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "HYDRO",
+      "scenario": "four-traveler",
+      "hash": "a569d5aafb452a802e8371086564c9f29a701fb3c43c3f0ba92bf72a207be562",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "HYDRO",
+      "scenario": "one-isekai",
+      "hash": "5a632fe42c50cead5dc0809bef4dee4239d0453d5fea928c627b1ff2cd153f73",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "ANEMO",
+      "scenario": "four-traveler",
+      "hash": "44d04be3adff2b067bd7acb9a4665ad3b5c12d3837c09bd7304fafcdda1bb91c",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "ANEMO",
+      "scenario": "one-isekai",
+      "hash": "44d04be3adff2b067bd7acb9a4665ad3b5c12d3837c09bd7304fafcdda1bb91c",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "ELECTRO",
+      "scenario": "four-traveler",
+      "hash": "8155a54635c5b09677a78058cce51dcb767dbcaa9ab147d1f71291f51aa8caab",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "ELECTRO",
+      "scenario": "one-isekai",
+      "hash": "8155a54635c5b09677a78058cce51dcb767dbcaa9ab147d1f71291f51aa8caab",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "CRYO",
+      "scenario": "four-traveler",
+      "hash": "b82aadb2f74b14661fe792f39ca58063710f801398b55951f29e1c992dee9e2b",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "CRYO",
+      "scenario": "one-isekai",
+      "hash": "59196b98586164bc376b4777bf785c2b51d8f3d42949bd7070821a669ded3c8a",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "GEO",
+      "scenario": "four-traveler",
+      "hash": "ea85b237c58a37102daa12781271f2853531be2bc1b9aa6050fc53921076cbb5",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "GEO",
+      "scenario": "one-isekai",
+      "hash": "ea85b237c58a37102daa12781271f2853531be2bc1b9aa6050fc53921076cbb5",
+      "hp": 182413,
+      "attack": 33845
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "DENDRO",
+      "scenario": "four-traveler",
+      "hash": "7a0a44536fd456b0e86c9c68acf6a32b6152929a7b168684fa75fe7e26f4e802",
+      "hp": 85000,
+      "attack": 24500
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "element": "DENDRO",
+      "scenario": "one-isekai",
+      "hash": "7a0a44536fd456b0e86c9c68acf6a32b6152929a7b168684fa75fe7e26f4e802",
+      "hp": 85000,
+      "attack": 24500
+    },
+    {
+      "domain": "TAISHAN_MANSION:30",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "d8a7477ef5c7a59f0bf955e60d48d2a6fefdc7dbfe58271e417bcfb9f4b388e4",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "TAISHAN_MANSION:30",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "d8a7477ef5c7a59f0bf955e60d48d2a6fefdc7dbfe58271e417bcfb9f4b388e4",
+      "hp": 19500,
+      "attack": 5250
+    },
+    {
+      "domain": "TAISHAN_MANSION:35",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "5e7cff7afb4e6362f4a5c56f1554f7bd93e1c15639e5fd28f7b407467db588cf",
+      "hp": 23250,
+      "attack": 6375
+    },
+    {
+      "domain": "TAISHAN_MANSION:35",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "5e7cff7afb4e6362f4a5c56f1554f7bd93e1c15639e5fd28f7b407467db588cf",
+      "hp": 23250,
+      "attack": 6375
+    },
+    {
+      "domain": "TAISHAN_MANSION:40",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "4502fd188458cae8e46a337309fbb712db1bfe5af32c72296d8e6e464b14590a",
+      "hp": 36000,
+      "attack": 10000
+    },
+    {
+      "domain": "TAISHAN_MANSION:40",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "4502fd188458cae8e46a337309fbb712db1bfe5af32c72296d8e6e464b14590a",
+      "hp": 36000,
+      "attack": 10000
+    },
+    {
+      "domain": "TAISHAN_MANSION:45",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "84d06ad7d16e8c2a6c093f4ff23046589d184ea8cc77fc12802ef770b03a6468",
+      "hp": 43000,
+      "attack": 12000
+    },
+    {
+      "domain": "TAISHAN_MANSION:45",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "84d06ad7d16e8c2a6c093f4ff23046589d184ea8cc77fc12802ef770b03a6468",
+      "hp": 43000,
+      "attack": 12000
+    },
+    {
+      "domain": "TAISHAN_MANSION:50",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "050adac29f7cac39531b5ec3e24b83f46b100472cc9585efcd4bd5bb8bc103e1",
+      "hp": 72451,
+      "attack": 15948
+    },
+    {
+      "domain": "TAISHAN_MANSION:50",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "f57dcea5652d2b7b8cfdcd349ff1363e59cf7a392bfc01d9b7d884d97866e3e7",
+      "hp": 72451,
+      "attack": 15948
+    },
+    {
+      "domain": "TAISHAN_MANSION:55",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "affbf299c7241f05d2e609233db49e2cab6f39cb0b52c1cd9eb07762dce76937",
+      "hp": 86267,
+      "attack": 19290
+    },
+    {
+      "domain": "TAISHAN_MANSION:55",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "8dbd9475ad0a43849cd82c2277dff8c3667b26d976be19902cb6113f34bac24c",
+      "hp": 86267,
+      "attack": 19290
+    },
+    {
+      "domain": "TAISHAN_MANSION:60",
+      "element": "NEUTRAL",
+      "scenario": "four-traveler",
+      "hash": "9e995d75b26dea9e14d825744693c94e22fcddcf6a4d754955780c79ddff1e25",
+      "hp": 132942,
+      "attack": 25830
+    },
+    {
+      "domain": "TAISHAN_MANSION:60",
+      "element": "NEUTRAL",
+      "scenario": "one-isekai",
+      "hash": "1104a2e6604bd0bba585aabf9210abc52a3243967d5b8936ca811363e15bd197",
+      "hp": 132942,
+      "attack": 25830
+    }
+  ],
+  "legacyRuntime": {
+    "combatVersion": 1,
+    "id": "V011-217:B13",
+    "group": "EG_DOMAIN4_LIANSHAN_FORMULA_60_HYDRO",
+    "origin": "DOMAIN:LIANSHAN_FORMULA:60",
+    "round": 1,
+    "actors": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "source": "PLAYER_CUSTOM",
+        "name": "클라나드",
+        "side": "ALLY",
+        "control": "PLAYER",
+        "hp": 12510,
+        "maxHp": 15638,
+        "atk": 3122.4,
+        "def": 1558,
+        "spd": 70,
+        "level": 55,
+        "crit": 5,
+        "critDmg": 50,
+        "hit": 81,
+        "eva": 7,
+        "resist": 8,
+        "range": "근접",
+        "aura": null,
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ],
+        "cooldowns": {},
+        "guest": false,
+        "shields": [],
+        "turns": 0,
+        "slot": 1,
+        "tactic": "균형",
+        "protagonist": {
+          "version": 1,
+          "route": "ROUTE_TRAVELER",
+          "skillIds": [
+            "PLAYER_TRAVELER_ANEMO_E",
+            "PLAYER_TRAVELER_ANEMO_Q"
+          ]
+        },
+        "traits": {
+          "STACK_ATK": 3,
+          "PRECISION": 5,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "traitState": {
+          "firstHit": false,
+          "firstStrike": false
+        },
+        "position": {
+          "x": 2,
+          "y": 0
+        },
+        "size": "MEDIUM",
+        "facing": 1,
+        "nextScorePenalty": 0
+      },
+      {
+        "id": "MOND_AMBER",
+        "source": "MOND_AMBER",
+        "name": "엠버",
+        "side": "ALLY",
+        "control": "AI",
+        "hp": 13508,
+        "maxHp": 16886,
+        "atk": 2956,
+        "def": 1884,
+        "spd": 82,
+        "level": 55,
+        "crit": 21,
+        "critDmg": 60,
+        "hit": 97,
+        "eva": 9,
+        "resist": 38,
+        "range": "원거리",
+        "aura": null,
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ],
+        "cooldowns": {},
+        "tags": [
+          "[광계]",
+          "[불]"
+        ],
+        "bondHearts": 0,
+        "bondBonusPercent": 0,
+        "baseAttack": 2873,
+        "guest": false,
+        "shields": [],
+        "turns": 0,
+        "slot": 2,
+        "tactic": "균형",
+        "traits": {
+          "ANTI_AIR": 27,
+          "WEAK_POINT": 8,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "traitState": {
+          "firstHit": false,
+          "firstStrike": false
+        },
+        "position": {
+          "x": 2,
+          "y": 1
+        },
+        "size": "MEDIUM",
+        "facing": 1,
+        "nextScorePenalty": 0
+      },
+      {
+        "id": "MOND_KAEYA",
+        "source": "MOND_KAEYA",
+        "name": "케이아",
+        "side": "ALLY",
+        "control": "AI",
+        "hp": 14504,
+        "maxHp": 19038,
+        "atk": 3348,
+        "def": 2176,
+        "spd": 86,
+        "level": 55,
+        "crit": 18,
+        "critDmg": 65,
+        "hit": 96,
+        "eva": 10,
+        "resist": 38,
+        "range": "중거리",
+        "aura": null,
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ],
+        "cooldowns": {},
+        "tags": [
+          "[광계]",
+          "[얼음]"
+        ],
+        "bondHearts": 0,
+        "bondBonusPercent": 0,
+        "baseAttack": 3265,
+        "guest": false,
+        "shields": [],
+        "turns": 0,
+        "slot": 3,
+        "tactic": "균형",
+        "traits": {
+          "STACK_ATK": 3,
+          "PRECISION": 5,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "traitState": {
+          "firstHit": false,
+          "firstStrike": false
+        },
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "size": "MEDIUM",
+        "facing": 1,
+        "nextScorePenalty": 0
+      },
+      {
+        "id": "MOND_LISA",
+        "source": "MOND_LISA",
+        "name": "리사",
+        "side": "ALLY",
+        "control": "AI",
+        "hp": 13308,
+        "maxHp": 16636,
+        "atk": 3782,
+        "def": 1850,
+        "spd": 74,
+        "level": 55,
+        "crit": 16,
+        "critDmg": 70,
+        "hit": 95,
+        "eva": 8,
+        "resist": 38,
+        "range": "중거리",
+        "aura": null,
+        "statuses": [
+          {
+            "id": "FORMATION",
+            "rounds": null,
+            "createdRound": 1,
+            "mods": {
+              "atk": {
+                "pct": 6,
+                "flat": 0
+              },
+              "hit": {
+                "pct": 0,
+                "flat": 10
+              }
+            },
+            "taken": 1,
+            "reactionOut": 1,
+            "supportOut": 1,
+            "formation": "DOUBLE_LINE"
+          }
+        ],
+        "cooldowns": {},
+        "tags": [
+          "[광계]",
+          "[번개]"
+        ],
+        "bondHearts": 0,
+        "bondBonusPercent": 0,
+        "baseAttack": 3708,
+        "guest": false,
+        "shields": [],
+        "turns": 0,
+        "slot": 4,
+        "tactic": "균형",
+        "slotDamageMultiplier": 0.8,
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "traitState": {
+          "firstHit": false,
+          "firstStrike": false
+        },
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "size": "MEDIUM",
+        "facing": 1,
+        "nextScorePenalty": 0
+      },
+      {
+        "id": "MON_SLIME_LARGE_HYDRO#1",
+        "source": "MON_SLIME_LARGE_HYDRO",
+        "name": "거대 물 슬라임",
+        "side": "ENEMY",
+        "control": "AI",
+        "hp": 3650,
+        "maxHp": 5215,
+        "atk": 798,
+        "def": 519,
+        "crit": 7,
+        "critDmg": 55,
+        "level": 60,
+        "spd": 64,
+        "hit": 92,
+        "eva": 3,
+        "resist": 10,
+        "range": "근접",
+        "grade": "정예",
+        "tags": [
+          "[광계]",
+          "[물]"
+        ],
+        "tactic": "공격우선",
+        "nativeAura": "물",
+        "aura": "물",
+        "statuses": [],
+        "cooldowns": {},
+        "shields": [],
+        "turns": 0,
+        "airborne": false,
+        "element": "물",
+        "hasDedicatedCards": true,
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 99,
+            "createdRound": 1,
+            "native": true
+          }
+        ],
+        "enemySkillsInitialized": true,
+        "position": {
+          "x": 3,
+          "y": 0
+        },
+        "size": "MEDIUM",
+        "facing": -1,
+        "nextScorePenalty": 0,
+        "family": "슬라임",
+        "targetRule": "FRONT",
+        "growthScaled": true
+      },
+      {
+        "id": "MON_SLIME_LARGE_HYDRO#2",
+        "source": "MON_SLIME_LARGE_HYDRO",
+        "name": "거대 물 슬라임",
+        "side": "ENEMY",
+        "control": "AI",
+        "hp": 3650,
+        "maxHp": 5215,
+        "atk": 798,
+        "def": 519,
+        "crit": 7,
+        "critDmg": 55,
+        "level": 60,
+        "spd": 64,
+        "hit": 92,
+        "eva": 3,
+        "resist": 10,
+        "range": "근접",
+        "grade": "정예",
+        "tags": [
+          "[광계]",
+          "[물]"
+        ],
+        "tactic": "공격우선",
+        "nativeAura": "물",
+        "aura": "물",
+        "statuses": [],
+        "cooldowns": {},
+        "shields": [],
+        "turns": 0,
+        "airborne": false,
+        "element": "물",
+        "hasDedicatedCards": true,
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 99,
+            "createdRound": 1,
+            "native": true
+          }
+        ],
+        "enemySkillsInitialized": true,
+        "position": {
+          "x": 3,
+          "y": 1
+        },
+        "size": "MEDIUM",
+        "facing": -1,
+        "nextScorePenalty": 0,
+        "family": "슬라임",
+        "targetRule": "FRONT",
+        "growthScaled": true
+      },
+      {
+        "id": "MON_SLIME_HYDRO#1",
+        "source": "MON_SLIME_HYDRO",
+        "name": "물 슬라임",
+        "side": "ENEMY",
+        "control": "AI",
+        "hp": 2538,
+        "maxHp": 3626,
+        "atk": 1216,
+        "def": 370,
+        "crit": 5,
+        "critDmg": 50,
+        "level": 60,
+        "spd": 76,
+        "hit": 92,
+        "eva": 4,
+        "resist": 5,
+        "range": "중거리",
+        "grade": "일반",
+        "tags": [
+          "[광계]",
+          "[물]"
+        ],
+        "tactic": "균형",
+        "nativeAura": "물",
+        "aura": "물",
+        "statuses": [],
+        "cooldowns": {},
+        "shields": [],
+        "turns": 0,
+        "airborne": false,
+        "element": "물",
+        "hasDedicatedCards": true,
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 99,
+            "createdRound": 1,
+            "native": true
+          }
+        ],
+        "enemySkillsInitialized": true,
+        "position": {
+          "x": 3,
+          "y": 2
+        },
+        "size": "SMALL",
+        "facing": -1,
+        "nextScorePenalty": 0,
+        "family": "슬라임",
+        "targetRule": "SPREAD",
+        "growthScaled": true
+      },
+      {
+        "id": "MON_SLIME_HYDRO#2",
+        "source": "MON_SLIME_HYDRO",
+        "name": "물 슬라임",
+        "side": "ENEMY",
+        "control": "AI",
+        "hp": 2538,
+        "maxHp": 3626,
+        "atk": 1216,
+        "def": 370,
+        "crit": 5,
+        "critDmg": 50,
+        "level": 60,
+        "spd": 76,
+        "hit": 92,
+        "eva": 4,
+        "resist": 5,
+        "range": "중거리",
+        "grade": "일반",
+        "tags": [
+          "[광계]",
+          "[물]"
+        ],
+        "tactic": "균형",
+        "nativeAura": "물",
+        "aura": "물",
+        "statuses": [],
+        "cooldowns": {},
+        "shields": [],
+        "turns": 0,
+        "airborne": false,
+        "element": "물",
+        "hasDedicatedCards": true,
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 99,
+            "createdRound": 1,
+            "native": true
+          }
+        ],
+        "enemySkillsInitialized": true,
+        "position": {
+          "x": 3,
+          "y": 3
+        },
+        "size": "SMALL",
+        "facing": -1,
+        "nextScorePenalty": 0,
+        "family": "슬라임",
+        "targetRule": "SPREAD",
+        "growthScaled": true
+      },
+      {
+        "id": "MON_ABYSS_MAGE_HYDRO#1",
+        "source": "MON_ABYSS_MAGE_HYDRO",
+        "name": "물의 심연 메이지",
+        "side": "ENEMY",
+        "control": "AI",
+        "hp": 2704,
+        "maxHp": 3863,
+        "atk": 1555,
+        "def": 519,
+        "crit": 10,
+        "critDmg": 60,
+        "level": 60,
+        "spd": 72,
+        "hit": 92,
+        "eva": 4,
+        "resist": 10,
+        "range": "중거리",
+        "grade": "정예",
+        "tags": [
+          "[명계]",
+          "[심연]",
+          "[물]"
+        ],
+        "tactic": "지원/제어",
+        "nativeAura": null,
+        "aura": null,
+        "statuses": [],
+        "cooldowns": {},
+        "shields": [
+          {
+            "source": "ECARD_ABYSS_HYDRO_SHIELD",
+            "value": 811,
+            "initialValue": 1043,
+            "rounds": null,
+            "createdRound": 1,
+            "element": "물",
+            "damageMultipliers": {
+              "풀": 2,
+              "얼음": 1.5,
+              "번개": 1.5
+            }
+          }
+        ],
+        "turns": 0,
+        "airborne": false,
+        "element": "물",
+        "hasDedicatedCards": true,
+        "enemySkillsInitialized": true,
+        "position": {
+          "x": 4,
+          "y": 0
+        },
+        "size": "MEDIUM",
+        "facing": -1,
+        "nextScorePenalty": 0,
+        "family": "심연 계열",
+        "targetRule": "SPREAD",
+        "growthScaled": true
+      }
+    ],
+    "order": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "first": false,
+        "score": 79
+      },
+      {
+        "id": "MOND_KAEYA",
+        "first": false,
+        "score": 93
+      },
+      {
+        "id": "MOND_AMBER",
+        "first": false,
+        "score": 88
+      },
+      {
+        "id": "MOND_LISA",
+        "first": false,
+        "score": 81
+      },
+      {
+        "id": "MON_SLIME_HYDRO#2",
+        "first": false,
+        "score": 73
+      },
+      {
+        "id": "MON_SLIME_HYDRO#1",
+        "first": false,
+        "score": 67
+      },
+      {
+        "id": "MON_ABYSS_MAGE_HYDRO#1",
+        "first": false,
+        "score": 64
+      },
+      {
+        "id": "MON_SLIME_LARGE_HYDRO#2",
+        "first": false,
+        "score": 53
+      },
+      {
+        "id": "MON_SLIME_LARGE_HYDRO#1",
+        "first": false,
+        "score": 52
+      }
+    ],
+    "cursor": 0,
+    "phase": "WAIT_PLAYER",
+    "ticks": {},
+    "log": [
+      {
+        "actor": "물의 심연 메이지",
+        "actorId": "MON_ABYSS_MAGE_HYDRO#1",
+        "card": "ECARD_ABYSS_HYDRO_SHIELD",
+        "cardName": "물 원소 장벽",
+        "round": 1,
+        "actionSequence": 0,
+        "enemySkill": true,
+        "text": "물의 심연 메이지 · 물 원소 장벽 발동",
+        "passive": true,
+        "presentationActorsBefore": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "클라나드",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 15638,
+            "maxHp": 15638,
+            "atk": 3122.4,
+            "def": 1558,
+            "spd": 70,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 81,
+            "eva": 7,
+            "resist": 8,
+            "range": "근접",
+            "aura": null,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "protagonist": {
+              "version": 1,
+              "route": "ROUTE_TRAVELER",
+              "skillIds": [
+                "PLAYER_TRAVELER_ANEMO_E",
+                "PLAYER_TRAVELER_ANEMO_Q"
+              ]
+            }
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "name": "엠버",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 16886,
+            "maxHp": 16886,
+            "atk": 2956,
+            "def": 1884,
+            "spd": 82,
+            "crit": 21,
+            "critDmg": 60,
+            "hit": 97,
+            "eva": 9,
+            "resist": 38,
+            "range": "원거리",
+            "aura": null,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "tags": [
+              "[광계]",
+              "[불]"
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "name": "케이아",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 18131,
+            "maxHp": 19038,
+            "atk": 3348,
+            "def": 2176,
+            "spd": 86,
+            "crit": 18,
+            "critDmg": 65,
+            "hit": 96,
+            "eva": 10,
+            "resist": 38,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "tags": [
+              "[광계]",
+              "[얼음]"
+            ]
+          },
+          {
+            "id": "MOND_LISA",
+            "source": "MOND_LISA",
+            "name": "리사",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 16636,
+            "maxHp": 16636,
+            "atk": 3782,
+            "def": 1850,
+            "spd": 74,
+            "crit": 16,
+            "critDmg": 70,
+            "hit": 95,
+            "eva": 8,
+            "resist": 38,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "tags": [
+              "[광계]",
+              "[번개]"
+            ]
+          },
+          {
+            "id": "MON_SLIME_LARGE_HYDRO#1",
+            "source": "MON_SLIME_LARGE_HYDRO",
+            "name": "거대 물 슬라임",
+            "side": "ENEMY",
+            "level": 5,
+            "hp": 912,
+            "maxHp": 912,
+            "atk": 100,
+            "def": 62,
+            "spd": 52,
+            "crit": 7,
+            "critDmg": 55,
+            "hit": 81,
+            "eva": 3,
+            "resist": 10,
+            "range": "근접",
+            "grade": "정예",
+            "element": "물",
+            "aura": "물",
+            "nativeAura": "물",
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[광계]",
+              "[물]"
+            ]
+          },
+          {
+            "id": "MON_SLIME_LARGE_HYDRO#2",
+            "source": "MON_SLIME_LARGE_HYDRO",
+            "name": "거대 물 슬라임",
+            "side": "ENEMY",
+            "level": 5,
+            "hp": 912,
+            "maxHp": 912,
+            "atk": 100,
+            "def": 62,
+            "spd": 52,
+            "crit": 7,
+            "critDmg": 55,
+            "hit": 81,
+            "eva": 3,
+            "resist": 10,
+            "range": "근접",
+            "grade": "정예",
+            "element": "물",
+            "aura": "물",
+            "nativeAura": "물",
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[광계]",
+              "[물]"
+            ]
+          },
+          {
+            "id": "MON_SLIME_HYDRO#1",
+            "source": "MON_SLIME_HYDRO",
+            "name": "물 슬라임",
+            "side": "ENEMY",
+            "level": 2,
+            "hp": 480,
+            "maxHp": 480,
+            "atk": 74,
+            "def": 38,
+            "spd": 64,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 79,
+            "eva": 4,
+            "resist": 5,
+            "range": "중거리",
+            "grade": "일반",
+            "element": "물",
+            "aura": "물",
+            "nativeAura": "물",
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[광계]",
+              "[물]"
+            ]
+          },
+          {
+            "id": "MON_SLIME_HYDRO#2",
+            "source": "MON_SLIME_HYDRO",
+            "name": "물 슬라임",
+            "side": "ENEMY",
+            "level": 2,
+            "hp": 480,
+            "maxHp": 480,
+            "atk": 74,
+            "def": 38,
+            "spd": 64,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 79,
+            "eva": 4,
+            "resist": 5,
+            "range": "중거리",
+            "grade": "일반",
+            "element": "물",
+            "aura": "물",
+            "nativeAura": "물",
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[광계]",
+              "[물]"
+            ]
+          },
+          {
+            "id": "MON_ABYSS_MAGE_HYDRO#1",
+            "source": "MON_ABYSS_MAGE_HYDRO",
+            "name": "물의 심연 메이지",
+            "side": "ENEMY",
+            "level": 5,
+            "hp": 1176,
+            "maxHp": 1176,
+            "atk": 110,
+            "def": 72,
+            "spd": 60,
+            "crit": 10,
+            "critDmg": 60,
+            "hit": 81,
+            "eva": 4,
+            "resist": 10,
+            "range": "중거리",
+            "grade": "정예",
+            "element": "물",
+            "aura": null,
+            "nativeAura": null,
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[명계]",
+              "[심연]",
+              "[물]"
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MON_ABYSS_MAGE_HYDRO#1",
+            "shields": [
+              {
+                "source": "ECARD_ABYSS_HYDRO_SHIELD",
+                "value": 1352,
+                "initialValue": 1043,
+                "rounds": null,
+                "createdRound": 1,
+                "element": "물",
+                "damageMultipliers": {
+                  "풀": 2,
+                  "얼음": 1.5,
+                  "번개": 1.5
+                }
+              }
+            ],
+            "level": 60,
+            "hp": 3863,
+            "maxHp": 3863,
+            "atk": 1555,
+            "def": 519,
+            "spd": 72,
+            "hit": 92
+          },
+          {
+            "id": "PLAYER_CUSTOM",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_LISA",
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_SLIME_LARGE_HYDRO#1",
+            "level": 60,
+            "hp": 5215,
+            "maxHp": 5215,
+            "atk": 798,
+            "def": 519,
+            "spd": 64,
+            "hit": 92
+          },
+          {
+            "id": "MON_SLIME_LARGE_HYDRO#2",
+            "level": 60,
+            "hp": 5215,
+            "maxHp": 5215,
+            "atk": 798,
+            "def": 519,
+            "spd": 64,
+            "hit": 92
+          },
+          {
+            "id": "MON_SLIME_HYDRO#1",
+            "level": 60,
+            "hp": 3626,
+            "maxHp": 3626,
+            "atk": 1216,
+            "def": 370,
+            "spd": 76,
+            "hit": 92
+          },
+          {
+            "id": "MON_SLIME_HYDRO#2",
+            "level": 60,
+            "hp": 3626,
+            "maxHp": 3626,
+            "atk": 1216,
+            "def": 370,
+            "spd": 76,
+            "hit": 92
+          }
+        ]
+      }
+    ],
+    "fields": [],
+    "terrain": null,
+    "storyConfig": null,
+    "interludeSeen": {},
+    "pendingInterludes": [],
+    "toolCharges": {},
+    "actionSequence": 0,
+    "relationshipTarget": null,
+    "enemyReserve": [],
+    "capacityVersion": 1,
+    "enemySkillVersion": 1,
+    "opening": {
+      "version": 1,
+      "state": "PENDING",
+      "round": 1,
+      "createdActionId": "V011-217:13",
+      "initialOrder": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "first": false,
+          "score": 79
+        },
+        {
+          "id": "MOND_KAEYA",
+          "first": false,
+          "score": 93
+        },
+        {
+          "id": "MOND_AMBER",
+          "first": false,
+          "score": 88
+        },
+        {
+          "id": "MOND_LISA",
+          "first": false,
+          "score": 81
+        },
+        {
+          "id": "MON_SLIME_HYDRO#2",
+          "first": false,
+          "score": 73
+        },
+        {
+          "id": "MON_SLIME_HYDRO#1",
+          "first": false,
+          "score": 67
+        },
+        {
+          "id": "MON_ABYSS_MAGE_HYDRO#1",
+          "first": false,
+          "score": 64
+        },
+        {
+          "id": "MON_SLIME_LARGE_HYDRO#2",
+          "first": false,
+          "score": 53
+        },
+        {
+          "id": "MON_SLIME_LARGE_HYDRO#1",
+          "first": false,
+          "score": 52
+        }
+      ]
+    },
+    "rulesVersion": 1,
+    "turnStarted": null,
+    "consStarted": true,
+    "encounter": {
+      "version": 1,
+      "kind": "ENCOUNTER",
+      "label": "적과 마주쳤습니다",
+      "text": "천둥 연산 밀궁에서 적 무리를 마주쳤습니다. 아래의 적과 행동 순서를 확인하고 전투를 시작하세요.",
+      "map": "MAP_D163_LIANSHAN_FORMULA",
+      "from": null
+    },
+    "gearTraitsVersion": 1,
+    "hazards": [],
+    "formationV1": {
+      "id": "DOUBLE_LINE",
+      "synergy": false
+    },
+    "localBalance": {
+      "version": 1
+    },
+    "growthBalance": {
+      "version": 1,
+      "level": 60,
+      "field": false,
+      "roundLimit": 30
+    },
+    "growthDomain": {
+      "id": "LIANSHAN_FORMULA:60",
+      "key": "LIANSHAN_FORMULA",
+      "kind": "ASCENSION",
+      "name": "천둥 연산 밀궁",
+      "trial": "돌파",
+      "region": "리월",
+      "level": 60,
+      "map": "MAP_D163_LIANSHAN_FORMULA",
+      "version": 4,
+      "ascensionRewardVersion": 1,
+      "materialBudgetVersion": 1,
+      "element": "HYDRO",
+      "day": 20735
+    },
+    "materialBudget": {
+      "version": 1,
+      "durability": 48000,
+      "pressure": 6920
+    },
+    "taskSnapshot": {
+      "version": 1,
+      "day": 20735,
+      "week": 2962,
+      "startedSeq": 12,
+      "map": "MAP_D163_LIANSHAN_FORMULA",
+      "party": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "element": "ANEMO",
+          "rarity": 0,
+          "owned": true,
+          "alive": true
+        },
+        {
+          "id": "MOND_AMBER",
+          "element": "PYRO",
+          "rarity": 4,
+          "owned": true,
+          "alive": true
+        },
+        {
+          "id": "MOND_KAEYA",
+          "element": "CRYO",
+          "rarity": 4,
+          "owned": true,
+          "alive": true
+        },
+        {
+          "id": "MOND_LISA",
+          "element": "ELECTRO",
+          "rarity": 4,
+          "owned": true,
+          "alive": true
+        }
+      ],
+      "enemies": [
+        "MON_SLIME_LARGE_HYDRO",
+        "MON_SLIME_HYDRO",
+        "MON_ABYSS_MAGE_HYDRO"
+      ],
+      "stage": 60,
+      "tier": 0,
+      "domainType": "ASCENSION",
+      "leyType": ""
+    }
+  }
+}

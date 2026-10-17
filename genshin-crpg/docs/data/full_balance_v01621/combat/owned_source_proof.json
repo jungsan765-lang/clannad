@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "ownedProductFiles": [
+    "source/runtime_constellations_v01411.js"
+  ],
+  "ownedAddedTest": "tests/test_noelle_healing_v01621.cjs",
+  "before": {
+    "path": "source/runtime_constellations_v01411.js",
+    "sha256": "f4233a42888633c9ac77f47d9347b30a6801c8f2cba129b28d904e3b3de2c504",
+    "bytes": 75507
+  },
+  "after": {
+    "path": "source/runtime_constellations_v01411.js",
+    "sha256": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b",
+    "bytes": 75857
+  },
+  "dbBeforeSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "dbAfterSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "baselineArchiveSha256": "5220c804c05d76bf3f292b4662dcd5894b3b13c34591e0dfb8802574a6345e1d",
+  "scope": "Combat agent source ownership is only the approved Noelle C1 hook/text; shared root/growth changes are recorded separately in final product manifest."
+}

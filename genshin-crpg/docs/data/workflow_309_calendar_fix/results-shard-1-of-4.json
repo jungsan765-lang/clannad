@@ -1,0 +1,257 @@
+[
+  {
+    "test": "tests/test_liyue_rework_flow.cjs",
+    "ok": true,
+    "seconds": 223.8
+  },
+  {
+    "test": "tests/test_server_coop_audit_fixes.mjs",
+    "ok": true,
+    "seconds": 39.5
+  },
+  {
+    "test": "tests/test_liyue_rework_mechanics.cjs",
+    "ok": true,
+    "seconds": 34.2
+  },
+  {
+    "test": "tests/test_skill_fx_v0162.cjs",
+    "ok": true,
+    "seconds": 26.1
+  },
+  {
+    "test": "tests/test_growth_pacing_v0161.cjs",
+    "ok": true,
+    "seconds": 25.1
+  },
+  {
+    "test": "tests/test_story_asset_bindings.cjs",
+    "ok": true,
+    "seconds": 24.6
+  },
+  {
+    "test": "tests/test_balance_v0152.cjs",
+    "ok": true,
+    "seconds": 21.1
+  },
+  {
+    "test": "tests/test_social_concurrency_v01511.mjs",
+    "ok": true,
+    "seconds": 17.4
+  },
+  {
+    "test": "tests/test_food_economy_v0168.cjs",
+    "ok": true,
+    "seconds": 18.4
+  },
+  {
+    "test": "tests/v013/test_recruitment_cost_consistency.cjs",
+    "ok": true,
+    "seconds": 13.3
+  },
+  {
+    "test": "tests/test_opening.cjs",
+    "ok": true,
+    "seconds": 11.8
+  },
+  {
+    "test": "tests/test_access_gear_v01343.cjs",
+    "ok": true,
+    "seconds": 8.3
+  },
+  {
+    "test": "tests/test_admin_balance_v01623.mjs",
+    "ok": true,
+    "seconds": 13.4
+  },
+  {
+    "test": "tests/test_asset_followup.cjs",
+    "ok": true,
+    "seconds": 1.1
+  },
+  {
+    "test": "tests/test_battle_inspection_v0169.cjs",
+    "ok": true,
+    "seconds": 8.9
+  },
+  {
+    "test": "tests/test_character_balance_v01625.cjs",
+    "ok": true,
+    "seconds": 59.0
+  },
+  {
+    "test": "tests/test_client_social_followup.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_combat_v0142.cjs",
+    "ok": true,
+    "seconds": 3.2
+  },
+  {
+    "test": "tests/test_coop_world_screen_v0160.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_daily_pressure_v01624.cjs",
+    "ok": true,
+    "seconds": 24.4
+  },
+  {
+    "test": "tests/test_durable_migration.mjs",
+    "ok": true,
+    "seconds": 2.3
+  },
+  {
+    "test": "tests/test_engine_identity.py",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_food_balance_v01620.cjs",
+    "ok": true,
+    "seconds": 14.5
+  },
+  {
+    "test": "tests/test_gear_effects_v0168.cjs",
+    "ok": true,
+    "seconds": 4.3
+  },
+  {
+    "test": "tests/test_growth_balance_v01621.cjs",
+    "ok": true,
+    "seconds": 15.9
+  },
+  {
+    "test": "tests/test_incoming_defense_v01622.cjs",
+    "ok": true,
+    "seconds": 4.8
+  },
+  {
+    "test": "tests/test_landmarks_v0163.cjs",
+    "ok": true,
+    "seconds": 4.3
+  },
+  {
+    "test": "tests/test_liyue_growth_gate_v01622.cjs",
+    "ok": true,
+    "seconds": 14.6
+  },
+  {
+    "test": "tests/test_main_story_k_v0148.cjs",
+    "ok": true,
+    "seconds": 1.8
+  },
+  {
+    "test": "tests/test_material_rewards_v01616.cjs",
+    "ok": true,
+    "seconds": 122.5
+  },
+  {
+    "test": "tests/test_online_bootstrap_v01343.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_osial_v01341.cjs",
+    "ok": true,
+    "seconds": 5.9
+  },
+  {
+    "test": "tests/test_presentation.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_quality_fixes_v01336.cjs",
+    "ok": true,
+    "seconds": 6.1
+  },
+  {
+    "test": "tests/test_release_isolation_v01513.cjs",
+    "ok": true,
+    "seconds": 3.8
+  },
+  {
+    "test": "tests/test_server_coop_retry_v0161.mjs",
+    "ok": true,
+    "seconds": 8.1
+  },
+  {
+    "test": "tests/test_settings_audio_v01513.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_shop_supply_v01618.cjs",
+    "ok": true,
+    "seconds": 5.5
+  },
+  {
+    "test": "tests/test_story_named_text_v01514.cjs",
+    "ok": true,
+    "seconds": 2.4
+  },
+  {
+    "test": "tests/test_task_catalog_v0168.cjs",
+    "ok": true,
+    "seconds": 1.1
+  },
+  {
+    "test": "tests/test_tasks_expanded_v0168.cjs",
+    "ok": true,
+    "seconds": 11.0
+  },
+  {
+    "test": "tests/test_tutorial_online_v01523.mjs",
+    "ok": true,
+    "seconds": 7.4
+  },
+  {
+    "test": "tests/test_v01410.cjs",
+    "ok": true,
+    "seconds": 0.3
+  },
+  {
+    "test": "tests/test_v0144.cjs",
+    "ok": true,
+    "seconds": 7.6
+  },
+  {
+    "test": "tests/test_v01517.cjs",
+    "ok": true,
+    "seconds": 2.0
+  },
+  {
+    "test": "tests/test_v01521.cjs",
+    "ok": true,
+    "seconds": 1.6
+  },
+  {
+    "test": "tests/test_v0158.mjs",
+    "ok": true,
+    "seconds": 0.5
+  },
+  {
+    "test": "tests/test_vfx_v0165.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_xianyun_balance_v01622.cjs",
+    "ok": true,
+    "seconds": 4.9
+  },
+  {
+    "test": "tools/test_boss_boundaries_v01619.cjs",
+    "ok": true,
+    "seconds": 26.4
+  },
+  {
+    "test": "tools/test_other_healers_v01619.cjs",
+    "ok": true,
+    "seconds": 14.3
+  }
+]

@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "scope": "Native character quotes plus economy-pack exact Markov enhancement expectation; +12 means three legal owned supported equipment instances and their once-paid ASCEND. Excludes recovery, base gear creation, acquisition/travel/story, income and rare artifact drops. Expected ore values reflect repeated stochastic attempts and are not deterministic recipe requirements. Boss/specialty/slime/mask procurement overlaps existing XP fights and quests; no invented procurement duration.",
+  "sourceEconomy": "../economy/catalog_after.json",
+  "rows": [
+    {
+      "owner": "PLAYER_CUSTOM",
+      "ascensionMora": 93200,
+      "threeTalentsMora": 213750,
+      "threeGearExpectedAttempts": 79.62708412059561,
+      "threeGearAttemptExpectedMora": 1148537.7870995135,
+      "threeGearAscensionMora": 9000,
+      "grossMoraBeforeRecoveryAndBaseCraft": 1464487.7870995135,
+      "itemsIncludingExpectedOres": {
+        "GROWTH_GEM_NEUTRAL": 39140,
+        "ING_CALLA_LILY": 42,
+        "MAT_DAMAGED_MASK": 5,
+        "MAT_STAINED_MASK": 7,
+        "TRPG_BOSS_ESSENCE": 15,
+        "MAT_OMINOUS_MASK": 10,
+        "GROWTH_TALENT_MOND": 2016,
+        "MAT_SLIME_SECRETIONS": 15,
+        "MAT_SLIME_CONCENTRATE": 57,
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 3141.8172514285716,
+        "ORE_CRYSTAL": 2209.2968399999995,
+        "TRPG_BOSS_CORE": 3
+      }
+    },
+    {
+      "owner": "MOND_AMBER",
+      "ascensionMora": 93200,
+      "threeTalentsMora": 213750,
+      "threeGearExpectedAttempts": 79.62708412059561,
+      "threeGearAttemptExpectedMora": 1148537.7870995135,
+      "threeGearAscensionMora": 9000,
+      "grossMoraBeforeRecoveryAndBaseCraft": 1464487.7870995135,
+      "itemsIncludingExpectedOres": {
+        "GROWTH_GEM_PYRO": 39140,
+        "ING_LAMP_GRASS": 42,
+        "MAT_DAMAGED_MASK": 5,
+        "MAT_STAINED_MASK": 7,
+        "TRPG_BOSS_ESSENCE": 10,
+        "MAT_OMINOUS_MASK": 10,
+        "MAT_FB_EVERFLAME_SEED": 5,
+        "GROWTH_TALENT_MOND": 2016,
+        "MAT_SLIME_SECRETIONS": 15,
+        "MAT_SLIME_CONCENTRATE": 57,
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 3141.8172514285716,
+        "ORE_CRYSTAL": 2209.2968399999995,
+        "TRPG_BOSS_CORE": 3
+      }
+    },
+    {
+      "owner": "LIYUE_XIANGLING",
+      "ascensionMora": 93200,
+      "threeTalentsMora": 213750,
+      "threeGearExpectedAttempts": 79.62708412059561,
+      "threeGearAttemptExpectedMora": 1148537.7870995135,
+      "threeGearAscensionMora": 9000,
+      "grossMoraBeforeRecoveryAndBaseCraft": 1464487.7870995135,
+      "itemsIncludingExpectedOres": {
+        "GROWTH_GEM_PYRO": 39140,
+        "MAT_LIYUE_JUEYUN_CHILI": 42,
+        "MAT_DAMAGED_MASK": 5,
+        "MAT_STAINED_MASK": 7,
+        "TRPG_BOSS_ESSENCE": 10,
+        "MAT_OMINOUS_MASK": 10,
+        "MAT_FB_EVERFLAME_SEED": 5,
+        "GROWTH_TALENT_LIYUE": 5040,
+        "MAT_SLIME_SECRETIONS": 15,
+        "MAT_SLIME_CONCENTRATE": 57,
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 3141.8172514285716,
+        "ORE_CRYSTAL": 2209.2968399999995,
+        "TRPG_BOSS_CORE": 3
+      }
+    },
+    {
+      "owner": "MOND_DILUC",
+      "ascensionMora": 167760,
+      "threeTalentsMora": 320625,
+      "threeGearExpectedAttempts": 79.62708412059561,
+      "threeGearAttemptExpectedMora": 1148537.7870995135,
+      "threeGearAscensionMora": 9000,
+      "grossMoraBeforeRecoveryAndBaseCraft": 1645922.7870995135,
+      "itemsIncludingExpectedOres": {
+        "GROWTH_GEM_PYRO": 78280,
+        "ING_LAMP_GRASS": 84,
+        "MAT_DAMAGED_MASK": 10,
+        "MAT_STAINED_MASK": 14,
+        "TRPG_BOSS_ESSENCE": 11,
+        "MAT_OMINOUS_MASK": 20,
+        "MAT_FB_EVERFLAME_SEED": 10,
+        "GROWTH_TALENT_MOND": 2016,
+        "MAT_SLIME_SECRETIONS": 15,
+        "MAT_SLIME_CONCENTRATE": 57,
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 3141.8172514285716,
+        "ORE_CRYSTAL": 2209.2968399999995,
+        "TRPG_BOSS_CORE": 3
+      }
+    },
+    {
+      "owner": "LIYUE_ZHONGLI",
+      "ascensionMora": 167760,
+      "threeTalentsMora": 320625,
+      "threeGearExpectedAttempts": 79.62708412059561,
+      "threeGearAttemptExpectedMora": 1148537.7870995135,
+      "threeGearAscensionMora": 9000,
+      "grossMoraBeforeRecoveryAndBaseCraft": 1645922.7870995135,
+      "itemsIncludingExpectedOres": {
+        "GROWTH_GEM_GEO": 78280,
+        "MAT_LIYUE_COR_LAPIS": 84,
+        "MAT_DAMAGED_MASK": 10,
+        "MAT_STAINED_MASK": 14,
+        "TRPG_BOSS_ESSENCE": 11,
+        "MAT_OMINOUS_MASK": 20,
+        "MAT_FB_BASALT_PILLAR": 10,
+        "GROWTH_TALENT_LIYUE": 5040,
+        "MAT_SLIME_SECRETIONS": 15,
+        "MAT_SLIME_CONCENTRATE": 57,
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 3141.8172514285716,
+        "ORE_CRYSTAL": 2209.2968399999995,
+        "TRPG_BOSS_CORE": 3
+      }
+    }
+  ],
+  "sourceGrowth": "growth_accounting_final_readable.json",
+  "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a"
+}

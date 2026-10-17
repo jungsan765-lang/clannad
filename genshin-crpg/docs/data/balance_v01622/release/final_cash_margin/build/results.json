@@ -1,0 +1,77 @@
+[
+  {
+    "step": "server",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/build_server.py"
+    ],
+    "environment": {},
+    "returnCode": 0,
+    "error": null,
+    "ok": true,
+    "startedAt": "2026-10-10T05:14:16.275423+00:00",
+    "seconds": 2.271,
+    "log": "server.log.gz",
+    "logBytes": 87,
+    "logSha256": "86bfd4d4e41bcf813869fca4faa6e6390c46d85de843306166ca45e80b749ef3"
+  },
+  {
+    "step": "browser",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/build.py"
+    ],
+    "environment": {
+      "CRPG_BUILD_DIR": "../v01622-cash-margin-verification-work/browser",
+      "CRPG_BUILD_REPORT": "docs/data/balance_v01622/release/final_cash_margin/build/browser_report.json"
+    },
+    "returnCode": 0,
+    "error": null,
+    "ok": true,
+    "startedAt": "2026-10-10T05:14:18.546806+00:00",
+    "seconds": 2.121,
+    "log": "browser.log.gz",
+    "logBytes": 102,
+    "logSha256": "640573db0cdec4c4e54808a99b8da5ca5bdb5e870a66016d30a163710e6e722b"
+  },
+  {
+    "step": "engine_identity",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tests/test_engine_identity.py"
+    ],
+    "environment": {},
+    "returnCode": 0,
+    "error": null,
+    "ok": true,
+    "startedAt": "2026-10-10T05:14:20.668188+00:00",
+    "seconds": 0.032,
+    "log": "engine_identity.log.gz",
+    "logBytes": 91,
+    "logSha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc"
+  },
+  {
+    "step": "three_engine_parity",
+    "command": [
+      "node",
+      "tools/audit_build_parity_v01621.cjs",
+      "--source-root",
+      ".",
+      "--browser-root",
+      "../v01622-cash-margin-verification-work/browser",
+      "--server-file",
+      "server/generated/engine.mjs",
+      "--out",
+      "docs/data/balance_v01622/release/final_cash_margin/build/parity_raw.json"
+    ],
+    "environment": {},
+    "returnCode": 0,
+    "error": null,
+    "ok": true,
+    "startedAt": "2026-10-10T05:16:21.670514+00:00",
+    "seconds": 44.514,
+    "log": "three_engine_parity.log.gz",
+    "logBytes": 412,
+    "logSha256": "76a0c04e236cb90dadf43f8ad8b7a1dae4acdfbbb29f2177c0f90943663e8677"
+  }
+]

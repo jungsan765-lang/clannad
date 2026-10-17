@@ -1,0 +1,3382 @@
+{
+  "schema": 1,
+  "scope": "Candidate arithmetic only; product unmodified. Source 0.16.21 committed baseline; only actual timing from sealed native observations reused.",
+  "ascensionRewards": {
+    "5": 1,
+    "10": 2,
+    "15": 3,
+    "20": 5,
+    "25": 16,
+    "30": 16,
+    "35": 36,
+    "40": 56,
+    "45": 120,
+    "50": 240,
+    "55": 750,
+    "60": 1500
+  },
+  "talentRewards": {
+    "MOND": {
+      "5": 1,
+      "10": 2,
+      "15": 10,
+      "20": 20,
+      "25": 32
+    },
+    "LIYUE": {
+      "30": 5,
+      "35": 7,
+      "40": 11,
+      "45": 12,
+      "50": 24,
+      "55": 36,
+      "60": 80
+    }
+  },
+  "ascensionCosts": [
+    3,
+    6,
+    32,
+    280,
+    1920,
+    37500
+  ],
+  "total4": 39741,
+  "total5": 79482,
+  "inventoryScaled": false,
+  "candidateSelected": false,
+  "ascensionAdjacent": [
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": null,
+      "lowLosses": 1,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 1.0785533666568656,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.40952380952381,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.022847100175747,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.3008687700045727,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 2.973613766730401,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.3787346221441126,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.9353741496598644,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.5709923664122136,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 1.0369940366246242,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 2.2076933532689957,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 2.9153721785442555,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.622633744855967,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.0075581395348836,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5114235500878734,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.058998697189652,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 1.93229939312205,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.6063268892794373,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.0716378348214286,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.268945285333131,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 1.0714285714285714,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 1.3629066656326343,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.5584812709094777,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.0075581395348836,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5114235500878734,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.4080673100717647,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 2.2230015471892726,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.703866432337434,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.3205260443527593,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.2715945287614767,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 1.3994650723725612,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 1.739463601532567,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.218980602173304,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.8248813886758146,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.0075581395348836,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5114235500878734,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.394607843137255,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 3.3221374045801526,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.1511423550087871,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.5584297017650641,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.0765702518019284,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 1.879254841944166,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 1.8963222416812604,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.3592131322364411,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.750789064236497,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.7551699964949177,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.1131292163985465,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.7557164196254167,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.3887319522912738,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.3799182720373615,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.1054740957966764,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.4439034286873595,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.0301835792318954,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.5393600194670887,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.6578822671769633,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.5851828197349518,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 2.2829827915869974,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.897380585516179,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.409015025041736,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.6093841642228743,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 6,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.5754724766856483,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.988535213273517,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": null,
+      "lowLosses": 1,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.2561113466157976,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.6385118149824036,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.8931734223976522,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.9766256372000495,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.4998492386552087,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.1607704402515724,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.9043185932247217,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.3882513253986843,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 2.7126271118584353,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.5198522127921608,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.708071614750245,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.180584291980468,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "heal4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.6912896275777158,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.9323858742463398,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 3.2072035199017703,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.950723932351868,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.169905830494891,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.1367521367521367,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.6503248670998234,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.17089516515079,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 25,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.03081876724931,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "NEUTRAL",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.670519463265577,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.6325510936295746,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "HYDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.5343919503183712,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.7081557897884432,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ELECTRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.1730187537810046,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.4231900637359043,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.6858389527965094,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "five0"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.7992198256080771,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.0,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.5123456790123457,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 3.283321604503871,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.0549368968077208,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.563047962867457,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.4303930867320063,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 2.4718662081900584,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 1.7834146341463413,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 3.368165089379601,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "ANEMO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.9251012145748985,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.0075581395348836,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5114235500878734,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.4080673100717647,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 1.8323933682868077,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 2.0670767428236667,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.0303822937625757,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.3366374673428612,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 1.5107613011074736,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 1.0013426095447333,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 2.427756969467097,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "CRYO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.525641952983725,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.0075581395348836,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5114235500878734,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.4478371501272267,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 2.8751714677640603,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.2811950790861157,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.7561728395061729,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.3804017041996346,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 2.4147560258671374,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 1.5951859956236323,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.950324342779106,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "GEO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.0140211182274534,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 5,
+      "high": 10,
+      "factor": 2.0075581395348836,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 10,
+      "high": 15,
+      "factor": 1.5114235500878734,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 15,
+      "high": 20,
+      "factor": 1.6666666666666667,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 20,
+      "high": 25,
+      "factor": 2.3770234986945167,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 25,
+      "high": 30,
+      "factor": 1.3462214411247804,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 30,
+      "high": 35,
+      "factor": 1.7855648535564859,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 35,
+      "high": 40,
+      "factor": 1.529949702789209,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 40,
+      "high": 45,
+      "factor": 2.03935098843715,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 45,
+      "high": 50,
+      "factor": 1.7468643101482322,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.2126659292035398,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "DENDRO",
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.7308060501627422,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.7775995384895655,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 4242,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.8783028926386058,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 4242,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 9031,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 9031,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": null,
+      "lowLosses": 1,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 6,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.6291466200371958,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 6,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 6,
+        "kind": "ASCENSION",
+        "level": 60,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": "story4",
+        "teamName": "story4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.5763831544178368,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.0480875436471178,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.7922094508301403,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 4242,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.2003168785939908,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 4242,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.3728804136320674,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 9031,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.2178272047055054,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 9031,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": null,
+      "lowLosses": 0,
+      "highLosses": 1
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 6,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 50,
+      "high": 55,
+      "factor": 1.1128427438616606,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 6,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.4979392065945387,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 6,
+        "kind": "ASCENSION",
+        "level": 60,
+        "limit": 3,
+        "restBelow": 0.35,
+        "seed": 717,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.4835489833641406,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.5,
+        "seed": 717,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.722030651340996,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.5,
+        "seed": 4242,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.6685036558672401,
+      "lowLosses": 0,
+      "highLosses": 0
+    },
+    {
+      "key": {
+        "constellations": 0,
+        "element": "PYRO",
+        "enhance": 10,
+        "kind": "ASCENSION",
+        "level": 55,
+        "limit": 3,
+        "restBelow": 0.5,
+        "seed": 9031,
+        "team": [
+          "MOND_KAEYA",
+          "LIYUE_XINGQIU",
+          "MOND_BARBARA"
+        ],
+        "teamName": "hydro_counter4"
+      },
+      "low": 55,
+      "high": 60,
+      "factor": 1.7096269153897405,
+      "lowLosses": 0,
+      "highLosses": 0
+    }
+  ],
+  "talentAdjacent": [
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 5,
+      "high": 10,
+      "factor": 1.7514582804970835
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 10,
+      "high": 15,
+      "factor": 5.033188664794485
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 15,
+      "high": 20,
+      "factor": 1.6643297216910984
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 20,
+      "high": 25,
+      "factor": 1.7218106995884772
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 30,
+      "high": 35,
+      "factor": 1.2042328042328043
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 35,
+      "high": 40,
+      "factor": 1.265368228849665
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 40,
+      "high": 45,
+      "factor": 1.1160421147967847
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 45,
+      "high": 50,
+      "factor": 1.0829399865138236
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 50,
+      "high": 55,
+      "factor": 1.2199067726898818
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 2.376669925057022
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "MOND",
+      "low": 5,
+      "high": 10,
+      "factor": 1.615060804490178
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "MOND",
+      "low": 10,
+      "high": 15,
+      "factor": 5.015247478301665
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "MOND",
+      "low": 15,
+      "high": 20,
+      "factor": 1.8113448056086674
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "MOND",
+      "low": 20,
+      "high": 25,
+      "factor": 1.4016750418760473
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 30,
+      "high": 35,
+      "factor": 1.111018131101813
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 35,
+      "high": 40,
+      "factor": 1.3413265306122448
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 40,
+      "high": 45,
+      "factor": 1.1411751386844786
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 45,
+      "high": 50,
+      "factor": 1.0829399865138234
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 50,
+      "high": 55,
+      "factor": 1.4634868421052631
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 1.2649273915033499
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 5,
+      "high": 10,
+      "factor": 1.7840351330405582
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 10,
+      "high": 15,
+      "factor": 5.165465705898052
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 15,
+      "high": 20,
+      "factor": 1.2108579738245273
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 20,
+      "high": 25,
+      "factor": 1.2484114977307113
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 30,
+      "high": 35,
+      "factor": 1.2755804643714972
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 35,
+      "high": 40,
+      "factor": 1.0249160760910108
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 40,
+      "high": 45,
+      "factor": 1.070230998509687
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 45,
+      "high": 50,
+      "factor": 1.0181691732591498
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 50,
+      "high": 55,
+      "factor": 1.3071590909090909
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 1.3097576948264573
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 5,
+      "high": 10,
+      "factor": 1.7343043696634857
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 10,
+      "high": 15,
+      "factor": 5.016376921138826
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 15,
+      "high": 20,
+      "factor": 1.9455882352941178
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "MOND",
+      "low": 20,
+      "high": 25,
+      "factor": 1.442970822281167
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 30,
+      "high": 35,
+      "factor": 1.1404438081603436
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 35,
+      "high": 40,
+      "factor": 1.4557597574838952
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 40,
+      "high": 45,
+      "factor": 1.039880473508792
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 45,
+      "high": 50,
+      "factor": 1.4866092404072044
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 50,
+      "high": 55,
+      "factor": 1.102255725630107
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 717,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 1.28880582625076
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 4242,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 2.2903467538660665
+    },
+    {
+      "team": "story4",
+      "constellations": 0,
+      "seed": 9031,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 2.112825971261309
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 4242,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 2.1700342043090375
+    },
+    {
+      "team": "story4",
+      "constellations": 6,
+      "seed": 9031,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 2.0726819574955377
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 4242,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 2.296266012537476
+    },
+    {
+      "team": "heal4",
+      "constellations": 0,
+      "seed": 9031,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 2.408611796366899
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 4242,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 1.3929146537842187
+    },
+    {
+      "team": "five0",
+      "constellations": 0,
+      "seed": 9031,
+      "region": "LIYUE",
+      "low": 55,
+      "high": 60,
+      "factor": 1.0794304634814385
+    }
+  ],
+  "progression": [
+    {
+      "phase": 0,
+      "cap": 10,
+      "refStage": 10,
+      "oldCost": 3,
+      "newCost": 3,
+      "baseWins4": 2,
+      "baseWins5": 3,
+      "firstDayBoostedWins4": 1
+    },
+    {
+      "phase": 1,
+      "cap": 20,
+      "refStage": 15,
+      "oldCost": 6,
+      "newCost": 6,
+      "baseWins4": 2,
+      "baseWins5": 4,
+      "firstDayBoostedWins4": 1
+    },
+    {
+      "phase": 2,
+      "cap": 30,
+      "refStage": 30,
+      "oldCost": 16,
+      "newCost": 32,
+      "baseWins4": 2,
+      "baseWins5": 4,
+      "firstDayBoostedWins4": 1
+    },
+    {
+      "phase": 3,
+      "cap": 40,
+      "refStage": 40,
+      "oldCost": 175,
+      "newCost": 280,
+      "baseWins4": 5,
+      "baseWins5": 10,
+      "firstDayBoostedWins4": 3
+    },
+    {
+      "phase": 4,
+      "cap": 50,
+      "refStage": 50,
+      "oldCost": 1440,
+      "newCost": 1920,
+      "baseWins4": 8,
+      "baseWins5": 16,
+      "firstDayBoostedWins4": 5
+    },
+    {
+      "phase": 5,
+      "cap": 55,
+      "refStage": 60,
+      "oldCost": 37500,
+      "newCost": 37500,
+      "baseWins4": 25,
+      "baseWins5": 50,
+      "firstDayBoostedWins4": 22
+    }
+  ],
+  "summary": {
+    "ascPairs": 161,
+    "ascSuccessful": 150,
+    "ascNoInversion": 150,
+    "ascMinimum": 1.0013426095447333,
+    "talentPairs": 48,
+    "talentNoInversion": 48,
+    "talentMinimum": 1.0181691732591498
+  }
+}

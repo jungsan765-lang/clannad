@@ -1,0 +1,80 @@
+{
+  "sourceFieldSHA256": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+  "rows": [
+    {
+      "case": "primo25",
+      "exact": {
+        "spec": true,
+        "initial": true,
+        "equipment": true,
+        "talents": true,
+        "constellations": true,
+        "actions": true,
+        "log": true,
+        "meter": true,
+        "state": true,
+        "round": true,
+        "finalHpRatio": true,
+        "ko": true,
+        "inputCount": true,
+        "party": true,
+        "finalEnemy": true
+      },
+      "state": "DEFEAT",
+      "round": 15,
+      "hp": 0,
+      "ko": 4,
+      "fieldSourceUnchanged": true
+    },
+    {
+      "case": "serpent35",
+      "exact": {
+        "spec": true,
+        "initial": true,
+        "equipment": true,
+        "talents": true,
+        "constellations": true,
+        "actions": true,
+        "log": true,
+        "meter": true,
+        "state": true,
+        "round": true,
+        "finalHpRatio": true,
+        "ko": true,
+        "inputCount": true,
+        "party": true,
+        "finalEnemy": true
+      },
+      "state": "WIN",
+      "round": 37,
+      "hp": 0.513331812038126,
+      "ko": 1,
+      "fieldSourceUnchanged": true
+    },
+    {
+      "case": "first_cryo",
+      "exact": {
+        "spec": true,
+        "initial": true,
+        "equipment": true,
+        "talents": true,
+        "constellations": true,
+        "actions": true,
+        "log": true,
+        "meter": true,
+        "state": true,
+        "round": true,
+        "finalHpRatio": true,
+        "ko": true,
+        "inputCount": true,
+        "party": true,
+        "finalEnemy": true
+      },
+      "state": "WIN",
+      "round": 8,
+      "hp": 0.6326553051126993,
+      "ko": 0,
+      "fieldSourceUnchanged": true
+    }
+  ]
+}

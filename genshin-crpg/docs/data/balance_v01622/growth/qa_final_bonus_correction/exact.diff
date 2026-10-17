@@ -1,0 +1,11 @@
+--- before/test_ascension_efficiency_v01613.cjs
++++ after/test_ascension_efficiency_v01613.cjs
+@@ -64,7 +64,7 @@
+ 
+ check('talent and ascension still share three bonuses; EXP and defeats consume none and domains pay no books or Mora',()=>{
+  let r=fixture();const day=G.dayOf(c.Date.now());r.s.domainDaily={day,wins:0};
+- const cases=[['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',160,1],['MAP_D163_MIDSUMMER_COURTYARD','MIDSUMMER_COURTYARD:5','NEUTRAL',0,1],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',10800,2],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:55','PYRO',3686,3],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',5400,4]];
++ const cases=[['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',160,1],['MAP_D163_MIDSUMMER_COURTYARD','MIDSUMMER_COURTYARD:5','NEUTRAL',0,1],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',10800,2],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:55','PYRO',3864,3],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',5400,4]];
+  for(const [map,domain,element,expected,wins]of cases){r.s.global.CURRENT_MAP_ID=map;r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain,element});r=restore(r);const out=settle(r);assert.equal(Object.values(out.domain.items).reduce((a,b)=>a+b,0),expected);assert.equal(r.s.domainDaily.wins,wins);assert.equal(out.mora||0,0);for(const item of Object.keys(out.domain.items))assert(!item.startsWith('MAT_CHAR_EXP_'));}
+  r.s.global.CURRENT_MAP_ID='MAP_D163_LIANSHAN_FORMULA';r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:60',element:'PYRO'});const count=r.itemCount('GROWTH_GEM_PYRO');settle(r,false);assert.equal(r.s.domainDaily.wins,4);assert.equal(r.itemCount('GROWTH_GEM_PYRO'),count);
+ });

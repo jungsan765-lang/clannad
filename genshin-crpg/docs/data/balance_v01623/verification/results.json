@@ -1,0 +1,403 @@
+{
+  "schema": 1,
+  "at": "2026-10-10T07:51:51.217887+00:00",
+  "tests": [
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "command": [
+        "node",
+        "tools/test_admin_balance_runtime_v01623.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 16.205,
+      "log": "tools__test_admin_balance_runtime_v01623.cjs.log.gz",
+      "logSha256": "4935dd2b81f72382463d57a629851a863099f438f357304dc0c28c045bcb0d18"
+    },
+    {
+      "test": "tests/test_admin_balance_v01623.mjs",
+      "command": [
+        "node",
+        "tests/test_admin_balance_v01623.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 19.907,
+      "log": "tests__test_admin_balance_v01623.mjs.log.gz",
+      "logSha256": "419e104245074c2f1db43b50ac7aed3e7b932eb0c36c421f97124c29a624b2fb"
+    },
+    {
+      "test": "tests/test_admin_balance_growth_v01623.mjs",
+      "command": [
+        "node",
+        "tests/test_admin_balance_growth_v01623.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 5.105,
+      "log": "tests__test_admin_balance_growth_v01623.mjs.log.gz",
+      "logSha256": "bc9e7bb37db503decfc6e4414df639ad295a4cf2f0e33f2fe920d890a3e6e087"
+    },
+    {
+      "test": "tests/test_admin_v01412.mjs",
+      "command": [
+        "node",
+        "tests/test_admin_v01412.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 32.538,
+      "log": "tests__test_admin_v01412.mjs.log.gz",
+      "logSha256": "207b68770d08be3c24e8abf7cc19a2e9df9fc7ac8fa1c90d377f70a5b556d616"
+    },
+    {
+      "test": "tests/test_fixed_region_live.mjs",
+      "command": [
+        "node",
+        "tests/test_fixed_region_live.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 13.349,
+      "log": "tests__test_fixed_region_live.mjs.log.gz",
+      "logSha256": "b23054d7a932646dacc7ca1e6f741a3a4ec6ecebef82c0778afb4c0f092cd58e"
+    },
+    {
+      "test": "tests/test_server_coop_v0153.mjs",
+      "command": [
+        "node",
+        "tests/test_server_coop_v0153.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 65.107,
+      "log": "tests__test_server_coop_v0153.mjs.log.gz",
+      "logSha256": "f2eeb367e8ec7c642e1387c8fc220a6da79eb478dd085f13e084690489f12be4"
+    },
+    {
+      "test": "tests/test_server_coop_world_v0159.mjs",
+      "command": [
+        "node",
+        "tests/test_server_coop_world_v0159.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 14.747,
+      "log": "tests__test_server_coop_world_v0159.mjs.log.gz",
+      "logSha256": "dbb9029d2292e79af3a754e0177d3a57132b2d7b5b38d72f4e5814e2627574f4"
+    },
+    {
+      "test": "tests/test_social_v01415.mjs",
+      "command": [
+        "node",
+        "tests/test_social_v01415.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 25.348,
+      "log": "tests__test_social_v01415.mjs.log.gz",
+      "logSha256": "752154d6ff6b8840ea284b58ad2ca7779cd27365b0299777b59de79a374e3b32"
+    },
+    {
+      "test": "tests/test_letters_v0151.mjs",
+      "command": [
+        "node",
+        "tests/test_letters_v0151.mjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 49.761,
+      "log": "tests__test_letters_v0151.mjs.log.gz",
+      "logSha256": "05a829ef05082f918e2b41e80a194a8179cc816b94bc8c07de6e7fefd3ea73f5"
+    },
+    {
+      "test": "tools/test_field_boss_strategy_v01622.cjs",
+      "command": [
+        "node",
+        "tools/test_field_boss_strategy_v01622.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 28.881,
+      "log": "tools__test_field_boss_strategy_v01622.cjs.log.gz",
+      "logSha256": "f24346caa1edd6848a0f4f02756f154d2c44ea347988b335ffba8842e0524c85"
+    },
+    {
+      "test": "tools/test_boss_boundaries_v01619.cjs",
+      "command": [
+        "node",
+        "tools/test_boss_boundaries_v01619.cjs"
+      ],
+      "exitCode": 1,
+      "ok": false,
+      "error": null,
+      "seconds": 28.736,
+      "log": "tools__test_boss_boundaries_v01619.cjs.log.gz",
+      "logSha256": "495c95c6085fb8f858b51a319eb00fa551c601d3f0a6be4241ef813580d9aedf"
+    },
+    {
+      "test": "tools/test_field_boss_immunity_v01618.cjs",
+      "command": [
+        "node",
+        "tools/test_field_boss_immunity_v01618.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 53.061,
+      "log": "tools__test_field_boss_immunity_v01618.cjs.log.gz",
+      "logSha256": "61e6350aaaf1e505a480a1c9eaf0c95d0e3018acaf0d2ed6ab39acbadbc42343"
+    },
+    {
+      "test": "tools/test_field_bosses.cjs",
+      "command": [
+        "node",
+        "tools/test_field_bosses.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 34.189,
+      "log": "tools__test_field_bosses.cjs.log.gz",
+      "logSha256": "0eb762ab361eb9053e63e1dd7529edf24852bd25aee8e314168af0fb8bde1fb0"
+    },
+    {
+      "test": "tests/test_combat_boundaries_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_combat_boundaries_v0168.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 22.903,
+      "log": "tests__test_combat_boundaries_v0168.cjs.log.gz",
+      "logSha256": "fd12598fad0bb3a5f5376b6609177a75da0ed963e7e57eb44f07796ffa2a2ab4"
+    },
+    {
+      "test": "tests/test_control_reactions_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_control_reactions_v0168.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 52.303,
+      "log": "tests__test_control_reactions_v0168.cjs.log.gz",
+      "logSha256": "06fbd299028c99d59454ea19625f261247c82e419e8fc0a6ed5e3718141126f4"
+    },
+    {
+      "test": "tests/test_defeat_settlement_v0166.cjs",
+      "command": [
+        "node",
+        "tests/test_defeat_settlement_v0166.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 7.491,
+      "log": "tests__test_defeat_settlement_v0166.cjs.log.gz",
+      "logSha256": "2e8578eb32669f9ea872b095909fda7e5e1aeb7aa2c738b425f8ba506f5f25ba"
+    },
+    {
+      "test": "tests/test_incoming_defense_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_incoming_defense_v01622.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 6.636,
+      "log": "tests__test_incoming_defense_v01622.cjs.log.gz",
+      "logSha256": "775e9a37816a9836e3c2e88972a1dd715dab59ba32d2e7dea26c5f82f473b9ea"
+    },
+    {
+      "test": "tests/test_healing_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_healing_v01619.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 21.131,
+      "log": "tests__test_healing_v01619.cjs.log.gz",
+      "logSha256": "d78fd750c086aaec0928cbf9c9a549fd9a469728d0ce8b8c7f4b1d736499fc16"
+    },
+    {
+      "test": "tests/test_noelle_healing_v01621.cjs",
+      "command": [
+        "node",
+        "tests/test_noelle_healing_v01621.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 21.617,
+      "log": "tests__test_noelle_healing_v01621.cjs.log.gz",
+      "logSha256": "428de569bc15dd86170d8fe5ae88378ecf8cda51a231cd97d224e889e1ecaff0"
+    },
+    {
+      "test": "tests/test_shield_balance_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_balance_v01619.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 16.046,
+      "log": "tests__test_shield_balance_v01619.cjs.log.gz",
+      "logSha256": "d2c95bce77ae8891863436ec613977a8fe63260f0578e5a41a0e300032ef7052"
+    },
+    {
+      "test": "tests/test_shield_meter_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_meter_v01619.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 0.115,
+      "log": "tests__test_shield_meter_v01619.cjs.log.gz",
+      "logSha256": "066e7c1f39a4959b6b30bfe6180648e6fc897852d711c93cccd3c00ee3c44f3f"
+    },
+    {
+      "test": "tests/test_xianyun_balance_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_xianyun_balance_v01622.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 7.551,
+      "log": "tests__test_xianyun_balance_v01622.cjs.log.gz",
+      "logSha256": "676d51aacf782a1a4b273bdc04cf7e5600ca9223445a7977f79dc4c702e17ffb"
+    },
+    {
+      "test": "tests/test_food_balance_v01620.cjs",
+      "command": [
+        "node",
+        "tests/test_food_balance_v01620.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 22.469,
+      "log": "tests__test_food_balance_v01620.cjs.log.gz",
+      "logSha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e"
+    },
+    {
+      "test": "tests/test_gear_effects_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_gear_effects_v0168.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 6.461,
+      "log": "tests__test_gear_effects_v0168.cjs.log.gz",
+      "logSha256": "a237a9fa5d8b5b20f6c4f49f59249932bd73ef69e6b9ec07acb90062325219c4"
+    },
+    {
+      "test": "tests/test_material_efficiency_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_material_efficiency_v01622.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 0.622,
+      "log": "tests__test_material_efficiency_v01622.cjs.log.gz",
+      "logSha256": "2bf2b9027c3d309d7c051d16eb6bcbba7c8b59d9370db114df0c5c2532e99a03"
+    },
+    {
+      "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+      "command": [
+        "node",
+        "tests/test_inn_recovery_pricing_v01615.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 17.839,
+      "log": "tests__test_inn_recovery_pricing_v01615.cjs.log.gz",
+      "logSha256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5"
+    },
+    {
+      "test": "tests/test_ascension_balance_v01614.cjs",
+      "command": [
+        "node",
+        "tests/test_ascension_balance_v01614.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 88.287,
+      "log": "tests__test_ascension_balance_v01614.cjs.log.gz",
+      "logSha256": "f2dd09d262c20d47e6c0edcc0952990e969a86014384c31588738595eee57393"
+    },
+    {
+      "test": "tests/test_xp_pacing_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_xp_pacing_v0168.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 108.008,
+      "log": "tests__test_xp_pacing_v0168.cjs.log.gz",
+      "logSha256": "d9f4879dd957652f1d13d99e804e4cef20a0756169599bfa2b972f5595d25209"
+    },
+    {
+      "test": "tests/test_online_bootstrap_v01343.cjs",
+      "command": [
+        "node",
+        "tests/test_online_bootstrap_v01343.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 0.064,
+      "log": "tests__test_online_bootstrap_v01343.cjs.log.gz",
+      "logSha256": "3d0517f56c7950c27b11016b1fc28d3721288314ff0f02a5cb9ad52fc2c13ffe"
+    },
+    {
+      "test": "tests/test_version.cjs",
+      "command": [
+        "node",
+        "tests/test_version.cjs"
+      ],
+      "exitCode": 0,
+      "ok": true,
+      "error": null,
+      "seconds": 0.115,
+      "log": "tests__test_version.cjs.log.gz",
+      "logSha256": "4a69f7f3df9fac17d003dbc2cf6dbcaad86708e51d13c400c5e45ccef801a7b9"
+    }
+  ],
+  "passed": 29,
+  "failed": 1,
+  "inputChanges": [
+    "tests/test_daily_boss_targeting_v01623.cjs"
+  ],
+  "inputFiles": 585,
+  "scope": "Targeted runtime/operator/server/economy regressions on recorded local QA DB; not every registered test or actual production deployment."
+}

@@ -1,0 +1,5211 @@
+{
+  "provenance": "Synthetic source-grounded M05 boundary; test-only level20/baseHP100000/baseATK10000 protagonist plus three Lv60/+10/talent8 four-star companions for the fixed four-fighter encounters. Synthetic ownership/level/phase/+10 grants and the normally unlocked post-Mondstadt Traveler Anemo flag, native starter initialization followed by public EQUIP with persistent slot/category/+10 assertions; no between-battle HP reset. All Liyue advancement/COMBAT_BEGIN/COMBAT real public actions, no forced finishBattle. This is FLOW QA, NOT difficulty validation.",
+  "started": "2026-10-10T19:24:19.883Z",
+  "runs": [
+    {
+      "leaf": "K1",
+      "actions": 695,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_K_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L01K_depart_001"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01K_road_006"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01K_road_006",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01K_road_007"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_K_016",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_016:0",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01K_guili_016"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01K_guili_016",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01K_guili_017"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_105:0",
+          "node": "R39_FIELD_ISK_L01_K_105"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_K1_001_1"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K1_001:0",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K1_001:1",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L02K1_mountain_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L02K1_mountain_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L02K1_mountain_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L02K1_mountain_001"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L02K1_mountain_005"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L02K1_mountain_005",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L02K1_mountain_006"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03K1_stranger_003"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L03K1_golden_010"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L03K1_golden_010",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_L03K1_golden_010",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L03K1_golden_011"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L03_K1_107"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L03_K1_107",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L03_K1_107",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L03K1_golden_035"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L04K1_rubble_004"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_K1_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_K1_001:0",
+          "node": "R39_FIELD_ISK_L04_K1_001"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L04K1_harbor_006"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L04K1_harbor_006",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04K1_harbor_007"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_K1_040"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_K1_040",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_K1_040",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04K1_osial_012"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-2:B504",
+          "battleId": "V011-2:B504",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L03_GOLDEN",
+          "origin": "STORY:ISK_L03_K1_107",
+          "gate": "ISK_L03_K1_107",
+          "branch": "K1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-2:B583",
+          "battleId": "V011-2:B583",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L04_OSIAL",
+          "origin": "STORY:ISK_L04_K1_040",
+          "gate": "ISK_L04_K1_040",
+          "branch": "K1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 10,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01K_depart_004",
+        "PRO_L01K_depart_009",
+        "PRO_L01K_depart_014",
+        "PRO_L01K_depart_018",
+        "PRO_L01K_road_004",
+        "PRO_L01K_road_009",
+        "V141_BEFORE_ISK_L01_K_016_2",
+        "V141_AFTER_ISK_L01_K_016_3",
+        "REV02_K_LIFT_C1",
+        "PRO_L01K_wangshu_007",
+        "PRO_L01K_wangshu_025",
+        "PRO_L01K_wangshu_033",
+        "PRO_L01K_wangshu_036",
+        "PRO_L01K_wangshu_039",
+        "PRO_L01K_wangshu_night_004",
+        "PRO_L01K_wangshu_night_007",
+        "PRO_L01K_wangshu_night_011",
+        "PRO_L01K_guili_003",
+        "PRO_L01K_guili_006",
+        "PRO_L01K_guili_012",
+        "PRO_L01K_guili_015",
+        "PRO_L01K_guili_020",
+        "PRO_L01K_blockade_003",
+        "PRO_L01K_blockade_008",
+        "PRO_L01K_blockade_011",
+        "PRO_L01K_blockade_015",
+        "PRO_L01K_blockade_025",
+        "V141_BEFORE_ISK_L01_K_105_4",
+        "V141_AFTER_ISK_L01_K_105_2",
+        "PRO_L01K_desk_004",
+        "PRO_L01K_desk_007",
+        "ISK_L01_K_1_CHOOSE",
+        "PRO_L01K_fork_005",
+        "PRO_L01K_fork_009",
+        "PRO_L01K_fork_013",
+        "PRO_L01K_fork_016",
+        "PRO_L01K_fork_019",
+        "PRO_L01K_fork_027",
+        "PRO_L01K_fork_030",
+        "REV02_K1_REPEAT_C1",
+        "PRO_L01K_fork_037",
+        "PRO_L01K_fork_052",
+        "V141_BEFORE_ISK_L02_K1_001_4",
+        "V141_AFTER_ISK_L02_K1_001_3",
+        "PRO_L02K1_wait_004",
+        "PRO_L02K1_wait_007",
+        "PRO_L02K1_wait_010",
+        "PRO_L02K1_wait_014",
+        "PRO_L02K1_wait_017",
+        "PRO_L02K1_rain_004",
+        "PRO_L02K1_rain_007",
+        "PRO_L02K1_rain_017",
+        "PRO_L02K1_rain_020",
+        "PRO_L02K1_days_004",
+        "PRO_L02K1_days_007",
+        "PRO_L02K1_days_010",
+        "PRO_L02K1_rite_003",
+        "PRO_L02K1_rite_007",
+        "PRO_L02K1_rite_015",
+        "PRO_L02K1_rite_018",
+        "PRO_L02K1_rite_024",
+        "PRO_L02K1_death_004",
+        "PRO_L02K1_death_006",
+        "PRO_L02K1_death_008",
+        "PRO_L02K1_death_011",
+        "PRO_L02K1_death_013",
+        "PRO_L02K1_death_018",
+        "PRO_L02K1_death_020",
+        "PRO_L02K1_mountain_003",
+        "PRO_L02K1_mountain_009",
+        "PRO_L02K1_mountain_013",
+        "PRO_L02K1_mountain_017",
+        "PRO_L02K1_mountain_027",
+        "PRO_L02K1_mountain_031",
+        "PRO_L02K1_audience_003",
+        "PRO_L02K1_audience_006",
+        "ISK_L02_K1_086",
+        "PRO_L02K1_audience_014",
+        "PRO_L02K1_audience_017",
+        "PRO_L02K1_audience_023",
+        "PRO_L02K1_audience_025",
+        "PRO_L02K1_audience_029",
+        "PRO_L02K1_audience_032",
+        "PRO_L02K1_audience_035",
+        "PRO_L02K1_audience_039",
+        "PRO_L02K1_return_005",
+        "PRO_L02K1_return_007",
+        "PRO_L02K1_return_009",
+        "PRO_L03K1_stranger_002",
+        "PRO_L03K1_stranger_006",
+        "PRO_L03K1_stranger_011",
+        "PRO_L03K1_stranger_013",
+        "PRO_L03K1_empty_003",
+        "PRO_L03K1_empty_007",
+        "PRO_L03K1_empty_009",
+        "PRO_L03K1_empty_013",
+        "PRO_L03K1_empty_015",
+        "PRO_L03K1_empty_019",
+        "PRO_L03K1_empty_022",
+        "V141_BEFORE_ISK_L03_K1_031_3",
+        "PRO_L03K1_adepti_005",
+        "PRO_L03K1_adepti_011",
+        "PRO_L03K1_adepti_017",
+        "PRO_L03K1_palace_004",
+        "PRO_L03K1_palace_009",
+        "PRO_L03K1_palace_013",
+        "PRO_L03K1_palace_017",
+        "PRO_L03K1_palace_019",
+        "PRO_L03K1_palace_022",
+        "PRO_L03K1_palace_030",
+        "PRO_L03K1_water_003",
+        "PRO_L03K1_water_005",
+        "PRO_L03K1_water_008",
+        "PRO_L03K1_golden_005",
+        "PRO_L03K1_golden_008",
+        "PRO_L03K1_golden_013",
+        "PRO_L03K1_golden_018",
+        "PRO_L03K1_golden_026",
+        "PRO_L03K1_golden_030",
+        "PRO_L03K1_golden_037",
+        "PRO_L03K1_golden_041",
+        "PRO_L04K1_rubble_003",
+        "PRO_L04K1_rubble_006",
+        "PRO_L04K1_rubble_012",
+        "ISK_L04_K1_010",
+        "PRO_L04K1_rubble_019",
+        "PRO_L04K1_rubble_022",
+        "PRO_L04K1_rubble_025",
+        "PRO_L04K1_rubble_029",
+        "PRO_L04K1_rubble_031",
+        "PRO_L04K1_harbor_004",
+        "PRO_L04K1_harbor_012",
+        "PRO_L04K1_harbor_014",
+        "PRO_L04K1_harbor_018",
+        "PRO_L04K1_osial_003",
+        "PRO_L04K1_osial_010",
+        "PRO_L04K1_osial_015",
+        "PRO_L04K1_osial_020",
+        "PRO_L04K1_osial_027",
+        "PRO_L04K1_osial_034",
+        "PRO_L04K1_rest_003",
+        "PRO_L04K1_rest_008",
+        "PRO_L04K1_rest_010",
+        "V141_REPLY_ISK_L04_K1_073_0",
+        "PRO_L04K1_council_005",
+        "PRO_L04K1_council_011",
+        "PRO_L04K1_zhongli_004",
+        "PRO_L04K1_zhongli_007",
+        "PRO_L04K1_zhongli_013",
+        "PRO_L04K1_zhongli_018",
+        "PRO_L04K1_zhongli_026",
+        "PRO_L04K1_zhongli_029",
+        "PRO_L04K1_zhongli_036",
+        "PRO_L04K1_zhongli_040",
+        "PRO_L04K1_zhongli_047",
+        "PRO_L04K1_depart_003",
+        "PRO_L04K1_depart_005",
+        "PRO_L04K1_depart_007",
+        "PRO_L04K1_depart_011",
+        "PRO_L04K1_depart_015",
+        "PRO_L04K1_depart_023",
+        "PRO_L04K1_depart_026",
+        "ISK_L04_K1_149"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_DAHLIA",
+                "MOND_KAEYA",
+                "MOND_LISA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "node": "ISK_L04_K1_150",
+        "type": "NARRATION",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-K1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 5,
+      "eventCount": 58,
+      "moraDelta": 2468
+    },
+    {
+      "leaf": "K2",
+      "actions": 795,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_K_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L01K_depart_001"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01K_road_006"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01K_road_006",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01K_road_007"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_K_016",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_016:0",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01K_guili_016"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01K_guili_016",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01K_guili_017"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_105:0",
+          "node": "R39_FIELD_ISK_L01_K_105"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_K2_001_1"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K2_001:0",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K2_001:1",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L02K2_mountain_004",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_L02K2_mountain_004",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L02K2_mountain_004"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L02K2_mountain_008"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L02K2_mountain_008",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L02K2_mountain_009"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03K2_stranger_003"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L03K2_golden_012"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L03K2_golden_012",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_L03K2_golden_012",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L03K2_golden_013"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L03_K2_110"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L03_K2_110",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L03_K2_110",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L03K2_golden_039"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L04K2_rubble_006"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_K2_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_K2_001:0",
+          "node": "R39_FIELD_ISK_L04_K2_001"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L04K2_porter_006"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L04K2_porter_006",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04K2_porter_007"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_K2_047"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_K2_047",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_K2_047",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04K2_osial_009"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-2:B552",
+          "battleId": "V011-2:B552",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L03_GOLDEN",
+          "origin": "STORY:ISK_L03_K2_110",
+          "gate": "ISK_L03_K2_110",
+          "branch": "K2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-2:B651",
+          "battleId": "V011-2:B651",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L04_OSIAL",
+          "origin": "STORY:ISK_L04_K2_047",
+          "gate": "ISK_L04_K2_047",
+          "branch": "K2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 10,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01K_depart_004",
+        "PRO_L01K_depart_009",
+        "PRO_L01K_depart_014",
+        "PRO_L01K_depart_018",
+        "PRO_L01K_road_004",
+        "PRO_L01K_road_009",
+        "V141_BEFORE_ISK_L01_K_016_2",
+        "V141_AFTER_ISK_L01_K_016_3",
+        "REV02_K_LIFT_C1",
+        "PRO_L01K_wangshu_007",
+        "PRO_L01K_wangshu_025",
+        "PRO_L01K_wangshu_033",
+        "PRO_L01K_wangshu_036",
+        "PRO_L01K_wangshu_039",
+        "PRO_L01K_wangshu_night_004",
+        "PRO_L01K_wangshu_night_007",
+        "PRO_L01K_wangshu_night_011",
+        "PRO_L01K_guili_003",
+        "PRO_L01K_guili_006",
+        "PRO_L01K_guili_012",
+        "PRO_L01K_guili_015",
+        "PRO_L01K_guili_020",
+        "PRO_L01K_blockade_003",
+        "PRO_L01K_blockade_008",
+        "PRO_L01K_blockade_011",
+        "PRO_L01K_blockade_015",
+        "PRO_L01K_blockade_025",
+        "V141_BEFORE_ISK_L01_K_105_4",
+        "V141_AFTER_ISK_L01_K_105_2",
+        "PRO_L01K_desk_004",
+        "PRO_L01K_desk_007",
+        "ISK_L01_K_2_CHOOSE",
+        "PRO_L01K_fork_061",
+        "PRO_L01K_fork_064",
+        "REV02_K2_BRAKE_C1",
+        "PRO_L01K_fork_078",
+        "PRO_L01K_fork_092",
+        "V141_BEFORE_ISK_L02_K2_001_6",
+        "V141_AFTER_ISK_L02_K2_001_2",
+        "PRO_L02K2_wait_003",
+        "PRO_L02K2_wait_006",
+        "PRO_L02K2_evening_010",
+        "PRO_L02K2_evening_013",
+        "PRO_L02K2_evening_022",
+        "PRO_L02K2_evening_025",
+        "PRO_L02K2_evening_029",
+        "PRO_L02K2_days_004",
+        "PRO_L02K2_days_015",
+        "PRO_L02K2_days_022",
+        "PRO_L02K2_days_025",
+        "PRO_L02K2_rite_003",
+        "PRO_L02K2_rite_010",
+        "PRO_L02K2_rite_013",
+        "PRO_L02K2_rite_018",
+        "PRO_L02K2_rite_021",
+        "PRO_L02K2_rite_028",
+        "PRO_L02K2_death_004",
+        "PRO_L02K2_death_006",
+        "PRO_L02K2_death_008",
+        "PRO_L02K2_death_011",
+        "PRO_L02K2_death_013",
+        "PRO_L02K2_death_017",
+        "PRO_L02K2_death_019",
+        "PRO_L02K2_mountain_003",
+        "PRO_L02K2_mountain_006",
+        "PRO_L02K2_mountain_013",
+        "PRO_L02K2_mountain_016",
+        "PRO_L02K2_mountain_023",
+        "PRO_L02K2_mountain_027",
+        "PRO_L02K2_mountain_030",
+        "PRO_L02K2_audience_004",
+        "PRO_L02K2_audience_007",
+        "PRO_L02K2_audience_009",
+        "ISK_L02_K2_094",
+        "PRO_L02K2_audience_016",
+        "PRO_L02K2_audience_019",
+        "PRO_L02K2_audience_023",
+        "PRO_L02K2_audience_029",
+        "PRO_L02K2_audience_032",
+        "PRO_L02K2_audience_034",
+        "PRO_L02K2_audience_037",
+        "PRO_L02K2_audience_041",
+        "PRO_L02K2_audience_044",
+        "PRO_L02K2_audience_047",
+        "PRO_L02K2_return_005",
+        "PRO_L02K2_return_007",
+        "PRO_L02K2_return_009",
+        "PRO_L03K2_stranger_002",
+        "PRO_L03K2_stranger_005",
+        "PRO_L03K2_stranger_009",
+        "PRO_L03K2_stranger_012",
+        "PRO_L03K2_stranger_015",
+        "PRO_L03K2_stranger_018",
+        "PRO_L03K2_stranger_020",
+        "PRO_L03K2_stranger_028",
+        "PRO_L03K2_stranger_033",
+        "PRO_L03K2_stranger_036",
+        "PRO_L03K2_empty_003",
+        "PRO_L03K2_empty_007",
+        "PRO_L03K2_empty_010",
+        "PRO_L03K2_empty_013",
+        "PRO_L03K2_empty_017",
+        "PRO_L03K2_empty_021",
+        "PRO_L03K2_empty_024",
+        "PRO_L03K2_empty_030",
+        "V141_BEFORE_ISK_L03_K2_030_3",
+        "PRO_L03K2_adepti_004",
+        "PRO_L03K2_adepti_011",
+        "PRO_L03K2_adepti_014",
+        "PRO_L03K2_palace_004",
+        "PRO_L03K2_palace_007",
+        "PRO_L03K2_palace_011",
+        "PRO_L03K2_palace_014",
+        "PRO_L03K2_palace_018",
+        "PRO_L03K2_palace_022",
+        "PRO_L03K2_palace_024",
+        "PRO_L03K2_palace_028",
+        "PRO_L03K2_palace_035",
+        "PRO_L03K2_water_002",
+        "PRO_L03K2_water_005",
+        "PRO_L03K2_water_008",
+        "PRO_L03K2_water_011",
+        "PRO_L03K2_water_014",
+        "PRO_L03K2_golden_003",
+        "PRO_L03K2_golden_007",
+        "PRO_L03K2_golden_010",
+        "PRO_L03K2_golden_015",
+        "PRO_L03K2_golden_020",
+        "PRO_L03K2_golden_026",
+        "PRO_L03K2_golden_030",
+        "PRO_L03K2_golden_034",
+        "PRO_L03K2_golden_041",
+        "PRO_L03K2_golden_045",
+        "PRO_L04K2_rubble_002",
+        "PRO_L04K2_rubble_005",
+        "PRO_L04K2_rubble_009",
+        "PRO_L04K2_rubble_017",
+        "PRO_L04K2_rubble_020",
+        "PRO_L04K2_rubble_024",
+        "PRO_L04K2_rubble_027",
+        "PRO_L04K2_rubble_031",
+        "ISK_L04_K2_009",
+        "PRO_L04K2_rubble_037",
+        "PRO_L04K2_rubble_040",
+        "PRO_L04K2_rubble_045",
+        "PRO_L04K2_rubble_048",
+        "PRO_L04K2_porter_004",
+        "PRO_L04K2_porter_012",
+        "PRO_L04K2_porter_014",
+        "PRO_L04K2_porter_017",
+        "PRO_L04K2_porter_023",
+        "PRO_L04K2_porter_029",
+        "PRO_L04K2_porter_033",
+        "PRO_L04K2_porter_036",
+        "PRO_L04K2_osial_003",
+        "PRO_L04K2_osial_007",
+        "PRO_L04K2_osial_013",
+        "PRO_L04K2_osial_017",
+        "PRO_L04K2_osial_023",
+        "PRO_L04K2_osial_033",
+        "PRO_L04K2_osial_036",
+        "PRO_L04K2_name_002",
+        "PRO_L04K2_name_005",
+        "PRO_L04K2_name_007",
+        "PRO_L04K2_name_011",
+        "PRO_L04K2_name_015",
+        "PRO_L04K2_name_021",
+        "PRO_L04K2_name_023",
+        "PRO_L04K2_name_028",
+        "PRO_L04K2_name_031",
+        "V141_REPLY_ISK_L04_K2_091_0",
+        "PRO_L04K2_cargo_003",
+        "PRO_L04K2_council_002",
+        "PRO_L04K2_council_006",
+        "PRO_L04K2_council_011",
+        "PRO_L04K2_council_017",
+        "PRO_L04K2_zhongli_004",
+        "PRO_L04K2_zhongli_006",
+        "PRO_L04K2_zhongli_009",
+        "PRO_L04K2_zhongli_017",
+        "PRO_L04K2_zhongli_020",
+        "PRO_L04K2_zhongli_027",
+        "PRO_L04K2_zhongli_035",
+        "PRO_L04K2_zhongli_038",
+        "PRO_L04K2_zhongli_045",
+        "PRO_L04K2_zhongli_049",
+        "PRO_L04K2_zhongli_052",
+        "PRO_L04K2_depart_003",
+        "PRO_L04K2_depart_005",
+        "PRO_L04K2_depart_007",
+        "PRO_L04K2_depart_010",
+        "PRO_L04K2_depart_013",
+        "PRO_L04K2_depart_020",
+        "PRO_L04K2_depart_025",
+        "PRO_L04K2_depart_029",
+        "PRO_L04K2_depart_032",
+        "PRO_L04K2_depart_034",
+        "PRO_L04K2_depart_037",
+        "ISK_L04_K2_176"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_DAHLIA",
+                "MOND_KAEYA",
+                "MOND_LISA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "node": "ISK_L04_K2_177",
+        "type": "NARRATION",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-K2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 5,
+      "eventCount": 64,
+      "moraDelta": 2601
+    },
+    {
+      "leaf": "AA1",
+      "actions": 507,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AA_001"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01AA_depart_011"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01AA_depart_011",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01AA_depart_012"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L01_AA_004_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_AA_004",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_004:0",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_034:0",
+          "node": "R39_FIELD_ISK_L01_AA_034"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_AA1_001_1"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03AA1_stranger_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L03_AA1_047",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L03_AA1_047"
+        },
+        {
+          "why": "field step v141_ISK_L03_AA1_047:0",
+          "node": "R39_FIELD_ISK_L03_AA1_047"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AA1_001_0"
+        },
+        {
+          "why": "field step v141_ISK_L04_AA1_001:0",
+          "node": "R39_FIELD_ISK_L04_AA1_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AA1_058"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AA1_058",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AA1_058",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04AA1_osial_014"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-4:B436",
+          "battleId": "V011-4:B436",
+          "saveId": "V011-4",
+          "group": "EG_ISK_L04_AA1_EVAC",
+          "origin": "STORY:ISK_L04_AA1_058",
+          "gate": "ISK_L04_AA1_058",
+          "branch": "AA1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01AA_depart_002",
+        "PRO_L01AA_depart_005",
+        "PRO_L01AA_depart_009",
+        "PRO_L01AA_depart_014",
+        "V141_BEFORE_ISK_L01_AA_004_3",
+        "V141_AFTER_ISK_L01_AA_004_3",
+        "PRO_L01AA_cart_003",
+        "PRO_L01AA_cart_006",
+        "PRO_L01AA_cart_014",
+        "PRO_L01AA_cart_019",
+        "PRO_L01AA_cart_024",
+        "V141_BEFORE_ISK_L01_AA_034_4",
+        "V141_AFTER_ISK_L01_AA_034_3",
+        "PRO_L01AA_hutao_004",
+        "PRO_L01AA_hutao_007",
+        "PRO_L01AA_hutao_015",
+        "ISK_L01_AA_074",
+        "PRO_L01AA_fork_005",
+        "REV02_AA1_SCREEN_C1",
+        "PRO_L01AA_fork_026",
+        "PRO_L01AA_fork_031",
+        "PRO_L01AA_fork_035",
+        "PRO_L01AA_fork_038",
+        "PRO_L01AA_fork_040",
+        "PRO_L01AA_fork_043",
+        "PRO_L01AA_fork_047",
+        "V141_BEFORE_ISK_L02_AA1_001_3",
+        "PRO_L02AA1_wait_004",
+        "PRO_L02AA1_wait_008",
+        "PRO_L02AA1_wait_015",
+        "PRO_L02AA1_wait_018",
+        "PRO_L02AA1_days_005",
+        "PRO_L02AA1_days_008",
+        "PRO_L02AA1_days_011",
+        "PRO_L02AA1_days_018",
+        "PRO_L02AA1_rite_003",
+        "PRO_L02AA1_rite_007",
+        "PRO_L02AA1_rite_010",
+        "PRO_L02AA1_rite_014",
+        "PRO_L02AA1_rite_020",
+        "PRO_L02AA1_rite_025",
+        "PRO_L02AA1_rite_028",
+        "PRO_L02AA1_rite_035",
+        "PRO_L02AA1_rite_038",
+        "PRO_L02AA1_death_003",
+        "PRO_L02AA1_death_005",
+        "PRO_L02AA1_death_008",
+        "PRO_L02AA1_death_010",
+        "PRO_L02AA1_death_015",
+        "PRO_L02AA1_hutao_004",
+        "PRO_L02AA1_hutao_008",
+        "PRO_L02AA1_hutao_011",
+        "PRO_L02AA1_hutao_015",
+        "PRO_L02AA1_hutao_023",
+        "PRO_L02AA1_hutao_026",
+        "PRO_L02AA1_hutao_030",
+        "PRO_L02AA1_hutao_035",
+        "PRO_L02AA1_hutao_040",
+        "PRO_L02AA1_hutao_043",
+        "PRO_L02AA1_hutao_046",
+        "PRO_L02AA1_hutao_049",
+        "PRO_L02AA1_hutao_054",
+        "PRO_L02AA1_hutao_056",
+        "PRO_L03AA1_stranger_004",
+        "PRO_L03AA1_stranger_007",
+        "PRO_L03AA1_stranger_016",
+        "PRO_L03AA1_stranger_021",
+        "PRO_L03AA1_mortuary_008",
+        "PRO_L03AA1_mortuary_014",
+        "PRO_L03AA1_mortuary_019",
+        "V141_BEFORE_ISK_L03_AA1_047_4",
+        "V141_AFTER_ISK_L03_AA1_047_1",
+        "PRO_L03AA1_below_005",
+        "PRO_L03AA1_below_014",
+        "PRO_L03AA1_below_020",
+        "PRO_L03AA1_below_023",
+        "PRO_L03AA1_below_030",
+        "PRO_L03AA1_below_035",
+        "PRO_L03AA1_below_044",
+        "PRO_L03AA1_below_049",
+        "PRO_L04AA1_below_003",
+        "PRO_L04AA1_below_010",
+        "PRO_L04AA1_below_014",
+        "PRO_L04AA1_below_019",
+        "PRO_L04AA1_below_028",
+        "ISK_L04_AA1_030",
+        "PRO_L04AA1_guest_003",
+        "PRO_L04AA1_guest_011",
+        "PRO_L04AA1_guest_016",
+        "PRO_L04AA1_osial_005",
+        "PRO_L04AA1_osial_012",
+        "PRO_L04AA1_osial_016",
+        "PRO_L04AA1_osial_023",
+        "PRO_L04AA1_shelter_004",
+        "PRO_L04AA1_shelter_008",
+        "PRO_L04AA1_shelter_015",
+        "PRO_L04AA1_shelter_018",
+        "V141_REPLY_ISK_L04_AA1_088_0",
+        "PRO_L04AA1_zhongli_004",
+        "PRO_L04AA1_zhongli_007",
+        "PRO_L04AA1_zhongli_014",
+        "PRO_L04AA1_cargo_003",
+        "PRO_L04AA1_cargo_009",
+        "PRO_L04AA1_cargo_012",
+        "PRO_L04AA1_evening_003",
+        "ISK_L04_AA1_133"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "choice": "ISK_L04_AA1_133"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-AA1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 46,
+      "moraDelta": 1810
+    },
+    {
+      "leaf": "AA2",
+      "actions": 534,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AA_001"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01AA_depart_011"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01AA_depart_011",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01AA_depart_012"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L01_AA_004_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_AA_004",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_004:0",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_034:0",
+          "node": "R39_FIELD_ISK_L01_AA_034"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_AA2_001_1"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03AA2_stranger_003"
+        },
+        {
+          "why": "field step v141_ISK_L03_AA2_077:0",
+          "node": "R39_FIELD_ISK_L03_AA2_077"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AA2_001_0"
+        },
+        {
+          "why": "field step v141_ISK_L04_AA2_001:0",
+          "node": "R39_FIELD_ISK_L04_AA2_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AA2_057"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AA2_057",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AA2_057",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04AA2_cart_016"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-4:B458",
+          "battleId": "V011-4:B458",
+          "saveId": "V011-4",
+          "group": "EG_ISK_L04_AA2_CART",
+          "origin": "STORY:ISK_L04_AA2_057",
+          "gate": "ISK_L04_AA2_057",
+          "branch": "AA2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01AA_depart_002",
+        "PRO_L01AA_depart_005",
+        "PRO_L01AA_depart_009",
+        "PRO_L01AA_depart_014",
+        "V141_BEFORE_ISK_L01_AA_004_3",
+        "V141_AFTER_ISK_L01_AA_004_3",
+        "PRO_L01AA_cart_003",
+        "PRO_L01AA_cart_006",
+        "PRO_L01AA_cart_014",
+        "PRO_L01AA_cart_019",
+        "PRO_L01AA_cart_024",
+        "V141_BEFORE_ISK_L01_AA_034_4",
+        "V141_AFTER_ISK_L01_AA_034_3",
+        "PRO_L01AA_hutao_004",
+        "PRO_L01AA_hutao_007",
+        "PRO_L01AA_hutao_015",
+        "ISK_L01_AA_127",
+        "PRO_L01AA_fork_054",
+        "PRO_L01AA_fork_059",
+        "REV02_AA2_COURIER_C1",
+        "PRO_L01AA_fork_074",
+        "PRO_L01AA_fork_077",
+        "PRO_L01AA_fork_080",
+        "PRO_L01AA_fork_084",
+        "PRO_L01AA_fork_086",
+        "PRO_L01AA_fork_089",
+        "PRO_L01AA_fork_094",
+        "V141_BEFORE_ISK_L02_AA2_001_7",
+        "PRO_L02AA2_wait_004",
+        "PRO_L02AA2_wait_011",
+        "PRO_L02AA2_wait_014",
+        "PRO_L02AA2_wait_019",
+        "PRO_L02AA2_wait_025",
+        "PRO_L02AA2_wait_028",
+        "PRO_L02AA2_wait_031",
+        "PRO_L02AA2_days_004",
+        "PRO_L02AA2_days_007",
+        "PRO_L02AA2_rite_003",
+        "PRO_L02AA2_rite_006",
+        "PRO_L02AA2_rite_012",
+        "PRO_L02AA2_rite_015",
+        "PRO_L02AA2_rite_020",
+        "PRO_L02AA2_rite_028",
+        "PRO_L02AA2_rite_031",
+        "PRO_L02AA2_rite_034",
+        "PRO_L02AA2_rite_043",
+        "PRO_L02AA2_death_003",
+        "PRO_L02AA2_death_005",
+        "PRO_L02AA2_death_009",
+        "PRO_L02AA2_death_011",
+        "PRO_L02AA2_death_015",
+        "PRO_L02AA2_report_004",
+        "PRO_L02AA2_report_010",
+        "PRO_L02AA2_report_015",
+        "PRO_L02AA2_report_019",
+        "PRO_L02AA2_report_028",
+        "PRO_L02AA2_report_033",
+        "PRO_L02AA2_report_036",
+        "PRO_L02AA2_report_040",
+        "PRO_L02AA2_report_048",
+        "PRO_L02AA2_report_051",
+        "PRO_L02AA2_report_057",
+        "PRO_L03AA2_stranger_002",
+        "PRO_L03AA2_stranger_005",
+        "PRO_L03AA2_stranger_009",
+        "PRO_L03AA2_stranger_012",
+        "PRO_L03AA2_stranger_018",
+        "PRO_L03AA2_stranger_021",
+        "PRO_L03AA2_stranger_024",
+        "PRO_L03AA2_letters_004",
+        "PRO_L03AA2_letters_007",
+        "PRO_L03AA2_letters_016",
+        "PRO_L03AA2_albedo_003",
+        "PRO_L03AA2_albedo_008",
+        "PRO_L03AA2_albedo_011",
+        "PRO_L03AA2_albedo_014",
+        "PRO_L03AA2_albedo_021",
+        "ISK_L03_AA2_065",
+        "PRO_L03AA2_albedo_028",
+        "PRO_L03AA2_albedo_031",
+        "V141_BEFORE_ISK_L03_AA2_077_1",
+        "V141_BEFORE_ISK_L03_AA2_077_3",
+        "V141_AFTER_ISK_L03_AA2_077_0",
+        "PRO_L03AA2_pond_005",
+        "PRO_L03AA2_pond_009",
+        "PRO_L03AA2_pond_012",
+        "PRO_L03AA2_pond_014",
+        "PRO_L03AA2_pond_022",
+        "PRO_L03AA2_pond_030",
+        "PRO_L04AA2_carried_013",
+        "PRO_L04AA2_carried_016",
+        "PRO_L04AA2_carried_020",
+        "PRO_L04AA2_carried_024",
+        "ISK_L04_AA2_031",
+        "PRO_L04AA2_tent_003",
+        "PRO_L04AA2_tent_006",
+        "PRO_L04AA2_tent_011",
+        "PRO_L04AA2_cart_005",
+        "PRO_L04AA2_cart_009",
+        "PRO_L04AA2_cart_013",
+        "PRO_L04AA2_cart_018",
+        "PRO_L04AA2_cart_025",
+        "PRO_L04AA2_letter_003",
+        "PRO_L04AA2_letter_009",
+        "PRO_L04AA2_letter_015",
+        "PRO_L04AA2_keqing_003",
+        "PRO_L04AA2_keqing_008",
+        "PRO_L04AA2_keqing_011",
+        "V141_BEFORE_ISK_L04_AA2_098_2",
+        "V141_REPLY_ISK_L04_AA2_098_0",
+        "PRO_L04AA2_beidou_004",
+        "PRO_L04AA2_beidou_008",
+        "PRO_L04AA2_beidou_012",
+        "PRO_L04AA2_beidou_016",
+        "PRO_L04AA2_hutao_004",
+        "PRO_L04AA2_hutao_007",
+        "PRO_L04AA2_hutao_012",
+        "PRO_L04AA2_hutao_015",
+        "ISK_L04_AA2_140"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "choice": "ISK_L04_AA2_140"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-AA2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 54,
+      "moraDelta": 1810
+    },
+    {
+      "leaf": "AB1",
+      "actions": 528,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AB_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L01AB_gate_001"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_019:0",
+          "node": "R39_FIELD_ISK_L01_AB_019"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01AB_road_014"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01AB_road_014",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01AB_road_015"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_069:0",
+          "node": "R39_FIELD_ISK_L01_AB_069"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L02AB1_bench_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03AB1_stranger_001"
+        },
+        {
+          "why": "field step v141_ISK_L03_AB1_060:0",
+          "node": "V141_FIELD_ISK_L03_AB1_060"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AB1_001_0"
+        },
+        {
+          "why": "field step v141_ISK_L04_AB1_001:0",
+          "node": "R39_FIELD_ISK_L04_AB1_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AB1_066"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AB1_066",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AB1_066",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04AB1_sluice_007"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-6:B450",
+          "battleId": "V011-6:B450",
+          "saveId": "V011-6",
+          "group": "EG_ISK_L04_AB1_STREET",
+          "origin": "STORY:ISK_L04_AB1_066",
+          "gate": "ISK_L04_AB1_066",
+          "branch": "AB1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01AB_gate_003",
+        "PRO_L01AB_gate_009",
+        "PRO_L01AB_gate_015",
+        "PRO_L01AB_gate_020",
+        "PRO_L01AB_gate_023",
+        "V141_BEFORE_ISK_L01_AB_019_3",
+        "REV02_AB_LEDGE_C1",
+        "PRO_L01AB_ledge_008",
+        "PRO_L01AB_ledge_020",
+        "PRO_L01AB_road_003",
+        "PRO_L01AB_road_006",
+        "PRO_L01AB_road_012",
+        "PRO_L01AB_road_017",
+        "PRO_L01AB_camp_003",
+        "PRO_L01AB_camp_006",
+        "PRO_L01AB_camp_010",
+        "V141_BEFORE_ISK_L01_AB_069_3",
+        "V141_AFTER_ISK_L01_AB_069_2",
+        "PRO_L01AB_blockade_005",
+        "PRO_L01AB_blockade_009",
+        "ISK_L01_AB_082",
+        "PRO_L01AB_fork_005",
+        "PRO_L01AB_fork_008",
+        "REV02_AB1_WARNING_C1",
+        "PRO_L01AB_fork_015",
+        "PRO_L01AB_fork_027",
+        "PRO_L01AB_fork_035",
+        "PRO_L01AB_fork_039",
+        "PRO_L02AB1_bench_003",
+        "PRO_L02AB1_bench_007",
+        "PRO_L02AB1_bench_011",
+        "PRO_L02AB1_lunch_004",
+        "PRO_L02AB1_lunch_010",
+        "PRO_L02AB1_lunch_016",
+        "PRO_L02AB1_lunch_019",
+        "PRO_L02AB1_days_004",
+        "PRO_L02AB1_days_010",
+        "PRO_L02AB1_days_013",
+        "PRO_L02AB1_days_018",
+        "PRO_L02AB1_rite_003",
+        "PRO_L02AB1_rite_011",
+        "PRO_L02AB1_rite_014",
+        "PRO_L02AB1_rite_018",
+        "PRO_L02AB1_death_004",
+        "PRO_L02AB1_death_006",
+        "PRO_L02AB1_death_011",
+        "PRO_L02AB1_death_017",
+        "PRO_L02AB1_death_019",
+        "PRO_L02AB1_outpost_003",
+        "PRO_L02AB1_outpost_007",
+        "PRO_L02AB1_outpost_012",
+        "PRO_L02AB1_outpost_018",
+        "PRO_L02AB1_outpost_027",
+        "PRO_L02AB1_outpost_032",
+        "PRO_L03AB1_stranger_006",
+        "PRO_L03AB1_stranger_012",
+        "PRO_L03AB1_stranger_019",
+        "PRO_L03AB1_alive_004",
+        "PRO_L03AB1_alive_008",
+        "PRO_L03AB1_alive_015",
+        "PRO_L03AB1_alive_023",
+        "PRO_L03AB1_alive_028",
+        "PRO_L03AB1_alive_030",
+        "PRO_L03AB1_alive_036",
+        "V141_BEFORE_ISK_L03_AB1_060_5",
+        "V141_AFTER_ISK_L03_AB1_060_2",
+        "PRO_L03AB1_stage_006",
+        "PRO_L03AB1_stage_013",
+        "PRO_L03AB1_stage_020",
+        "PRO_L03AB1_stage_027",
+        "PRO_L03AB1_accused_004",
+        "PRO_L03AB1_accused_008",
+        "PRO_L03AB1_accused_020",
+        "PRO_L03AB1_accused_028",
+        "PRO_L03AB1_accused_034",
+        "PRO_L03AB1_cell_004",
+        "PRO_L04AB1_cell_002",
+        "PRO_L04AB1_cell_005",
+        "PRO_L04AB1_cell_010",
+        "PRO_L04AB1_cell_016",
+        "PRO_L04AB1_cell_019",
+        "ISK_L04_AB1_024",
+        "PRO_L04AB1_cell_028",
+        "PRO_L04AB1_cell_033",
+        "PRO_L04AB1_stage_003",
+        "PRO_L04AB1_stage_010",
+        "PRO_L04AB1_stage_016",
+        "PRO_L04AB1_stage_023",
+        "PRO_L04AB1_sluice_003",
+        "PRO_L04AB1_sluice_009",
+        "PRO_L04AB1_sluice_016",
+        "PRO_L04AB1_sluice_021",
+        "PRO_L04AB1_sluice_025",
+        "PRO_L04AB1_funeral_003",
+        "PRO_L04AB1_funeral_007",
+        "PRO_L04AB1_funeral_011",
+        "PRO_L04AB1_funeral_018",
+        "PRO_L04AB1_letter_004",
+        "PRO_L04AB1_letter_010",
+        "PRO_L04AB1_letter_016",
+        "V141_BEFORE_ISK_L04_AB1_121_3",
+        "V141_REPLY_ISK_L04_AB1_121_0",
+        "PRO_L04AB1_beidou_004",
+        "PRO_L04AB1_beidou_009",
+        "PRO_L04AB1_beidou_012",
+        "PRO_L04AB1_beidou_020",
+        "ISK_L04_AB1_147"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "choice": "ISK_L04_AB1_147"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-AB1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 46,
+      "moraDelta": 1876
+    },
+    {
+      "leaf": "AB2",
+      "actions": 568,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AB_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L01AB_gate_001"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_019:0",
+          "node": "R39_FIELD_ISK_L01_AB_019"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01AB_road_014"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01AB_road_014",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01AB_road_015"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_069:0",
+          "node": "R39_FIELD_ISK_L01_AB_069"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_AB2_001_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_AB2_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_AB2_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_AB2_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_AB2_001:0",
+          "node": "R39_FIELD_ISK_L02_AB2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_AB2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_AB2_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03AB2_stranger_001"
+        },
+        {
+          "why": "field step v141_ISK_L03_AB2_074:0",
+          "node": "R39_FIELD_ISK_L03_AB2_074"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L03_AB2_074",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L03_AB2_074"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L03AB2_warehouse_018"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L03AB2_warehouse_018",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_L03AB2_warehouse_018",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L03AB2_warehouse_019"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AB2_001_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_AB2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_AB2_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_AB2_001:0",
+          "node": "R39_FIELD_ISK_L04_AB2_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AB2_065"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AB2_065",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AB2_065",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L04AB2_bridge_017"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-6:B496",
+          "battleId": "V011-6:B496",
+          "saveId": "V011-6",
+          "group": "EG_ISK_L04_AB2_STORE",
+          "origin": "STORY:ISK_L04_AB2_065",
+          "gate": "ISK_L04_AB2_065",
+          "branch": "AB2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01AB_gate_003",
+        "PRO_L01AB_gate_009",
+        "PRO_L01AB_gate_015",
+        "PRO_L01AB_gate_020",
+        "PRO_L01AB_gate_023",
+        "V141_BEFORE_ISK_L01_AB_019_3",
+        "REV02_AB_LEDGE_C1",
+        "PRO_L01AB_ledge_008",
+        "PRO_L01AB_ledge_020",
+        "PRO_L01AB_road_003",
+        "PRO_L01AB_road_006",
+        "PRO_L01AB_road_012",
+        "PRO_L01AB_road_017",
+        "PRO_L01AB_camp_003",
+        "PRO_L01AB_camp_006",
+        "PRO_L01AB_camp_010",
+        "V141_BEFORE_ISK_L01_AB_069_3",
+        "V141_AFTER_ISK_L01_AB_069_2",
+        "PRO_L01AB_blockade_005",
+        "PRO_L01AB_blockade_009",
+        "ISK_L01_AB_083",
+        "PRO_L01AB_fork_044",
+        "REV02_AB2_HATCH_C1",
+        "PRO_L01AB_fork_055",
+        "PRO_L01AB_fork_067",
+        "PRO_L01AB_fork_075",
+        "PRO_L01AB_fork_078",
+        "V141_BEFORE_ISK_L02_AB2_001_5",
+        "V141_AFTER_ISK_L02_AB2_001_3",
+        "PRO_L02AB2_cover_004",
+        "PRO_L02AB2_cover_007",
+        "PRO_L02AB2_cover_012",
+        "PRO_L02AB2_cover_018",
+        "PRO_L02AB2_days_004",
+        "PRO_L02AB2_days_008",
+        "PRO_L02AB2_days_014",
+        "PRO_L02AB2_days_022",
+        "PRO_L02AB2_days_025",
+        "PRO_L02AB2_days_029",
+        "PRO_L02AB2_days_038",
+        "PRO_L02AB2_rite_003",
+        "PRO_L02AB2_rite_010",
+        "PRO_L02AB2_rite_013",
+        "PRO_L02AB2_rite_017",
+        "PRO_L02AB2_death_004",
+        "PRO_L02AB2_death_006",
+        "PRO_L02AB2_death_010",
+        "PRO_L02AB2_death_014",
+        "PRO_L02AB2_death_020",
+        "PRO_L02AB2_carrier_003",
+        "PRO_L02AB2_carrier_007",
+        "PRO_L02AB2_carrier_010",
+        "PRO_L02AB2_carrier_014",
+        "PRO_L02AB2_carrier_020",
+        "PRO_L02AB2_carrier_029",
+        "PRO_L02AB2_carrier_033",
+        "PRO_L02AB2_carrier_038",
+        "PRO_L03AB2_stranger_004",
+        "PRO_L03AB2_stranger_008",
+        "PRO_L03AB2_knot_004",
+        "PRO_L03AB2_knot_009",
+        "PRO_L03AB2_knot_012",
+        "PRO_L03AB2_knot_019",
+        "PRO_L03AB2_letter_003",
+        "PRO_L03AB2_letter_007",
+        "PRO_L03AB2_letter_011",
+        "PRO_L03AB2_letter_014",
+        "PRO_L03AB2_diluc_003",
+        "PRO_L03AB2_diluc_006",
+        "PRO_L03AB2_diluc_012",
+        "PRO_L03AB2_diluc_015",
+        "PRO_L03AB2_diluc_022",
+        "V141_BEFORE_ISK_L03_AB2_074_4",
+        "V141_AFTER_ISK_L03_AB2_074_3",
+        "PRO_L03AB2_warehouse_004",
+        "PRO_L03AB2_warehouse_008",
+        "PRO_L03AB2_warehouse_014",
+        "PRO_L03AB2_warehouse_021",
+        "PRO_L03AB2_warehouse_027",
+        "PRO_L03AB2_warehouse_032",
+        "PRO_L03AB2_collapse_003",
+        "PRO_L03AB2_collapse_007",
+        "PRO_L03AB2_collapse_012",
+        "PRO_L03AB2_collapse_020",
+        "PRO_L04AB2_rescue_002",
+        "PRO_L04AB2_rescue_009",
+        "PRO_L04AB2_rescue_013",
+        "PRO_L04AB2_rescue_017",
+        "ISK_L04_AB2_018",
+        "PRO_L04AB2_rescue_023",
+        "PRO_L04AB2_rescue_028",
+        "PRO_L04AB2_cart_004",
+        "PRO_L04AB2_cart_007",
+        "PRO_L04AB2_cart_014",
+        "PRO_L04AB2_bridge_004",
+        "PRO_L04AB2_bridge_010",
+        "PRO_L04AB2_bridge_015",
+        "PRO_L04AB2_bridge_020",
+        "PRO_L04AB2_bridge_024",
+        "PRO_L04AB2_bridge_032",
+        "PRO_L04AB2_bridge_036",
+        "PRO_L04AB2_paper_004",
+        "PRO_L04AB2_paper_009",
+        "PRO_L04AB2_paper_013",
+        "PRO_L04AB2_paper_017",
+        "PRO_L04AB2_paper_020",
+        "PRO_L04AB2_walk_003",
+        "PRO_L04AB2_walk_009",
+        "V141_BEFORE_ISK_L04_AB2_115_3",
+        "V141_REPLY_ISK_L04_AB2_115_0",
+        "PRO_L04AB2_beidou_004",
+        "PRO_L04AB2_beidou_008",
+        "PRO_L04AB2_beidou_011",
+        "PRO_L04AB2_beidou_018",
+        "PRO_L04AB2_beidou_021",
+        "ISK_L04_AB2_140"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "choice": "ISK_L04_AB2_140"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-AB2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 5,
+      "fieldSteps": 5,
+      "eventCount": 47,
+      "moraDelta": 2238
+    },
+    {
+      "leaf": "B1",
+      "actions": 465,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_B_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L01B_workshop_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_038:0",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01B_reeds_018"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01B_reeds_018",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01B_reeds_019"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_078:0",
+          "node": "R39_FIELD_ISK_L01_B_078"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L02B1_wait_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03B1_stranger_003"
+        },
+        {
+          "why": "field step v141_ISK_L03_B1_069:0",
+          "node": "R39_FIELD_ISK_L03_B1_069"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_B1_001_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_B1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_B1_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_B1_001:0",
+          "node": "R39_FIELD_ISK_L04_B1_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_B1_051"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_B1_051",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_B1_051",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_B1_052"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-8:B401",
+          "battleId": "V011-8:B401",
+          "saveId": "V011-8",
+          "group": "EG_ISK_L04_B1_ROAD",
+          "origin": "STORY:ISK_L04_B1_051",
+          "gate": "ISK_L04_B1_051",
+          "branch": "B1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01B_workshop_003",
+        "PRO_L01B_workshop_012",
+        "PRO_L01B_workshop_015",
+        "PRO_L01B_workshop_019",
+        "PRO_L01B_guild_004",
+        "ISK_L01_B_025",
+        "PRO_L01B_guild_010",
+        "V141_BEFORE_ISK_L01_B_038_2",
+        "V141_AFTER_ISK_L01_B_038_2",
+        "REV02_B_AMBUSH_C1",
+        "PRO_L01B_reeds_006",
+        "PRO_L01B_reeds_017",
+        "PRO_L01B_reeds_021",
+        "PRO_L01B_reeds_025",
+        "PRO_L01B_blockade_004",
+        "V141_BEFORE_ISK_L01_B_078_5",
+        "PRO_L01B_blockade_011",
+        "PRO_L01B_blockade_014",
+        "PRO_L01B_blockade_017",
+        "PRO_L01B_blockade_024",
+        "PRO_L01B_blockade_028",
+        "PRO_L01B_blockade_032",
+        "ISK_L01_B_100",
+        "PRO_L01B_fork_005",
+        "REV02_B1_FIRE_C1",
+        "PRO_L01B_fork_014",
+        "PRO_L01B_fork_027",
+        "PRO_L01B_fork_034",
+        "PRO_L02B1_wait_003",
+        "PRO_L02B1_wait_007",
+        "PRO_L02B1_wait_013",
+        "PRO_L02B1_wait_020",
+        "PRO_L02B1_wait_025",
+        "PRO_L02B1_wait_030",
+        "PRO_L02B1_rite_003",
+        "PRO_L02B1_rite_008",
+        "PRO_L02B1_rite_014",
+        "PRO_L02B1_rite_023",
+        "PRO_L02B1_rite_027",
+        "PRO_L02B1_death_003",
+        "PRO_L02B1_death_005",
+        "PRO_L02B1_death_008",
+        "PRO_L02B1_death_014",
+        "PRO_L02B1_death_017",
+        "PRO_L02B1_beidou_003",
+        "PRO_L02B1_beidou_007",
+        "PRO_L02B1_beidou_013",
+        "PRO_L02B1_beidou_018",
+        "PRO_L02B1_beidou_021",
+        "PRO_L02B1_beidou_024",
+        "PRO_L02B1_beidou_030",
+        "PRO_L02B1_beidou_037",
+        "PRO_L02B1_beidou_041",
+        "PRO_L03B1_stranger_002",
+        "PRO_L03B1_stranger_009",
+        "PRO_L03B1_stranger_012",
+        "PRO_L03B1_family_003",
+        "PRO_L03B1_family_009",
+        "PRO_L03B1_family_013",
+        "PRO_L03B1_family_017",
+        "PRO_L03B1_family_024",
+        "PRO_L03B1_family_026",
+        "PRO_L03B1_family_029",
+        "PRO_L03B1_family_032",
+        "PRO_L03B1_kaeya_003",
+        "PRO_L03B1_kaeya_006",
+        "PRO_L03B1_valley_003",
+        "PRO_L03B1_valley_008",
+        "V141_BEFORE_ISK_L03_B1_069_3",
+        "V141_AFTER_ISK_L03_B1_069_2",
+        "PRO_L03B1_valley_013",
+        "PRO_L03B1_valley_017",
+        "PRO_L03B1_valley_024",
+        "PRO_L03B1_valley_034",
+        "PRO_L03B1_valley_041",
+        "PRO_L03B1_valley_044",
+        "PRO_L04B1_door_002",
+        "PRO_L04B1_door_007",
+        "PRO_L04B1_door_010",
+        "PRO_L04B1_door_018",
+        "PRO_L04B1_door_023",
+        "PRO_L04B1_door_026",
+        "ISK_L04_B1_036",
+        "PRO_L04B1_levee_010",
+        "PRO_L04B1_levee_018",
+        "PRO_L04B1_levee_021",
+        "PRO_L04B1_sister_003",
+        "PRO_L04B1_sister_007",
+        "PRO_L04B1_sister_014",
+        "PRO_L04B1_keqing_004",
+        "PRO_L04B1_keqing_008",
+        "V141_REPLY_ISK_L04_B1_084_0",
+        "PRO_L04B1_kaeya_004",
+        "PRO_L04B1_kaeya_008",
+        "PRO_L04B1_harbor_003",
+        "PRO_L04B1_harbor_007",
+        "PRO_L04B1_harbor_011",
+        "PRO_L04B1_harbor_014",
+        "PRO_L04B1_harbor_021",
+        "ISK_L04_B1_123"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "choice": "ISK_L04_B1_123"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-B1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 58,
+      "moraDelta": 1857
+    },
+    {
+      "leaf": "B2",
+      "actions": 461,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_B_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L01B_workshop_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_038:0",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_L01B_reeds_018"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_L01B_reeds_018",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_L01B_reeds_019"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_078:0",
+          "node": "R39_FIELD_ISK_L01_B_078"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L02B2_cargo_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_L03B2_stranger_003"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L03_B2_072",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L03_B2_072"
+        },
+        {
+          "why": "field step v141_ISK_L03_B2_072:0",
+          "node": "R39_FIELD_ISK_L03_B2_072"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_B2_001_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_B2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_B2_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_B2_001:0",
+          "node": "R39_FIELD_ISK_L04_B2_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_B2_047"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_B2_047",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_B2_047",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_B2_048"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 0,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-8:B401",
+          "battleId": "V011-8:B401",
+          "saveId": "V011-8",
+          "group": "EG_ISK_L04_B2_BOAT",
+          "origin": "STORY:ISK_L04_B2_047",
+          "gate": "ISK_L04_B2_047",
+          "branch": "B2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_L01B_workshop_003",
+        "PRO_L01B_workshop_012",
+        "PRO_L01B_workshop_015",
+        "PRO_L01B_workshop_019",
+        "PRO_L01B_guild_004",
+        "ISK_L01_B_025",
+        "PRO_L01B_guild_010",
+        "V141_BEFORE_ISK_L01_B_038_2",
+        "V141_AFTER_ISK_L01_B_038_2",
+        "REV02_B_AMBUSH_C1",
+        "PRO_L01B_reeds_006",
+        "PRO_L01B_reeds_017",
+        "PRO_L01B_reeds_021",
+        "PRO_L01B_reeds_025",
+        "PRO_L01B_blockade_004",
+        "V141_BEFORE_ISK_L01_B_078_5",
+        "PRO_L01B_blockade_011",
+        "PRO_L01B_blockade_014",
+        "PRO_L01B_blockade_017",
+        "PRO_L01B_blockade_024",
+        "PRO_L01B_blockade_028",
+        "PRO_L01B_blockade_032",
+        "ISK_L01_B_101",
+        "PRO_L01B_fork_039",
+        "REV02_B2_LASHING_C1",
+        "PRO_L01B_fork_046",
+        "PRO_L01B_fork_059",
+        "PRO_L01B_fork_062",
+        "PRO_L02B2_cargo_003",
+        "PRO_L02B2_cargo_007",
+        "PRO_L02B2_cargo_014",
+        "PRO_L02B2_cargo_019",
+        "PRO_L02B2_cargo_026",
+        "PRO_L02B2_cargo_029",
+        "PRO_L02B2_cargo_032",
+        "PRO_L02B2_rite_003",
+        "PRO_L02B2_rite_008",
+        "PRO_L02B2_rite_016",
+        "PRO_L02B2_rite_019",
+        "PRO_L02B2_rite_025",
+        "PRO_L02B2_death_003",
+        "PRO_L02B2_death_006",
+        "PRO_L02B2_death_012",
+        "PRO_L02B2_eight_002",
+        "PRO_L02B2_eight_005",
+        "PRO_L02B2_eight_010",
+        "PRO_L02B2_eight_015",
+        "PRO_L02B2_eight_022",
+        "PRO_L02B2_eight_027",
+        "PRO_L02B2_eight_030",
+        "PRO_L02B2_eight_035",
+        "PRO_L02B2_eight_042",
+        "PRO_L02B2_eight_046",
+        "PRO_L02B2_eight_050",
+        "PRO_L02B2_eight_055",
+        "PRO_L02B2_eight_058",
+        "PRO_L03B2_stranger_002",
+        "PRO_L03B2_stranger_008",
+        "PRO_L03B2_stranger_014",
+        "PRO_L03B2_boat_003",
+        "PRO_L03B2_boat_009",
+        "PRO_L03B2_boat_015",
+        "PRO_L03B2_boat_019",
+        "PRO_L03B2_boat_022",
+        "PRO_L03B2_under_005",
+        "PRO_L03B2_under_010",
+        "PRO_L03B2_under_015",
+        "PRO_L03B2_under_022",
+        "PRO_L03B2_under_025",
+        "V141_BEFORE_ISK_L03_B2_072_2",
+        "V141_AFTER_ISK_L03_B2_072_1",
+        "PRO_L03B2_bridge_004",
+        "PRO_L03B2_bridge_010",
+        "PRO_L03B2_bridge_012",
+        "PRO_L03B2_bridge_020",
+        "PRO_L03B2_bridge_025",
+        "PRO_L03B2_bridge_029",
+        "PRO_L04B2_ship_002",
+        "PRO_L04B2_ship_008",
+        "PRO_L04B2_ship_011",
+        "PRO_L04B2_ship_017",
+        "PRO_L04B2_ship_023",
+        "ISK_L04_B2_030",
+        "PRO_L04B2_shore_006",
+        "PRO_L04B2_shore_010",
+        "PRO_L04B2_shore_017",
+        "PRO_L04B2_shore_021",
+        "PRO_L04B2_shore_025",
+        "PRO_L04B2_eight_003",
+        "PRO_L04B2_eight_008",
+        "PRO_L04B2_eight_013",
+        "PRO_L04B2_eight_017",
+        "V141_BEFORE_ISK_L04_B2_074_4",
+        "V141_REPLY_ISK_L04_B2_074_0",
+        "PRO_L04B2_plate_002",
+        "PRO_L04B2_plate_006",
+        "PRO_L04B2_plate_010",
+        "PRO_L04B2_plate_013",
+        "PRO_L04B2_plate_019",
+        "PRO_L04B2_plate_025",
+        "PRO_L04B2_plate_030",
+        "ISK_L04_B2_106"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000001",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000002",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000003",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000004",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000005",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000007",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000008",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000009",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000001",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000002",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000003",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000004",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000005",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000007",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000008",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000009",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "choice": "ISK_L04_B2_106"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-B2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 56,
+      "moraDelta": 1857
+    },
+    {
+      "leaf": "TRV_A",
+      "actions": 846,
+      "restores": [
+        {
+          "why": "start",
+          "node": "END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY1_몬드의_아침_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY1_몬드의_아침_002"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_TRVLY1_절운간_011"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY1_절운간_011",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_TRVLY1_절운간_011",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY1_절운간_012"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY1_망서_객잔_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY1_망서_객잔_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY1_돌아온_항구_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY1_돌아온_항구_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY1_N166"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY2_돌아온_거리_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY2_돌아온_거리_002"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_불복려_016",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_불복려_016"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_TRVLY2_불복려_020"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_불복려_020",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_TRVLY2_불복려_020",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_불복려_021"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_군옥각_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_군옥각_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY2_N193"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY3_황금옥_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY3_황금옥_002"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY3_A_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY3_A_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY3_A_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "interlude",
+          "node": "TRV_LY3_A_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY3_A_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY4_밀려오는_바다_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY4_밀려오는_바다_002"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY4_해역_방어_020"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_OSIAL_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_O04"
+        },
+        {
+          "why": "region terminal",
+          "node": "TRV_LY4_END"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 320,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-1:B590",
+          "battleId": "V011-1:B590",
+          "saveId": "V011-1",
+          "group": "EG_BOSS_TARTAGLIA",
+          "origin": "STORY:TRV_LY3_A_COMBAT",
+          "gate": "TRV_LY3_A_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 4200,
+          "loot": {},
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "mora": 285,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-1:B701",
+          "battleId": "V011-1:B701",
+          "saveId": "V011-1",
+          "group": "EG_FATUI_PATROL",
+          "origin": "STORY:TRV_LY4_FATUI_COMBAT",
+          "gate": "TRV_LY4_FATUI_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 3978,
+          "loot": {},
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "mora": 1143,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-1:B716",
+          "battleId": "V011-1:B716",
+          "saveId": "V011-1",
+          "group": "EG_BOSS_OSIAL",
+          "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+          "gate": "TRV_LY4_OSIAL_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 15912,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_TRV_LIYUE_01",
+        "Q_TRV_LIYUE_02",
+        "Q_TRV_LIYUE_03",
+        "Q_TRV_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_TRVLY1_몬드의_아침_004",
+        "TRV_LY1_N006",
+        "PRO_TRVLY1_몬드의_아침_019",
+        "REV02_TRV_BRIDGE_C1",
+        "PRO_TRVLY1_남쪽_길_018",
+        "TRV_LY1_N022",
+        "PRO_TRVLY1_청신의례_025",
+        "TRV_LY1_N043",
+        "TRV_LY1_N058",
+        "PRO_TRVLY1_타르탈리아_010",
+        "TRV_LY1_N082",
+        "PRO_TRVLY1_절운간_004",
+        "TRV_LY1_N106",
+        "PRO_TRVLY1_절운간_030",
+        "PRO_TRVLY1_망서_객잔_004",
+        "PRO_TRVLY1_망서_객잔_012",
+        "PRO_TRVLY1_호박_004",
+        "PRO_TRVLY1_호박_019",
+        "PRO_TRVLY1_류운차풍진군_011",
+        "PRO_TRVLY1_돌아온_항구_005",
+        "PRO_TRVLY1_돌아온_항구_019",
+        "PRO_TRVLY1_돌아온_항구_029",
+        "PRO_TRVLY1_돌아온_항구_035",
+        "PRO_TRVLY2_돌아온_거리_004",
+        "PRO_TRVLY2_왕생당_006",
+        "PRO_TRVLY2_왕생당_017",
+        "PRO_TRVLY2_야박석_007",
+        "PRO_TRVLY2_후원자_008",
+        "PRO_TRVLY2_만민당_013",
+        "PRO_TRVLY2_향고_014",
+        "PRO_TRVLY2_옥경대_010",
+        "PRO_TRVLY2_옥경대_017",
+        "PRO_TRVLY2_연_008",
+        "PRO_TRVLY2_불복려_005",
+        "PRO_TRVLY2_불복려_012",
+        "PRO_TRVLY2_불복려_024",
+        "PRO_TRVLY2_불복려_039",
+        "PRO_TRVLY2_초대_008",
+        "PRO_TRVLY2_군옥각_가는_길_004",
+        "PRO_TRVLY2_군옥각_가는_길_015",
+        "PRO_TRVLY2_군옥각_008",
+        "PRO_TRVLY2_군옥각_017",
+        "PRO_TRVLY2_군옥각_029",
+        "PRO_TRVLY2_연구_야영지_006",
+        "PRO_TRVLY2_연구_야영지_013",
+        "PRO_TRVLY2_적화주_009",
+        "PRO_TRVLY2_적화주_015",
+        "PRO_TRVLY2_적화주_029",
+        "PRO_TRVLY2_황금옥_앞_006",
+        "PRO_TRVLY2_황금옥_앞_013",
+        "PRO_TRVLY3_황금옥_004",
+        "PRO_TRVLY3_황금옥_012",
+        "PRO_TRVLY3_선조의_허물_008",
+        "TRV_LY3_CHOOSE_A",
+        "REV02_TRVA_POSITION_C1",
+        "PRO_TRVLY3_A_결투_028",
+        "PRO_TRVLY3_A_결투_040",
+        "PRO_TRVLY3_A_결투_047",
+        "TRV_LY3_A_REPORT_C1",
+        "PRO_TRVLY3_A_경보_024",
+        "TRV_LY4_ROUTE_A",
+        "TRV_LY4_A04",
+        "TRV_LY4_SRV_INTEL",
+        "TRV_LY4_DEF_GEAR",
+        "PRO_TRVLY4_오셀_006",
+        "PRO_TRVLY4_오셀_012",
+        "TRV_LY4_SAC_SUPPORT",
+        "TRV_LY4_AFT_A",
+        "PRO_TRVLY4_항구_아침_016",
+        "PRO_TRVLY4_북국_은행_014",
+        "TRV_LY4_BANK_ASK_CONTRACT",
+        "PRO_TRVLY4_북국_은행_038",
+        "PRO_TRVLY4_송신의례_004",
+        "PRO_TRVLY4_송신의례_016",
+        "TRV_LY4_RW_POSTER_CITY",
+        "TRV_LY4_R07A",
+        "PRO_TRVLY4_작별_013",
+        "PRO_TRVLY4_작별_020",
+        "PRO_TRVLY4_작별_025"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000010",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000011",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000012",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000013",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000014",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000015",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000016",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000017",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [
+                "EQI_000003"
+              ],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000010",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000011",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000012",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [
+                "EQI_000004"
+              ]
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000013",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000014",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000015",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [
+                "EQI_000005"
+              ]
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000016",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000017",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "node": "TRV_LY4_END",
+        "type": "CHAPTER_END",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-TRV_A.json",
+      "terminal": "TRV_LY4_END",
+      "fieldEpisodes": 0,
+      "fieldSteps": 0,
+      "eventCount": 0,
+      "moraDelta": 2342
+    },
+    {
+      "leaf": "TRV_B",
+      "actions": 844,
+      "restores": [
+        {
+          "why": "start",
+          "node": "END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY1_몬드의_아침_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY1_몬드의_아침_002"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_TRVLY1_절운간_011"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY1_절운간_011",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_TRVLY1_절운간_011",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY1_절운간_012"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY1_망서_객잔_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY1_망서_객잔_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY1_돌아온_항구_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY1_돌아온_항구_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY1_N166"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY2_돌아온_거리_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY2_돌아온_거리_002"
+        },
+        {
+          "why": "preparation",
+          "node": "PRO_TRVLY2_불복려_020"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_불복려_020",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "PRO_TRVLY2_불복려_020",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_불복려_021"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_군옥각_가는_길_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_군옥각_가는_길_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_군옥각_가는_길_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_군옥각_가는_길_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_군옥각_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_군옥각_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_연구_야영지_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_연구_야영지_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "PRO_TRVLY2_적화주_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY2_적화주_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY2_N193"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY3_황금옥_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY3_황금옥_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY3_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "PRO_TRVLY4_밀려오는_바다_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "PRO_TRVLY4_밀려오는_바다_002"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "PRO_TRVLY4_해역_방어_020"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_OSIAL_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_O04"
+        },
+        {
+          "why": "region terminal",
+          "node": "TRV_LY4_END"
+        }
+      ],
+      "battles": [
+        {
+          "mora": 190,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-2:B701",
+          "battleId": "V011-2:B701",
+          "saveId": "V011-2",
+          "group": "EG_FATUI_PATROL",
+          "origin": "STORY:TRV_LY4_FATUI_COMBAT",
+          "gate": "TRV_LY4_FATUI_COMBAT",
+          "branch": "B",
+          "victory": true,
+          "xp": 2652,
+          "loot": {},
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "mora": 1143,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "V011-2:B714",
+          "battleId": "V011-2:B714",
+          "saveId": "V011-2",
+          "group": "EG_BOSS_OSIAL",
+          "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+          "gate": "TRV_LY4_OSIAL_COMBAT",
+          "branch": "B",
+          "victory": true,
+          "xp": 15912,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_TRV_LIYUE_01",
+        "Q_TRV_LIYUE_02",
+        "Q_TRV_LIYUE_03",
+        "Q_TRV_LIYUE_04"
+      ],
+      "choices": [
+        "PRO_TRVLY1_몬드의_아침_004",
+        "TRV_LY1_N006",
+        "PRO_TRVLY1_몬드의_아침_019",
+        "REV02_TRV_BRIDGE_C1",
+        "PRO_TRVLY1_남쪽_길_018",
+        "TRV_LY1_N022",
+        "PRO_TRVLY1_청신의례_025",
+        "TRV_LY1_N043",
+        "TRV_LY1_N058",
+        "PRO_TRVLY1_타르탈리아_010",
+        "TRV_LY1_N082",
+        "PRO_TRVLY1_절운간_004",
+        "TRV_LY1_N106",
+        "PRO_TRVLY1_절운간_030",
+        "PRO_TRVLY1_망서_객잔_004",
+        "PRO_TRVLY1_망서_객잔_012",
+        "PRO_TRVLY1_호박_004",
+        "PRO_TRVLY1_호박_019",
+        "PRO_TRVLY1_류운차풍진군_011",
+        "PRO_TRVLY1_돌아온_항구_005",
+        "PRO_TRVLY1_돌아온_항구_019",
+        "PRO_TRVLY1_돌아온_항구_029",
+        "PRO_TRVLY1_돌아온_항구_035",
+        "PRO_TRVLY2_돌아온_거리_004",
+        "PRO_TRVLY2_왕생당_006",
+        "PRO_TRVLY2_왕생당_017",
+        "PRO_TRVLY2_야박석_007",
+        "PRO_TRVLY2_후원자_008",
+        "PRO_TRVLY2_만민당_013",
+        "PRO_TRVLY2_향고_014",
+        "PRO_TRVLY2_옥경대_010",
+        "PRO_TRVLY2_옥경대_017",
+        "PRO_TRVLY2_연_008",
+        "PRO_TRVLY2_불복려_005",
+        "PRO_TRVLY2_불복려_012",
+        "PRO_TRVLY2_불복려_024",
+        "PRO_TRVLY2_불복려_039",
+        "PRO_TRVLY2_초대_008",
+        "PRO_TRVLY2_군옥각_가는_길_004",
+        "PRO_TRVLY2_군옥각_가는_길_015",
+        "PRO_TRVLY2_군옥각_008",
+        "PRO_TRVLY2_군옥각_017",
+        "PRO_TRVLY2_군옥각_029",
+        "PRO_TRVLY2_연구_야영지_006",
+        "PRO_TRVLY2_연구_야영지_013",
+        "PRO_TRVLY2_적화주_009",
+        "PRO_TRVLY2_적화주_015",
+        "PRO_TRVLY2_적화주_029",
+        "PRO_TRVLY2_황금옥_앞_006",
+        "PRO_TRVLY2_황금옥_앞_013",
+        "PRO_TRVLY3_황금옥_004",
+        "PRO_TRVLY3_황금옥_012",
+        "PRO_TRVLY3_선조의_허물_008",
+        "TRV_LY3_CHOOSE_B",
+        "PRO_TRVLY3_B_증거_013",
+        "PRO_TRVLY3_B_증거_025",
+        "REV02_TRVB_ESCAPE_C1",
+        "PRO_TRVLY3_B_대피_004",
+        "PRO_TRVLY3_B_대피_010",
+        "PRO_TRVLY3_B_대피_013",
+        "PRO_TRVLY3_B_대피_016",
+        "TRV_LY3_B_REPORT_C1",
+        "PRO_TRVLY3_B_대피_038",
+        "TRV_LY4_ROUTE_B",
+        "TRV_LY4_B04",
+        "TRV_LY4_SRV_INTEL",
+        "TRV_LY4_DEF_GEAR",
+        "PRO_TRVLY4_오셀_006",
+        "PRO_TRVLY4_오셀_012",
+        "TRV_LY4_SAC_SUPPORT",
+        "TRV_LY4_AFT_B",
+        "PRO_TRVLY4_항구_아침_016",
+        "PRO_TRVLY4_북국_은행_014",
+        "TRV_LY4_BANK_ASK_CONTRACT",
+        "PRO_TRVLY4_북국_은행_038",
+        "PRO_TRVLY4_송신의례_004",
+        "PRO_TRVLY4_송신의례_016",
+        "TRV_LY4_RW_POSTER_CITY",
+        "TRV_LY4_R07A",
+        "PRO_TRVLY4_작별_013",
+        "PRO_TRVLY4_작별_020",
+        "PRO_TRVLY4_작별_025"
+      ],
+      "status": "PASS",
+      "preparation": {
+        "equipment": [
+          {
+            "slot": "EQI_000006",
+            "equip": "EQ_BOW_CRESCENT",
+            "owner": "MOND_FISCHL",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000010",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_FISCHL",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000011",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_FISCHL",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000012",
+            "equip": "EQ_POLEARM_CRESCENT",
+            "owner": "LIYUE_XIANGLING",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000013",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000014",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "LIYUE_XIANGLING",
+            "category": "ACCESSORY",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000015",
+            "equip": "EQ_CATALYST_MAPPA",
+            "owner": "MOND_BARBARA",
+            "category": "WEAPON",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000016",
+            "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+            "owner": "MOND_BARBARA",
+            "category": "ARMOR",
+            "enhance": 10
+          },
+          {
+            "slot": "EQI_000017",
+            "equip": "EQ_ACC_HEALER_BROOCH",
+            "owner": "MOND_BARBARA",
+            "category": "ACCESSORY",
+            "enhance": 10
+          }
+        ],
+        "publicEquipReceipts": [
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000006",
+              "owner": "MOND_FISCHL",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [
+                "EQI_000003"
+              ],
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_KAEYA"
+              ]
+            },
+            "revision": 1
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000010",
+              "owner": "MOND_FISCHL",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 2
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000011",
+              "owner": "MOND_FISCHL",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 3
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000012",
+              "owner": "LIYUE_XIANGLING",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [
+                "EQI_000004"
+              ]
+            },
+            "revision": 4
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000013",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 5
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000014",
+              "owner": "LIYUE_XIANGLING",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 6
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000015",
+              "owner": "MOND_BARBARA",
+              "category": "WEAPON",
+              "displacedOwner": null,
+              "displacedSlots": [
+                "EQI_000005"
+              ]
+            },
+            "revision": 7
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000016",
+              "owner": "MOND_BARBARA",
+              "category": "ARMOR",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 8
+          },
+          {
+            "ok": true,
+            "type": "EQUIP",
+            "result": {
+              "slot": "EQI_000017",
+              "owner": "MOND_BARBARA",
+              "category": "ACCESSORY",
+              "displacedOwner": null,
+              "displacedSlots": []
+            },
+            "revision": 9
+          }
+        ]
+      },
+      "last": {
+        "node": "TRV_LY4_END",
+        "type": "CHAPTER_END",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/liyue_flow_final_v01627/qa-liyue-final-TRV_B.json",
+      "terminal": "TRV_LY4_END",
+      "fieldEpisodes": 0,
+      "fieldSteps": 0,
+      "eventCount": 0,
+      "moraDelta": 2271
+    }
+  ],
+  "finished": "2026-10-10T19:29:37.842Z"
+}

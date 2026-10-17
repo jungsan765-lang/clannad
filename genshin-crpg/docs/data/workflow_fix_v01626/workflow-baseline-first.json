@@ -1,0 +1,2410 @@
+{
+  "version": "0.16.24",
+  "scope": "Fresh public boss entry, baseline catalog and exact numeric override precedence; nonchallenge scopes and genuine 0.16.23 PENDING/WAIT_PLAYER saved-battle preservation. No fight difficulty, natural acquisition or full-campaign claim.",
+  "fixturePolicy": "One Traveler and three owned 4-star allies, equal native boss level/legal phase/max base talents, ordinary crafted gear +3 below Lv30 or +6 thereafter, base cap10 and no artifacts/exclusive weapons/boss material gear. Story/first-clear flags and initial Mora/HP are declared entry preparation. Old WAIT saves follow native COMBAT_BEGIN and one legal player skill; no forced victory or roll.",
+  "checks": [
+    {
+      "id": "genuine_published_baseline_and_qa_db_identity",
+      "passed": true,
+      "evidence": {
+        "commit": "1bf0ee5fb35f5fba371466e2e29f01ef7fa4ed59",
+        "sourceFiles": 233,
+        "fingerprint": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "recordedQADbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "matchesRecordedQA": true,
+        "requiresRecordedQA": false,
+        "caveat": "Published source identity is verified. Actual old/new DB equality is required; recorded local QA DB identity is enforced only with --require-recorded-qa. This does not assert authored production DB equals the QA fixture.",
+        "mode": "verified before-source overlay"
+      }
+    },
+    {
+      "id": "challenge_origin_and_profiles_contract",
+      "passed": true,
+      "evidence": {
+        "species": [
+          "FB_ANEMO_HYPOSTASIS",
+          "FB_ELECTRO_HYPOSTASIS",
+          "FB_CRYO_REGISVINE",
+          "FB_CRYO_HYPOSTASIS",
+          "FB_GEO_HYPOSTASIS",
+          "FB_PYRO_REGISVINE",
+          "FB_OCEANID",
+          "FB_PRIMO_GEOVISHAP",
+          "FB_RUIN_SERPENT",
+          "BOSS_ANDRIUS",
+          "BOSS_DVALIN",
+          "BOSS_TARTAGLIA",
+          "BOSS_AZHDAHA"
+        ],
+        "selected": [
+          "FB_ANEMO_HYPOSTASIS",
+          "FB_ELECTRO_HYPOSTASIS",
+          "FB_CRYO_REGISVINE",
+          "FB_CRYO_HYPOSTASIS",
+          "FB_PYRO_REGISVINE",
+          "FB_OCEANID",
+          "FB_GEO_HYPOSTASIS",
+          "FB_PRIMO_GEOVISHAP",
+          "FB_RUIN_SERPENT",
+          "BOSS_ANDRIUS",
+          "BOSS_DVALIN",
+          "BOSS_TARTAGLIA",
+          "BOSS_AZHDAHA"
+        ]
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+        "gearEnhancement": 3,
+        "before": {
+          "level": 18,
+          "hp": 13182,
+          "atk": 1281,
+          "def": 164,
+          "spd": 67,
+          "hit": 83,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 18,
+          "hp": 18000,
+          "atk": 1600,
+          "def": 180,
+          "spd": 67,
+          "hit": 83,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 18,
+          "hp": 13182,
+          "atk": 1281,
+          "def": 164,
+          "spd": 67,
+          "hit": 83,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 18,
+          "hp": 13182,
+          "atk": 1281,
+          "def": 164,
+          "spd": 67,
+          "hit": 83,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "stats": {
+          "level": 18,
+          "hp": 13182,
+          "atk": 1281,
+          "def": 164,
+          "spd": 67,
+          "hit": 83,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "hp": 654321,
+        "atk": 3210,
+        "def": 456,
+        "revision": 100
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "level": 19,
+        "stats": {
+          "level": 19,
+          "hp": 18950,
+          "atk": 1600,
+          "def": 191,
+          "spd": 67,
+          "hit": 83,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "95ecf6fc6dc5d9334c811e418771bbcf149e068dbcce40cf33439708bbe12e8c",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 682339381,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "5325cb27dd2ac873c07090811c3f96b45aee2b3ad7f8b19f3cbb377a47e0ebd9",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "gearEnhancement": 3,
+        "before": {
+          "level": 20,
+          "hp": 14588,
+          "atk": 1053,
+          "def": 183,
+          "spd": 68,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 20,
+          "hp": 16000,
+          "atk": 1700,
+          "def": 210,
+          "spd": 68,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 20,
+          "hp": 14588,
+          "atk": 1053,
+          "def": 183,
+          "spd": 68,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 20,
+          "hp": 14588,
+          "atk": 1053,
+          "def": 183,
+          "spd": 68,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+        "stats": {
+          "level": 20,
+          "hp": 14588,
+          "atk": 1053,
+          "def": 183,
+          "spd": 68,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "hp": 654322,
+        "atk": 3211,
+        "def": 457,
+        "revision": 101
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "level": 21,
+        "stats": {
+          "level": 21,
+          "hp": 19111,
+          "atk": 1700,
+          "def": 221,
+          "spd": 68,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "1fa65941a2afa4fe4b8830214bf4f86e845cf230bdb6132457728358e8fb131c",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 2883665718,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "9b806b44beb4a374d52f024c406b759aff1c872f6609352132fd57f9e6591120",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+        "gearEnhancement": 3,
+        "before": {
+          "level": 22,
+          "hp": 18264,
+          "atk": 1689,
+          "def": 203,
+          "spd": 60,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 22,
+          "hp": 26000,
+          "atk": 1950,
+          "def": 220,
+          "spd": 60,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [
+            {
+              "source": "FB_SHELL",
+              "value": 5479,
+              "initialValue": 5479,
+              "rounds": null,
+              "createdRound": 1,
+              "element": "얼음",
+              "damageMultipliers": {
+                "불": 3,
+                "번개": 1.2,
+                "바위": 1.2,
+                "물": 0.6,
+                "바람": 0.6,
+                "풀": 0.6,
+                "물리": 0.6,
+                "얼음": 0.2
+              },
+              "fieldBoss": true
+            }
+          ],
+          "after": [
+            {
+              "source": "FB_SHELL",
+              "value": 7799,
+              "initialValue": 7799,
+              "rounds": null,
+              "createdRound": 1,
+              "element": "얼음",
+              "damageMultipliers": {
+                "불": 3,
+                "번개": 1.2,
+                "바위": 1.2,
+                "물": 0.6,
+                "바람": 0.6,
+                "풀": 0.6,
+                "물리": 0.6,
+                "얼음": 0.2
+              },
+              "fieldBoss": true
+            }
+          ]
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 22,
+          "hp": 18264,
+          "atk": 1689,
+          "def": 203,
+          "spd": 60,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 22,
+          "hp": 18264,
+          "atk": 1689,
+          "def": 203,
+          "spd": 60,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+        "stats": {
+          "level": 22,
+          "hp": 18264,
+          "atk": 1689,
+          "def": 203,
+          "spd": 60,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "hp": 654323,
+        "atk": 3212,
+        "def": 458,
+        "revision": 102
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "level": 23,
+        "stats": {
+          "level": 23,
+          "hp": 27217,
+          "atk": 1950,
+          "def": 232,
+          "spd": 60,
+          "hit": 84,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "21209eef95228e0d2b5574fc4ae573a56c9d9b95c656f426fb3022a4d4cd9af5",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 2568468807,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "410d22d14f0270126aa5288a3c7527eaf2f3571fbf52f552d1cf3a4179182370",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 30,
+          "hp": 25550,
+          "atk": 1509,
+          "def": 294,
+          "spd": 70,
+          "hit": 86,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 30,
+          "hp": 30000,
+          "atk": 1850,
+          "def": 294,
+          "spd": 70,
+          "hit": 86,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 30,
+          "hp": 25550,
+          "atk": 1509,
+          "def": 294,
+          "spd": 70,
+          "hit": 86,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 30,
+          "hp": 25550,
+          "atk": 1509,
+          "def": 294,
+          "spd": 70,
+          "hit": 86,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+        "stats": {
+          "level": 30,
+          "hp": 25550,
+          "atk": 1509,
+          "def": 294,
+          "spd": 70,
+          "hit": 86,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "hp": 654324,
+        "atk": 3213,
+        "def": 459,
+        "revision": 103
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "level": 31,
+        "stats": {
+          "level": 31,
+          "hp": 34929,
+          "atk": 2221,
+          "def": 307,
+          "spd": 70,
+          "hit": 86,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "ede7b9a895423fcd1e5f3ad858ca849c2a63d7bfdc1c560d18d54d0ac37fc31b",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 682339381,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "cc840790bf165adcaaf49ca06fdb30ce6ccc5ad0a62e8dcf4c452c00cbb5c8b5",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 45,
+          "hp": 52113,
+          "atk": 4117,
+          "def": 508,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 45,
+          "hp": 52113,
+          "atk": 4117,
+          "def": 508,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 45,
+          "hp": 52113,
+          "atk": 4117,
+          "def": 508,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 45,
+          "hp": 52113,
+          "atk": 4117,
+          "def": 508,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PYRO_REGISVINE",
+        "stats": {
+          "level": 45,
+          "hp": 52113,
+          "atk": 4117,
+          "def": 508,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "hp": 654325,
+        "atk": 3214,
+        "def": 460,
+        "revision": 104
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "level": 46,
+        "stats": {
+          "level": 46,
+          "hp": 53628,
+          "atk": 4304,
+          "def": 524,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "fe311acdd84ef27f7d2c3102a36fb91377044e33c13cee2916570f5cf5c834ad",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 1468725234,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "dfad87be99c038ea16b2d4c170ea998894b6ef8f62edd9ac6c27010b0f3455a0",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PYRO_REGISVINE",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 38,
+          "hp": 37953,
+          "atk": 2644,
+          "def": 401,
+          "spd": 63,
+          "hit": 87,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 38,
+          "hp": 60000,
+          "atk": 4000,
+          "def": 460,
+          "spd": 63,
+          "hit": 87,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [
+            {
+              "source": "FB_SHELL",
+              "value": 11387,
+              "initialValue": 11387,
+              "rounds": null,
+              "createdRound": 1,
+              "element": "불",
+              "damageMultipliers": {
+                "얼음": 3,
+                "물": 2.5,
+                "번개": 1.2,
+                "바위": 1.2,
+                "불": 0.2,
+                "바람": 0.6,
+                "풀": 0.6,
+                "물리": 0.6
+              },
+              "fieldBoss": true
+            }
+          ],
+          "after": [
+            {
+              "source": "FB_SHELL",
+              "value": 18002,
+              "initialValue": 18002,
+              "rounds": null,
+              "createdRound": 1,
+              "element": "불",
+              "damageMultipliers": {
+                "얼음": 3,
+                "물": 2.5,
+                "번개": 1.2,
+                "바위": 1.2,
+                "불": 0.2,
+                "바람": 0.6,
+                "풀": 0.6,
+                "물리": 0.6
+              },
+              "fieldBoss": true
+            }
+          ]
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 38,
+          "hp": 37953,
+          "atk": 2644,
+          "def": 401,
+          "spd": 63,
+          "hit": 87,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 38,
+          "hp": 37953,
+          "atk": 2644,
+          "def": 401,
+          "spd": 63,
+          "hit": 87,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_OCEANID",
+        "stats": {
+          "level": 38,
+          "hp": 37953,
+          "atk": 2644,
+          "def": 401,
+          "spd": 63,
+          "hit": 87,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "hp": 654326,
+        "atk": 3215,
+        "def": 461,
+        "revision": 105
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "level": 39,
+        "stats": {
+          "level": 39,
+          "hp": 61965,
+          "atk": 4204,
+          "def": 476,
+          "spd": 63,
+          "hit": 87,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "5cbcc521313e25dcf4893118513f730974d4dff441482965c6d076e3c0fd1789",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 2679158376,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "63f2e752418cd58e724d057f8104c7a61431667ca5e5c1f345cce7e5711a0584",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_OCEANID",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 40,
+          "hp": 40457,
+          "atk": 2919,
+          "def": 430,
+          "spd": 68,
+          "hit": 88,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 40,
+          "hp": 40457,
+          "atk": 4000,
+          "def": 430,
+          "spd": 68,
+          "hit": 88,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 40,
+          "hp": 40457,
+          "atk": 2919,
+          "def": 430,
+          "spd": 68,
+          "hit": 88,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 40,
+          "hp": 40457,
+          "atk": 2919,
+          "def": 430,
+          "spd": 68,
+          "hit": 88,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PRIMO_GEOVISHAP",
+        "stats": {
+          "level": 40,
+          "hp": 40457,
+          "atk": 2919,
+          "def": 430,
+          "spd": 68,
+          "hit": 88,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "hp": 654327,
+        "atk": 3216,
+        "def": 462,
+        "revision": 106
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "level": 41,
+        "stats": {
+          "level": 41,
+          "hp": 46248,
+          "atk": 4689,
+          "def": 445,
+          "spd": 68,
+          "hit": 88,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "e000d3f1ad1090f6a22850c7689ad956551f71e118903e002bdde34487225bd9",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 2672276082,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "363fe121a0b548a23771deb5e3e8b09f56dbb9c36f37cf9dc1dc8ba90830dc22",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PRIMO_GEOVISHAP",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 48,
+          "hp": 56718,
+          "atk": 4694,
+          "def": 557,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 48,
+          "hp": 64000,
+          "atk": 5500,
+          "def": 570,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 48,
+          "hp": 56718,
+          "atk": 4694,
+          "def": 557,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 48,
+          "hp": 56718,
+          "atk": 4694,
+          "def": 557,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_RUIN_SERPENT",
+        "stats": {
+          "level": 48,
+          "hp": 56718,
+          "atk": 4694,
+          "def": 557,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "hp": 654328,
+        "atk": 3217,
+        "def": 463,
+        "revision": 107
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "level": 49,
+        "stats": {
+          "level": 49,
+          "hp": 65776,
+          "atk": 5739,
+          "def": 587,
+          "spd": 67,
+          "hit": 89,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "ba031f1719966e04607a4bfa9edc6208b00e54ed435389686e5d0fbc6957f1c5",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 4205150359,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "0753105ad3a91d63ab594f89de75b8d5c14c0320b7f6a66c302a0e5a21fa423b",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_RUIN_SERPENT",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 56,
+          "hp": 83496,
+          "atk": 7840,
+          "def": 700,
+          "spd": 71,
+          "hit": 91,
+          "eva": 5,
+          "resist": 25
+        },
+        "after": {
+          "level": 56,
+          "hp": 83496,
+          "atk": 8500,
+          "def": 700,
+          "spd": 71,
+          "hit": 91,
+          "eva": 5,
+          "resist": 25
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": 5
+      }
+    },
+    {
+      "id": "excluded_STORY:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 56,
+          "hp": 83496,
+          "atk": 7840,
+          "def": 700,
+          "spd": 71,
+          "hit": 91,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 56,
+          "hp": 83496,
+          "atk": 7840,
+          "def": 700,
+          "spd": 71,
+          "hit": 91,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "stats": {
+          "level": 56,
+          "hp": 83496,
+          "atk": 7840,
+          "def": 700,
+          "spd": 71,
+          "hit": 91,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "hp": 654329,
+        "atk": 3218,
+        "def": 464,
+        "revision": 108
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "level": 57,
+        "stats": {
+          "level": 57,
+          "hp": 85566,
+          "atk": 8827,
+          "def": 719,
+          "spd": 71,
+          "hit": 91,
+          "eva": 5,
+          "resist": 25
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "4d66fa24243ab417bc163f8af0b1591dd6321cfdb40c2e1b29d62fecd22ba8fb",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 3816205431,
+        "oldFieldBehavior": 4,
+        "runtimeSHA256": "f9c9db48ba90b5eb118fe7d14060447c05182ca17f88e11ccb285469fc8de779",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "gearEnhancement": 3,
+        "before": {
+          "level": 25,
+          "hp": 11482,
+          "atk": 934,
+          "def": 236,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 60
+        },
+        "after": {
+          "level": 25,
+          "hp": 20094,
+          "atk": 2055,
+          "def": 236,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 60
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": null
+      }
+    },
+    {
+      "id": "excluded_STORY:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 25,
+          "hp": 11482,
+          "atk": 934,
+          "def": 236,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 60
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 25,
+          "hp": 11482,
+          "atk": 934,
+          "def": 236,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 60
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "stats": {
+          "level": 25,
+          "hp": 11482,
+          "atk": 934,
+          "def": 236,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 60
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "hp": 654330,
+        "atk": 3219,
+        "def": 465,
+        "revision": 109
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "level": 26,
+        "stats": {
+          "level": 26,
+          "hp": 20963,
+          "atk": 2193,
+          "def": 247,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 60
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "520f062eec0f78a01178297ac59f483a4272c6746e8c57b8e060b3a5195069bf",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 4282659476,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "af3b8881d970bb7421211bf68f5de0db7849e71be9df82ab13bd20f3caa0be8f",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gearEnhancement": 3,
+        "before": {
+          "level": 28,
+          "hp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 50
+        },
+        "after": {
+          "level": 28,
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 50
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": null
+      }
+    },
+    {
+      "id": "excluded_STORY:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 28,
+          "hp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 50
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 28,
+          "hp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 50
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "stats": {
+          "level": 28,
+          "hp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 50
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "hp": 654331,
+        "atk": 3220,
+        "def": 466,
+        "revision": 110
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "level": 29,
+        "stats": {
+          "level": 29,
+          "hp": 44252,
+          "atk": 3982,
+          "def": 282,
+          "spd": 69,
+          "hit": 85,
+          "eva": 4,
+          "resist": 50
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "8352dfdac71dbfeb5d57dba71206c6ebbc1c115825c58d66208144f08b4d9868",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 3477882064,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "f467b209cc545a192b3bcb75fbf21d96bfbc103b3ac92e3e9040d420cb60f6b4",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 50,
+          "hp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "spd": 86,
+          "hit": 90,
+          "eva": 6,
+          "resist": 40
+        },
+        "after": {
+          "level": 50,
+          "hp": 125761,
+          "atk": 9703,
+          "def": 591,
+          "spd": 86,
+          "hit": 90,
+          "eva": 6,
+          "resist": 40
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": null
+      }
+    },
+    {
+      "id": "excluded_STORY:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 50,
+          "hp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "spd": 86,
+          "hit": 90,
+          "eva": 6,
+          "resist": 40
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 50,
+          "hp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "spd": 86,
+          "hit": 90,
+          "eva": 6,
+          "resist": 40
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "stats": {
+          "level": 50,
+          "hp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "spd": 86,
+          "hit": 90,
+          "eva": 6,
+          "resist": 40
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "hp": 654332,
+        "atk": 3221,
+        "def": 467,
+        "revision": 111
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "level": 51,
+        "stats": {
+          "level": 51,
+          "hp": 141750,
+          "atk": 11168,
+          "def": 609,
+          "spd": 86,
+          "hit": 90,
+          "eva": 6,
+          "resist": 40
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 3064118623,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "63d6ad641fc5dbbabac54e8e8a205799da067c7ce55f9476cb64448f5f352e5c",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 1539788287,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "c30e05cb766772a2e4ab83b8251fba96abbb59f002bd25cef3d7be9ad93bede1",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "public_entry_actual_catalog_and_profile:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "gearEnhancement": 6,
+        "before": {
+          "level": 60,
+          "hp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "spd": 64,
+          "hit": 92,
+          "eva": 3,
+          "resist": 70
+        },
+        "after": {
+          "level": 60,
+          "hp": 137874,
+          "atk": 13189,
+          "def": 778,
+          "spd": 64,
+          "hit": 92,
+          "eva": 3,
+          "resist": 70
+        },
+        "initialShields": {
+          "before": [],
+          "after": []
+        },
+        "challengeRevision": 1,
+        "fieldBehavior": null
+      }
+    },
+    {
+      "id": "excluded_STORY:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY",
+        "stats": {
+          "level": 60,
+          "hp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "spd": 64,
+          "hit": 92,
+          "eva": 3,
+          "resist": 70
+        }
+      }
+    },
+    {
+      "id": "excluded_EXPLICIT:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "stats": {
+          "level": 60,
+          "hp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "spd": 64,
+          "hit": 92,
+          "eva": 3,
+          "resist": 70
+        }
+      }
+    },
+    {
+      "id": "excluded_WRONG_BOSS_ORIGIN:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+        "stats": {
+          "level": 60,
+          "hp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "spd": 64,
+          "hit": 92,
+          "eva": 3,
+          "resist": 70
+        }
+      }
+    },
+    {
+      "id": "excluded_abyss_growth_probe:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "guard": "abyss",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "excluded_raid_growth_probe:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "guard": "raid",
+        "probe": "direct growth guard; not a raid/abyss admission or campaign"
+      }
+    },
+    {
+      "id": "admin_exact_final_override:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "hp": 654333,
+        "atk": 3222,
+        "def": 468,
+        "revision": 112
+      }
+    },
+    {
+      "id": "admin_level_only_keeps_challenge_curve:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "level": 59,
+        "stats": {
+          "level": 59,
+          "hp": 134664,
+          "atk": 12717,
+          "def": 758,
+          "spd": 63,
+          "hit": 91,
+          "eva": 3,
+          "resist": 70
+        }
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_PENDING:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "PENDING",
+        "prng": 226502406,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "1aecf03f4dcacc8bb13f4c0fe41cc1ef06a2407a2b9b80dd2d119426690e7ad2",
+        "resumedActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01623_save_preserved_WAIT_PLAYER:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "savedEngine": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+        "boundary": "WAIT_PLAYER",
+        "prng": 3923208125,
+        "oldFieldBehavior": null,
+        "runtimeSHA256": "c8d4737610d3cda3d3cc523852192bdb35442d21e3760b4a5084f262b18ec7a3",
+        "resumedActionCompared": true
+      }
+    },
+    {
+      "id": "new_daily_pressure_pending_started_and_native_guard_replay:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "marker": 1,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplayed": true,
+        "stillActive": true,
+        "prng": 4282659476
+      }
+    },
+    {
+      "id": "new_daily_pressure_pending_started_and_native_guard_replay:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "marker": 1,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplayed": true,
+        "stillActive": true,
+        "prng": 3536915842
+      }
+    },
+    {
+      "id": "new_daily_pressure_pending_started_and_native_guard_replay:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "marker": 1,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplayed": true,
+        "stillActive": true,
+        "prng": 124695308
+      }
+    },
+    {
+      "id": "new_daily_pressure_pending_started_and_native_guard_replay:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "marker": 1,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplayed": true,
+        "stillActive": true,
+        "prng": 217096085
+      }
+    },
+    {
+      "id": "daily_pressure_marker_validation_excludes_wrong_scopes",
+      "passed": true,
+      "evidence": {
+        "rejected": [
+          {
+            "marker": 2
+          },
+          {
+            "marker": "1"
+          },
+          {
+            "marker": null
+          },
+          {
+            "origin": "STORY:TRV_BOSS_SCOPE_BOUNDARY"
+          },
+          {
+            "origin": "EXPLICIT"
+          },
+          {
+            "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS"
+          },
+          {
+            "scope": "abyss"
+          },
+          {
+            "scope": "raid"
+          }
+        ],
+        "unmarkedOldSavesCoveredSeparately": true
+      }
+    },
+    {
+      "id": "nonenemy_and_summon_growth_probes_exclude_profile",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "FB_ANEMO_HYPOSTASIS",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_ANEMO_HYPOSTASIS",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_CRYO_REGISVINE",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_CRYO_REGISVINE",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_CRYO_HYPOSTASIS",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_CRYO_HYPOSTASIS",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_GEO_HYPOSTASIS",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_GEO_HYPOSTASIS",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_PYRO_REGISVINE",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_PYRO_REGISVINE",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_OCEANID",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_OCEANID",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_PRIMO_GEOVISHAP",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_PRIMO_GEOVISHAP",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "FB_RUIN_SERPENT",
+          "mode": "ALLY"
+        },
+        {
+          "source": "FB_RUIN_SERPENT",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "BOSS_ANDRIUS",
+          "mode": "ALLY"
+        },
+        {
+          "source": "BOSS_ANDRIUS",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "BOSS_DVALIN",
+          "mode": "ALLY"
+        },
+        {
+          "source": "BOSS_DVALIN",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "BOSS_TARTAGLIA",
+          "mode": "ALLY"
+        },
+        {
+          "source": "BOSS_TARTAGLIA",
+          "mode": "SUMMON"
+        },
+        {
+          "source": "BOSS_AZHDAHA",
+          "mode": "ALLY"
+        },
+        {
+          "source": "BOSS_AZHDAHA",
+          "mode": "SUMMON"
+        }
+      ]
+    },
+    {
+      "id": "shared_db_and_raw_fixture_remain_unchanged",
+      "passed": true,
+      "evidence": {
+        "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "recordedQADbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "matchesRecordedQA": true,
+        "unchanged": true
+      }
+    }
+  ],
+  "baseline": {
+    "commit": "1bf0ee5fb35f5fba371466e2e29f01ef7fa4ed59",
+    "sourceFiles": 233,
+    "fingerprint": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+    "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "recordedQADbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "matchesRecordedQA": true,
+    "requiresRecordedQA": false,
+    "caveat": "Published source identity is verified. Actual old/new DB equality is required; recorded local QA DB identity is enforced only with --require-recorded-qa. This does not assert authored production DB equals the QA fixture.",
+    "mode": "verified before-source overlay"
+  },
+  "fingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+  "profiles": {
+    "FB_ANEMO_HYPOSTASIS": {
+      "level": 18,
+      "hpMultiplier": 1.3654984069185252,
+      "atkMultiplier": 1.249024199843872,
+      "defMultiplier": 1.0975609756097562
+    },
+    "FB_ELECTRO_HYPOSTASIS": {
+      "level": 20,
+      "hpMultiplier": 1.0967918837400603,
+      "atkMultiplier": 1.6144349477682811,
+      "defMultiplier": 1.1475409836065573
+    },
+    "FB_CRYO_REGISVINE": {
+      "level": 22,
+      "hpMultiplier": 1.4235654840122645,
+      "atkMultiplier": 1.1545293072824157,
+      "defMultiplier": 1.083743842364532
+    },
+    "FB_CRYO_HYPOSTASIS": {
+      "level": 30,
+      "hpMultiplier": 1.1741682974559686,
+      "atkMultiplier": 1.2259774685222002,
+      "defMultiplier": 1
+    },
+    "FB_PYRO_REGISVINE": {
+      "level": 38,
+      "hpMultiplier": 1.5809026954390957,
+      "atkMultiplier": 1.51285930408472,
+      "defMultiplier": 1.14713216957606
+    },
+    "FB_OCEANID": {
+      "level": 40,
+      "hpMultiplier": 1,
+      "atkMultiplier": 1.3703323055841041,
+      "defMultiplier": 1
+    },
+    "FB_GEO_HYPOSTASIS": {
+      "level": 45,
+      "hpMultiplier": 1,
+      "atkMultiplier": 1,
+      "defMultiplier": 1
+    },
+    "FB_PRIMO_GEOVISHAP": {
+      "level": 48,
+      "hpMultiplier": 1.128389576501287,
+      "atkMultiplier": 1.171708564124414,
+      "defMultiplier": 1.0233393177737882
+    },
+    "FB_RUIN_SERPENT": {
+      "level": 56,
+      "hpMultiplier": 1,
+      "atkMultiplier": 1.0841836734693877,
+      "defMultiplier": 1
+    },
+    "BOSS_ANDRIUS": {
+      "level": 25,
+      "hpMultiplier": 1.75,
+      "atkMultiplier": 2.2,
+      "defMultiplier": 1
+    },
+    "BOSS_DVALIN": {
+      "level": 28,
+      "hpMultiplier": 4,
+      "atkMultiplier": 2.8,
+      "defMultiplier": 1
+    },
+    "BOSS_TARTAGLIA": {
+      "level": 50,
+      "hpMultiplier": 2.1,
+      "atkMultiplier": 1.9,
+      "defMultiplier": 1
+    },
+    "BOSS_AZHDAHA": {
+      "level": 60,
+      "hpMultiplier": 1.5,
+      "atkMultiplier": 1.45,
+      "defMultiplier": 1
+    }
+  },
+  "total": 139,
+  "passed": 139,
+  "failed": 0
+}

@@ -1,0 +1,2051 @@
+{
+  "schema": "crpg-release-review-v3",
+  "version": "0.16.9",
+  "recordedUtc": "2026-10-07T16:46:08.537221+00:00",
+  "originalFullGateRun": {
+    "command": "python tools/verify_release.py",
+    "total": 149,
+    "passed": 126,
+    "failed": 23,
+    "exit": 1,
+    "timeoutCount": 0,
+    "combinedLog": "/tmp/release-v0169-checks.log",
+    "results": "evidence/release/results.json",
+    "resultsSha256": "9d0b5e53aba8555da204f9988a665f6c0ad38c3966475c09e28665730046526a",
+    "records": [
+      {
+        "test": "tests/test_tasks_v0169.cjs",
+        "ok": true,
+        "seconds": 54.7
+      },
+      {
+        "test": "tests/test_task_catalog_v0169.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_task_learning_delivery_v0169.cjs",
+        "ok": true,
+        "seconds": 26.1
+      },
+      {
+        "test": "tests/test_task_board_v0169.cjs",
+        "ok": true,
+        "seconds": 6.0
+      },
+      {
+        "test": "tests/test_battle_inspection_v0169.cjs",
+        "ok": true,
+        "seconds": 23.1
+      },
+      {
+        "test": "tests/test_skill_owner_v0169.cjs",
+        "ok": true,
+        "seconds": 62.5
+      },
+      {
+        "test": "tests/test_live_actor_playback_v0169.cjs",
+        "ok": true,
+        "seconds": 4.6
+      },
+      {
+        "test": "tests/test_task_materials_v0169.cjs",
+        "ok": true,
+        "seconds": 56.2
+      },
+      {
+        "test": "tools/audit_task_materials_v0169.cjs",
+        "ok": true,
+        "seconds": 18.9
+      },
+      {
+        "test": "tests/test_combat_boundaries_v0168.cjs",
+        "ok": true,
+        "seconds": 38.8
+      },
+      {
+        "test": "tests/test_control_reactions_v0168.cjs",
+        "ok": true,
+        "seconds": 89.5
+      },
+      {
+        "test": "tests/test_gear_effects_v0168.cjs",
+        "ok": true,
+        "seconds": 10.2
+      },
+      {
+        "test": "tests/test_food_economy_v0168.cjs",
+        "ok": true,
+        "seconds": 41.6
+      },
+      {
+        "test": "tools/audit_economy_v0168.cjs",
+        "ok": true,
+        "seconds": 4.8
+      },
+      {
+        "test": "tests/test_task_catalog_v0168.cjs",
+        "ok": true,
+        "seconds": 2.7
+      },
+      {
+        "test": "tests/test_tasks_expanded_v0168.cjs",
+        "ok": true,
+        "seconds": 27.1
+      },
+      {
+        "test": "tests/test_tasks_edge_v0168.cjs",
+        "ok": true,
+        "seconds": 27.5
+      },
+      {
+        "test": "tests/test_xp_pacing_v0168.cjs",
+        "ok": true,
+        "seconds": 179.8
+      },
+      {
+        "test": "tests/test_coop_receipt_v0168.mjs",
+        "ok": true,
+        "seconds": 76.0
+      },
+      {
+        "test": "tests/test_playback_pause_v0168.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_defeat_settlement_v0166.cjs",
+        "ok": true,
+        "seconds": 20.8
+      },
+      {
+        "test": "tests/test_balance_saves_v0166.cjs",
+        "ok": true,
+        "seconds": 42.4
+      },
+      {
+        "test": "tests/test_skill_fx_v0162.cjs",
+        "ok": false,
+        "seconds": 1.4
+      },
+      {
+        "test": "tests/test_rewards_balance_v0161.cjs",
+        "ok": true,
+        "seconds": 42.8
+      },
+      {
+        "test": "tests/test_growth_pacing_v0161.cjs",
+        "ok": true,
+        "seconds": 65.4
+      },
+      {
+        "test": "tests/test_server_coop_retry_v0161.mjs",
+        "ok": true,
+        "seconds": 20.2
+      },
+      {
+        "test": "tests/test_osial_pattern_v0161.cjs",
+        "ok": true,
+        "seconds": 17.5
+      },
+      {
+        "test": "tests/test_life_v0162.cjs",
+        "ok": true,
+        "seconds": 67.6
+      },
+      {
+        "test": "tests/test_life_v010.cjs",
+        "ok": true,
+        "seconds": 33.3
+      },
+      {
+        "test": "tests/test_v01525.cjs",
+        "ok": false,
+        "seconds": 341.3
+      },
+      {
+        "test": "tests/test_v01524.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_combat_stalemate_v01523.cjs",
+        "ok": true,
+        "seconds": 10.5
+      },
+      {
+        "test": "tests/test_tutorial_v01523.cjs",
+        "ok": true,
+        "seconds": 45.7
+      },
+      {
+        "test": "tests/test_tutorial_online_v01523.mjs",
+        "ok": true,
+        "seconds": 28.5
+      },
+      {
+        "test": "tests/test_growth_v01522.cjs",
+        "ok": true,
+        "seconds": 79.4
+      },
+      {
+        "test": "tests/test_growth_online_v01522.mjs",
+        "ok": true,
+        "seconds": 28.0
+      },
+      {
+        "test": "tests/test_growth_balance_v01522.cjs",
+        "ok": true,
+        "seconds": 25.8
+      },
+      {
+        "test": "tests/test_durable_account.mjs",
+        "ok": true,
+        "seconds": 7.9
+      },
+      {
+        "test": "tests/test_durable_migration.mjs",
+        "ok": true,
+        "seconds": 6.3
+      },
+      {
+        "test": "tests/test_online_server.mjs",
+        "ok": true,
+        "seconds": 22.8
+      },
+      {
+        "test": "tests/test_authoritative_flow.mjs",
+        "ok": true,
+        "seconds": 9.9
+      },
+      {
+        "test": "tests/test_reading_checkpoint.mjs",
+        "ok": true,
+        "seconds": 33.5
+      },
+      {
+        "test": "tests/test_action_recovery.mjs",
+        "ok": true,
+        "seconds": 295.5
+      },
+      {
+        "test": "tests/test_update_recovery.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_engine_identity.py",
+        "ok": true,
+        "seconds": 0.0
+      },
+      {
+        "test": "tests/test_combat_catalog_online.mjs",
+        "ok": true,
+        "seconds": 7.9
+      },
+      {
+        "test": "tests/test_action_feedback.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_online_bootstrap_v01343.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_online_title_v01344.cjs",
+        "ok": true,
+        "seconds": 6.4
+      },
+      {
+        "test": "tests/test_local_dev_config.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_combat_v0142.cjs",
+        "ok": false,
+        "seconds": 8.3
+      },
+      {
+        "test": "tests/test_v0142_combat_summons.cjs",
+        "ok": false,
+        "seconds": 4.8
+      },
+      {
+        "test": "tests/test_local_revision_v0141.cjs",
+        "ok": true,
+        "seconds": 23.5
+      },
+      {
+        "test": "tests/test_story_edition_v0141.cjs",
+        "ok": true,
+        "seconds": 3.4
+      },
+      {
+        "test": "tests/test_balance_v0141.cjs",
+        "ok": true,
+        "seconds": 36.5
+      },
+      {
+        "test": "tests/test_local_revision_online_v0141.mjs",
+        "ok": true,
+        "seconds": 15.4
+      },
+      {
+        "test": "tests/test_opening.cjs",
+        "ok": false,
+        "seconds": 31.7
+      },
+      {
+        "test": "tests/test_mond_content_v01344.cjs",
+        "ok": true,
+        "seconds": 13.2
+      },
+      {
+        "test": "tests/test_mond_full_v01344.cjs",
+        "ok": true,
+        "seconds": 401.7
+      },
+      {
+        "test": "tests/test_save_v01344.cjs",
+        "ok": false,
+        "seconds": 0.7
+      },
+      {
+        "test": "tests/test_save_revision.cjs",
+        "ok": true,
+        "seconds": 40.1
+      },
+      {
+        "test": "tests/test_work_validation.cjs",
+        "ok": true,
+        "seconds": 28.8
+      },
+      {
+        "test": "tests/test_life_ui_v010.cjs",
+        "ok": true,
+        "seconds": 12.4
+      },
+      {
+        "test": "tests/test_playback_v08.cjs",
+        "ok": true,
+        "seconds": 2.8
+      },
+      {
+        "test": "tests/test_presentation.cjs",
+        "ok": false,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_access_gear_v01343.cjs",
+        "ok": true,
+        "seconds": 22.2
+      },
+      {
+        "test": "tests/test_gear_ui_v01343.cjs",
+        "ok": true,
+        "seconds": 3.4
+      },
+      {
+        "test": "tests/test_quality_fixes_v01335.cjs",
+        "ok": true,
+        "seconds": 8.6
+      },
+      {
+        "test": "tests/test_quality_fixes_v01336.cjs",
+        "ok": true,
+        "seconds": 14.6
+      },
+      {
+        "test": "tests/test_quality_fixes_v01337.cjs",
+        "ok": true,
+        "seconds": 1.3
+      },
+      {
+        "test": "tests/test_quality_fixes_v01338.cjs",
+        "ok": true,
+        "seconds": 6.0
+      },
+      {
+        "test": "tests/test_liyue_rework_mechanics.cjs",
+        "ok": true,
+        "seconds": 90.2
+      },
+      {
+        "test": "tests/test_liyue_rework_flow.cjs",
+        "ok": true,
+        "seconds": 579.0
+      },
+      {
+        "test": "tools/test_field_bosses.cjs",
+        "ok": true,
+        "seconds": 54.4
+      },
+      {
+        "test": "tools/test_exclusive_weapons.cjs",
+        "ok": false,
+        "seconds": 6.7
+      },
+      {
+        "test": "tests/test_update_v01341.cjs",
+        "ok": true,
+        "seconds": 91.9
+      },
+      {
+        "test": "tests/test_abyss_v01341.cjs",
+        "ok": true,
+        "seconds": 61.7
+      },
+      {
+        "test": "tests/test_v0144.cjs",
+        "ok": false,
+        "seconds": 18.2
+      },
+      {
+        "test": "tests/test_v0148.cjs",
+        "ok": true,
+        "seconds": 28.7
+      },
+      {
+        "test": "tests/test_v01410.cjs",
+        "ok": true,
+        "seconds": 0.7
+      },
+      {
+        "test": "tests/test_v01411.cjs",
+        "ok": false,
+        "seconds": 28.0
+      },
+      {
+        "test": "tests/test_admin_v01412.mjs",
+        "ok": true,
+        "seconds": 43.7
+      },
+      {
+        "test": "tests/test_v01413.cjs",
+        "ok": true,
+        "seconds": 11.1
+      },
+      {
+        "test": "tests/test_v01415.cjs",
+        "ok": false,
+        "seconds": 150.5
+      },
+      {
+        "test": "tests/test_social_v01415.mjs",
+        "ok": true,
+        "seconds": 46.5
+      },
+      {
+        "test": "tests/test_v0151.cjs",
+        "ok": false,
+        "seconds": 10.8
+      },
+      {
+        "test": "tests/test_letters_v0151.mjs",
+        "ok": true,
+        "seconds": 83.0
+      },
+      {
+        "test": "tests/test_v0152.cjs",
+        "ok": false,
+        "seconds": 26.1
+      },
+      {
+        "test": "tests/test_balance_v0152.cjs",
+        "ok": true,
+        "seconds": 46.9
+      },
+      {
+        "test": "tests/test_server_v0152.mjs",
+        "ok": true,
+        "seconds": 44.7
+      },
+      {
+        "test": "tests/test_v0153.cjs",
+        "ok": true,
+        "seconds": 67.5
+      },
+      {
+        "test": "tests/test_server_v0153.mjs",
+        "ok": true,
+        "seconds": 6.2
+      },
+      {
+        "test": "tests/test_coop_v0153.cjs",
+        "ok": true,
+        "seconds": 56.4
+      },
+      {
+        "test": "tests/test_server_coop_v0153.mjs",
+        "ok": true,
+        "seconds": 107.2
+      },
+      {
+        "test": "tests/test_server_coop_world_v0159.mjs",
+        "ok": true,
+        "seconds": 26.4
+      },
+      {
+        "test": "tests/test_coop_world_ui_v0159.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_coop_world_v0160.cjs",
+        "ok": false,
+        "seconds": 16.4
+      },
+      {
+        "test": "tests/test_server_coop_roam_v0160.mjs",
+        "ok": true,
+        "seconds": 89.5
+      },
+      {
+        "test": "tests/test_coop_world_screen_v0160.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_freeze_v0160.cjs",
+        "ok": true,
+        "seconds": 5.3
+      },
+      {
+        "test": "tests/test_battle_lines_v0162.cjs",
+        "ok": true,
+        "seconds": 26.9
+      },
+      {
+        "test": "tests/test_landmarks_v0163.cjs",
+        "ok": true,
+        "seconds": 12.8
+      },
+      {
+        "test": "tests/test_v0164.cjs",
+        "ok": false,
+        "seconds": 6.0
+      },
+      {
+        "test": "tests/test_vfx_v0165.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_v0167.cjs",
+        "ok": true,
+        "seconds": 5.6
+      },
+      {
+        "test": "tests/test_v0156.cjs",
+        "ok": true,
+        "seconds": 22.3
+      },
+      {
+        "test": "tests/test_v0157.cjs",
+        "ok": true,
+        "seconds": 0.4
+      },
+      {
+        "test": "tests/test_v0158.mjs",
+        "ok": true,
+        "seconds": 1.3
+      },
+      {
+        "test": "tests/test_osial_v01341.cjs",
+        "ok": true,
+        "seconds": 14.1
+      },
+      {
+        "test": "tools/test_story_cleanup_v0140.cjs",
+        "ok": true,
+        "seconds": 3.8
+      },
+      {
+        "test": "tests/test_main_story_k_v0148.cjs",
+        "ok": true,
+        "seconds": 4.6
+      },
+      {
+        "test": "tests/test_fixed_region_live.mjs",
+        "ok": true,
+        "seconds": 18.6
+      },
+      {
+        "test": "tests/test_server_account_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 64.7
+      },
+      {
+        "test": "tests/test_server_social_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 30.9
+      },
+      {
+        "test": "tests/test_server_coop_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 93.6
+      },
+      {
+        "test": "tests/test_client_audit_fixes.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_ui_audit_regressions.cjs",
+        "ok": true,
+        "seconds": 2.2
+      },
+      {
+        "test": "tests/test_test_banner_v01510.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_version.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_test_release_pin.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_test_release_transaction.cjs",
+        "ok": true,
+        "seconds": 20.5
+      },
+      {
+        "test": "tests/test_server_capacity_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 1.1
+      },
+      {
+        "test": "tests/test_social_concurrency_v01511.mjs",
+        "ok": true,
+        "seconds": 41.4
+      },
+      {
+        "test": "tests/test_asset_followup.cjs",
+        "ok": false,
+        "seconds": 2.7
+      },
+      {
+        "test": "tests/test_client_social_followup.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_wish_ui_audit_fixes.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_puzzle_ui_lifecycle.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_client_connection_recovery.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_popup_lifecycle_v01512.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_server_coop_recovery_v01512.mjs",
+        "ok": true,
+        "seconds": 57.5
+      },
+      {
+        "test": "tests/test_feature_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 128.5
+      },
+      {
+        "test": "tests/test_ui_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_settings_audio_v01513.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_content_boundaries_v01513.cjs",
+        "ok": false,
+        "seconds": 2.5
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.cjs",
+        "ok": true,
+        "seconds": 8.9
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.py",
+        "ok": false,
+        "seconds": 1.3
+      },
+      {
+        "test": "tests/test_server_load_boundaries_v01513.mjs",
+        "ok": true,
+        "seconds": 111.1
+      },
+      {
+        "test": "tests/test_story_asset_bindings.cjs",
+        "ok": false,
+        "seconds": 5.0
+      },
+      {
+        "test": "tests/test_server_remaining_audit_v01513.mjs",
+        "ok": true,
+        "seconds": 1.0
+      },
+      {
+        "test": "tests/test_enemy_text_v01514.cjs",
+        "ok": false,
+        "seconds": 3.3
+      },
+      {
+        "test": "tests/test_story_named_text_v01514.cjs",
+        "ok": true,
+        "seconds": 6.1
+      },
+      {
+        "test": "tests/test_v01515.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_map_v01516.cjs",
+        "ok": true,
+        "seconds": 5.4
+      },
+      {
+        "test": "tests/test_v01517.cjs",
+        "ok": true,
+        "seconds": 4.8
+      },
+      {
+        "test": "tests/test_v01518.cjs",
+        "ok": false,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_v01519.cjs",
+        "ok": true,
+        "seconds": 5.9
+      },
+      {
+        "test": "tests/test_v01520.cjs",
+        "ok": false,
+        "seconds": 4.2
+      },
+      {
+        "test": "tests/test_v01521.cjs",
+        "ok": false,
+        "seconds": 3.8
+      },
+      {
+        "test": "tests/v013/test_recruitment_cost_consistency.cjs",
+        "ok": true,
+        "seconds": 32.3
+      }
+    ]
+  },
+  "finalAssessment": {
+    "passedDistinctGatesAfterVerifiedReruns": 132,
+    "uncompletedEnvironmentGates": 17,
+    "unresolvedNonEnvironmentFailures": 0,
+    "rawFullGateWasRerun": false,
+    "claim149Green": false,
+    "claimRealBrowserVisualQA": false,
+    "noteKo": "최초149개 원본결과는126PASS/23FAIL로보존. 확인된6개회귀·fixture교정후각각재검사PASS. 최종통과한distinctgate132개, 기존매체·manifest15개/Git역사1개/authoredDB1개입력부재로17개미완료. 생산소스최종동결후관련13개와날짜fixture3개를재검사했으며최신해시불변확인."
+  },
+  "resolvedInitialFailures": [
+    "tests/test_opening.cjs",
+    "tests/test_v0144.cjs",
+    "tests/test_v0152.cjs",
+    "tests/test_coop_world_v0160.cjs",
+    "tests/test_enemy_text_v01514.cjs",
+    "tests/test_v01518.cjs"
+  ],
+  "environmentOnlyRemainingGates": [
+    "tests/test_skill_fx_v0162.cjs",
+    "tests/test_v01525.cjs",
+    "tests/test_combat_v0142.cjs",
+    "tests/test_v0142_combat_summons.cjs",
+    "tests/test_save_v01344.cjs",
+    "tests/test_presentation.cjs",
+    "tools/test_exclusive_weapons.cjs",
+    "tests/test_v01411.cjs",
+    "tests/test_v01415.cjs",
+    "tests/test_v0151.cjs",
+    "tests/test_v0164.cjs",
+    "tests/test_asset_followup.cjs",
+    "tests/test_content_boundaries_v01513.cjs",
+    "tests/test_release_isolation_v01513.py",
+    "tests/test_story_asset_bindings.cjs",
+    "tests/test_v01520.cjs",
+    "tests/test_v01521.cjs"
+  ],
+  "postFreezeReruns": [
+    {
+      "test": "tests/test_engine_identity.py",
+      "ok": true,
+      "exit": 0,
+      "seconds": 0.1,
+      "log": "/tmp/release-v0169-last-freeze-test_engine_identity.py.log",
+      "logSha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc",
+      "passLines": 0,
+      "nativeSummary": {
+        "ok": true,
+        "uiOnlyCompatible": true,
+        "rulesContentProtocolGatedWorkerIndependent": true
+      }
+    },
+    {
+      "test": "tests/test_online_server.mjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 24.9,
+      "log": "/tmp/release-v0169-last-freeze-test_online_server.mjs.log",
+      "logSha256": "e20bf6f9afa859e9d5bd9ec7776dba82a0049ec07567400ec47c4fb1c60f50b7",
+      "passLines": 1
+    },
+    {
+      "test": "tests/test_opening.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 36.6,
+      "log": "/tmp/release-v0169-last-freeze-test_opening.cjs.log",
+      "logSha256": "4aacf2880abef896425fcf13dbe65b80f2db042fd93b6e39e0275b06bbb4cce6",
+      "passLines": 11,
+      "nativeSummary": {
+        "passed": 11,
+        "total": 11
+      }
+    },
+    {
+      "test": "tests/test_task_learning_delivery_v0169.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 29.8,
+      "log": "/tmp/release-v0169-last-freeze-test_task_learning_delivery_v0169.cjs.log",
+      "logSha256": "d55409ac288b04fef37465396a36bf84324b85d8fe74bf0b06c32fbfc85c2d1a",
+      "passLines": 15
+    },
+    {
+      "test": "tests/test_live_actor_playback_v0169.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 7.8,
+      "log": "/tmp/release-v0169-last-freeze-test_live_actor_playback_v0169.cjs.log",
+      "logSha256": "bb2789b0f953a218240e40b15bfaeb678fa75753ab6f9e79372b80aa3574d9b1",
+      "passLines": 12,
+      "nativeSummary": {
+        "ok": true,
+        "checks": [
+          "first shield creation creates its meter at the current frame, with no future state leaked",
+          "shield creation, hit loss and silent expiry update the visible snapshot and remove the meter",
+          "read-only inspections return defensive copies and live notifications while the fight keeps playing",
+          "hidden and pagehide preserve pending frames, and returning never jumps to the result",
+          "manual pause survives backgrounding and shield/status snapshots do not advance until resume",
+          "a shield gained after a burst stays hidden until the final impact and follows its paused clock",
+          "an action completed while backgrounded starts its first visible frame only after returning",
+          "silent expiry metadata updates the view without adding a new message or delaying the next action",
+          "a status-only effect on an enemy never presents that recipient as the current turn",
+          "final boss initialization is captured before return; every opening preview preserves saved bytes",
+          "native shield skill and round-end expiry serialize display metadata without adding combat log rows",
+          "native status application keeps the actual caster, recipient and source card distinct"
+        ]
+      }
+    },
+    {
+      "test": "tests/test_tasks_v0169.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 70.0,
+      "log": "/tmp/release-v0169-last-freeze-test_tasks_v0169.cjs.log",
+      "logSha256": "1b0f2429574ee8bdd1d4a880c8c8328f7ab27dd80f0ba359c775d8220278d860",
+      "passLines": 16,
+      "nativeSummary": {
+        "ok": true,
+        "checks": 16
+      }
+    },
+    {
+      "test": "tests/test_playback_v08.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 2.6,
+      "log": "/tmp/release-v0169-last-freeze-test_playback_v08.cjs.log",
+      "logSha256": "bffbaa60596eb6698a212575d65ea5ed5502cb209eee07ab1ac912a107ae7075",
+      "passLines": 11,
+      "nativeSummary": {
+        "total": 11,
+        "passed": 11,
+        "failed": 0
+      }
+    },
+    {
+      "test": "tests/test_coop_receipt_v0168.mjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 84.5,
+      "log": "/tmp/release-v0169-last-freeze-test_coop_receipt_v0168.mjs.log",
+      "logSha256": "e2fb4b2d5b2a3fea0ca36fd256e327a5ee65a89aad2abe7448b1f14bf4c9cf01",
+      "passLines": 7,
+      "nativeSummary": {
+        "ok": true,
+        "firstStatus": 200,
+        "retryStatus": 200,
+        "replayed": true,
+        "battleEnded": true,
+        "ownerRevisionUnchanged": true,
+        "receiptAccountScoped": true
+      }
+    },
+    {
+      "test": "tests/test_enemy_text_v01514.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 3.2,
+      "log": "/tmp/release-v0169-last-freeze-test_enemy_text_v01514.cjs.log",
+      "logSha256": "c8c8639db9609e3827350b8174bba97ed4601c1414bb44fec6fc4d262679a902",
+      "passLines": 1
+    },
+    {
+      "test": "tests/test_v01518.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 0.1,
+      "log": "/tmp/release-v0169-last-freeze-test_v01518.cjs.log",
+      "logSha256": "d8e101a33c6446f5e9ef00b00986b63d7d06d8167bb14ab5424e55dee4965584",
+      "passLines": 4,
+      "nativeSummary": {
+        "ok": true,
+        "checks": 4
+      }
+    },
+    {
+      "test": "tests/test_battle_inspection_v0169.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 22.6,
+      "log": "/tmp/release-v0169-last-freeze-test_battle_inspection_v0169.cjs.log",
+      "logSha256": "4fa52279f62393746bf5b4f4323d9af67cf39f9631b5876c186d1f9c3f045954",
+      "passLines": 15,
+      "nativeSummary": {
+        "passed": 15,
+        "nativeDefeatCases": 1,
+        "domUnitChecks": 15,
+        "realBrowser": false
+      }
+    },
+    {
+      "test": "tests/test_coop_v0153.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 60.3,
+      "log": "/tmp/release-v0169-last-freeze-test_coop_v0153.cjs.log",
+      "logSha256": "982e2f58c6af00885f9eb277d3b740a6ab81f91e027023c5a1be9039a7e82032",
+      "passLines": 15,
+      "nativeSummary": {
+        "total": 15,
+        "passed": 15
+      }
+    },
+    {
+      "test": "tests/test_skill_owner_v0169.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 69.7,
+      "log": "/tmp/release-v0169-last-freeze-test_skill_owner_v0169.cjs.log",
+      "logSha256": "da68241bde9c6b867f80a03c89e44fdffaac53fb455b10268824bfcc50855271",
+      "passLines": 3,
+      "nativeSummary": {
+        "passed": 3,
+        "nativeBattle": true,
+        "realBrowser": false
+      },
+      "nativeCoverage": {
+        "rosterElementalSkillBurstCasts": 92,
+        "periodicConstructFieldFrames": 146,
+        "enemyOwnSkillCasts": 367
+      }
+    }
+  ],
+  "dateFixtureReruns": [
+    {
+      "test": "tests/test_v0144.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 23.2,
+      "log": "/tmp/release-v0169-last-freeze-test_v0144.cjs.log",
+      "nativeChecks": {
+        "total": 15,
+        "passed": 15
+      },
+      "logSha256": "ee72b28e1442794a4ce410aa58405745ae583443243800fc252fa555965497fb"
+    },
+    {
+      "test": "tests/test_coop_world_v0160.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": 32.0,
+      "log": "/tmp/release-v0169-last-freeze-test_coop_world_v0160.cjs.log",
+      "nativeChecks": {
+        "total": 7,
+        "passed": 7
+      },
+      "logSha256": "c29382ed23b102c1fcd1777ecd585d3dd2cfc2e02dab87b124b6ccf0ea5e9fc9"
+    },
+    {
+      "test": "tests/test_v0152.cjs",
+      "ok": true,
+      "exit": 0,
+      "seconds": null,
+      "log": "/tmp/release-v0169-last-freeze-test_v0152.cjs.log",
+      "nativeChecks": {
+        "total": 11,
+        "passed": 11
+      },
+      "firstAttempt": {
+        "exit": 1,
+        "nativeChecks": {
+          "total": 11,
+          "passed": 10
+        },
+        "remainingCause": "eventWorld 고정 day20400은 VM 현재 날짜보다 과거였음. 현재 KST일 기준 같은 200일 검색으로 교정 후 재검사."
+      },
+      "logSha256": "f67047ca21f0b57b30d466ee65a580dc151999edb914da882b0479d7e47e13c6"
+    }
+  ],
+  "dateFixtureChanges": {
+    "files": [
+      "tests/test_v0144.cjs",
+      "tests/test_v0152.cjs",
+      "tests/test_coop_world_v0160.cjs"
+    ],
+    "productionCodeModified": false,
+    "serverDateValidatorRelaxed": false,
+    "preservedCoverage": [
+      "KST10→12시필드보스보상수령경계/패배미집계",
+      "KST12→23→다음날00:01시보스입장경계",
+      "변이주간7일간격/30%보상/일반전투유지",
+      "지역사건중복방지/전투승패분기/지역원석40상한",
+      "공동토벌Lv10/하루3회/이벤트8라운드",
+      "초대세계참가/이동/개별전투/저장/보상소유/상자지속"
+    ]
+  },
+  "failureClassification": [
+    {
+      "test": "tests/test_skill_fx_v0162.cjs",
+      "ok": false,
+      "seconds": 1.4,
+      "originalLog": "evidence/release/test_skill_fx_v0162.cjs.log",
+      "originalLogSha256": "d7484ad9ffcb5819f8da0aa054b11fcd571b43e717ba7ea0bb284113f7f2d94a",
+      "passLinesBeforeOrAlongsideFailure": 0,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local assets/audio/genshin-sfx/catalog.json and original media.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/audio/genshin-sfx/catalog.json",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_v01525.cjs",
+      "ok": false,
+      "seconds": 341.3,
+      "originalLog": "evidence/release/test_v01525.cjs.log",
+      "originalLogSha256": "514220a6d2b3ddb87f191acfb95fa9b0910b5efcaadd456be9227846dd0b766c",
+      "passLinesBeforeOrAlongsideFailure": 20,
+      "failureNames": [
+        "FAIL a picture for every growth material (official icons the user approved), the ley-line card without its paragraph"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing original assets/icons/UI_ItemIcon_104301.webp; tutorial and other behavior assertions pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/icons/UI_ItemIcon_104301.webp",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_combat_v0142.cjs",
+      "ok": false,
+      "seconds": 8.3,
+      "originalLog": "evidence/release/test_combat_v0142.cjs.log",
+      "originalLogSha256": "d4a7fdc76f57e10bdcef443f82164eef2bcd0c7ee27923aebf845e6f9c486a4d",
+      "passLinesBeforeOrAlongsideFailure": 10,
+      "failureNames": [
+        "FAIL combat UI ships summon lanes, source-origin FX, live shields and battle-music hold"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local summon_baron_bunny.webp. Combat behavior checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/summons/summon_baron_bunny.webp",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_v0142_combat_summons.cjs",
+      "ok": false,
+      "seconds": 4.8,
+      "originalLog": "evidence/release/test_v0142_combat_summons.cjs.log",
+      "originalLogSha256": "d4bb2450306d94b04bcb90d8688471b8069322e9ce3a57b1a3f8a37d1865d2eb",
+      "passLinesBeforeOrAlongsideFailure": 3,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local summon_baron_bunny.webp. Summon behavior checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/summons/summon_baron_bunny.webp",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_opening.cjs",
+      "ok": false,
+      "seconds": 31.7,
+      "originalLog": "evidence/release/test_opening.cjs.log",
+      "originalLogSha256": "7524e6f66551da0ce54676a9eb417de8817078f90faadf0062f1020707024590",
+      "passLinesBeforeOrAlongsideFailure": 10,
+      "failureNames": [
+        "FAIL opening previews, menus and internal auto/newRound calls never advance or reroll"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "changed_source_regression_fixed",
+      "matchedV0168EnvironmentFailure": false,
+      "reason": "보스 시작 직후 read-only opening/no-op 조회가 초기 전투 log의 presentationActorsAfter에 보스 balance 변경을 늦게 덧붙임. 실 actors/PRNG/턴은 불변이어도 저장 로그가 변하므로 실제 회귀.",
+      "currentStatus": "fixed_verified_rerun_pass",
+      "fixOwner": "/root/combat_live_status_0169",
+      "independentFocusedRepro": {
+        "method": "현재 최종 소스 index의 전체 runtime+presentation을 VM 로드, 원래 ANDRIUS exact fixture, 6 메서드 4회 반복 및 MENU 왕복",
+        "runtimeJsonUnchanged": true,
+        "prngUnchanged": true,
+        "sourceEdited": false
+      },
+      "requiredAction": "추가 소스 조치 없음. 원본 FAIL 로그와 이 최신 PASS 근거를 통합 릴리스 기록에 함께 보존.",
+      "finalRerun": {
+        "test": "tests/test_opening.cjs",
+        "log": "/tmp/release-v0169-last-freeze-test_opening.cjs.log",
+        "logSha256": "4aacf2880abef896425fcf13dbe65b80f2db042fd93b6e39e0275b06bbb4cce6",
+        "exit": 0,
+        "nativeChecks": {
+          "passed": 11,
+          "total": 11
+        },
+        "allChecksPass": true
+      }
+    },
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "ok": false,
+      "seconds": 0.7,
+      "originalLog": "evidence/release/test_save_v01344.cjs.log",
+      "originalLogSha256": "c60c977d0c36e9455bcb01a0ce594eac544dd83781fe449a5d1a1e92dc53a598",
+      "passLinesBeforeOrAlongsideFailure": 0,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_historical_git_input",
+      "categoryKo": "기존 역사 Git object 입력 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Historical Git object f0c08d6 is not in this reconstructed local Git checkout.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "gitObject": "f0c08d6",
+          "error": "fatal: invalid object name 'f0c08d6'"
+        }
+      ]
+    },
+    {
+      "test": "tests/test_presentation.cjs",
+      "ok": false,
+      "seconds": 0.1,
+      "originalLog": "evidence/release/test_presentation.cjs.log",
+      "originalLogSha256": "0ec9c06b085db018dbd59bbdade91cb47dc0da9eff8aee5c19d51a00333d4a65",
+      "passLinesBeforeOrAlongsideFailure": 7,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local assets/audio/audio-manifest.json and original media. Seven preceding presentation behavior checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/audio/audio-manifest.json",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tools/test_exclusive_weapons.cjs",
+      "ok": false,
+      "seconds": 6.7,
+      "originalLog": "evidence/release/test_exclusive_weapons.cjs.log",
+      "originalLogSha256": "c9551e947256116397b5453315a058cec9ed73f9651600e9263f4f4863911e07",
+      "passLinesBeforeOrAlongsideFailure": 5,
+      "failureNames": [
+        "FAIL the forge shows an exclusive weapon tab and the note about original or substitute materials"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing original EQ_EX_MOND_ALBEDO icon asset; preceding native mechanics checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/icons/UI_EquipIcon_Sword_Opus.webp",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_v0144.cjs",
+      "ok": false,
+      "seconds": 18.2,
+      "originalLog": "evidence/release/test_v0144.cjs.log",
+      "originalLogSha256": "0d49e733e678db601223721b7c21347c4da64bf8d79dbc7e31b90d16397ec06c",
+      "passLinesBeforeOrAlongsideFailure": 13,
+      "failureNames": [
+        "FAIL field bosses: all together pay out three times in every 12 real hours (KST 00:00/12:00); defeats never count",
+        "FAIL 0.14.5 two-day bosses open once per real day (Korean midnight), win or lose"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "mixed_clock_test_fixture_fixed",
+      "matchedV0168EnvironmentFailure": false,
+      "currentStatus": "fixed_verified_rerun_pass",
+      "fixOwner": "/root/mission_regressions_0169",
+      "reason": "옛 fixture의 actionStartedAt/고정 day20400 날짜와 실제 VM Date가 서로 달라 임무 날짜 검증이 실패함. 가상 VM 현재 날짜를 기준으로 같은 native boss/event/co-op 동작을 실행하여 모든 원래 기능 assertion 통과. 생산 임무 검증을 완화하지 않음.",
+      "requiredAction": "추가 소스 조치 없음. 날짜 fixture 수정 및 최종 native assertion PASS 근거를 통합 릴리스 기록에 보존.",
+      "finalRerun": {
+        "test": "tests/test_v0144.cjs",
+        "ok": true,
+        "exit": 0,
+        "seconds": 23.2,
+        "log": "/tmp/release-v0169-last-freeze-test_v0144.cjs.log",
+        "nativeChecks": {
+          "total": 15,
+          "passed": 15
+        },
+        "logSha256": "ee72b28e1442794a4ce410aa58405745ae583443243800fc252fa555965497fb"
+      }
+    },
+    {
+      "test": "tests/test_v01411.cjs",
+      "ok": false,
+      "seconds": 28.0,
+      "originalLog": "evidence/release/test_v01411.cjs.log",
+      "originalLogSha256": "c0e373ac741aa50742da7e10500a58b1c50d8ba0f0b00c80b8317b5a7ad76ef1",
+      "passLinesBeforeOrAlongsideFailure": 12,
+      "failureNames": [
+        "FAIL original textures and sounds are in place and recorded",
+        "FAIL screens: the wish screen and its presentation, the constellation chart and card frames are wired in"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing original currency/wish media; twelve behavior checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/icons/UI_ItemIcon_201.webp",
+          "present": false
+        },
+        {
+          "path": "assets/video/wish/3star-single.mp4",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_v01415.cjs",
+      "ok": false,
+      "seconds": 150.5,
+      "originalLog": "evidence/release/test_v01415.cjs.log",
+      "originalLogSha256": "9e212f6177eb8c5d0dc7ad722cf5cc859e8501c423e281e01fd413c4d0bfb08e",
+      "passLinesBeforeOrAlongsideFailure": 7,
+      "failureNames": [
+        "FAIL 나선 문장: the Spiral Abyss crest in three metals, and no 훈장 left on screen",
+        "FAIL place pictures: every Mond and Liyue place has its own official picture, and new areas no longer borrow a parent's"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing original crest_10.webp and content/asset-manifest.json; seven gameplay checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/icons/abyss/crest_10.webp",
+          "present": false
+        },
+        {
+          "path": "content/asset-manifest.json",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_v0151.cjs",
+      "ok": false,
+      "seconds": 10.8,
+      "originalLog": "evidence/release/test_v0151.cjs.log",
+      "originalLogSha256": "a20b981bcc979aaf9a21a09946facc7ab9eda184b6e99f2460f460a409c763db",
+      "passLinesBeforeOrAlongsideFailure": 10,
+      "failureNames": [
+        "FAIL pictures: 운명의 별 and Mora have their Genshin icons; the wish shows gains as pictures and each result comes as a shadow first"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing STELLA_FORTUNA_4 icon; other ten checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/icons/UI_ItemIcon_StellaFortuna4.webp",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_v0152.cjs",
+      "ok": false,
+      "seconds": 26.1,
+      "originalLog": "evidence/release/test_v0152.cjs.log",
+      "originalLogSha256": "c22a18b03d279cb8b830bdc808232d770f2a0603141cca4f1ebd0615580268d4",
+      "passLinesBeforeOrAlongsideFailure": 8,
+      "failureNames": [
+        "FAIL mutated bosses: two or three rules per boss each week, the same for every journey; 변이 도전 applies them and pays 30% more",
+        "FAIL regional events: each kind settles once; fights settle on victory; a device needs its puzzle solved; 원석 stop at 40 a day",
+        "FAIL 공동 토벌전: closed unless an event is open; then Lv.10 to sortie, three a day, eight rounds where every hit counts 1 and the boss never falls"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "mixed_clock_test_fixture_fixed",
+      "matchedV0168EnvironmentFailure": false,
+      "currentStatus": "fixed_verified_rerun_pass",
+      "fixOwner": "/root/mission_regressions_0169",
+      "reason": "옛 fixture의 actionStartedAt/고정 day20400 날짜와 실제 VM Date가 서로 달라 임무 날짜 검증이 실패함. 가상 VM 현재 날짜를 기준으로 같은 native boss/event/co-op 동작을 실행하여 모든 원래 기능 assertion 통과. 생산 임무 검증을 완화하지 않음.",
+      "requiredAction": "추가 소스 조치 없음. 날짜 fixture 수정 및 최종 native assertion PASS 근거를 통합 릴리스 기록에 보존.",
+      "finalRerun": {
+        "test": "tests/test_v0152.cjs",
+        "ok": true,
+        "exit": 0,
+        "seconds": null,
+        "log": "/tmp/release-v0169-last-freeze-test_v0152.cjs.log",
+        "nativeChecks": {
+          "total": 11,
+          "passed": 11
+        },
+        "firstAttempt": {
+          "exit": 1,
+          "nativeChecks": {
+            "total": 11,
+            "passed": 10
+          },
+          "remainingCause": "eventWorld 고정 day20400은 VM 현재 날짜보다 과거였음. 현재 KST일 기준 같은 200일 검색으로 교정 후 재검사."
+        },
+        "logSha256": "f67047ca21f0b57b30d466ee65a580dc151999edb914da882b0479d7e47e13c6"
+      }
+    },
+    {
+      "test": "tests/test_coop_world_v0160.cjs",
+      "ok": false,
+      "seconds": 16.4,
+      "originalLog": "evidence/release/test_coop_world_v0160.cjs.log",
+      "originalLogSha256": "c00707f1c61139ef37bcb0bc192984338dd2929b6fe2e41acc8aff0a033d05cc",
+      "passLinesBeforeOrAlongsideFailure": 2,
+      "failureNames": [
+        "FAIL a step through the host's world with no fight leaves the guest's own journey where it was",
+        "FAIL a fight on the way is the guest's own, at that place in the host's world; won, it goes home and learns nothing",
+        "FAIL lost or left, the guest also goes home (no move to the last safe place)",
+        "FAIL 「참가」 before 「전투 시작」: the newcomer is in the first round's order at once, and the save stays valid",
+        "FAIL a guest unseals one of the host's chests where they stand; it stays there and the host opens it without the puzzle (user: 「클리어 따로, 상자 먹는거 따로」)"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "mixed_clock_test_fixture_fixed",
+      "matchedV0168EnvironmentFailure": false,
+      "currentStatus": "fixed_verified_rerun_pass",
+      "fixOwner": "/root/mission_regressions_0169",
+      "reason": "옛 fixture의 actionStartedAt/고정 day20400 날짜와 실제 VM Date가 서로 달라 임무 날짜 검증이 실패함. 가상 VM 현재 날짜를 기준으로 같은 native boss/event/co-op 동작을 실행하여 모든 원래 기능 assertion 통과. 생산 임무 검증을 완화하지 않음.",
+      "requiredAction": "추가 소스 조치 없음. 날짜 fixture 수정 및 최종 native assertion PASS 근거를 통합 릴리스 기록에 보존.",
+      "finalRerun": {
+        "test": "tests/test_coop_world_v0160.cjs",
+        "ok": true,
+        "exit": 0,
+        "seconds": 32.0,
+        "log": "/tmp/release-v0169-last-freeze-test_coop_world_v0160.cjs.log",
+        "nativeChecks": {
+          "total": 7,
+          "passed": 7
+        },
+        "logSha256": "c29382ed23b102c1fcd1777ecd585d3dd2cfc2e02dab87b124b6ccf0ea5e9fc9"
+      }
+    },
+    {
+      "test": "tests/test_v0164.cjs",
+      "ok": false,
+      "seconds": 6.0,
+      "originalLog": "evidence/release/test_v0164.cjs.log",
+      "originalLogSha256": "d5cb6bc4f37ee0a7108fac9c91b2b83b6b20359551cb0225c7ebbd963461050f",
+      "passLinesBeforeOrAlongsideFailure": 6,
+      "failureNames": [
+        "FAIL 종려’s 석주, 응광’s 병풍, 감우’s 연꽃, 리사’s 장미 stand in the lane with the skill’s official picture and the rounds left"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing assets/icons/ui/Skill_S_Zhongli_01.webp; control and other behavior checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "assets/icons/ui/Skill_S_Zhongli_01.webp",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_asset_followup.cjs",
+      "ok": false,
+      "seconds": 2.7,
+      "originalLog": "evidence/release/test_asset_followup.cjs.log",
+      "originalLogSha256": "90bcc85bb44ccc7989a0de0d487c102565dfe335d6a7153fbf499ed9297dd98f",
+      "passLinesBeforeOrAlongsideFailure": 0,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local content/asset-manifest.json.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "content/asset-manifest.json",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_content_boundaries_v01513.cjs",
+      "ok": false,
+      "seconds": 2.5,
+      "originalLog": "evidence/release/test_content_boundaries_v01513.cjs.log",
+      "originalLogSha256": "9a312032eda844af53b05a0123914bea810e8d17e0bec39830b9e527c1c434d0",
+      "passLinesBeforeOrAlongsideFailure": 3,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local content/asset-manifest.json; preceding story/condition/text checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "content/asset-manifest.json",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "ok": false,
+      "seconds": 1.3,
+      "originalLog": "evidence/release/test_release_isolation_v01513.py.log",
+      "originalLogSha256": "5a34b2b1194a375deeb6ea94f8812b87b6a1eec8814487807f8b58400ada30a3",
+      "passLinesBeforeOrAlongsideFailure": 0,
+      "failureNames": [
+        "FAIL: test_editorial_rows_are_removed_without_mutating_source_or_story (__main__.ReleaseIsolation.test_editorial_rows_are_removed_without_mutating_source_or_story)"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "runtime_only_db_input",
+      "categoryKo": "원본 authored DB 대신 runtime-clean DB 입력",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Recovered runtime-only DB has already removed authored editorial rows; source editorial-sheet assertion requires original authored DB. Upstream content/db.json is preserved.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "requiredInput": "content/db.json 원본 작성용 editorial sheet/row; 현재 runtime-clean DB는 authored row를 이미 제거하여 source row count assertion을 평가할 수 없음",
+      "runtimeDbPreserved": true
+    },
+    {
+      "test": "tests/test_story_asset_bindings.cjs",
+      "ok": false,
+      "seconds": 5.0,
+      "originalLog": "evidence/release/test_story_asset_bindings.cjs.log",
+      "originalLogSha256": "fa052bbbfe0a17197b414fc953127bdf8eb6be0b16d93e1fb3c900b74770ff98",
+      "passLinesBeforeOrAlongsideFailure": 1,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local content/asset-manifest.json; story graph binding check passes.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate",
+      "requiredAction": "원본 매체/manifest 또는 원본 작성 DB/Git 역사 입력이 있는 환경에서 재검사. 동작 코드를 바꾸어 통과시키지 않음.",
+      "missingInputs": [
+        {
+          "path": "content/asset-manifest.json",
+          "present": false
+        }
+      ]
+    },
+    {
+      "test": "tests/test_enemy_text_v01514.cjs",
+      "ok": false,
+      "seconds": 3.3,
+      "originalLog": "evidence/release/test_enemy_text_v01514.cjs.log",
+      "originalLogSha256": "0d704854488a1fc8150f7518ae253219f2e0853ba74b8f6d0e75f841b40ccc91",
+      "passLinesBeforeOrAlongsideFailure": 0,
+      "failureNames": [],
+      "sourceModifiedByThisAudit": false,
+      "category": "browser_global_compatibility_source_fixed",
+      "matchedV0168EnvironmentFailure": false,
+      "currentStatus": "fixed_verified_rerun_pass",
+      "fixOwner": "/root/combat_ui_bugfix_0169",
+      "reason": "고립 Node VM에 window 전역이 없어 new visibleInfo에서 ReferenceError. 생산 app_enemy_intel.js의 ActorPlayback 전역 조회를 globalThis로 바꾸어 브라우저와 Node VM 모두 지원. window 주입/테스트 생략을 하지 않음.",
+      "requiredAction": "추가 소스 조치 없음. 원본 FAIL 로그와 이 최신 PASS 근거를 통합 릴리스 기록에 함께 보존.",
+      "finalRerun": {
+        "log": "/tmp/v0169-enemy-text-global-final.log",
+        "sha256": "c8c8639db9609e3827350b8174bba97ed4601c1414bb44fec6fc4d262679a902",
+        "passes": 1,
+        "failureNames": [],
+        "allChecksPass": true,
+        "exit": 0
+      }
+    },
+    {
+      "test": "tests/test_v01518.cjs",
+      "ok": false,
+      "seconds": 0.1,
+      "originalLog": "evidence/release/test_v01518.cjs.log",
+      "originalLogSha256": "b9d2e5f81df242e71406c21a7b7adbcfe5379825bb287e1bdd0cb553362b3939",
+      "passLinesBeforeOrAlongsideFailure": 3,
+      "failureNames": [
+        "FAIL targets: a press anywhere on a card that can be targeted chooses it"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "isolated_ui_fixture_fixed",
+      "matchedV0168EnvironmentFailure": false,
+      "currentStatus": "fixed_verified_rerun_pass",
+      "fixOwner": "/root/combat_ui_bugfix_0169",
+      "reason": "click handler 통문자열 assertion이 새 live-card 조회/target 처리와 달라 실패. handler 동작을 검사하는 fixture로 갱신.",
+      "requiredAction": "추가 소스 조치 없음. 원본 FAIL 로그와 이 최신 PASS 근거를 통합 릴리스 기록에 함께 보존.",
+      "finalRerun": {
+        "log": "/tmp/v0169-v01518-target-final.log",
+        "sha256": "d8e101a33c6446f5e9ef00b00986b63d7d06d8167bb14ab5424e55dee4965584",
+        "passes": 4,
+        "failureNames": [],
+        "allChecksPass": true,
+        "exit": 0
+      }
+    },
+    {
+      "test": "tests/test_v01520.cjs",
+      "ok": false,
+      "seconds": 4.2,
+      "originalLog": "evidence/release/test_v01520.cjs.log",
+      "originalLogSha256": "354e0c7b816095d9ad942febd443629980a8681962c27218d9eb3aadfefae84d",
+      "passLinesBeforeOrAlongsideFailure": 5,
+      "failureNames": [
+        "FAIL enemy cards: pressing the card chooses the target; 선택/선택됨 is gone and 「정보」 remains",
+        "FAIL the nine field bosses wear the pictures the user supplied"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing local content/asset-manifest.json; other behavior checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate_after_verified_fixture_rerun",
+      "requiredAction": "원본 manifest/icon 입력 환경에서 매체 검사만 재실행. 최신 fixture로 대상 선택/상태 이름/새 snapshot 및 legacy live-status 실제 onFrame 동작 확인 완료.",
+      "missingInputs": [
+        {
+          "path": "content/asset-manifest.json",
+          "present": false
+        }
+      ],
+      "additionalNonEnvironmentFailures": [
+        {
+          "testCase": "enemy cards: pressing the card chooses the target",
+          "category": "source_string_fixture_pending_confirmation",
+          "reason": "61행이 옛 c.addEventListener click handler 전체 문자열을 요구. 최신 함수에서 live info/target 상태를 읽는 handler와 문자가 달라짐. UI 담당이 actual 동작/fixture 재검사 중.",
+          "currentStatus": "fixture_fixed_actual_behavior_rerun_pass",
+          "finalRerunLog": "/tmp/v0169-v01520-after-final.log",
+          "fixOwner": "/root/combat_ui_bugfix_0169"
+        }
+      ],
+      "finalRerun": {
+        "log": "/tmp/v0169-v01520-after-final.log",
+        "sha256": "210b51d482f4f1f38ff768d3150534fdad18a6f0b2057dee8ed19ae1509c0245",
+        "passes": 6,
+        "failureNames": [
+          "FAIL the nine field bosses wear the pictures the user supplied"
+        ],
+        "allNonEnvironmentChecksPass": true
+      }
+    },
+    {
+      "test": "tests/test_v01521.cjs",
+      "ok": false,
+      "seconds": 3.8,
+      "originalLog": "evidence/release/test_v01521.cjs.log",
+      "originalLogSha256": "e9153e0c702bd76fd580467e45cadcaa395887c001f30c4b857b17fe067e83d4",
+      "passLinesBeforeOrAlongsideFailure": 16,
+      "failureNames": [
+        "FAIL the original game's element, weapon and talent pictures are listed with their sources and hashes",
+        "FAIL buffs and debuffs are chips with what they do; the formation is the battle's own tag",
+        "FAIL 약점 간파 shows on the target the moment it lands: a debuff chip and a red sight"
+      ],
+      "sourceModifiedByThisAudit": false,
+      "category": "missing_local_asset_or_manifest",
+      "categoryKo": "기존 원본 매체 또는 manifest 누락",
+      "matchedV0168EnvironmentFailure": true,
+      "reason": "Missing assets/icons/ui/UI_Buff_Element_Fire.webp; other behavior checks pass.",
+      "initialEnvironmentFailureStillPresent": true,
+      "currentStatus": "uncompleted_environment_gate_after_verified_fixture_rerun",
+      "requiredAction": "원본 manifest/icon 입력 환경에서 매체 검사만 재실행. 최신 fixture로 대상 선택/상태 이름/새 snapshot 및 legacy live-status 실제 onFrame 동작 확인 완료.",
+      "missingInputs": [
+        {
+          "path": "assets/icons/ui/UI_Buff_Element_Fire.webp",
+          "present": false
+        }
+      ],
+      "additionalNonEnvironmentFailures": [
+        {
+          "testCase": "buffs and debuffs are chips with what they do",
+          "category": "isolated_status_fixture_pending_confirmation",
+          "reason": "133행 isolated VM은 실제 statusInfo 또는 DILUC_INFUSION/OMEN status catalogue를 제공하지 않고 safeName만 모킹하여 이름이 알 수 없는 효과로 나옴. 실제 제공 경로를 fixture에 넣고 재검사 필요.",
+          "currentStatus": "fixture_fixed_actual_behavior_rerun_pass",
+          "finalRerunLog": "/tmp/v0169-v01521-after-final.log",
+          "fixOwner": "/root/combat_ui_bugfix_0169"
+        },
+        {
+          "testCase": "약점 간파 shows on the target the moment it lands",
+          "category": "source_string_fixture_pending_confirmation",
+          "reason": "167행이 옛 if(e.statusApplied){liveStatus(node,e.statusApplied) 문자열을 요구. 최신 playback 상태 조회 구현을 actual로 검증한 뒤 fixture 갱신 필요.",
+          "currentStatus": "fixture_fixed_actual_behavior_rerun_pass",
+          "finalRerunLog": "/tmp/v0169-v01521-after-final.log",
+          "fixOwner": "/root/combat_ui_bugfix_0169"
+        }
+      ],
+      "finalRerun": {
+        "log": "/tmp/v0169-v01521-after-final.log",
+        "sha256": "27e7321feefc3d4ee19abe59b0d8f24d6028e01f6a66f2a882813b4bd9b58d83",
+        "passes": 18,
+        "failureNames": [
+          "FAIL the original game's element, weapon and talent pictures are listed with their sources and hashes"
+        ],
+        "allNonEnvironmentChecksPass": true
+      }
+    }
+  ],
+  "classificationSource": {
+    "file": "/tmp/v0169-failure-classification.json",
+    "sha256": "40be123d21d516f6277c5e6f46338702fb0291197f7059a1abd3ad78c09538aa",
+    "previousUncompletedSetExactlyMatched": true
+  },
+  "finalSourceFreeze": {
+    "capturedAtUTC": "2026-10-07T16:43:55Z",
+    "sourceFiles": 226,
+    "allSourceHashesUnchangedDuringBuildAndReruns": true,
+    "changedSourceFiles": [],
+    "identity": {
+      "ENGINE_VERSION": "0.16.9",
+      "ENGINE_FINGERPRINT": "engine3-16563046158f051de1a0cd7ac78ad6655b734836a44e69308d25df1d4c220add",
+      "SERVER_BUILD": "server-ed87b5ae6f735e6ac8c4"
+    },
+    "compiledEngineSha256": "3988353a4c34902fec67238ea4e777c6bac1795ea9901c5c6252ade3e33051a2",
+    "rerunCount": 13,
+    "rerunPass": 13,
+    "rerunFail": 0,
+    "sourceHashesFile": "/tmp/release-v0169-last-freeze-source-hashes.json",
+    "sourceHashesFileSha256": "8324d5dddfd4477d144755c7ec98e66a015fba9181b572c3b6341a439e4ec330",
+    "buildLog": "/tmp/release-v0169-last-freeze-server-build.log",
+    "buildExit": 0,
+    "build": {
+      "runtimeFiles": 119,
+      "bytes": 28307042,
+      "gzipBytes": 5363230
+    },
+    "inputHashes": {
+      "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+      "package.json": "6618ab179374ee8988a862b6afc49451c58838aa085ca688dd9d5bdcd1faf1c4",
+      "source/index.html": "a75e6f516654442a2dd038cdb8f4d8aa0792ff5d92472a9cba38edae79fe98e3",
+      "server/protocol.json": "40a89001357432bedf09106085a6d3bb3eeb2fd7bee9e4ecf5498ffc078f1179",
+      "server/compatibility.json": "0c898eaf5ba41ed2430a48d3a7520613bf17923bf239fbb37a9d0f09b50f9ed5",
+      "tools/verify_release.py": "40c3a980ddc4e941e1c25d27f816d74e7ca184899c474ea99ec112bd6ed2e1ad"
+    },
+    "sourceHashes": {
+      "source/admin.css": "c949a66f48ae93811fe8140abf26f85de29d4e2a163c44312ad848e0ebbacdd6",
+      "source/admin.html": "c613394184e80e11a6a250463b6cc7410a3d9486d1a117be613e558759e99416",
+      "source/admin.js": "914b883d5159da13a52d9c4737e742c43f3d71c7c9cd12fd60fb65f20aedd220",
+      "source/app.js": "ea010246def25520aaf5ff09c38c6a19b56d395018c4ffa0a2db3dd187e5a2ed",
+      "source/app_abyss.js": "78b9b6dcfed07fdc25d2291712984cd2d9e2f30c3d6016cc4efde6b3df5eb275",
+      "source/app_achievements_v0152.js": "d909fdefd63ec388a60212a3277fc7165f4a3131e93487c7f9d30a0b1310f3f6",
+      "source/app_adventure.js": "8adeeb638007841d3c4f01716271968b84b4d7a26e0fbc8baa1553b6a9458d72",
+      "source/app_av.js": "d9843c5fb2a817a916f85e0479a0b1ade8d8fabc5082b2ef2397d46efe4abde8",
+      "source/app_battle_fx_v01521.js": "64bf38d1f5f5f3626d7ac1635b8a4f822e57aa3a48e8195fc7c8a2632b049490",
+      "source/app_battle_layout_v01522.js": "073021c05c32cd2e1a4bcf9d3f80dd0d881e90aabe579efc8c68d00a33d0d1d1",
+      "source/app_battle_lines_v0162.js": "7252388f661ed0122f3dec96bf34846d533ea685848f0f9d3b30d0fad78ec923",
+      "source/app_battle_traits.js": "604b0756ee9be24b4b7f260b265d1e40f1feffc5982d71f48430b32bec61ba31",
+      "source/app_character_v0167.js": "44091bafec7d12c271e5d67ec03e26ca76ae02379e05dca23911d363a8cf7dc3",
+      "source/app_chat.js": "a0a40dcf2326d084b17d5c2b56086e28803d8c43c37334175031d9fe15b6feee",
+      "source/app_chests_v01415.js": "05c51e5a1a0b36bca6664b08078c23431d2cad42c20ef2e3fc0a380fd0c59358",
+      "source/app_choice_v01525.js": "05433c859d57486fb818b67f15de5bce5640c4343fb9e75facbb6aa54c187ec4",
+      "source/app_combat_fx.js": "7573760b539a329b3662ae3d71c2463071fb36afbc5897f2a6556dae1b6dd2cd",
+      "source/app_cooking.js": "1852561fb82354a2b0a77f2ff6a2bb6d94e891ae158c542eff9c7b7aadb4ab45",
+      "source/app_coop_puzzle_v0160.js": "1c66f76b58ddb6f2d71eb498618b2464bb70479d70d0230d074a28ae497f255d",
+      "source/app_coop_v0153.js": "7c3d2feb2a9574f9907735de57d7e86b5c98a86071dfd7535fcd658333596c4a",
+      "source/app_coop_world_v0160.js": "6bfc347a8120a493b6f8b4de529a8c0efce20638bbf0814b5d420649a20c4197",
+      "source/app_discovery.js": "89cff3d9b9a6fe84987ec7430e9ac164c39aa8c8df9a830cce77b996448c54d6",
+      "source/app_enemy_intel.js": "a2f68c3078fb5b17963b8c5ded9a617ccfaa979e60dbdb9f1960755032e0ebcf",
+      "source/app_enhancement.js": "ca581cfcd2d3d6a2d8e246ffff59d45e321f601fbf59444b466b96347df67726",
+      "source/app_equipment.js": "77e112a4acfddcd0a04e0df039757de3bbccaa8c2b448e47bd1a4bef18ae0b90",
+      "source/app_events_v0152.js": "77b59d51bc3b50f9b6a8381eb17c5d2329d52f23bb6bd537fff0792d2e3ecc83",
+      "source/app_experience.js": "66a9b36babda7de6a1520a33dfbc4a95300ba3c83a0f3c90e36000af8cf670ea",
+      "source/app_exploration.js": "0d93a0fbd545c1bbd4f427254f5f4f286b7b738288d59cb9f940a221488a73cf",
+      "source/app_field_bosses.js": "9aa86acf0d9006d08bcaa8b05b282e0de07ef3b901e158db73e1ac4e25cff16b",
+      "source/app_field_scenes.js": "26879c0a7b1ab3e843bd8e018bc676d9fd55337f8aa76b111259ce35778e6803",
+      "source/app_forge_v0148.js": "e1a3d89374afb37d8bcdd387c8b0785d69545bfe949a99b075dc42be4fd7c459",
+      "source/app_gear.js": "2db3a19ef3cc476c10f56a2432a505c364d10d621d925d31735670bfe2f9bda7",
+      "source/app_geo_trails.js": "0344a6ed9be9cc7d8f00422e00100260c931ad4ca49c4b1fc2d62959b5af9256",
+      "source/app_growth_v01522.js": "4cefd76d47da0aefe34d41ed9a529f389d92bd24bb2a2c7633bfe5b0e0f16f07",
+      "source/app_guild_v0167.js": "d93887a323c0380b42ed33797ccfa0e6ee0e6cdf506f9dd44ab09c27e758b839",
+      "source/app_handbook.js": "54e7f94047ef514bd12fdd7ad2659fd03629b4f9073935c7b77aae105d573264",
+      "source/app_icons_v01521.js": "56c27a7dcdad93e90e6bb89c4a94e2373f1911c992ab78780a887b14e4dabbd6",
+      "source/app_install_v01524.js": "a9081c454197282fd2a58640f0364faada677b5b8ee12c34cdb48847e2624710",
+      "source/app_install_v0157.js": "b71068c3c0971cd5f54a3e63e54f84803ccdf44c5b8fb7e1de98a01cbc2b67ba",
+      "source/app_journey.js": "756be20a4b1ba1937d2a7100a497d518604d815e0a4f3023c691b1e5d7eca727",
+      "source/app_legacy.js": "43f2730d494d4fb9e4786ecae6a3992a3dc0a4d68baa6c70c4c186aeabb0c8ca",
+      "source/app_ley_lines.js": "77fc830bb47b6fb971fa8298f09d6525059bed4996fd5b2cb388f51a6b6c7d10",
+      "source/app_life.js": "ef27a22ba34e274389a19054040a26fd1422cec595bdb94c2ffce2734d1e8b75",
+      "source/app_life_v01522.js": "043741162a7b0dff03ba64af261ed44377730843af53fc723936ad0b82d09c03",
+      "source/app_life_v0162.js": "0715d2aac979f552102de1ec6219f00ea57c78d2d175d0aee5929d942187d32e",
+      "source/app_liyue_areas.js": "6aa917379aa3b43575ce95ea0a188b7e6d77cef9630fc5ae600aa7690c3b5b39",
+      "source/app_liyue_artifacts.js": "07a9b0e12d816f081c7ab8120e2c258b4d827b72d592ee522cceec20a95f363d",
+      "source/app_liyue_equipment.js": "e5b735cc46fb5850eb0d73ac1b5864affd839048bcd7bcf8c8cda264ce1c504a",
+      "source/app_liyue_places.js": "7ced94808a01d270eff585e911349b0a0945a11d84a4597d67f43b97d1be981e",
+      "source/app_liyue_region_guide.js": "0fb57d3d7a8e3b8fc200dfb658ca5672afde4ce7958d41bdf087cc45c8df6f12",
+      "source/app_liyue_rework.js": "a8247b6684ac1efc6c14fb88d1f8e767c9f4766d6e3b726c10384084768176c6",
+      "source/app_mail_v0151.js": "6d51fe18d5de434dd7d204242db0c8b1273bf02ee798ff026e808b2397b56391",
+      "source/app_mainscreen_v0167.js": "0c50534a56c8bf41a938678946d5e0424738e613851572492d4bf4f5766e1cb6",
+      "source/app_market.js": "83571e31d05bab24178a11c76479ea110bc8c11d5a3661ddf3631abbd13d8838",
+      "source/app_mond_boss_balance.js": "3d07003293ec743e78365d12b50efd2e48cab04eb0c85d31512b0a5d55fc6aad",
+      "source/app_mond_encounters.js": "9ebd170fb41fcb43884773e1dd8f3cb0ccb6f63ffbc0be8483f6cf610a20eafa",
+      "source/app_motion.js": "7c4606ccca098808874f4ccd8dcea9756b5431d56b323caf6fb18f60c9071d8d",
+      "source/app_mutations_v0152.js": "7b0c298c7e4cf4f42c22191ac8385db8c5aaf8dbd766877c402de16532860350",
+      "source/app_navigation.js": "9fe8dc4136968d78f40882851bac95c57b37664b21a01bc1477eef061ad26b4d",
+      "source/app_online.js": "8266029ac1aae025481b0da724afb5ba054991a0f4a79e12c05690c811e4bde0",
+      "source/app_pages_v0167.js": "e92c68d6a9a93c0d1d820e758959fc6aca97b2420ff4fc36efb8c6590d56a0f1",
+      "source/app_party.js": "4ff30539eda4d2428348e2d53054b935d1e5d298923edff3ef818b7e6de2be5f",
+      "source/app_party_v01411.js": "06535e8268d439463c02de239029b4587127652bbbadd21672159f34803c5794",
+      "source/app_places_v01411.js": "5751400fd61301317953b5eecdb193bfaab77b5943357057bdf32089ca3ba583",
+      "source/app_premium_v0148.js": "51af5f19ac0fab5e119cdca80d9765a19750a1cc6fb77d68f606d40dc26f0a3b",
+      "source/app_profile_v01415.js": "8246747a7df1d9a4751d000e91e354addfa11a1ac41b0f4f24f27052f601a085",
+      "source/app_protagonist.js": "6b0896c7717a4a104cf80866362b28f36df9d343108515753869076afa28abea",
+      "source/app_puzzles_v0152.js": "be9d46924b4ad6fab83953a61b594485fc78e04e50ab5c1a5ebcedb05e2edac1",
+      "source/app_quality_fixes.js": "c6d5b36a63869cd3170a5dd4f18ffaaf091fdae3eb23913297e10f7e859801ff",
+      "source/app_raid_v0152.js": "511decffd2b74b00056346a614a19313aa6284bac51cd9614d7a65f2ca8fb780",
+      "source/app_reasons_v01413.js": "8822f3c644778986f9d175a91cb99b7021d5818fab9493626bb96163566a5472",
+      "source/app_recruitment.js": "51b346f28513fbc08c7b25fe651fc6b37fb3cc904d2d684832107f77d8b9cda1",
+      "source/app_resonance.js": "7446c49e3feda7ef8302f3068ac454d32017fe90234180fe0ec1509e27bef1de",
+      "source/app_revision.js": "1b286041e6906c9e781e802920509342ee7524b724c95f09ff2451e291ff1242",
+      "source/app_shell.js": "fd6b70772c5fdb3ab15495c946dba03c598a38ebe7cd6814a83a0a4a7a32a0ea",
+      "source/app_signup_v0158.js": "a8a431298f25505e87744774deb0ceff356de51cf80865fe2e05bb3b7efdd53a",
+      "source/app_skill_fx_v0162.js": "a25ec13442db4bb7510e5cdf0b5193e18b9bd664223efa28dbe1fe2469875a41",
+      "source/app_sound.js": "c14ec79319419c71dd823312f112c12b83d34ed69b334fbc412c6358c112ed2e",
+      "source/app_story_companions_v01525.js": "ac46867331027bc703f8cafc349e18def6bafb6cf8a7e8ba5a74b44fa5d07a74",
+      "source/app_tasks_v0167.js": "f38a11a7f5364ced49591bba09f60303acc7ca6fe23c4cd4b09927c55ff6f4dd",
+      "source/app_tiers.js": "6050b89e9a1a7304a2debaf1152b01b6dae52d62b342b2187feba0395d2f731c",
+      "source/app_trade.js": "4bef73829c33ac49a7d9c9182e308c68259182fed23c4281b019fda8c693d932",
+      "source/app_traveler_geo.js": "2329bebf83446ab107ac057385511dc0b13c956df3988816bcabfd02bbc78382",
+      "source/app_tutorial.js": "abc1905bf69332211a366fb25ff2d5f34527bcc7ced797feacaa4a89c1998a36",
+      "source/app_version.js": "5cc437336911fc4f41a644dd1a55a9f4d440784d927dc7b008276c94aaeeb004",
+      "source/app_vfx_v0165.js": "0917531a3e6df46644c3748ffca828d695b7442989bfac362f34f09cd556670e",
+      "source/app_wish_v01411.js": "dc8ccaf2a372da1f47096119e19721f055a5ae89188c556df7a1a2bf0a79309e",
+      "source/audio_playlists.js": "86fc76297055535a76bc5434ca9f52dbd3d0420e7ee845129dd416d5fceab12c",
+      "source/growth_v01522.css": "a15399ab750540b13dbea0b06990ed66d4d543adbbfcc3acf3b991bf668951ee",
+      "source/index.html": "a75e6f516654442a2dd038cdb8f4d8aa0792ff5d92472a9cba38edae79fe98e3",
+      "source/inventory_presenter.js": "f09f1b47441ee31194e0fad0927763e72ab8ff513530ce1d00235b28208a2ee7",
+      "source/journal_presenter.js": "b333c31c2e457d06321041decb4246bdb39e4e4a26509cdf80227734a2fa8e4f",
+      "source/landscape_v01524.css": "a4dab0f4fe8a967536ad71826c59cad330d9ed3493c6a48868423cd4537b693c",
+      "source/life_v0162.css": "316960c935f7a6184e3a20dcab4e05c7bff0181cdce578978a081f3003601f63",
+      "source/mobile-preview.html": "83b88192bddc8976674adb2765c542f982a7edde3c4ddae1f3617c5294d9c9c0",
+      "source/online_config.js": "e08b80e732711f1b97b7e5fcd95e87f16845b6627288d26811d6f20445b7aa6c",
+      "source/presentation.js": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3",
+      "source/readable_text.js": "eb2c3c8c3851299882064a418c5fc2df8369cf3d96ec0aa39b43fb7eba831ef6",
+      "source/runtime.js": "359735c9aa84af1728efac70240e3169191988ea8ba023370c08354291368582",
+      "source/runtime_abyss.js": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb",
+      "source/runtime_achievements_v0152.js": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b",
+      "source/runtime_admin_v01412.js": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e",
+      "source/runtime_adventure.js": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5",
+      "source/runtime_andrius.js": "2cf16bc46ff15ef3b7fa5df621fe0bcabe1665f7211c03915a75f0550f380196",
+      "source/runtime_balance_v0152.js": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1",
+      "source/runtime_battle_capacity_v01522.js": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7",
+      "source/runtime_battle_lines_v0162.js": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e",
+      "source/runtime_boss_rematch.js": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44",
+      "source/runtime_chasm_skills.js": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638",
+      "source/runtime_chests_v01415.js": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721",
+      "source/runtime_combat.js": "fab30dcc74903c5970f19053a497e64bbfcc3b14344f1c3ddfc821c2690a4628",
+      "source/runtime_combat_v0148.js": "3c3cb185fdb57a94be3d3f1f84fdf6ecd19ddd55e8665209e6a4bdf0113fd945",
+      "source/runtime_commission_stories.js": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5",
+      "source/runtime_constellations_v01411.js": "5a285e9697554c637804b5e53f77bc99fb52ee15ce231fe966da920d49af0918",
+      "source/runtime_coop_v0153.js": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321",
+      "source/runtime_coop_world_v0160.js": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc",
+      "source/runtime_early_story_v0153.js": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb",
+      "source/runtime_economy.js": "3a0523a45104ad0e582ae71d36951766361a9287928ba6ff5a7ed29c2bb7436a",
+      "source/runtime_economy_v0148.js": "04a4d5071f6fd028d66a61810a69ced8041aa64787b80c8179f8643e86ae297f",
+      "source/runtime_encounter.js": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311",
+      "source/runtime_enemy_content.js": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358",
+      "source/runtime_enemy_skills.js": "a7d1270e13f1c399afebbef64521dc4de5f78d1bdaafaceb182e6fc0ebacc0ac",
+      "source/runtime_enemy_tiers.js": "b75056f153f6834c1ef9b5109d6e03a39797c6eaa953cedcb4f9c5d768a476e4",
+      "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+      "source/runtime_equipment.js": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524",
+      "source/runtime_events.js": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9",
+      "source/runtime_events_v0152.js": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e",
+      "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817",
+      "source/runtime_exploration.js": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c",
+      "source/runtime_extensions.js": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69",
+      "source/runtime_field_boss_limits.js": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb",
+      "source/runtime_field_bosses.js": "b69d400ea6852acc3edd7aa3227d013cc972dc21e6045d6d99a085e5eb409368",
+      "source/runtime_field_scenes.js": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d",
+      "source/runtime_flow.js": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d",
+      "source/runtime_formations.js": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c",
+      "source/runtime_gear_traits.js": "27331e4d2d94e2e87f558949765522fc40359d4dc9ab2e56de73c8f736dd3233",
+      "source/runtime_geo_oculi.js": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb",
+      "source/runtime_geo_trails.js": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26",
+      "source/runtime_geography.js": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c",
+      "source/runtime_growth_data_v01522.js": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c",
+      "source/runtime_growth_v01522.js": "51c2737b3c284dc3978eb9a55106bbfabaaac49daa1484c1f00e256be350036e",
+      "source/runtime_journey.js": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e",
+      "source/runtime_landmarks_v0163.js": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8",
+      "source/runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "source/runtime_life.js": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b",
+      "source/runtime_life_v01522.js": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902",
+      "source/runtime_life_v0162.js": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708",
+      "source/runtime_liyue.js": "ba77931c8191e681cd627b2199934a55b8d37915d339f1ac9e2ab50d5f2d610a",
+      "source/runtime_liyue_area_content.js": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df",
+      "source/runtime_liyue_areas.js": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85",
+      "source/runtime_liyue_artifacts.js": "b4d9d525cb69722766d6ef8c3e49967b90112bbbcd4a402f4b22ed3a3124e733",
+      "source/runtime_liyue_card_content.js": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0",
+      "source/runtime_liyue_cards.js": "ee419351b880ef35a20141ebe7481579fdb76699714459ac9585327d4aeeee11",
+      "source/runtime_liyue_combat.js": "ad0485097504d1c5104065e7d483e59874dfb4c2bdf51b54ff5c0a8a537f5004",
+      "source/runtime_liyue_encounters.js": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f",
+      "source/runtime_liyue_equipment.js": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8",
+      "source/runtime_liyue_forge.js": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad",
+      "source/runtime_liyue_places.js": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4",
+      "source/runtime_liyue_region_guide.js": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a",
+      "source/runtime_liyue_rework.js": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45",
+      "source/runtime_liyue_rework_content.js": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363",
+      "source/runtime_local_revision.js": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730",
+      "source/runtime_local_story.js": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e",
+      "source/runtime_local_story_content.js": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab",
+      "source/runtime_mail_v0151.js": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74",
+      "source/runtime_main_story_k.js": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3",
+      "source/runtime_main_story_k_content.js": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616",
+      "source/runtime_map_v01516.js": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e",
+      "source/runtime_market.js": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb",
+      "source/runtime_mond_balance.js": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426",
+      "source/runtime_mond_boss_balance.js": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb",
+      "source/runtime_mond_cards.js": "a92c805db4c09fe1a6d0583a53e837a46980778dc522fa472edff0c3c585a74f",
+      "source/runtime_mond_encounters.js": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6",
+      "source/runtime_mond_revision.js": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e",
+      "source/runtime_mutations_v0152.js": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0",
+      "source/runtime_navigation.js": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c",
+      "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+      "source/runtime_offerings_v01415.js": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7",
+      "source/runtime_opening.js": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b",
+      "source/runtime_operator.js": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04",
+      "source/runtime_party.js": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39",
+      "source/runtime_passives.js": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7",
+      "source/runtime_personal_expansion.js": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43",
+      "source/runtime_personal_v0148.js": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635",
+      "source/runtime_places.js": "32f0e2b0e5dca5511f8ff089e8a923f8f76ec420b5138bc59202ecc5dbdbccdb",
+      "source/runtime_places_joint.js": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f",
+      "source/runtime_play_fixes.js": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97",
+      "source/runtime_premium_v0148.js": "326add92710aba30049995b93bb6c660f9ae19662115a52c41f5afbb80b0ffa3",
+      "source/runtime_presets_v01411.js": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128",
+      "source/runtime_protagonist.js": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b",
+      "source/runtime_puzzles_v0152.js": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069",
+      "source/runtime_quality_fixes.js": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664",
+      "source/runtime_raid_v0152.js": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9",
+      "source/runtime_rarity_v01412.js": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240",
+      "source/runtime_reading.js": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633",
+      "source/runtime_recruitment.js": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951",
+      "source/runtime_relationships.js": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b",
+      "source/runtime_roster_v01522.js": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6",
+      "source/runtime_rules.js": "e7cfdb435f01f3ebe188a432007a1d3ac60fcbec89f2eb6f09f83381307e3efc",
+      "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+      "source/runtime_starter_kit_v0153.js": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0",
+      "source/runtime_status_catalog_v01522.js": "9eccfc3520d2a11f14cd5fbe759e3342281a3fabf997c8571af32dc54c178457",
+      "source/runtime_status_v01522.js": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee",
+      "source/runtime_story.js": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798",
+      "source/runtime_story_companions_v01525.js": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc",
+      "source/runtime_story_pacing_v0153.js": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8",
+      "source/runtime_task_catalog_v0168.js": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8",
+      "source/runtime_task_learning_catalog_v0169.js": "cbbca7edd3eb2f5586ed41d6df8f305337650d0ace6e9b66051106e09aa6b8b1",
+      "source/runtime_task_learning_v0169.js": "491c4892151ab0331b761f991dd9e98fda3b7a72181fd2b150957afc89b94279",
+      "source/runtime_tasks_v0167.js": "0d9bb58071341ac4d067be4ec0efb9f66848c417c400b70a2f26efe0dd3313cc",
+      "source/runtime_trade.js": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba",
+      "source/runtime_traveler_geo.js": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658",
+      "source/runtime_tutorial_v01522.js": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d",
+      "source/runtime_wish_v01411.js": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95",
+      "source/runtime_world.js": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8",
+      "source/save_adapter.js": "40f001e09cbd67b4a5f8f57d5f4b0ab0fed2a8a2d16a8a82ab094f1c58aadfb9",
+      "source/shell.css": "ac26ca1150d6a49ab6d9ca6af45687ad5bab7a57366237877c9d1aad2bd76fcb",
+      "source/skill_fx_v0162.css": "61eca7fae41b3ff388483af052f3442476d61656a0ce7523c7c7163d09c9631a",
+      "source/style.css": "78704f0890c6fd802a7ad54e3226f23fcc31b3166352c73f472ff3fa039da266",
+      "source/sw.js": "469392e4fbdfa77879da8603362ceeb16b7226ed222b690493b37172a20decd9",
+      "source/terrain_map.js": "97e3e25b4262f6dddb4747fa284a5df81266ade4ed8eadc40c9af7659c25ec72",
+      "source/test_runtime.js": "e8a9d1311a0c65649b4a3df4da448e09af933f5e9fba7b270bcf75886dbfafa1",
+      "source/test_ui.js": "9e6033c03ad74b0c957c8ec765a2e910c5c154dbe6abeb4078df86c767ef93d7",
+      "source/tutorial_v01523.css": "c3e26b2fe918fa49b371ab58955ab61e0ddae7e8ea40baa54d616a68adfb5422",
+      "source/ui.html": "0b769ef343dbc468d20b727eaba8ce7ec2670f9c1096d0281302c2f66064bd6c",
+      "source/world_content.js": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0"
+    },
+    "localRecoveredInputOnly": true
+  },
+  "intermediateEvidenceNotFinal": [
+    "/tmp/release-v0169-final-reruns.json",
+    "/tmp/release-v0169-final-source-hashes.json",
+    "/tmp/release-v0169-frozen-reruns.json"
+  ],
+  "constraintsKo": [
+    "원본DB·assets복원및게시없음",
+    "원본환경입력실패를skip하거나검증완화하지않음",
+    "브라우저실제이미지·폰트·미디어시각QA는이Node/VM검사로판정하지않음"
+  ],
+  "baselineCommit": "d5059b0af266d386f6220073ee44dff9c3b2790f",
+  "qaSource": {
+    "sha256": "842330ec82c88d79e17e39be203452cc98519250842a31b0a609332c65231160",
+    "reportEmbedded": true
+  },
+  "nativeDisplayCostComparison": {
+    "report": {
+      "scenario": "Native Amber five hits across four targets, four-person starter party; actual seeded RNG; same actor state, RNG and logs excluding display metadata",
+      "equalNativeActors": true,
+      "equalPrng": true,
+      "equalRawLogRows": true,
+      "rows": 21,
+      "damageRows": 20,
+      "missRows": 0,
+      "samplesPerMode": 40,
+      "warmupPerMode": 3,
+      "measurements": [
+        {
+          "name": "baseline0168",
+          "medianMs": 2.682086,
+          "meanMs": 3.0280014,
+          "logBytes": 6721,
+          "logGzipBytes": 472
+        },
+        {
+          "name": "current0169",
+          "medianMs": 19.892259,
+          "meanMs": 20.462520424999997,
+          "logBytes": 11642,
+          "logGzipBytes": 1103
+        }
+      ]
+    },
+    "sha256": "0ca90f38a61cb14e03320f9de358fff61a4b6b48eadc3c293d7a2ccae8ac1993",
+    "comparisonsPerMode": 43,
+    "realBrowser": false
+  },
+  "inputProvenance": {
+    "authoredDbPublished": false,
+    "localRecoveredRuntimeDbPublished": false,
+    "originalRemoteContentDbBlobPreserved": "cc3996929c885d41289038ff501640039a4cc71e",
+    "originalRemoteAssetManifestBlobPreserved": "344b801e7e7d88b86e2a36ef696baeb3e76c7d2a",
+    "originalRemoteAssetsTreePreserved": "c8e23881af963b1eea026ba8d0e559f9df0f2181",
+    "localMediaAbsent": true,
+    "localDbIsRecoveredRuntimeOnly": true,
+    "historicalGitObjectAbsent": "f0c08d6",
+    "remoteBuildIdentityNotAssumedFromRecoveredLocalInput": true
+  },
+  "deployment": {
+    "testBranch": "test/crpg-v01414-story",
+    "pullRequest": 20,
+    "sourcePublication": "commit containing this report",
+    "testVpsInstalledByThisWork": false,
+    "productionInstalledByThisWork": false,
+    "mainMergedByThisWork": false,
+    "waitedForWorkflow": false,
+    "instructions": "docs/APPLY_0.16.9_KO.md"
+  },
+  "limits": {
+    "realBrowserUiVerified": false,
+    "realMobileFrameRateMeasured": false,
+    "actualMarketTradesOrStockProvided": false,
+    "all149RunAgainstFinalSource": false,
+    "nativeMaterialBoundaryChecks": 8,
+    "materialPayoutModelWins": 60,
+    "all60ModelBattlesExecuted": false,
+    "moraBudgetNotes": "Lv60, newly assigned, all weekly candidates unlocked. Normal daily rotation with owned living elements: 15,000–21,400 Mora; weekly20: 385,400–477,000; daily7+weekly: 490,400–626,800. Prior assignments and no-owned-element fallback are separate."
+  }
+}

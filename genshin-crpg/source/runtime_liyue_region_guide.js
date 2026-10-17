@@ -41,7 +41,8 @@ P.liyueRegionGuide=function(mapId=this.s?.global?.CURRENT_MAP_ID){
  // Loot rows exactly as finishBattle filters them on this map.
  const view=Object.create(this);view.s={...this.s,global:{...this.s.global,CURRENT_MAP_ID:mapId}};
  const loot=this.combatRows?this.combatRows('20_LOOT_TABLE'):this.rows('20_LOOT_TABLE'),drops=new Map();
- for(const m of monsters.values())for(const d of loot.filter(x=>x[0]===m.table&&(!x[1]||x[1]===m.id)&&this.tables['14_ITEM_DB'].has(x[2]))){
+ // 0.16.35: the road's monsters never drop the boss echo or core (runtime_enemy_tiers.js), so the guide does not list them.
+ for(const m of monsters.values())for(const d of loot.filter(x=>x[0]===m.table&&(!x[1]||x[1]===m.id)&&this.tables['14_ITEM_DB'].has(x[2])&&!['TRPG_BOSS_ESSENCE','TRPG_BOSS_CORE'].includes(x[2]))){
   const open=['','없음'].includes(d[6]||'')||view.liyueLootConditionAllowed?.({origin:'RANDOM'},{source:m.id,grade:m.grade},d);if(!open)continue;
   const item=drops.get(d[2])||{id:d[2],name:this.row('14_ITEM_DB',d[2])[1],chance:0,min:Infinity,max:0,from:[]};
   item.chance=Math.max(item.chance,Number(d[5])||0);item.min=Math.min(item.min,Number(d[3])||1);item.max=Math.max(item.max,Number(d[4])||1);if(!item.from.includes(m.name))item.from.push(m.name);drops.set(d[2],item);
@@ -52,7 +53,7 @@ P.liyueRegionGuide=function(mapId=this.s?.global?.CURRENT_MAP_ID){
  return {map:mapId,name:threat.name,biome:threat.biome,notes:threat.notes,risk,label:LABELS[risk],minLevel:min,maxLevel:max,
   encounterChance:Number(map[9])||0,party:{size,average:Math.round(avg*10)/10,alive:party.length},underLevel:avg<min,overLevel:avg>max,enemyLevels:levels,
   tiers,entries,rewards:{xp:span('xp'),mora:span('mora'),drops:[...drops.values()].sort((a,b)=>b.chance-a.chance),
-   tierBonus:{enhanced:pct(reward[2]?.rolls?.[0]||0),strongElite:(reward[4]?.rolls||[]).map(pct),danger:(reward[5]?.rolls||[]).map(pct),essence:reward[5]?.essence||0}},
+   tierBonus:{enhanced:pct(reward[2]?.rolls?.[0]||0),strongElite:(reward[4]?.rolls||[]).map(pct),danger:(reward[5]?.rolls||[]).map(pct),essence:0/* 0.16.35: no boss echo on the road */}},
   boss};
 };
 P.liyueRegionGuideVersion=1;api.liyueRegionGuideVersion=1;

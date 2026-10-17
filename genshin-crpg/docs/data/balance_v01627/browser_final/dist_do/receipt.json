@@ -1,0 +1,93 @@
+{
+  "case": "dist_do",
+  "command": [
+    "npm",
+    "run",
+    "test:browser"
+  ],
+  "env": {
+    "CRPG_TEST_DIST": "1",
+    "CRPG_TEST_BACKEND": "do",
+    "CRPG_CHROMIUM_EXECUTABLE": "/root/.cache/ms-playwright/chromium_headless_shell-1161/chrome-linux/headless_shell"
+  },
+  "scope": "Actual Chromium graphical flow against real isolated Worker + do; existing test file unchanged. No live account or server used.",
+  "exitCode": 0,
+  "timedOut": false,
+  "launchError": null,
+  "elapsedSeconds": 105.129,
+  "startedAtEpochSeconds": 1791659390.00111,
+  "finishedAtEpochSeconds": 1791659495.1298268,
+  "nativeSourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "nativeSourceProofSHA256": "b323a2fb07396d436a8c128a35b06c9f9a2df014f452ee04761b6257aeeab691",
+  "build": {
+    "appVersion": "0.16.27",
+    "packVersion": "2026-09-24-c3d5eef26ac2-9f53be852293",
+    "engineVersion": "engine3-ccab181d79528168042dabf16c33478eb9cd5a9f3123ac37c881ae13e044890b"
+  },
+  "serverEngineSHA256": "23e11439e85faf84f4858023814af4d110ac77faf2d1760efc4d057a6fe8c905",
+  "rawAuthoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "sourceBuildAndDbUnchanged": true,
+  "browserExecutableExists": true,
+  "testSHA256": "d6419c92d25e05a8f2be704b04833bace2a74a50083c0287ac3f91b8ba35605d",
+  "stdoutSHA256": "2f9a4e57a21b8e44b9a1e4d8b4387690ac3bfd2943df2ac94eb26b59099e6dfe",
+  "successfulResultRows": 17,
+  "resultFiles": [
+    {
+      "path": "dist_do/online-flow/single-response.png",
+      "sha256": "adbd47a054d5e3706833d4f88938777d79c841882c6d9f3a8776d23956ade36b",
+      "bytes": 621512
+    },
+    {
+      "path": "dist_do/online-flow/story.png",
+      "sha256": "95e50fbeba055e29bcac72b5a232f50a99fae3202cc12d2830d8333697872331",
+      "bytes": 117896
+    },
+    {
+      "path": "dist_do/online-flow/life-pending.png",
+      "sha256": "4d76f223d84a2beeb33d24ea0a60fa31d554b1cf9fe0b9decc62b29a46ae5c13",
+      "bytes": 959141
+    },
+    {
+      "path": "dist_do/online-flow/combat.png",
+      "sha256": "09181d18781ccf85fefc017c6965c05d8ba3cfa73607b3ca17fab5baa9af2d56",
+      "bytes": 276218
+    },
+    {
+      "path": "dist_do/online-flow/combat-pending.png",
+      "sha256": "24748179dda253125d8cf60546b377c195c1b26a0d4ca7ac417f232c22fccbf5",
+      "bytes": 320562
+    },
+    {
+      "path": "dist_do/online-flow/results.json",
+      "sha256": "d80f9b21ec006fa48a7d841dd8be8203b99c7444e64c01de50431d0adadeb363",
+      "bytes": 2056
+    },
+    {
+      "path": "dist_do/online-flow/relationship-locked.png",
+      "sha256": "edad2362d2323dfd8e32db0756a45d6dfabdebb186523d4e5b1ed2e75eaede74",
+      "bytes": 503575
+    },
+    {
+      "path": "dist_do/online-flow/equipment-pending.png",
+      "sha256": "4285a213039792b7e1ec1d985d64f565a0eed8d851bb1aa39b47158d4f7ebe04",
+      "bytes": 231524
+    },
+    {
+      "path": "dist_do/online-flow/life.png",
+      "sha256": "77587f80af164dd522c582c5fe732be9f3c480653c2326a4c7398943715308e2",
+      "bytes": 963393
+    },
+    {
+      "path": "dist_do/online-flow/life-scene-picked.png",
+      "sha256": "059b3a3fc76c0312ff8ce1994a4e8510836377a17abca984f4dceccf2cdbe09d",
+      "bytes": 1759093
+    }
+  ],
+  "excludedForeignOutputs": [],
+  "nodeModulesOrProductOrTestEdits": 0,
+  "classification": "ACTUAL_GRAPHICAL_UI_GATE_PASS",
+  "uiAssertionsExecuted": true,
+  "actualSuccessStdoutAndResultsEqual": true,
+  "resultJSONSHA256": "d80f9b21ec006fa48a7d841dd8be8203b99c7444e64c01de50431d0adadeb363",
+  "preservedDuplicateScratchDirectory": "/workspace/scratch/a62414469990/browser-duplicate-headless-v01627/dist_do"
+}

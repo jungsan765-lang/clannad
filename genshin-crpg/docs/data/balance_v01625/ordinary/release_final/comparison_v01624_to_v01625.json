@@ -1,0 +1,1853 @@
+{
+  "fingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+  "scope": "Final 0.16.25 with actor-scoped skill rhythm bugfix vs same-preparation frozen0.16.24. Fourstar observed metric changes must not be attributed solely to Zhongli/Jean nerf.",
+  "preparations": {
+    "PLUS10": [
+      {
+        "level": 10,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.9885458167330677,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9332669322709163,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 10,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.5123339658444023,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.5123339658444023,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 10,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9332669322709163,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 10,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 7,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.9168094795083974,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9839396758556529,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 22,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "LIYUE_XIANGLING"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 7,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 12,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 9,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.9419771825882584,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.8154042011457671,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 9,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 9,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9972680642283676,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.6736601967164068,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.6736601967164068,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.8697408280040391,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.8697408280040391,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.9914219959550875,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9255701234395703,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 12,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "LIYUE_XIANGLING"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 45,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 12,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "LIYUE_XIANGLING"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 45,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.7457544998667603,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.7457544998667603,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9355327229095315,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 8,
+              "ko": []
+            },
+            {
+              "win": false,
+              "rounds": 19,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.08873555574029429,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 8,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 20,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.6467037991520492,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.6467037991520492,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9864205561879981,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 17,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 16,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 10,
+        "before": {
+          "hp": 0.6892338683190646,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.6892338683190646,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "AUTO": [
+      {
+        "level": 10,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0.9635740971357409,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9342050643420506,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 10,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0.5251619332336821,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.513328350772297,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 10,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9348277293482773,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 10,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 10,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 10,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0.9750112900797833,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9620151537959757,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 23,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "LIYUE_XIANGLING"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 5,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 12,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 9,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0.9787746500075267,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.8507702343318782,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": [
+                "PLAYER_CUSTOM"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 20,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 8,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 8,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9958343959874182,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0.6587804319621461,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.6587804319621461,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 30,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 3,
+        "before": {
+          "hp": 0.8943371746928185,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.8943371746928185,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9222924346147094,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 12,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "LIYUE_XIANGLING"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 45,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 12,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "LIYUE_XIANGLING"
+              ]
+            },
+            {
+              "win": false,
+              "rounds": 38,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 1,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 40,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 0.7345856947430135,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.7345856947430135,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9316433464082899,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 8,
+              "ko": []
+            },
+            {
+              "win": false,
+              "rounds": 14,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 8,
+              "ko": []
+            },
+            {
+              "win": false,
+              "rounds": 14,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 50,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 0.6415627875847068,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.6415627875847068,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "EXP",
+        "investment": "FIVE_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 3,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.9873832954832198,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 4,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "EXP",
+        "investment": "FOUR_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 17,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        },
+        "after": {
+          "hp": 0,
+          "battles": [
+            {
+              "win": false,
+              "rounds": 16,
+              "ko": [
+                "PLAYER_CUSTOM",
+                "MOND_NOELLE",
+                "LIYUE_XIANGLING",
+                "LIYUE_BEIDOU"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "TALENT",
+        "investment": "FIVE_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 1,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 2,
+              "ko": []
+            }
+          ]
+        }
+      },
+      {
+        "level": 60,
+        "kind": "TALENT",
+        "investment": "FOUR_C0",
+        "enhance": 6,
+        "before": {
+          "hp": 0.6764113679624149,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": []
+            }
+          ]
+        },
+        "after": {
+          "hp": 0.6764113679624149,
+          "battles": [
+            {
+              "win": true,
+              "rounds": 5,
+              "ko": []
+            },
+            {
+              "win": true,
+              "rounds": 6,
+              "ko": []
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

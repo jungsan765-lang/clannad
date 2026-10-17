@@ -1,0 +1,1548 @@
+{
+  "label": "FINAL2",
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "rawFileDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "profile": {
+    "revision": 0,
+    "config": {
+      "tables": [],
+      "enemies": {},
+      "characters": {},
+      "cards": {},
+      "economy": {},
+      "encounters": {},
+      "growth": {
+        "domains": {},
+        "ascension": {},
+        "talents": {}
+      }
+    }
+  },
+  "enhance": 10,
+  "assumptions": "Diagnostic grants declared 4-person ownership, legal equal-level phase/base talent cap, craft equipment at declared enhancement/cap10. No artifact/exclusive/boss equipment, constellations, food or innate HP resets between battles. Traveler public Q/E HOLD/basic, actual balanced companion AI. Initially full HP only; consecutive 2 fights without cooking or lodging. Before-reward native KO is separate from automatic 10% out-of-battle revival. No blanket guarantee of all rosters or natural acquisition.",
+  "summary": {
+    "conditions": 24,
+    "battles": 46,
+    "firstFightDefeats": 2,
+    "secondFightDefeats": 3,
+    "KO": 28,
+    "errors": 0
+  },
+  "inputDrift": [],
+  "rows": [
+    {
+      "level": 10,
+      "kind": "EXP",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.9332669322709163,
+      "innQuote": {
+        "cost": 35,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 40,
+        "weightedHpLoss": 3.581414648532609,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 10,
+            "hp": 1221,
+            "maxHp": 1834,
+            "lostHpRatio": 0.33424209378407854,
+            "recoveryCost": 14
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 10,
+            "hp": 3436,
+            "maxHp": 3436,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 10,
+            "hp": 2328,
+            "maxHp": 2385,
+            "lostHpRatio": 0.02389937106918239,
+            "recoveryCost": 1
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 10,
+            "hp": 2385,
+            "maxHp": 2385,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "kind": "EXP",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0.5123339658444023,
+      "innQuote": {
+        "cost": 100,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 40,
+        "weightedHpLoss": 19.47443339290711,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 10,
+            "hp": 712,
+            "maxHp": 1834,
+            "lostHpRatio": 0.6117775354416576,
+            "recoveryCost": 25
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 10,
+            "hp": 681,
+            "maxHp": 2347,
+            "lostHpRatio": 0.7098423519386451,
+            "recoveryCost": 29
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 10,
+            "hp": 1316,
+            "maxHp": 1974,
+            "lostHpRatio": 0.3333333333333333,
+            "recoveryCost": 14
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 10,
+            "hp": 1611,
+            "maxHp": 2277,
+            "lostHpRatio": 0.2924901185770751,
+            "recoveryCost": 12
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "kind": "TALENT",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.9332669322709163,
+      "innQuote": {
+        "cost": 34,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 40,
+        "weightedHpLoss": 3.432771159258269,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 10,
+            "hp": 1339,
+            "maxHp": 1834,
+            "lostHpRatio": 0.26990185387131954,
+            "recoveryCost": 11
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 10,
+            "hp": 3436,
+            "maxHp": 3436,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 10,
+            "hp": 2385,
+            "maxHp": 2385,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 10,
+            "hp": 2210,
+            "maxHp": 2385,
+            "lostHpRatio": 0.07337526205450734,
+            "recoveryCost": 3
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "kind": "TALENT",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0,
+      "innQuote": {
+        "cost": 180,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 40,
+        "weightedHpLoss": 40,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 10,
+            "hp": 0,
+            "maxHp": 1834,
+            "lostHpRatio": 1,
+            "recoveryCost": 40
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 10,
+            "hp": 0,
+            "maxHp": 2347,
+            "lostHpRatio": 1,
+            "recoveryCost": 40
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 10,
+            "hp": 0,
+            "maxHp": 1974,
+            "lostHpRatio": 1,
+            "recoveryCost": 40
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 10,
+            "hp": 0,
+            "maxHp": 2277,
+            "lostHpRatio": 1,
+            "recoveryCost": 40
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 6,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ]
+        },
+        {
+          "n": 2,
+          "victory": false,
+          "rounds": 7,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "MOND_NOELLE",
+            "LIYUE_XIANGLING",
+            "LIYUE_BEIDOU"
+          ]
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "kind": "EXP",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.9839396758556529,
+      "innQuote": {
+        "cost": 28,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 1.8119351488634017,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 3154,
+            "maxHp": 3422,
+            "lostHpRatio": 0.07831677381648158,
+            "recoveryCost": 7
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 7229,
+            "maxHp": 7229,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4826,
+            "maxHp": 4886,
+            "lostHpRatio": 0.012279983626688497,
+            "recoveryCost": 1
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "kind": "EXP",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0,
+      "innQuote": {
+        "cost": 340,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 80,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 3422,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 4492,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 3714,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 4347,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ]
+        },
+        {
+          "n": 2,
+          "victory": false,
+          "rounds": 9,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "MOND_NOELLE",
+            "LIYUE_XIANGLING",
+            "LIYUE_BEIDOU"
+          ]
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "kind": "TALENT",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.8154042011457671,
+      "innQuote": {
+        "cost": 103,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 20.274773342520767,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 280,
+            "maxHp": 3422,
+            "lostHpRatio": 0.9181765049678551,
+            "recoveryCost": 74
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 6732,
+            "maxHp": 7229,
+            "lostHpRatio": 0.06875086457324664,
+            "recoveryCost": 6
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4755,
+            "maxHp": 4886,
+            "lostHpRatio": 0.026811297584936552,
+            "recoveryCost": 3
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "kind": "TALENT",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0,
+      "innQuote": {
+        "cost": 340,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 80,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 3422,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 4492,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 3714,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 20,
+            "hp": 0,
+            "maxHp": 4347,
+            "lostHpRatio": 1,
+            "recoveryCost": 80
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": false,
+          "rounds": 9,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "MOND_NOELLE",
+            "LIYUE_XIANGLING",
+            "LIYUE_BEIDOU"
+          ]
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "kind": "EXP",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.9972680642283676,
+      "innQuote": {
+        "cost": 23,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 120,
+        "weightedHpLoss": 0.5172413793103449,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 5586,
+            "maxHp": 5684,
+            "lostHpRatio": 0.017241379310344827,
+            "recoveryCost": 3
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 30,
+            "hp": 12934,
+            "maxHp": 12934,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 30,
+            "hp": 8627,
+            "maxHp": 8627,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 30,
+            "hp": 8627,
+            "maxHp": 8627,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "kind": "EXP",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0.6736601967164068,
+      "innQuote": {
+        "cost": 182,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 120,
+        "weightedHpLoss": 40.06875736865333,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 2670,
+            "maxHp": 5684,
+            "lostHpRatio": 0.5302603800140746,
+            "recoveryCost": 64
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 30,
+            "hp": 4448,
+            "maxHp": 7558,
+            "lostHpRatio": 0.41148451971421013,
+            "recoveryCost": 50
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 30,
+            "hp": 4661,
+            "maxHp": 6195,
+            "lostHpRatio": 0.24761904761904763,
+            "recoveryCost": 30
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 30,
+            "hp": 6234,
+            "maxHp": 7302,
+            "lostHpRatio": 0.14626129827444537,
+            "recoveryCost": 18
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 3,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 3,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "kind": "TALENT",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 120,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 5684,
+            "maxHp": 5684,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 30,
+            "hp": 12934,
+            "maxHp": 12934,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 30,
+            "hp": 8627,
+            "maxHp": 8627,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 30,
+            "hp": 8627,
+            "maxHp": 8627,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 1,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 1,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "kind": "TALENT",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0.8697408280040391,
+      "innQuote": {
+        "cost": 82,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 120,
+        "weightedHpLoss": 15.05973830043867,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 5272,
+            "maxHp": 5684,
+            "lostHpRatio": 0.07248416608022519,
+            "recoveryCost": 9
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 30,
+            "hp": 5834,
+            "maxHp": 7558,
+            "lostHpRatio": 0.2281026726647261,
+            "recoveryCost": 28
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 30,
+            "hp": 5503,
+            "maxHp": 6195,
+            "lostHpRatio": 0.11170298627925747,
+            "recoveryCost": 14
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 30,
+            "hp": 6647,
+            "maxHp": 7302,
+            "lostHpRatio": 0.08970145165708025,
+            "recoveryCost": 11
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 3,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "kind": "EXP",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.9255701234395703,
+      "innQuote": {
+        "cost": 99,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 19.54894104178592,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 4466,
+            "maxHp": 8735,
+            "lostHpRatio": 0.48872352604464797,
+            "recoveryCost": 79
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "kind": "EXP",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0,
+      "innQuote": {
+        "cost": 660,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 160,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 0,
+            "maxHp": 8735,
+            "lostHpRatio": 1,
+            "recoveryCost": 160
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 40,
+            "hp": 0,
+            "maxHp": 11702,
+            "lostHpRatio": 1,
+            "recoveryCost": 160
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 40,
+            "hp": 0,
+            "maxHp": 9545,
+            "lostHpRatio": 1,
+            "recoveryCost": 160
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 40,
+            "hp": 0,
+            "maxHp": 11297,
+            "lostHpRatio": 1,
+            "recoveryCost": 160
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "LIYUE_XIANGLING"
+          ]
+        },
+        {
+          "n": 2,
+          "victory": false,
+          "rounds": 45,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "MOND_NOELLE",
+            "LIYUE_XIANGLING",
+            "LIYUE_BEIDOU"
+          ]
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "kind": "TALENT",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 8735,
+            "maxHp": 8735,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 1,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 1,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "kind": "TALENT",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0.7457544998667603,
+      "innQuote": {
+        "cost": 195,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 43.19842898547231,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 3857,
+            "maxHp": 8735,
+            "lostHpRatio": 0.5584430452203778,
+            "recoveryCost": 90
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 40,
+            "hp": 8875,
+            "maxHp": 11702,
+            "lostHpRatio": 0.24158263544693215,
+            "recoveryCost": 39
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 40,
+            "hp": 7516,
+            "maxHp": 9545,
+            "lostHpRatio": 0.21257202723939236,
+            "recoveryCost": 35
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 40,
+            "hp": 10536,
+            "maxHp": 11297,
+            "lostHpRatio": 0.06736301673010534,
+            "recoveryCost": 11
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 4,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 3,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "kind": "EXP",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.9355327229095315,
+      "innQuote": {
+        "cost": 108,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 200,
+        "weightedHpLoss": 21.804570527974786,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 7156,
+            "maxHp": 12690,
+            "lostHpRatio": 0.4360914105594957,
+            "recoveryCost": 88
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 50,
+            "hp": 31556,
+            "maxHp": 31556,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 50,
+            "hp": 20798,
+            "maxHp": 20798,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 50,
+            "hp": 20798,
+            "maxHp": 20798,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 4,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "kind": "EXP",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0.08873555574029429,
+      "innQuote": {
+        "cost": 751,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 200,
+        "weightedHpLoss": 182.66076195098276,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 1269,
+            "maxHp": 12690,
+            "lostHpRatio": 0.9,
+            "recoveryCost": 180
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 50,
+            "hp": 0,
+            "maxHp": 17082,
+            "lostHpRatio": 1,
+            "recoveryCost": 200
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 50,
+            "hp": 0,
+            "maxHp": 13889,
+            "lostHpRatio": 1,
+            "recoveryCost": 200
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 50,
+            "hp": 4068,
+            "maxHp": 16484,
+            "lostHpRatio": 0.7532152390196554,
+            "recoveryCost": 151
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 8,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 20,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "MOND_NOELLE",
+            "LIYUE_XIANGLING"
+          ]
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "kind": "TALENT",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 200,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 12690,
+            "maxHp": 12690,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 50,
+            "hp": 31556,
+            "maxHp": 31556,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 50,
+            "hp": 20798,
+            "maxHp": 20798,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 50,
+            "hp": 20798,
+            "maxHp": 20798,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "kind": "TALENT",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0.6467037991520492,
+      "innQuote": {
+        "cost": 325,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 200,
+        "weightedHpLoss": 75.73298111233095,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 486,
+            "maxHp": 12690,
+            "lostHpRatio": 0.9617021276595744,
+            "recoveryCost": 193
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 50,
+            "hp": 9815,
+            "maxHp": 17082,
+            "lostHpRatio": 0.4254185692541857,
+            "recoveryCost": 86
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 50,
+            "hp": 12153,
+            "maxHp": 13889,
+            "lostHpRatio": 0.12499100007199943,
+            "recoveryCost": 25
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 50,
+            "hp": 16442,
+            "maxHp": 16484,
+            "lostHpRatio": 0.002547925260859015,
+            "recoveryCost": 1
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 4,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "kind": "EXP",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 0.9864205561879981,
+      "innQuote": {
+        "cost": 43,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 5.730179360540681,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 17398,
+            "maxHp": 19235,
+            "lostHpRatio": 0.09550298934234469,
+            "recoveryCost": 23
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 4,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "kind": "EXP",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0,
+      "innQuote": {
+        "cost": 980,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 240,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 19235,
+            "lostHpRatio": 1,
+            "recoveryCost": 240
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 25976,
+            "lostHpRatio": 1,
+            "recoveryCost": 240
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 21074,
+            "lostHpRatio": 1,
+            "recoveryCost": 240
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 60,
+            "hp": 0,
+            "maxHp": 25057,
+            "lostHpRatio": 1,
+            "recoveryCost": 240
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": false,
+          "rounds": 16,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "MOND_NOELLE",
+            "LIYUE_XIANGLING",
+            "LIYUE_BEIDOU"
+          ]
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "kind": "TALENT",
+      "investment": "FIVE_C0",
+      "enhance": 10,
+      "hp": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19235,
+            "maxHp": 19235,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "ko": []
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "kind": "TALENT",
+      "investment": "FOUR_C0",
+      "enhance": 10,
+      "hp": 0.6892338683190646,
+      "innQuote": {
+        "cost": 343,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 80.41870780319184,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 1924,
+            "maxHp": 19235,
+            "lostHpRatio": 0.8999740057187419,
+            "recoveryCost": 216
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "level": 60,
+            "hp": 19446,
+            "maxHp": 25976,
+            "lostHpRatio": 0.25138589467200495,
+            "recoveryCost": 61
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 60,
+            "hp": 20071,
+            "maxHp": 21074,
+            "lostHpRatio": 0.047594191895226345,
+            "recoveryCost": 12
+          },
+          {
+            "owner": "LIYUE_BEIDOU",
+            "level": 60,
+            "hp": 21515,
+            "maxHp": 25057,
+            "lostHpRatio": 0.14135770443389073,
+            "recoveryCost": 34
+          }
+        ]
+      },
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "ko": []
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 6,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ]
+        }
+      ]
+    }
+  ]
+}

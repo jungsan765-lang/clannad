@@ -1,0 +1,62 @@
+{
+  "engine": "source",
+  "fingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+  "rawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "rows": [
+    {
+      "test": "test_abyss_fixes_v01626.cjs",
+      "engine": "source",
+      "engineFingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+      "toolSHA256": "c4385faa902d0255322169df96d5f6546b095372274dece6ff70eff14677a145",
+      "output": "source-abyss-contracts/contracts.json",
+      "outputSHA256": "4a933f85a72bd58fac7ead5284b3c9ed0251f445a8e03b9fad038217be9c209c",
+      "checks": 35,
+      "passed": 35,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_character_balance_v01625.cjs",
+      "engine": "source",
+      "engineFingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+      "toolSHA256": "1f17e24e6cdab263a4f33b6729e4ab3e01f0f51264b6fe6c19b87fb3dcc565db",
+      "output": "source-test_character_balance_v01625.cjs.json",
+      "outputSHA256": "639a098e579a5d9d95782812e44a9716e1a65ccacc0bbd03cfc4992175f6fd7f",
+      "checks": 48,
+      "passed": 48,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_skill_rhythm_ownership_v01625.cjs",
+      "engine": "source",
+      "engineFingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+      "toolSHA256": "a9986d0753c7b432f82df345080b072d3c7292154761e65d24e65f55f209b268",
+      "output": "source-test_skill_rhythm_ownership_v01625.cjs.json",
+      "outputSHA256": "1eefb4ae81e1f74442aa3773bf244a4dae493debcb58964b9bebd4da3edd1cfc",
+      "checks": 18,
+      "passed": 18,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_pressure_v01624.cjs",
+      "engine": "source",
+      "engineFingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+      "toolSHA256": "9c6460d02d82caf4342ed1c827033f8d204fcad143b7847da73cc106ea3c4d5a",
+      "output": "source-test_daily_pressure_v01624.cjs.json",
+      "outputSHA256": "be0a9485fc864824834e6a5b4c3769ce7f71ff9ae7e4dbfae4b8d9ba29ad9a3d",
+      "checks": 21,
+      "passed": 21,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_basic_air_range_v01624.cjs",
+      "engine": "source",
+      "engineFingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+      "toolSHA256": "3b51998b2c31387f2f757d0c9c5ce0f142594ed14addb320bb089ef706f89b08",
+      "output": "source-test_basic_air_range_v01624.cjs.json",
+      "outputSHA256": "f5f3a62a14a6cb099c019c8a9ee0cedcf1d29533a6e7103e51af56a460d05f05",
+      "checks": 5,
+      "passed": 5,
+      "rawDbObjectUnchanged": true
+    }
+  ]
+}

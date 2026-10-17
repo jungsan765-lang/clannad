@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "status": "read_only_source_review_complete_parent_final_source_freeze_confirmed",
+  "scope": "Economic/progression contract read only for field-boss behaviorRevision3. No new tuning, no product edits, no native farming campaign; preceding sealed economy eleven JSON and original MD unchanged. Native boss-counter/progression/release tests owned by parent agents.",
+  "inputSHA256": {
+    "source/runtime_field_bosses.js": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b",
+    "source/runtime_field_boss_limits.js": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb",
+    "source/runtime_growth_v01522.js": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+    "source/runtime_combat.js": "d9ca3895454ffcbb7a6d94783683bdbbf6d439594658dc8f17dda4ea19c9c6ee",
+    "source/runtime_tasks_v0167.js": "cc21ab26ac16a7b6265e04a6cf38543170e9a0bdbff01489174006f99e232bb9",
+    "source/runtime_relationships.js": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b",
+    "source/runtime_coop_v0153.js": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321",
+    "source/runtime_task_catalog_v0168.js": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  },
+  "beforeFieldBossSourceSHA256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563",
+  "contracts": {
+    "bossRewardSettlement": {
+      "source": [
+        "runtime_combat.js:P.finishBattle",
+        "runtime_growth_v01522.js:P.mondRewardPlan",
+        "runtime_field_bosses.js:P.finishBattle"
+      ],
+      "effect": "XP/Mora/loot settle only at final victory; duplicate battleId rejected by combat receipts. Current growth reward plan filters every fbSummon; repeated revival does not multiply main-boss reward actor.",
+      "summonLoot": "Empty loot table ID for SUMMONS; input content loot table has no empty-ID row; summon kills grant no items."
+    },
+    "quota": {
+      "source": "runtime_field_boss_limits.js:P.placeBossReason/P.finishBattle",
+      "unchanged": "Three total field-boss victories per real12h KST00/12 window, all bosses combined. Defeats do not consume wins. Revision3 revival cycles are internal to one unfinished battle, not separate claims."
+    },
+    "growthUniqueMaterials": {
+      "source": "runtime_growth_v01522.js:P.ascensionInfo/BOSS_MATERIAL",
+      "phase3CommonEssencePer4star": 1,
+      "phase4UniqueMaterialPer4star": 2,
+      "phase5UniqueMaterialPer4star": 3,
+      "phase4and5UniqueTotalPer4star": 5,
+      "phase4and5UniqueTotalPer5star": 10,
+      "lootNormalMinMax": [
+        2,
+        3
+      ],
+      "firstClearExtra": 1,
+      "unchanged": true,
+      "mapping": {
+        "ANEMO": "MAT_FB_HURRICANE_SEED",
+        "ELECTRO": "MAT_FB_LIGHTNING_PRISM",
+        "GEO": "MAT_FB_BASALT_PILLAR",
+        "CRYO_growth": "MAT_FB_HOARFROST_CORE",
+        "CRYO_HYPOSTASIS_loot": "MAT_FB_CRYSTALLINE_BLOOM"
+      },
+      "existingLimitation": "All current Cryo growth uses Hoarfrost Core; Cryo Hypostasis Crystalline Bloom is not mapped to current ascension requirement. Existing behavior, not introduced by revision3."
+    },
+    "tasksAndAchievements": {
+      "source": [
+        "runtime_tasks_v0167.js:P.finishBattle/P.apply",
+        "runtime_relationships.js:P.awardBattleBond",
+        "runtime_field_bosses.js:P.finishBattle"
+      ],
+      "effect": "One final-victory receipt counts win1 and boss1; revival/summon kills count0. Life/fish/hunt require real LIFE_FINISH output and are not combat kinds. Delivery requires actual inventory and pay, summon loot cannot satisfy it. Bond gain per eligible ally is+1 keyed battleId; fieldBossNotes wins advances once only after victory.",
+      "weeklyBossGoalExisting": 10,
+      "quotaCompatibility": "Weekly ten-win goal remains arithmetically within old quota; actual ownership/counter skill/success and available windows are not certified."
+    },
+    "coopGuest": {
+      "source": "runtime_coop_v0153.js:P.coopApplyReward",
+      "unchanged": "Guest duplicate battleId denied. Full Mora/loot consume their own field-boss quota; over-quota guest still receives XP only under pre-existing rule. Revision3 does not create a new separate revive receipt."
+    },
+    "domainHealingEconomy": {
+      "source": "runtime_growth_v01522.js:P.growthDomainRewards/P.ascensionInfo",
+      "unchanged": "Domain payout/costs/first-three material-win bonus/XP/inn prices/food fees/gear/shops are unchanged by boss file change. Field-boss counter failure can prolong or defeat farming and raise actual recovery/consumable needs. Fixed-domain native timings remain valid within declared prepared-party scope, not a complete boss-material collection-time guarantee."
+    }
+  },
+  "limits": [
+    "No new field-boss duration/recovery cash values fabricated.",
+    "No same-account end-to-end boss material + domain + wealth + cooking farming measurement.",
+    "No automatic compensation/stock conversion/progression or entry restriction added.",
+    "Actual boss-counter solvability, old/new save compatibility, and release validation await parent native/test evidence."
+  ]
+}

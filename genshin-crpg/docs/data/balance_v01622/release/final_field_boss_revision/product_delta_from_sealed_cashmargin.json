@@ -1,0 +1,33 @@
+{
+  "authorizedBy": "root explicit frozen dab1e585 +notes c15a; older6balanceproducts unchanged",
+  "beforeSealedManifest": "../final_cash_margin/MANIFEST.json",
+  "beforeSealedManifestSha256": "6b7af58bd166be5aac3029aa5769fc8f849c34c475c08fd181a831ddd2518f4a",
+  "changes": [
+    {
+      "path": "content/release-notes.json",
+      "before": {
+        "path": "content/release-notes.json",
+        "bytes": 322210,
+        "sha256": "bc5013378715251ad80da29279ff0434142f421ea51eff45b22974d5997d8690"
+      },
+      "after": {
+        "path": "content/release-notes.json",
+        "bytes": 322531,
+        "sha256": "c15a2c6bbe7581aa59b436b16e1ffa2f962ddcba7c563db7dd9a38aad4693fa1"
+      }
+    },
+    {
+      "path": "source/runtime_field_bosses.js",
+      "before": {
+        "path": "source/runtime_field_bosses.js",
+        "bytes": 58758,
+        "sha256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563"
+      },
+      "after": {
+        "path": "source/runtime_field_bosses.js",
+        "bytes": 59740,
+        "sha256": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b"
+      }
+    }
+  ]
+}

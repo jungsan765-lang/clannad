@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "before": "../healing/final_pivot35_repeated.json.gz",
+  "after": "repeated.json.gz",
+  "beforeFingerprint": "eda3f2b4153df41d96e580d297b5ae0b0b05980847ce66d82d32809d8e232db0",
+  "afterFingerprint": "88b8d478b7370208f7a325e4d1a42735e0b5a1668e00181438afda5801fde3b9",
+  "beforeCounts": {
+    "conditions": 56,
+    "battles": 202,
+    "wins": 182,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 32,
+    "completeAllFull": 4
+  },
+  "afterCountsDerivedFromRows": {
+    "conditions": 56,
+    "battles": 202,
+    "wins": 182,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 32,
+    "completeAllFull": 4
+  },
+  "countsMatchNativeSummary": true,
+  "conditions": 56,
+  "comparedFields": [
+    "wins",
+    "losses",
+    "finalHp",
+    "hpRatio",
+    "allFull",
+    "koBattles",
+    "healApplied",
+    "healNominal",
+    "overCap",
+    "quote",
+    "battles"
+  ],
+  "differentConditions": [],
+  "wholeConditionsEqual": true,
+  "rawReportHasCountsFooter": false
+}

@@ -1,0 +1,19 @@
+runtime.js:51
+  this.s=clone(before);try{if(this.assertActionAllowed)this.assertActionAllowed(a);const result=this.apply(a);this.s.global.SAVE_REVISION++;this.s.global.LAST_COMMITTED_ACTION_SEQ++;this.s.global.LAST_COMMITTED_ACTION_ID=a.id;this.s.global.TURN++;const receipt={ok:true,type:a.type,result:result??null,revision:this.s.global.SAVE_REVISION};this.s.global.LAST_ACTION_RECEIPT_JSON=JSON.stringify(receipt);this.validateSave(this.s);return clone(receipt);}catch(e){this.s=before;throw e;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+
+RuleError: 장소 화면에서 먼저 들어가기를 선택해 주세요.
+    at P.assertActionAllowed (runtime_flow.js:67:97)
+    at P.assertActionAllowed (runtime_abyss.js:341:155)
+    at Runtime.transact (runtime.js:51:61)
+    at P.transact (runtime_equipment.js:251:53)
+    at Runtime.action (runtime.js:47:59)
+    at Object.start (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:156:136)
+    at startPair (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:146:20)
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:159:13
+    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:12:36)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_abyss_fixes_v01626.cjs:158:31) {
+  code: 'ACTION_LOCK'
+}
+
+Node.js v24.19.0

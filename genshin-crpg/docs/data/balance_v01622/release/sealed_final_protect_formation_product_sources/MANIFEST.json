@@ -1,0 +1,72 @@
+{
+  "sealedAt": "2026-10-10T05:11:27.888493+00:00",
+  "purpose": "Exact source/QA candidate used in sealed final_protect_formation36/36 before any later economy-only change; not an application patch.",
+  "files": [
+    {
+      "originalPath": "source/runtime_growth_v01522.js",
+      "copy": "source/runtime_growth_v01522.js",
+      "bytes": 58938,
+      "sha256": "d9a346144ead6918b79e53193fbd78c95d29f8ba51496fb9ad181af67adb661b"
+    },
+    {
+      "originalPath": "source/runtime_rules.js",
+      "copy": "source/runtime_rules.js",
+      "bytes": 29234,
+      "sha256": "cfe4c9ffb128478deb84a6abacba9b927bc8262078dce044f1c9e19db9674b9f"
+    },
+    {
+      "originalPath": "source/runtime_liyue.js",
+      "copy": "source/runtime_liyue.js",
+      "bytes": 24503,
+      "sha256": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163"
+    },
+    {
+      "originalPath": "source/runtime_liyue_artifacts.js",
+      "copy": "source/runtime_liyue_artifacts.js",
+      "bytes": 14508,
+      "sha256": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0"
+    },
+    {
+      "originalPath": "source/runtime_combat.js",
+      "copy": "source/runtime_combat.js",
+      "bytes": 67802,
+      "sha256": "d9ca3895454ffcbb7a6d94783683bdbbf6d439594658dc8f17dda4ea19c9c6ee"
+    },
+    {
+      "originalPath": "source/runtime_liyue_cards.js",
+      "copy": "source/runtime_liyue_cards.js",
+      "bytes": 33866,
+      "sha256": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94"
+    },
+    {
+      "originalPath": "tests/test_material_efficiency_v01622.cjs",
+      "copy": "tests/test_material_efficiency_v01622.cjs",
+      "bytes": 6227,
+      "sha256": "cdd321580c838495df020370c007a257672f57d61ec5c9a1fcb22b70f630c617"
+    },
+    {
+      "originalPath": "tests/test_ascension_efficiency_v01613.cjs",
+      "copy": "tests/test_ascension_efficiency_v01613.cjs",
+      "bytes": 10386,
+      "sha256": "6e4db0bd8922177809d87dd277d8b134df791938b9c6bfff7e71f8a2375fd560"
+    },
+    {
+      "originalPath": "tests/test_liyue_growth_gate_v01622.cjs",
+      "copy": "tests/test_liyue_growth_gate_v01622.cjs",
+      "bytes": 4895,
+      "sha256": "4faef73e2d84ae2b8fcd527bd527ce4dede030a3f39adf267846568f5cfa999b"
+    },
+    {
+      "originalPath": "tools/test_other_healers_v01619.cjs",
+      "copy": "tools/test_other_healers_v01619.cjs",
+      "bytes": 8473,
+      "sha256": "4de0f8845b91a04ed892c81d8441111857b0870fa4702b87609c94005fd3dffd"
+    },
+    {
+      "originalPath": "tests/test_incoming_defense_v01622.cjs",
+      "copy": "tests/test_incoming_defense_v01622.cjs",
+      "bytes": 3293,
+      "sha256": "00578059251f57211d69f617448e59611d64271e1dc6dc0812a3ad6ac63ccbb6"
+    }
+  ]
+}

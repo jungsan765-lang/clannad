@@ -1,0 +1,1177 @@
+{
+  "version": "0.16.12",
+  "task_revision": 172,
+  "recorded_at_utc": "2026-10-07T19:16:52.246206+00:00",
+  "baseline_commit": "f07aa6ded6c6281e7590e4673ddec5ff452f4276",
+  "scope": {
+    "newly_removed": "W_V168_LIYUE_PATROL",
+    "removed_ids": [
+      "D_V168_HILI",
+      "W_V168_MOND_PATROL",
+      "W_V169_REPORT",
+      "W_V168_CRYO_VINE",
+      "W_V168_LIYUE_PATROL"
+    ],
+    "daily": 11,
+    "weekly": 27,
+    "one_time": 288,
+    "other_goals_rewards_and_ui_unchanged": true
+  },
+  "failed_ci_original": {
+    "run_number": 291,
+    "run_id": 37669375647,
+    "head": "f07aa6ded6c6281e7590e4673ddec5ff452f4276",
+    "url": "https://github.com/jungsan765-lang/clannad/actions/runs/37669375647",
+    "programs": 150,
+    "passed": 149,
+    "failed": 1,
+    "jobs": [
+      {
+        "id": 112956837703,
+        "name": "source UI",
+        "conclusion": "success",
+        "results": []
+      },
+      {
+        "id": 112956837950,
+        "name": "regression shard 3",
+        "conclusion": "failure",
+        "results": [
+          {
+            "test": "tests/test_server_load_boundaries_v01513.mjs",
+            "ok": true,
+            "seconds": 91.5
+          },
+          {
+            "test": "tests/test_feature_boundaries_v01513.cjs",
+            "ok": false,
+            "seconds": 16.8
+          },
+          {
+            "test": "tests/test_action_recovery.mjs",
+            "ok": true,
+            "seconds": 129.4
+          },
+          {
+            "test": "tests/test_control_reactions_v0168.cjs",
+            "ok": true,
+            "seconds": 39
+          },
+          {
+            "test": "tests/test_coop_receipt_v0168.mjs",
+            "ok": true,
+            "seconds": 36.3
+          },
+          {
+            "test": "tests/test_v0153.cjs",
+            "ok": true,
+            "seconds": 29.5
+          },
+          {
+            "test": "tests/test_skill_owner_v0169.cjs",
+            "ok": true,
+            "seconds": 28.4
+          },
+          {
+            "test": "tests/test_coop_v0153.cjs",
+            "ok": true,
+            "seconds": 25.6
+          },
+          {
+            "test": "tests/test_admin_v01412.mjs",
+            "ok": true,
+            "seconds": 23.2
+          },
+          {
+            "test": "tests/test_tutorial_v01523.cjs",
+            "ok": true,
+            "seconds": 20.6
+          },
+          {
+            "test": "tests/test_combat_boundaries_v0168.cjs",
+            "ok": true,
+            "seconds": 17.6
+          },
+          {
+            "test": "tests/test_balance_v0141.cjs",
+            "ok": true,
+            "seconds": 15.1
+          },
+          {
+            "test": "tests/test_task_learning_delivery_v0169.cjs",
+            "ok": true,
+            "seconds": 13.1
+          },
+          {
+            "test": "tests/test_release_isolation_v01513.py",
+            "ok": true,
+            "seconds": 0.8
+          },
+          {
+            "test": "tests/test_coop_world_v0160.cjs",
+            "ok": true,
+            "seconds": 12.7
+          },
+          {
+            "test": "tests/test_story_edition_v0141.cjs",
+            "ok": true,
+            "seconds": 1.5
+          },
+          {
+            "test": "tests/test_task_catalog_v0168.cjs",
+            "ok": true,
+            "seconds": 1.2
+          },
+          {
+            "test": "tests/test_test_banner_v01510.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_ui_audit_regressions.cjs",
+            "ok": true,
+            "seconds": 1.2
+          },
+          {
+            "test": "tests/test_server_coop_world_v0159.mjs",
+            "ok": true,
+            "seconds": 11.7
+          },
+          {
+            "test": "tests/test_v01411.cjs",
+            "ok": true,
+            "seconds": 12.4
+          },
+          {
+            "test": "tests/test_v01518.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_v01524.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_v0164.cjs",
+            "ok": true,
+            "seconds": 2.6
+          },
+          {
+            "test": "tests/test_wish_ui_audit_fixes.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_v0148.cjs",
+            "ok": true,
+            "seconds": 12.2
+          },
+          {
+            "test": "tools/test_exclusive_weapons.cjs",
+            "ok": true,
+            "seconds": 3.7
+          }
+        ]
+      },
+      {
+        "id": 112956837986,
+        "name": "regression shard 2",
+        "conclusion": "success",
+        "results": [
+          {
+            "test": "tests/test_xp_pacing_v0168.cjs",
+            "ok": true,
+            "seconds": 89.7
+          },
+          {
+            "test": "tests/test_server_coop_v0153.mjs",
+            "ok": true,
+            "seconds": 71
+          },
+          {
+            "test": "tests/test_v01525.cjs",
+            "ok": true,
+            "seconds": 181.9
+          },
+          {
+            "test": "tests/test_update_v01341.cjs",
+            "ok": true,
+            "seconds": 50.4
+          },
+          {
+            "test": "tests/test_growth_v01522.cjs",
+            "ok": true,
+            "seconds": 45.3
+          },
+          {
+            "test": "tests/test_tasks_v0169.cjs",
+            "ok": true,
+            "seconds": 37.5
+          },
+          {
+            "test": "tests/test_server_coop_recovery_v01512.mjs",
+            "ok": true,
+            "seconds": 37.3
+          },
+          {
+            "test": "tests/test_task_materials_v0169.cjs",
+            "ok": true,
+            "seconds": 35.1
+          },
+          {
+            "test": "tests/test_server_v0152.mjs",
+            "ok": true,
+            "seconds": 30.1
+          },
+          {
+            "test": "tests/test_social_v01415.mjs",
+            "ok": true,
+            "seconds": 27
+          },
+          {
+            "test": "tests/test_rewards_balance_v0161.cjs",
+            "ok": true,
+            "seconds": 21.7
+          },
+          {
+            "test": "tests/test_reading_checkpoint.mjs",
+            "ok": true,
+            "seconds": 21.2
+          },
+          {
+            "test": "tests/test_server_social_audit_fixes.mjs",
+            "ok": true,
+            "seconds": 18.9
+          },
+          {
+            "test": "tests/test_client_audit_fixes.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_authoritative_flow.mjs",
+            "ok": true,
+            "seconds": 6.4
+          },
+          {
+            "test": "tests/test_combat_catalog_online.mjs",
+            "ok": true,
+            "seconds": 5
+          },
+          {
+            "test": "tests/test_content_boundaries_v01513.cjs",
+            "ok": true,
+            "seconds": 5.4
+          },
+          {
+            "test": "tests/test_enemy_text_v01514.cjs",
+            "ok": true,
+            "seconds": 1.6
+          },
+          {
+            "test": "tests/test_freeze_v0160.cjs",
+            "ok": true,
+            "seconds": 3.3
+          },
+          {
+            "test": "tests/test_defeat_settlement_v0166.cjs",
+            "ok": true,
+            "seconds": 8.5
+          },
+          {
+            "test": "tests/test_life_ui_v010.cjs",
+            "ok": true,
+            "seconds": 6.7
+          },
+          {
+            "test": "tests/test_local_revision_online_v0141.mjs",
+            "ok": true,
+            "seconds": 8.6
+          },
+          {
+            "test": "tests/test_growth_balance_v01522.cjs",
+            "ok": true,
+            "seconds": 15.8
+          },
+          {
+            "test": "tests/test_map_v01516.cjs",
+            "ok": true,
+            "seconds": 3.9
+          },
+          {
+            "test": "tests/test_osial_v01341.cjs",
+            "ok": true,
+            "seconds": 8.6
+          },
+          {
+            "test": "tests/test_popup_lifecycle_v01512.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_online_server.mjs",
+            "ok": true,
+            "seconds": 13.4
+          },
+          {
+            "test": "tests/test_quality_fixes_v01338.cjs",
+            "ok": true,
+            "seconds": 4.4
+          },
+          {
+            "test": "tests/test_quality_fixes_v01335.cjs",
+            "ok": true,
+            "seconds": 5.5
+          },
+          {
+            "test": "tests/test_server_capacity_audit_fixes.mjs",
+            "ok": true,
+            "seconds": 0.5
+          },
+          {
+            "test": "tests/test_server_v0153.mjs",
+            "ok": true,
+            "seconds": 4.8
+          },
+          {
+            "test": "tests/test_task_board_v0169.cjs",
+            "ok": true,
+            "seconds": 5
+          },
+          {
+            "test": "tests/test_test_release_transaction.cjs",
+            "ok": true,
+            "seconds": 8.4
+          },
+          {
+            "test": "tests/test_update_recovery.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_v0142_combat_summons.cjs",
+            "ok": true,
+            "seconds": 3.2
+          },
+          {
+            "test": "tests/test_v01515.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_v01520.cjs",
+            "ok": true,
+            "seconds": 3.3
+          },
+          {
+            "test": "tests/test_v0157.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_version.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tools/audit_economy_v0168.cjs",
+            "ok": true,
+            "seconds": 2.6
+          },
+          {
+            "test": "tests/test_tasks_edge_v0168.cjs",
+            "ok": true,
+            "seconds": 18.9
+          }
+        ]
+      },
+      {
+        "id": 112956838003,
+        "name": "regression shard 0",
+        "conclusion": "success",
+        "results": [
+          {
+            "test": "tests/test_server_coop_audit_fixes.mjs",
+            "ok": true,
+            "seconds": 58.7
+          },
+          {
+            "test": "tests/test_liyue_rework_mechanics.cjs",
+            "ok": true,
+            "seconds": 53.3
+          },
+          {
+            "test": "tests/test_skill_fx_v0162.cjs",
+            "ok": true,
+            "seconds": 39.6
+          },
+          {
+            "test": "tests/test_growth_pacing_v0161.cjs",
+            "ok": true,
+            "seconds": 34.3
+          },
+          {
+            "test": "tests/test_story_asset_bindings.cjs",
+            "ok": true,
+            "seconds": 38.4
+          },
+          {
+            "test": "tests/test_balance_v0152.cjs",
+            "ok": true,
+            "seconds": 25.8
+          },
+          {
+            "test": "tests/test_social_concurrency_v01511.mjs",
+            "ok": true,
+            "seconds": 25.9
+          },
+          {
+            "test": "tests/test_food_economy_v0168.cjs",
+            "ok": true,
+            "seconds": 23.4
+          },
+          {
+            "test": "tests/v013/test_recruitment_cost_consistency.cjs",
+            "ok": true,
+            "seconds": 21.1
+          },
+          {
+            "test": "tests/test_opening.cjs",
+            "ok": true,
+            "seconds": 18
+          },
+          {
+            "test": "tests/test_action_feedback.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_battle_inspection_v0169.cjs",
+            "ok": true,
+            "seconds": 13.6
+          },
+          {
+            "test": "tests/test_client_connection_recovery.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_combat_stalemate_v01523.cjs",
+            "ok": true,
+            "seconds": 5.9
+          },
+          {
+            "test": "tests/test_coop_world_screen_v0160.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_liyue_rework_flow.cjs",
+            "ok": true,
+            "seconds": 362.5
+          },
+          {
+            "test": "tests/test_engine_identity.py",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_durable_account.mjs",
+            "ok": true,
+            "seconds": 5.3
+          },
+          {
+            "test": "tests/test_gear_effects_v0168.cjs",
+            "ok": true,
+            "seconds": 6.7
+          },
+          {
+            "test": "tests/test_live_actor_playback_v0169.cjs",
+            "ok": true,
+            "seconds": 4.9
+          },
+          {
+            "test": "tests/test_growth_online_v01522.mjs",
+            "ok": true,
+            "seconds": 18.1
+          },
+          {
+            "test": "tests/test_local_revision_v0141.cjs",
+            "ok": true,
+            "seconds": 13
+          },
+          {
+            "test": "tests/test_mond_content_v01344.cjs",
+            "ok": true,
+            "seconds": 7.5
+          },
+          {
+            "test": "tests/test_playback_pause_v0168.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_presentation.cjs",
+            "ok": true,
+            "seconds": 0.2
+          },
+          {
+            "test": "tests/test_online_title_v01344.cjs",
+            "ok": true,
+            "seconds": 4.3
+          },
+          {
+            "test": "tests/test_release_isolation_v01513.cjs",
+            "ok": true,
+            "seconds": 6
+          },
+          {
+            "test": "tests/test_quality_fixes_v01336.cjs",
+            "ok": true,
+            "seconds": 9.8
+          },
+          {
+            "test": "tests/test_settings_audio_v01513.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_server_coop_retry_v0161.mjs",
+            "ok": true,
+            "seconds": 12.7
+          },
+          {
+            "test": "tests/test_tasks_expanded_v0168.cjs",
+            "ok": true,
+            "seconds": 15.8
+          },
+          {
+            "test": "tests/test_tutorial_online_v01523.mjs",
+            "ok": true,
+            "seconds": 16.7
+          },
+          {
+            "test": "tests/test_v01410.cjs",
+            "ok": true,
+            "seconds": 0.5
+          },
+          {
+            "test": "tests/test_task_branches_v01611.cjs",
+            "ok": true,
+            "seconds": 45.2
+          },
+          {
+            "test": "tests/test_v01517.cjs",
+            "ok": true,
+            "seconds": 3.5
+          },
+          {
+            "test": "tests/test_v01521.cjs",
+            "ok": true,
+            "seconds": 2.5
+          },
+          {
+            "test": "tests/test_v0158.mjs",
+            "ok": true,
+            "seconds": 0.6
+          },
+          {
+            "test": "tests/test_vfx_v0165.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_v0144.cjs",
+            "ok": true,
+            "seconds": 12.9
+          },
+          {
+            "test": "tools/audit_task_materials_v0169.cjs",
+            "ok": true,
+            "seconds": 11.1
+          }
+        ]
+      },
+      {
+        "id": 112956838066,
+        "name": "regression shard 1",
+        "conclusion": "success",
+        "results": [
+          {
+            "test": "tests/test_v01415.cjs",
+            "ok": true,
+            "seconds": 86.7
+          },
+          {
+            "test": "tests/test_server_coop_roam_v0160.mjs",
+            "ok": true,
+            "seconds": 54.1
+          },
+          {
+            "test": "tests/test_letters_v0151.mjs",
+            "ok": true,
+            "seconds": 52
+          },
+          {
+            "test": "tests/test_mond_full_v01344.cjs",
+            "ok": true,
+            "seconds": 229.2
+          },
+          {
+            "test": "tests/test_server_account_audit_fixes.mjs",
+            "ok": true,
+            "seconds": 42.9
+          },
+          {
+            "test": "tests/test_life_v0162.cjs",
+            "ok": true,
+            "seconds": 38.2
+          },
+          {
+            "test": "tests/test_abyss_v01341.cjs",
+            "ok": true,
+            "seconds": 36.9
+          },
+          {
+            "test": "tests/test_v0152.cjs",
+            "ok": true,
+            "seconds": 26.8
+          },
+          {
+            "test": "tools/test_field_bosses.cjs",
+            "ok": true,
+            "seconds": 34.3
+          },
+          {
+            "test": "tests/test_balance_saves_v0166.cjs",
+            "ok": true,
+            "seconds": 21.6
+          },
+          {
+            "test": "tests/test_save_revision.cjs",
+            "ok": true,
+            "seconds": 25.8
+          },
+          {
+            "test": "tests/test_access_gear_v01343.cjs",
+            "ok": true,
+            "seconds": 12.6
+          },
+          {
+            "test": "tests/test_asset_followup.cjs",
+            "ok": true,
+            "seconds": 1.5
+          },
+          {
+            "test": "tests/test_life_v010.cjs",
+            "ok": true,
+            "seconds": 20.3
+          },
+          {
+            "test": "tests/test_client_social_followup.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_combat_v0142.cjs",
+            "ok": true,
+            "seconds": 5.1
+          },
+          {
+            "test": "tests/test_coop_world_ui_v0159.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_durable_migration.mjs",
+            "ok": true,
+            "seconds": 3.3
+          },
+          {
+            "test": "tests/test_battle_lines_v0162.cjs",
+            "ok": true,
+            "seconds": 17.2
+          },
+          {
+            "test": "tests/test_gear_ui_v01343.cjs",
+            "ok": true,
+            "seconds": 1.7
+          },
+          {
+            "test": "tests/test_landmarks_v0163.cjs",
+            "ok": true,
+            "seconds": 6.5
+          },
+          {
+            "test": "tests/test_local_dev_config.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_fixed_region_live.mjs",
+            "ok": true,
+            "seconds": 12.9
+          },
+          {
+            "test": "tests/test_online_bootstrap_v01343.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_main_story_k_v0148.cjs",
+            "ok": true,
+            "seconds": 2.7
+          },
+          {
+            "test": "tests/test_playback_v08.cjs",
+            "ok": true,
+            "seconds": 1.7
+          },
+          {
+            "test": "tests/test_puzzle_ui_lifecycle.cjs",
+            "ok": true,
+            "seconds": 0
+          },
+          {
+            "test": "tests/test_quality_fixes_v01337.cjs",
+            "ok": true,
+            "seconds": 0.5
+          },
+          {
+            "test": "tests/test_osial_pattern_v0161.cjs",
+            "ok": true,
+            "seconds": 10.6
+          },
+          {
+            "test": "tests/test_server_remaining_audit_v01513.mjs",
+            "ok": true,
+            "seconds": 0.6
+          },
+          {
+            "test": "tests/test_story_named_text_v01514.cjs",
+            "ok": true,
+            "seconds": 3.4
+          },
+          {
+            "test": "tests/test_task_catalog_v0169.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_test_release_pin.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_ui_boundaries_v01513.cjs",
+            "ok": true,
+            "seconds": 0.1
+          },
+          {
+            "test": "tests/test_save_v01344.cjs",
+            "ok": true,
+            "seconds": 12.3
+          },
+          {
+            "test": "tests/test_v01413.cjs",
+            "ok": true,
+            "seconds": 6.8
+          },
+          {
+            "test": "tests/test_v0151.cjs",
+            "ok": true,
+            "seconds": 6.7
+          },
+          {
+            "test": "tests/test_v01519.cjs",
+            "ok": true,
+            "seconds": 4.2
+          },
+          {
+            "test": "tests/test_v0167.cjs",
+            "ok": true,
+            "seconds": 3.7
+          },
+          {
+            "test": "tests/test_v0156.cjs",
+            "ok": true,
+            "seconds": 13.2
+          },
+          {
+            "test": "tools/test_story_cleanup_v0140.cjs",
+            "ok": true,
+            "seconds": 2.6
+          },
+          {
+            "test": "tests/test_work_validation.cjs",
+            "ok": true,
+            "seconds": 18.3
+          }
+        ]
+      },
+      {
+        "id": 112960406746,
+        "name": "verify",
+        "conclusion": "skipped",
+        "results": []
+      },
+      {
+        "id": 112960407940,
+        "name": "pages",
+        "conclusion": "skipped",
+        "results": []
+      },
+      {
+        "id": 112960408516,
+        "name": "test-package",
+        "conclusion": "skipped",
+        "results": []
+      }
+    ]
+  },
+  "ci_failure_fixture_evidence": {
+    "issue": "#291 regression shard index3 test_feature_boundaries_v01513.cjs",
+    "cause": "The fixed actionStartedAt Oct3 clock was applied after constructing the restored runtime under the actual run Date.now. Constructor task-period synchronization advanced to the actual run day, then serialize under the past request timestamp rejected its future task day. Restore now shares the same simulated request clock during constructor validation and resets Date.now in finally.",
+    "code_scope": [
+      "tests/test_feature_boundaries_v01513.cjs"
+    ],
+    "sources_changed": false,
+    "check_cases_preserved": 13,
+    "assert_calls_preserved": 73,
+    "test_sha256": "706e375e00a6c946a9bd0c4ed8fd8d36947d7c9fd08ad7ac59a68b8e2d944b02",
+    "logs": {
+      "original": {
+        "path": "/tmp/ci291-feature-boundaries-original.log",
+        "exit_code": 1,
+        "sha256": "c3b186164d69272cc845d2fb3f1a842dcee7a017e80a0ccb4b973fa692012ae8",
+        "suite": "feature-boundaries-v01513",
+        "total": 13,
+        "passed": 0
+      },
+      "final": {
+        "path": "/tmp/ci291-feature-boundaries-final13.log",
+        "exit_code": 0,
+        "sha256": "675cd1a241898d60a966be700d7afdc2dd8012111fb73c535e40540e106c321f",
+        "suite": "feature-boundaries-v01513",
+        "total": 13,
+        "passed": 13
+      }
+    },
+    "diff_check": "PASS",
+    "full_release_shard_not_run": true
+  },
+  "checks": [
+    {
+      "test": "tests/test_task_branches_v01611.cjs",
+      "exit": 0,
+      "log": "v01612-test_task_branches_v01611.cjs.log",
+      "log_sha256": "9bc88b73a9977f83216028827b60a8a0169468ea087d50f6895f7d15d1ede0de",
+      "pass_lines": [
+        "PASS only the specified five are retired, every other objective and payout remains",
+        "PASS a new account sees only reception practice, with no empty-board bonus",
+        "PASS native reception followed by report unlocks siblings and replay cannot pay twice",
+        "PASS direct acceptance cannot bypass an unreported one-time predecessor",
+        "PASS daily successors receive only new victories after the first payout",
+        "PASS weekly long operations stay hidden until predecessor rewards are collected",
+        "PASS a two-parent operation opens only after both reports",
+        "PASS an event captured before unlock cannot leak progress into a successor",
+        "PASS bulk payout cannot clear hidden branches or pay an early all-complete bonus",
+        "PASS all-complete is paid once only after the entire fixed branch manifest",
+        "PASS daily reset closes daily successors but retains weekly progress and claims",
+        "PASS weekly reset restarts its roots and rejects delayed prior-week events",
+        "PASS period assignment and rewards do not change when level or inventory changes",
+        "PASS legacy removed assignments disappear while earned currency and valid snapshots survive",
+        "PASS a strict 171 Liyue assignment retires while other frozen branch records survive",
+        "PASS a genuinely accepted old reception lesson becomes reportable without inventing another quest",
+        "PASS a legacy accepted activity retains its frozen goal and can finish before reception practice",
+        "PASS two one-time prerequisites are both required and cannot be bypassed by direct API",
+        "PASS tampered branch rewards, prerequisites and activation times are rejected",
+        "PASS prior genuine ordinary report teaches reporting without refilling weekly counters",
+        "PASS an accepted 169 reporting lesson uses prior native report and preserves its frozen definition",
+        "PASS five daily reports remains a weekly root only when enough reporting days remain",
+        "PASS the first native battle after midnight counts without opening the task screen",
+        "PASS the first public gathering activity after midnight counts before any task view",
+        "{\"ok\":true,\"checks\":24}"
+      ]
+    },
+    {
+      "test": "tests/test_task_catalog_v0168.cjs",
+      "exit": 0,
+      "log": "v01612-test_task_catalog_v0168.cjs.log",
+      "log_sha256": "365831773cf15257ec1c7b15ad6f866612eb8696fca40949c75ad1210dd7b84a",
+      "pass_lines": [
+        "PASS 보존한 0.16.8/0.16.9 기본 카탈로그 의뢰240개: 실제 목표/장소/재료/선행 조건, 보상 차등, 기존 보상 정의 보존, 일일4/주간최대20"
+      ]
+    },
+    {
+      "test": "tests/test_task_catalog_v0169.cjs",
+      "exit": 0,
+      "log": "v01612-test_task_catalog_v0169.cjs.log",
+      "log_sha256": "608a87eaf11472f00dd47c83c5836d3c7106f5651b8adc58f5079b2a8f17c3fd",
+      "pass_lines": [
+        "통과: frozen 0.16.9 definitions/rewards · 0.16.12 active daily11/weekly27/finite288 · exactly five requested retirements"
+      ]
+    },
+    {
+      "test": "tests/test_task_board_v0169.cjs",
+      "exit": 0,
+      "log": "v01612-test_task_board_v0169.cjs.log",
+      "log_sha256": "52b4a148ac21609eb4ca21a4faf3114e444201fba878fe403263397268c99c9f",
+      "pass_lines": [
+        "PASS 실제 임무판은 일일·주간의 열린 갈래와 모두달성 보상을 별도로 표시한다",
+        "PASS 기존 쪽 넘기기로 열린 주간 갈래·보너스에 접근하고 주간·일일 쪽 기억을 구분한다",
+        "PASS 주간 모두달성 버튼은 정확한 기존 TASK_CLAIM 경로와 수령 알림에 연결된다",
+        "PASS 메인 일일 완료 숫자는 새 갈래가 열려도 고정된 전체 목표와 완료 기록을 유지한다",
+        "{\"ok\":true,\"checks\":4,\"scope\":\"real board/module bindings + deterministic layout; browser media sizing excluded\"}"
+      ]
+    },
+    {
+      "test": "tests/test_task_learning_delivery_v0169.cjs",
+      "exit": 0,
+      "log": "v01612-test_task_learning_delivery_v0169.cjs.log",
+      "log_sha256": "737cdd04bb75e7dabdd384855c4e8e108d01d6f1d8781779820378bf5a5d4a1d",
+      "pass_lines": [
+        "PASS 24 learning lessons and 24 finite deliveries append only native task definitions",
+        "PASS acceptance lesson counts its own native acceptance and opens other work only after report",
+        "PASS generic gathering lesson counts successful activities, not a particular item or empty exit",
+        "PASS chest learning records actual opens; prior native evidence only advances flagged learning",
+        "PASS sleep counts paid inn services; recovery and wait do not count",
+        "PASS processing and equipment crafting count only committed recipes, not preparation",
+        "PASS effective healing and real equip changes count; repeated full healing and same equip roll back",
+        "PASS real incident resolution counts; leaving or merely entering an incident does not",
+        "PASS item delivery consumes exactly required stock and pays a fixed reward exactly once",
+        "PASS delivery rechecks stock at report and atomically refuses an insufficient inventory",
+        "PASS equipment delivery preserves equipped, enhanced and locked copies; consumes only the spare",
+        "PASS earned achievement receipts teach handbook use; menu open and rejected claims count nothing",
+        "PASS eye investigation counts only the final native receipt and survives a mid-job reload",
+        "PASS native paid reinforcement attempts count once and rejected attempts preserve counters",
+        "PASS incident battle settlement nested in a public action counts exactly once"
+      ]
+    },
+    {
+      "test": "tests/test_tasks_expanded_v0168.cjs",
+      "exit": 0,
+      "log": "v01612-test_tasks_expanded_v0168.cjs.log",
+      "log_sha256": "0ff16a9c0d41e109504edc6b1671b93e3302be8072781c9d169da0bb6bb27f61",
+      "pass_lines": [
+        "PASS 일일11·주간27 후보: 열린 갈래만 표시하고 기존 기본 연속 의뢰240개 보존",
+        "PASS accepted objective starts at zero; real qualifying victory and report reveal its successor once",
+        "PASS named four-star companions use the actual four-person party captured at battle start",
+        "PASS element composition respects the fixed hero, rarity, all four members, and actual resonance",
+        "PASS gathering counts newly acquired matching resources; inventory and empty work do not advance it",
+        "PASS cooking counts only successful paid CRAFT batches and blocks menu-choice completion",
+        "PASS native DOMAIN_START preserves selected difficulty and type for filtered objectives",
+        "PASS native ley routes distinguish blossom type and chosen tier, and field bosses match their real ID",
+        "PASS native Abyss room victories count their actual floor and all three rooms precede reporting",
+        "PASS saved branch manifests are deterministic, keep reward brackets, and ignore WORLD_DAY changes",
+        "PASS 새 일일 비경은 열린 단계 모두 집계하고 일반 채집은 획득 개수가 아닌 성공 행동 3번을 요구한다",
+        "PASS 보유 원소 목표는 하루 동안 고정하고 다음 날 다른 보유 원소 조합으로 바뀐다",
+        "PASS an action started before reset cannot finish a newly assigned objective retroactively",
+        "{\"ok\":true,\"checks\":13,\"catalog\":{\"daily\":7,\"weekly\":23,\"chains\":288,\"families\":29}}"
+      ]
+    },
+    {
+      "test": "tests/test_tasks_v0169.cjs",
+      "exit": 0,
+      "log": "v01612-test_tasks_v0169.cjs.log",
+      "log_sha256": "4f18e99b235813379ec9cf72ae6394d0f3f3e4a49c2525f6ad9b61833d62e9e7",
+      "pass_lines": [
+        "PASS daily farming objectives are generic and expose only the new branch roots",
+        "PASS new weekly assignment fixes its eligible manifest and honours definition Primogems",
+        "PASS every eligible weekly core objective stays in the fixed manifest across distinct accounts",
+        "PASS same-period legacy assignments preserve goals, progress, payouts and boss-slot Primogems",
+        "PASS next day adopts new definitions and increasing level cannot rewrite the assigned reward",
+        "PASS owned elemental daily varies by day and excludes dead, loan and remote characters",
+        "PASS daily elemental assignment avoids yesterday even when the owned roster changes",
+        "PASS native victory advances snapshot objectives exactly once after transaction reload",
+        "PASS three successful native gathers count actions independently of resource type/quantity",
+        "PASS locked daily quotas never produce a free all-complete reward",
+        "PASS daily all-complete and weekly all-complete pay separately once through real reports",
+        "PASS five simultaneous legacy/new commissions include ready work and completed reports free slots",
+        "PASS old accepted/paid chain records keep their original finite reward and multiplier",
+        "PASS grandfathered six accepted old objectives survive load but cannot add another",
+        "PASS real borrowed story companion cannot satisfy owned squad or elemental objectives; generic victory remains credited",
+        "PASS snapshot tampering cannot inflate goal, currency reward or accepted time",
+        "{\"ok\":true,\"checks\":16}"
+      ]
+    },
+    {
+      "test": "tests/test_tasks_edge_v0168.cjs",
+      "exit": 0,
+      "log": "v01612-test_tasks_edge_v0168.cjs.log",
+      "log_sha256": "31e49b32ccd9358e700182a76d93bf52162c7cf8ac48729307a8c3583efbf6d2",
+      "pass_lines": [
+        "PASS legacy commission battle and new accepted objective share one native receipt across reload",
+        "PASS cooperative guest and displaced host companion never complete the host elemental party objective",
+        "PASS native Liyue gathering reports only at Liyue Catherine and preserves the predecessor gate",
+        "PASS reload retains old life start day; cancellation and work crossing midnight do not credit the new daily board",
+        "PASS rotation excludes blocked Abyss stages while saved assignments survive ownership changes",
+        "PASS extreme valid counters saturate on public victory and bonus claim without blocking the action",
+        "PASS 일괄 수령은 한 번만 지급하며 일일 보고5회와 주간 모두달성은 별개로 지급한다",
+        "PASS mid-chain Primogems require real new work and a successful claim; failed reports, reload and duplicate claims cannot mint extra",
+        "PASS saved task snapshots reject future, malformed and fabricated participant data",
+        "{\"ok\":true,\"checks\":9}"
+      ]
+    },
+    {
+      "test": "tests/test_v0167.cjs",
+      "exit": 0,
+      "log": "v01612-test_v0167.cjs.log",
+      "log_sha256": "aedca8616b888c61d59ef3cb6ff9c7f0933abda9a3a7100a6ca44636a676ba25",
+      "pass_lines": [
+        "PASS 이전 저장의 목표·보상 보존과 갈래 집계: 성공한 실제 행동만 집계",
+        "PASS 받기 pays frozen rewards once; 모두 받기 claims the frontier; the day bonus counts toward the week",
+        "PASS the day turns at Korean midnight and the week on Monday",
+        "PASS a save with a broken board is refused; the server lets 「받기」 through",
+        "PASS 임무 보상 획득: what a claim paid shows itself; a finished task says so once",
+        "PASS 의뢰 한 줄: state, name, place, reward pictures, one small button; the row opens the whole card",
+        "PASS 메인 화면: no scrolling — pages filled by the real layout, tall cards paged by their rows, nothing cut",
+        "PASS 전투: only a fighter’s own skill is named, over its own side; the dock box is gone",
+        "PASS 캐릭터: books in one line per character, four tabs, where materials come from, nothing scrolls",
+        "PASS version 0.16.7 with its notes on top of the full chain",
+        "{\"ok\":true,\"checks\":10}"
+      ]
+    },
+    {
+      "test": "tests/test_task_materials_v0169.cjs",
+      "exit": 0,
+      "log": "v01612-test_task_materials_v0169.cjs.log",
+      "log_sha256": "1a19fe2d231bbc5e7faee096850794c5d191d78fb8ceb964aecb909809951805",
+      "pass_lines": [
+        "PASS native six-phase demands are 441/882 gems with unchanged Mora and other materials",
+        "PASS native talent book totals preserve MOND 168/270 and increase LIYUE to 336/540",
+        "PASS 299/599 final ascension gems reject atomically; 300/600 spend exactly once and survive reload",
+        "PASS first MOND talent consumes 2 books and LIYUE consumes 4; missing one book rejects atomically",
+        "PASS native three-talent upgrades to 8 pay the exact regional totals and preserve trained saves",
+        "PASS weekly daily overlap is 60 payouts; EXP never spends the shared material bonus",
+        "PASS early and regional highest payouts use actual 1/5/12 drops without cloning books",
+        "PASS material payout/EXP tables and entire XP curve remain the existing 0.16.8 tables"
+      ]
+    },
+    {
+      "test": "tests/test_task_branches_v01612.cjs",
+      "exit": 0,
+      "log": "task172-native171-regression-final10.log",
+      "log_sha256": "e412e3a4be0a8342a131a274c867da3d5a5d18bb86f381af4f6a8a2e3015b2e8",
+      "pass_lines": [
+        "PASS only the additional regional weekly retires from the exact frozen 171 catalogue",
+        "PASS new 172 assignment excludes both regional patrol weeklies and preserves reception gate",
+        "PASS a real pending 171 regional patrol removes only its assignment while other progress and watermarks survive",
+        "PASS a previously paid native 171 regional reward stays paid without refund or replay",
+        "PASS an in-flight native 171 battle counts toward already-open remaining targets after migration",
+        "PASS closed native 171 period still opens only after the genuine reception report",
+        "PASS the strict 171 validator rejects locked regional credit and missing or forged watermarks before migration",
+        "PASS frozen 171 definitions in a migrated 172 period retain all branch barriers",
+        "PASS already accepted native 171 one-time joins still require both original predecessors",
+        "PASS the current whole-week bonus counts only remaining targets while an already-paid bonus cannot replay",
+        "{\"ok\":true,\"checks\":10,\"native171SourceHashes\":{\"runtime_tasks_v0167.js\":\"4e9e9d0348244b887b10372782f74bb7cb992f1d746b7bf3fbaf0405db045a42\",\"runtime_task_learning_catalog_v0169.js\":\"9cf171b0ce3c346c5e6767976233f6c2fb74d27a567d30a833b0138a6de240b5\"}}"
+      ]
+    },
+    {
+      "test": "tests/test_feature_boundaries_v01513.cjs",
+      "exit": 0,
+      "log": "v01612-final-test_feature_boundaries_v01513.cjs.log",
+      "log_sha256": "675cd1a241898d60a966be700d7afdc2dd8012111fb73c535e40540e106c321f",
+      "pass_lines": [
+        "PASS escort: accepted travel cannot also choose another ending; completion and restored receipt pay once",
+        "PASS escort: stopping travel, old settled saves, and Korean midnight cannot leave a payable orphan",
+        "PASS regional deliveries and gifts: one missing item, wrong item, retry and reload preserve the promised exchange",
+        "PASS regional merchant: insufficient funds, invalid selection, partial reload and sold-out items never duplicate stock",
+        "PASS crafting: cooking and alchemy use their own facility, reject invalid batches, and preserve exact costs on reload",
+        "PASS lodging: both regional inns enforce funds, quantity and locality, then heal active members once across midnight",
+        "PASS enhancement: failed rolls consume one cost; stale quotes, ascension and maximum levels survive reload safely",
+        "PASS premium exchanges: weekly and monthly caps reset only at the exact Korean boundary and receipts remain single-use",
+        "PASS constellations and wishes: missing ownership, maximum rank, insufficient currency and reload never consume twice",
+        "PASS achievement claims: incomplete/unknown claims stay inert and a saved bulk claim cannot also pay individual rewards",
+        "PASS regional combat: restored defeats allow recovery and retry, while a fight crossing midnight never settles the new event",
+        "PASS hourly challenge: entry gates, restored defeat, old-hour victory and next-hour availability stay separate",
+        "PASS field boss: a restored fight crossing the 12-hour reset counts the completion window once and defeat consumes no victory"
+      ]
+    },
+    {
+      "test": "tests/test_durable_migration.mjs",
+      "exit": 0,
+      "log": "v01612-final-test_durable_migration.mjs.log",
+      "log_sha256": "35eca67c8e608d6a4827581646e6256637a8bb527f2168554d4163f6ad2499b9",
+      "pass_lines": [
+        "{\"ok\":true,\"migrationFailureRecovery\":true,\"originalPreserved\":true,\"zeroD1RoutedAuth\":true,\"legacyRevocationTombstone\":true,\"expiry\":true,\"accountDeletion\":true}",
+        "PASS activated-object loss cannot overwrite a save with the stale D1 original"
+      ]
+    },
+    {
+      "test": "tests/test_online_server.mjs",
+      "exit": 0,
+      "log": "v01612-final-test_online_server.mjs.log",
+      "log_sha256": "9003d8658994e5154e1813c9765a61c1202bc7e7a7630318d1b8318265044e09",
+      "pass_lines": [
+        "PASS accounts/passwords, actions, forgery, retries across deployment, version gate, recent backups, corrupt-save preservation, cleanup failure, revisions, operator exclusion, top20, account deletion"
+      ]
+    },
+    {
+      "test": "tests/test_engine_identity.py",
+      "exit": 0,
+      "log": "v01612-final-test_engine_identity.py.log",
+      "log_sha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc",
+      "pass_lines": []
+    },
+    {
+      "test": "tests/test_update_recovery.cjs",
+      "exit": 0,
+      "log": "v01612-final-test_update_recovery.cjs.log",
+      "log_sha256": "2fb9484e03e96dd588021d945fbb3c732c2b8e5b234f7dc72ec0643225bafcac",
+      "pass_lines": [
+        "{\"ok\":true,\"engineMismatchUpdateRecovery\":true,\"realSaveFailurePreserved\":true}"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "source/runtime_task_learning_catalog_v0169.js": "3c677f692ca4d09069acab85784843d6407f0f1bec381c6c390f714b04d2fa7f",
+    "source/runtime_tasks_v0167.js": "1b435e1e3cc34f8c73b9c2c6e75149af6d8b3744e7ce717320727f15386624c3"
+  },
+  "summary": {
+    "programs_passed": 16,
+    "new_native171_migration_checks": 10,
+    "existing_branch_checks": 24,
+    "failed_feature_boundary_checks": 13,
+    "independent_save_checks": 7,
+    "full_release_gate_programs": 151,
+    "full_release_gate_executed_this_turn": false,
+    "workflow_completion_waited": false,
+    "real_browser_or_phone_pixel_qa_executed": false,
+    "actual_vps_install_executed": false
+  },
+  "independent_save_audit": {
+    "exit": 0,
+    "checks": 7,
+    "log": "v01612-independent-save-audit-final.log",
+    "log_sha256": "adcc8fe45159ffa5eded37b77e0086a23f69d29d50514c3d3a61dc16e802a3df",
+    "pass_lines": [
+      "PASS all retained pending native 171 daily/weekly fields persist exactly",
+      "PASS archived 171 cannot use the weak 169 branch path",
+      "PASS current 172 cannot reinsert a deleted 171 definition, progress or active watermark",
+      "PASS only the retired pending target stops blocking the new whole-week bonus and payment stays exactly once",
+      "PASS a already-paid deleted target survives migration and expires naturally on weekly reset",
+      "PASS a 171 root cannot take the old 168/169 acceptance auto-credit exception",
+      "PASS archived and migrated one-time branches both preserve all original two-parent joins"
+    ]
+  },
+  "build": {
+    "command": "python tools/build_server.py",
+    "exit": 0,
+    "result": {
+      "version": "0.16.12",
+      "runtime_files": 119,
+      "bytes": 28320592,
+      "gzip_bytes": 5367605
+    },
+    "log_sha256": "32e25883ebd588276dd5d9200717f1b1f0c51a2333b0630804afd595c5782950"
+  },
+  "limits": [
+    "Quota and ancestor record fixtures are explicitly used for some validation cases; these are not 150 real battles or a real week of reports.",
+    "The board test executes an existing module in a deterministic DOM model, not phone/browser pixel QA.",
+    "Original #291 CI results and current local related checks are distinct; the new 151-program full gate is not claimed complete."
+  ],
+  "protected_remote_content": "Do not publish local restored db.json, manifest, assets, generated files, accounts or test reports.",
+  "known_legacy_week_limit": "Previously assigned W_BONUS keeps its original five-report condition this week. Next periods apply the existing sufficient-days eligibility rule."
+}

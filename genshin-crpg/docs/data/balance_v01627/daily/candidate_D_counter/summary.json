@@ -1,0 +1,877 @@
+{
+  "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "conditions": 12,
+  "wins": 0,
+  "defeats": 12,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 123,
+  "drift": [],
+  "rows": [
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_NINGGUANG",
+        "MOND_NOELLE",
+        "LIYUE_YUNJIN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 7,
+      "inputs": 5,
+      "seconds": 125.63,
+      "cpuSeconds": 0.2413093,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_NOELLE",
+        "LIYUE_NINGGUANG",
+        "LIYUE_YUNJIN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_NINGGUANG",
+        "MOND_NOELLE",
+        "LIYUE_YUNJIN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 7,
+      "inputs": 4,
+      "seconds": 119.3,
+      "cpuSeconds": 0.145981834,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_NOELLE",
+        "LIYUE_NINGGUANG",
+        "LIYUE_YUNJIN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_NINGGUANG",
+        "MOND_NOELLE",
+        "LIYUE_YUNJIN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 5,
+      "seconds": 127.59,
+      "cpuSeconds": 0.159650392,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_NOELLE",
+        "LIYUE_NINGGUANG",
+        "LIYUE_YUNJIN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_NINGGUANG",
+        "MOND_NOELLE",
+        "LIYUE_YUNJIN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 4,
+      "seconds": 122.5,
+      "cpuSeconds": 0.136202878,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_NOELLE",
+        "LIYUE_NINGGUANG",
+        "LIYUE_YUNJIN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_NINGGUANG",
+        "MOND_NOELLE",
+        "LIYUE_YUNJIN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 6,
+      "seconds": 128.5,
+      "cpuSeconds": 0.145549542,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_NOELLE",
+        "LIYUE_NINGGUANG",
+        "LIYUE_YUNJIN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_NINGGUANG",
+        "MOND_NOELLE",
+        "LIYUE_YUNJIN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 7,
+      "inputs": 4,
+      "seconds": 116.82,
+      "cpuSeconds": 0.174975524,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_NOELLE",
+        "LIYUE_NINGGUANG",
+        "LIYUE_YUNJIN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_RAZOR",
+        "MOND_ROSARIA",
+        "MOND_MIKA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 103.37,
+      "cpuSeconds": 0.114151523,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_ROSARIA",
+        "MOND_RAZOR",
+        "MOND_MIKA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_RAZOR",
+        "MOND_ROSARIA",
+        "MOND_MIKA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 92.73,
+      "cpuSeconds": 0.10871171,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_ROSARIA",
+        "MOND_RAZOR",
+        "MOND_MIKA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_RAZOR",
+        "MOND_ROSARIA",
+        "MOND_MIKA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 103.5,
+      "cpuSeconds": 0.112368041,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_ROSARIA",
+        "MOND_RAZOR",
+        "MOND_MIKA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_RAZOR",
+        "MOND_ROSARIA",
+        "MOND_MIKA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 93.84,
+      "cpuSeconds": 0.092143023,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_ROSARIA",
+        "MOND_RAZOR",
+        "MOND_MIKA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_RAZOR",
+        "MOND_ROSARIA",
+        "MOND_MIKA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 103.37,
+      "cpuSeconds": 0.107912487,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_ROSARIA",
+        "MOND_RAZOR",
+        "MOND_MIKA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_AZHDAHA_COUNTER_PREP",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_RAZOR",
+        "MOND_ROSARIA",
+        "MOND_MIKA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 97.03999999999999,
+      "cpuSeconds": 0.099014548,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_ROSARIA",
+        "MOND_RAZOR",
+        "MOND_MIKA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    }
+  ]
+}

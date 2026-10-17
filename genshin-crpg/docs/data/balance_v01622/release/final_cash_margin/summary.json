@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "snapshotRole": "final_v01622_cash_margin",
+  "complete": true,
+  "paused": false,
+  "gateCount": 36,
+  "completed": 36,
+  "passed": 35,
+  "failed": 1,
+  "inputDrift": [],
+  "totalGateSeconds": 1029.245,
+  "runnerWallSecondsThisSession": 656.266,
+  "peakMemoryCurrentBytesThisSession": 4318359552,
+  "finishedAt": "2026-10-10T05:30:34.299377+00:00",
+  "failures": [
+    {
+      "index": 20,
+      "test": "tests/test_ascension_efficiency_v01613.cjs",
+      "ok": false,
+      "returnCode": 1,
+      "timedOut": false,
+      "exception": null,
+      "seconds": 24.259,
+      "startedAt": "2026-10-10T05:26:51.292409+00:00",
+      "endedAt": "2026-10-10T05:27:15.551865+00:00",
+      "log": "logs/020_test_ascension_efficiency_v01613.cjs.log.gz",
+      "logBytes": 1544,
+      "logSha256": "cfddefb5b6b5bc57f7858ab1af97b991dc3ae421ec03e1b48f1fdeecc2c756c5",
+      "failureClassification": "unclassified_failure_requires_investigation"
+    }
+  ],
+  "historicalInputGapsCarriedFromV01621": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ],
+  "historicalInputGapTestsRetested": false
+}

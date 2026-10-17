@@ -1,0 +1,235 @@
+{
+  "productVersion": "0.16.22",
+  "fingerprint": "2a143c669f2e73ee1921e255ae795a9088957da75acafa076de2f0264faf11bc",
+  "sourceInputCount": 121,
+  "sourceSha256": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b",
+  "counts": {
+    "conditions": 4,
+    "battles": 4,
+    "victories": 2,
+    "actualDefeats": 0,
+    "inputLimits": 2,
+    "errors": 0,
+    "actualKo": 0
+  },
+  "policy": "Representative declared ownership fixtures, not natural acquisition or every composition; quantities are per condition. No manual telegraph or special counter policy; comparisons test owned elemental counter availability under the same native Q/E/basic attack priority.",
+  "rawLegacyCountNote": "native summary losses counts non-victories, including INPUT_LIMIT; use harnessOutcome/actualDefeats to distinguish defeat.",
+  "timeAssumption": "Same prior native presentation meter; displayed 2x estimate is presentationMs/1000 + 3 seconds per combat input + 6 seconds entry/result. No travel, natural acquisition, network or human latency measured.",
+  "rows": [
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "team": "COUNTER_PYRO_C0",
+      "level": 20,
+      "enhance": 3,
+      "seed": 717,
+      "outcome": "VICTORY",
+      "victory": true,
+      "rounds": 56,
+      "playerInputs": 55,
+      "actualKo": [],
+      "terminalHpRatioBeforeReward": 1.0,
+      "revivals": 12,
+      "revivalStarts": 13,
+      "revivalPrevention": 1,
+      "cryoCoreBreaks": 0,
+      "cryoCoreHits": 0,
+      "terminalBossHp": 0,
+      "terminalBossMaxHp": 14588,
+      "terminalRevival": null,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "level": 20,
+          "armorBreak": 0,
+          "maxHp": 3305
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "level": 20,
+          "armorBreak": 0,
+          "maxHp": 7104
+        },
+        {
+          "source": "MOND_DILUC",
+          "level": 20,
+          "armorBreak": 25,
+          "maxHp": 4998
+        },
+        {
+          "source": "MOND_JEAN",
+          "level": 20,
+          "armorBreak": 0,
+          "maxHp": 4760
+        }
+      ],
+      "measuredPresentationMs": 556820,
+      "estimatedReplaySecondsIncludingInputs": 727.82,
+      "blockedReasons": {
+        "프리즘이 공격을 흘려냈다. 다른 원소가 필요하다.": 232,
+        "부활을 지키는 프리즘을 먼저 부숴야 한다": 68
+      }
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "team": "NO_PYRO_CRYO_DENDRO_C0",
+      "level": 20,
+      "enhance": 3,
+      "seed": 717,
+      "outcome": "INPUT_LIMIT",
+      "victory": false,
+      "rounds": 401,
+      "playerInputs": 400,
+      "actualKo": [],
+      "terminalHpRatioBeforeReward": 1.0,
+      "revivals": 82,
+      "revivalStarts": 82,
+      "revivalPrevention": 0,
+      "cryoCoreBreaks": 0,
+      "cryoCoreHits": 0,
+      "terminalBossHp": 3444,
+      "terminalBossMaxHp": 14588,
+      "terminalRevival": null,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "level": 20,
+          "armorBreak": 0,
+          "maxHp": 3305
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "level": 20,
+          "armorBreak": 0,
+          "maxHp": 7104
+        },
+        {
+          "source": "MOND_MONA",
+          "level": 20,
+          "armorBreak": 0,
+          "maxHp": 4157
+        },
+        {
+          "source": "MOND_JEAN",
+          "level": 20,
+          "armorBreak": 0,
+          "maxHp": 4760
+        }
+      ],
+      "measuredPresentationMs": 5425940,
+      "estimatedReplaySecondsIncludingInputs": 6631.94,
+      "blockedReasons": {
+        "프리즘이 공격을 흘려냈다. 다른 원소가 필요하다.": 2249,
+        "부활을 지키는 프리즘을 먼저 부숴야 한다": 685
+      }
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "team": "COUNTER_PYRO_C0",
+      "level": 30,
+      "enhance": 6,
+      "seed": 717,
+      "outcome": "VICTORY",
+      "victory": true,
+      "rounds": 18,
+      "playerInputs": 15,
+      "actualKo": [],
+      "terminalHpRatioBeforeReward": 1.0,
+      "revivals": 2,
+      "revivalStarts": 3,
+      "revivalPrevention": 0,
+      "cryoCoreBreaks": 1,
+      "cryoCoreHits": 8,
+      "terminalBossHp": 0,
+      "terminalBossMaxHp": 25550,
+      "terminalRevival": null,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "level": 30,
+          "armorBreak": 0,
+          "maxHp": 5607
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "level": 30,
+          "armorBreak": 0,
+          "maxHp": 12848
+        },
+        {
+          "source": "MOND_DILUC",
+          "level": 30,
+          "armorBreak": 25,
+          "maxHp": 8968
+        },
+        {
+          "source": "MOND_JEAN",
+          "level": 30,
+          "armorBreak": 0,
+          "maxHp": 8541
+        }
+      ],
+      "measuredPresentationMs": 221710,
+      "estimatedReplaySecondsIncludingInputs": 272.71000000000004,
+      "blockedReasons": {
+        "냉기 핵이 다시 얼어붙었다. 불 공격이나 파쇄가 필요하다.": 36
+      }
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "team": "NO_PYRO_CRYO_DENDRO_C0",
+      "level": 30,
+      "enhance": 6,
+      "seed": 717,
+      "outcome": "INPUT_LIMIT",
+      "victory": false,
+      "rounds": 471,
+      "playerInputs": 400,
+      "actualKo": [],
+      "terminalHpRatioBeforeReward": 1.0,
+      "revivals": 54,
+      "revivalStarts": 55,
+      "revivalPrevention": 0,
+      "cryoCoreBreaks": 0,
+      "cryoCoreHits": 0,
+      "terminalBossHp": 1,
+      "terminalBossMaxHp": 25550,
+      "terminalRevival": {
+        "rounds": 2,
+        "need": 4,
+        "hits": 0,
+        "startedRound": 470
+      },
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "level": 30,
+          "armorBreak": 0,
+          "maxHp": 5607
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "level": 30,
+          "armorBreak": 0,
+          "maxHp": 12848
+        },
+        {
+          "source": "MOND_MONA",
+          "level": 30,
+          "armorBreak": 0,
+          "maxHp": 7424
+        },
+        {
+          "source": "MOND_JEAN",
+          "level": 30,
+          "armorBreak": 0,
+          "maxHp": 8541
+        }
+      ],
+      "measuredPresentationMs": 7248630,
+      "estimatedReplaySecondsIncludingInputs": 8454.630000000001,
+      "blockedReasons": {
+        "냉기 핵이 다시 얼어붙었다. 불 공격이나 파쇄가 필요하다.": 810
+      }
+    }
+  ]
+}

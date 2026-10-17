@@ -1,34 +1,68 @@
-/* Life activity surfaces, fishing controls, and useful item destinations. */
-const lifePriorPanel=lifePanel;
-lifePanel=function(parent){
- const entries=game.lifeEntries();if(!entries.length)return;const section=el('section','life-panel');section.append(el('h2','','이 구역의 생활 행동'));
- for(const entry of entries){const c=el('section','card life-resource');c.append(el('h3','',entry.label+' 전용 구역'),el('p','','오늘 남은 자원 '+entry.remaining+' / '+entry.limit+' · 다음 날 다시 생성'));
-  if(entry.kind==='FISH'){c.append(el('p','','낚싯대와 과즙 미끼 1개가 필요합니다. 입질 후 버튼을 눌렀다 놓으며 장력을 맞추세요.'),el('small','muted','기본 낚싯대 '+(game.itemCount('TRPG_FISHING_ROD')?'보유':'없음')+' · 미끼 '+game.itemCount(CRPGRuntime.lifeCatalog.bait)+'개'));
-   if(!game.itemCount('TRPG_FISHING_ROD')||!game.itemCount(CRPGRuntime.lifeCatalog.bait))materialSources(c,game.itemCount('TRPG_FISHING_ROD')?CRPGRuntime.lifeCatalog.bait:'TRPG_FISHING_ROD');
-  }else c.append(el('p','muted','작업 10초 · 게임 시간 10분'+(['GATHER','HUNT'].includes(entry.kind)?' · 적 조우 5%':'')));
-  c.append(el('p','resource-preview',entry.pool.map(x=>safeName('14_ITEM_DB',x.item)+' '+x.min+(x.max!==x.min?'–'+x.max:'')+'개').join(' / ')));
-  if(entry.kind==='MINE'&&game.view().map[1]==='몬드')c.append(el('small','muted',(game.s.global.CURRENT_MAP_ID==='MAP_DRAGONSPINE'?'성은 광석':'철광')+' 65% · 백철 30% · 수정덩이 5%'));
-  if(entry.kind==='GATHER')c.append(el('small','muted','한 번에 두 묶음을 모읍니다.'));
-  c.append(actionButton(entry.remaining?(entry.kind==='FISH'?'미끼 달고 낚싯줄 던지기':entry.label+' 시작 · 10초'):'오늘 자원 고갈','LIFE_START',{kind:entry.kind},true));section.append(c);
- }parent.append(section);
-};
+/* Life activity surfaces: the activity window (fishing here, the 0.16.2 resource scenes in app_life_v0162.js), and useful
+ * item destinations. */
+// ---------- the activity window ----------
+// The place's own picture fills the screen (the chest window's resolver). A strip on top holds what is being done, the
+// clock, what was collected and 「돌아가기」; the stage comes first in the page order, so the first key press lands on the
+// activity rather than on leaving it.
+const LIFE_NAMES={GATHER:'채집',MINE:'채광',HUNT:'사냥',FISH:'낚시'};
+function lifeManifest(){return typeof MANIFEST!=='undefined'?MANIFEST:(globalThis.CRPG_MANIFEST||{});}
+// An item's official picture (the bag's icon set), else its category's.
+function lifeIcon(id,cls='life-icon'){const set=lifeManifest().itemIcons||{},img=el('img',cls),path=set.icons?.[id]?.path||set.categories?.CATEGORY_MATERIAL?.path;if(path)img.src=path;img.alt='';img.draggable=false;return img;}
+function lifeItemName(id){return game?.tables['14_ITEM_DB']?.get(id)?.[1]||id;}
+function lifePlacePicture(map){try{const m=lifeManifest().maps?.[map];return m?.url||(m?.file_name&&typeof assetPath==='function'?assetPath(m.file_name):null)||null;}catch{return null;}}
+function lifeClockNow(){return globalThis.CRPGOnline?.active?CRPGOnline.now():Date.now();}
+function lifeWindow(job,back){
+ const row=game?.tables['32_MAP_DB']?.get(job.map),region=row?.[1]==='리월'?'liyue':row?.[1]==='몬드'?'mond':'other',name=LIFE_NAMES[job.kind]||'생활';
+ const wrap=el('div','life-scene kind-'+String(job.kind).toLowerCase()+' region-'+region);wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-label',name);
+ const picture=lifePlacePicture(job.map);if(picture)wrap.style.setProperty('--life-bg','url("'+picture+'")');
+ const stage=el('div','life-stage'),top=el('header','life-top'),title=el('div','life-title'),clock=el('div','life-clock'),seconds=el('b',''),tally=el('div','life-tally');
+ title.append(el('strong','',name),el('small','',row?.[2]||''));clock.setAttribute('role','timer');clock.append(seconds);back.classList.add('life-back');
+ top.append(title,clock,tally,back);wrap.append(stage,top);
+ return {wrap,stage,tally,back,clock(remaining,limit){
+  clock.style.setProperty('--p',String(Math.max(0,Math.min(1,remaining/limit))));clock.classList.toggle('low',remaining>0&&remaining<=5000);
+  const s=String(Math.max(0,Math.ceil(remaining/1000)));if(seconds.textContent!==s){seconds.textContent=s;clock.setAttribute('aria-label',s+'초 남음');}
+ }};
+}
+// ---------- fishing ----------
+// Same rules as before (CRPGFishing): hold «당기기» to raise the tension, let go to lower it, keep the mark in the gold
+// band until the ring around the fish fills. Space or Enter holds too.
 let fishingSession=null,fishingFrame=null;
 const ordinaryLifeUI=updateLifeUI;
+function closeFishing(){cancelAnimationFrame(fishingFrame);fishingFrame=null;fishingSession?.node?.remove();fishingSession=null;}
 updateLifeUI=function(){
- cancelAnimationFrame(fishingFrame);const job=game?.s.lifeJob;
- if(!job||job.kind!=='FISH'){fishingSession=null;return ordinaryLifeUI();}
+ const job=game?.s.lifeJob;
+ if(!job||job.kind!=='FISH'){closeFishing();return ordinaryLifeUI();}
  clearTimeout(lifeUITimer);document.getElementById('life-work-status')?.remove();
- if(fishingSession?.id!==job.id)fishingSession={id:job.id,controls:[],holding:false,finishing:false};const session=fishingSession;
- // A restored fishing cast keeps its timer; it never grants a fish on reload.
- const box=el('section','fishing-panel');box.id='life-work-status';box.setAttribute('aria-label','낚시');
- const title=el('h2','','입질을 기다리는 중'),status=el('p','','물고기가 미끼를 물면 낚싯줄을 조절하세요.'),track=el('div','fishing-tension'),zone=el('div','fishing-zone'),cursor=el('div','fishing-cursor'),progress=el('progress'),percent=el('p','fishing-progress-label');
- track.setAttribute('role','meter');track.setAttribute('aria-label','낚싯줄 장력');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');track.append(zone,cursor);progress.max=100;progress.value=0;progress.setAttribute('aria-label','물고기 끌어올리기');
- const hold=button('길게 눌러 당기기',()=>{});hold.className='primary fishing-hold';hold.setAttribute('aria-pressed','false');
- const setHold=value=>{if(busy||session.finishing||session.holding===value)return;session.holding=value;session.controls.push({at:Math.min(job.duration,Math.max(0,(globalThis.CRPGOnline?.active?CRPGOnline.now():Date.now())-job.startedAt)),hold:value});hold.setAttribute('aria-pressed',String(value));hold.textContent=value?'당기는 중 · 놓으면 장력이 내려갑니다':'길게 눌러 당기기';};
+ // The window stays while the same cast goes on. A restored cast keeps its timer; it never grants a fish on reload.
+ if(fishingSession?.id===job.id&&fishingSession.node?.isConnected)return;
+ closeFishing();
+ const session=fishingSession={id:job.id,controls:[],holding:false,finishing:false,bite:false,node:null};
+ const win=lifeWindow(job,actionButton('돌아가기','LIFE_CANCEL'));session.node=win.wrap;
+ const pond=el('div','fish-pond'),ring=el('div','fish-ring'),state=el('strong','fish-state','입질 대기');
+ ring.setAttribute('role','progressbar');ring.setAttribute('aria-label','끌어올리기');ring.setAttribute('aria-valuemin','0');ring.setAttribute('aria-valuemax','100');ring.setAttribute('aria-valuenow','0');
+ pond.append(ring,lifeIcon(CRPGRuntime.lifeCatalog.bait,'fish-bait'),lifeIcon('ING_FISH','fish-icon'));
+ const track=el('div','fish-tension'),zone=el('i','fish-zone'),cursor=el('i','fish-cursor');
+ track.setAttribute('role','meter');track.setAttribute('aria-label','낚싯줄 장력');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');track.append(zone,cursor);
+ const hold=button('당기기',()=>{});hold.className='fish-hold';hold.setAttribute('aria-pressed','false');hold.setAttribute('aria-keyshortcuts','Space Enter');
+ // Before the bite the button stays focusable (aria-disabled), so Space never falls through to 「돌아가기」.
+ const setHold=value=>{if(busy||session.finishing||session.holding===value||(value&&!session.bite))return;session.holding=value;session.controls.push({at:Math.min(job.duration,Math.max(0,lifeClockNow()-job.startedAt)),hold:value});hold.setAttribute('aria-pressed',String(value));hold.classList.toggle('pulling',value);};
  hold.onpointerdown=e=>{e.preventDefault();hold.focus();hold.setPointerCapture?.(e.pointerId);setHold(true);};hold.onpointerup=hold.onpointercancel=()=>setHold(false);hold.onlostpointercapture=()=>setHold(false);hold.onkeydown=e=>{if([' ','Enter'].includes(e.key)){e.preventDefault();setHold(true);}};hold.onkeyup=e=>{if([' ','Enter'].includes(e.key)){e.preventDefault();setHold(false);}};hold.onblur=()=>setHold(false);
- box.append(el('small','eyebrow','낚시터'),title,status,el('p','muted','표시를 금색 구간 안에 유지하세요. 누르면 오른쪽, 놓으면 왼쪽으로 움직입니다. 키보드는 Space 또는 Enter.'),track,progress,percent,hold,actionButton('낚싯줄 걷기 · 미끼는 소모됩니다','LIFE_CANCEL'));document.querySelector('.content')?.prepend(box);if(!session.scrolled)queueMicrotask(()=>{if(box.isConnected){box.scrollIntoView({block:'start'});session.scrolled=true;}});
- const tick=()=>{if(game?.s.lifeJob?.id!==job.id||!box.isConnected)return;const elapsed=Math.min(job.duration,Math.max(0,(globalThis.CRPGOnline?.active?CRPGOnline.now():Date.now())-job.startedAt)),s=CRPGFishing.simulate(job,session.controls,elapsed);zone.style.left=(s.target-.16)*100+'%';cursor.style.left=s.cursor*100+'%';track.setAttribute('aria-valuenow',String(Math.round(s.cursor*100)));progress.value=s.progress;percent.textContent='끌어올리기 '+Math.round(s.progress)+'% · '+Math.ceil(s.remaining/1000)+'초';title.textContent=s.bite?'물고기가 물었습니다!':'입질을 기다리는 중';status.textContent=!s.bite?'잠시 기다려 주세요.':Math.abs(s.cursor-s.target)<=.16?'장력이 알맞습니다. 이대로 유지하세요.':'금색 구간으로 장력을 맞춰 주세요.';hold.disabled=!s.bite||busy||session.finishing;
-  if((s.caught||elapsed>=job.duration)&&!busy&&!session.finishing){session.finishing=true;act('LIFE_FINISH',{job:job.id,controls:session.controls,elapsed:Math.floor(elapsed)}).then(result=>{if(!result?.ok)session.finishing=false;});return;}fishingFrame=requestAnimationFrame(tick);
+ const controls=el('div','fish-controls');controls.append(track,hold);win.stage.append(pond,state,controls);
+ document.body.append(win.wrap);requestAnimationFrame(()=>win.wrap.classList.add('open'));hold.focus({preventScroll:true});
+ const tick=()=>{
+  if(fishingSession!==session||game?.s.lifeJob?.id!==job.id||!win.wrap.isConnected)return;
+  const elapsed=Math.min(job.duration,Math.max(0,lifeClockNow()-job.startedAt)),s=CRPGFishing.simulate(job,session.controls,elapsed),near=Math.abs(s.cursor-s.target)<=.16;session.bite=s.bite;
+  zone.style.left=(s.target-.16)*100+'%';cursor.style.left=s.cursor*100+'%';track.setAttribute('aria-valuenow',String(Math.round(s.cursor*100)));
+  ring.style.setProperty('--p',String(s.progress/100));ring.setAttribute('aria-valuenow',String(Math.round(s.progress)));win.clock(job.duration-elapsed,job.duration);
+  const label=!s.bite?'입질 대기':near?'좋아!':'장력 맞추기';if(state.textContent!==label)state.textContent=label;
+  win.wrap.classList.toggle('bite',s.bite);win.wrap.classList.toggle('in-zone',s.bite&&near);hold.setAttribute('aria-disabled',String(!s.bite||busy||session.finishing));
+  // The window outlives the start action that drew it (busy then), so 「돌아가기」 follows the moment.
+  const locked=busy||session.finishing;if(win.back.disabled!==locked)win.back.disabled=locked;
+  if((s.caught||elapsed>=job.duration)&&!busy&&!session.finishing){
+   session.finishing=true;win.wrap.classList.add(s.caught?'caught':'ended');
+   act('LIFE_FINISH',{job:job.id,controls:session.controls,elapsed:Math.floor(elapsed)}).then(result=>{if(fishingSession===session&&!result?.ok){session.finishing=false;win.wrap.classList.remove('caught','ended');fishingFrame=requestAnimationFrame(tick);}});return;
+  }
+  fishingFrame=requestAnimationFrame(tick);
  };tick();
 };
 async function playWaitProgress(minutes){
@@ -53,21 +87,14 @@ const lifeItemSummary=itemSummary;
 itemSummary=function(d){const uses=game&&d.kind!=='EQUIPMENT'?itemUses(d.id):[];return lifeItemSummary(d)+(uses.length?'\n제작 용도 · '+uses.slice(0,3).map(x=>safeName(x.recipe[2]==='EQUIP'?'16_EQUIP_DB':'14_ITEM_DB',x.recipe[3])).join(', ')+(uses.length>3?' 외 '+(uses.length-3)+'개':''):'');};
 const lifeCrafting=crafting;
 crafting=function(p){lifeCrafting(p);if(focusedRecipe){const target=p.querySelector('[data-recipe-id="'+focusedRecipe+'"]');if(target){target.classList.add('focused-recipe');queueMicrotask(()=>target.scrollIntoView({block:'center',behavior:'smooth'}));}focusedRecipe=null;}};
+// 0.16.30 (user: 「천사의 몫같은 곳도 동료 영입 임무 이런게 남아있는데... 차라리 호감도 임무 위치면 모르겠는데」): the tavern and Sara's
+// table are where the owned companions' personal stories begin (the companions of this place); nobody is recruited
+// here any more. A companion not met in a wish yet is not listed.
 function contactStories(parent){const place=game.currentPlace();if(!place?.valid||![CRPGRuntime.lifeCatalog.sara,CRPGRuntime.lifeCatalog.tavern].includes(place.place))return;
- const tavern=place.place===CRPGRuntime.lifeCatalog.tavern,section=el('section','contact-stories');section.append(el('h2','',tavern?'술집에서 들려오는 이야기':'식탁에 남겨진 이야기'),el('p','story',tavern?'찰스: “도움이 필요한 분들의 이야기를 전해 드릴 수 있습니다. 당사자를 만나 부탁을 듣고, 동행할지는 직접 정하시면 됩니다.”':'사라: “도움이 필요한 사람들의 부탁을 모아 두었어요. 식사를 주문하지 않아도 이야기는 들으실 수 있답니다.”'),el('p','muted','몬드 도입부 이후부터 소개받을 수 있습니다. 본편을 끝낼 필요는 없으며, 준비 비용은 개인 임무에서 수락할 때만 사용됩니다.'));
- const offers=game.legendContactEntries();for(const entry of offers){const d=entry.definition,c=el('section','card'),registered=game.legendRegistered(entry.id);c.append(el('h3','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[1]||entry.title),el('p','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[5]||'당사자를 만나 이야기를 듣습니다.'));
-  if(!registered){
-   if(typeof requirementList==='function')requirementList(c,game.legendRequirements(d,{cost:false,location:false}));
-   const first=game.mondFirstContact?.(d);if(first&&!first.complete)c.append(actionButton('첫 만남 이야기 듣기','MOND_FIRST_CONTACT',{quest:d.id},true));
-   const reason=game.legendIntroductionReason(d);if(reason)c.append(el('p','requirement-unmet',reason));
-   c.append(actionButton('이야기를 듣고 개인 임무 소개받기','LEGEND_REGISTER',{quest:entry.id},true));
-  }else{
-   c.append(el('p','muted','소개받은 개인 임무 · 임무 현장으로 이동한 뒤 시작할 수 있습니다.'));travelGuide(c,d.MAP_ID);
-   c.append(button('임무에서 이야기 열기',()=>{missionTab='진행 중';act('MENU',{screen:'QUEST'});},busy||!!game.actionReason('MENU',{screen:'QUEST'}),true));
-  }section.append(c);
- }
- if(!offers.length)section.append(el('p','muted','이곳에서 소개하는 개인 임무를 모두 마쳤습니다. 임무의 동료 획득 화면에서 동행 제안과 다른 소개처를 확인할 수 있습니다.'));parent.append(section);
- const shortcut=el('div','contact-entry-link');shortcut.append(button('동료 영입 임무 소개 · '+offers.length+'개',()=>section.scrollIntoView({block:'start',behavior:'smooth'}),false,true));parent.insertBefore(shortcut,parent.firstChild);
+ const section=el('section','contact-stories');section.append(el('h2','','이곳에서 시작하는 개인 이야기'));
+ const here=(typeof personalStoryEntries==='function'?personalStoryEntries():[]).filter(e=>game.legendIntroductionPlaces(e.definition).some(p=>p.id===place.place));
+ const grid=el('div','personal-story-list');for(const e of here)personalStoryCard(grid,e);section.append(grid);
+ if(!here.length)section.append(el('p','muted','기원에서 이곳과 인연이 있는 동료를 만나면, 그 동료의 개인 이야기가 여기서 시작됩니다.'));parent.append(section);
 }
 const lifeShop=shop,lifeDialogue=dialogue;
 shop=function(p,v){lifeShop(p,v);contactStories(p);};
@@ -86,4 +113,4 @@ function growthSnapshot(){
  const gate=game.s.runtime?.storyConfig?.node_id;for(const a of game.s.runtime?.actors||[]){if(a.side==='ALLY'&&a.guest&&gate){const state=game.s.guestSnapshots?.[gate]?.[a.source];if(state)result['GUEST:'+a.source]={owner:a.source,name:a.name,level:state.level,guestGate:gate};}}return result;
 }
 const lifeRestoreUI=restoreUIState;
-restoreUIState=function(){cancelAnimationFrame(fishingFrame);fishingFrame=null;fishingSession=null;lifeRestoreUI();};
+restoreUIState=function(){closeFishing();lifeRestoreUI();};

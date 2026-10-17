@@ -1,0 +1,262 @@
+[
+  {
+    "test": "tests/test_mond_full_v01344.cjs",
+    "ok": true,
+    "seconds": 125.3
+  },
+  {
+    "test": "tests/test_v01415.cjs",
+    "ok": true,
+    "seconds": 51.1
+  },
+  {
+    "test": "tests/test_server_coop_roam_v0160.mjs",
+    "ok": true,
+    "seconds": 45.1
+  },
+  {
+    "test": "tests/test_letters_v0151.mjs",
+    "ok": true,
+    "seconds": 30.1
+  },
+  {
+    "test": "tests/test_server_account_audit_fixes.mjs",
+    "ok": true,
+    "seconds": 24.8
+  },
+  {
+    "test": "tests/test_life_v0162.cjs",
+    "ok": true,
+    "seconds": 22.2
+  },
+  {
+    "test": "tests/test_abyss_v01341.cjs",
+    "ok": true,
+    "seconds": 23.1
+  },
+  {
+    "test": "tools/test_field_bosses.cjs",
+    "ok": true,
+    "seconds": 21.8
+  },
+  {
+    "test": "tests/test_v0152.cjs",
+    "ok": true,
+    "seconds": 17.5
+  },
+  {
+    "test": "tests/test_save_revision.cjs",
+    "ok": true,
+    "seconds": 16.2
+  },
+  {
+    "test": "tests/test_balance_saves_v0166.cjs",
+    "ok": true,
+    "seconds": 15.3
+  },
+  {
+    "test": "tests/test_life_v010.cjs",
+    "ok": true,
+    "seconds": 12.0
+  },
+  {
+    "test": "tests/test_abyss_fixes_v01626.cjs",
+    "ok": true,
+    "seconds": 60.3
+  },
+  {
+    "test": "tests/test_action_feedback.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_ascension_balance_v01614.cjs",
+    "ok": true,
+    "seconds": 50.2
+  },
+  {
+    "test": "tests/test_authoritative_flow.mjs",
+    "ok": true,
+    "seconds": 4.1
+  },
+  {
+    "test": "tests/test_battle_lines_v0162.cjs",
+    "ok": true,
+    "seconds": 10.6
+  },
+  {
+    "test": "tests/test_client_audit_fixes.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_combat_catalog_online.mjs",
+    "ok": true,
+    "seconds": 3.0
+  },
+  {
+    "test": "tests/test_content_boundaries_v01513.cjs",
+    "ok": true,
+    "seconds": 3.2
+  },
+  {
+    "test": "tests/test_coop_world_ui_v0159.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_defeat_settlement_v0166.cjs",
+    "ok": true,
+    "seconds": 5.2
+  },
+  {
+    "test": "tests/test_element_immunity_v01618.cjs",
+    "ok": true,
+    "seconds": 24.9
+  },
+  {
+    "test": "tests/test_field_boss_strategy_v01623.cjs",
+    "ok": true,
+    "seconds": 61.0
+  },
+  {
+    "test": "tests/test_food_lodging_v01617.cjs",
+    "ok": true,
+    "seconds": 35.3
+  },
+  {
+    "test": "tests/test_gear_ui_v01343.cjs",
+    "ok": true,
+    "seconds": 1.1
+  },
+  {
+    "test": "tests/test_growth_online_v01522.mjs",
+    "ok": true,
+    "seconds": 12.2
+  },
+  {
+    "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+    "ok": true,
+    "seconds": 12.3
+  },
+  {
+    "test": "tests/test_life_ui_v010.cjs",
+    "ok": true,
+    "seconds": 6.6
+  },
+  {
+    "test": "tests/test_local_revision_online_v0141.mjs",
+    "ok": true,
+    "seconds": 5.3
+  },
+  {
+    "test": "tests/test_material_budget_v01615.cjs",
+    "ok": true,
+    "seconds": 17.8
+  },
+  {
+    "test": "tests/test_monster_control_fixes_v01618.cjs",
+    "ok": true,
+    "seconds": 9.2
+  },
+  {
+    "test": "tests/test_online_title_v01344.cjs",
+    "ok": true,
+    "seconds": 2.5
+  },
+  {
+    "test": "tests/test_playback_v08.cjs",
+    "ok": true,
+    "seconds": 0.9
+  },
+  {
+    "test": "tests/test_puzzle_ui_lifecycle.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_quality_fixes_v01338.cjs",
+    "ok": true,
+    "seconds": 2.3
+  },
+  {
+    "test": "tests/test_save_v01344.cjs",
+    "ok": true,
+    "seconds": 8.1
+  },
+  {
+    "test": "tests/test_server_remaining_audit_v01513.mjs",
+    "ok": true,
+    "seconds": 0.3
+  },
+  {
+    "test": "tests/test_shield_meter_v01619.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_starlight_price_v01613.cjs",
+    "ok": true,
+    "seconds": 5.4
+  },
+  {
+    "test": "tests/test_task_branches_v01611.cjs",
+    "ok": false,
+    "seconds": 31.6
+  },
+  {
+    "test": "tests/test_task_wording_v01613.cjs",
+    "ok": true,
+    "seconds": 3.9
+  },
+  {
+    "test": "tests/test_test_release_pin.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_ui_boundaries_v01513.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tests/test_v01413.cjs",
+    "ok": true,
+    "seconds": 3.7
+  },
+  {
+    "test": "tests/test_v0151.cjs",
+    "ok": true,
+    "seconds": 3.6
+  },
+  {
+    "test": "tests/test_v01519.cjs",
+    "ok": true,
+    "seconds": 2.3
+  },
+  {
+    "test": "tests/test_v0156.cjs",
+    "ok": true,
+    "seconds": 7.5
+  },
+  {
+    "test": "tests/test_v0167.cjs",
+    "ok": false,
+    "seconds": 2.1
+  },
+  {
+    "test": "tests/test_wish_ui_audit_fixes.cjs",
+    "ok": true,
+    "seconds": 0.0
+  },
+  {
+    "test": "tools/audit_task_materials_v0169.cjs",
+    "ok": true,
+    "seconds": 6.7
+  },
+  {
+    "test": "tools/test_field_boss_immunity_v01618.cjs",
+    "ok": true,
+    "seconds": 25.7
+  }
+]

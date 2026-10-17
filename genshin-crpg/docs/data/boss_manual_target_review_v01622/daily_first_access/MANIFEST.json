@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "path": "README_KO.md",
+      "bytes": 3115,
+      "sha256": "431458174872817df307a3d9c47e5a5e9f7cc9a6893155527a1aec390e1fad4c"
+    },
+    {
+      "path": "branch_constellation_evidence.json",
+      "bytes": 36333,
+      "sha256": "9cc306a922fa41c210d9e4fef6525cf1ef37b6d100bfe5ebed4d285ca8324b2c"
+    },
+    {
+      "path": "inputs_after.json",
+      "bytes": 12675,
+      "sha256": "8485eaf526ee9e572335f145658d9a226aa47dee3bbbc5e2346ad92d2d5a3de6"
+    },
+    {
+      "path": "inputs_before.json",
+      "bytes": 12675,
+      "sha256": "8485eaf526ee9e572335f145658d9a226aa47dee3bbbc5e2346ad92d2d5a3de6"
+    },
+    {
+      "path": "native.json.gz",
+      "bytes": 51538,
+      "sha256": "12ff029436b9f64a436182a41fc2b8662280baea81ce98f4c5b6663c0c89a86e"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 6264,
+      "sha256": "004525b3a4e117ee17c7de26437b97ba0b2aa53ee31dce298bdf4d949555c8c7"
+    }
+  ],
+  "script": {
+    "path": "../audit_daily_first_access.cjs",
+    "sha256": "3e00f8d26880fbbcc86022689f1c52ecfd0146d9cfdb080a4035996f2f4e7b6f"
+  },
+  "sourceDrift": 0,
+  "nativeProcessesRunning": 0
+}

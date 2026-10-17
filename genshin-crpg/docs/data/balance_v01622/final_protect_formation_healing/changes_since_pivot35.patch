@@ -1,0 +1,60 @@
+--- a/source/runtime_rules.js
++++ b/source/runtime_rules.js
+@@ -70,7 +70,8 @@
+ P.applyDamage=function(a,t,amount,d={}){if(!t||t.hp<=0)return 0;const element=el(d.element);if(this.hasElementImmunity(t,element)){this.s.runtime.log.push({actor:a.name,target:t.name,damage:0,immune:true,element,reason:'원소 면역'});return 0;}const bubble=amount>0?st(t,'ILLUSORY_BUBBLE'):null;let mult=(bubble?1.3:1)*(st(t,'OMEN')?1.15:1)*(!d.skipSourceModifiers&&st(a,'BOSS_CONTROL')?.9:1);if(element==='물리'&&st(t,'PHYS_VULN'))mult*=1.25;if(element==='바람'&&st(t,'ANEMO_VULN'))mult*=1.05;if(d.sourceKind?.startsWith('REACTION'))mult*=this.combatDamageMultiplier(a,t,element,d);if(bubble)t.statuses=t.statuses.filter(s=>s!==bubble);t.lastDamagePacket=Math.round(Math.max(0,amount*mult));if(this.captureAndriusPrimaryPacket)this.captureAndriusPrimaryPacket(a,t,t.lastDamagePacket,d);const n=old.applyDamage.call(this,a,t,amount*mult,{...d,element});if(bubble&&t.hp>0){const owner=this.s.runtime.actors.find(x=>x.id===bubble.actor);if(owner){this.damage(owner,t,.9,'물',{range:'전장',sourceKind:'BUBBLE',card:'MOND_MONA_Q'});if(t.hp>0)this.addCombatStatus(t,'OMEN',2);}}return n;};
+ // New battles preserve late-level incoming pressure without changing DEF-based
+ // attacks, shields, healing or outgoing damage. Unmarked saved fights retain 100.
+-P.combatDefenseBase=function(a,t){return this.s.runtime?.defenseRevision===1&&a?.side==='ENEMY'&&t?.side==='ALLY'?100+5*Math.max(0,(Number(a.level)||1)-35):100;};
++// Scripted formation defense keeps its separately tuned waves and body-attack budget.
++P.combatDefenseBase=function(a,t){const b=this.s.runtime;return b?.defenseRevision===1&&b.storyConfig?.objective?.kind!=='PROTECT_FORMATION'&&a?.side==='ENEMY'&&t?.side==='ALLY'?100+5*Math.max(0,(Number(a.level)||1)-35):100;};
+ P.damage=function(a,t,k,element='PHYSICAL',o={}){const b=this.s.runtime;if(!t||t.hp<=0)return false;this.initCombatPositions();
+  const bunny=!o.ignoreTaunt&&this.baronBunnyIntercept?.(a,t,o);if(bunny){const proxy={id:'SUMMON:BUNNY:'+bunny.actor,name:'토끼 백작',side:bunny.side,hp:bunny.hp,maxHp:bunny.maxHp||bunny.hp,atk:0,def:bunny.def||0,spd:0,crit:0,critDmg:0,hit:100,eva:0,resist:0,level:1,range:'근접',grade:'소환물',statuses:[],shields:[],position:bunny.position};b.log.push({actor:a.name,actorId:a.id,target:'토끼 백작',targetId:proxy.id,taunted:true,text:a.name+'의 단일 공격이 토끼 백작에게 유도되었다.',round:b.round,actionSequence:b.actionSequence||0});const landed=this.damage(a,proxy,k,element,{...o,ignoreTaunt:true});bunny.hp=proxy.hp;if(bunny.hp<=0)this.explodeBunny(bunny);return landed;}
+  element=el(element);if(this.hasElementImmunity(t,element)&&!this.nativeSlimeElement(t)){this.applyDamage(a,t,0,{element,...(o.presentationActorId?{presentationActorId:o.presentationActorId,presentationActorName:o.presentationActorName}:{} )});return false;}const range=o.range||a.range;if(!this.hasAirAccess(a,t,range))return false;if(st(t,'LEVITATION')&&range==='근접'&&!a.airborne){b.log.push({actor:a.name,target:t.name,miss:true,reason:'부양'});return false;}const shieldEva=Math.max(0,...(t.shields||[]).map(x=>x.evaBonus||0));if(!o.sureHit&&this.die()>clamp(this.combatStat(a,'hit')-this.combatStat(t,'eva')-shieldEva+10+(o.hitBonus||0),65,98)){b.log.push({actor:a.name,target:t.name,miss:true});return false;}
+--- a/source/runtime_liyue.js
++++ b/source/runtime_liyue.js
+@@ -12,6 +12,23 @@
+ P.liyueLeaf=function(){return this.s.flags.FLAG_ISK_L01_LEAF||'NONE';};
+ P.liyueDefinitions=function(){return this._liyueEvents??=new Map(this.storyEventDefinitions().filter(e=>/^isk_l0[1-4]$/.test(json(e.EXEC_PAYLOAD_JSON).handler)).map(e=>[e.EVENT_ID,{...e,p:json(e.EXEC_PAYLOAD_JSON)}]));};
+ P.liyueReceipt=function(id){const r=this.s.liyue?.events[id]||this.storyEventReceipt(id);return r&&r.saveId===this.s.global.SAVE_ID&&r.route===this.s.global.STORY_ROUTE_ID?r:null;};
++// The first three otherworlder chapters deliberately keep their quests open
++// until the fourth chapter settles them. Their committed END gate still owns
++// the existing growth/farming prerequisites; a content flag alone is not proof.
++P.liyueChapterEnded=function(quest){
++ const s=this.s,g=s?.global,l=s?.liyue;if(!g||g.STORY_ROUTE_ID!=='ROUTE_ISEKAI'||!/^Q_ISK_LIYUE_0[123]$/.test(String(quest))||l?.route!==g.STORY_ROUTE_ID)return false;
++ const leaf=this.liyueLeaf(),branch=this.liyueParent(),chapter=l.chapters?.[quest],gate=chapter?.gate,accepted=l.accepts?.[quest];
++ if(!leafPattern.test(leaf)||!branch||!gate||!accepted||accepted.saveId!==g.SAVE_ID||accepted.route!==g.STORY_ROUTE_ID||accepted.parent!==branch||chapter.parent!==branch)return false;
++ // Chapter one is accepted before its fork, so its acceptance leaf is NONE.
++ if(quest!=='Q_ISK_LIYUE_01'&&accepted.leaf!==leaf)return false;
++ const definitions=this.liyueDefinitions(),event=definitions.get(gate.event),p=event?.p,node=event?.SOURCE_ID_OR_FILTER;
++ if(!p||event.ACTIVE!=='Y'||p.kind!=='gate'||p.handler!=='isk_l'+quest.slice(-2)||p.quest_id!==quest||p.branch!==branch||p.leaf!==leaf||!String(node).endsWith('_END')||p.content_gate?.node_id!==node||gate.node_id!==node||gate.leaf!==leaf)return false;
++ const entered=[...definitions.values()].some(e=>e.ACTIVE==='Y'&&e.p.kind==='chapter_enter'&&e.p.quest_id===quest&&e.p.branch===branch&&(!e.p.leaf||e.p.leaf===leaf)&&e.SOURCE_ID_OR_FILTER===accepted.entry);
++ if(!entered)return false;
++ const source=this.storyIndex().nodes.get(g.STORY_ROUTE_ID+':'+node);if(!source||source[1]!==quest||source[18]!=='ACTIVE'||!String(source[12]).split(';').some(effect=>effect.trim()==='EVENT:'+gate.event))return false;
++ const receipt=l.events?.[gate.event],record=s.storyEventReceipts?.[gate.event],matches=r=>r&&r.event===gate.event&&r.saveId===g.SAVE_ID&&r.route===g.STORY_ROUTE_ID&&r.quest===quest&&r.resolvedNode===node&&r.kind==='gate'&&r.branch===branch&&r.leaf===leaf;
++ return !!(matches(receipt)&&matches(record));
++};
+ P.liyuePersonalReady=function(){
+  const s=this.s;if(s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER')return yes(s.flags.FLAG_TRV_LIYUE_CLEAR)&&this.storyDone('Q_TRV_LIYUE_04');
+  const r=s.liyue?.regionReceipt;return !!r&&r.saveId===s.global.SAVE_ID&&r.route===s.global.STORY_ROUTE_ID&&r.leaf===this.liyueLeaf()&&yes(s.flags.FLAG_ISK_L04_REGION_CLEAR)&&s.liyue.access.phase==='OPEN'&&this.storyDone('Q_ISK_LIYUE_04');
+--- a/source/runtime_liyue_artifacts.js
++++ b/source/runtime_liyue_artifacts.js
+@@ -87,7 +87,7 @@
+ P.liyueArtifactUnlocked=function(kind){
+  if(kind==='TARTAGLIA'){
+   const qids=['Q_TRV_LIYUE_03','Q_ISK_LIYUE_03'];
+-  return yes(this.s.flags.FLAG_TRV_LY_TARTAGLIA_WON)||Object.values(this.s.combatReceipts||{}).some(r=>r?.victory&&r.group==='EG_BOSS_TARTAGLIA')||qids.some(id=>{const q=this.s.quests?.[id];return q?.claimed||q?.state==='완료';});
++  return yes(this.s.flags.FLAG_TRV_LY_TARTAGLIA_WON)||Object.values(this.s.combatReceipts||{}).some(r=>r?.victory&&r.group==='EG_BOSS_TARTAGLIA')||qids.some(id=>{const q=this.s.quests?.[id];return q?.claimed||q?.state==='완료';})||this.liyueChapterEnded?.('Q_ISK_LIYUE_03')===true;
+  }
+  if(kind==='AZHDAHA'){
+   const route=this.tables['35_BOSS_ROUTE_DB']?.get('BRT_AZHDAHA'),flag=route?.[13];
+--- a/source/runtime_growth_v01522.js
++++ b/source/runtime_growth_v01522.js
+@@ -192,7 +192,7 @@
+ P.useItem=function(id,n=1,owner=PLAYER){if(!BOOKS[id])return old.useItem.call(this,id,n,owner);if(this.s.runtime)fail('COMBAT','전투를 마친 뒤 책을 사용해 주세요.');if(!Number.isSafeInteger(n)||n<1||n>this.experienceBookLimit(id,owner))fail('QUANTITY','소유 동료의 현재 돌파 상한에 필요한 수량만 사용할 수 있습니다.');this.pay({items:{[id]:n}});this.addXp(owner,BOOKS[id]*n);return {item:id,quantity:n,xp:BOOKS[id]*n,owner};};
+ P.growthElement=function(owner=PLAYER){return owner===PLAYER?'물리':String(this.row('07_CHAR_DB',owner)[3]).match(/\[(불|물|바람|번개|얼음|바위|풀)\]/)?.[1]||'물리';};
+ P.growthStoryGate=function(phase){
+- const tr=this.s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER',done=id=>this.s.quests[id]?.claimed===true||this.storyDone?.(id),flag=id=>[true,'TRUE'].includes(this.s.flags[id]);
++ const tr=this.s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER',done=id=>this.s.quests[id]?.claimed===true||this.storyDone?.(id)||(!tr&&/^Q_ISK_LIYUE_0[123]$/.test(id)&&this.liyueChapterEnded?.(id)),flag=id=>[true,'TRUE'].includes(this.s.flags[id]);
+  const gates=[tr?(done('Q_TRV_MOND_01')||flag('FLAG_TRV_MON_CH1_CLEAR')):(done('Q_ISK_MOND_01')||flag('FLAG_ISK_M03_CLEAR')),tr?(['진행중','진행 중'].includes(this.s.quests.Q_TRV_MOND_02?.state)||done('Q_TRV_MOND_02')||flag('FLAG_TRV_MON_CH2_CLEAR')):done('Q_ISK_MOND_02'),tr?flag('FLAG_TRV_MON_CH2_CLEAR'):flag('FLAG_ISK_M05_CLEAR'),...[1,2,3].map(n=>done('Q_'+(tr?'TRV':'ISK')+'_LIYUE_0'+n))];
+  return {ready:!!gates[phase],label:['몬드 본편 1장',tr?'몬드 본편 2장 진입':'몬드 본편 2장','몬드 본편 완료','리월 본편 1장','리월 본편 2장','리월 본편 3장'][phase]||'모든 돌파 완료'};
+ };

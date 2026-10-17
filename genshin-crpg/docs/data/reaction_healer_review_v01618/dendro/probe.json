@@ -1,0 +1,3308 @@
+{
+  "root": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+  "assumptions": {
+    "readOnly": true,
+    "fixture": "Full product load order; owned companions, native phase/stats, unarmed, no constellations. Level20/40/60 talent1 plus legalCap. Fixed no-crit/miss/RNG removes variance; enemies retain native DEF but have 10M HP solely to isolate repeated packets. Controlled aura/status/object setup is diagnostic, not natural fight/win or reward evidence.",
+    "candidate": "In-memory substitutions only: additive talent normalization, remove burning status when its Pyro aura is consumed, five-core cap with native oldest detonation. No coefficients buffed. Independent targeting/core coexistence and self damage remain review options, not candidates evaluated here."
+  },
+  "rows": [
+    {
+      "mode": "baseline",
+      "level": 20,
+      "legalTalentCap": 2,
+      "base": 370.29333333333335,
+      "nativeParty": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "maxHp": 2917,
+          "atk": 470.4,
+          "def": 235
+        },
+        {
+          "source": "LIYUE_YAOYAO",
+          "maxHp": 3161,
+          "atk": 399.59999999999997,
+          "def": 303.59999999999997
+        },
+        {
+          "source": "MOND_LISA",
+          "maxHp": 3268,
+          "atk": 626.4,
+          "def": 283.2
+        },
+        {
+          "source": "MOND_BARBARA",
+          "maxHp": 3161,
+          "atk": 396,
+          "def": 303.59999999999997
+        }
+      ],
+      "rawCoefficients": {
+        "burnTick": 92.57333333333334,
+        "burnThreeTicks": 277.72,
+        "bloom": 740.5866666666667,
+        "hyper": 1110.88,
+        "burgeon": 1110.88,
+        "aggravate": 425.83733333333333,
+        "spread": 462.8666666666667
+      },
+      "burning": {
+        "before": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            },
+            {
+              "element": "불",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 92.57333333333334,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "ticks": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 93,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 93,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 93,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "burningExtinguish": {
+        "after": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 92.57333333333334,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "nextEnd": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 93,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "sixCores": {
+        "live": 6,
+        "all": [
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          }
+        ],
+        "packets": []
+      },
+      "coreMoved": {
+        "distance": 1,
+        "electro": null,
+        "pyro": null
+      },
+      "coreCryoPyro": {
+        "selected": "RX_MELT_PYRO",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 537,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "coreQuickenElectro": {
+        "selected": "RX_AGGRAVATE",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 621,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "additive": [
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 386,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 767,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 228,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 611,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 417,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 828,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 246,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 660,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        }
+      ],
+      "nativeCards": [
+        {
+          "source": "LIYUE_YAOYAO",
+          "card": "LIYUE_YAOYAO_Q",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": [
+            {
+              "kind": "YUEGUI_THROWING",
+              "rounds": 99
+            }
+          ]
+        },
+        {
+          "source": "LIYUE_BAIZHU",
+          "card": "LIYUE_BAIZHU_E",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 275,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 245,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 궁수",
+              "damage": 245,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": []
+        }
+      ]
+    },
+    {
+      "mode": "baseline",
+      "level": 40,
+      "legalTalentCap": 6,
+      "base": 1533.8533333333332,
+      "nativeParty": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "maxHp": 8091,
+          "atk": 1474.8,
+          "def": 738
+        },
+        {
+          "source": "LIYUE_YAOYAO",
+          "maxHp": 8766,
+          "atk": 1172.8,
+          "def": 950.4000000000001
+        },
+        {
+          "source": "MOND_LISA",
+          "maxHp": 9063,
+          "atk": 1888,
+          "def": 884.8000000000001
+        },
+        {
+          "source": "MOND_BARBARA",
+          "maxHp": 8766,
+          "atk": 1168,
+          "def": 950.4000000000001
+        }
+      ],
+      "rawCoefficients": {
+        "burnTick": 383.4633333333333,
+        "burnThreeTicks": 1150.3899999999999,
+        "bloom": 3067.7066666666665,
+        "hyper": 4601.5599999999995,
+        "burgeon": 4601.5599999999995,
+        "aggravate": 1763.931333333333,
+        "spread": 1917.3166666666666
+      },
+      "burning": {
+        "before": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            },
+            {
+              "element": "불",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 383.4633333333333,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "ticks": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 383,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 383,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 383,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "burningExtinguish": {
+        "after": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 383.4633333333333,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "nextEnd": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 383,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "sixCores": {
+        "live": 6,
+        "all": [
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          }
+        ],
+        "packets": []
+      },
+      "coreMoved": {
+        "distance": 1,
+        "electro": null,
+        "pyro": null
+      },
+      "coreCryoPyro": {
+        "selected": "RX_MELT_PYRO",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 1683,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "coreQuickenElectro": {
+        "selected": "RX_AGGRAVATE",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 2302,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "additive": [
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 1163,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 2741,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 669,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 2257,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 1745,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 4111,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1004,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 3385,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        }
+      ],
+      "nativeCards": [
+        {
+          "source": "LIYUE_YAOYAO",
+          "card": "LIYUE_YAOYAO_Q",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": [
+            {
+              "kind": "YUEGUI_THROWING",
+              "rounds": 99
+            }
+          ]
+        },
+        {
+          "source": "LIYUE_BAIZHU",
+          "card": "LIYUE_BAIZHU_E",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 1221,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 1090,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 궁수",
+              "damage": 1090,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": []
+        }
+      ]
+    },
+    {
+      "mode": "baseline",
+      "level": 60,
+      "legalTalentCap": 10,
+      "base": 3881.9466666666667,
+      "nativeParty": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "maxHp": 18383,
+          "atk": 3667.2,
+          "def": 1835
+        },
+        {
+          "source": "LIYUE_YAOYAO",
+          "maxHp": 19916,
+          "atk": 2851.2000000000003,
+          "def": 2362.8
+        },
+        {
+          "source": "MOND_LISA",
+          "maxHp": 20588,
+          "atk": 4637.6,
+          "def": 2200
+        },
+        {
+          "source": "MOND_BARBARA",
+          "maxHp": 19916,
+          "atk": 2844.6000000000004,
+          "def": 2362.8
+        }
+      ],
+      "rawCoefficients": {
+        "burnTick": 970.4866666666667,
+        "burnThreeTicks": 2911.46,
+        "bloom": 7763.893333333333,
+        "hyper": 11645.84,
+        "burgeon": 11645.84,
+        "aggravate": 4464.238666666666,
+        "spread": 4852.433333333333
+      },
+      "burning": {
+        "before": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            },
+            {
+              "element": "불",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 970.4866666666667,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "ticks": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 970,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 970,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 970,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "burningExtinguish": {
+        "after": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 970.4866666666667,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "nextEnd": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 970,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "sixCores": {
+        "live": 6,
+        "all": [
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          }
+        ],
+        "packets": []
+      },
+      "coreMoved": {
+        "distance": 1,
+        "electro": null,
+        "pyro": null
+      },
+      "coreCryoPyro": {
+        "selected": "RX_MELT_PYRO",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 4185,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "coreQuickenElectro": {
+        "selected": "RX_AGGRAVATE",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 5789,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "additive": [
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 2858,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 6850,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1627,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 5645,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 5944,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 14248,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 3384,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 11742,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        }
+      ],
+      "nativeCards": [
+        {
+          "source": "LIYUE_YAOYAO",
+          "card": "LIYUE_YAOYAO_Q",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": [
+            {
+              "kind": "YUEGUI_THROWING",
+              "rounds": 99
+            }
+          ]
+        },
+        {
+          "source": "LIYUE_BAIZHU",
+          "card": "LIYUE_BAIZHU_E",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 4376,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 3908,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 궁수",
+              "damage": 3908,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": []
+        }
+      ]
+    },
+    {
+      "mode": "rule_candidate",
+      "level": 20,
+      "legalTalentCap": 2,
+      "base": 370.29333333333335,
+      "nativeParty": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "maxHp": 2917,
+          "atk": 470.4,
+          "def": 235
+        },
+        {
+          "source": "LIYUE_YAOYAO",
+          "maxHp": 3161,
+          "atk": 399.59999999999997,
+          "def": 303.59999999999997
+        },
+        {
+          "source": "MOND_LISA",
+          "maxHp": 3268,
+          "atk": 626.4,
+          "def": 283.2
+        },
+        {
+          "source": "MOND_BARBARA",
+          "maxHp": 3161,
+          "atk": 396,
+          "def": 303.59999999999997
+        }
+      ],
+      "rawCoefficients": {
+        "burnTick": 92.57333333333334,
+        "burnThreeTicks": 277.72,
+        "bloom": 740.5866666666667,
+        "hyper": 1110.88,
+        "burgeon": 1110.88,
+        "aggravate": 425.83733333333333,
+        "spread": 462.8666666666667
+      },
+      "burning": {
+        "before": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            },
+            {
+              "element": "불",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 92.57333333333334,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "ticks": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 93,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 93,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 93,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "burningExtinguish": {
+        "after": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": []
+        },
+        "nextEnd": []
+      },
+      "sixCores": {
+        "live": 5,
+        "all": [
+          {
+            "kind": "DENDRO_CORE",
+            "done": true,
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 370.29333333333335
+          }
+        ],
+        "packets": [
+          {
+            "actor": "바바라",
+            "target": "츄츄 싸움꾼",
+            "damage": 800,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "바바라",
+            "target": "츄츄 싸움꾼",
+            "damage": 800,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION"
+          }
+        ]
+      },
+      "coreMoved": {
+        "distance": 1,
+        "electro": null,
+        "pyro": null
+      },
+      "coreCryoPyro": {
+        "selected": "RX_MELT_PYRO",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 537,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "coreQuickenElectro": {
+        "selected": "RX_AGGRAVATE",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 621,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "additive": [
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 386,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 767,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 228,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 611,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 417,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 798,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 246,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 2,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 630,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        }
+      ],
+      "nativeCards": [
+        {
+          "source": "LIYUE_YAOYAO",
+          "card": "LIYUE_YAOYAO_Q",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 455,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": [
+            {
+              "kind": "YUEGUI_THROWING",
+              "rounds": 99
+            }
+          ]
+        },
+        {
+          "source": "LIYUE_BAIZHU",
+          "card": "LIYUE_BAIZHU_E",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 275,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 245,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 궁수",
+              "damage": 245,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": []
+        }
+      ]
+    },
+    {
+      "mode": "rule_candidate",
+      "level": 40,
+      "legalTalentCap": 6,
+      "base": 1533.8533333333332,
+      "nativeParty": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "maxHp": 8091,
+          "atk": 1474.8,
+          "def": 738
+        },
+        {
+          "source": "LIYUE_YAOYAO",
+          "maxHp": 8766,
+          "atk": 1172.8,
+          "def": 950.4000000000001
+        },
+        {
+          "source": "MOND_LISA",
+          "maxHp": 9063,
+          "atk": 1888,
+          "def": 884.8000000000001
+        },
+        {
+          "source": "MOND_BARBARA",
+          "maxHp": 8766,
+          "atk": 1168,
+          "def": 950.4000000000001
+        }
+      ],
+      "rawCoefficients": {
+        "burnTick": 383.4633333333333,
+        "burnThreeTicks": 1150.3899999999999,
+        "bloom": 3067.7066666666665,
+        "hyper": 4601.5599999999995,
+        "burgeon": 4601.5599999999995,
+        "aggravate": 1763.931333333333,
+        "spread": 1917.3166666666666
+      },
+      "burning": {
+        "before": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            },
+            {
+              "element": "불",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 383.4633333333333,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "ticks": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 383,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 383,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 383,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "burningExtinguish": {
+        "after": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": []
+        },
+        "nextEnd": []
+      },
+      "sixCores": {
+        "live": 5,
+        "all": [
+          {
+            "kind": "DENDRO_CORE",
+            "done": true,
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 1533.8533333333332
+          }
+        ],
+        "packets": [
+          {
+            "actor": "바바라",
+            "target": "츄츄 싸움꾼",
+            "damage": 3313,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "바바라",
+            "target": "츄츄 싸움꾼",
+            "damage": 3313,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION"
+          }
+        ]
+      },
+      "coreMoved": {
+        "distance": 1,
+        "electro": null,
+        "pyro": null
+      },
+      "coreCryoPyro": {
+        "selected": "RX_MELT_PYRO",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 1683,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "coreQuickenElectro": {
+        "selected": "RX_AGGRAVATE",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 2302,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "additive": [
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 1163,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 2741,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 669,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 2257,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 1745,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 3323,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1004,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 6,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1.5,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 2591,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        }
+      ],
+      "nativeCards": [
+        {
+          "source": "LIYUE_YAOYAO",
+          "card": "LIYUE_YAOYAO_Q",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 1853,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": [
+            {
+              "kind": "YUEGUI_THROWING",
+              "rounds": 99
+            }
+          ]
+        },
+        {
+          "source": "LIYUE_BAIZHU",
+          "card": "LIYUE_BAIZHU_E",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 1221,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 1090,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 궁수",
+              "damage": 1090,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": []
+        }
+      ]
+    },
+    {
+      "mode": "rule_candidate",
+      "level": 60,
+      "legalTalentCap": 10,
+      "base": 3881.9466666666667,
+      "nativeParty": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "maxHp": 18383,
+          "atk": 3667.2,
+          "def": 1835
+        },
+        {
+          "source": "LIYUE_YAOYAO",
+          "maxHp": 19916,
+          "atk": 2851.2000000000003,
+          "def": 2362.8
+        },
+        {
+          "source": "MOND_LISA",
+          "maxHp": 20588,
+          "atk": 4637.6,
+          "def": 2200
+        },
+        {
+          "source": "MOND_BARBARA",
+          "maxHp": 19916,
+          "atk": 2844.6000000000004,
+          "def": 2362.8
+        }
+      ],
+      "rawCoefficients": {
+        "burnTick": 970.4866666666667,
+        "burnThreeTicks": 2911.46,
+        "bloom": 7763.893333333333,
+        "hyper": 11645.84,
+        "burgeon": 11645.84,
+        "aggravate": 4464.238666666666,
+        "spread": 4852.433333333333
+      },
+      "burning": {
+        "before": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            },
+            {
+              "element": "불",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": [
+            {
+              "id": "STATUS_BURN",
+              "rounds": 2,
+              "createdRound": 1,
+              "reactionTick": 970.4866666666667,
+              "actor": "PLAYER_CUSTOM",
+              "element": "불",
+              "reaction": "RX_BURNING",
+              "coexist": [
+                "풀",
+                "불"
+              ]
+            }
+          ]
+        },
+        "ticks": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 970,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 970,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          },
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 970,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      },
+      "burningExtinguish": {
+        "after": {
+          "auras": [
+            {
+              "element": "풀",
+              "rounds": 2,
+              "createdRound": 1
+            }
+          ],
+          "statuses": []
+        },
+        "nextEnd": []
+      },
+      "sixCores": {
+        "live": 5,
+        "all": [
+          {
+            "kind": "DENDRO_CORE",
+            "done": true,
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          },
+          {
+            "kind": "DENDRO_CORE",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "base": 3881.9466666666667
+          }
+        ],
+        "packets": [
+          {
+            "actor": "바바라",
+            "target": "츄츄 싸움꾼",
+            "damage": 8385,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "바바라",
+            "target": "츄츄 싸움꾼",
+            "damage": 8385,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION"
+          }
+        ]
+      },
+      "coreMoved": {
+        "distance": 1,
+        "electro": null,
+        "pyro": null
+      },
+      "coreCryoPyro": {
+        "selected": "RX_MELT_PYRO",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 4185,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "coreQuickenElectro": {
+        "selected": "RX_AGGRAVATE",
+        "packets": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 5789,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          }
+        ],
+        "coreLeft": 1
+      },
+      "additive": [
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 2858,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 6850,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 1627,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 1,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 1,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 5645,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": false,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 5944,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "번개",
+          "source": "MOND_LISA",
+          "quicken": true,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "츄츄 싸움꾼",
+              "damage": 9936,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "번개",
+              "critical": false,
+              "reaction": "RX_AGGRAVATE",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": false,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 3384,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        },
+        {
+          "talent": 10,
+          "element": "풀",
+          "source": "LIYUE_YAOYAO",
+          "quicken": true,
+          "talentMultiplier": 2.08,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 7402,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_SPREAD",
+              "card": "PLAYER_BASIC_ATTACK",
+              "sourceKind": null
+            }
+          ]
+        }
+      ],
+      "nativeCards": [
+        {
+          "source": "LIYUE_YAOYAO",
+          "card": "LIYUE_YAOYAO_Q",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 싸움꾼",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            },
+            {
+              "actor": "요요",
+              "target": "츄츄 궁수",
+              "damage": 6247,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_YAOYAO_Q",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": [
+            {
+              "kind": "YUEGUI_THROWING",
+              "rounds": 99
+            }
+          ]
+        },
+        {
+          "source": "LIYUE_BAIZHU",
+          "card": "LIYUE_BAIZHU_E",
+          "reason": "",
+          "legal": true,
+          "packets": [
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 4376,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": "RX_QUICKEN",
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 싸움꾼",
+              "damage": 3908,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            },
+            {
+              "actor": "백출",
+              "target": "츄츄 궁수",
+              "damage": 3908,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "풀",
+              "critical": false,
+              "reaction": null,
+              "card": "LIYUE_BAIZHU_E",
+              "sourceKind": null
+            }
+          ],
+          "quicken": {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "sourceFingerprints": [
+    {
+      "mode": "baseline",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "replacements": []
+    },
+    {
+      "mode": "rule_candidate",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "replacements": [
+        "additive talent separation",
+        "burn extinguish when Pyro aura consumed",
+        "core cap five oldest detonation"
+      ]
+    }
+  ],
+  "acquisition": {
+    "yaoyao4": true,
+    "baizhuLimited5": true,
+    "zibaiAnyPool": false,
+    "zibaiEventOnly": true
+  }
+}

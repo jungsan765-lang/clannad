@@ -1,0 +1,119 @@
+{
+  "scope": "Four actual Chromium graphical gates using the unchanged CI test body, actual Worker code, native GameAccount DO implementation with isolated SQLite-backed fixture adapters. The viewport is desktop1440x1000. No live account/server, physical phone, or Cloudflare deployment is tested.",
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "uiAssertionsExecutedCount": 4,
+  "resultRowsAcrossRuns": 68,
+  "sourceFP": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "nativeSourceProofSHA256": "b323a2fb07396d436a8c128a35b06c9f9a2df014f452ee04761b6257aeeab691",
+  "packVersion": "2026-09-24-c3d5eef26ac2-9f53be852293",
+  "engineFingerprint": "engine3-ccab181d79528168042dabf16c33478eb9cd5a9f3123ac37c881ae13e044890b",
+  "appVersion": "0.16.27",
+  "rawAuthoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "serverEngineSHA256": "23e11439e85faf84f4858023814af4d110ac77faf2d1760efc4d057a6fe8c905",
+  "browserExecutable": "/root/.cache/ms-playwright/chromium_headless_shell-1161/chrome-linux/headless_shell",
+  "chromiumVersion": "134.0.6998.35",
+  "rows": [
+    {
+      "case": "source_sqlite",
+      "exitCode": 0,
+      "elapsedSeconds": 112.741,
+      "resultRows": 17,
+      "uiAssertionsExecuted": true,
+      "receipt": "source_sqlite/receipt.json",
+      "receiptSHA256": "990b521a00e0a810e5339ed0a4ffd9701787c5e4f2c5e74e831a9552fc7421d8",
+      "stdout": "source_sqlite/stdout.log",
+      "stdoutSHA256": "dca623fc229e4fa4a75d071349a4e895899a762dbc4a6f37fa9b7fba8759bfe3",
+      "results": "source_sqlite/online-flow/results.json",
+      "resultsSHA256": "7282b11932781dfff822eda45b0e2875ed9c6df5daf72efa6a6e43f39dcd1fea",
+      "sourceBuildAndDbUnchanged": true
+    },
+    {
+      "case": "source_do",
+      "exitCode": 0,
+      "elapsedSeconds": 107.292,
+      "resultRows": 17,
+      "uiAssertionsExecuted": true,
+      "receipt": "source_do/receipt.json",
+      "receiptSHA256": "38122d5b4720794174c2bf8f532b0a20e6d517bdb931e634ca13b6d442de8a23",
+      "stdout": "source_do/stdout.log",
+      "stdoutSHA256": "2c247b1a6caacd1e9d476ab70d57b7248939d391bacd9ba436e66d1988e50999",
+      "results": "source_do/online-flow/results.json",
+      "resultsSHA256": "98c5f853ec12951bfe8bac3dcd5d75078a8480b500af56a868d1140f6129d472",
+      "sourceBuildAndDbUnchanged": true
+    },
+    {
+      "case": "dist_sqlite",
+      "exitCode": 0,
+      "elapsedSeconds": 113.04,
+      "resultRows": 17,
+      "uiAssertionsExecuted": true,
+      "receipt": "dist_sqlite/receipt.json",
+      "receiptSHA256": "2eab07845f6c7a403756cc414583fa90ba29b29fccacae1200b07114f2550678",
+      "stdout": "dist_sqlite/stdout.log",
+      "stdoutSHA256": "5978c8cae1d2411b15e60d2aa980e99bc10a71a16d3bbe3fcc0b9987acdf49a6",
+      "results": "dist_sqlite/online-flow/results.json",
+      "resultsSHA256": "ced639df0c21029c602526356ff47bf43746ab08b8b2db9d615f394104d22b91",
+      "sourceBuildAndDbUnchanged": true
+    },
+    {
+      "case": "dist_do",
+      "exitCode": 0,
+      "elapsedSeconds": 105.129,
+      "resultRows": 17,
+      "uiAssertionsExecuted": true,
+      "receipt": "dist_do/receipt.json",
+      "receiptSHA256": "e8feca856901fbbda6927da253da8f90e44ade61f37896e56a849a34eebb217d",
+      "stdout": "dist_do/stdout.log",
+      "stdoutSHA256": "2f9a4e57a21b8e44b9a1e4d8b4387690ac3bfd2943df2ac94eb26b59099e6dfe",
+      "results": "dist_do/online-flow/results.json",
+      "resultsSHA256": "d80f9b21ec006fa48a7d841dd8be8203b99c7444e64c01de50431d0adadeb363",
+      "sourceBuildAndDbUnchanged": true
+    }
+  ],
+  "chromeLaunchDenied4": {
+    "total": 4,
+    "classification": "ENVIRONMENT_FULL_CHROME_SINGLETON_SOCKET_DENIED",
+    "uiAssertionsExecutedCount": 0,
+    "summary": "chrome_launch_denied/summary.json",
+    "summarySHA256": "5b143ffb9b8e11b8f76fb596992c57c360eddf2ae8cf88a3f3985a029c3e044d",
+    "notProductAssertions": true,
+    "unverifiedOutputScratchRoot": "/workspace/scratch/a62414469990/browser-unverified-v01627",
+    "rows": [
+      {
+        "case": "source_sqlite",
+        "exitCode": 1,
+        "timedOut": false,
+        "elapsedSeconds": 6.691,
+        "successfulResultRows": null,
+        "receipt": "chrome_launch_denied/source_sqlite/receipt.json"
+      },
+      {
+        "case": "source_do",
+        "exitCode": 1,
+        "timedOut": false,
+        "elapsedSeconds": 6.653,
+        "successfulResultRows": null,
+        "receipt": "chrome_launch_denied/source_do/receipt.json"
+      },
+      {
+        "case": "dist_sqlite",
+        "exitCode": 1,
+        "timedOut": false,
+        "elapsedSeconds": 6.746,
+        "successfulResultRows": null,
+        "receipt": "chrome_launch_denied/dist_sqlite/receipt.json"
+      },
+      {
+        "case": "dist_do",
+        "exitCode": 1,
+        "timedOut": false,
+        "elapsedSeconds": 6.687,
+        "successfulResultRows": null,
+        "receipt": "chrome_launch_denied/dist_do/receipt.json"
+      }
+    ]
+  },
+  "productTestsNodeModulesWorkflowEdits": 0
+}

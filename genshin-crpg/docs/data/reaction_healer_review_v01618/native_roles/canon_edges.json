@@ -1,0 +1,670 @@
+{
+  "cryoSlimeSC": {
+    "actor": "MOND_FISCHL",
+    "target": "MON_SLIME_CRYO",
+    "level": 24,
+    "packets": [
+      {
+        "actor": "피슬",
+        "target": "얼음 슬라임",
+        "element": "얼음",
+        "reaction": "RX_SUPERCONDUCT",
+        "sourceKind": "REACTION",
+        "immune": true,
+        "damage": 0,
+        "absorbed": 0,
+        "presentationActorsBefore": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "동일 조건 비교",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 8091,
+            "maxHp": 8091,
+            "atk": 1474.8,
+            "def": 738,
+            "spd": 67,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 80,
+            "eva": 5,
+            "resist": 5,
+            "range": "근접",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "protagonist": {
+              "version": 1,
+              "route": "ROUTE_TRAVELER",
+              "skillIds": [
+                "PLAYER_TRAVELER_ANEMO_E",
+                "PLAYER_TRAVELER_ANEMO_Q"
+              ]
+            }
+          },
+          {
+            "id": "MOND_DILUC",
+            "source": "MOND_DILUC",
+            "name": "다이루크",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 13103,
+            "maxHp": 13103,
+            "atk": 2603.6,
+            "def": 1451.76,
+            "spd": 70,
+            "crit": 23,
+            "critDmg": 70,
+            "hit": 95,
+            "eva": 6,
+            "resist": 27,
+            "range": "근접",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "tags": [
+              "[광계]",
+              "[불]"
+            ]
+          },
+          {
+            "id": "MOND_FISCHL",
+            "source": "MOND_FISCHL",
+            "name": "피슬",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 8497,
+            "maxHp": 8922,
+            "atk": 1756.8000000000002,
+            "def": 852.8000000000001,
+            "spd": 78,
+            "crit": 23,
+            "critDmg": 70,
+            "hit": 96,
+            "eva": 7,
+            "resist": 27,
+            "range": "원거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "tags": [
+              "[광계]",
+              "[번개]"
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "name": "케이아",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 9439,
+            "maxHp": 9439,
+            "atk": 1659.2,
+            "def": 1049.6000000000001,
+            "spd": 83,
+            "crit": 21,
+            "critDmg": 71,
+            "hit": 95,
+            "eva": 7,
+            "resist": 27,
+            "range": "중거리",
+            "aura": null,
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "guest": false,
+            "tags": [
+              "[광계]",
+              "[얼음]"
+            ]
+          },
+          {
+            "id": "MON_SLIME_CRYO#1",
+            "source": "MON_SLIME_CRYO",
+            "name": "얼음 슬라임",
+            "side": "ENEMY",
+            "level": 24,
+            "hp": 5020,
+            "maxHp": 5020,
+            "atk": 1402,
+            "def": 107,
+            "spd": 68,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 84,
+            "eva": 4,
+            "resist": 5,
+            "range": "중거리",
+            "grade": "일반",
+            "element": "얼음",
+            "aura": "얼음",
+            "nativeAura": "얼음",
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[광계]",
+              "[얼음]"
+            ]
+          },
+          {
+            "id": "MON_SLIME_CRYO#2",
+            "source": "MON_SLIME_CRYO",
+            "name": "얼음 슬라임",
+            "side": "ENEMY",
+            "level": 24,
+            "hp": 5020,
+            "maxHp": 5020,
+            "atk": 1402,
+            "def": 107,
+            "spd": 68,
+            "crit": 5,
+            "critDmg": 50,
+            "hit": 84,
+            "eva": 4,
+            "resist": 5,
+            "range": "중거리",
+            "grade": "일반",
+            "element": "얼음",
+            "aura": "얼음",
+            "nativeAura": "얼음",
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[광계]",
+              "[얼음]"
+            ]
+          },
+          {
+            "id": "MON_HILI_CRYO_SHOOTER#1",
+            "source": "MON_HILI_CRYO_SHOOTER",
+            "name": "츄츄 얼음 궁수",
+            "side": "ENEMY",
+            "level": 24,
+            "hp": 5020,
+            "maxHp": 5020,
+            "atk": 1402,
+            "def": 107,
+            "spd": 74,
+            "crit": 8,
+            "critDmg": 55,
+            "hit": 84,
+            "eva": 5,
+            "resist": 5,
+            "range": "원거리",
+            "grade": "일반",
+            "element": "얼음",
+            "aura": null,
+            "nativeAura": null,
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[물리]",
+              "[얼음]"
+            ]
+          },
+          {
+            "id": "MON_HILI_CRYO_SHOOTER#2",
+            "source": "MON_HILI_CRYO_SHOOTER",
+            "name": "츄츄 얼음 궁수",
+            "side": "ENEMY",
+            "level": 24,
+            "hp": 5020,
+            "maxHp": 5020,
+            "atk": 1402,
+            "def": 107,
+            "spd": 74,
+            "crit": 8,
+            "critDmg": 55,
+            "hit": 84,
+            "eva": 5,
+            "resist": 5,
+            "range": "원거리",
+            "grade": "일반",
+            "element": "얼음",
+            "aura": null,
+            "nativeAura": null,
+            "airborne": false,
+            "statuses": [],
+            "shields": [],
+            "cooldowns": {},
+            "turns": 0,
+            "tags": [
+              "[물리]",
+              "[얼음]"
+            ]
+          }
+        ],
+        "targetId": "MON_SLIME_CRYO#1",
+        "actorId": "MOND_FISCHL",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 5020,
+        "hpAfter": 5020,
+        "maxHp": 5020
+      },
+      {
+        "actor": "피슬",
+        "target": "얼음 슬라임",
+        "element": "얼음",
+        "reaction": "RX_SUPERCONDUCT",
+        "sourceKind": "REACTION",
+        "immune": true,
+        "damage": 0,
+        "absorbed": 0,
+        "targetId": "MON_SLIME_CRYO#2",
+        "actorId": "MOND_FISCHL",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 5020,
+        "hpAfter": 5020,
+        "maxHp": 5020
+      }
+    ],
+    "statuses": [],
+    "auras": [
+      {
+        "element": "얼음",
+        "rounds": 99,
+        "createdRound": 1,
+        "native": true
+      }
+    ],
+    "physicalVuln": false
+  },
+  "hydroSwirl": {
+    "anchor": "중립 표적 0",
+    "packets": [
+      {
+        "actor": "동일 조건 비교",
+        "target": "중립 표적 0",
+        "damage": 920,
+        "absorbed": 0,
+        "shieldBefore": 0,
+        "shieldAfter": 0,
+        "element": "물",
+        "reaction": "RX_SWIRL",
+        "sourceKind": "REACTION",
+        "targetId": "NORMAL_0",
+        "actorId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1000000,
+        "hpAfter": 999080,
+        "maxHp": 1000000
+      },
+      {
+        "actor": "동일 조건 비교",
+        "target": "중립 표적 1",
+        "damage": 920,
+        "absorbed": 0,
+        "shieldBefore": 0,
+        "shieldAfter": 0,
+        "element": "물",
+        "reaction": "RX_SWIRL",
+        "sourceKind": "REACTION",
+        "presentationActorsBefore": [
+          {
+            "id": "NORMAL_1",
+            "hp": 1000000
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "NORMAL_1",
+            "hp": 999080
+          }
+        ],
+        "targetId": "NORMAL_1",
+        "actorId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1000000,
+        "hpAfter": 999080,
+        "maxHp": 1000000
+      },
+      {
+        "actor": "동일 조건 비교",
+        "target": "중립 표적 2",
+        "damage": 920,
+        "absorbed": 0,
+        "shieldBefore": 0,
+        "shieldAfter": 0,
+        "element": "물",
+        "reaction": "RX_SWIRL",
+        "sourceKind": "REACTION",
+        "presentationActorsBefore": [
+          {
+            "id": "NORMAL_2",
+            "hp": 1000000
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "NORMAL_2",
+            "hp": 999080
+          }
+        ],
+        "targetId": "NORMAL_2",
+        "actorId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1000000,
+        "hpAfter": 999080,
+        "maxHp": 1000000
+      },
+      {
+        "actor": "동일 조건 비교",
+        "target": "중립 표적 3",
+        "damage": 920,
+        "absorbed": 0,
+        "shieldBefore": 0,
+        "shieldAfter": 0,
+        "element": "물",
+        "reaction": "RX_SWIRL",
+        "sourceKind": "REACTION",
+        "presentationActorsBefore": [
+          {
+            "id": "NORMAL_3",
+            "hp": 1000000
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "NORMAL_3",
+            "hp": 999080
+          }
+        ],
+        "targetId": "NORMAL_3",
+        "actorId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1000000,
+        "hpAfter": 999080,
+        "maxHp": 1000000
+      }
+    ],
+    "auras": [
+      {
+        "name": "중립 표적 0",
+        "auras": []
+      },
+      {
+        "name": "중립 표적 1",
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ]
+      },
+      {
+        "name": "중립 표적 2",
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ]
+      },
+      {
+        "name": "중립 표적 3",
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ]
+      }
+    ]
+  },
+  "pyroOnElectrocharged": {
+    "before": {
+      "auras": [
+        {
+          "element": "물",
+          "rounds": 2,
+          "createdRound": 1
+        },
+        {
+          "element": "번개",
+          "rounds": 2,
+          "createdRound": 1
+        }
+      ],
+      "statuses": [
+        {
+          "id": "STATUS_ELECTROCHARGED",
+          "rounds": 2,
+          "createdRound": 1,
+          "reactionTick": 1840.6239999999998,
+          "actor": "MOND_FISCHL",
+          "element": "번개",
+          "reaction": "RX_ELECTROCHARGED",
+          "coexist": [
+            "물",
+            "번개"
+          ]
+        }
+      ]
+    },
+    "packets": [
+      {
+        "actor": "다이루크",
+        "target": "중립 표적 0",
+        "damage": 1840,
+        "absorbed": 0,
+        "shieldBefore": 0,
+        "shieldAfter": 0,
+        "element": "불",
+        "critical": false,
+        "reaction": "RX_VAPORIZE_PYRO",
+        "card": "MOND_DILUC_E",
+        "sourceKind": null,
+        "presentationActorsBefore": [
+          {
+            "id": "NORMAL_0",
+            "hp": 1000000
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "NORMAL_0",
+            "hp": 998160
+          }
+        ],
+        "targetId": "NORMAL_0",
+        "actorId": "MOND_DILUC",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1000000,
+        "hpAfter": 998160,
+        "maxHp": 1000000
+      }
+    ],
+    "reactionLogs": [
+      {
+        "actor": "다이루크",
+        "target": "중립 표적 0",
+        "damage": 1840,
+        "absorbed": 0,
+        "shieldBefore": 0,
+        "shieldAfter": 0,
+        "element": "불",
+        "critical": false,
+        "reaction": "RX_VAPORIZE_PYRO",
+        "card": "MOND_DILUC_E",
+        "sourceKind": null,
+        "presentationActorsBefore": [
+          {
+            "id": "NORMAL_0",
+            "hp": 1000000
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "NORMAL_0",
+            "hp": 998160
+          }
+        ],
+        "targetId": "NORMAL_0",
+        "actorId": "MOND_DILUC",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 1000000,
+        "hpAfter": 998160,
+        "maxHp": 1000000
+      },
+      {
+        "actor": "다이루크",
+        "target": "중립 표적 0",
+        "reaction": "RX_VAPORIZE_PYRO",
+        "reactionName": "증발",
+        "text": "증발 반응",
+        "presentationActorsBefore": [
+          {
+            "id": "NORMAL_0",
+            "aura": "물 · 번개"
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "NORMAL_0",
+            "aura": "번개"
+          }
+        ],
+        "targetId": "NORMAL_0",
+        "actorId": "MOND_DILUC",
+        "round": 1,
+        "actionSequence": 0
+      }
+    ],
+    "after": {
+      "auras": [
+        {
+          "element": "번개",
+          "rounds": 2,
+          "createdRound": 1
+        }
+      ],
+      "statuses": [
+        {
+          "id": "STATUS_ELECTROCHARGED",
+          "rounds": 2,
+          "createdRound": 1,
+          "reactionTick": 1840.6239999999998,
+          "actor": "MOND_FISCHL",
+          "element": "번개",
+          "reaction": "RX_ELECTROCHARGED",
+          "coexist": [
+            "물",
+            "번개"
+          ]
+        }
+      ]
+    }
+  }
+}

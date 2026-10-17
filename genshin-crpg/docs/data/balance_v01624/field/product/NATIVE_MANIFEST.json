@@ -1,0 +1,38 @@
+{
+  "kind": "fresh-product162-native-proof",
+  "fingerprint": "8ba5d37718eb2bd637157a449da438d311dfad117e590d0133677dfd8ed04c2a",
+  "rawQA_DB_SHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "total": 162,
+  "inputs": [
+    {
+      "group": "six",
+      "path": "native/six-rows.json.gz",
+      "rawSHA256": "144db4706d3ada90c85347685ff1669c231a75e8324a7b346f9b732e162ac4e8",
+      "gzipSHA256": "92103f46ae1c6259d8000ef2399cb4cc6e7b8374a9a96284ec6e16971ba4bb80",
+      "rawBytes": 38521253,
+      "gzipBytes": 1740791,
+      "originalPath": "/workspace/scratch/a62414469990/v01624-field-work/product_final/six/rows.json",
+      "rowCount": 108
+    },
+    {
+      "group": "electro",
+      "path": "native/electro-rows.json.gz",
+      "rawSHA256": "457cb05884eea6f45e2bbd5213b1a5b3c9c74f61f24441022acf20790925bf89",
+      "gzipSHA256": "16156e5567412adaa67fcd9eaf98d938aa014befd94cd51036f3862673a9399d",
+      "rawBytes": 7207284,
+      "gzipBytes": 336415,
+      "originalPath": "/workspace/scratch/a62414469990/v01624-field-work/product_final/electro/rows.json",
+      "rowCount": 18
+    },
+    {
+      "group": "trees",
+      "path": "native/trees-rows.json.gz",
+      "rawSHA256": "7d14aba57f253a378a8867fe48c426cc79a8e171129cae91bd145a93a13a7c74",
+      "gzipSHA256": "76eafb900be51f5c5a6d7fa96b4849196636d442ec09c97d7b57370e3038d991",
+      "rawBytes": 9186763,
+      "gzipBytes": 454965,
+      "originalPath": "/workspace/scratch/a62414469990/v01624-field-work/product_final/trees/rows.json",
+      "rowCount": 36
+    }
+  ]
+}

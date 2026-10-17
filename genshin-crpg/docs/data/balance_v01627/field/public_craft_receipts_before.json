@@ -1,0 +1,748 @@
+{
+  "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "assumptions": "Region/story access, ordinary materials and mora funded; public native craft only. Material sources are table declarations, not an acquisition playthrough.",
+  "rows": [
+    {
+      "id": "EQ_LY_ARMOR_THUNDERWARD",
+      "map": "MAP_LIYUE_HARBOR",
+      "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+      "name": "뇌운 절연복",
+      "minimumEquipLevel": 5,
+      "recipe": [
+        "REC_LY_ARMOR_THUNDERWARD",
+        "장비 제작",
+        "EQUIP",
+        "EQ_LY_ARMOR_THUNDERWARD",
+        1,
+        "MAT_LIYUE_COR_LAPIS",
+        3,
+        "MAT_LIYUE_GLAZE_LILY",
+        4,
+        "MAT_CHAOS_DEVICE",
+        3,
+        "",
+        "",
+        "",
+        "",
+        500,
+        "리월항",
+        "MRC_LIYUE_EQUIP",
+        "LEVEL>=5",
+        "2시간",
+        100,
+        "낙뢰·번개 피해 대응 · 낙뢰와 번개 원소 공격에 대비하는 절연 직물."
+      ],
+      "cost": {
+        "mora": 500,
+        "items": {
+          "MAT_LIYUE_COR_LAPIS": 3,
+          "MAT_LIYUE_GLAZE_LILY": 4,
+          "MAT_CHAOS_DEVICE": 3
+        }
+      },
+      "materials": [
+        {
+          "id": "MAT_LIYUE_COR_LAPIS",
+          "name": "콜 라피스",
+          "type": "지역 특산물",
+          "source": "호로산·천주 골짜기·성법 관문·천형산 채광 · 리월 장비점 소량 입고",
+          "quantity": 3
+        },
+        {
+          "id": "MAT_LIYUE_GLAZE_LILY",
+          "name": "유리백합",
+          "type": "지역 특산물",
+          "source": "귀리 평원·청허포 채집",
+          "quantity": 4
+        },
+        {
+          "id": "MAT_CHAOS_DEVICE",
+          "name": "혼돈의 장치",
+          "type": "몬스터 재료",
+          "source": "유적 기계 드랍",
+          "quantity": 3
+        }
+      ],
+      "noExclusiveOwner": true,
+      "noBossMaterials": true,
+      "actions": [
+        {
+          "type": "PLACE_ENTER",
+          "args": {
+            "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+            "mode": "CRAFT"
+          },
+          "reason": "",
+          "result": {
+            "ok": true,
+            "type": "PLACE_ENTER",
+            "result": {
+              "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+              "mode": "CRAFT",
+              "name": "리월 장비점(시스템)",
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_BARBARA"
+              ]
+            },
+            "revision": 1
+          }
+        },
+        {
+          "type": "CRAFT",
+          "args": {
+            "recipe": "REC_LY_ARMOR_THUNDERWARD"
+          },
+          "reason": "",
+          "result": {
+            "ok": true,
+            "type": "CRAFT",
+            "result": {
+              "recipe": "REC_LY_ARMOR_THUNDERWARD",
+              "result": "EQ_LY_ARMOR_THUNDERWARD",
+              "quantity": 1,
+              "crafts": 1,
+              "minutes": 120,
+              "cost": {
+                "mora": 500,
+                "items": {
+                  "MAT_LIYUE_COR_LAPIS": 3,
+                  "MAT_LIYUE_GLAZE_LILY": 4,
+                  "MAT_CHAOS_DEVICE": 3
+                }
+              }
+            },
+            "revision": 2
+          }
+        }
+      ],
+      "crafted": true,
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CLAYMORE_DEBATE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_LY_ARMOR_THUNDERWARD",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        }
+      ],
+      "moraAfter": 999500,
+      "lv4BlockedReason": "5레벨부터 제작할 수 있습니다. (현재 4레벨)",
+      "lv4NativeCrafted": false,
+      "lv4Error": {
+        "code": "CRAFT",
+        "message": "5레벨부터 제작할 수 있습니다. (현재 4레벨)"
+      }
+    },
+    {
+      "id": "EQ_LY_ARMOR_JADEFLAME",
+      "map": "MAP_LIYUE_HARBOR",
+      "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+      "name": "적옥 내열갑",
+      "minimumEquipLevel": 5,
+      "recipe": [
+        "REC_LY_ARMOR_JADEFLAME",
+        "장비 제작",
+        "EQUIP",
+        "EQ_LY_ARMOR_JADEFLAME",
+        1,
+        "MAT_LIYUE_COR_LAPIS",
+        4,
+        "MAT_LIYUE_NOCTILUCOUS_JADE",
+        3,
+        "ORE_WHITE_IRON",
+        4,
+        "MAT_DAMAGED_MASK",
+        4,
+        "",
+        "",
+        520,
+        "리월항",
+        "MRC_LIYUE_EQUIP",
+        "LEVEL>=5",
+        "2시간",
+        100,
+        "화염 지형·불 피해 대응 · 화염 지형과 불 원소 공격을 크게 줄인다. 불이 없는 전장에서는 평범한 갑옷."
+      ],
+      "cost": {
+        "mora": 520,
+        "items": {
+          "MAT_LIYUE_COR_LAPIS": 4,
+          "MAT_LIYUE_NOCTILUCOUS_JADE": 3,
+          "ORE_WHITE_IRON": 4,
+          "MAT_DAMAGED_MASK": 4
+        }
+      },
+      "materials": [
+        {
+          "id": "MAT_LIYUE_COR_LAPIS",
+          "name": "콜 라피스",
+          "type": "지역 특산물",
+          "source": "호로산·천주 골짜기·성법 관문·천형산 채광 · 리월 장비점 소량 입고",
+          "quantity": 4
+        },
+        {
+          "id": "MAT_LIYUE_NOCTILUCOUS_JADE",
+          "name": "야박석",
+          "type": "지역 특산물",
+          "source": "명온 마을·천형산·둔옥릉 채광",
+          "quantity": 3
+        },
+        {
+          "id": "ORE_WHITE_IRON",
+          "name": "백철",
+          "type": "광물",
+          "source": "채광",
+          "quantity": 4
+        },
+        {
+          "id": "MAT_DAMAGED_MASK",
+          "name": "부서진 가면",
+          "type": "제작 재료",
+          "source": "츄츄족 드랍",
+          "quantity": 4
+        }
+      ],
+      "noExclusiveOwner": true,
+      "noBossMaterials": true,
+      "actions": [
+        {
+          "type": "PLACE_ENTER",
+          "args": {
+            "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+            "mode": "CRAFT"
+          },
+          "reason": "",
+          "result": {
+            "ok": true,
+            "type": "PLACE_ENTER",
+            "result": {
+              "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+              "mode": "CRAFT",
+              "name": "리월 장비점(시스템)",
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_BARBARA"
+              ]
+            },
+            "revision": 1
+          }
+        },
+        {
+          "type": "CRAFT",
+          "args": {
+            "recipe": "REC_LY_ARMOR_JADEFLAME"
+          },
+          "reason": "",
+          "result": {
+            "ok": true,
+            "type": "CRAFT",
+            "result": {
+              "recipe": "REC_LY_ARMOR_JADEFLAME",
+              "result": "EQ_LY_ARMOR_JADEFLAME",
+              "quantity": 1,
+              "crafts": 1,
+              "minutes": 120,
+              "cost": {
+                "mora": 520,
+                "items": {
+                  "MAT_LIYUE_COR_LAPIS": 4,
+                  "MAT_LIYUE_NOCTILUCOUS_JADE": 3,
+                  "ORE_WHITE_IRON": 4,
+                  "MAT_DAMAGED_MASK": 4
+                }
+              }
+            },
+            "revision": 2
+          }
+        }
+      ],
+      "crafted": true,
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CLAYMORE_DEBATE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_LY_ARMOR_JADEFLAME",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        }
+      ],
+      "moraAfter": 999480,
+      "lv4BlockedReason": "5레벨부터 제작할 수 있습니다. (현재 4레벨)",
+      "lv4NativeCrafted": false,
+      "lv4Error": {
+        "code": "CRAFT",
+        "message": "5레벨부터 제작할 수 있습니다. (현재 4레벨)"
+      }
+    },
+    {
+      "id": "EQ_ARMOR_FROSTWARD",
+      "map": "MAP_MOND_CITY",
+      "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+      "name": "서리막이 망토",
+      "minimumEquipLevel": 5,
+      "recipe": [
+        "REC_ARMOR_FROST",
+        "장비 제작",
+        "EQUIP",
+        "EQ_ARMOR_FROSTWARD",
+        1,
+        "TRPG_COLD_IRON",
+        3,
+        "TRPG_STURDY_CLOTH",
+        2,
+        "TRPG_ELEMENTAL_DUST",
+        2,
+        null,
+        null,
+        null,
+        null,
+        180,
+        "드래곤 스파인/몬드성",
+        "MRC_BLACKSMITH_COMMON",
+        "LEVEL>=5 / 설산 소재 확보",
+        "2시간",
+        100,
+        "몬드 설산 환경 대응용"
+      ],
+      "cost": {
+        "mora": 180,
+        "items": {
+          "TRPG_COLD_IRON": 3,
+          "TRPG_STURDY_CLOTH": 2,
+          "TRPG_ELEMENTAL_DUST": 2
+        }
+      },
+      "materials": [
+        {
+          "id": "TRPG_COLD_IRON",
+          "name": "냉철 조각",
+          "type": "특수 재료",
+          "source": "설산 채광/제작",
+          "quantity": 3
+        },
+        {
+          "id": "TRPG_STURDY_CLOTH",
+          "name": "질긴 직물",
+          "type": "제작 재료",
+          "source": "가공/상점",
+          "quantity": 2
+        },
+        {
+          "id": "TRPG_ELEMENTAL_DUST",
+          "name": "원소 분진",
+          "type": "연금 재료",
+          "source": "원소 생명체/연금",
+          "quantity": 2
+        }
+      ],
+      "noExclusiveOwner": true,
+      "noBossMaterials": true,
+      "actions": [
+        {
+          "type": "PLACE_ENTER",
+          "args": {
+            "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+            "mode": "CRAFT"
+          },
+          "reason": "",
+          "result": {
+            "ok": true,
+            "type": "PLACE_ENTER",
+            "result": {
+              "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+              "mode": "CRAFT",
+              "name": "바그너 · 대장간",
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_BARBARA"
+              ]
+            },
+            "revision": 1
+          }
+        }
+      ],
+      "crafted": false,
+      "error": {
+        "code": "CRAFT",
+        "message": "제작법의 추가 해금 조건을 확인해야 합니다."
+      },
+      "inventoryAfter": [
+        {
+          "slot": "ITEM_TRPG_COLD_IRON",
+          "item": "TRPG_COLD_IRON",
+          "quantity": 3,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_TRPG_STURDY_CLOTH",
+          "item": "TRPG_STURDY_CLOTH",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_TRPG_ELEMENTAL_DUST",
+          "item": "TRPG_ELEMENTAL_DUST",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CLAYMORE_DEBATE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        }
+      ],
+      "moraAfter": 1000000,
+      "lv4BlockedReason": "5레벨부터 제작할 수 있습니다. (현재 4레벨)",
+      "lv4NativeCrafted": false,
+      "lv4Error": {
+        "code": "CRAFT",
+        "message": "5레벨부터 제작할 수 있습니다. (현재 4레벨)"
+      }
+    },
+    {
+      "id": "EQ_ARMOR_IRON_GUARD",
+      "map": "MAP_MOND_CITY",
+      "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+      "name": "철제 수호갑",
+      "minimumEquipLevel": 5,
+      "recipe": [
+        "REC_ARMOR_IRON",
+        "장비 제작",
+        "EQUIP",
+        "EQ_ARMOR_IRON_GUARD",
+        1,
+        "ORE_WHITE_IRON",
+        4,
+        "TRPG_REFINED_LEATHER",
+        2,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        220,
+        "몬드성",
+        "MRC_BLACKSMITH_COMMON",
+        "LEVEL>=5",
+        "2시간",
+        100,
+        "중갑 선택지"
+      ],
+      "cost": {
+        "mora": 220,
+        "items": {
+          "ORE_WHITE_IRON": 4,
+          "TRPG_REFINED_LEATHER": 2
+        }
+      },
+      "materials": [
+        {
+          "id": "ORE_WHITE_IRON",
+          "name": "백철",
+          "type": "광물",
+          "source": "채광",
+          "quantity": 4
+        },
+        {
+          "id": "TRPG_REFINED_LEATHER",
+          "name": "정제 가죽",
+          "type": "제작 재료",
+          "source": "사냥/가공/상점",
+          "quantity": 2
+        }
+      ],
+      "noExclusiveOwner": true,
+      "noBossMaterials": true,
+      "actions": [
+        {
+          "type": "PLACE_ENTER",
+          "args": {
+            "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+            "mode": "CRAFT"
+          },
+          "reason": "",
+          "result": {
+            "ok": true,
+            "type": "PLACE_ENTER",
+            "result": {
+              "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+              "mode": "CRAFT",
+              "name": "바그너 · 대장간",
+              "companionsJoined": [
+                "MOND_LISA",
+                "MOND_NOELLE",
+                "MOND_BARBARA"
+              ]
+            },
+            "revision": 1
+          }
+        },
+        {
+          "type": "CRAFT",
+          "args": {
+            "recipe": "REC_ARMOR_IRON"
+          },
+          "reason": "",
+          "result": {
+            "ok": true,
+            "type": "CRAFT",
+            "result": {
+              "recipe": "REC_ARMOR_IRON",
+              "result": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "crafts": 1,
+              "minutes": 120,
+              "cost": {
+                "mora": 220,
+                "items": {
+                  "ORE_WHITE_IRON": 4,
+                  "TRPG_REFINED_LEATHER": 2
+                }
+              }
+            },
+            "revision": 2
+          }
+        }
+      ],
+      "crafted": true,
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_SWORD_HARBINGER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CLAYMORE_DEBATE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_CATALYST_MAGIC_GUIDE",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ARMOR_IRON_GUARD",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        }
+      ],
+      "moraAfter": 999780,
+      "lv4BlockedReason": "5레벨부터 제작할 수 있습니다. (현재 4레벨)",
+      "lv4NativeCrafted": false,
+      "lv4Error": {
+        "code": "CRAFT",
+        "message": "5레벨부터 제작할 수 있습니다. (현재 4레벨)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+PASS current hard-coded element quantities and historical tables are separate snapshots
+PASS all new entrance previews carry the same marker and quantity as their saved battle
+PASS actual new settlements pay large quantities exactly once without XP books or Mora
+PASS old marked and unmarked version-four ascension promises settle with their old table
+PASS old version-four talent fights retain old books and never receive new book rewards on reload
+PASS legacy versions one, two and three keep their original unmarked material payout
+PASS unsupported, misplaced and impossible old-budget/new-reward marker combinations reject
+PASS every own-element phase uses its fixed coupled gems with unchanged Mora and other costs
+PASS 5000/10000 future gem payments are atomic, valid on reload and paid once
+PASS book requirements follow the nine-step profile without changing Mora or slime costs
+PASS unpaid talent changes use the current book cost and trained levels stay unchanged
+PASS the shared three-win daily bonus still counts material wins once and excludes EXP
+PASS extra growth materials remain bound, unsellable and absent from shops and synthesis
+{"checks":13,"ok":true,"sourceSha256":"ef07b08757a96a540f508b29da854a271f5ff3b3db4fc990bc0ee4f8320bde6c","scope":"fixed quantity tables, native authority/settlement, save versions and receipts; no combat-duration or victory-rate claims"}

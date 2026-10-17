@@ -1,0 +1,10 @@
+PASS Jade Shield protects all living fighters with legal talent/gear modifiers and finite overflow
+PASS C2 burst refreshes the same Jade Shield without summing E and Q absorption
+PASS existing saved shield values survive restore and refresh until their normal depletion
+PASS Diona and Noelle retain their own shield values and the enemy shield budget is untouched
+PASS two actual ally shield casts consume the same packet and overflow beyond the strongest shield
+PASS actual elemental shields use the best effective absorption for opposite damage elements
+PASS Zhongli C6 heals from its own consumed shield while another actual shield also takes the hit
+PASS native enemy barriers keep sequential absorption and immunity without consuming extra shields
+PASS Lan Yan native conversion affects its own shield, not a larger companion shield or HP overflow
+PASS unconverted Lan Yan shield has Anemo250% absorption with consistent fractional overflow logs

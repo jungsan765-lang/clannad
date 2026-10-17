@@ -1,0 +1,508 @@
+{
+  "growthSource": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+  "input": "docs/data/balance_v01622/growth/cash_cost_adjustment/native/native.json.gz",
+  "conditions": 16,
+  "domainBattles": 47,
+  "domainFbActorCount": 0,
+  "rows": [
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_ELECTRO",
+        "MON_SLIME_ELECTRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_ELECTRO",
+        "MON_SLIME_ELECTRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_ELECTRO",
+        "MON_SLIME_ELECTRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_ELECTRO",
+        "MON_SLIME_ELECTRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_ELECTRO",
+        "MON_SLIME_ELECTRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_LARGE_ELECTRO",
+        "MON_SLIME_ELECTRO",
+        "MON_SLIME_ELECTRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_GEO",
+        "MON_SLIME_GEO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_GEO",
+        "MON_SLIME_GEO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_GEO",
+        "MON_SLIME_GEO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_GEO",
+        "MON_SLIME_GEO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_GEO",
+        "MON_SLIME_GEO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_LARGE_GEO",
+        "MON_SLIME_GEO",
+        "MON_SLIME_GEO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ANEMO",
+        "MON_SLIME_LARGE_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ANEMO",
+        "MON_SLIME_LARGE_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_ANEMO",
+        "MON_SLIME_LARGE_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_MITACHURL_ROCK",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_TH_MARKSMAN"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_MITACHURL_ROCK",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_TH_MARKSMAN"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_MITACHURL_ROCK",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_TH_MARKSMAN"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_FATUI_GEO",
+        "MON_MITACHURL_ROCK",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_GEOVISHAP_HATCHLING"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_FATUI_GEO",
+        "MON_MITACHURL_ROCK",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_GEOVISHAP_HATCHLING"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_FATUI_GEO",
+        "MON_MITACHURL_ROCK",
+        "MON_GEOVISHAP_HATCHLING",
+        "MON_GEOVISHAP_HATCHLING"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO",
+        "MON_ABYSS_MAGE_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_LARGE_PYRO",
+        "MON_SLIME_PYRO",
+        "MON_SLIME_PYRO",
+        "MON_ABYSS_MAGE_PYRO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "TRAVEL",
+      "available": "Recorded log/hp, no full enemy snapshot in recovery runner",
+      "hasFieldBossLog": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_CRYO",
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_CRYO",
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_LARGE_CRYO",
+        "MON_SLIME_CRYO",
+        "MON_SLIME_CRYO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    },
+    {
+      "scope": "DOMAIN",
+      "sources": [
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO",
+        "MON_SLIME_ANEMO"
+      ],
+      "hasFieldBossActor": false
+    }
+  ],
+  "sourcePolicy": "Existing fieldBoss start hook detects any active enemy BOSSES source regardless origin; not limited to BRT, so story/abyss/coop with those existing IDs also initializes. No new source IDs or origins added."
+}

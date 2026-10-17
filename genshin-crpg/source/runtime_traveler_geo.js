@@ -19,8 +19,8 @@ const CARDS=[
  card(GQ,'첩첩산중','원소폭발','전장',RULE.q.cooldown,'땅을 울려 대상과 주변 적 최대 4명에게 바위 충격파 3연속. 첫 충격파는 작은 적을 밀쳐 낸다. 4턴.','TRAVELER_GEO_Q')
 ];
 const STATUES=[
- {id:STATUE.GEO,name:'일곱 신상 · 바위',facility:'리월 평야 길가',maps:['MAP_LIYUE_PLAINS']},
- {id:STATUE.ANEMO,name:'일곱 신상 · 바람',facility:'몬드성 광장',maps:['MAP_MOND_CITY']}
+ {id:STATUE.GEO,name:'일곱신상 · 바위',facility:'리월 평야 길가',maps:['MAP_LIYUE_PLAINS']},
+ {id:STATUE.ANEMO,name:'일곱신상 · 바람',facility:'몬드성 광장',maps:['MAP_MOND_CITY']}
 ].map(x=>({...x,kind:'FACILITY',entity:null,merchant:null,from:0,to:1440,merchantMaps:null,merchantFrom:null,merchantTo:null,merchantType:'',merchantName:'',modes:['TALK']}));
 P.installTravelerGeo=function(){
  if(this._travelerGeoInstalled)return;
@@ -75,7 +75,7 @@ P.executeCard=function(a,c,target,branch){
  return {card:c.id,target,cooldown:a.cooldowns[c.id]};
 };
 P.protagonistCombatView=function(){const v=old.protagonistCombatView.call(this);if(v.kind!=='ANEMO'||this.travelerElement()!=='GEO')return v;
- return {...v,kind:'GEO',title:'여행자 · 바위 원소',text:v.legacy?v.text:'바위 공명 · E 성운검 / Q 첩첩산중 · 일곱 신상에서 원소를 바꿀 수 있습니다.'};};
+ return {...v,kind:'GEO',title:'여행자 · 바위 원소',text:v.legacy?v.text:'바위 공명 · E 성운검 / Q 첩첩산중 · 일곱신상에서 원소를 바꿀 수 있습니다.'};};
 // ---- resonance at a Statue of The Seven -----------------------------------------------------------------------
 P.travelerResonanceView=function(){
  const s=this.s,g=s.global,place=this.currentPlace(),statue=Object.keys(STATUE).find(k=>place?.valid&&place.place===STATUE[k])||null,t=s.travelerElements;
@@ -89,7 +89,7 @@ P.actionReason=function(type,a={}){
  const reason=old.actionReason.call(this,type,a);if(reason||type!=='TRAVELER_RESONATE')return reason;
  const g=this.s.global,element=a.element;
  if(!STATUE[element])return '공명할 원소를 선택해 주세요.';
- if(g.STORY_ROUTE_ID!==TRAVELER)return '일곱 신상은 이세계인의 손길에 반응하지 않습니다.';
+ if(g.STORY_ROUTE_ID!==TRAVELER)return '일곱신상은 이세계인의 손길에 반응하지 않습니다.';
  if(!this.protagonistUnlocked())return '먼저 바람 신상과의 공명을 되찾아야 합니다.';
  if(this.s.runtime||this.s.battlePreparation||g.STORY_MENU_POLICY==='SAVE_LOAD_ONLY')return '진행 중인 장면을 먼저 마쳐 주세요.';
  const place=this.currentPlace();if(!place?.valid||place.place!==STATUE[element])return STATUES.find(x=>x.id===STATUE[element]).facility+'의 '+NAME[element]+' 신상 앞에서 공명할 수 있습니다.';

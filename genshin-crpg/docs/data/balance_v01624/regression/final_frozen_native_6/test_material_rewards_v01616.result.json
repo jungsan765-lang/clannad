@@ -1,0 +1,32 @@
+{
+  "test": "tests/test_material_rewards_v01616.cjs",
+  "command": [
+    "node",
+    "tests/test_material_rewards_v01616.cjs"
+  ],
+  "startedAt": "2026-10-10T09:16:58.431156+00:00",
+  "endedAt": "2026-10-10T09:20:33.214031+00:00",
+  "seconds": 214.584,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_boss_difficulty_scope_v01624.cjs": {
+      "before": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0",
+      "after": "acea6d7452b0b667110c60cd992968f5cd866adf873bfa271cf4bca5162354f9"
+    },
+    "tests/test_field_boss_strategy_v01623.cjs": {
+      "before": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b",
+      "after": "3c5cb3a561491aa0eca520dca4a224429d8ad16119b9537c2651984bbb5d5777"
+    },
+    "tools/test_field_boss_strategy_v01622.cjs": {
+      "before": "189f774d70375a1a1f6417726f5ab54dd097162d3dd47cda86b7b8b1f381e7f6",
+      "after": "5fb88fa2c2fd04ba2221886330df914b22de2ce31b328db3d149a6b79cbb020f"
+    }
+  },
+  "testSha256": "0e8451fc50905ab0d643c97c9ea402c5a8863993343f6d2f6a4c28dd633c3d83",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "7c642438aabbdda946380aaf915baa88fd2633fab016596e9cfb4218a9041e24",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_material_rewards_v01616.stdout.log",
+  "stderrLog": "test_material_rewards_v01616.stderr.log"
+}

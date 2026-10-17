@@ -1,6 +1,6 @@
 /* Main map, quest journal, timed work, bounded saves and committed rewards. */
 function mapName(id){return game.tables['32_MAP_DB'].get(id)?.[2]||'진행 장소';}
-function levelLabel(id){const m=game.tables['32_MAP_DB'].get(id);return m?'권장 Lv. '+m[6]+'–'+m[7]:'';}
+function levelLabel(id){const m=game.tables['32_MAP_DB'].get(id);return !m?'':m[12]==='Y'?'안전한 거점':m[6]===m[7]?'고정 Lv. '+m[6]:'권장 Lv. '+m[6]+'–'+m[7];}
 function firstTravelEdge(target){
  const start=game.s.global.CURRENT_MAP_ID;if(start===target)return null;
  const queue=[{map:start,first:null}],seen=new Set([start]);
@@ -31,10 +31,11 @@ function mainObjective(parent){
  }
  parent.append(box);
 }
+function isGuildReception(entry){return ['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(entry.entity);}
 function placeVisual(entry){
  const map=game.tables['32_MAP_DB'].get(game.s.global.CURRENT_MAP_ID),region=map?.[1]||'',text=(entry.id||'')+' '+(entry.name||'')+' '+(entry.facility||'')+' '+(entry.merchantType||'')+' '+(entry.merchantName||'');
  const base='assets/icons/facility/';let icon=base+'UI_Icon_Intee_Shop.png',kind='이용 시설';
- if(['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(entry.entity)){icon=base+'UI_Icon_Intee_DailyEvent_0.png';kind='의뢰 접수';}
+ if(isGuildReception(entry)){icon=base+'UI_Icon_Intee_DailyEvent_0.png';kind='의뢰 접수';}
  else if(isInn(entry)){icon=base+'UI_Icon_Intee_Comfort.png';kind='숙박시설';}
  else if(/디어 헌터|만민당|식당/.test(text)){icon=base+'UI_Icon_Intee_Restaurant.png';kind='식당';}
  else if(/공용 조리|조리시설/.test(text)){icon=base+'UI_Icon_Intee_Cooking.png';kind='조리시설';}
@@ -60,8 +61,9 @@ drawLocation=function(p,v){
  p.classList.add('adventure-main');p.append(el('div','eyebrow','메인 화면'),el('h1','',v.map[2]),el('p','area-level',levelLabel(v.map[0])+(v.map[12]==='Y'?' · 안전지대':' · 야외 구역')));
  if(game.needsRecovery()){recoveryCard(p);return;}mainObjective(p);
  p.append(el('h2','','주변 시설'));const grid=el('div','grid location-places');
- for(const entry of game.placeEntries()){const visual=placeVisual(entry),card=el('section','card place-entry region-'+(visual.region==='리월'?'liyue':visual.region==='몬드'?'mond':'other')),body=el('div','place-entry-copy'),icon=el('img','place-entry-icon');icon.src=visual.icon;icon.alt='';icon.loading='lazy';body.append(el('small','place-entry-kind',(visual.region?visual.region+' · ':'')+visual.kind),el('h3','',placeName(entry)));if(entry.facility&&entry.facility!==v.map[2])body.append(el('p','muted',entry.facility));if(entry.reason)body.append(el('small','choice-note',entry.reason));card.append(icon,body,actionButton(entry.kind==='BOSS'?'입구로 가기':isInn(entry)?'숙박 안내':entry.modes[0]==='TALK'?'찾아가기':'들어가기','PLACE_ENTER',{place:entry.id}));grid.append(card);}
- if(grid.children.length)p.append(grid);else p.append(el('p','muted','이곳에는 이용할 시설이 없습니다.'));
+ const places=game.placeEntries(),ordered=[...places.filter(isGuildReception),...places.filter(entry=>!isGuildReception(entry))];
+ for(const entry of ordered){const visual=placeVisual(entry),card=el('section','card place-entry region-'+(visual.region==='리월'?'liyue':visual.region==='몬드'?'mond':'other')+(isGuildReception(entry)?' place-entry-guild':'')),body=el('div','place-entry-copy'),icon=el('img','place-entry-icon');icon.src=visual.icon;icon.alt='';icon.loading='lazy';body.append(el('small','place-entry-kind',(visual.region?visual.region+' · ':'')+visual.kind),el('h3','',placeName(entry)));if(entry.facility&&entry.facility!==v.map[2])body.append(el('p','muted',entry.facility));if(entry.reason)body.append(el('small','choice-note',entry.reason));card.append(icon,body,actionButton(entry.kind==='BOSS'?'입구로 가기':isInn(entry)?'숙박 안내':entry.modes[0]==='TALK'?'찾아가기':'들어가기','PLACE_ENTER',{place:entry.id}));grid.append(card);}
+ if(grid.children.length)p.append(grid);else p.append(el('p','muted no-places','이곳에는 이용할 시설이 없습니다.'));
  lifePanel(p);const waiting=el('section','wait-controls');waiting.append(actionButton('1시간 기다리기','WAIT',{minutes:60}));if(v.map[12]!=='Y')waiting.append(el('small','muted','기다리는 동안 '+v.map[9]+'% 확률로 적과 조우합니다. 전투 직후에는 한 번 보호됩니다.'));p.append(waiting);bossProgressControls(p);
 };
 function materialSources(parent,id){
@@ -79,15 +81,15 @@ journalEntry=function(parent,entry){
  if(entry.reason)c.append(el('p','choice-note',entry.reason));const start=actionButton(game.storyLegendEntryNode(d)!==d.ENTRY_NODE_ID?'준비물 확인부터 계속':'개인 이야기 열기','LEGEND_ENTER',{quest:entry.id},true);start.disabled=start.disabled||!!entry.reason;c.append(start);parent.append(c);
 };
 function rewardPreview(parent,rewards){
- const box=el('div','reward-preview');if(rewards.mora)box.append(el('span','','◈ '+rewards.mora+' 모라'));if(rewards.xp)box.append(el('span','','✦ 편성 중인 파티원 각각 경험치 +'+rewards.xp));for(const [id,n]of Object.entries(rewards.items||{}))box.append(tierMark(el('span','',safeName('14_ITEM_DB',id)+' ×'+n),id));if(rewards.equipment_choice)box.append(el('span','','장비 1개 선택'));parent.append(box);
+ const box=el('div','reward-preview');const withCur=(key,cls,text,glyph)=>{const s=el('span',cls),ic=typeof currencyIcon==='function'&&currencyIcon(key,'reward-cur');if(ic)s.append(ic,text);else s.textContent=glyph+' '+text;return s;};if(rewards.primogem)box.append(withCur('PRIMOGEM','reward-primogem','원석 '+rewards.primogem+'개','✧'));if(rewards.mora)box.append(withCur('MORA','reward-mora',rewards.mora+' 모라','◈'));if(rewards.xp)box.append(el('span','','✦ 편성 중인 파티원 각각 경험치 +'+rewards.xp));for(const [id,n]of Object.entries(rewards.items||{}))box.append(tierMark(el('span','',safeName('14_ITEM_DB',id)+' ×'+n),id));if(rewards.equipment_choice)box.append(el('span','',rewards.equipment_choice.every(id=>game?.weaponBlueprintId?.(id))?'단조 도면 1개 선택':'장비 1개 선택'));parent.append(box);
 }
 function commissionCard(parent,q,guild=false){
- const c=el('section','card commission-card'),r=q.row,d=q.definition,state=q.state;c.append(el('small','',state?.claimed?'완료':q.accepted?'진행 중':'미수락'),el('h3','',r[1]),el('p','',r[5]||d.text));travelGuide(c,d.map_id);rewardPreview(c,q.reward);
+ const c=el('section','card commission-card'),r=q.row,d=q.definition,state=q.state,label=state?.claimed?'완료':q.accepted?'진행 중':'미수락';c.append(el('small','',(q.taskDisplay?.category||'길드 의뢰')+' · '+label),el('h3','',r[1]),el('p','',r[5]||d.text));travelGuide(c,d.map_id);rewardPreview(c,q.reward);
  const tale=game.commissionStory?.(r[0]);if(tale)c.append(el('p','commission-story',state?.claimed||state?.node==='READY_TO_CLAIM'?tale.after:tale.before));
  if(state?.claimed){c.append(el('p','muted','보상을 수령했습니다.'));}
  else if(!q.accepted){if(guild)c.append(actionButton('의뢰 수락','COMMISSION_ACCEPT',{quest:r[0]},true));else c.append(el('p','muted','안내원에게 찾아가 의뢰를 받아 주세요.'));}
  else if(q.reason)c.append(el('p','choice-note',q.reason));
- else if(state?.node==='READY_TO_CLAIM'){if(q.reward.equipment_choice)for(const id of q.reward.equipment_choice)c.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:r[0],equipment:id}));else c.append(actionButton('의뢰 완료 · 보상 수령','CLAIM_QUEST',{quest:r[0]},true));}
+ else if(state?.node==='READY_TO_CLAIM'){if(q.reward.equipment_choice)for(const id of q.reward.equipment_choice)c.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:r[0],equipment:id}));else c.append(actionButton('의뢰 완료 · 보상 수령','CLAIM_QUEST',{quest:r[0]},true));}
  else for(const choice of d.choices||[]){if(['leave','requirements'].includes(choice.id))continue;c.append(actionButton(choice.label,'QUEST_CHOICE',{quest:r[0],choice:choice.id}));}parent.append(c);
 }
 const previousGuildDialogue=dialogue;
@@ -108,7 +110,7 @@ let journalBlocked=null;
 function journalStart(parent,label,type,params){parent.append(actionButton(label,type,params,true));const why=game.actionReason(type,params);if(!why)return;if(journalBlocked)journalBlocked.add(why);else parent.append(el('small','choice-note journal-why',why));}
 function legendProgressCard(parent,m){
  const d=m.definition,c=el('article','card journal-card status-'+m.status),head=el('div','journal-card-head');
- head.append(el('small','journal-kind','동료 획득'+(m.region?' · '+m.region:'')),el('span','journal-status',JOURNAL_STATUS[m.status]+(m.accepted?' · 수락 완료':'')));c.append(head,el('h3','',m.title));
+ head.append(el('small','journal-kind','개인 이야기'+(m.region?' · '+m.region:'')),el('span','journal-status',JOURNAL_STATUS[m.status]+(m.accepted?' · 수락 완료':'')));c.append(head,el('h3','',m.title));
  if(m.status==='active'){const actions=el('div','journal-actions');c.append(el('p','journal-place',m.map?'다음 장면 · '+mapName(m.map):'진행 장소 · '+mapName(game.s.global.CURRENT_MAP_ID)));journalContinue(actions,m);c.append(actions);parent.append(c);return;}
  if(d.MAP_ID)c.append(el('p','journal-place','진행 장소 · '+mapName(d.MAP_ID)));
  const unmet=m.requirements.filter(r=>!r.met&&r.kind!=='map');if(unmet.length){const chips=el('ul','journal-chips');for(const r of unmet)chips.append(el('li','requirement-unmet','필요 · '+r.label));c.append(chips);}
@@ -131,9 +133,9 @@ function completedJournal(p,linked){
  const quests=game.tables['22_QUEST_DB'],done=game.commissionEntries().filter(q=>q.state?.claimed),story=linked.filter(x=>x.state.claimed);
  const guild=journalSection(p,'의뢰',done.length+story.length);for(const q of done)journalDone(guild,(q.row[2]?q.row[2]+' ':'')+'의뢰',q.row[1],'보상 수령 완료');for(const {row}of story)journalDone(guild,'본편 연동 의뢰',row[1],'');
  if(!done.length&&!story.length)guild.append(el('p','empty','아직 완료한 의뢰가 없습니다.'));
- const legends=game.storyEntries().filter(e=>e.kind==='LEGEND'&&game.storyDone(e.id)),recruit=journalSection(p,'동료 획득 임무',legends.length);
- for(const e of legends)journalDone(recruit,'동료 획득'+(e.definition.REGION?' · '+e.definition.REGION:''),quests.get(e.definition.QUEST_ID)?.[1]||e.title,'');
- if(!legends.length)recruit.append(el('p','empty','아직 마친 동료 획득 임무가 없습니다.'));
+ const legends=game.storyEntries().filter(e=>e.kind==='LEGEND'&&game.storyDone(e.id)),recruit=journalSection(p,'개인 이야기',legends.length);
+ for(const e of legends)journalDone(recruit,'개인 이야기'+(e.definition.REGION?' · '+e.definition.REGION:''),quests.get(e.definition.QUEST_ID)?.[1]||e.title,'');
+ if(!legends.length)recruit.append(el('p','empty','아직 마친 개인 이야기가 없습니다.'));
  const people=CRPGJournalPresenter.relations(game).filter(x=>x.done),bonds=journalSection(p,'호감도 임무',people.reduce((n,x)=>n+x.done,0));
  for(const x of people)journalDone(bonds,'호감도',x.name,'호감도 이야기 '+x.done+' / '+x.track.length+' 완료');
  if(!people.length)bonds.append(el('p','empty','아직 마친 호감도 이야기가 없습니다.'));
@@ -143,8 +145,10 @@ quests=function(p){
  p.append(el('div','eyebrow','모험 기록'),el('h1','','임무'));mainObjective(p);
  // The old "개인 임무" tab listed every personal mission in full; received ones now live in 진행 중.
  if(missionTab==='개인 임무')missionTab='진행 중';
- const tabs=el('div','bag-tabs journal-tabs');for(const label of ['진행 중','동료 획득','완료']){const b=button(label,()=>{missionTab=label;render();});b.setAttribute('aria-pressed',String(missionTab===label));b.classList.toggle('selected',missionTab===label);tabs.append(b);}p.append(tabs);
- if(missionTab==='동료 획득'){recruitmentScreen(p);returnToJourney(p);return;}
+ // 0.16.30: the 동료 획득 tab is now each owned companion's personal story (companions come from wishes only).
+ if(missionTab==='동료 획득')missionTab='개인 이야기';
+ const tabs=el('div','bag-tabs journal-tabs');for(const label of ['진행 중','개인 이야기','완료']){const b=button(label,()=>{missionTab=label;render();});b.setAttribute('aria-pressed',String(missionTab===label));b.classList.toggle('selected',missionTab===label);tabs.append(b);}p.append(tabs);
+ if(missionTab==='개인 이야기'){recruitmentScreen(p);returnToJourney(p);return;}
  const linked=game.rows('22_QUEST_DB').filter(r=>parseUI(r[10]).handler==='isk_m04_side_quest').map(row=>({row,state:game.s.quests[row[0]]})).filter(x=>x.state&&x.state.state!=='미시작');
  if(missionTab==='완료'){completedJournal(p,linked);returnToJourney(p);return;}
  const journal=CRPGJournalPresenter.inProgress(game),commissions=game.commissionEntries().filter(q=>q.accepted&&!q.state?.claimed),story=linked.filter(x=>!x.state.claimed);journalBlocked=new Set();
@@ -152,9 +156,13 @@ quests=function(p){
  for(const {row}of story){const c=el('section','card');c.append(el('small','','본편 연동 의뢰'),el('h3','',row[1]),el('p','',row[5]),el('p','muted',row[6]),actionButton('이야기에서 진행 확인','MENU',{screen:'STORY'}));guild.append(c);}
  if(!commissions.length&&!story.length)guild.append(el('p','empty','받은 의뢰가 없습니다. 안내원의 의뢰 접수에서 시작하세요.'));
  const k=game.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');if(k){if(k.maps.includes(game.s.global.CURRENT_MAP_ID))guild.append(actionButton(placeName(k)+' · 의뢰 받으러 가기','PLACE_ENTER',{place:k.id},!commissions.length));else{guild.append(el('small','journal-note','의뢰 접수 · '+placeName(k)+' · '+mapName(k.maps[0])));journalTravel(guild,k.maps[0]);}}
- const recruit=journalSection(p,'동료 획득 임무',journal.legends.length,journal.legends.length?'소개받은 임무만 표시합니다. 새 임무는 동료 획득 탭에서 소개받을 수 있습니다.':''),list=el('div','journal-list');
- for(const m of journal.legends)legendProgressCard(list,m);if(list.children.length)recruit.append(list);
- else recruit.append(el('p','empty','진행 중인 동료 획득 임무가 없습니다.'),button('동료 획득에서 소개처 보기',()=>{missionTab='동료 획득';render();},busy));
+ // Only companions the player has: a story of someone not met in a wish is not offered.
+ // 0.16.32: only what is under way (started or accepted); every owned companion's story is in the 개인 이야기 tab (all 43 here made
+ // the tab 126 pages long on a phone).
+ const mine=journal.legends.filter(m=>{const d=m.definition,c=d&&(d.CHAR_ID||game.tables['04_CHAR_DB'].get(d.PROFILE_ID)?.[1]);return (!c||game.premiumOwns?.(c)!==false)&&(m.status==='active'||m.accepted);});
+ const recruit=journalSection(p,'개인 이야기',mine.length),list=el('div','journal-list');
+ for(const m of mine)legendProgressCard(list,m);if(list.children.length)recruit.append(list);
+ else recruit.append(el('p','empty','진행 중인 개인 이야기가 없습니다.'),button('개인 이야기 탭 보기',()=>{missionTab='개인 이야기';render();},busy));
  const bonds=journalSection(p,'호감도 임무',journal.affections.length);for(const m of journal.affections)affectionProgressRow(bonds,m);
  if(!journal.affections.length)bonds.append(el('p','empty','지금 진행할 수 있는 호감도 임무가 없습니다.'));
  if(journal.waiting){const more=el('div','journal-waiting');more.append(el('p','muted','조건이 남아 아직 열리지 않은 인물 '+journal.waiting+'명'),actionButton('호감도 화면에서 보기','MENU',{screen:'RELATIONS'}));bonds.append(more);}
@@ -166,7 +174,7 @@ returnToJourney=function(p){if(game.currentPlace()?.valid||game.playPhase()!=='F
 reward=function(p){
  if(game.needsRecovery()){recoveryCard(p);return;}const r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON);p.append(el('h1','',r.victory?'전투 승리':'전투 종료'));
  if(r.victory){p.append(el('p','','참가 캐릭터 경험치 +'+(r.xp||0)));rewardPreview(p,{mora:r.mora||0,items:r.loot||{}});}
- if(game.s.storyRecovery)p.append(actionButton('전투 직전부터 다시 준비','STORY_RETRY',{},true));else if(r.origin?.startsWith('STORY:'))p.append(actionButton('이야기 계속','MENU',{screen:'STORY'},true));else p.append(actionButton('메인 화면으로','MENU',{screen:'LOCATION'},true));
+ if(game.s.storyRecovery)p.append(actionButton('전투 직전부터 다시 준비','STORY_RETRY',{},true));else if(r.victory&&r.origin?.startsWith('STORY:'))p.append(actionButton('이야기 계속','MENU',{screen:'STORY'},true));else p.append(actionButton('메인 화면으로','MENU',{screen:'LOCATION'},true));
  if(r.victory&&r.origin?.startsWith('QUEST:'))p.append(actionButton('완료한 의뢰 확인','MENU',{screen:'QUEST'},true));bossProgressControls(p);
 };
 let saveListTab='자동 저장';
@@ -181,22 +189,31 @@ slotsUI=async function(container){
   }if(!list.children.length)list.append(el('p','empty','이 분류에는 저장된 게임이 없습니다.'));container.append(list);
  }catch(e){container.append(el('p','',e.message));}
 };
-function adventureSnapshot(){return {map:game.s.global.CURRENT_MAP_ID,place:game.s.placeVisit?.place,inventory:JSON.parse(JSON.stringify(game.s.inventory)),mora:game.s.global.MORA,level:game.growth(),growth:growthSnapshot(),relations:Object.fromEntries(Object.entries(game.s.relations).map(([id,r])=>[id,r.BOND_SCORE??r.heart*20])),completed:Object.keys(game.s.quests).filter(id=>game.s.quests[id].claimed),battle:game.s.runtime?.id,joined:joinedCompanions()};}
+function adventureGrowthSnapshot(){const result=growthSnapshot();for(const owner of joinedCompanions()){if(result[owner])continue;try{result[owner]=game.growth(owner);}catch{}}return result;}
+function adventureSnapshot(){return {map:game.s.global.CURRENT_MAP_ID,place:game.s.placeVisit?.place,inventory:JSON.parse(JSON.stringify(game.s.inventory)),mora:game.s.global.MORA,primogem:Number(game.s.global.PRIMOGEM)||0,level:game.growth(),growth:adventureGrowthSnapshot(),relations:Object.fromEntries(Object.entries(game.s.relations).map(([id,r])=>[id,r.BOND_SCORE??r.heart*20])),completed:Object.keys(game.s.quests).filter(id=>game.s.quests[id].claimed),battle:game.s.runtime?.id,joined:joinedCompanions()};}
 function joinedCompanions(){try{return Object.entries(JSON.parse(game.s.global.COMPANION_ELIGIBILITY_JSON||'{}')).filter(([,e])=>e?.state==='JOINED').map(([id])=>id);}catch{return [];}}
 function receivedLoot(before,type){
+ // 0.16.59: an oculus found at the end of a puzzle job (WORLD_WORK_*) shows what it brought too — it pays Primogems now (runtime_reading.js).
+ // 0.16 (user: 「뽑기에서 뽑았을 때 이 화면이 먼저 나오는 문제」): a wish shows what it brought on the wish screen itself (the
+ // falling star, each result, the list), so the reward window never opens over it — not even for a companion who joined.
+ if(type==='WISH')return null;
+ // 0.16.2: leaving a resource scene empty-handed spent nothing; the scene already showed it (app_life_v0162.js).
+ if(type==='LIFE_FINISH'&&lastResult?.result?.empty)return null;
  const joins=before.joined?joinedCompanions().filter(id=>!before.joined.includes(id)):[];
- if(!joins.length&&!['USE_ITEM','CRAFT','BUY','OCULUS_COLLECT','OCULUS_OFFER','CLAIM_QUEST','LIFE_FINISH','STORY_NEXT','STORY_CHOICE','COMBAT','COMBAT_BEGIN'].includes(type))return null;
+ if(!joins.length&&!['USE_ITEM','CRAFT','BUY','OCULUS_COLLECT','OCULUS_RESONANCE','OCULUS_OFFER','GEO_OCULUS_OFFER','GEO_TRAIL_CLAIM','CLAIM_QUEST','LIFE_FINISH','STORY_NEXT','STORY_CHOICE','COMBAT','COMBAT_BEGIN'].includes(type)&&!(['WORLD_WORK_START','WORLD_WORK_FINISH'].includes(type)&&lastResult?.result?.point&&lastResult.result.items))return null;
  const entries=[],prior=new Map(before.inventory.filter(i=>i.item).map(i=>[i.item+'|'+(i.variant||''),0]));for(const i of before.inventory)if(i.item){const key=i.item+'|'+(i.variant||'');prior.set(key,(prior.get(key)||0)+i.quantity);}
  const now=new Map();for(const i of game.s.inventory)if(i.item){const key=i.item+'|'+(i.variant||'');const x=now.get(key)||{instance:i,quantity:0};x.quantity+=i.quantity;now.set(key,x);}
  for(const [key,x]of now){const quantity=x.quantity-(prior.get(key)||0);if(quantity>0)entries.push(itemPresenter.itemDetail(x.instance,{quantity}));}
  const gear=new Set(before.inventory.filter(i=>i.equip).map(i=>i.slot));for(const i of game.s.inventory)if(i.equip&&!gear.has(i.slot))entries.push(itemPresenter.itemDetail(i));
- const mora=game.s.global.MORA-before.mora,receipt=game.s.global.LAST_COMMITTED_ACTION_ID,growth=game.growth();let xp=growth.xp-before.level.xp;for(let lv=before.level.level;lv<growth.level;lv++)xp+=Number(game.row('26_LEVEL_RULES',lv)[2]);const bonds=Object.entries(game.s.relations).map(([id,r])=>({id,delta:(r.BOND_SCORE??r.heart*20)-(before.relations[id]||0)})).filter(x=>x.delta>0);const completed=Object.keys(game.s.quests).filter(id=>game.s.quests[id].claimed&&!before.completed.includes(id));
+ const mora=game.s.global.MORA-before.mora,primogem=Math.max(0,(Number(game.s.global.PRIMOGEM)||0)-(before.primogem??(Number(game.s.global.PRIMOGEM)||0))),receipt=game.s.global.LAST_COMMITTED_ACTION_ID,xpOwner=type==='USE_ITEM'&&lastResult?.ok&&lastResult.result?.xp>0?(lastResult.result.owner||'PLAYER_CUSTOM'):'PLAYER_CUSTOM',growth=game.growth(xpOwner),priorGrowth=before.growth?.[xpOwner]||(xpOwner==='PLAYER_CUSTOM'?before.level:null);let xp=priorGrowth?growth.xp-priorGrowth.xp:0;if(priorGrowth)for(let lv=priorGrowth.level;lv<growth.level;lv++)xp+=Number(game.row('26_LEVEL_RULES',lv)[2]);const bonds=Object.entries(game.s.relations).map(([id,r])=>({id,delta:(r.BOND_SCORE??r.heart*20)-(before.relations[id]||0)})).filter(x=>x.delta>0);const completed=Object.keys(game.s.quests).filter(id=>game.s.quests[id].claimed&&!before.completed.includes(id));
  const levelUps=Object.entries(before.growth||{}).flatMap(([owner,prior])=>{let now;try{now=prior.guestGate?{...game.s.guestSnapshots?.[prior.guestGate]?.[prior.owner],name:prior.name}:game.growth(owner);}catch{return [];}return now.level>prior.level?[{owner,name:now.name,from:prior.level,to:now.level}]:[];});
  const offered=type==='OCULUS_OFFER'&&lastResult?.ok?lastResult.result?.character:null,recruited=offered&&!joins.includes(offered)?offered:null;
  const purchase=type==='BUY'&&lastResult?.ok?lastResult.result:null,stock=purchase&&game.tables['19_SHOP_STOCK_DB'].get(purchase.stock);
- if(!joins.length&&!entries.length&&mora<=0&&xp<=0&&!bonds.length&&!completed.length&&!purchase&&!recruited&&!levelUps.length&&!['CLAIM_QUEST','LIFE_FINISH'].includes(type))return null;return {entries,recruited,joins,levelUps,mora:Math.max(0,mora),xp:Math.max(0,xp),bonds,receipt,purchase:purchase?{...purchase,name:stock?.[4]||'상품',kind:stock?.[2]||'',product:stock?.[3]||''}:null,title:joins.length?'새 동료 합류!':levelUps.length?'레벨 업!':purchase?.service==='INN_REST'?'숙박 완료':purchase?'구매 완료':type==='CLAIM_QUEST'?'의뢰 완료':type==='LIFE_FINISH'?(lastResult?.result?.caught===false?'물고기를 놓쳤습니다':lastResult?.result?.kind==='FISH'?'낚시 성공':'채취 완료'):'획득한 보상'};
+ if(!joins.length&&!entries.length&&mora<=0&&!primogem&&xp<=0&&!bonds.length&&!completed.length&&!purchase&&!recruited&&!levelUps.length&&!['CLAIM_QUEST','LIFE_FINISH'].includes(type))return null;return {entries,recruited,joins,levelUps,mora:Math.max(0,mora),primogem,xp:Math.max(0,xp),xpOwner,bonds,receipt,purchase:purchase?{...purchase,name:stock?.[4]||'상품',kind:stock?.[2]||'',product:stock?.[3]||''}:null,title:joins.length?'새 동료 합류!':levelUps.length?'레벨 업!':purchase?.service==='INN_REST'?'숙박 완료':purchase?'구매 완료':type==='CLAIM_QUEST'?'의뢰 완료':type==='LIFE_FINISH'?(lastResult?.result?.caught===false?(lastResult?.result?.kind==='FISH'?'물고기를 놓쳤습니다':'채취에 실패했습니다'):({FISH:'낚시 성공',GATHER:'채집 완료',MINE:'채광 완료',HUNT:'사냥 완료'})[lastResult?.result?.kind]||'채취 완료'):'획득한 보상'};
 }
-function showReceivedLoot(loot){if(!loot)return;const box=el('div','loot-summary'),grid=el('div','loot-grid');for(const id of loot.joins||[]){const notice=el('div','join-notice'),copy=el('div'),name=ownerName(id);copy.append(el('h2','',name+' 합류!'),el('p','',withJosa(name,'이','가')+' 동료가 되었습니다.'),el('p','muted','편성 화면에서 파티에 넣어 함께 싸울 수 있습니다.'));notice.append(actorPortrait(id,'party-portrait'),copy);box.append(notice);}for(const d of loot.entries){const c=el('div','loot-item');c.classList.add('tier-'+(d.tier?.rank||1));c.append(itemGlyph(d),tierMark(el('strong','',d.name),d),el('span','',d.kind==='EQUIPMENT'?'+0':'×'+d.quantity));c.title=itemSummary(d);grid.append(c);}if(loot.mora){const c=el('div','loot-item');c.append(el('span','item-glyph','◈'),el('strong','','모라'),el('span','','+'+loot.mora));grid.append(c);}box.append(grid);for(const up of loot.levelUps||[])box.append(el('h2','level-up-notice',up.name+' · Lv. '+up.from+' → '+up.to),el('p','','레벨 업! HP가 모두 회복되었습니다.'));if(loot.title==='물고기를 놓쳤습니다')box.append(el('p','','다음에는 장력을 금색 구간에 유지해 보세요. 사용한 미끼는 소모되었습니다.'));if(loot.recruited)box.append(el('h2','',ownerName(loot.recruited)+' · 동행 약속'),el('p','','편성에서 파티에 추가할 수 있습니다.'));if(loot.purchase?.service==='INN_REST')box.append(el('h2','','숙박 완료'),el('p','recovery-complete','파티 HP가 모두 회복되었습니다.'),el('p','muted','8시간 휴식을 마치고 마을로 돌아왔습니다.'));else if(loot.purchase)box.append(el('p','purchase-receipt',loot.purchase.name+' '+loot.purchase.quantity+'개 구매 완료 · '+Number(loot.purchase.cost).toLocaleString()+' 모라 사용'));if(loot.xp)box.append(el('p','',game.s.global.PLAYER_NAME+' 경험치 획득 +'+loot.xp));for(const bond of loot.bonds||[])box.append(el('p','',safeName('04_CHAR_DB',bond.id,2)+' 호감도 +'+bond.delta));if(!grid.children.length&&!loot.xp&&!(loot.bonds||[]).length&&!loot.purchase&&!loot.recruited&&!(loot.joins||[]).length&&!loot.levelUps?.length&&loot.title!=='물고기를 놓쳤습니다')box.append(el('p','','임무 완료 기록을 반영했습니다.'));showModal(loot.title,box);}
+// 0.15.25: who joined comes as character cards (app_story_companions_v01525.js); the old lines only if the cards are missing.
+function showReceivedLoot(loot){if(!loot)return;const box=el('div','loot-summary'),grid=el('div','loot-grid');if((loot.joins||[]).length&&window.CRPGCompanionCards)box.append(window.CRPGCompanionCards.joined(loot.joins));else for(const id of loot.joins||[]){const notice=el('div','join-notice'),copy=el('div'),name=ownerName(id);copy.append(el('h2','',name+' 합류!'),el('p','',withJosa(name,'이','가')+' 동료가 되었습니다.'),el('p','muted','편성 화면에서 파티에 넣어 함께 싸울 수 있습니다.'));notice.append(actorPortrait(id,'party-portrait'),copy);box.append(notice);}for(const d of loot.entries){const c=el('div','loot-item');c.classList.add('tier-'+(d.tier?.rank||1));c.append(itemGlyph(d),tierMark(el('strong','',d.name),d),el('span','loot-count',d.kind==='EQUIPMENT'?'+0':'×'+d.quantity));c.title=itemSummary(d);grid.append(c);}if(loot.primogem){const c=el('div','loot-item loot-primogem');c.append((typeof currencyIcon==='function'&&currencyIcon('PRIMOGEM','item-icon'))||el('span','item-glyph','✧'),el('strong','','원석'),el('span','loot-count','+'+loot.primogem.toLocaleString()));grid.append(c);}if(loot.mora){const c=el('div','loot-item loot-mora');c.append((typeof currencyIcon==='function'&&currencyIcon('MORA','item-icon'))||el('span','item-glyph','◈'),el('strong','','모라'),el('span','loot-count','+'+loot.mora.toLocaleString()));grid.append(c);}box.append(grid);// 0.16.32 (user: 「개판인데?」 — a big heading and the same sentence for each member): one row of small chips, the note once.
+if(loot.levelUps?.length){const row=el('div','level-ups');for(const up of loot.levelUps){const chip=el('div','level-up-chip'),id=up.owner||up.id||game.rows('07_CHAR_DB').find(r=>r[1]===up.name)?.[0]||(up.name===game.s.global.PLAYER_NAME?'PLAYER_CUSTOM':null);if(id&&typeof actorPortrait==='function')try{chip.append(actorPortrait(id,'level-up-face'));}catch{}const copy=el('span','level-up-copy');copy.append(el('strong','',up.name),el('small','','Lv. '+up.from+' → '+up.to));chip.append(copy);row.append(chip);}box.append(el('h3','level-up-title','레벨 업'),row,el('p','muted level-up-note','살아 있는 캐릭터는 최대 HP가 늘어난 만큼만 회복됩니다.'));}if(loot.title==='물고기를 놓쳤습니다'){const d=itemPresenter.itemDetail({item:CRPGRuntime.lifeCatalog.bait,quantity:1}),c=el('div','loot-item loot-spent tier-'+(d.tier?.rank||1));c.append(itemGlyph(d),el('strong','',d.name),el('span','loot-count','−1'));grid.append(c);}if(loot.purchase?.service==='INN_REST')box.append(el('h2','','숙박 완료'),el('p','recovery-complete','파티 HP가 모두 회복되었습니다.'),el('p','muted','8시간 휴식을 마치고 마을로 돌아왔습니다.'));else if(loot.purchase)box.append(el('p','purchase-receipt',loot.purchase.name+' '+loot.purchase.quantity+'개 구매 완료 · '+Number(loot.purchase.cost).toLocaleString()+' 모라 사용'));if(loot.xp)box.append(el('p','',ownerName(loot.xpOwner||'PLAYER_CUSTOM')+' 경험치 획득 +'+loot.xp));for(const bond of loot.bonds||[])box.append(el('p','',safeName('04_CHAR_DB',bond.id,2)+' 호감도 +'+bond.delta));if(!grid.children.length&&!loot.xp&&!(loot.bonds||[]).length&&!loot.purchase&&!loot.recruited&&!(loot.joins||[]).length&&!loot.levelUps?.length&&!['물고기를 놓쳤습니다','채취에 실패했습니다'].includes(loot.title))box.append(el('p','','임무 완료 기록을 반영했습니다.'));showModal(loot.title,box);}
 async function playTravel(before,type,params={}){
  const result=lastResult?.result||{},timed=type==='CRAFT'||['ENHANCE','EQUIP_ASCEND','ARTIFACT_ENHANCE'].includes(type)||type==='BUY'&&result.service==='INN_REST';
  if(timed){
@@ -220,4 +237,4 @@ function updateLifeUI(){
  const tick=()=>{if(game?.s.lifeJob?.id!==job.id||!box.isConnected)return;const elapsed=Math.max(0,(globalThis.CRPGOnline?.active?CRPGOnline.now():Date.now())-job.startedAt);bar.value=Math.min(elapsed,job.duration);remaining.textContent=Math.max(0,Math.ceil((job.duration-elapsed)/1000))+'초';if(elapsed>=job.duration&&!busy){act('LIFE_FINISH',{job:job.id});return;}lifeUITimer=setTimeout(tick,100);};tick();
 }
 const adventureRender=render;
-render=function(){adventureRender();if(game){document.body.classList.toggle('on-main-map',['LOCATION','MAIN_MENU','HUB'].includes(game.s.global.SCREEN_MODE));if(game.needsRecovery()&&!['REWARD','LOCATION','MAIN_MENU','HUB','SYSTEM'].includes(game.s.global.SCREEN_MODE)){const c=el('div');recoveryCard(c);document.querySelector('.content')?.prepend(c);}updateLifeUI();}else{clearTimeout(lifeUITimer);document.body.classList.remove('on-main-map');}};
+render=function(){adventureRender();if(game){document.body.classList.toggle('on-main-map',['LOCATION','MAIN_MENU','HUB'].includes(game.s.global.SCREEN_MODE));if(game.needsRecovery()&&!['REWARD','LOCATION','MAIN_MENU','HUB','SYSTEM'].includes(game.s.global.SCREEN_MODE)){/* 0.16.35: a small bar over the screen, not a card pushed on top of it (the fixed screen overflowed) */const bar=el('div','recovery-float');bar.setAttribute('role','status');bar.append(el('strong','','전투불능'),el('span','','회복해야 다시 움직일 수 있습니다'),actionButton('회복하고 다시 출발','RECOVER',{},true));document.querySelector('.content')?.append(bar);/* 0.16.40: it stands in the page head's own row of buttons once the head is drawn (floating, it covered the bag's tabs and page buttons) */requestAnimationFrame(()=>{const tools=document.querySelector('.shell-page-head .shell-page-tools');if(tools&&bar.isConnected){bar.classList.add('in-head');tools.prepend(bar);}});}updateLifeUI();}else{clearTimeout(lifeUITimer);document.body.classList.remove('on-main-map');}};

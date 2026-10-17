@@ -1,0 +1,1233 @@
+{
+  "version": "0.16.20",
+  "createdUTC": "2026-10-09T19:16:03.127120+00:00",
+  "baselineSHA": "da29f36312af19ca11dd2c0ac29b54d6b31ee8f4",
+  "baseTreeSHA": "e2cddb62b4b0eb1fbec3bed12d925a050258e1e2",
+  "method": "Selected overlay only with expected branch head; never push the local oldHEAD/dirtycheckout",
+  "sourceChanges": [
+    "genshin-crpg/source/runtime_economy.js",
+    "genshin-crpg/source/runtime_growth_v01522.js",
+    "genshin-crpg/source/app_abyss.js"
+  ],
+  "immutableRemote": [
+    {
+      "path": "genshin-crpg/content/db.json",
+      "sha": "cc3996929c885d41289038ff501640039a4cc71e"
+    },
+    {
+      "path": "genshin-crpg/assets",
+      "sha": "c8e23881af963b1eea026ba8d0e559f9df0f2181"
+    },
+    {
+      "path": "genshin-crpg/source/index.html",
+      "sha": "b6f9d690b7573c0e9e8b4ff1654c2e615d41d918"
+    },
+    {
+      "path": "genshin-crpg/source/db_planned.json",
+      "sha": "03d51f8a019f46dbb043f7b28d014548f448c68d"
+    }
+  ],
+  "filesExcludingThisPublicationManifest": [
+    {
+      "path": "genshin-crpg/source/runtime_economy.js",
+      "relative": "source/runtime_economy.js",
+      "bytes": 27397,
+      "sha256": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+      "gitBlob": "117e306d81e97e9f5b2e2b23a1dd16ef8612a547"
+    },
+    {
+      "path": "genshin-crpg/source/runtime_growth_v01522.js",
+      "relative": "source/runtime_growth_v01522.js",
+      "bytes": 56452,
+      "sha256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "gitBlob": "24d5a0bbb930086e7dcb79a6f8b86deb939e6ed9"
+    },
+    {
+      "path": "genshin-crpg/source/app_abyss.js",
+      "relative": "source/app_abyss.js",
+      "bytes": 12174,
+      "sha256": "5f46a08f37c609e7330fdc44cb367ee378707728429c68c0a45346c5203c78d2",
+      "gitBlob": "b4660ee60ac9325f7feb817167e5d7a87979d0cf"
+    },
+    {
+      "path": "genshin-crpg/package.json",
+      "relative": "package.json",
+      "bytes": 1041,
+      "sha256": "6a50a907341827d91d20e928b677f6287701bb8680bbf5b216fe47ab4725804d",
+      "gitBlob": "8b9c17b61d04dc5fcfb8df4c1c5c38e916f34f29"
+    },
+    {
+      "path": "genshin-crpg/package-lock.json",
+      "relative": "package-lock.json",
+      "bytes": 85746,
+      "sha256": "91bbeaf324d5504f796460753faac611c47532e582addb98d12d22b223604462",
+      "gitBlob": "54428241288edcacb273ddf3a187bf009c86bb17"
+    },
+    {
+      "path": "genshin-crpg/content/release-notes.json",
+      "relative": "content/release-notes.json",
+      "bytes": 313972,
+      "sha256": "f98f08e5f990900f77f09a99d5c7adf1e7b607cf72fbc408f424b47c080db8aa",
+      "gitBlob": "95d5ff3ea66196047c4dde06b1fea7289b323efb"
+    },
+    {
+      "path": "genshin-crpg/tools/verify_release.py",
+      "relative": "tools/verify_release.py",
+      "bytes": 11124,
+      "sha256": "ae6e15fa8f712c41fbc1e76f1543095f29aa5b18cdbb0d7e7cd10adcc64d024f",
+      "gitBlob": "fda6c44de7e77ce2efc5ab4c6ac43adf7bb171b1"
+    },
+    {
+      "path": "genshin-crpg/tests/test_food_balance_v01620.cjs",
+      "relative": "tests/test_food_balance_v01620.cjs",
+      "bytes": 17964,
+      "sha256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+      "gitBlob": "fd496b989a185e2e31f5dd7aff8fe02ee8570981"
+    },
+    {
+      "path": "genshin-crpg/AGENTS.md",
+      "relative": "AGENTS.md",
+      "bytes": 16523,
+      "sha256": "745f0f9ccf2fdf9f2f342d4a24c13379f01cc6e012a6bb5faec231d254a570f4",
+      "gitBlob": "2fc379b466bb4d72501b1ac8f0cfaa95b410346d"
+    },
+    {
+      "path": "genshin-crpg/docs/APPLY_0.16.20_KO.md",
+      "relative": "docs/APPLY_0.16.20_KO.md",
+      "bytes": 1748,
+      "sha256": "8166be1a8e08055020b5459d0bc3bde8cbaddfc8d3c4190f605103963e47dbe0",
+      "gitBlob": "de13ce21e08f324c77e81612d300b89097811e8f"
+    },
+    {
+      "path": "genshin-crpg/docs/PATCH_0.16.20_KO.md",
+      "relative": "docs/PATCH_0.16.20_KO.md",
+      "bytes": 12343,
+      "sha256": "76e7ce044c012ddb3420e1993a1a5c5b428876c0c36ee690d6e58b1c85ee825e",
+      "gitBlob": "06443e08d6ead302241f7dc7e0d58032a59e410c"
+    },
+    {
+      "path": "genshin-crpg/docs/ASCENSION_ELEMENT_REVIEW_V01620_KO.md",
+      "relative": "docs/ASCENSION_ELEMENT_REVIEW_V01620_KO.md",
+      "bytes": 4082,
+      "sha256": "955bf527ead3930dd8260c81319324e6c2204d38e55c96fa051cea4441efaa6f",
+      "gitBlob": "8586783ce7b6394dc260300cc28618e2141e2f1e"
+    },
+    {
+      "path": "genshin-crpg/docs/AI_HANDOFF.md",
+      "relative": "docs/AI_HANDOFF.md",
+      "bytes": 136110,
+      "sha256": "1aca6b1291f784fed94877e313d6a25b7b620b82b3e8553364cdd7dc8710b42a",
+      "gitBlob": "75b53e663d181b3468a896d1e526fc7971d0727e"
+    },
+    {
+      "path": "genshin-crpg/docs/NEXT_STEPS_KO.md",
+      "relative": "docs/NEXT_STEPS_KO.md",
+      "bytes": 48836,
+      "sha256": "8ef46f7ac1d6cf18531619bc461d34c5c67a22821479333de704099b606566c1",
+      "gitBlob": "2c04f5bb4ba3240bd4b01607e738e186db842ed6"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/MANIFEST.json",
+      "bytes": 33247,
+      "sha256": "246509b76eb6c345f29128371eb67af3a9650f7fd853c963e977fed260906a94",
+      "gitBlob": "aa4c48fe9a3a9d92f77228d23d732937a915aea0"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/README_KO.md",
+      "relative": "docs/data/food_balance_v01620/README_KO.md",
+      "bytes": 4795,
+      "sha256": "245573a52eb1dabbc0b6beb73e957b6795c4feb9d18fa34b2964f7319626ccb2",
+      "gitBlob": "c9eba2c5cb8b5ed8b3e9cda199bcfa50d5e27e99"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/approved_policy_v01620.json",
+      "relative": "docs/data/food_balance_v01620/approved_policy_v01620.json",
+      "bytes": 18587,
+      "sha256": "d74784efa49f022b3b7decc9c419abb9a65f2c6fd3df0f6e2445db8913cc2975",
+      "gitBlob": "7e48348c3d0dfd340c809f61a465a20cd8a1d26d"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/ascension_review/MANIFEST.json",
+      "bytes": 2214,
+      "sha256": "25039ddc87925470dacc17bb4f1e24b2b39e9e78c3a521b8b3492f7ebf8d6d1a",
+      "gitBlob": "30b916e47cdb2d2e9187ae1221876461c9aa9c08"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/README_KO.md",
+      "relative": "docs/data/food_balance_v01620/ascension_review/README_KO.md",
+      "bytes": 1395,
+      "sha256": "627debf56ed39949b2f311af781f5ed808ca44f388980228ed8b71160e10a018",
+      "gitBlob": "4d920e5185f7803d3a6191603a545692aab58ac2"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/audit.cjs",
+      "relative": "docs/data/food_balance_v01620/ascension_review/audit.cjs",
+      "bytes": 6844,
+      "sha256": "f590d1da39071ab3db817ef915ed81ba1195ce024ca76560b4249f252f3aece5",
+      "gitBlob": "4e77655959c1c4e0a60cf1620645346465203b86"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/baseline_cost_parity.json",
+      "relative": "docs/data/food_balance_v01620/ascension_review/baseline_cost_parity.json",
+      "bytes": 5533,
+      "sha256": "f86cac1aaa422e5766fb237993f7e13b818bd6e719aba03e27760ce92ab42d9e",
+      "gitBlob": "ff14e4eb60259b073b4b172ee9c3c7f2afba40a7"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/level25_reward_cost_read.json",
+      "relative": "docs/data/food_balance_v01620/ascension_review/level25_reward_cost_read.json",
+      "bytes": 2815,
+      "sha256": "f54acaae9ffd15abdf4b4ca555bbc0c504e81677c80bcc8a653a4f8a63b09996",
+      "gitBlob": "dfd1f9e66f3d4fd0e0b6604181808db070b8c4ef"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/minimal_verification.json",
+      "relative": "docs/data/food_balance_v01620/ascension_review/minimal_verification.json",
+      "bytes": 1120,
+      "sha256": "e4cc9eef0a4e2fde1c125e700186ab04831914c58b461d54ddc620605fc2e9d5",
+      "gitBlob": "58d3ca0d8722f7588ae57e0d6400cb957b54072e"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/native_quotes.json",
+      "relative": "docs/data/food_balance_v01620/ascension_review/native_quotes.json",
+      "bytes": 283696,
+      "sha256": "8240f837d8a1bb8bdb20fbec426018c14a7b4a749eb33dd5e6b7225045ee15a2",
+      "gitBlob": "5d1f32a3d94d1e4df9d31345925956be9660baa1"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/original_executed_audit.cjs.gz",
+      "relative": "docs/data/food_balance_v01620/ascension_review/original_executed_audit.cjs.gz",
+      "bytes": 2300,
+      "sha256": "67360e600a2094370173b4f681372cb31150d4cc5baf4ff9f159440d786ea47e",
+      "gitBlob": "4e64471b139ae7367b1df7370fc2b669aaf38b2b"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/original_runtime_helper.cjs.gz",
+      "relative": "docs/data/food_balance_v01620/ascension_review/original_runtime_helper.cjs.gz",
+      "bytes": 714,
+      "sha256": "13364672c3d8494dcf1db6c1cf3f6e5417ee4e2aa44cdec695189a6d35dc63cf",
+      "gitBlob": "d5ad207c46713da205741d09a43ce4ed8695f74f"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/provenance.json",
+      "relative": "docs/data/food_balance_v01620/ascension_review/provenance.json",
+      "bytes": 943,
+      "sha256": "6e74b315416a71e136cad78f4737dbbe6c780fbbc07f10cc88a0068c71291c9e",
+      "gitBlob": "d8efd665ae4daa368425b9b44dfb116e900aff29"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/summary.json",
+      "relative": "docs/data/food_balance_v01620/ascension_review/summary.json",
+      "bytes": 21252,
+      "sha256": "4626d381c58709c718324196a29bf77bfba4a31e02d235ec5ff3e4fffa1b116c",
+      "gitBlob": "b179de56adc74b9398a8cae584132c61ac89cae1"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/ascension_review/verify_read_only.py",
+      "relative": "docs/data/food_balance_v01620/ascension_review/verify_read_only.py",
+      "bytes": 3904,
+      "sha256": "027f224bee60bcc216c4887c58d7bdb6eccd522cf44eb895cce4800b2d82bf26",
+      "gitBlob": "d2af71a6caec3f3cfd8b24372cd05d0d395a5822"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/baseline_product_manifest.json",
+      "relative": "docs/data/food_balance_v01620/baseline_product_manifest.json",
+      "bytes": 52969,
+      "sha256": "ce2ce12dd3bc58631553b253f20b1024960622e46965a88ef3241226e1cbdc67",
+      "gitBlob": "064dc1295a01acae7737b49ed4e2caae638d6b46"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/baseline_product_snapshot.json.gz",
+      "relative": "docs/data/food_balance_v01620/baseline_product_snapshot.json.gz",
+      "bytes": 6441906,
+      "sha256": "d7a2ff7c6f6aa9a9a83ae455641d6638cdaa0674f77ecdec719d2115a0d3d851",
+      "gitBlob": "76d25236abf596f6cbbfc9cf82b93dcd7100fcee"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/build/MANIFEST.json",
+      "bytes": 9438,
+      "sha256": "1575413b77d897f347d5834be46a6e7660eeb8186bbd0a4d10182aeea710e048",
+      "gitBlob": "19d476d564d1a0d26525658c31eab79a5507bfc6"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/README_KO.md",
+      "relative": "docs/data/food_balance_v01620/build/README_KO.md",
+      "bytes": 6968,
+      "sha256": "e4a7b707992edcddbef2988bf4ce4146a5d21d2799de98ffb688904c255d5f9b",
+      "gitBlob": "4dd321dffb9b3ad3ef56f2b5a16ab3e191201743"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/app_abyss_baseline_diff.patch",
+      "relative": "docs/data/food_balance_v01620/build/app_abyss_baseline_diff.patch",
+      "bytes": 2403,
+      "sha256": "2351396ac6fa678b5cac7433b5a091e5cd8c51ef601fe00be018c8ddf1405630",
+      "gitBlob": "45d7533ae91906efe9c08364315bdc9bd3941ccc"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/assets_content_before_build.json",
+      "relative": "docs/data/food_balance_v01620/build/assets_content_before_build.json",
+      "bytes": 289757,
+      "sha256": "78169d96371a1a428df30628df678593e56a4859436dbc660269f2c631d1bca3",
+      "gitBlob": "e6046beec8a10013cf094d8ea0aa251503035899"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/assets_content_before_build.json.gz",
+      "relative": "docs/data/food_balance_v01620/build/assets_content_before_build.json.gz",
+      "bytes": 78803,
+      "sha256": "060dc72cd9b7329ef34dfe41c2c032095977debf0d3a618d0fef21862619eaa3",
+      "gitBlob": "5f06ebc2178f2e01679541561eff6ed060c13ba4"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/audit_build_parity.cjs",
+      "relative": "docs/data/food_balance_v01620/build/audit_build_parity.cjs",
+      "bytes": 9968,
+      "sha256": "581c0cd9261efa012b0047582f04caafffee870ee50917ae260305235e4ded8c",
+      "gitBlob": "696b23c83fb1a7bdfafef53f5c89ed887b55c480"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/browser_asset_manifest_executed.json.gz",
+      "relative": "docs/data/food_balance_v01620/build/browser_asset_manifest_executed.json.gz",
+      "bytes": 163752,
+      "sha256": "451ab279c09138925bcd2873b8d852f42e43cc4b048a2a961866baea215b68c7",
+      "gitBlob": "bc6c5d8c975387cbe6ba05e1156386f371fd7cda"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/browser_build.log",
+      "relative": "docs/data/food_balance_v01620/build/browser_build.log",
+      "bytes": 102,
+      "sha256": "bb1b12a17979a149c2b51e973ce9c6ae18cca1915ddfc23876691eeabe2f633b",
+      "gitBlob": "d472be2eaba15aeb7758bf58e1a898e6f5e42efb"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/browser_build_command.json",
+      "relative": "docs/data/food_balance_v01620/build/browser_build_command.json",
+      "bytes": 509,
+      "sha256": "2b2307847c621733abefe212f2502c332a779765fbb58d0b30e677744e606eae",
+      "gitBlob": "46c9006246d159459f0c91139accd8571cfd811c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/browser_build_report.json",
+      "relative": "docs/data/food_balance_v01620/build/browser_build_report.json",
+      "bytes": 608,
+      "sha256": "3760e7a4328cd84494cf8b4b0b6e2eedcb4d9ace6519a61266aa5e6d3a5eae3e",
+      "gitBlob": "4ca9ae58f2cec7ed31c9c45cc0594ce2f891837a"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/browser_offline_pack_executed.json.gz",
+      "relative": "docs/data/food_balance_v01620/build/browser_offline_pack_executed.json.gz",
+      "bytes": 90067,
+      "sha256": "f5dbcb05374695698de2697588d54eec5dd5258250096f725e8c5aa5551aa564",
+      "gitBlob": "d4a19614c09f701b058f65a94be63b4e53b14f7e"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/browser_pack_integrity.json",
+      "relative": "docs/data/food_balance_v01620/build/browser_pack_integrity.json",
+      "bytes": 610,
+      "sha256": "2c118271a9a3f5d2f602f2a81b1ed7b4f708b470b200cd2faa4cf75d85f94fcf",
+      "gitBlob": "8f8b1b50e76d20bc7d47e804b8c25cf3cc52af0a"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/browser_release_executed.json",
+      "relative": "docs/data/food_balance_v01620/build/browser_release_executed.json",
+      "bytes": 173,
+      "sha256": "e7ad2f26b7582029461e5ccf37b129db14b5d6227df2d808d687902ff7be77be",
+      "gitBlob": "317d5078912c2cc3365798d1a93461f9b3245b14"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/build_integrity_proof.json",
+      "relative": "docs/data/food_balance_v01620/build/build_integrity_proof.json",
+      "bytes": 6019,
+      "sha256": "2099c614f451d0b7fc5c5fa674230083542fe017a7e2c2edfd046e4a866d8a87",
+      "gitBlob": "3502c12717b8167cea963fe19c4e8974ea4e64ba"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/evidence_verification.json",
+      "relative": "docs/data/food_balance_v01620/build/evidence_verification.json",
+      "bytes": 119,
+      "sha256": "2af42bacebed97056185495c26f2dd9ed6dfc38266465ad4152b9b1033f27b29",
+      "gitBlob": "c51a40f6ab05ce50e4c03d997e460847669fbe0c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/evidence_verification_command.json",
+      "relative": "docs/data/food_balance_v01620/build/evidence_verification_command.json",
+      "bytes": 488,
+      "sha256": "7f31e5b7376f4a7e241a9943b6008ebbb7b4a032e6ad2e04d866b5d1dd51ce2d",
+      "gitBlob": "50c8dbddcddcc5fd9cbc32ded2eeb5e6afc70104"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/final_scope.json",
+      "relative": "docs/data/food_balance_v01620/build/final_scope.json",
+      "bytes": 548377,
+      "sha256": "db11021bcbb55abb6a43ae19861aee2ee9c4d531108e2ed7f8184d1d5789022f",
+      "gitBlob": "6bf24794afd57d180c451ca86fcc104d5490ed2b"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/final_scope.json.gz",
+      "relative": "docs/data/food_balance_v01620/build/final_scope.json.gz",
+      "bytes": 103586,
+      "sha256": "d0a40912b9e748cc845add4f533dcfb231a32eec304863367491770b3024872b",
+      "gitBlob": "b920a037beb3ec46695140035a57e638e8108d15"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/final_scope.log",
+      "relative": "docs/data/food_balance_v01620/build/final_scope.log",
+      "bytes": 891,
+      "sha256": "d9c34d6e478f8b9c3d2abfc7804532e3ef47fa215a50ead320a6a589f9f5f40c",
+      "gitBlob": "eed42b3378b2f82f9badb35c9430818503b66961"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/final_scope_command.json",
+      "relative": "docs/data/food_balance_v01620/build/final_scope_command.json",
+      "bytes": 287,
+      "sha256": "74dda9ec12abe94c29f463bf572c2fc7ef46ce5b9c7e501c739fa63b81a12bc9",
+      "gitBlob": "3e1746f499e84f54aab311cf5223c0475f320b8c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/original_audit_build_parity.cjs.gz",
+      "relative": "docs/data/food_balance_v01620/build/original_audit_build_parity.cjs.gz",
+      "bytes": 3753,
+      "sha256": "a49460eeb1986b5eebcab57c48d63f8c453c985e8567bb1f34e56c9a990eddcf",
+      "gitBlob": "bdde5b6673888fc0d9ba47cfd21730f5a18a40c1"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/original_verify_final_scope.py.gz",
+      "relative": "docs/data/food_balance_v01620/build/original_verify_final_scope.py.gz",
+      "bytes": 2652,
+      "sha256": "929ff61cfea7263b9121208faba37c0442363e1acd58a6315e3ad73f555534cf",
+      "gitBlob": "be2e975185681d8dcb227ffe118973191e08e8f8"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/parity.log",
+      "relative": "docs/data/food_balance_v01620/build/parity.log",
+      "bytes": 391,
+      "sha256": "012c9a2be9cf82e1218ef7898919ea15b09a7cedccf09c317688ec079f5e4719",
+      "gitBlob": "9ccc7be1f70690fceaaed71e207f4953c559f703"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/parity_command.json",
+      "relative": "docs/data/food_balance_v01620/build/parity_command.json",
+      "bytes": 663,
+      "sha256": "3e86f5aeae46ead54d5982e8d85ceda6a715521033864b43843aae58111165b8",
+      "gitBlob": "541fdf5740458aa35726785d9fe31e0f2f541159"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/parity_raw.json",
+      "relative": "docs/data/food_balance_v01620/build/parity_raw.json",
+      "bytes": 181515,
+      "sha256": "79bcd18ec394c3609723ea05fd8c99a57202a7ef2b4064707c0102a286d6441a",
+      "gitBlob": "cc3080ebec1cbb062c6682c1a61bc600077865be"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/parity_raw.json.gz",
+      "relative": "docs/data/food_balance_v01620/build/parity_raw.json.gz",
+      "bytes": 24095,
+      "sha256": "c7e446ad6403f4c0091c89b2c8b25ecbe9127ec360ff9695ec11391dd52ed5fc",
+      "gitBlob": "fe21c392d7075e72c881480415e5b45b9a64fced"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/runtime_economy_baseline_diff.patch",
+      "relative": "docs/data/food_balance_v01620/build/runtime_economy_baseline_diff.patch",
+      "bytes": 4270,
+      "sha256": "cc7a5b8df2e502e21eaa0332ac91b1bbc6a478bf684b21bd1acb3a3fdd46465b",
+      "gitBlob": "b3b785cf3fe0931a85e37f8099338eba63cf1611"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/runtime_growth_v01522_baseline_diff.patch",
+      "relative": "docs/data/food_balance_v01620/build/runtime_growth_v01522_baseline_diff.patch",
+      "bytes": 1222,
+      "sha256": "fceaf61a6ae2109ce882d6c715c8a3558124ffe4bb252102d4fd578586b302d5",
+      "gitBlob": "035b096d1eefab1fdd85cadedd999690c32604ca"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/scope_after_build.json",
+      "relative": "docs/data/food_balance_v01620/build/scope_after_build.json",
+      "bytes": 62837,
+      "sha256": "7dbe992f5c4d99190f59adb5f6d64e55dc8aa12f4552edd4b54ed9e359d7e0d2",
+      "gitBlob": "592ffdf73b1257e2ac2b81ac0eb66f9030e9a4fc"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/scope_after_build.json.gz",
+      "relative": "docs/data/food_balance_v01620/build/scope_after_build.json.gz",
+      "bytes": 12989,
+      "sha256": "5c5e98f87a0575c223f9ddaf7027d7c9c21df9cea5a682e1747017f79f32f8a7",
+      "gitBlob": "777658a917b4dd78092497458de34730dad4a6e1"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/scope_before_build.json",
+      "relative": "docs/data/food_balance_v01620/build/scope_before_build.json",
+      "bytes": 71226,
+      "sha256": "a7911b87a01efa09162d6bd4bab28fb7359a0115c16eedfd8de03c72528aecb7",
+      "gitBlob": "3fe64c3a8848d06c6c7900c50b8b54780e4a81e0"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/scope_before_build.json.gz",
+      "relative": "docs/data/food_balance_v01620/build/scope_before_build.json.gz",
+      "bytes": 14542,
+      "sha256": "5ba74d0002630b2c753edc10e1312ece41dff90884fe9b58253109233ba76535",
+      "gitBlob": "024602bb3c81e2643746af43a47db9c131cd0632"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/server_build.log",
+      "relative": "docs/data/food_balance_v01620/build/server_build.log",
+      "bytes": 87,
+      "sha256": "519e61a9e68829383e2a70cad3d3904da13848a17b460d1b4fb2abb2eb9a81fc",
+      "gitBlob": "63f3e91b2025a730ac0f83837883bd37d251c145"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/server_build_command.json",
+      "relative": "docs/data/food_balance_v01620/build/server_build_command.json",
+      "bytes": 309,
+      "sha256": "b20f908bc52f600b21268e206fb642f919cc007a4d92d35f49aa551bb470abac",
+      "gitBlob": "3b0be6c9189d0d06779579e42821c017a4520e55"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/server_build_report.json",
+      "relative": "docs/data/food_balance_v01620/build/server_build_report.json",
+      "bytes": 825,
+      "sha256": "fbc724731fa84b9d08e4625628a9ff55447af26ea6397c88d38bc33baffe817b",
+      "gitBlob": "97f3f9d6b314b66a5181867367da985072450c5c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/server_engine_executed.mjs.gz",
+      "relative": "docs/data/food_balance_v01620/build/server_engine_executed.mjs.gz",
+      "bytes": 5378932,
+      "sha256": "16374c70fb0feb2dd4958b6ecfba80e86b036735a8bfa1f0559669e1b4daf3ab",
+      "gitBlob": "3b2646f546906136e6ffcd2ba87fa35e2953075a"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/verify_build_evidence.py",
+      "relative": "docs/data/food_balance_v01620/build/verify_build_evidence.py",
+      "bytes": 2105,
+      "sha256": "106bedbc55b813c826bd98ea6bf82d3f4aea065b99e86f1e08d28ea11ee6b61d",
+      "gitBlob": "ca353ddc17a0aa9d130389ee880dfa8dca6b0f37"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/build/verify_final_scope.py",
+      "relative": "docs/data/food_balance_v01620/build/verify_final_scope.py",
+      "bytes": 6281,
+      "sha256": "a609fba6783d383a4e9c9dc35be5662eaa1bb5c352c37f17d5906071b3f92d64",
+      "gitBlob": "9f5db4f6fda2b3728d0d98f43a0cb8a50d1e777c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/ECONOMY_AFTER_KO.md",
+      "relative": "docs/data/food_balance_v01620/economy/ECONOMY_AFTER_KO.md",
+      "bytes": 4790,
+      "sha256": "cb1cade68d719d10245c59913c2db124a2dcef7607f62243a4b277ead69541ec",
+      "gitBlob": "a1cb001ce8e5ba38350e7508609d921c6e78002f"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/ECONOMY_AUDIT_KO.md",
+      "relative": "docs/data/food_balance_v01620/economy/ECONOMY_AUDIT_KO.md",
+      "bytes": 8320,
+      "sha256": "1fcb052a6836d361ebcc409308ee189473a9f5350f20eaa1f3019bd84ae36a46",
+      "gitBlob": "5133766a527b2d82be128ee4353d393db14bb03f"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/economy/MANIFEST.json",
+      "bytes": 3818,
+      "sha256": "7aa0fd40d1b0b6ca8f6e9e352035019ca7eaaf1d5bf33c776abe977f9d7de358",
+      "gitBlob": "d263506409b76b6e7d6ecba9defee9091cb509f4"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/README.md",
+      "relative": "docs/data/food_balance_v01620/economy/README.md",
+      "bytes": 4851,
+      "sha256": "3c8d434da1ab95e5869f754757a567f83627cde5d08fc3fc6a5485fd6ad24dc1",
+      "gitBlob": "55ea52b93001b7cbbffaa5e0a09c256d03e3e7a5"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/after/catalog_after.json.gz",
+      "relative": "docs/data/food_balance_v01620/economy/after/catalog_after.json.gz",
+      "bytes": 85830,
+      "sha256": "27e35e618c68fe45ac6dcef35a4dee61145059263b5290379b888b138b412998",
+      "gitBlob": "fd47bf8d36d5ef45710629da88a483d6cd22a828"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/after/economy_after_checks.json",
+      "relative": "docs/data/food_balance_v01620/economy/after/economy_after_checks.json",
+      "bytes": 50631,
+      "sha256": "05f05f7dbc3fe73419957fbf27eb96b1d319d1bed213fa624397b38222c1a5e8",
+      "gitBlob": "44f1be3c56350c8ed1d33da4f2754741903fa871"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/after/economy_after_summary.json",
+      "relative": "docs/data/food_balance_v01620/economy/after/economy_after_summary.json",
+      "bytes": 21664,
+      "sha256": "7413805f60ff5467fb5a8b498bf3350449fee161c84bd76e87af4dd156af7a14",
+      "gitBlob": "d1e8f0c1060513aa750659322966a3ec7edffd99"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/after/supply_after.json",
+      "relative": "docs/data/food_balance_v01620/economy/after/supply_after.json",
+      "bytes": 113563,
+      "sha256": "8c4bc35573dd44ef5810a094766b809edd33129177f626e77476dcdb9f863560",
+      "gitBlob": "97ce858eaa38af6b554770a8c5304d7080d49547"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/after/supply_after.json.gz",
+      "relative": "docs/data/food_balance_v01620/economy/after/supply_after.json.gz",
+      "bytes": 38497,
+      "sha256": "53a2e6b759a3c74ae7d95cc49257ee18966135467826d34e0d283fd6e0fbd9b0",
+      "gitBlob": "ac0a7af7f4200177f625e50a980b7542c3e6bd9c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/audit_catalog.cjs",
+      "relative": "docs/data/food_balance_v01620/economy/audit_catalog.cjs",
+      "bytes": 4367,
+      "sha256": "b317dbcb55e43199535f739ec4e5b659655696fa44d7c65af6c566ccd64f8a5f",
+      "gitBlob": "7a2ecc14ad9ec87e19e0cc84a7fadac709a6122d"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/baseline_source_identity.json",
+      "relative": "docs/data/food_balance_v01620/economy/baseline_source_identity.json",
+      "bytes": 16784,
+      "sha256": "8f69565528d6824f0b971f23bee6d2de3d60918e2ac035c7092275b9a5e2789f",
+      "gitBlob": "39cf0196c2a14dba6e36d07262da62cef47ff627"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/catalog_baseline.json.gz",
+      "relative": "docs/data/food_balance_v01620/economy/catalog_baseline.json.gz",
+      "bytes": 83085,
+      "sha256": "bff53b0fb65281d6dcd76921f72e34e62a84853123658394715fa7044fe3ac74",
+      "gitBlob": "4d5b578002ebc8a58a4cfdc383eb0f4fc656bbf4"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/economy_summary.json",
+      "relative": "docs/data/food_balance_v01620/economy/economy_summary.json",
+      "bytes": 22374,
+      "sha256": "62490fd944913ab294c7f222673353f65a6a6100c310cc5535c93063268b3d0b",
+      "gitBlob": "44c484bc9eda9b0f82898c3a3cb05132e6dd9867"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/original_catalog_audit.cjs.txt.gz",
+      "relative": "docs/data/food_balance_v01620/economy/original_catalog_audit.cjs.txt.gz",
+      "bytes": 1969,
+      "sha256": "ed0829372adca445398895075a8e7bd7852370f17c894eccc095f717c4d30e51",
+      "gitBlob": "50f43e6da2dc157586a186b8f84bb9ff3729d421"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/original_manifest.json",
+      "relative": "docs/data/food_balance_v01620/economy/original_manifest.json",
+      "bytes": 999,
+      "sha256": "114dbb80425853e0c85bc979cbc4bae2ce5266365fc57f0eece237ef1d125b9b",
+      "gitBlob": "aebb4179d4784450093fa609d03b144c23b26bc3"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/portable_baseline_replay_check.json",
+      "relative": "docs/data/food_balance_v01620/economy/portable_baseline_replay_check.json",
+      "bytes": 564,
+      "sha256": "4441c4105262d1681bec5999a225eff8fe3c4e4a3cef5fe67cac4a1acbd1c4a2",
+      "gitBlob": "00f19306dfa4a0cf5a90343ec90475a5e37ca724"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/supply_baseline.json",
+      "relative": "docs/data/food_balance_v01620/economy/supply_baseline.json",
+      "bytes": 113526,
+      "sha256": "ac84b4c0e2593be95b40cd7948484a67fdefa28621ef7dc798153058cd138dc7",
+      "gitBlob": "bca8a5238b96709b4ac64ce7000e6d48397012e5"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/supply_baseline.json.gz",
+      "relative": "docs/data/food_balance_v01620/economy/supply_baseline.json.gz",
+      "bytes": 38457,
+      "sha256": "12403f542deb3a5a1ae443c41302688fa9b47d493cd4bda0928ee8bff088db1f",
+      "gitBlob": "e273783715fb40aa04c94b4190aabdf02a3e47ed"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/economy/verify_after_economy.cjs",
+      "relative": "docs/data/food_balance_v01620/economy/verify_after_economy.cjs",
+      "bytes": 6701,
+      "sha256": "0027b80dbbda59ea1dcaed119dff5c4bfea63b547dd7be3735804d01af7db966",
+      "gitBlob": "0ee8ef5990a347f4cbca6d07b999f7027296a765"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/CONDITIONS.json",
+      "relative": "docs/data/food_balance_v01620/native/CONDITIONS.json",
+      "bytes": 36794,
+      "sha256": "60cceb117047684e93b639ce512e4fbb98f746fcab23473231c1425772834135",
+      "gitBlob": "0a23c288ad9c7086caf6f4bf33f3cf87c6d36ea8"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/native/MANIFEST.json",
+      "bytes": 8164,
+      "sha256": "bb8cbc27f58b7c2a94f43ee69044c5867b139ea9f73a609a40176616939f5da2",
+      "gitBlob": "d819696b78279c46783d8f690ae6d86d3e03b25c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/README_KO.md",
+      "relative": "docs/data/food_balance_v01620/native/README_KO.md",
+      "bytes": 9698,
+      "sha256": "017fe9c0f65a76fe3edebb7f4cb8b01b49ab6f26ab8aeb9ecc82e1aad2f4ea7a",
+      "gitBlob": "a604ff8da0218acd88d7fd5c51660a4770121dd2"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/after_catalog.json.gz",
+      "relative": "docs/data/food_balance_v01620/native/after_catalog.json.gz",
+      "bytes": 5663,
+      "sha256": "07ce22be6a05d480482aa6942d4691a14077035ef4324397e5b84b49db459c6d",
+      "gitBlob": "2a62265a33090605292e33c950c23915261f0e19"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/after_equal_base_groups.json.gz",
+      "relative": "docs/data/food_balance_v01620/native/after_equal_base_groups.json.gz",
+      "bytes": 2090,
+      "sha256": "e588ddaeee82fb169a9f9dc585cb40f40a777e4f15e38ee8a2353109ad0c88bf",
+      "gitBlob": "395623b0e3eb1e67006b792983d4c4f2d3d9d984"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/after_native_effects.json.gz",
+      "relative": "docs/data/food_balance_v01620/native/after_native_effects.json.gz",
+      "bytes": 121904,
+      "sha256": "288978b7d888498607eda7bd4a365d4e8dd2e33c0538894c22d0edf62e6964fa",
+      "gitBlob": "40a5492551eaeaca9048fe8f6c8bb15fe0222327"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/after_native_run.log",
+      "relative": "docs/data/food_balance_v01620/native/after_native_run.log",
+      "bytes": 921,
+      "sha256": "271a79ca58a2df686d9ea16dc0e2c1a79235e5d120c0494054d6600f01985dfd",
+      "gitBlob": "8a87eb468d2524e6775a2c7f7bedf5ab8d6d8476"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/after_product_manifest.json",
+      "relative": "docs/data/food_balance_v01620/native/after_product_manifest.json",
+      "bytes": 31004,
+      "sha256": "382f04f7fcb969b72022c537f8a870046d99eb9d8ed84168a117671b1e52e455",
+      "gitBlob": "24b65459aead30561e35ac915201fb12f0df1e3c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/audit_native_food_v01620.cjs",
+      "relative": "docs/data/food_balance_v01620/native/audit_native_food_v01620.cjs",
+      "bytes": 9728,
+      "sha256": "728167ec340906c9478fe3761656f2aadb4e90f56f3a5bcf45a3a0ef55896b31",
+      "gitBlob": "9288845a6ccf0aff63e6fddd9ae309be64045cac"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/before_catalog.json.gz",
+      "relative": "docs/data/food_balance_v01620/native/before_catalog.json.gz",
+      "bytes": 5650,
+      "sha256": "01d25ce1b61ecfaf633e62ba5d695affa83a32771b68793ff26028c2a4ddcde7",
+      "gitBlob": "94b04a10463b756aa94c1a39f5297e446f4f82e0"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/before_equal_base_groups.json.gz",
+      "relative": "docs/data/food_balance_v01620/native/before_equal_base_groups.json.gz",
+      "bytes": 2100,
+      "sha256": "0292a096ab0bcafbe976c2e11ec52e5f2a060d53b98a4745ed2b907592d9eb0a",
+      "gitBlob": "9794f53e78425edfdd7f19dc928e37cb5b166c48"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/before_native_effects.csv.gz",
+      "relative": "docs/data/food_balance_v01620/native/before_native_effects.csv.gz",
+      "bytes": 27408,
+      "sha256": "0d9a77d852a1002d2c891b1cc0fa8b213418b1c0b2f6d305d3e68ad9f3fe205b",
+      "gitBlob": "1dd18925ac100b29a8434eb820aed1ab48722672"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/before_native_effects.json.gz",
+      "relative": "docs/data/food_balance_v01620/native/before_native_effects.json.gz",
+      "bytes": 113024,
+      "sha256": "ffe49855024c2c66ad9c5294847d40d804fa5da464b443a10b33f2c99b6b8586",
+      "gitBlob": "17fbb2ac6c8ebf48abeead05979a9f3808388e7c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/before_original_AUTHORITY_AND_FINDINGS_KO.md.gz",
+      "relative": "docs/data/food_balance_v01620/native/before_original_AUTHORITY_AND_FINDINGS_KO.md.gz",
+      "bytes": 4006,
+      "sha256": "4b36fc20dddedde31a602e496de45799fb38dbd3a81fe8df5a5f70c0e7523cd5",
+      "gitBlob": "da9696a9130c420f2bfc4cbfcce0c1bde8d06148"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/before_original_MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/native/before_original_MANIFEST.json",
+      "bytes": 1914,
+      "sha256": "f5e831b2ad46dac6ae57bd180bc118941d322d4f943da1b8f116f4e95e23bc1b",
+      "gitBlob": "86ea4c5c2597029ee6fa2ba6fae781c0375d24f3"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/before_product_manifest.json",
+      "relative": "docs/data/food_balance_v01620/native/before_product_manifest.json",
+      "bytes": 31004,
+      "sha256": "7ca123049e793f4d4429711f8901a48d762a32682372ed060d96cd16bdce5c7b",
+      "gitBlob": "31a848da6258a568eb5183ddee33846167d69eb3"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/matched_native_meals.csv.gz",
+      "relative": "docs/data/food_balance_v01620/native/matched_native_meals.csv.gz",
+      "bytes": 57063,
+      "sha256": "50bf2f3c763e2d01e61690f12719a50a892eb283ef5ab65e978bd6ce81a599d7",
+      "gitBlob": "f11ed5e61fde6c67d4681e0205cd14375f3616c2"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/native_comparison.json",
+      "relative": "docs/data/food_balance_v01620/native/native_comparison.json",
+      "bytes": 32098,
+      "sha256": "7500bfdc6971b34a5c0cadcc507947143f610395fc2bcf1a68f0d4f34b827754",
+      "gitBlob": "d0ce63fc5990e3bcb42f379c806ae2e76cea61c1"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/new_test_v01620_complete.log",
+      "relative": "docs/data/food_balance_v01620/native/new_test_v01620_complete.log",
+      "bytes": 1341,
+      "sha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+      "gitBlob": "4d2f04308a330054986a260011f44e0edbe88716"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/original_audit_native_food_v01619.cjs.txt.gz",
+      "relative": "docs/data/food_balance_v01620/native/original_audit_native_food_v01619.cjs.txt.gz",
+      "bytes": 4002,
+      "sha256": "1ef778538d8cc2929aa8d2b8980bfd99cbd1d43af56e2e6dd60245e4111ce90f",
+      "gitBlob": "a1a0e3a4ac794676219d5356405533dc8e2c01ca"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/native/representative_matched_values.csv",
+      "relative": "docs/data/food_balance_v01620/native/representative_matched_values.csv",
+      "bytes": 72148,
+      "sha256": "e8fe224bd7aa952b4843a4ae68af9a6a6a6a4ae77f117e95f6f24b6f4304661f",
+      "gitBlob": "7f4053ade9609e83dfb0c252320f5e9f140ada47"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/APPROVED_RECIPE_VALUES_KO.md",
+      "relative": "docs/data/food_balance_v01620/recipes/APPROVED_RECIPE_VALUES_KO.md",
+      "bytes": 5583,
+      "sha256": "c216a92583a9ffdce0c4909cb9d93e7c22c067fc272e274da5758bdb4f0fc4ae",
+      "gitBlob": "57aaff26503a415f16a0232743259b5803599c9c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/recipes/MANIFEST.json",
+      "bytes": 7513,
+      "sha256": "fb07a0f36279863658e788d1a32f22c81e13d602801e2626e27d35cb7f545fcd",
+      "gitBlob": "d43f454a88c087813a7ef2bb26d8abc0801eb94c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/README.md",
+      "relative": "docs/data/food_balance_v01620/recipes/README.md",
+      "bytes": 4873,
+      "sha256": "d6751581a1f44a0b88f263c94086d83e509751223930962b16fa1f276bacbae6",
+      "gitBlob": "96ecc6e4cd9b261b6835d216d4d12a2b0d84114b"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/README_KO.md",
+      "relative": "docs/data/food_balance_v01620/recipes/README_KO.md",
+      "bytes": 3250,
+      "sha256": "b44b18950669d65766bc0dfca0c0e46283001469cb12114554f16d764553db7a",
+      "gitBlob": "9f715c0725ceced6675946143a430f08e91bcd9e"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/RECIPE_AUDIT_AND_CANDIDATES_KO.md",
+      "relative": "docs/data/food_balance_v01620/recipes/RECIPE_AUDIT_AND_CANDIDATES_KO.md",
+      "bytes": 6382,
+      "sha256": "851f46d772549781d18cf37c33ebfd63ca107d2fd9edcc0657b6d00d95c4d643",
+      "gitBlob": "85aecbd6069d48439786c7887444d58b070df775"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/RECIPE_AUDIT_FINDINGS_KO.md",
+      "relative": "docs/data/food_balance_v01620/recipes/RECIPE_AUDIT_FINDINGS_KO.md",
+      "bytes": 11063,
+      "sha256": "27704c915b8a100aeea804f860cc9ecd8a56ec37f73dcb7ded123023e59bddd3",
+      "gitBlob": "dbcc3e40234a408cf4adbdc01e81e6110ced70dc"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/audit_native_preparation.cjs",
+      "relative": "docs/data/food_balance_v01620/recipes/audit_native_preparation.cjs",
+      "bytes": 5303,
+      "sha256": "c65f1bbd711d4bb2a705288792247c7388213f2775f0a1edabddbbd6e05c4080",
+      "gitBlob": "e0b03ddc2c4706339ac12b4600ab09f383bd1263"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/audit_recipe_catalog.cjs",
+      "relative": "docs/data/food_balance_v01620/recipes/audit_recipe_catalog.cjs",
+      "bytes": 10482,
+      "sha256": "fe2a345dcbb6d493afdb5ac8dad09f2437d75707b124b95d9b46cd95aaa1b53c",
+      "gitBlob": "17d244be57cf66eb9aa8756e98dd1ac5ef908c63"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/audit_shared_fish_meals.cjs",
+      "relative": "docs/data/food_balance_v01620/recipes/audit_shared_fish_meals.cjs",
+      "bytes": 5242,
+      "sha256": "d2a71c1580c39a0f1f3640b95075950674a98e4a3e0c9762e48e57710d6744c5",
+      "gitBlob": "97fd1fffadec56e91469cbea4756e9862f7d1032"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/catalog_after_v01620.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/catalog_after_v01620.json.gz",
+      "bytes": 105716,
+      "sha256": "83801dc54f1b447d8d8c03114361610573a6b3717535536f740d1e1a841d868d",
+      "gitBlob": "b05513f91e8f89f3f39d9148f69a90acba2d5615"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/catalog_authority_comparison_v01620.json",
+      "relative": "docs/data/food_balance_v01620/recipes/catalog_authority_comparison_v01620.json",
+      "bytes": 14617,
+      "sha256": "5c34a4761355441ea47b7dec55206f1fbfd303b4957a070585fa03cea0744c65",
+      "gitBlob": "fbd83aca2d313639015db3eebb1aeaad5d2fdf6c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/catalog_portable_before_v01619.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/catalog_portable_before_v01619.json.gz",
+      "bytes": 102150,
+      "sha256": "ceea1bb17ff2fb2913e3bde1d0bd53076c53113571a25ef4a4921cb7c9dc23dc",
+      "gitBlob": "35ff04694d22e3b607c09c92d22312def6c2e592"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/catalog_v01619.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/catalog_v01619.json.gz",
+      "bytes": 100960,
+      "sha256": "1f0a7736b11e990c0ff9543ba520bcd0a6e0797cfa78dc64f01700d06f7133ef",
+      "gitBlob": "5920240a30b850e14b1383f0fc3de405eb667040"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/compare_preparation.py",
+      "relative": "docs/data/food_balance_v01620/recipes/compare_preparation.py",
+      "bytes": 5069,
+      "sha256": "f841b1be905a580e36c7d17f3fe3d56e5bcaa6a6eb7c5defeccfacf8a21a0183",
+      "gitBlob": "dcc104c5f9dc734e5059bca97c001913dd5c9628"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/findings_v01619.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/findings_v01619.json.gz",
+      "bytes": 20677,
+      "sha256": "8d39426a61693fd60caaafd9d590c65e1f690e8eb233004624d7df1a582fbdbc",
+      "gitBlob": "c52d8109dc37a47012fb941d8fe77c84e402e1ef"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/native_preparation_after.log",
+      "relative": "docs/data/food_balance_v01620/recipes/native_preparation_after.log",
+      "bytes": 16325,
+      "sha256": "63eb433ff0f21dfafb6bbaf891f4ce16d32867b896d92fa4026e3a71fe0d9ee0",
+      "gitBlob": "a31d21ed17e459a03936bb43ef18d5690df09989"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/native_preparation_after_summary_v01620.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/native_preparation_after_summary_v01620.json.gz",
+      "bytes": 60367,
+      "sha256": "131c9cdf0a227f018becb66624579c739fb0729471492e72ecaaccc4e849c330",
+      "gitBlob": "f89a78264895222cfd5b7625b016965cff756bbb"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/native_preparation_after_v01620.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/native_preparation_after_v01620.json.gz",
+      "bytes": 93381,
+      "sha256": "7870fdca21da8951fd22e5f7a1ba65e40a76c1af79e72bce4634c05243f98978",
+      "gitBlob": "8b91f42281bafa59d3f031877fb6d51f85f7668e"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/native_preparation_summary_v01619.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/native_preparation_summary_v01619.json.gz",
+      "bytes": 60263,
+      "sha256": "c86ed763dff2404e1e23b3d5784a478addc97cc547597ad2a61517a450378602",
+      "gitBlob": "e5456f61b7287adc9b5d6b1cd7b0acc8a995b1ec"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/native_preparation_v01619.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/native_preparation_v01619.json.gz",
+      "bytes": 93375,
+      "sha256": "180363dd2971584b57ce3bca1dcaad24f927a1bb5fe5d1fe78236f5e1dc696af",
+      "gitBlob": "301940634b085e926f5e518433133cbeb563ce51"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/original_audit_native_preparation.cjs.txt.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/original_audit_native_preparation.cjs.txt.gz",
+      "bytes": 2331,
+      "sha256": "9503671f2c754b74f62b6fcee9ac84b7b6dab9b941c13827f7f9d55b70c51706",
+      "gitBlob": "20444b21eec4d6aff3de813afe97473aa11d6cd9"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/original_audit_recipe_catalog.cjs.txt.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/original_audit_recipe_catalog.cjs.txt.gz",
+      "bytes": 3884,
+      "sha256": "c6640a25a4951b9272b8151b30da74e947f74138151631055e9ee1f551958c8e",
+      "gitBlob": "25a22515927b26b375a63b73b6149f9680254634"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/original_recommend_ranges.py.txt.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/original_recommend_ranges.py.txt.gz",
+      "bytes": 3698,
+      "sha256": "ade2a86fdf703a28b4c8eb65e64585f18a89c326aaeb77f8094bf3c2d2a7eb4e",
+      "gitBlob": "5c007c916a364dd23d1ac913b624863e98b6e988"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/original_summarize_native_preparation.py.txt.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/original_summarize_native_preparation.py.txt.gz",
+      "bytes": 5117,
+      "sha256": "222199b032d459fedb3921cdfecbb9dfe60b4111d53580275423113ae5314c15",
+      "gitBlob": "8b5865c6d9624818828cea581775f4e811d4a382"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/portable_baseline_replay_check.json",
+      "relative": "docs/data/food_balance_v01620/recipes/portable_baseline_replay_check.json",
+      "bytes": 1025,
+      "sha256": "eb05e49713a679ad6c70d9597df9e63c1bcb9b128713041e3ef760016db5a3b0",
+      "gitBlob": "626073e261db710284770981e0f65adc10cebe3b"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/preparation_comparison_v01620.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/preparation_comparison_v01620.json.gz",
+      "bytes": 10751,
+      "sha256": "06ee1490ade13ed1672d085867bd6c5149c87904b815c0e76c3207d6979b2a3d",
+      "gitBlob": "fee456deb53c10cf2f28696be0e42bc3a34dbc54"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/recipe_catalog_after.log",
+      "relative": "docs/data/food_balance_v01620/recipes/recipe_catalog_after.log",
+      "bytes": 18252,
+      "sha256": "7bf34c313f5fafc273a19d5f6978116aa6109534199070efe443f5c19a49ef96",
+      "gitBlob": "981d003d81c7a5a2b6b3fd7781ce856457116703"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/recommended_ranges_v01620.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/recommended_ranges_v01620.json.gz",
+      "bytes": 28818,
+      "sha256": "a1a139e250f3dd5025db4a32bc9f285debe61720a2819c5d3f8c25bb505772c7",
+      "gitBlob": "5e0998153138241d65af50d2e97d3ef59b2c4429"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/shared_fish_after.log",
+      "relative": "docs/data/food_balance_v01620/recipes/shared_fish_after.log",
+      "bytes": 183,
+      "sha256": "5211df619e7d6cd2f3b4fa5b4352f3101e80289d0f211ea6e839c6489be11991",
+      "gitBlob": "bdcad437f4748d6b1e7e4dd3c442456a8699d885"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/shared_fish_after_v01620.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/shared_fish_after_v01620.json.gz",
+      "bytes": 20304,
+      "sha256": "ab9a571a8a083d478dcbace7a03b4bd5593c0da7eb6d3c81fad2a11a38cacf64",
+      "gitBlob": "1a5f808cef44c3ae06d9787161a28a277301b4b9"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/shared_fish_baseline.log",
+      "relative": "docs/data/food_balance_v01620/recipes/shared_fish_baseline.log",
+      "bytes": 185,
+      "sha256": "55abdf4b2a02d6afb6784f14713c102b4d34f9118068d1c97b741d207903e3bc",
+      "gitBlob": "ed319ce8aec6c7e5087b862128af75269a1485aa"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/recipes/shared_fish_before_v01619.json.gz",
+      "relative": "docs/data/food_balance_v01620/recipes/shared_fish_before_v01619.json.gz",
+      "bytes": 19922,
+      "sha256": "d2f2dba41b686e731e85ae983f857e351fcbd923fa75babfe853b8d7ff05ffce",
+      "gitBlob": "2ae830453fb37ae0b92bb1531790171ce63acd26"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/MANIFEST.json",
+      "relative": "docs/data/food_balance_v01620/regressions/MANIFEST.json",
+      "bytes": 7600,
+      "sha256": "030a4e7f47b01217d2bdee629ea729f51bef2252c74e8b2e29636ab7e9d6a5ab",
+      "gitBlob": "9ef422ffcc79a36122da1950040d3fe81a7eb511"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/README_KO.md",
+      "relative": "docs/data/food_balance_v01620/regressions/README_KO.md",
+      "bytes": 2136,
+      "sha256": "368e61ea199544b83b2545b735e60c568a006153984cede9617a62e57d521de6",
+      "gitBlob": "657df5b1e769029ec69a65b4a9273590765cf5d1"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/legacy_baseline_failure.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/legacy_baseline_failure.log.gz",
+      "bytes": 451,
+      "sha256": "1ab6bc3ad65bcc1be850574bc2c6c82e46b89b6fced28513713d314ca7a7c217",
+      "gitBlob": "b9767f492e559609118b3c6e41660382b8714d01"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/legacy_failure_diagnosis.json",
+      "relative": "docs/data/food_balance_v01620/regressions/legacy_failure_diagnosis.json",
+      "bytes": 797,
+      "sha256": "b83a88a42c67784a5b6cb059249e9e61ea7b669190c6287bf2bc033046d4b583",
+      "gitBlob": "2f3bf744830f9cf8927931a7a69c3d7e2a6f9ef9"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/results.json",
+      "relative": "docs/data/food_balance_v01620/regressions/results.json",
+      "bytes": 13469,
+      "sha256": "47992f21cfccfc0b572f9fc5689c9a2b53be071ee8a01c16261303ffbb2b3a80",
+      "gitBlob": "b47ab3a7ffeaab388df513ba86b2faeabcb95217"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/run_selected.py",
+      "relative": "docs/data/food_balance_v01620/regressions/run_selected.py",
+      "bytes": 2336,
+      "sha256": "cd6deb602a80f4e18b1543dcf97c0ab77f6a3d8bb2eb615d8561c40ed2a77258",
+      "gitBlob": "cbb278472e4d2702eb7c9e27ff70afe69ccbb17d"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/selection.json",
+      "relative": "docs/data/food_balance_v01620/regressions/selection.json",
+      "bytes": 32969,
+      "sha256": "30b4d117573385226c4200ac91320b9e09b42990ff6d8424833b059c155beec8",
+      "gitBlob": "00349de4c4b2ef00806994eb750a8e4496e73af2"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_access_gear_v01343.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_access_gear_v01343.cjs.log.gz",
+      "bytes": 197,
+      "sha256": "524a346271f429f9b8789fc50ee59465e72b9b1cbc6d00509528b10dc0c38766",
+      "gitBlob": "f0a03ff6be96a0f8f3aaa296f66cfcf14ee16701"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_authoritative_flow.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_authoritative_flow.mjs.log.gz",
+      "bytes": 650,
+      "sha256": "f2457606a50853b4b912fec6e0dc0680769bee0153fe17c7dce86f86ee091bdf",
+      "gitBlob": "abdc11218712f81ff8f70907f55f3e12761e3428"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_balance_saves_v0166.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_balance_saves_v0166.cjs.log.gz",
+      "bytes": 429,
+      "sha256": "506a68b3bb1e5e56b7f11d2968e7e1822046e6799a31a90ddd9bcd441c263763",
+      "gitBlob": "119370d9f2927cc5102064342e17afed883a8a03"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_coop_receipt_v0168.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_coop_receipt_v0168.mjs.log.gz",
+      "bytes": 559,
+      "sha256": "4a969d2503a285999cafdd13f4aa97c92e5aec84ad2dfb66fc3db74b43ed0893",
+      "gitBlob": "4c3f2771078b4ca84ab7178e97f50a81763a8bc7"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_durable_account.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_durable_account.mjs.log.gz",
+      "bytes": 556,
+      "sha256": "d3a51d380e7801bd9d46002117aa4a1b365dbfd69bda023b4994e7421aa096d6",
+      "gitBlob": "ac0d02b8030918e4bb26e460c416bcd5fff44d71"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_economy.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_economy.cjs.log.gz",
+      "bytes": 458,
+      "sha256": "b68ef0f3f8a9078c6fe367341f79b0a4f99ae5dee5c2a06dd1fc443c76ee44a1",
+      "gitBlob": "60ea8f07654e433136be226d724776c4936f4365"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_feature_boundaries_v01513.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_feature_boundaries_v01513.cjs.log.gz",
+      "bytes": 1158,
+      "sha256": "5e2e538d2437c604006a9d5a6ebe25954317433d46423423663fd65689cc38ed",
+      "gitBlob": "14fa64c7da1d7e0badf51b8129c19054018ad519"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_fixed_region_live.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_fixed_region_live.mjs.log.gz",
+      "bytes": 261,
+      "sha256": "82c560d7d176cd1cb50c5bf7130b3581b4c060bf794bf7c707989a610849a200",
+      "gitBlob": "3e1bfb2207da07092d7e26d91cba2cb11d5a3b97"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_food_economy_v0168.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_food_economy_v0168.cjs.log.gz",
+      "bytes": 479,
+      "sha256": "03fbd36bd0f8dc9d4abca78ed8594d0cb0a9e57bb794e65c1aaf27fa65045930",
+      "gitBlob": "710997d026a061e51bdb16d620a21ec95e5aa851"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_food_lodging_v01617.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_food_lodging_v01617.cjs.log.gz",
+      "bytes": 536,
+      "sha256": "78b9a6809368be244f3cfb9bc95a324c560bba05515d813d38efcff7034bd2e9",
+      "gitBlob": "ec1e4cb888947991a4680b84b2d1e2e93d0c21af"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_inn_recovery_pricing_v01615.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_inn_recovery_pricing_v01615.cjs.log.gz",
+      "bytes": 632,
+      "sha256": "c98142110e01843559dcaf2f32acd791de0b19546cf414620e321f6dc4d14ae8",
+      "gitBlob": "52ceb470afdeb534d22459a40eff5c144c476474"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_life_v010.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_life_v010.cjs.log.gz",
+      "bytes": 655,
+      "sha256": "bc6bf1dc4212b1b0c4448f24e524152927af59e86c16bc1d69e1ca1e8ad0a52e",
+      "gitBlob": "1d96ba64e53d12c4fcc4634886f1fa349c5c4d62"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_life_v0162.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_life_v0162.cjs.log.gz",
+      "bytes": 1221,
+      "sha256": "ced310962a9f2a6268bf15ee2c3e072db8dafd43956349bd764dba5f897eb2d1",
+      "gitBlob": "ce04f258ef0dd18ac1c05bfcec4635e9fdbbd348"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_online_server.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_online_server.mjs.log.gz",
+      "bytes": 739,
+      "sha256": "d9c1b1a97d8b189f58f4fad323cc6ef8ba015d9954a3a9c55a3b1aee4e463fa7",
+      "gitBlob": "1fe908744788d2ba6352c4dff009d55dc4164f52"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_save_revision.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_save_revision.cjs.log.gz",
+      "bytes": 585,
+      "sha256": "411812156119df37dfe5d6207aaa14ac8ae38662e34d4ddb1fdf6ffd50a7c031",
+      "gitBlob": "c52063a5ed891aa01828417b130e01c8594fcf01"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_server_account_audit_fixes.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_server_account_audit_fixes.mjs.log.gz",
+      "bytes": 386,
+      "sha256": "b98efa4bfc5608775565a407d15ab8986ab03032710fc40e88fe2c262c91f220",
+      "gitBlob": "984460aee06ccd69b44d957a03620d1955a23db0"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_server_social_audit_fixes.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_server_social_audit_fixes.mjs.log.gz",
+      "bytes": 408,
+      "sha256": "0d5a535309cada151a2919423f99f70e0097ef6d84b9d2b37b88e17c9293d05d",
+      "gitBlob": "5d455f42b916c8331773c148c47c7746943c6a8a"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_server_v0152.mjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_server_v0152.mjs.log.gz",
+      "bytes": 472,
+      "sha256": "523cf35ebf208ed3d0f5e3c2ca6c58a86155ad0587654a64d7679273d6b6b4b5",
+      "gitBlob": "61f3bf4ad1bc05a9975a740c321ee97532db62c7"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_shop_supply_v01618.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_shop_supply_v01618.cjs.log.gz",
+      "bytes": 361,
+      "sha256": "8f436cc9cf8974d38f848c518602a4387aa7eae6030d1ed428fb27aa985586c1",
+      "gitBlob": "2c136de23be2a401453a939c75d9d1f49218ee9c"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tests__test_work_validation.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tests__test_work_validation.cjs.log.gz",
+      "bytes": 255,
+      "sha256": "37aabde9773c533d4fff7070e59b3d4cd8dd91b8038ede86ecaa3f002810f717",
+      "gitBlob": "5804ea69abb648ae3da5aa1acacbbc3f7ddacc7e"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/regressions/tools__audit_economy_v0168.cjs.log.gz",
+      "relative": "docs/data/food_balance_v01620/regressions/tools__audit_economy_v0168.cjs.log.gz",
+      "bytes": 558,
+      "sha256": "0b81f73171b53a17415021a9711bd2cca5e12f074e114d4da00397de54c618f5",
+      "gitBlob": "6cdfca10670558f307f8b94c5d3c6020e141dde7"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/restore_baseline.py",
+      "relative": "docs/data/food_balance_v01620/restore_baseline.py",
+      "bytes": 2395,
+      "sha256": "8988e69279a28324241d4f7480977139756ef800906571d935f3844dae3882b0",
+      "gitBlob": "b8f9cce0acf92cfdeca4366f9cfd913937cd711a"
+    },
+    {
+      "path": "genshin-crpg/docs/data/food_balance_v01620/root_checks.json",
+      "relative": "docs/data/food_balance_v01620/root_checks.json",
+      "bytes": 1717,
+      "sha256": "73669165c0abf7fe8ee6e69c410e3e0e79a06baa0dd89d7b19dd81e5e210e35d",
+      "gitBlob": "b85d0f7ecf8b5ea6f8d09f24c2be99ee16197f3b"
+    }
+  ],
+  "selfHashExcludedToAvoidCircularity": true,
+  "workflowWaited": false,
+  "actualServerInstalled": false,
+  "mainMergedOrProductionPromoted": false
+}

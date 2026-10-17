@@ -1,0 +1,461 @@
+{
+  "version": "0.16.6",
+  "baselineCommit": "f89b2a750b7181044aadefd09fb6cba2744a1711",
+  "recovery": {
+    "status": "summary_restored_after_workspace_cleanup",
+    "createdAt": "2026-10-07T10:05:19.264941+00:00",
+    "originalRawCaseVectorsRecovered": false,
+    "currentRestoredSourceReverified": true,
+    "sourceNotes": "Recovered surviving /tmp logs plus values retained in the work-session summary. Summary entries are not a new execution. Final restored-source checks must be recorded separately.",
+    "logs": [
+      {
+        "name": "crpg-combat-baseline.log",
+        "sha256": "de0860d5d404751c1baa206be2503cd10d2e260929faf0ee93d94c11ffc122e3"
+      },
+      {
+        "name": "crpg-combat-candidate.log",
+        "sha256": "219301e4623111b23e45ceb090d92c6790edaf2b871c4502454f49f3ad58200b"
+      },
+      {
+        "name": "crpg-story-baseline-done.log",
+        "sha256": "767d457230e5f7633a1fa08087116d8bd12dc0bca0bcdaaa44bc7ce1fd9ccbde"
+      },
+      {
+        "name": "crpg-story-candidate-done.log",
+        "sha256": "d5da35b889964a7869e22bd2a7293e71c14dc4525101aa24d667e01e841e7edc"
+      },
+      {
+        "name": "crpg-final-story.log",
+        "sha256": "52615a6fe09b5a655e6c10994c6c14305866ed38d94701b074ca5f556c77cce7"
+      },
+      {
+        "name": "crpg-domains-candidate.log",
+        "sha256": "8bde30cba731ca1a8b166839eea2350d24a1f8bb19d905d1d8bda698f05006f3"
+      },
+      {
+        "name": "crpg-ley-candidate.log",
+        "sha256": "a9bf7e4a270b198b512b756de6fcc9aa395c286081ecc5a4aa55d9d96f1b8e99"
+      },
+      {
+        "name": "crpg-rarity-final.log",
+        "sha256": "561722bee8e810179f0a420f3d7a4a5b3a64d5585e2bd927d105c680931a4b74"
+      },
+      {
+        "name": "crpg-raid-final.log",
+        "sha256": "fffcb35875c840974ee4a3763f7233138779274bd59c1c4686026815afd1276f"
+      },
+      {
+        "name": "crpg-reference-bosses.log",
+        "sha256": "bf46d142ccba6e72beeb8cf2052a0ffd17f8bf0f883879c0a4a29dda3776a44a"
+      },
+      {
+        "name": "crpg-reference-abyss.log",
+        "sha256": "ce4818e9041577f89e4334d0d4f4dbb4a61160fb75afe9fa3f4bbd1b8f53399c"
+      },
+      {
+        "name": "crpg-strong-base-proposal.log",
+        "sha256": "6dc076b0d89e131ec76c817dec7b8319826acd8f3f35e473bf0484bd9e28661e"
+      },
+      {
+        "name": "crpg-strong-native-final.log",
+        "sha256": "fd6015e0ae397f1d609f8755f7bc6eab7b6099360a42be7752a6e8939eb9c4b3"
+      },
+      {
+        "name": "crpg-new-balance-tests-final.log",
+        "sha256": "2545227fc6e37cc8e38ed9cc04668c880d84081e78c3dc17e73649629420036d"
+      }
+    ],
+    "currentVerificationScope": "Targeted defeat settlement, save migration, low-level gaps, counter party, enhancement payment, boss balance regression and engine identity. Full field/story/domain raw scan was not repeated after restoration."
+  },
+  "fixedEnemyBaselinePlayers": 4,
+  "playerLevelOrRarityAdaptiveScaling": false,
+  "summaryScans": {
+    "initialBaseline": {
+      "mode": "combat",
+      "label": "baseline",
+      "done": 252,
+      "total": 252,
+      "samples": 756,
+      "wins": 728,
+      "errors": 0
+    },
+    "initialCandidate": {
+      "mode": "combat",
+      "label": "candidate",
+      "done": 252,
+      "total": 252,
+      "samples": 756,
+      "wins": 709,
+      "errors": 0
+    },
+    "initialCandidateCaveat": "Story part included incorrect unfinished-first-combat tutorial fixture. This initial whole-scan win total is not the final-story balance result. Strong-grade coefficients also changed afterward.",
+    "tutorialCompletedBaselineComparison": {
+      "mode": "combat",
+      "label": "baseline-done",
+      "done": 36,
+      "total": 36,
+      "samples": 108,
+      "wins": 107,
+      "errors": 0
+    },
+    "tutorialCompletedCandidateComparison": {
+      "mode": "combat",
+      "label": "candidate-done",
+      "done": 36,
+      "total": 36,
+      "samples": 108,
+      "wins": 99,
+      "errors": 0
+    },
+    "fixedFinalStory": {
+      "mode": "combat",
+      "label": "final-story",
+      "done": 28,
+      "total": 28,
+      "samples": 84,
+      "wins": 84,
+      "errors": 0
+    },
+    "domains": {
+      "mode": "domains",
+      "label": "candidate",
+      "done": 120,
+      "total": 120,
+      "samples": 120,
+      "wins": 120,
+      "errors": 0
+    },
+    "ley": {
+      "mode": "ley",
+      "label": "candidate",
+      "done": 100,
+      "total": 100,
+      "samples": 100,
+      "wins": 96,
+      "errors": 0
+    },
+    "rarity": {
+      "mode": "rarity",
+      "label": "final",
+      "done": 8,
+      "total": 8,
+      "samples": 24,
+      "wins": 24,
+      "errors": 0
+    },
+    "raid": {
+      "mode": "raid",
+      "label": "final",
+      "done": 12,
+      "total": 12,
+      "samples": 36,
+      "wins": 36,
+      "errors": 0
+    }
+  },
+  "recordedSessionSummary": {
+    "source": "Retained work-session summary; full case vectors were removed by workspace cleanup.",
+    "fieldBeforeFinalStrongAdjustment": {
+      "maps": 44,
+      "groups": 176,
+      "samples": 528,
+      "baselineWins": 528,
+      "candidateWins": 525
+    },
+    "commissions": {
+      "samples": 36,
+      "wins": 36
+    },
+    "earlyStory": {
+      "level3Versus10And12": "Three seeds at each enemy level lose after adjustment; baseline won in one round.",
+      "matchedLevelStarterFourPersonPlus3": "Six cases across Lv10/Lv12 won.",
+      "level3Versus20": "Three seeds lose.",
+      "matchedLevel20Plus3": "Wins in about 5-6 rounds."
+    },
+    "bossSimpleFixture": {
+      "samples": 84,
+      "wins": 57,
+      "caveat": "Generic teams can fail mechanics. Prepared native counter/gear references were checked separately; remaining losses are not automatically bugs."
+    },
+    "abyss": {
+      "floors": 12,
+      "roomsPerFloor": 3,
+      "nativeRoomsChecked": 36,
+      "caveat": "Prepared level/gear/artifact-search/counter fixtures; not naturally earned full-account investment timing."
+    }
+  },
+  "strongGradeFinalChecks": {
+    "additionalHpCoefficient": 0.3,
+    "additionalAtkCoefficient": 0.35,
+    "nativeRows": [
+      {
+        "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+        "seed": 717,
+        "victory": true,
+        "rounds": 7
+      },
+      {
+        "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+        "seed": 4242,
+        "victory": true,
+        "rounds": 5
+      },
+      {
+        "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+        "seed": 9031,
+        "victory": true,
+        "rounds": 5
+      },
+      {
+        "group": "EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_1",
+        "seed": 717,
+        "victory": true,
+        "rounds": 7
+      },
+      {
+        "group": "EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_1",
+        "seed": 4242,
+        "victory": true,
+        "rounds": 7
+      },
+      {
+        "group": "EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_1",
+        "seed": 9031,
+        "victory": true,
+        "rounds": 7
+      },
+      {
+        "group": "EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_4",
+        "seed": 717,
+        "victory": false,
+        "rounds": 12
+      },
+      {
+        "group": "EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_4",
+        "seed": 4242,
+        "victory": false,
+        "rounds": 16
+      },
+      {
+        "group": "EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_4",
+        "seed": 9031,
+        "victory": true,
+        "rounds": 10
+      },
+      {
+        "group": "EG_CHASM_SERPENT",
+        "seed": 717,
+        "victory": true,
+        "rounds": 7
+      },
+      {
+        "group": "EG_CHASM_SERPENT",
+        "seed": 4242,
+        "victory": true,
+        "rounds": 5
+      },
+      {
+        "group": "EG_CHASM_SERPENT",
+        "seed": 9031,
+        "victory": true,
+        "rounds": 5
+      }
+    ],
+    "counterProposalRows": [
+      {
+        "team": [
+          "MOND_AMBER",
+          "MOND_KAEYA",
+          "MOND_LISA"
+        ],
+        "seed": 717,
+        "victory": false,
+        "rounds": 12,
+        "hp": 0
+      },
+      {
+        "team": [
+          "MOND_AMBER",
+          "MOND_KAEYA",
+          "MOND_LISA"
+        ],
+        "seed": 4242,
+        "victory": false,
+        "rounds": 16,
+        "hp": 0
+      },
+      {
+        "team": [
+          "MOND_AMBER",
+          "MOND_KAEYA",
+          "MOND_LISA"
+        ],
+        "seed": 9031,
+        "victory": true,
+        "rounds": 10,
+        "hp": 0.3401552249838307
+      },
+      {
+        "team": [
+          "MOND_FISCHL",
+          "LIYUE_XIANGLING",
+          "MOND_BARBARA"
+        ],
+        "seed": 717,
+        "victory": true,
+        "rounds": 10,
+        "hp": 0.6176359872012046
+      },
+      {
+        "team": [
+          "MOND_FISCHL",
+          "LIYUE_XIANGLING",
+          "MOND_BARBARA"
+        ],
+        "seed": 4242,
+        "victory": true,
+        "rounds": 15,
+        "hp": 0.7998306041784302
+      },
+      {
+        "team": [
+          "MOND_FISCHL",
+          "LIYUE_XIANGLING",
+          "MOND_BARBARA"
+        ],
+        "seed": 9031,
+        "victory": true,
+        "rounds": 8,
+        "hp": 0.6509504987765857
+      }
+    ],
+    "caveat": "Fixed stats were not reduced to match actual party size. Lv27 starter team still has two losses; prepared Fischl/Xiangling/Barbara counter team has three logged wins."
+  },
+  "preparedBossReferencePassLines": [
+    "PASS Dvalin: geared 4/4/3/3 loses, prepared level 28 party wins, five seeds each",
+    "PASS FB_ANEMO_HYPOSTASIS: a prepared party at the boss level can win",
+    "PASS FB_ELECTRO_HYPOSTASIS: a prepared party at the boss level can win",
+    "PASS FB_CRYO_REGISVINE: a prepared party at the boss level can win",
+    "PASS FB_CRYO_HYPOSTASIS: a prepared party at the boss level can win",
+    "PASS FB_GEO_HYPOSTASIS: a prepared party at the boss level can win",
+    "PASS FB_PYRO_REGISVINE: a prepared party at the boss level can win",
+    "PASS FB_OCEANID: a prepared party at the boss level can win",
+    "PASS FB_PRIMO_GEOVISHAP: a prepared party at the boss level can win",
+    "PASS FB_RUIN_SERPENT: a prepared party at the boss level can win",
+    "PASS Liyue ESCORT: native level 6 solo fails; regional-level equipped party survives",
+    "PASS Liyue DEFEND: native level 6 solo fails; regional-level equipped party survives"
+  ],
+  "abyssReferencePassLines": [
+    "PASS Spiral Abyss 0.14.4: 12 floors x 3 rooms through native combat, rest-break locks, HP carry-over, room rules, floor marks, full reset only, reward table, 0.14.2 save migration"
+  ],
+  "newBalanceTestPassLines": [
+    "PASS 0.16.5 XP migrates once for player, owned companion and bench without changing levels or belongings",
+    "PASS a prior-curve battle keeps its actors and initiative while only stored XP converts",
+    "PASS Lv3 loses the Lv10 and Lv12 story groups; correctly levelled four-person starter-weapon parties can win",
+    "PASS a prepared four-star counter party can beat the fixed Lv27 Frostarm Lawachurl without changing its stats",
+    "PASS late story foes use fixed chapter levels while ordinary visits retain their regional levels",
+    "PASS high-enhancement success, hold and downgrade all pay the quoted cost exactly once"
+  ],
+  "regression": {
+    "historicalFullSuiteCount": 128,
+    "historicalFullSuitePassed": 121,
+    "historicalFullSuiteFailed": 7,
+    "separateRetrySuccessLogsObserved": 6,
+    "finalExactSourceFullSuitePassed": false,
+    "restoredSourceVerificationStatus": "all eleven targeted changed-code check files passed with exit code zero",
+    "caveat": "Do not combine an earlier 121/128 run and later individual retries into one exact-tree 128/128 execution.",
+    "currentTargetedFiles": 11,
+    "currentTargetedPassed": 11
+  },
+  "liveRaidOrProductionDeploymentExecuted": false,
+  "currentRestoredAudit": {
+    "executed": true,
+    "recordedAt": "2026-10-07T10:15:41.509655+00:00",
+    "targetedOnly": true,
+    "fullCaseVectorScanRerun": false,
+    "defeat": {
+      "name": "crpg-final-defeat-restored.log",
+      "sha256": "2e8578eb32669f9ea872b095909fda7e5e1aeb7aa2c738b425f8ba506f5f25ba",
+      "structuredSummary": {
+        "passed": 8,
+        "nativeRegressionCases": 2,
+        "isolatedMethodCases": 5,
+        "isolatedFormatterCases": 1
+      },
+      "passLines": [
+        "PASS native Osial settles an already fallen party immediately without another round or action",
+        "PASS native ordinary, Dvalin and Golden House fights keep immediate all-party defeat settlement",
+        "PASS all-party defeat takes priority over an objective HOLD",
+        "PASS lethal enemy phase resolution settles before an interlude",
+        "PASS lethal round-end damage settles before a new initiative list",
+        "PASS a multi-action enemy stops after its first lethal action",
+        "PASS a fallen protagonist alone does not settle defeat while another ally is alive",
+        "PASS the first tutorial formatter spells 몬드성이야 and retains other place wording"
+      ]
+    },
+    "balanceSaves": {
+      "name": "crpg-final-balance-restored.log",
+      "sha256": "6ad2aba6007cb16155dcaf29710ee3bbdca3f3c66d6e67ee0083825ae3243a3f",
+      "structuredSummary": {
+        "passed": 6,
+        "nativeBalanceCases": 2,
+        "saveMigrationCases": 2,
+        "fixedLevelCase": 1,
+        "isolatedSettlementCase": 1
+      },
+      "passLines": [
+        "PASS 0.16.5 XP migrates once for player, owned companion and bench without changing levels or belongings",
+        "PASS a prior-curve battle keeps its actors and initiative while only stored XP converts",
+        "PASS Lv3 loses fixed Lv10 and Lv12 fights; correctly levelled four-person starter-weapon parties can win",
+        "PASS a prepared four-star counter party can beat the fixed Lv27 Frostarm Lawachurl without changing its stats",
+        "PASS late story foes use fixed chapter levels while ordinary visits retain their regional levels",
+        "PASS high-enhancement success, hold and downgrade all pay the quoted cost exactly once"
+      ]
+    },
+    "bossBalanceV0152": {
+      "name": "crpg-final-balance-v0152-restored.log",
+      "sha256": "1ca1e55b02807659d5b82d8503680d67b110c7c2bedcd17752ea082bd091c4e2",
+      "structuredSummary": {
+        "total": 6,
+        "passed": 6
+      },
+      "passLines": [
+        "PASS 타르탈리아 (Liyue act 3, Lv.50): a fixed Lv.50 boss; a Lv.50 party wins after a long fight with real damage",
+        "PASS 타르탈리아 of the 이세계 route (Lv.50 subdue fight): no longer falls in one round",
+        "PASS 야타용왕 (Lv.60): a Lv.60 party wins most fights and has to work for it",
+        "PASS repeat challenges: Tartaglia Lv.50 from protagonist Lv.45, Azhdaha Lv.60 from Lv.55; +12 gear wins and a 5★ team clearly does better than a 4★ one",
+        "PASS two-day rematches: a party at the recommended level wins most fights (Andrius Lv.25, Dvalin Lv.28 with the wind route)",
+        "PASS stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers"
+      ]
+    },
+    "engineIdentity": {
+      "name": "crpg-final-engine-identity-restored.log",
+      "sha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc",
+      "structuredSummary": {
+        "ok": true,
+        "uiOnlyCompatible": true,
+        "rulesContentProtocolGatedWorkerIndependent": true
+      },
+      "passLines": []
+    },
+    "serverBuild": {
+      "name": "crpg-server-build-restored.log",
+      "sha256": "bf1318c6c448bca2ccf95d6a2aa18fc3942dd2932a0cac1e0904ca49a4880234",
+      "structuredSummary": {
+        "version": "0.16.6",
+        "runtime_files": 115,
+        "bytes": 28195436,
+        "gzip_bytes": 5329445
+      },
+      "passLines": []
+    }
+  },
+  "currentRestoredValidation": {
+    "testFiles": 11,
+    "passedFiles": 11,
+    "allExitCodesZero": true,
+    "scope": "Changed-code targeted checks only; not a final full 128-file suite or full 118-timing replay.",
+    "evidence": "docs/data/release_v0166_checks.json",
+    "full128ExactTreeRerun": false
+  }
+}

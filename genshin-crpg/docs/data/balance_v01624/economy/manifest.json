@@ -1,0 +1,32 @@
+{
+  "version": "0.16.24",
+  "scope": "읽기 전용 사전 판정표와 0.16.23 강화 확률·비용의 산술 기대값. 자연 계정 실측·조달·본편 완주·최종 후보 합격 증명이 아닙니다.",
+  "copied_without_modification": true,
+  "reproduction": "python docs/data/balance_v01624/economy/gear_expectation.py",
+  "reproduction_matches_recorded_json": true,
+  "excluded_costs": [
+    "강화 상한 돌파",
+    "제작법 및 재료 획득",
+    "이동 시간",
+    "실제 전투 및 패배",
+    "입장 제한이 포함된 달력 시간"
+  ],
+  "inputs_runtime_enhancement_sha256": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+  "files": [
+    {
+      "path": "CROSS_SYSTEM_ACCEPTANCE_KO.md",
+      "sha256": "e05abed03bb50ae01e4965f33e82c06b7cd6e13b13f89eccfb0e5eedd1308073",
+      "bytes": 11806
+    },
+    {
+      "path": "gear_expectation.py",
+      "sha256": "05a40fb4db976bca6b5f1785bd8bccf3cdf1815cb2c59c70d2ae967c03e54a00",
+      "bytes": 3019
+    },
+    {
+      "path": "gear_expectation.json",
+      "sha256": "697e85d25b4b149cffcf087e26000a835b7aac73f6fc74d99391cc49e1d61b69",
+      "bytes": 2259
+    }
+  ]
+}

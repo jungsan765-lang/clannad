@@ -1,0 +1,98 @@
+{
+  "root": "/workspace/scratch/a62414469990/v01626-verification-work",
+  "fingerprint": "engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d",
+  "sourceSHA256": "00e7257c98ab788b9eb8c3ca15783d45441f9869d83b1430b420b4dfdf339125",
+  "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "assumptions": "Native fixed four-person opening and public boss entry/guards/COMBAT; fixture ownership, equal Lv18 legal growth and craft+3 only. No altered actor range/airborne/AI/rolls/enemy stats.",
+  "checks": [
+    {
+      "name": "Bow basic attack reaches its publicly advertised airborne target",
+      "ok": true,
+      "evidence": {
+        "actorRange": "원거리",
+        "cardRange": "근접",
+        "target": "FB_ANEMO_HYPOSTASIS#1",
+        "round": 4,
+        "sequence": 20,
+        "packet": {
+          "damage": 224,
+          "miss": false,
+          "hpBefore": 12633,
+          "hpAfter": 12409
+        },
+        "finished": false,
+        "roundAfter": 5
+      }
+    },
+    {
+      "name": "Melee basic attack still rejects an airborne target without consuming the turn",
+      "ok": true,
+      "evidence": {
+        "actorRange": "근접",
+        "airborne": true,
+        "targets": [],
+        "unchanged": true
+      }
+    },
+    {
+      "name": "EQ_BOW_CRESCENT ground basic attack remains executable",
+      "ok": true,
+      "evidence": {
+        "actorRange": "원거리",
+        "cardRange": "근접",
+        "target": "MON_HILI_FIGHTER#1",
+        "round": 1,
+        "sequence": 0,
+        "packet": {
+          "damage": 290,
+          "miss": false,
+          "hpBefore": 244,
+          "hpAfter": 0
+        },
+        "finished": true,
+        "roundAfter": 1
+      }
+    },
+    {
+      "name": "EQ_SWORD_RANCOUR ground basic attack remains executable",
+      "ok": true,
+      "evidence": {
+        "actorRange": "근접",
+        "cardRange": "근접",
+        "target": "MON_HILI_FIGHTER#1",
+        "round": 1,
+        "sequence": 0,
+        "packet": {
+          "damage": 291,
+          "miss": false,
+          "hpBefore": 244,
+          "hpAfter": 0
+        },
+        "finished": true,
+        "roundAfter": 1
+      }
+    },
+    {
+      "name": "A nonbasic whole-field skill retains its card range for a melee actor",
+      "ok": true,
+      "evidence": {
+        "actorRange": "근접",
+        "cardRange": "전장",
+        "target": "FB_ANEMO_HYPOSTASIS#1",
+        "round": 3,
+        "sequence": 16,
+        "packet": {
+          "damage": 412,
+          "miss": false,
+          "hpBefore": 14343,
+          "hpAfter": 13931
+        },
+        "finished": false,
+        "roundAfter": 4
+      }
+    }
+  ],
+  "total": 5,
+  "passed": 5,
+  "failed": 0
+}

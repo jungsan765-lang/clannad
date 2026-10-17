@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "classification": "DORMANT_SOURCE_PATH_NOT_A_CURRENT_FRESH_GAME_BUG",
+  "productChanged": false,
+  "nativeGuestSettlementCoverage": 0,
+  "initialAttempt": {
+    "testArchive": "guest_fixture_initial_attempt.cjs.gz",
+    "uncompressedBytes": 5636,
+    "uncompressedSHA256": "8c1634c47e4fba77157e197571019f987c127c2ea4ef143930bbc84254e05562",
+    "log": "guest_fixture_initial_attempt.log",
+    "exitCode": 1,
+    "failedBeforeNativeBattleOrSettlement": true,
+    "reason": "Current combatStoryConfig returns an empty guest list; the fixture assertion rejects its own assumption."
+  },
+  "reviewedSources": [
+    {
+      "path": "source/runtime_journey.js",
+      "sha256": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e",
+      "lines": [
+        44,
+        46,
+        91
+      ],
+      "facts": [
+        "combatStoryConfig overrides authored guest_char_ids to an empty array.",
+        "startBattle rejects companions who are not JOINED.",
+        "migratePermanentParty returns current permanentPartyVersion1 unchanged, and restores old guest encounters to checkpoints/preparation when migrating older party policy."
+      ]
+    },
+    {
+      "path": "source/runtime_combat.js",
+      "sha256": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa",
+      "lines": [
+        88,
+        242
+      ],
+      "facts": [
+        "The older story guest construction and full-heal-on-level-up settlement code remains in this adapter.",
+        "Later journey overrides prevent fresh ordinary story play from constructing these actors; source text alone did not establish an active player bug."
+      ]
+    }
+  ],
+  "decision": "Discard the proposed dormant-path product edit and dedicated release test. Do not enable temporary story parties, manufacture a current legal encounter, or claim that the initial blocked fixture tested guest settlement. Existing owned/player growth and JOINED-only XP book boundaries remain separate validated changes."
+}

@@ -1,0 +1,41 @@
+{
+  "approvedAt": "2026-10-10T04:32:39.312562+00:00",
+  "productChanges": false,
+  "changes": [
+    {
+      "path": "tools/test_other_healers_v01619.cjs",
+      "beforeSha256": "62d4ce69c1eed6626a55545e89795befa77039bd5da2c5a6a5b475c2ebcbb0c1",
+      "afterSha256": "4de0f8845b91a04ed892c81d8441111857b0870fa4702b87609c94005fd3dffd",
+      "approval": "Root explicitly authorized only new-policy Xianyun immediate1250→850, ongoing600→400 and corresponding card metadata expectation; legacy tests unchanged.",
+      "reason": "Original gate10 had2 failures caused by stale0.16.19 newbattle expectations. Current approved0.16.22 versioned newbattle policy850/400 and legacy1250/600 have independent5-contract coverage.",
+      "originalResult": "per_gate/010.json",
+      "originalLog": "logs/010_test_other_healers_v01619.cjs.log.gz"
+    },
+    {
+      "path": "tests/test_material_efficiency_v01622.cjs",
+      "beforeSha256": "f1097c13ebd25c72d17c40ce87613e13728a19bf2e682b454d0efe3e8f94896e",
+      "afterSha256": "429d6d1ea70e098bd2d6d364f1759c568d9aea2910e610619144a0767708f10f",
+      "approval": "Root explicitly authorized4→5 contracts after finalK35 native growth observations.",
+      "reason": "Added finalK35 actual rewards/successful lower-pair no-reversal/highest10%margin/preserved noncomparable failure-pair contract; existing4th renamed K25 candidate growth-only. Product unchanged.",
+      "originalSourceAvailability": "Exact original4-contract source reconstructed by reversing one added contract and one clarified label; SHA equals frozen f1097c13… exactly."
+    },
+    {
+      "path": "tests/test_ascension_efficiency_v01613.cjs",
+      "beforeSha256": "717cba6eafb611655427be31aec579c82487ae5cb219b25c23b59fbca818a697",
+      "afterSha256": "6e4db0bd8922177809d87dd277d8b134df791938b9c6bfff7e71f8a2375fd560",
+      "approval": "Root authorized native reward-settlement fixture with four-star hydro counter party and legal investment; no forced victory, enemy edits, weaker packets, or removing victory assertion.",
+      "reason": "Original Amber/Kaeya/Lisa C0+6/mid party loses bothroutes to fire-slime immunity and no water/healer/shield. Bothroute native current rules Hydro counter party Kaeya/Xingqiu/Barbara +9/cap wins and receives5400.",
+      "originalResult": "per_gate/020.json",
+      "nativeEvidence": "../growth/ascension_unit_fixture_native/observations.json"
+    },
+    {
+      "path": "tests/test_incoming_defense_v01622.cjs",
+      "beforeSha256": "0827e49549174da2d38f1744dbe158818098b6e6c5756968e12bcc61faf1fc39",
+      "afterSha256": "00578059251f57211d69f617448e59611d64271e1dc6dc0812a3ad6ac63ccbb6",
+      "approval": "Root added two native packet boundary contracts for the approved PROTECT_FORMATION damage-scope correction, bothroutes. Original9 contracts retained.",
+      "reason": "Verified original9-contract source reconstructed exactly against frozen SHA; current11 confirms newbattle version1 in Osial and identical K100 incoming packets to legacy-defense comparison."
+    }
+  ],
+  "finalTwoGateRerunsRequired": true,
+  "furtherFollowupProductEditsRequireNewFinalRun": true
+}

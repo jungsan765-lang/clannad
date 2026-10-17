@@ -1,0 +1,728 @@
+{
+  "version": "0.16.6",
+  "baselineCommit": "f89b2a750b7181044aadefd09fb6cba2744a1711",
+  "recovery": {
+    "status": "summary_restored_after_workspace_cleanup",
+    "createdAt": "2026-10-07T10:05:19.269181+00:00",
+    "originalRawCaseVectorsRecovered": false,
+    "currentRestoredSourceReverified": true,
+    "sourceNotes": "Recovered surviving /tmp logs plus values retained in the work-session summary. Summary entries are not a new execution. Final restored-source checks must be recorded separately.",
+    "logs": [
+      {
+        "name": "crpg-pacing-candidate.log",
+        "sha256": "12be8aab7b0c73bfb457f6a603f40754fa326d66b407007f1652bac750b7cdad"
+      },
+      {
+        "name": "crpg-pacing-selected.log",
+        "sha256": "3ffeba7807312312a3278e8e8efd5137634ff769fd05d3459d9fddae6a431638"
+      },
+      {
+        "name": "crpg-timing-spot-final.log",
+        "sha256": "4727492513310f4a3d1fe38fa1c64e02e543c18b175c4c9fc280ea353842ddea"
+      }
+    ],
+    "currentVerificationScope": "Targeted 12 native pacing battles and eight paid cap transitions only. Detailed 118-stage timing vectors and full growth-band replay were not rerun after restoration."
+  },
+  "growthPacingVersion": 2,
+  "curveSource": "Reconstructed XP_PACING_V0166 recorded in session; source identity must be checked after restoration.",
+  "xpRequiredForLevels1To60": [
+    60,
+    110,
+    180,
+    270,
+    370,
+    470,
+    580,
+    710,
+    830,
+    1110,
+    1160,
+    1200,
+    1250,
+    1290,
+    1340,
+    1380,
+    1430,
+    1470,
+    1510,
+    5520,
+    5740,
+    5960,
+    6180,
+    6410,
+    6620,
+    6850,
+    7070,
+    7290,
+    7510,
+    33950,
+    35310,
+    36660,
+    38020,
+    39380,
+    40740,
+    42100,
+    43450,
+    44810,
+    46170,
+    46180,
+    46190,
+    46200,
+    46210,
+    46220,
+    46230,
+    46240,
+    46250,
+    46260,
+    46270,
+    101330,
+    105390,
+    109440,
+    113490,
+    117540,
+    121600,
+    125650,
+    129700,
+    133760,
+    137810,
+    0
+  ],
+  "xpTotal1To60": 2140420,
+  "xpTotal55To60": 648520,
+  "referenceBands": [
+    {
+      "from": 1,
+      "to": 10,
+      "targetSeconds": 600,
+      "meanClears": 13,
+      "meanSeconds": 609.26
+    },
+    {
+      "from": 10,
+      "to": 20,
+      "targetSeconds": 1800,
+      "meanClears": 29,
+      "meanSeconds": 1792.28
+    },
+    {
+      "from": 20,
+      "to": 30,
+      "targetSeconds": 3600,
+      "meanClears": 48,
+      "meanSeconds": 3602.38
+    },
+    {
+      "from": 30,
+      "to": 40,
+      "targetSeconds": 10800,
+      "meanClears": 189,
+      "meanSeconds": 10800.63
+    },
+    {
+      "from": 40,
+      "to": 50,
+      "targetSeconds": 14400,
+      "meanClears": 145,
+      "meanSeconds": 14870.54
+    },
+    {
+      "from": 50,
+      "to": 60,
+      "targetSeconds": 18000,
+      "meanClears": 204,
+      "meanSeconds": 18026.47
+    }
+  ],
+  "referenceBandProvenance": "Values preserved from the previous native progression audit in the work-session summary; original detailed JSON was removed. Not a newly executed full audit.",
+  "routeDifferencesRecorded": {
+    "level30To40": {
+      "travelerSeconds": 9506.9,
+      "isekaiSeconds": 12094.36
+    },
+    "level40To50": {
+      "travelerSeconds": 14746.14,
+      "isekaiSeconds": 14994.94
+    }
+  },
+  "measurement": {
+    "playbackSpeed": 2,
+    "playerInputSeconds": 3,
+    "reentrySeconds": 6,
+    "partySize": 4,
+    "seeds": [
+      717,
+      4242,
+      9031
+    ],
+    "fullHpAtEntry": true,
+    "ownedCharactersEquipmentStoryUnlocksAndAscensionMaterials": "synthetically prepared",
+    "selection": "Highest unlocked EXP stage with all three recorded seeds victorious; descend when the highest stage fails. Stages advance every five levels.",
+    "included": [
+      "native combat presentation frame duration at 2x",
+      "player inputs",
+      "reentry"
+    ],
+    "excluded": [
+      "travel",
+      "story",
+      "healing preparation",
+      "gathering/mining",
+      "gear forging/enhancement",
+      "ascension and talent material farming"
+    ],
+    "caveat": "Mean of traveler/isekai references, not measured entire playtime of a natural new account. Individual routes vary."
+  },
+  "highestStageCandidateScan": {
+    "mode": "pacing",
+    "label": "candidate",
+    "done": 118,
+    "total": 118,
+    "samples": 354,
+    "wins": 300,
+    "errors": 0
+  },
+  "selectedProgressMilestones": [
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 10,
+      "domain": "MIDSUMMER_COURTYARD:10",
+      "rows": 10
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 20,
+      "domain": "PEAK_OF_VINDAGNYR:25",
+      "rows": 20
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 30,
+      "domain": "ZHOU_FORMULA:35",
+      "rows": 30
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 40,
+      "domain": "CLEAR_POOL:45",
+      "rows": 40
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 50,
+      "domain": "DOMAIN_OF_GUYUN:55",
+      "rows": 50
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 59,
+      "domain": "LOST_VALLEY:60",
+      "rows": 59
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 10,
+      "domain": "MIDSUMMER_COURTYARD:10",
+      "rows": 69
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 20,
+      "domain": "PEAK_OF_VINDAGNYR:20",
+      "rows": 79
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 30,
+      "domain": "ZHOU_FORMULA:35",
+      "rows": 89
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 40,
+      "domain": "CLEAR_POOL:45",
+      "rows": 99
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 50,
+      "domain": "DOMAIN_OF_GUYUN:55",
+      "rows": 109
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 59,
+      "domain": "LOST_VALLEY:60",
+      "rows": 118
+    }
+  ],
+  "selectedStageCount": 118,
+  "selectedRawCaseVectorsRecovered": false,
+  "selectedAuditReportedInSession": {
+    "samples": 354,
+    "wins": 354,
+    "provenance": "Recorded session summary plus the selected-stage policy. Surviving milestone log does not contain all per-case results."
+  },
+  "timingSpotsAfterCurveChange": [
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 1,
+      "previous": 30.599999999999998,
+      "current": 30.599999999999998,
+      "diff": 0,
+      "wins": 3
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "level": 10,
+      "previous": 48.68333333333334,
+      "current": 48.68333333333334,
+      "diff": 0,
+      "wins": 3
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 1,
+      "previous": 47.57,
+      "current": 47.57,
+      "diff": 0,
+      "wins": 3
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "level": 10,
+      "previous": 61.04,
+      "current": 61.04,
+      "diff": 0,
+      "wins": 3
+    }
+  ],
+  "failedIntermediateLogExcluded": "crpg-pacing-installed.log contains an old replay assertion failure and is not final timing evidence.",
+  "saveMigration": {
+    "fromPreviousCurve": 1,
+    "toCurve": 2,
+    "oneTimeCurrentLevelFractionMigration": true,
+    "preserved": [
+      "level",
+      "ascension",
+      "items",
+      "wish ownership",
+      "current battle actors",
+      "initiative order"
+    ],
+    "reverifiedAfterRestoration": true
+  },
+  "domainsAndLeyRoles": "EXP domains grant participant XP, no Mora/books. Revelation ley grants small direct XP plus shared books. Existing level-selected ley difficulty remains unchanged.",
+  "currentRestoredAudit": {
+    "executed": true,
+    "recordedAt": "2026-10-07T10:15:41.509655+00:00",
+    "mode": "smoke",
+    "targetedOnly": true,
+    "full118TimingVectorAuditRerun": false,
+    "log": "crpg-pacing-smoke-recovered.json",
+    "sha256": "65d558e8b567ee0999ddc0411c6f1d87640cec430c4cf967501c5572688f0d18",
+    "assumptions": {
+      "displaySpeed": 2,
+      "inputSeconds": 3,
+      "reentrySeconds": 6,
+      "party": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "seeds": [
+        717,
+        4242,
+        9031
+      ],
+      "synthetic": [
+        "ownership",
+        "story access",
+        "legal crafted equipment and talents",
+        "full HP at entry",
+        "exact ascension materials"
+      ],
+      "excluded": [
+        "travel",
+        "recovery",
+        "mining",
+        "gear and material farming"
+      ],
+      "fallback": "highest currently open EXP stage with all three seeds victorious"
+    },
+    "nativeBattleCount": 12,
+    "nativeBattleWins": 12,
+    "measuredStageSummaries": [
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "cycleSeconds": 30.599999999999998
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:25",
+        "cycleSeconds": 111.11000000000001
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "cycleSeconds": 47.57
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:20",
+        "cycleSeconds": 99.93333333333334
+      }
+    ],
+    "battleSummaries": [
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "seed": 717,
+        "cycleSeconds": 28.75,
+        "victory": true,
+        "rounds": 1
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "seed": 4242,
+        "cycleSeconds": 32.08,
+        "victory": true,
+        "rounds": 2
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "seed": 9031,
+        "cycleSeconds": 30.97,
+        "victory": true,
+        "rounds": 2
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:25",
+        "seed": 717,
+        "cycleSeconds": 119.29,
+        "victory": true,
+        "rounds": 8
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:25",
+        "seed": 4242,
+        "cycleSeconds": 103.63,
+        "victory": true,
+        "rounds": 8
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:25",
+        "seed": 9031,
+        "cycleSeconds": 110.41,
+        "victory": true,
+        "rounds": 8
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "seed": 717,
+        "cycleSeconds": 51.79,
+        "victory": true,
+        "rounds": 3
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "seed": 4242,
+        "cycleSeconds": 43.239999999999995,
+        "victory": true,
+        "rounds": 3
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 1,
+        "domain": "MIDSUMMER_COURTYARD:5",
+        "seed": 9031,
+        "cycleSeconds": 47.68,
+        "victory": true,
+        "rounds": 3
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:20",
+        "seed": 717,
+        "cycleSeconds": 102.72,
+        "victory": true,
+        "rounds": 8
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:20",
+        "seed": 4242,
+        "cycleSeconds": 95.93,
+        "victory": true,
+        "rounds": 7
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "level": 20,
+        "domain": "PEAK_OF_VINDAGNYR:20",
+        "seed": 9031,
+        "cycleSeconds": 101.15,
+        "victory": true,
+        "rounds": 7
+      }
+    ],
+    "paidCapCount": 8,
+    "paidCaps": [
+      {
+        "route": "ROUTE_TRAVELER",
+        "owner": "PLAYER_CUSTOM",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_NEUTRAL": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_NEUTRAL": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "owner": "MOND_AMBER",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_PYRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_PYRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "owner": "MOND_KAEYA",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_CRYO": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_CRYO": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "owner": "MOND_LISA",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_ELECTRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_ELECTRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "owner": "PLAYER_CUSTOM",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_NEUTRAL": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_NEUTRAL": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "owner": "MOND_AMBER",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_PYRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_PYRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "owner": "MOND_KAEYA",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_CRYO": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_CRYO": 3,
+            "ING_CALLA_LILY": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "owner": "MOND_LISA",
+        "fromLevel": 10,
+        "fromPhase": 0,
+        "toPhase": 1,
+        "nextCap": 20,
+        "quote": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_ELECTRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "paid": {
+          "mora": 800,
+          "items": {
+            "GROWTH_GEM_ELECTRO": 3,
+            "ING_LAMP_GRASS": 2,
+            "MAT_DAMAGED_MASK": 2
+          }
+        },
+        "afterXp": {
+          "level": 11,
+          "xp": 7
+        }
+      }
+    ],
+    "caveat": "Current smoke supports engine behavior and timings at selected points, not independent revalidation of every recorded reference-band mean."
+  },
+  "currentRestoredValidation": {
+    "testFiles": 11,
+    "passedFiles": 11,
+    "allExitCodesZero": true,
+    "scope": "Changed-code targeted checks only; not a final full 128-file suite or full 118-timing replay.",
+    "evidence": "docs/data/release_v0166_checks.json",
+    "full128ExactTreeRerun": false
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "mainConditions": 162,
+  "finalAdditionalConditions": 12,
+  "baselinePreparedAdditionalConditions": 6,
+  "finalFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+  "outputs": [
+    {
+      "name": "FB_ANEMO_HYPOSTASIS",
+      "conditions": 18,
+      "path": "native/FB_ANEMO_HYPOSTASIS.json.gz",
+      "rawBytes": 8394171,
+      "rawSHA256": "ab6917963bfce7610d083a3545badcbba903db6d00547be98f58fbcb3f393c89",
+      "compressedBytes": 398863,
+      "compressedSHA256": "fe819042462888052c843b741f99ea3e7b65f6430af12b27067ac74514492535",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": false
+    },
+    {
+      "name": "FB_CRYO_HYPOSTASIS",
+      "conditions": 18,
+      "path": "native/FB_CRYO_HYPOSTASIS.json.gz",
+      "rawBytes": 7018381,
+      "rawSHA256": "a7e66626a6015073bdfd7e5baf0628c01fcbb1cbd441eda4f9788a0cec74eb5f",
+      "compressedBytes": 300283,
+      "compressedSHA256": "3b295dd5a985994ae39d585334c0166f0555745ee9bb7731af232f5c3edd9897",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": false
+    },
+    {
+      "name": "FB_OCEANID",
+      "conditions": 18,
+      "path": "native/FB_OCEANID.json.gz",
+      "rawBytes": 3606185,
+      "rawSHA256": "a97784c962ad35114e160840e97378eae218928b36195cae4bbf71399536ebd6",
+      "compressedBytes": 199795,
+      "compressedSHA256": "65461500d6af2b175e58110ec19a1b7f1e46b3bcd2048f1ca64c453c2804ccd4",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": false
+    },
+    {
+      "name": "FB_GEO_HYPOSTASIS",
+      "conditions": 18,
+      "path": "native/FB_GEO_HYPOSTASIS.json.gz",
+      "rawBytes": 9842251,
+      "rawSHA256": "d43c529fde6dd6d1116a6e144aba05eda1a20bd134bf7e93beec689708e9aad9",
+      "compressedBytes": 428814,
+      "compressedSHA256": "78e7000515b646c147da99d98adf2898e4f99fc44529a1d4e61f67f084fa6646",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": false
+    },
+    {
+      "name": "FB_PRIMO_GEOVISHAP",
+      "conditions": 18,
+      "path": "native/FB_PRIMO_GEOVISHAP.json.gz",
+      "rawBytes": 4305544,
+      "rawSHA256": "fe87f95982c7054fad8067407ef1642370361ebda1e13cfd10bd909828172918",
+      "compressedBytes": 220557,
+      "compressedSHA256": "67c5bc8785114e851eb73e9cd93fc3f277aaff1bd4d2493da3530dd2c78bc403",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": false
+    },
+    {
+      "name": "FB_RUIN_SERPENT",
+      "conditions": 18,
+      "path": "native/FB_RUIN_SERPENT.json.gz",
+      "rawBytes": 8690032,
+      "rawSHA256": "148f0ca554147ff96561da02f2c19779bb55f84f0985125aa78a7342e919b3db",
+      "compressedBytes": 344860,
+      "compressedSHA256": "c5c3a28a872f8e1671d9c918839b780291943a78fb3c244bdb45f51c0e9c3caf",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": false
+    },
+    {
+      "name": "electro",
+      "conditions": 18,
+      "path": "native/electro.json.gz",
+      "rawBytes": 7169082,
+      "rawSHA256": "65e0eb235e98295db6687d791d950288fba4f23656b10730bc0e07bb47bc085c",
+      "compressedBytes": 335461,
+      "compressedSHA256": "8d7aac988130c9c0e269dc4d02155c6e73060c033f3445632d8c35676f854a11",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": true
+    },
+    {
+      "name": "trees",
+      "conditions": 36,
+      "path": "native/trees.json.gz",
+      "rawBytes": 9200675,
+      "rawSHA256": "5ca2ec5679c412415465eb283e77d47c1f9097ef122ce3c5259378d22b80f9cd",
+      "compressedBytes": 457321,
+      "compressedSHA256": "bf46208dd80492e2b35321266b52603bbedee3e5050bb2fb7bd89da18059ac33",
+      "sourceExit": {
+        "code": 0,
+        "signal": null
+      },
+      "reusedCompletedGroup": true
+    },
+    {
+      "name": "anemo_ganyu",
+      "conditions": 6,
+      "path": "anemo_ganyu/native.json.gz",
+      "rawBytes": 1283777,
+      "rawSHA256": "085cfc583ff3e8deb804b895b92ace66a67e21625a10429049f6e1677f75080e",
+      "compressedBytes": 74024,
+      "compressedSHA256": "712d2cbbdfd13b2e5690f14be6b48ede6dbe64cdb9227bc7de1c1dfc873547d2",
+      "notInMain162": true
+    },
+    {
+      "name": "primo_prepared",
+      "conditions": 6,
+      "path": "primo_prepared/native.json.gz",
+      "rawBytes": 2198278,
+      "rawSHA256": "f06fe3c481e846da4200dca3e1778421bfd7ba81092c794a97a713f5422e3e0a",
+      "compressedBytes": 102141,
+      "compressedSHA256": "e428fa71061cb7e265924ff156ac74618eef364f1175a7b16c4a9ce0234553ea",
+      "notInMain162": true
+    },
+    {
+      "name": "primo_prepared_baseline",
+      "conditions": 6,
+      "path": "primo_prepared_baseline/native.json.gz",
+      "rawBytes": 2200798,
+      "rawSHA256": "1dab9eada163aa2dc26256f8bcc8938cc0e0f24d570311f2e319fd4aa6dec55e",
+      "compressedBytes": 102320,
+      "compressedSHA256": "e9f125ab677180de92b0913ae34414cd720555065b31bb75b1a958cf44715c2a",
+      "notInMain162": true
+    }
+  ]
+}

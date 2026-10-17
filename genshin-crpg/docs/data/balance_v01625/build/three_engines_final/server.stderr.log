@@ -1,0 +1,167 @@
+FAIL genuine_v01624_save_and_next_action_preserved:0:PENDING complete old save unchanged on reserialize
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 0,
+      actors: [
+        {
+
+FAIL genuine_v01624_save_and_next_action_preserved:0:WAIT_PLAYER complete old save unchanged on reserialize
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 8,
+      actors: [
+        {
+
+FAIL genuine_v01624_save_and_next_action_preserved:2:PENDING complete old save unchanged on reserialize
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 0,
+      actors: [
+        {
+
+FAIL genuine_v01624_save_and_next_action_preserved:2:WAIT_PLAYER complete old save unchanged on reserialize
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 8,
+      actors: [
+        {
+
+FAIL genuine_v01624_save_and_next_action_preserved:6:PENDING complete old save unchanged on reserialize
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 0,
+      actors: [
+        {
+
+FAIL genuine_v01624_save_and_next_action_preserved:6:WAIT_PLAYER complete old save unchanged on reserialize
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 8,
+      actors: [
+        {
+
+FAIL actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:0 complete old post-pulse state is unchanged
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 0,
+      actors: [
+        {
+
+FAIL actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:2 complete old post-pulse state is unchanged
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 0,
+      actors: [
+        {
+
+FAIL actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:6 complete old post-pulse state is unchanged
++ actual - expected
+... Skipped lines
+
+  {
+    abyss: {
+      active: null,
+      attempts: 0,
+      claimed: {},
+...
+    relations: {},
++   relationshipSchemaVersion: 1,
+    rosterVersion: 1,
+    runtime: {
+      actionSequence: 0,
+      actors: [
+        {
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+9 !== 0
+
+    at worker (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tools/audit_balance_engines_v01625.cjs:13:268)

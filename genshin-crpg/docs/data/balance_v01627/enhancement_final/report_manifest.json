@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "sourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "status": "Final7147 public preparation prices and actual same-full-inn domain endpoints.",
+  "files": [
+    {
+      "path": "README_KO.md",
+      "sha256": "d75447f6b01880e639da8ee253c129bb1971e79db380b1a78d0cfc60d16b4b5f"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "07c1927bfb1a1dfccac4fec1f0f9ee392f10b043bcd2459171c0b94cebd5ffea"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "f8aefa68e374c59ed30285bc600abaedd0a686df1613c2d5c5e1302b59add0de"
+    },
+    {
+      "path": "native.json.gz",
+      "sha256": "39d416bbb259691da01f57166e5ed82c5309c6cf19c385cb3ab184cc83e59da2"
+    },
+    {
+      "path": "final_policy_invariance.json",
+      "sha256": "347956de67c34414842e3e235ebf933db2ad88290a71e6c464374091bcdfdea7"
+    }
+  ],
+  "summarizer": {
+    "path": "tools/summarize_enhancement_v01627.py",
+    "sha256": "462077347302f6d5786d93a2a6c89489963fbac40b93e7775702fafb491e8dbc"
+  },
+  "wealthInput": {
+    "secondsPerMora": 0.0071578422822972465,
+    "note": "Marginal replenishment only; actual native wealth campaign selected by --wealth-input, or historical default when omitted. Actual wealth hourly quota persists. Initial gear investment and acquisition excluded from these domain efficiency rows.",
+    "rawInput": "docs/data/balance_v01627/ordinary_final/raw/material_mora_endpoint.json.gz",
+    "rawUncompressedSha256": "5ef96abf49c891d3537a5ac24af0e4f80127e6c7bfb212f65dfc374728998280",
+    "sourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2"
+  },
+  "ordinaryReference": "../ordinary_final/report_manifest.json",
+  "independentPriceReference": "../enhancement_price_revision/manifest.json"
+}

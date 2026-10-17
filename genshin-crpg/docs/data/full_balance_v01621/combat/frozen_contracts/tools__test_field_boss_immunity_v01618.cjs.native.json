@@ -1,0 +1,541 @@
+{
+  "version": "0.16.18",
+  "scope": "field-boss elemental immunity and Cryo revival hit-count regression",
+  "fixturePolicy": "Native actors and legal cards; Lv60/phase, owned four-member party, +6 legal equipment, talent8 are fixtures. Oversized packets are declared boundary setup; typed reaction probes supplement real skills.",
+  "checks": [
+    {
+      "id": "hydro_form:FB_MIMIC_BOAR",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 1564,
+          "shield": 0
+        },
+        "afterPhysical": {
+          "hp": 1443,
+          "shield": 0
+        },
+        "nativeHydroSkills": [
+          "BARBARA_BASIC",
+          "MOND_MONA_E"
+        ],
+        "typedPacketKinds": [
+          "REACTION",
+          "REACTION_DOT",
+          "OBJECT",
+          "FIELD"
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "hydro_form:FB_MIMIC_CRANE",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 1079,
+          "shield": 0
+        },
+        "afterPhysical": {
+          "hp": 922,
+          "shield": 0
+        },
+        "nativeHydroSkills": [
+          "BARBARA_BASIC",
+          "MOND_MONA_E"
+        ],
+        "typedPacketKinds": [
+          "REACTION",
+          "REACTION_DOT",
+          "OBJECT",
+          "FIELD"
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "hydro_form:FB_MIMIC_FROG",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 1295,
+          "shield": 0
+        },
+        "afterPhysical": {
+          "hp": 1159,
+          "shield": 0
+        },
+        "nativeHydroSkills": [
+          "BARBARA_BASIC",
+          "MOND_MONA_E"
+        ],
+        "typedPacketKinds": [
+          "REACTION",
+          "REACTION_DOT",
+          "OBJECT",
+          "FIELD"
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "hydro_form:FB_MIMIC_CRAB",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 1888,
+          "shield": 472
+        },
+        "afterPhysical": {
+          "hp": 1888,
+          "shield": 372
+        },
+        "nativeHydroSkills": [
+          "BARBARA_BASIC",
+          "MOND_MONA_E"
+        ],
+        "typedPacketKinds": [
+          "REACTION",
+          "REACTION_DOT",
+          "OBJECT",
+          "FIELD"
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "hydro_form:FB_MIMIC_FALCON",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 1025,
+          "shield": 0
+        },
+        "afterPhysical": {
+          "hp": 857,
+          "shield": 0
+        },
+        "nativeHydroSkills": [
+          "BARBARA_BASIC",
+          "MOND_MONA_E"
+        ],
+        "typedPacketKinds": [
+          "REACTION",
+          "REACTION_DOT",
+          "OBJECT",
+          "FIELD"
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "cryo_core_delayed_native:MOND_AMBER",
+      "passed": true,
+      "evidence": {
+        "fields": [
+          {
+            "kind": "BUNNY",
+            "actor": "MOND_AMBER",
+            "side": "ALLY",
+            "rounds": 1,
+            "createdRound": 1,
+            "name": "토끼 백작",
+            "hp": 5112,
+            "maxHp": 5112,
+            "def": 2349.6000000000004,
+            "tauntChance": 30,
+            "explodeAt": 2,
+            "asset": "summon_baron_bunny.webp",
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "id": "V011-6:B13:F1",
+            "sourceCardId": "MOND_AMBER_E"
+          }
+        ],
+        "firstDelayedHitCount": 1,
+        "saveReload": true,
+        "totalHits": 4,
+        "coreBreaks": 1,
+        "settlementCount": 1,
+        "victory": true
+      }
+    },
+    {
+      "id": "cryo_core_delayed_native:LIYUE_XIANGLING",
+      "passed": true,
+      "evidence": {
+        "fields": [
+          {
+            "kind": "GOU_BA",
+            "actor": "LIYUE_XIANGLING",
+            "side": "ALLY",
+            "rounds": 99,
+            "createdRound": 1,
+            "sourceCardId": "LIYUE_XIANGLING_E",
+            "liyue": true,
+            "name": "누룽지",
+            "asset": "summon_guoba.webp",
+            "summonTurns": 2,
+            "summonTicks": 0,
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "id": "V011-7:B13:F1"
+          }
+        ],
+        "firstDelayedHitCount": 1,
+        "saveReload": true,
+        "totalHits": 4,
+        "coreBreaks": 1,
+        "settlementCount": 1,
+        "victory": true
+      }
+    },
+    {
+      "id": "cryo_core_one_count_per_direct_or_delayed_hit",
+      "passed": true,
+      "evidence": {
+        "counts": [
+          1,
+          2,
+          3
+        ],
+        "totalHits": 4
+      }
+    },
+    {
+      "id": "cryo_core_zero_immune_and_invalid_packets_do_not_advance",
+      "passed": true,
+      "evidence": {
+        "hits": 0,
+        "hp": 1
+      }
+    },
+    {
+      "id": "cryo_core_native_claymore_cryo_counter_is_preserved",
+      "passed": true,
+      "evidence": {
+        "armorBreak": 25,
+        "qHits": 3,
+        "eHits": 1
+      }
+    },
+    {
+      "id": "cryo_core_guoba_has_two_ticks_and_still_requires_four_hits",
+      "passed": true,
+      "evidence": {
+        "counts": [
+          1,
+          2
+        ],
+        "sameRoundExtraHits": 0,
+        "expiredSummonExtraHits": 0,
+        "finalHp": 0,
+        "coreBreaks": 1
+      }
+    },
+    {
+      "id": "cryo_core_timeout_still_revives_once",
+      "passed": true,
+      "evidence": {
+        "timeoutHp": 12775,
+        "revivedOnlyOnce": true,
+        "creationEndFree": true
+      }
+    },
+    {
+      "id": "body_immunity:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 13182,
+          "shield": 0
+        },
+        "after": {
+          "hp": 13182,
+          "shield": 0
+        }
+      }
+    },
+    {
+      "id": "body_immunity:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 14588,
+          "shield": 0
+        },
+        "after": {
+          "hp": 14588,
+          "shield": 0
+        }
+      }
+    },
+    {
+      "id": "body_immunity:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 52113,
+          "shield": 0
+        },
+        "after": {
+          "hp": 52113,
+          "shield": 0
+        }
+      }
+    },
+    {
+      "id": "body_immunity:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "hp": 25550,
+          "shield": 0
+        },
+        "after": {
+          "hp": 25550,
+          "shield": 0
+        }
+      }
+    },
+    {
+      "id": "anemo_revival_core_unchanged",
+      "passed": true,
+      "evidence": {
+        "before": 2373,
+        "finalHp": 0
+      }
+    },
+    {
+      "id": "guarded_revival_unchanged:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "summons": 3,
+        "bodyDamageBlocked": true,
+        "finalHp": 0
+      }
+    },
+    {
+      "id": "guarded_revival_unchanged:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "summons": 3,
+        "bodyDamageBlocked": true,
+        "finalHp": 0
+      }
+    },
+    {
+      "id": "oceanid_eight_other_element_form_kills_still_win",
+      "passed": true,
+      "evidence": {
+        "formKills": 8,
+        "victory": true
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 3
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "native_ai_and_save:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "saveReload": true,
+        "actionExecuted": true,
+        "enemyBodies": 1
+      }
+    },
+    {
+      "id": "nine_bosses_two_seed_full_native_fights",
+      "passed": true,
+      "evidence": {
+        "fullNativeFights": 18,
+        "fights": [
+          {
+            "boss": "FB_ANEMO_HYPOSTASIS",
+            "seed": 71247,
+            "victory": true,
+            "rounds": 3
+          },
+          {
+            "boss": "FB_ANEMO_HYPOSTASIS",
+            "seed": 12741,
+            "victory": true,
+            "rounds": 3
+          },
+          {
+            "boss": "FB_ELECTRO_HYPOSTASIS",
+            "seed": 71247,
+            "victory": true,
+            "rounds": 2
+          },
+          {
+            "boss": "FB_ELECTRO_HYPOSTASIS",
+            "seed": 12741,
+            "victory": true,
+            "rounds": 2
+          },
+          {
+            "boss": "FB_CRYO_REGISVINE",
+            "seed": 71247,
+            "victory": true,
+            "rounds": 2
+          },
+          {
+            "boss": "FB_CRYO_REGISVINE",
+            "seed": 12741,
+            "victory": true,
+            "rounds": 2
+          },
+          {
+            "boss": "FB_CRYO_HYPOSTASIS",
+            "seed": 71247,
+            "victory": true,
+            "rounds": 4
+          },
+          {
+            "boss": "FB_CRYO_HYPOSTASIS",
+            "seed": 12741,
+            "victory": true,
+            "rounds": 4
+          },
+          {
+            "boss": "FB_GEO_HYPOSTASIS",
+            "seed": 71247,
+            "victory": true,
+            "rounds": 45
+          },
+          {
+            "boss": "FB_GEO_HYPOSTASIS",
+            "seed": 12741,
+            "victory": true,
+            "rounds": 45
+          },
+          {
+            "boss": "FB_PYRO_REGISVINE",
+            "seed": 71247,
+            "victory": true,
+            "rounds": 9
+          },
+          {
+            "boss": "FB_PYRO_REGISVINE",
+            "seed": 12741,
+            "victory": true,
+            "rounds": 9
+          },
+          {
+            "boss": "FB_OCEANID",
+            "seed": 71247,
+            "victory": true,
+            "rounds": 4
+          },
+          {
+            "boss": "FB_OCEANID",
+            "seed": 12741,
+            "victory": true,
+            "rounds": 4
+          },
+          {
+            "boss": "FB_PRIMO_GEOVISHAP",
+            "seed": 71247,
+            "victory": false,
+            "rounds": 45
+          },
+          {
+            "boss": "FB_PRIMO_GEOVISHAP",
+            "seed": 12741,
+            "victory": false,
+            "rounds": 42
+          },
+          {
+            "boss": "FB_RUIN_SERPENT",
+            "seed": 71247,
+            "victory": false,
+            "rounds": 56
+          },
+          {
+            "boss": "FB_RUIN_SERPENT",
+            "seed": 12741,
+            "victory": false,
+            "rounds": 52
+          }
+        ]
+      }
+    }
+  ],
+  "total": 30,
+  "passed": 30,
+  "failed": 0
+}

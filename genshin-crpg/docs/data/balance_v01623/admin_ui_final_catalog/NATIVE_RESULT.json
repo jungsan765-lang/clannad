@@ -1,0 +1,48 @@
+{
+  "ok": true,
+  "checks": [
+    "Real admin authentication loads a new SQLite balance profile",
+    "Real server preview displays actual default HP and proposed HP in Korean",
+    "Browser apply reaches real atomic SQLite profile and audit metadata",
+    "Independent real API change advances the version",
+    "Real HTTP 409 preserves the operator draft",
+    "Real conflict rebase preserves unrelated concurrent changes",
+    "Real API recognizes the nested growth tier and a Korean field label",
+    "Real SQLite profile retains nested growth settings",
+    "Real history preview shows all fields that will be restored",
+    "Real rollback restores initial values and records its source revision",
+    "Phone browser applies numeric changes to the real API",
+    "Phone browser restores historical values through the real API",
+    "Real-API browser session has no uncaught script errors"
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "source/admin.js": "b9286ce6de826b57834ede4cf8a6d2550332adef2ac97af706e72fa47456f314",
+    "source/admin.css": "f4d64e045a1625d7b52b79c19e2a14d1827ba882b6c237eb1b2ecc4ffde5b073",
+    "source/runtime_balance_admin_v01623.js": "bb6183b915b3261511ea84d0c0ba384e722f56c3651c43c863752955215803f1",
+    "server/admin-api.mjs": "ee4964e98e1f48f84cf91dcfb2f6f9f0896076e7a6f708a7897c43dc044e16d8"
+  },
+  "engineVersion": "0.16.23",
+  "engineFingerprint": "engine3-1b2c502f4d62bea2247c83625663b76d12b0cb9078373e3cced53f4d0251aab1",
+  "bootstrap": "Fresh generated 0.16.23 engine contains the admin balance module; no manual source import and no generated source modification by this QA.",
+  "database": ":memory:",
+  "liveDeployment": false,
+  "finalProfileRevision": 7,
+  "finalConfig": {
+    "tables": [],
+    "enemies": {},
+    "characters": {},
+    "cards": {},
+    "economy": {},
+    "encounters": {},
+    "growth": {
+      "domains": {},
+      "ascension": {},
+      "talents": {}
+    }
+  },
+  "screenshots": [
+    "native_desktop.png",
+    "native_phone.png"
+  ]
+}

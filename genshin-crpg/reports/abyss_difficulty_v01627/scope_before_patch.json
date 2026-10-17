@@ -1,0 +1,15 @@
+{
+  "version": "0.16.24",
+  "scope": "Fresh public boss entry, baseline catalog and exact numeric override precedence; nonchallenge scopes and genuine 0.16.23 PENDING/WAIT_PLAYER saved-battle preservation. No fight difficulty, natural acquisition or full-campaign claim.",
+  "fixturePolicy": "One Traveler and three owned 4-star allies, equal native boss level/legal phase/max base talents, ordinary crafted gear +3 below Lv30 or +6 thereafter, base cap10 and no artifacts/exclusive weapons/boss material gear. Story/first-clear flags and initial Mora/HP are declared entry preparation. Old WAIT saves follow native COMBAT_BEGIN and one legal player skill; no forced victory or roll.",
+  "checks": [
+    {
+      "id": "genuine_published_baseline_and_qa_db_identity",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: published old blob: source/runtime_rules.js\n+ actual - expected\n\n+ 'd482670fa8e556b49037c45321352fbe5e02ddea'\n- 'a06e986f0049db888089e6f6988da65cab60b413'\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tests/test_boss_difficulty_scope_v01624.cjs:51:202\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_boss_difficulty_scope_v01624.cjs:20:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_boss_difficulty_scope_v01624.cjs:50:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    }
+  ],
+  "total": 1,
+  "failed": 1,
+  "passed": 0
+}

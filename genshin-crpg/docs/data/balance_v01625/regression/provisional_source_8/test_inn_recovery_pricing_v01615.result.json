@@ -1,0 +1,24 @@
+{
+  "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+  "command": [
+    "node",
+    "tests/test_inn_recovery_pricing_v01615.cjs"
+  ],
+  "startedAt": "2026-10-10T10:03:56.598232+00:00",
+  "endedAt": "2026-10-10T10:04:17.653363+00:00",
+  "seconds": 20.859,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "source/runtime_constellations_v01411.js": {
+      "before": "03e58d05dfde1847550d73d46aca73e4889e45265c30d523aa6764ee5936c147",
+      "after": "ea9f4e9f23bec718cea07acd0a62fb4e2461aa967f4aeff7c344eebf9cf9e28f"
+    }
+  },
+  "testSha256": "60f175020b68ac97d929e17d53741e19b1c97bf3317fa7b72134b04063b40332",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_inn_recovery_pricing_v01615.stdout.log",
+  "stderrLog": "test_inn_recovery_pricing_v01615.stderr.log"
+}

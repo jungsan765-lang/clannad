@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "scope": "최종cash-margin 돌파보상/요구량 source 동결 뒤56조건native 및legacyheal11계약. 이전36/20원장 보존.",
+  "capturedAt": "2026-10-10",
+  "count": 21,
+  "files": [
+    {
+      "path": "README_KO.md",
+      "bytes": 3649,
+      "sha256": "e84a515f461a56d6d8f47cc95e9cd0fcbfe481e1ee034af80be083e08d536be7"
+    },
+    {
+      "path": "audit_healing_helpers_v01619.cjs",
+      "bytes": 18688,
+      "sha256": "b6976b721410d2a1acbebbdf74b7d2b462717b69efd997c40ce4306d945e991d"
+    },
+    {
+      "path": "audit_repeated_healing.cjs",
+      "bytes": 7444,
+      "sha256": "4d46b0c0d64d6929f6cc8e36bd52cdf748eece1b72f8b422562fd53fc7d199d7"
+    },
+    {
+      "path": "changes_since_protect_formation.json",
+      "bytes": 362,
+      "sha256": "2b5f6dee5be810085584aad8d4418ee7dfdfaa62ca5cf76311721bb3ca4929d2"
+    },
+    {
+      "path": "changes_since_protect_formation.patch",
+      "bytes": 1194,
+      "sha256": "8626c4f29146fcdfeb1e05d46601ab2826bcb44a98ee164d78bb56fb5f177fd3"
+    },
+    {
+      "path": "comparison_since_protect_formation.json",
+      "bytes": 1041,
+      "sha256": "09bf8bf760f9c59eb983b2c75a056900e558ad7a57dec7389818b7d97df0cf59"
+    },
+    {
+      "path": "contracts_summary.json",
+      "bytes": 1365,
+      "sha256": "938f881b413671d90cb636d8d506a2d48b97679fdf632584050407cb68b485e9"
+    },
+    {
+      "path": "earlier_seals_after.json",
+      "bytes": 415,
+      "sha256": "fcf388775de2a5b0d6e78c43e7be07b09794386e0e8faab7db75dd6a788f30a3"
+    },
+    {
+      "path": "earlier_seals_before.json",
+      "bytes": 415,
+      "sha256": "fcf388775de2a5b0d6e78c43e7be07b09794386e0e8faab7db75dd6a788f30a3"
+    },
+    {
+      "path": "input_manifest.json",
+      "bytes": 23692,
+      "sha256": "1d5614242e033061692e62d3516e89f25160a0f9569b687d38fde53a41ba5632"
+    },
+    {
+      "path": "input_verification.json",
+      "bytes": 446,
+      "sha256": "7777e4d8d6476a4d657f69d9ec57e7302112e82036f5f6409f332039270eb90e"
+    },
+    {
+      "path": "jean_barbara_contract.json",
+      "bytes": 15816,
+      "sha256": "013d496f10ba61d316253b7479e9c6d047f9436d076811f66098474cb871721d"
+    },
+    {
+      "path": "jean_barbara_contract.log",
+      "bytes": 587,
+      "sha256": "d78fd750c086aaec0928cbf9c9a549fd9a469728d0ce8b8c7f4b1d736499fc16"
+    },
+    {
+      "path": "repeated.json.gz",
+      "bytes": 1353825,
+      "sha256": "3179249299796f4bd09b0e42a99a777a026965ca9702918f0242756e9d38004b",
+      "decompressedBytes": 17616761,
+      "decompressedSha256": "08959ac4e4e7203a58a6ae0fb895bbaaf68b893ceedb8533262a98cb16f5d778"
+    },
+    {
+      "path": "repeated.log",
+      "bytes": 9247,
+      "sha256": "faec495a69a1141887e67445484ab79078b742393a24bfeec216cbcbe0d3e6f0"
+    },
+    {
+      "path": "repeated.summary.json",
+      "bytes": 1560381,
+      "sha256": "da6ec1dcb8ebf6556ea29144a37e56027935538ab200bcaba488a67cf749d237"
+    },
+    {
+      "path": "test_healing_v01619.cjs",
+      "bytes": 8261,
+      "sha256": "84ebc0f1a46525681b89098d880563958d6a04910f2cb5faf91a383ca4dd22c7"
+    },
+    {
+      "path": "test_xianyun_balance_v01622.cjs",
+      "bytes": 5083,
+      "sha256": "b66f1b41b9e2ac0a1beb60a96c065c87dc916299c6c116484959b5af98167038"
+    },
+    {
+      "path": "tool_inputs_before.json",
+      "bytes": 703,
+      "sha256": "932ac24d247229e71312500c036314d8dcc14ed1d3954084a222e36945658e65"
+    },
+    {
+      "path": "xianyun_contract.json",
+      "bytes": 5117,
+      "sha256": "2fa9c0f6956099ffddbea1cae481884e5dda163dda746022c9e0810de6767da6"
+    },
+    {
+      "path": "xianyun_contract.log",
+      "bytes": 428,
+      "sha256": "676d51aacf782a1a4b273bdc04cf7e5600ca9223445a7977f79dc4c702e17ffb"
+    }
+  ]
+}

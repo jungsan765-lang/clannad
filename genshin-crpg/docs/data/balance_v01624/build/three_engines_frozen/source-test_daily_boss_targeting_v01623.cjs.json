@@ -1,0 +1,433 @@
+{
+  "version": "0.16.23",
+  "scope": "Only fresh daily Tartaglia AoE respects its selected primary and existing nearest-neighbor order. Unmarked saves/story/other bosses retain old behavior; card coefficients, limits, guard and existing TAUNT AI branch remain native.",
+  "fixturePolicy": "Declared owned Lv60/phase6 four-person Traveler party, legal +10/cap10 crafted gear, max base talents and story access. Card phase/KO/TAUNT and deterministic dice are declared boundary fixtures. Native public daily entry and COMBAT_BEGIN; no forced victories, no balance/win-rate claim.",
+  "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+  "sourceSHA256": "444a369277d88f9fa2f5f2cf04698050554ffdcdd2ba3a4a7dc905b83061790f",
+  "checks": [
+    {
+      "id": "new_daily_marker_precedes_enemy_execution_and_survives_pending_save",
+      "passed": true,
+      "evidence": {
+        "pendingMarker": 1,
+        "noEnemyActionBeforeMarker": true,
+        "firstEnemyExecutions": [
+          "ECARD_TARTAGLIA_HYDRO_SWEEP"
+        ]
+      }
+    },
+    {
+      "id": "new_daily_selected_back_ally_first_max2:ECARD_TARTAGLIA_HYDRO_SWEEP",
+      "passed": true,
+      "evidence": {
+        "selected": "MOND_JEAN",
+        "ordered": [
+          "MOND_JEAN",
+          "MOND_DILUC"
+        ],
+        "calls": [
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 0.75,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 32947
+          },
+          {
+            "target": "MOND_DILUC",
+            "source": "MOND_DILUC",
+            "k": 0.75,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 32947
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_daily_selected_back_ally_first_max2:ECARD_TARTAGLIA_ELECTRO_ARC",
+      "passed": true,
+      "evidence": {
+        "selected": "MOND_JEAN",
+        "ordered": [
+          "MOND_JEAN",
+          "MOND_DILUC"
+        ],
+        "calls": [
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 0.85,
+            "element": "ELECTRO",
+            "noAura": false,
+            "hpBefore": 32947
+          },
+          {
+            "target": "MOND_DILUC",
+            "source": "MOND_DILUC",
+            "k": 0.85,
+            "element": "ELECTRO",
+            "noAura": false,
+            "hpBefore": 32947
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_daily_selected_back_ally_first_max2:ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+      "passed": true,
+      "evidence": {
+        "selected": "MOND_JEAN",
+        "ordered": [
+          "MOND_JEAN",
+          "MOND_DILUC"
+        ],
+        "calls": [
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 32947
+          },
+          {
+            "target": "MOND_DILUC",
+            "source": "MOND_DILUC",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 32947
+          },
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 0.25,
+            "element": "ELECTRO",
+            "noAura": true,
+            "hpBefore": 30403
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_daily_dead_primary_and_unknown_primary_use_legal_alive_fallback",
+      "passed": true,
+      "evidence": [
+        {
+          "mode": "DEAD",
+          "calls": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "k": 0.75,
+              "element": "HYDRO",
+              "noAura": false,
+              "hpBefore": 19235
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "source": "LIYUE_ZHONGLI",
+              "k": 0.75,
+              "element": "HYDRO",
+              "noAura": false,
+              "hpBefore": 50149
+            }
+          ]
+        },
+        {
+          "mode": "UNKNOWN",
+          "calls": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "k": 0.75,
+              "element": "HYDRO",
+              "noAura": false,
+              "hpBefore": 19235
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "source": "LIYUE_ZHONGLI",
+              "k": 0.75,
+              "element": "HYDRO",
+              "noAura": false,
+              "hpBefore": 50149
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "new_daily_followup_does_not_retarget_after_primary_ko",
+      "passed": true,
+      "evidence": {
+        "primaryKo": true,
+        "aoePackets": 2,
+        "noFallbackFollowup": true,
+        "calls": [
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 1
+          },
+          {
+            "target": "MOND_DILUC",
+            "source": "MOND_DILUC",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 32947
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_daily_native_guard_still_halves_selected_primary_damage",
+      "passed": true,
+      "evidence": {
+        "normal": 2586,
+        "guarded": 1293,
+        "existingGuardFactor": 0.5
+      }
+    },
+    {
+      "id": "new_daily_existing_taunt_ai_branch_retains_supplied_primary",
+      "passed": true,
+      "evidence": {
+        "declaredTauntState": true,
+        "primary": "MOND_JEAN",
+        "calls": [
+          "MOND_JEAN",
+          "MOND_DILUC"
+        ]
+      }
+    },
+    {
+      "id": "new_daily_existing_single_target_unchanged:ECARD_TARTAGLIA_HYDRO_SHOT",
+      "passed": true,
+      "evidence": {
+        "selected": "MOND_JEAN",
+        "calls": [
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 0.9,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 32947
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_daily_existing_single_target_unchanged:ECARD_TARTAGLIA_ELECTRO_THRUST",
+      "passed": true,
+      "evidence": {
+        "selected": "MOND_JEAN",
+        "calls": [
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 1,
+            "element": "ELECTRO",
+            "noAura": false,
+            "hpBefore": 32947
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_daily_existing_single_target_unchanged:ECARD_TARTAGLIA_FOUL_LEGACY_STRIKE",
+      "passed": true,
+      "evidence": {
+        "selected": "MOND_JEAN",
+        "calls": [
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 0.55,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 32947
+          },
+          {
+            "target": "MOND_JEAN",
+            "source": "MOND_JEAN",
+            "k": 0.55,
+            "element": "ELECTRO",
+            "noAura": true,
+            "hpBefore": 32414
+          }
+        ]
+      }
+    },
+    {
+      "id": "saved_unmarked_daily_keeps_front_slice:ECARD_TARTAGLIA_HYDRO_SWEEP",
+      "passed": true,
+      "evidence": {
+        "unmarkedPreserved": true,
+        "selectedIgnoredAsBefore": true,
+        "calls": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "k": 0.75,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 19235
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "source": "LIYUE_ZHONGLI",
+            "k": 0.75,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 50149
+          }
+        ]
+      }
+    },
+    {
+      "id": "saved_unmarked_daily_keeps_front_slice:ECARD_TARTAGLIA_ELECTRO_ARC",
+      "passed": true,
+      "evidence": {
+        "unmarkedPreserved": true,
+        "selectedIgnoredAsBefore": true,
+        "calls": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "k": 0.85,
+            "element": "ELECTRO",
+            "noAura": false,
+            "hpBefore": 19235
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "source": "LIYUE_ZHONGLI",
+            "k": 0.85,
+            "element": "ELECTRO",
+            "noAura": false,
+            "hpBefore": 50149
+          }
+        ]
+      }
+    },
+    {
+      "id": "saved_unmarked_daily_keeps_front_slice:ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+      "passed": true,
+      "evidence": {
+        "unmarkedPreserved": true,
+        "selectedIgnoredAsBefore": true,
+        "calls": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 19235
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "source": "LIYUE_ZHONGLI",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 50149
+          },
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "k": 0.25,
+            "element": "ELECTRO",
+            "noAura": true,
+            "hpBefore": 13579
+          }
+        ]
+      }
+    },
+    {
+      "id": "story_tartaglia_retains_old_targets_and_has_no_marker",
+      "passed": true,
+      "evidence": {
+        "storyOriginBoundary": true,
+        "markerAbsent": true,
+        "calls": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 19235
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "source": "LIYUE_ZHONGLI",
+            "k": 1.05,
+            "element": "HYDRO",
+            "noAura": false,
+            "hpBefore": 50149
+          },
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "k": 0.25,
+            "element": "ELECTRO",
+            "noAura": true,
+            "hpBefore": 18044
+          }
+        ]
+      }
+    },
+    {
+      "id": "azhdaha_and_osial_do_not_receive_daily_tartaglia_marker",
+      "passed": true,
+      "evidence": [
+        {
+          "group": "EG_BOSS_AZHDAHA",
+          "enemy": "BOSS_AZHDAHA",
+          "markerAbsent": true
+        },
+        {
+          "group": "EG_BOSS_OSIAL",
+          "enemy": "BOSS_OSIAL",
+          "markerAbsent": true
+        }
+      ]
+    },
+    {
+      "id": "daily_targeting_save_values_and_scope_are_validated",
+      "passed": true,
+      "evidence": {
+        "accepted": [
+          "unmarked",
+          1
+        ],
+        "rejected": [
+          0,
+          -1,
+          2,
+          "1",
+          null,
+          false,
+          "object",
+          "wrong_origin",
+          "wrong_boss"
+        ]
+      }
+    }
+  ],
+  "rawDbBeforeSHA256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+  "rawDbAfterSHA256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+  "rawDbUnchanged": true,
+  "total": 17,
+  "passed": 17,
+  "failed": 0
+}

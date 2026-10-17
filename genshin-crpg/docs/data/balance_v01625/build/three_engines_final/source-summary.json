@@ -1,0 +1,51 @@
+{
+  "engine": "source",
+  "fingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+  "rawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "rows": [
+    {
+      "test": "test_character_balance_v01625.cjs",
+      "engine": "source",
+      "engineFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "toolSHA256": "404ebc256fda9e8514a3a872d012a7451f77195129f50b5a0e735eb06a06c616",
+      "output": "source-test_character_balance_v01625.cjs.json",
+      "outputSHA256": "af3c80d95a0fed4daea0bf01642cae9873bdd985021c211729e1f65b92f457f9",
+      "checks": 39,
+      "passed": 39,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_skill_rhythm_ownership_v01625.cjs",
+      "engine": "source",
+      "engineFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "toolSHA256": "85b391115db56ebaedab0bca1eb4a0fc1fec469680a828cda5603d003352b381",
+      "output": "source-test_skill_rhythm_ownership_v01625.cjs.json",
+      "outputSHA256": "3c72cf37f4e871f4456b8254214ef8a4f2dcde69a3c4df53f7d400b36db3f868",
+      "checks": 17,
+      "passed": 17,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_pressure_v01624.cjs",
+      "engine": "source",
+      "engineFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "toolSHA256": "9c6460d02d82caf4342ed1c827033f8d204fcad143b7847da73cc106ea3c4d5a",
+      "output": "source-test_daily_pressure_v01624.cjs.json",
+      "outputSHA256": "fa7ea96b643704fd6dc1e5e56d1427000dfd8795880ec0c90059c446da9b6118",
+      "checks": 21,
+      "passed": 21,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_basic_air_range_v01624.cjs",
+      "engine": "source",
+      "engineFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "toolSHA256": "3b51998b2c31387f2f757d0c9c5ce0f142594ed14addb320bb089ef706f89b08",
+      "output": "source-test_basic_air_range_v01624.cjs.json",
+      "outputSHA256": "de182c4cb37929965d35fbcd45cebf6420a70348fc0eedf8bf104ba89d5559a6",
+      "checks": 5,
+      "passed": 5,
+      "rawDbObjectUnchanged": true
+    }
+  ]
+}

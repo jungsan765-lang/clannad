@@ -1,0 +1,70 @@
+{
+  "enemies": {
+    "FB_ANEMO_HYPOSTASIS": {
+      "hp": 19800,
+      "atk": 1760,
+      "def": 198
+    },
+    "FB_ELECTRO_HYPOSTASIS": {
+      "hp": 16800,
+      "atk": 1785,
+      "def": 210
+    },
+    "FB_CRYO_REGISVINE": {
+      "hp": 28600,
+      "atk": 2048,
+      "def": 231
+    },
+    "FB_CRYO_HYPOSTASIS": {
+      "hp": 33000,
+      "atk": 2128,
+      "def": 323
+    },
+    "FB_PYRO_REGISVINE": {
+      "hp": 63000,
+      "atk": 4200,
+      "def": 483
+    },
+    "FB_OCEANID": {
+      "hp": 48548,
+      "atk": 4800,
+      "def": 473
+    },
+    "FB_GEO_HYPOSTASIS": {
+      "hp": 57324,
+      "atk": 4940,
+      "def": 534
+    },
+    "FB_PRIMO_GEOVISHAP": {
+      "hp": 70400,
+      "atk": 6050,
+      "def": 598
+    },
+    "FB_RUIN_SERPENT": {
+      "hp": 91846,
+      "atk": 9350,
+      "def": 735
+    }
+  },
+  "counter": {
+    "shieldPressure": {
+      "DEFAULT": 2,
+      "GEO_HYPO": 3,
+      "PRIMO": 1.5,
+      "SERPENT": 4
+    },
+    "summonHP": {
+      "FB_SUMMON_PILLAR": 0.06363636363636364,
+      "FB_MIMIC_BOAR": 1218,
+      "FB_MIMIC_CRANE": 840,
+      "FB_MIMIC_FROG": 1008,
+      "FB_MIMIC_CRAB": 1050,
+      "FB_MIMIC_FALCON": 882
+    },
+    "moves": {
+      "GEO_HYPO:ROCKFALL": 1.5,
+      "GEO_HYPO:UPHEAVAL": 1.5,
+      "PRIMO:BEAM": 1.15
+    }
+  }
+}

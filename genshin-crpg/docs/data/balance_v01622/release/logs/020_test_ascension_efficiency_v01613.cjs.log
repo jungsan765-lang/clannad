@@ -1,0 +1,5 @@
+PASS all twelve stages preview the same eight existing gem types with unchanged first-three shared bonus
+PASS new high-stage battle markers survive reload, entry retries and settlement retries without duplicate gems
+PASS pre-0.16.13 in-flight version-four fights retain their own old rewards across repeated reloads
+PASS malformed reward markers are rejected and a marker cannot change talent or legacy domain rewards
+PASS talent and ascension still share three bonuses; EXP and defeats consume none and domains pay no books or Mora

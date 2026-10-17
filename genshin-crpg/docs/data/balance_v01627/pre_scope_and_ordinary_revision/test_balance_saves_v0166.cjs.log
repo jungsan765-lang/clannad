@@ -1,0 +1,30 @@
+PASS 0.16.5 XP migrates once for player, owned companion and bench without changing levels or belongings
+PASS a prior-curve battle keeps its actors and initiative while only stored XP converts
+PASS Lv3 loses fixed Lv10 and Lv12 fights; correctly levelled four-person starter-weapon parties can win
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: {"seed":4242,"result":{"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"BALANCE-V0166-4242:B13","battleId":"BALANCE-V0166-4242:B13","saveId":"BALANCE-V0166-4242","group":"EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_4","origin":"RANDOM","gate":"RANDOM","branch":null,"victory":false,"xp":0,"loot":{},"rounds":17,"result":"DEFEAT","unsupportedEffects":[],"defeatPenalty":{"mora":0,"seconds":60},"hpRatio":0,"deaths":4}}
+
+false !== true
+
+    at /workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_saves_v0166.cjs:35:46
+    at check (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_saves_v0166.cjs:6:38)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_saves_v0166.cjs:33:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

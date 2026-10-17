@@ -8,6 +8,12 @@ const ids={STATUS_RECENTLY_BANDAGED:'붕대 사용 대기',STATUS_COMBAT_POTION_
 const TOKENS=Object.keys(words).sort((a,b)=>b.length-a.length).join('|');
 const PARTICLE='(이라는|라는|으로|이야|이나|은|는|이|가|을|를|과|와|야|나|로)';
 const JOSA={'은':['은','는'],'는':['은','는'],'이':['이','가'],'가':['이','가'],'을':['을','를'],'를':['을','를'],'과':['과','와'],'와':['과','와'],'이야':['이야','야'],'야':['이야','야'],'이나':['이나','나'],'나':['이나','나'],'이라는':['이라는','라는'],'라는':['이라는','라는'],'으로':['으로','로'],'로':['으로','로']};
+// These authored rows refer to a book, picture or stage protagonist, not the player.
+// Key by an explicit node allowlist: reloading can replace a value, never grow past eight.
+const literalProtagonistNodes=Object.freeze(['LEG_MOND_LISA_N031_ACT','AFF_ISK_MOND_JEAN_H04_OPEN_2','AFF_ISK_MOND_JEAN_H120_S8_D2','LEG_MOND_ALBEDO_N002','AFF_LIYUE_XINGQIU_H03_N003','AFF_LIYUE_XINGQIU_H03_N012','AFF_LIYUE_YANFEI_H04_N003','LEG_ISK_LIYUE_YUNJIN_N019']);
+const literalProtagonistTexts=new Map();
+function registerLiteralProtagonist(id,text){if(!literalProtagonistNodes.includes(id)||typeof text!=='string'||!text.includes('주인공'))return false;literalProtagonistTexts.set(id,text);return true;}
+function hasLiteralProtagonist(text){return Array.from(literalProtagonistTexts.values()).includes(text);}
 // Final sound of the word a particle attaches to: Hangul batchim, a digit read in Korean, or a Latin letter.
 function finalOf(word){
  const last=Array.from(String(word??'').replace(/[)\]」』"'”’]+$/,'')).pop()||'',code=last.charCodeAt(0);
@@ -21,24 +27,26 @@ function josa(word,p){
  if(p==='으로'||p==='로')return !f.consonant||f.rieul?'로':'으로';
  return pair[f.consonant?0:1];
 }
-function named(text,name){
- if(!name)return String(text??'').replace(/주인공/g,'모험가');
+function named(text,name,{literalProtagonist=false}={}){
+ text=String(text??'');literalProtagonist=literalProtagonist||hasLiteralProtagonist(text);
+ if(!name)return literalProtagonist?text:text.replace(/주인공/g,'모험가');
  const last=Array.from(name).pop()||'',code=last.charCodeAt(0),tail=code>=0xac00&&code<=0xd7a3?(code-0xac00)%28:null,consonant=tail!==null?tail!==0:/[013678lmn]$/i.test(last),rieul=tail===8||/[178l]$/i.test(last);
- const pairs={'은':['은','는'],'는':['은','는'],'이':['이','가'],'가':['이','가'],'을':['을','를'],'를':['을','를'],'과':['과','와'],'와':['과','와'],'이야':['이야','야'],'야':['이야','야'],'이나':['이나','나'],'나':['이나','나'],'이라는':['이라는','라는'],'라는':['이라는','라는'],'으로':['으로','로'],'로':['으로','로']};
- return String(text??'').replace(/(?:주인공|\{PLAYER_NAME\})(이라는|라는|으로|이야|이나|나|은|는|이|가|을|를|과|와|야|로)(?=$|[\s,.!?…'"”’」]|[가-힣])/g,(_,p)=>name+pairs[p][p==='으로'||p==='로'?(!consonant||rieul?1:0):consonant?0:1]).replace(/주인공|\{PLAYER_NAME\}/g,()=>name);
+ const pairs={'은':['은','는'],'는':['은','는'],'이':['이','가'],'가':['이','가'],'을':['을','를'],'를':['을','를'],'과':['과','와'],'와':['과','와'],'이야':['이야','야'],'야':['이야','야'],'이나':['이나','나'],'나':['이나','나'],'이라고':['이라고','라고'],'라고':['이라고','라고'],'이라는':['이라는','라는'],'라는':['이라는','라는'],'으로':['으로','로'],'로':['으로','로']};
+ return text.replace(/(주인공|\{PLAYER_NAME\})(이라고|라고|이라는|라는|으로|이야|이나|나|은|는|이|가|을|를|과|와|야|로)(?=$|[\s,.!?…'"”’」]|[가-힣])/g,(match,who,p)=>literalProtagonist&&who==='주인공'?match:name+pairs[p][p==='으로'||p==='로'?(!consonant||rieul?1:0):consonant?0:1]).replace(/주인공|\{PLAYER_NAME\}/g,who=>literalProtagonist&&who==='주인공'?who:name);
 }
 // "보스이(가)", "HP(으)로" style placeholders written by the engine: pick the particle that fits the word before it.
 function fixParticles(text){
  const base={'이(가)':'이','가(이)':'이','을(를)':'을','를(을)':'을','은(는)':'은','는(은)':'은','과(와)':'과','와(과)':'과','(으)로':'으로','(이)라는':'이라는','(이)나':'이나'};
  return text.replace(/([^\s(]+?)(이\(가\)|가\(이\)|을\(를\)|를\(을\)|은\(는\)|는\(은\)|과\(와\)|와\(과\)|\(으\)로|\(이\)라는|\(이\)나)/g,(m,w,p)=>w+josa(w,base[p]));
 }
-function readable(value,{name='',resolve}={}){
+function readable(value,{name='',resolve,literalProtagonist=false}={}){
  if(value===undefined||value===null)return '';
+ literalProtagonist=literalProtagonist||hasLiteralProtagonist(String(value));
  // Protect a player's literal nickname (even "DEX" or "주인공") from translation.
  let text=String(value),marker='';if(name)text=text.split(name).join(marker);
- text=named(text,name?marker:'');
+ text=named(text,name?marker:'',{literalProtagonist});
  // Apply the nickname's own final consonant, rather than the temporary marker's.
- if(name)text=text.replace(/(이라는|라는|으로|이야|이나|나|은|는|이|가|을|를|과|와|야|로)(?=$|[\s,.!?…'"”’」]|[가-힣])/g,(_,p)=>named('{PLAYER_NAME}'+p,name).replace(name,marker));
+ if(name)text=text.replace(/(이라고|라고|이라는|라는|으로|이야|이나|나|은|는|이|가|을|를|과|와|야|로)(?=$|[\s,.!?…'"”’」]|[가-힣])/g,(_,p)=>named('{PLAYER_NAME}'+p,name).replace(name,marker));
  text=text.replace(/ROUND\(MAX_HP[×*]([\d.]+)\)/g,(_,n)=>'최대 체력의 '+Math.round(Number(n)*100)+'%');
  text=text.replace(/\{[^{}]*\}/g,raw=>{try{const obj=JSON.parse(raw);if(!obj||Array.isArray(obj))return raw;return Object.entries(obj).map(([k,v])=>(words[k.toUpperCase()]||resolve?.(k)||'추가 효과')+' '+(typeof v==='number'&&v>0?'+':'')+String(v)).join(' · ');}catch{return raw;}});
  // Designer bookkeeping that should never reach a player.
@@ -55,6 +63,6 @@ function readable(value,{name='',resolve}={}){
  text=name?text.split(marker).join(name):text;
  return fixParticles(text);
 }
-root.CRPGText={readable,named,josa};
+root.CRPGText={readable,named,josa,literalProtagonistNodes,registerLiteralProtagonist};
 if(typeof module!=='undefined'&&module.exports)module.exports=root.CRPGText;
 })(globalThis);

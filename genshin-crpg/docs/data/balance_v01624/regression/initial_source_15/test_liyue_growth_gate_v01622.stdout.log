@@ -1,0 +1,5 @@
+PASS all 24 otherworlder END branches unlock only their actual chapter gate without quest settlement
+PASS four traveler ENDs retain native quest completion and existing growth authority
+PASS bare flags and missing, foreign or wrong END/acceptance records never unlock an unclaimed chapter
+PASS a completed END cannot authorize another chapter, branch or current route
+{"ok":true,"checks":4,"nativeEnds":28,"otherworlderEnds":24,"negativeAuthorityCases":288,"scope":"Native declared END boundaries and read-only gate authority; no full chapter/campaign victory guarantee"}

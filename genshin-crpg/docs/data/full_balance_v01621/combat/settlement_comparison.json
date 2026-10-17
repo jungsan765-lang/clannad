@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "beforeCounts": {
+    "isolated": 12,
+    "bookRevives": 1,
+    "nativeBattles": 2,
+    "wins": 2,
+    "stalled": 0
+  },
+  "afterCounts": {
+    "isolated": 12,
+    "bookRevives": 0,
+    "nativeBattles": 2,
+    "wins": 2,
+    "stalled": 0
+  },
+  "battles": [
+    {
+      "boundary": false,
+      "sameBattleResultExceptIds": true,
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 40,
+          "next": 1170,
+          "remaining": 1130,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 40,
+          "next": 1170,
+          "remaining": 1130,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "hpBeforeSettlement": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 1635,
+          "maxHp": 1635
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 1743
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 1762,
+          "maxHp": 1853
+        },
+        {
+          "source": "MOND_BARBARA",
+          "hp": 1683,
+          "maxHp": 1743
+        }
+      ],
+      "xp": 40,
+      "victory": true
+    },
+    {
+      "boundary": true,
+      "sameBattleResultExceptIds": true,
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 1850,
+        "maxHp": 1850,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1850,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "hpBeforeSettlement": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 1635,
+          "maxHp": 1635
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 1743
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 1762,
+          "maxHp": 1853
+        },
+        {
+          "source": "MOND_BARBARA",
+          "hp": 1683,
+          "maxHp": 1743
+        }
+      ],
+      "xp": 40,
+      "victory": true
+    }
+  ],
+  "scope": "addXp change belongs to growth agent; combat XP recipients and payout unchanged. Public KO protagonist books are ACTION_LOCK, companion book cost is real. Explicit 10% protagonist victory revival/defeat recovery are separate existing paths."
+}

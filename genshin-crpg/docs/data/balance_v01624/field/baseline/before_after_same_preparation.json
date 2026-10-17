@@ -1,0 +1,765 @@
+{
+  "count": 18,
+  "seed": 717,
+  "caveat": "Old numeric baseline includes the same confirmed basic-range bugfix; it is not an unmodified production0.16.23 claim. New product162 remains separate.",
+  "rows": [
+    {
+      "boss": "FB_ANEMO_HYPOSTASIS",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_ANEMO_HYPOSTASIS",
+        "four": [
+          "MOND_AMBER",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_BOW_CRESCENT",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_AMBER",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 18,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 3
+      },
+      "before": {
+        "state": "WIN",
+        "round": 6,
+        "hp": 0.7721198703249783,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 16,
+        "hp": 0.34427136870404046,
+        "ko": 0,
+        "revives": 2,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_ANEMO_HYPOSTASIS",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_ANEMO_HYPOSTASIS",
+        "four": [
+          "MOND_AMBER",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_BOW_CRESCENT",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_AMBER",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 18,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 3
+      },
+      "before": {
+        "state": "WIN",
+        "round": 6,
+        "hp": 0.7653198386969242,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 12,
+        "hp": 0.6430774096623705,
+        "ko": 0,
+        "revives": 1,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_CRYO_HYPOSTASIS",
+        "four": [
+          "MOND_AMBER",
+          "MOND_NOELLE",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_AMBER",
+          "MOND_NOELLE",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 30,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 3
+      },
+      "before": {
+        "state": "WIN",
+        "round": 12,
+        "hp": 0.7005208333333334,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 15,
+        "hp": 0.5400240384615385,
+        "ko": 1,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_CRYO_HYPOSTASIS",
+        "four": [
+          "MOND_AMBER",
+          "MOND_NOELLE",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_AMBER",
+          "MOND_NOELLE",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 30,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 3
+      },
+      "before": {
+        "state": "WIN",
+        "round": 10,
+        "hp": 0.7340144230769231,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 19,
+        "hp": 0.44318910256410254,
+        "ko": 1,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_OCEANID",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_OCEANID",
+        "four": [
+          "MOND_FISCHL",
+          "MOND_LISA",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_BOW_CRESCENT",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_FISCHL",
+          "MOND_LISA",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 40,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 6
+      },
+      "before": {
+        "state": "WIN",
+        "round": 4,
+        "hp": 0.5851896947726707,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 5,
+        "hp": 0.5258045770263166,
+        "ko": 1,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_OCEANID",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_OCEANID",
+        "four": [
+          "MOND_FISCHL",
+          "MOND_LISA",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_BOW_CRESCENT",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_FISCHL",
+          "MOND_LISA",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 40,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 6
+      },
+      "before": {
+        "state": "WIN",
+        "round": 4,
+        "hp": 0.5740100174336552,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 5,
+        "hp": 0.5333868334394112,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_GEO_HYPOSTASIS",
+        "four": [
+          "MOND_NOELLE",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_NOELLE",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 45,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 6
+      },
+      "before": {
+        "state": "DEFEAT",
+        "round": 53,
+        "hp": 0,
+        "ko": 4,
+        "revives": 1,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "DEFEAT",
+        "round": 325,
+        "hp": 0.5755090440325625,
+        "ko": 1,
+        "revives": 42,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_GEO_HYPOSTASIS",
+        "four": [
+          "MOND_NOELLE",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_NOELLE",
+          "MOND_FISCHL",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 45,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 6
+      },
+      "before": {
+        "state": "INPUT_LIMIT",
+        "round": 81,
+        "hp": 0.9078138005237621,
+        "ko": 0,
+        "revives": 15,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 12,
+        "hp": 0.8089080168091111,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_PRIMO_GEOVISHAP",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_PRIMO_GEOVISHAP",
+        "four": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "weapon": null,
+        "route": "ROUTE_TRAVELER",
+        "geo": true,
+        "team": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "investment": "FOUR_C0",
+        "level": 48,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 6
+      },
+      "before": {
+        "state": "WIN",
+        "round": 8,
+        "hp": 0.5397950706175575,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 3
+      },
+      "after": {
+        "state": "DEFEAT",
+        "round": 18,
+        "hp": 0,
+        "ko": 4,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 3
+      }
+    },
+    {
+      "boss": "FB_PRIMO_GEOVISHAP",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_PRIMO_GEOVISHAP",
+        "four": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "weapon": null,
+        "route": "ROUTE_TRAVELER",
+        "geo": true,
+        "team": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "investment": "FOUR_C0",
+        "level": 48,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 6
+      },
+      "before": {
+        "state": "WIN",
+        "round": 8,
+        "hp": 0.6238161174189976,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 3
+      },
+      "after": {
+        "state": "WIN",
+        "round": 9,
+        "hp": 0.5286254961691129,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 3
+      }
+    },
+    {
+      "boss": "FB_RUIN_SERPENT",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_RUIN_SERPENT",
+        "four": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "investment": "FOUR_C0",
+        "level": 56,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 6
+      },
+      "before": {
+        "state": "DEFEAT",
+        "round": 98,
+        "hp": 0,
+        "ko": 4,
+        "revives": 0,
+        "heads": 24,
+        "reflections": 0
+      },
+      "after": {
+        "state": "DEFEAT",
+        "round": 86,
+        "hp": 0,
+        "ko": 4,
+        "revives": 0,
+        "heads": 21,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_RUIN_SERPENT",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_RUIN_SERPENT",
+        "four": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "MOND_NOELLE",
+          "MOND_BARBARA",
+          "MOND_FISCHL"
+        ],
+        "investment": "FOUR_C0",
+        "level": 56,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 6
+      },
+      "before": {
+        "state": "WIN",
+        "round": 21,
+        "hp": 0.7191874863661444,
+        "ko": 0,
+        "revives": 0,
+        "heads": 5,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 21,
+        "hp": 0.6887118091645174,
+        "ko": 0,
+        "revives": 0,
+        "heads": 5,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_ELECTRO_HYPOSTASIS",
+        "four": [
+          "LIYUE_XIANGLING",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_SWORD_RANCOUR",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "LIYUE_XIANGLING",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 20,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 3
+      },
+      "before": {
+        "state": "WIN",
+        "round": 11,
+        "hp": 0.9324150098391802,
+        "ko": 0,
+        "revives": 1,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 19,
+        "hp": 0.6732035013910566,
+        "ko": 0,
+        "revives": 2,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_ELECTRO_HYPOSTASIS",
+        "four": [
+          "LIYUE_XIANGLING",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_SWORD_RANCOUR",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "LIYUE_XIANGLING",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 20,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 3
+      },
+      "before": {
+        "state": "INPUT_LIMIT",
+        "round": 81,
+        "hp": 0.9431363235393907,
+        "ko": 0,
+        "revives": 19,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 9,
+        "hp": 0.8676799891429735,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_CRYO_REGISVINE",
+        "four": [
+          "LIYUE_XIANGLING",
+          "MOND_BENNETT",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_SWORD_RANCOUR",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "LIYUE_XIANGLING",
+          "MOND_BENNETT",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 22,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 3
+      },
+      "before": {
+        "state": "WIN",
+        "round": 7,
+        "hp": 0.8217783857729138,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 9,
+        "hp": 0.6895759233926129,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_CRYO_REGISVINE",
+        "four": [
+          "LIYUE_XIANGLING",
+          "MOND_BENNETT",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_SWORD_RANCOUR",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "LIYUE_XIANGLING",
+          "MOND_BENNETT",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 22,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 3
+      },
+      "before": {
+        "state": "WIN",
+        "round": 7,
+        "hp": 0.8217783857729138,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 9,
+        "hp": 0.6895759233926129,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_PYRO_REGISVINE",
+      "policy": "REPEAT",
+      "samePrepSpec": {
+        "boss": "FB_PYRO_REGISVINE",
+        "four": [
+          "LIYUE_XINGQIU",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_SWORD_RANCOUR",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "LIYUE_XINGQIU",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 38,
+        "seed": 717,
+        "policy": "REPEAT",
+        "enhance": 6
+      },
+      "before": {
+        "state": "WIN",
+        "round": 5,
+        "hp": 0.8499502872293416,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 10,
+        "hp": 0.511019664162616,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    },
+    {
+      "boss": "FB_PYRO_REGISVINE",
+      "policy": "MANUAL",
+      "samePrepSpec": {
+        "boss": "FB_PYRO_REGISVINE",
+        "four": [
+          "LIYUE_XINGQIU",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "weapon": "EQ_SWORD_RANCOUR",
+        "route": "ROUTE_ISEKAI",
+        "team": [
+          "LIYUE_XINGQIU",
+          "LIYUE_CHONGYUN",
+          "MOND_BARBARA"
+        ],
+        "investment": "FOUR_C0",
+        "level": 38,
+        "seed": 717,
+        "policy": "MANUAL",
+        "enhance": 6
+      },
+      "before": {
+        "state": "WIN",
+        "round": 5,
+        "hp": 0.8499502872293416,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      },
+      "after": {
+        "state": "WIN",
+        "round": 10,
+        "hp": 0.511019664162616,
+        "ko": 0,
+        "revives": 0,
+        "heads": 0,
+        "reflections": 0
+      }
+    }
+  ]
+}

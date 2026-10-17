@@ -1,0 +1,7794 @@
+{
+  "schema": 1,
+  "collectedUTC": "2026-10-10T09:19:01.634Z",
+  "passed": true,
+  "assumptions": {
+    "scope": "Executes the real generated browser runtime scripts in a Node VM and imports the real generated server ESM. This is engine/data parity, not a graphical browser UI test.",
+    "fixture": "Declared same level/seed/ownership/legal gear through the existing native helper; one food serving and imposed HP=1 isolate effect receipts. No live account/server or free ingredient claim.",
+    "writes": "Only the requested QA output and gzip; no product/build/source mutation."
+  },
+  "provenance": {
+    "sourceRoot": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+    "browserRoot": "/workspace/scratch/a62414469990/v01624-verification-work/browser",
+    "serverFile": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/server/generated/engine.mjs",
+    "tool": {
+      "path": "tools/audit_build_parity_v01621.cjs",
+      "bytes": 13282,
+      "sha256": "060058d6f83ecfe3bb9e25065bc462aa752b6110d7c6208149e551bdf4ab2aa7"
+    },
+    "helper": {
+      "path": "tools/audit_food_lodging_v01617.cjs",
+      "sha256": "7390be54d5543e78c041b3fc8addc15ed5e8e26f30e6d8b22cbaf92ac8709b8b"
+    },
+    "policySha256": "d74784efa49f022b3b7decc9c419abb9a65f2c6fd3df0f6e2445db8913cc2975",
+    "authoredDbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "cleanDbSerializedSha256": "c3d5eef26ac21e19136131ba3ab24ab542c1dbe63d428f6e47ab7743d1e75aa1",
+    "cleanDbObjectSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+    "serverEngine": {
+      "bytes": 28398369,
+      "sha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "gzipBytesLevel6": 5449879
+    },
+    "engineVersion": "0.16.24",
+    "engineFingerprint": "engine3-fb60daa8a1c8d1e8eda9e7932189f4d54b17fa7908fa4dacde54e393c4a3d422",
+    "recomputedEngineFingerprint": "engine3-fb60daa8a1c8d1e8eda9e7932189f4d54b17fa7908fa4dacde54e393c4a3d422",
+    "serverBuild": "server-4c299e85d17a2392a93f",
+    "browserRelease": {
+      "appVersion": "0.16.24",
+      "packVersion": "2026-09-24-c3d5eef26ac2-333056f5d514",
+      "engineVersion": "engine3-fb60daa8a1c8d1e8eda9e7932189f4d54b17fa7908fa4dacde54e393c4a3d422"
+    },
+    "browserRuntimeFiles": [
+      {
+        "file": "world_content.js",
+        "bytes": 280953,
+        "sha256": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0"
+      },
+      {
+        "file": "runtime.js",
+        "bytes": 41136,
+        "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7"
+      },
+      {
+        "file": "runtime_extensions.js",
+        "bytes": 17722,
+        "sha256": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69"
+      },
+      {
+        "file": "runtime_story.js",
+        "bytes": 12403,
+        "sha256": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798"
+      },
+      {
+        "file": "runtime_nodes.js",
+        "bytes": 37401,
+        "sha256": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322"
+      },
+      {
+        "file": "runtime_events.js",
+        "bytes": 31664,
+        "sha256": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9"
+      },
+      {
+        "file": "runtime_relationships.js",
+        "bytes": 20504,
+        "sha256": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b"
+      },
+      {
+        "file": "runtime_combat.js",
+        "bytes": 67839,
+        "sha256": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473"
+      },
+      {
+        "file": "runtime_mond_cards.js",
+        "bytes": 11371,
+        "sha256": "7d8c6c7e74673ddfd11344af29011ca03121778f21b36c5c64e15d2ede2a2cc0"
+      },
+      {
+        "file": "runtime_economy.js",
+        "bytes": 27397,
+        "sha256": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140"
+      },
+      {
+        "file": "runtime_passives.js",
+        "bytes": 12297,
+        "sha256": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7"
+      },
+      {
+        "file": "runtime_rules.js",
+        "bytes": 29234,
+        "sha256": "cfe4c9ffb128478deb84a6abacba9b927bc8262078dce044f1c9e19db9674b9f"
+      },
+      {
+        "file": "runtime_andrius.js",
+        "bytes": 22639,
+        "sha256": "dcb505716d41cdf3dcb09e13e95e2c55b9c26dde4d9e719615114eb9b124dcf4"
+      },
+      {
+        "file": "runtime_flow.js",
+        "bytes": 12649,
+        "sha256": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d"
+      },
+      {
+        "file": "runtime_party.js",
+        "bytes": 13674,
+        "sha256": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39"
+      },
+      {
+        "file": "runtime_opening.js",
+        "bytes": 6521,
+        "sha256": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b"
+      },
+      {
+        "file": "runtime_places.js",
+        "bytes": 19314,
+        "sha256": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a"
+      },
+      {
+        "file": "runtime_places_joint.js",
+        "bytes": 8297,
+        "sha256": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f"
+      },
+      {
+        "file": "runtime_adventure.js",
+        "bytes": 12127,
+        "sha256": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5"
+      },
+      {
+        "file": "runtime_exploration.js",
+        "bytes": 28077,
+        "sha256": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c"
+      },
+      {
+        "file": "runtime_life.js",
+        "bytes": 15538,
+        "sha256": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b"
+      },
+      {
+        "file": "runtime_world.js",
+        "bytes": 14551,
+        "sha256": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8"
+      },
+      {
+        "file": "runtime_journey.js",
+        "bytes": 14922,
+        "sha256": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e"
+      },
+      {
+        "file": "runtime_market.js",
+        "bytes": 7250,
+        "sha256": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb"
+      },
+      {
+        "file": "runtime_geography.js",
+        "bytes": 5929,
+        "sha256": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c"
+      },
+      {
+        "file": "runtime_liyue.js",
+        "bytes": 24503,
+        "sha256": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163"
+      },
+      {
+        "file": "runtime_liyue_card_content.js",
+        "bytes": 10415,
+        "sha256": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0"
+      },
+      {
+        "file": "runtime_liyue_cards.js",
+        "bytes": 33866,
+        "sha256": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94"
+      },
+      {
+        "file": "runtime_liyue_combat.js",
+        "bytes": 23548,
+        "sha256": "444a369277d88f9fa2f5f2cf04698050554ffdcdd2ba3a4a7dc905b83061790f"
+      },
+      {
+        "file": "runtime_geo_oculi.js",
+        "bytes": 10217,
+        "sha256": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb"
+      },
+      {
+        "file": "runtime_encounter.js",
+        "bytes": 3326,
+        "sha256": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311"
+      },
+      {
+        "file": "runtime_recruitment.js",
+        "bytes": 27568,
+        "sha256": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951"
+      },
+      {
+        "file": "runtime_protagonist.js",
+        "bytes": 16415,
+        "sha256": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b"
+      },
+      {
+        "file": "runtime_equipment.js",
+        "bytes": 9326,
+        "sha256": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524"
+      },
+      {
+        "file": "runtime_liyue_equipment.js",
+        "bytes": 4934,
+        "sha256": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8"
+      },
+      {
+        "file": "runtime_liyue_forge.js",
+        "bytes": 16087,
+        "sha256": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad"
+      },
+      {
+        "file": "runtime_exclusive_weapons.js",
+        "bytes": 18955,
+        "sha256": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+      },
+      {
+        "file": "runtime_enhancement.js",
+        "bytes": 18456,
+        "sha256": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b"
+      },
+      {
+        "file": "runtime_liyue_artifacts.js",
+        "bytes": 14508,
+        "sha256": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0"
+      },
+      {
+        "file": "runtime_mond_encounters.js",
+        "bytes": 34227,
+        "sha256": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6"
+      },
+      {
+        "file": "runtime_enemy_content.js",
+        "bytes": 27808,
+        "sha256": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358"
+      },
+      {
+        "file": "runtime_enemy_skills.js",
+        "bytes": 22555,
+        "sha256": "8e3235afce2283d266e51dde2023ae35ce4e34a873968b23870f2dafd2dee8d3"
+      },
+      {
+        "file": "runtime_mond_boss_balance.js",
+        "bytes": 6525,
+        "sha256": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb"
+      },
+      {
+        "file": "runtime_mond_balance.js",
+        "bytes": 5354,
+        "sha256": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426"
+      },
+      {
+        "file": "runtime_navigation.js",
+        "bytes": 7564,
+        "sha256": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c"
+      },
+      {
+        "file": "runtime_liyue_area_content.js",
+        "bytes": 33470,
+        "sha256": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df"
+      },
+      {
+        "file": "runtime_liyue_areas.js",
+        "bytes": 4468,
+        "sha256": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85"
+      },
+      {
+        "file": "runtime_chasm_skills.js",
+        "bytes": 9413,
+        "sha256": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638"
+      },
+      {
+        "file": "runtime_liyue_encounters.js",
+        "bytes": 12566,
+        "sha256": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f"
+      },
+      {
+        "file": "runtime_play_fixes.js",
+        "bytes": 7068,
+        "sha256": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97"
+      },
+      {
+        "file": "runtime_gear_traits.js",
+        "bytes": 30421,
+        "sha256": "6d1413b7f43f717572b75608a70939ec8d10bb6c2e2d31ce519e7ab2d14af3af"
+      },
+      {
+        "file": "runtime_enemy_tiers.js",
+        "bytes": 21132,
+        "sha256": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31"
+      },
+      {
+        "file": "runtime_field_bosses.js",
+        "bytes": 60959,
+        "sha256": "7812eeee9b88252acb78a42d4c6d5b4636a71b8a59132afbb87600338d44b97e"
+      },
+      {
+        "file": "runtime_quality_fixes.js",
+        "bytes": 33391,
+        "sha256": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664"
+      },
+      {
+        "file": "runtime_field_scenes.js",
+        "bytes": 76393,
+        "sha256": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d"
+      },
+      {
+        "file": "runtime_liyue_rework_content.js",
+        "bytes": 962400,
+        "sha256": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363"
+      },
+      {
+        "file": "runtime_liyue_rework.js",
+        "bytes": 12207,
+        "sha256": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45"
+      },
+      {
+        "file": "runtime_liyue_places.js",
+        "bytes": 11886,
+        "sha256": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4"
+      },
+      {
+        "file": "runtime_liyue_region_guide.js",
+        "bytes": 5333,
+        "sha256": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a"
+      },
+      {
+        "file": "runtime_traveler_geo.js",
+        "bytes": 10985,
+        "sha256": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658"
+      },
+      {
+        "file": "runtime_geo_trails.js",
+        "bytes": 8761,
+        "sha256": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26"
+      },
+      {
+        "file": "runtime_abyss.js",
+        "bytes": 41359,
+        "sha256": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb"
+      },
+      {
+        "file": "runtime_formations.js",
+        "bytes": 7143,
+        "sha256": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c"
+      },
+      {
+        "file": "runtime_field_boss_limits.js",
+        "bytes": 4503,
+        "sha256": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb"
+      },
+      {
+        "file": "runtime_ley_lines.js",
+        "bytes": 15124,
+        "sha256": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f"
+      },
+      {
+        "file": "runtime_boss_rematch.js",
+        "bytes": 6838,
+        "sha256": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44"
+      },
+      {
+        "file": "runtime_skill_rhythm.js",
+        "bytes": 4762,
+        "sha256": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5"
+      },
+      {
+        "file": "runtime_trade.js",
+        "bytes": 6237,
+        "sha256": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba"
+      },
+      {
+        "file": "runtime_personal_expansion.js",
+        "bytes": 22760,
+        "sha256": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43"
+      },
+      {
+        "file": "runtime_operator.js",
+        "bytes": 3767,
+        "sha256": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04"
+      },
+      {
+        "file": "runtime_mond_revision.js",
+        "bytes": 7803,
+        "sha256": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e"
+      },
+      {
+        "file": "runtime_local_revision.js",
+        "bytes": 12148,
+        "sha256": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730"
+      },
+      {
+        "file": "runtime_local_story_content.js",
+        "bytes": 68456,
+        "sha256": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab"
+      },
+      {
+        "file": "runtime_local_story.js",
+        "bytes": 8892,
+        "sha256": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e"
+      },
+      {
+        "file": "runtime_main_story_k_content.js",
+        "bytes": 2023356,
+        "sha256": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616"
+      },
+      {
+        "file": "runtime_main_story_k.js",
+        "bytes": 13111,
+        "sha256": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3"
+      },
+      {
+        "file": "runtime_commission_stories.js",
+        "bytes": 12546,
+        "sha256": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5"
+      },
+      {
+        "file": "runtime_combat_v0148.js",
+        "bytes": 10576,
+        "sha256": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e"
+      },
+      {
+        "file": "runtime_economy_v0148.js",
+        "bytes": 12041,
+        "sha256": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096"
+      },
+      {
+        "file": "runtime_personal_v0148.js",
+        "bytes": 1714,
+        "sha256": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635"
+      },
+      {
+        "file": "runtime_premium_v0148.js",
+        "bytes": 15012,
+        "sha256": "78a9ab3a6a4d08d83d89c1f599af12d3e8f7d37bcca1262adf61dc286b532b22"
+      },
+      {
+        "file": "runtime_constellations_v01411.js",
+        "bytes": 75857,
+        "sha256": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b"
+      },
+      {
+        "file": "runtime_wish_v01411.js",
+        "bytes": 10809,
+        "sha256": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95"
+      },
+      {
+        "file": "runtime_admin_v01412.js",
+        "bytes": 11168,
+        "sha256": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e"
+      },
+      {
+        "file": "runtime_rarity_v01412.js",
+        "bytes": 15109,
+        "sha256": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240"
+      },
+      {
+        "file": "runtime_presets_v01411.js",
+        "bytes": 7159,
+        "sha256": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128"
+      },
+      {
+        "file": "runtime_chests_v01415.js",
+        "bytes": 15988,
+        "sha256": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721"
+      },
+      {
+        "file": "runtime_offerings_v01415.js",
+        "bytes": 1863,
+        "sha256": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7"
+      },
+      {
+        "file": "runtime_mail_v0151.js",
+        "bytes": 9453,
+        "sha256": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74"
+      },
+      {
+        "file": "runtime_puzzles_v0152.js",
+        "bytes": 25711,
+        "sha256": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069"
+      },
+      {
+        "file": "runtime_balance_v0152.js",
+        "bytes": 4736,
+        "sha256": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1"
+      },
+      {
+        "file": "runtime_mutations_v0152.js",
+        "bytes": 13410,
+        "sha256": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0"
+      },
+      {
+        "file": "runtime_events_v0152.js",
+        "bytes": 24867,
+        "sha256": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e"
+      },
+      {
+        "file": "runtime_raid_v0152.js",
+        "bytes": 12803,
+        "sha256": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9"
+      },
+      {
+        "file": "runtime_achievements_v0152.js",
+        "bytes": 24960,
+        "sha256": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b"
+      },
+      {
+        "file": "runtime_early_story_v0153.js",
+        "bytes": 2125,
+        "sha256": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb"
+      },
+      {
+        "file": "runtime_story_pacing_v0153.js",
+        "bytes": 4793,
+        "sha256": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8"
+      },
+      {
+        "file": "runtime_starter_kit_v0153.js",
+        "bytes": 6162,
+        "sha256": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0"
+      },
+      {
+        "file": "runtime_map_v01516.js",
+        "bytes": 7667,
+        "sha256": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e"
+      },
+      {
+        "file": "runtime_coop_v0153.js",
+        "bytes": 43325,
+        "sha256": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321"
+      },
+      {
+        "file": "runtime_status_catalog_v01522.js",
+        "bytes": 14319,
+        "sha256": "9edfa00369436a9e20053d7719f4dd4f4f7579d1291e16302fbcba9791d0d300"
+      },
+      {
+        "file": "runtime_status_v01522.js",
+        "bytes": 7569,
+        "sha256": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee"
+      },
+      {
+        "file": "runtime_life_v01522.js",
+        "bytes": 1642,
+        "sha256": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902"
+      },
+      {
+        "file": "runtime_life_v0162.js",
+        "bytes": 9489,
+        "sha256": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708"
+      },
+      {
+        "file": "runtime_growth_data_v01522.js",
+        "bytes": 3042,
+        "sha256": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c"
+      },
+      {
+        "file": "runtime_growth_v01522.js",
+        "bytes": 63394,
+        "sha256": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81"
+      },
+      {
+        "file": "runtime_roster_v01522.js",
+        "bytes": 3908,
+        "sha256": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6"
+      },
+      {
+        "file": "runtime_tutorial_v01522.js",
+        "bytes": 17060,
+        "sha256": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d"
+      },
+      {
+        "file": "runtime_battle_capacity_v01522.js",
+        "bytes": 4950,
+        "sha256": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7"
+      },
+      {
+        "file": "runtime_story_companions_v01525.js",
+        "bytes": 6805,
+        "sha256": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc"
+      },
+      {
+        "file": "runtime_coop_world_v0160.js",
+        "bytes": 13878,
+        "sha256": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc"
+      },
+      {
+        "file": "runtime_battle_lines_v0162.js",
+        "bytes": 5830,
+        "sha256": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e"
+      },
+      {
+        "file": "runtime_landmarks_v0163.js",
+        "bytes": 7012,
+        "sha256": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8"
+      },
+      {
+        "file": "runtime_task_catalog_v0168.js",
+        "bytes": 44129,
+        "sha256": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8"
+      },
+      {
+        "file": "runtime_task_learning_catalog_v0169.js",
+        "bytes": 19401,
+        "sha256": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18"
+      },
+      {
+        "file": "runtime_tasks_v0167.js",
+        "bytes": 46667,
+        "sha256": "cc21ab26ac16a7b6265e04a6cf38543170e9a0bdbff01489174006f99e232bb9"
+      },
+      {
+        "file": "runtime_task_learning_v0169.js",
+        "bytes": 7653,
+        "sha256": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748"
+      },
+      {
+        "file": "runtime_balance_admin_v01623.js",
+        "bytes": 28739,
+        "sha256": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811"
+      },
+      {
+        "file": "runtime_reading.js",
+        "bytes": 1558,
+        "sha256": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633"
+      },
+      {
+        "file": "presentation.js",
+        "bytes": 16553,
+        "sha256": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3"
+      }
+    ]
+  },
+  "counts": {
+    "engines": 3,
+    "foodRowsPerEngine": 45,
+    "preparedRecoveryStockRowsPerEngine": 8,
+    "nativeMeals": 54,
+    "checks": 219,
+    "passed": 219,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "name": "known unchanged QA or published authored raw DB file",
+      "passed": true
+    },
+    {
+      "name": "built browser and server raw clean DB equality",
+      "passed": true
+    },
+    {
+      "name": "actual browser built runtime order equals server build registry",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: world_content.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_extensions.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_story.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_nodes.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_events.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_relationships.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_combat.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_mond_cards.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_economy.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_passives.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_rules.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_andrius.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_flow.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_party.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_opening.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_places.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_places_joint.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_adventure.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_exploration.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_life.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_world.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_journey.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_market.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_geography.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_card_content.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_cards.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_combat.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_geo_oculi.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_encounter.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_recruitment.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_protagonist.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_equipment.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_equipment.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_forge.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_exclusive_weapons.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_enhancement.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_artifacts.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_mond_encounters.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_enemy_content.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_enemy_skills.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_mond_boss_balance.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_mond_balance.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_navigation.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_area_content.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_areas.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_chasm_skills.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_encounters.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_play_fixes.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_gear_traits.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_enemy_tiers.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_field_bosses.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_quality_fixes.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_field_scenes.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_rework_content.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_rework.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_places.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_liyue_region_guide.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_traveler_geo.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_geo_trails.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_abyss.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_formations.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_field_boss_limits.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_ley_lines.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_boss_rematch.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_skill_rhythm.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_trade.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_personal_expansion.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_operator.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_mond_revision.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_local_revision.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_local_story_content.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_local_story.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_main_story_k_content.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_main_story_k.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_commission_stories.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_combat_v0148.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_economy_v0148.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_personal_v0148.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_premium_v0148.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_constellations_v01411.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_wish_v01411.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_admin_v01412.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_rarity_v01412.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_presets_v01411.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_chests_v01415.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_offerings_v01415.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_mail_v0151.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_puzzles_v0152.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_balance_v0152.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_mutations_v0152.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_events_v0152.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_raid_v0152.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_achievements_v0152.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_early_story_v0153.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_story_pacing_v0153.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_starter_kit_v0153.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_map_v01516.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_coop_v0153.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_status_catalog_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_status_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_life_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_life_v0162.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_growth_data_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_growth_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_roster_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_tutorial_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_battle_capacity_v01522.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_story_companions_v01525.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_coop_world_v0160.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_battle_lines_v0162.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_landmarks_v0163.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_task_catalog_v0168.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_task_learning_catalog_v0169.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_tasks_v0167.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_task_learning_v0169.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_balance_admin_v01623.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: runtime_reading.js",
+      "passed": true
+    },
+    {
+      "name": "browser/source bytes: presentation.js",
+      "passed": true
+    },
+    {
+      "name": "built abyss display source matches frozen source",
+      "passed": true
+    },
+    {
+      "name": "actual browser/server/recomputed engine identity",
+      "passed": true
+    },
+    {
+      "name": "actual browser/server version",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: all 45 authoritative rows equal approved bases",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: normalized DB second Runtime keeps all food rows",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: normalized DB second Runtime keeps all prepared prices",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: normalized input DB remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: shared raw input DB remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 5 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 5 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 5 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 5 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 5 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 5 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 20 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 20 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 20 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 20 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 20 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 20 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 60 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 60 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 60 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 60 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 60 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: AUTO 60 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: native XP book level gain does not revive KO",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: native ascension keeps HP deficit",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: native Noelle C1 E/Q hit heals four recipients once",
+      "passed": true
+    },
+    {
+      "name": "source runtime from raw DB: new weekly assignment omits finite Abyss",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: all 45 authoritative rows equal approved bases",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: normalized DB second Runtime keeps all food rows",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: normalized DB second Runtime keeps all prepared prices",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: normalized input DB remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: shared raw input DB remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 5 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 5 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 5 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 5 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 5 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 5 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 20 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 20 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 20 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 20 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 20 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 20 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 60 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 60 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 60 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 60 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 60 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: AUTO 60 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: native XP book level gain does not revive KO",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: native ascension keeps HP deficit",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: native Noelle C1 E/Q hit heals four recipients once",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: new weekly assignment omits finite Abyss",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: all 45 authoritative rows equal approved bases",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: normalized DB second Runtime keeps all food rows",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: normalized DB second Runtime keeps all prepared prices",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: normalized input DB remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: shared raw input DB remains unchanged",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 5 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 5 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 5 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 5 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 5 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 5 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 20 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 20 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 20 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 20 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 20 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 20 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 60 FOOD_TEA_BREAK_PANCAKE NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 60 FOOD_TEA_BREAK_PANCAKE BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 60 FOOD_HASH_BROWN NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 60 FOOD_HASH_BROWN BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 60 FOOD_PERCH_STEW NORMAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: AUTO 60 FOOD_PERCH_STEW BARBARA_SPECIAL",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: native XP book level gain does not revive KO",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: native ascension keeps HP deficit",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: native Noelle C1 E/Q hit heals four recipients once",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: new weekly assignment omits finite Abyss",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: growth, material rewards, Noelle and weekly native parity",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: same complete 45 food rows",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: same complete table 19 recovery prepared-stock rows",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: all table 19 rows same",
+      "passed": true
+    },
+    {
+      "name": "built browser runtime: actual normal/special AUTO meal parity",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: growth, material rewards, Noelle and weekly native parity",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: same complete 45 food rows",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: same complete table 19 recovery prepared-stock rows",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: all table 19 rows same",
+      "passed": true
+    },
+    {
+      "name": "actual imported server engine: actual normal/special AUTO meal parity",
+      "passed": true
+    },
+    {
+      "name": "browser and exported server raw DB retained after all instances",
+      "passed": true
+    },
+    {
+      "name": "authored raw DB file retained after all instances",
+      "passed": true
+    }
+  ],
+  "engines": [
+    {
+      "name": "source runtime from raw DB",
+      "balance": {
+        "book": {
+          "item": "MAT_CHAR_EXP_WANDERER",
+          "quantity": 1,
+          "xp": 50,
+          "owner": "MOND_AMBER"
+        },
+        "bookGrowth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        },
+        "bookHp": 0,
+        "ascensionQuote": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "cost": {
+            "mora": 800,
+            "items": {
+              "GROWTH_GEM_PYRO": 3,
+              "ING_LAMP_GRASS": 2,
+              "MAT_DAMAGED_MASK": 2
+            }
+          },
+          "gate": {
+            "ready": true,
+            "label": "몬드 본편 1장"
+          },
+          "nextCap": 20,
+          "reason": "돌파 재료가 부족합니다."
+        },
+        "ascensionReceipt": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 2080,
+          "remaining": 2080,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": false,
+          "final": false
+        },
+        "ascensionHp": 297,
+        "noelleHeals": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "MOND_NOELLE",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "MOND_AMBER",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "LIYUE_XIANGLING",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          }
+        ],
+        "gemRewards": {
+          "NEUTRAL": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "PYRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "HYDRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "ANEMO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "ELECTRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "CRYO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "GEO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "DENDRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          }
+        },
+        "gemCosts": {
+          "NEUTRAL": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "PYRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "HYDRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "ANEMO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "ELECTRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "CRYO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "GEO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "DENDRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ]
+        },
+        "talentBooks": {
+          "MOND": {
+            "5": 1,
+            "10": 2,
+            "15": 10,
+            "20": 20,
+            "25": 32
+          },
+          "LIYUE": {
+            "30": 3,
+            "35": 4,
+            "40": 7,
+            "45": 9,
+            "50": 19,
+            "55": 28,
+            "60": 80
+          }
+        },
+        "weeklyIds": [
+          "W_WIN",
+          "W_BOSS",
+          "W_DOMAIN",
+          "W_V168_REACTION",
+          "W_V168_OCEANID",
+          "W_V168_TALENT30",
+          "W_V168_ASCENSION",
+          "W_V168_EXPERIENCE",
+          "W_V168_REVELATION",
+          "W_V168_WEALTH",
+          "W_V168_GATHER",
+          "W_V168_MINE",
+          "W_V168_FISH",
+          "W_V168_HUNT",
+          "W_V168_COOK",
+          "W_V168_FORGE",
+          "W_V168_DOMAIN_CIRCUIT",
+          "W_V168_LIFE_SUPPLY",
+          "W_V168_ORE_SUPPLY",
+          "W_V169_INN",
+          "W_V169_PROCESS",
+          "W_V169_INCIDENT",
+          "W_V169_ENHANCE",
+          "W_V169_RECOVERY_MEAL"
+        ],
+        "weeklyBonus": {
+          "id": "W_ALL",
+          "scope": "weekly",
+          "name": "이번 주 임무 모두 달성",
+          "short": "모두 달성",
+          "icon": "bonus",
+          "goal": 24,
+          "progress": 0,
+          "done": false,
+          "claimed": false,
+          "lock": "",
+          "report": true,
+          "here": false,
+          "reward": {
+            "primogem": 200
+          }
+        }
+      },
+      "rawInputBeforeSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "rawInputAfterSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "canonicalFoodRows": [
+        [
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          "음식",
+          "일반",
+          null,
+          "간단한 달걀 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          90,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          8,
+          35,
+          20,
+          "요리",
+          "N",
+          "N",
+          "전 지역",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SWEET_MADAME",
+          "달콤달콤 닭고기 스튜",
+          "음식",
+          "고급",
+          null,
+          "달콤한 닭고기 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          20,
+          80,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_HASH_BROWN",
+          "몬드 감자전",
+          "음식",
+          "고급",
+          null,
+          "든든한 감자 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          26,
+          163,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_MATSUTAKE_ROLL",
+          "버섯고기말이",
+          "음식",
+          "고급",
+          null,
+          "고기와 버섯 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          300,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          30,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_UNIVERSAL_PEACE",
+          "세계 평화",
+          "음식",
+          "희귀",
+          null,
+          "리월식 회복 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          45,
+          315,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "원작 음식명 기반/TRPG 효과",
+          ""
+        ],
+        [
+          "FOOD_PIZZA",
+          "버섯피자",
+          "음식",
+          "고급",
+          null,
+          "버섯을 올린 피자",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          260,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          16,
+          130,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SAKURA_MOCHI",
+          "벚꽃 모찌",
+          "음식",
+          "고급",
+          null,
+          "이나즈마식 디저트",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          190,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          50,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "이나즈마",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_TAHCHIN",
+          "타친",
+          "음식",
+          "고급",
+          null,
+          "수메르식 쌀요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          240,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          80,
+          240,
+          10,
+          "요리",
+          "N",
+          "N",
+          "수메르",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+          "글루포프 호밀빵",
+          "음식",
+          "고급",
+          null,
+          "호밀 가루로 구운 검고 향이 짙은 빵.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          200,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          50,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "원작 즉시+지속 회복형 효과를 CRPG 총회복량으로 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_BERRY_ICE_CREAM",
+          "베리 아이스크림",
+          "음식",
+          "고급",
+          null,
+          "차갑고 달콤한 열매와 크림으로 만든 디저트.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          200,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          75,
+          225,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+          "옛뜰 훈제 소시지",
+          "음식",
+          "일반",
+          null,
+          "짙은 향을 살려 훈제한 소시지 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          250,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "회복형 효과 기반 CRPG 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_MEDOVIK",
+          "메도빅",
+          "음식",
+          "고급",
+          null,
+          "달콤한 층을 겹겹이 쌓아 만든 케이크.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          65,
+          195,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "지속 회복형 효과를 CRPG 즉시 회복량으로 합산·환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_ZHARKOYE",
+          "자르코예",
+          "음식",
+          "희귀",
+          null,
+          "고기와 감자를 사워크림과 함께 익힌 든든한 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          320,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          85,
+          255,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "HP 회복형 효과 기반 CRPG 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_STEAK",
+          "스테이크",
+          "음식",
+          "일반",
+          null,
+          "짐승고기를 두툼하게 썰어 센 불에 구웠다. 소박하지만 배를 든든히 채워 준다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHICKEN_SKEWER",
+          "버섯 닭꼬치",
+          "음식",
+          "일반",
+          null,
+          "새고기와 버섯을 번갈아 꿰어 구운 꼬치. 모험가들이 야영지에서 즐겨 만든다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MOND_GRILLED_FISH",
+          "몬드 생선구이",
+          "음식",
+          "일반",
+          null,
+          "후추만 뿌려 구운 생선. 막 잡은 생선일수록 맛이 산다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_RADISH_SOUP",
+          "무 수프",
+          "음식",
+          "일반",
+          null,
+          "흰 무와 민트를 넣어 맑게 끓인 수프. 지친 속을 편안하게 달래 준다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MINT_JELLY",
+          "민트 젤리",
+          "음식",
+          "일반",
+          null,
+          "민트 향이 시원하게 퍼지는 말랑한 젤리. 입가심으로도 좋다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_PANCAKE_TEA_BREAK",
+          "장원 팬케이크",
+          "음식",
+          "고급",
+          null,
+          "라즈베리를 듬뿍 올린 폭신한 팬케이크. 오후의 휴식 시간에 잘 어울린다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          240,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_BOLOGNESE",
+          "불꽃 미트 스파게티",
+          "음식",
+          "고급",
+          null,
+          "토마토소스에 다진 고기를 듬뿍 넣은 스파게티. 한 접시면 기운이 돈다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          210,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_APPLE_STEW",
+          "북극 사과고기찜",
+          "음식",
+          "희귀",
+          null,
+          "사과와 고기를 버터에 함께 졸여 달콤함과 짭짤함이 어우러진다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          380,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHICKEN_BURGER",
+          "바삭바삭 치킨버거",
+          "음식",
+          "희귀",
+          null,
+          "버터에 바삭하게 튀긴 새고기와 양배추를 빵 사이에 넣었다. 베어 무는 소리부터 맛있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          320,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MORA_MEAT",
+          "모라육",
+          "음식",
+          "일반",
+          null,
+          "양념한 고기를 둥근 빵 사이에 끼워 구웠다. 모라 동전처럼 생긴 리월의 길거리 음식.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_STIR_FRIED_FILET",
+          "고기볶음",
+          "음식",
+          "일반",
+          null,
+          "절운고추를 넣고 센 불에 재빨리 볶은 고기. 매운 향이 코끝을 찌른다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRYSTAL_SHRIMP",
+          "수정 새우딤섬",
+          "음식",
+          "고급",
+          null,
+          "얇은 피 속으로 새우살이 비쳐 보이는 딤섬. 만민당의 인기 메뉴다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          220,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_VEGETARIAN_ABALONE",
+          "채식 전복",
+          "음식",
+          "고급",
+          null,
+          "송이버섯을 전복처럼 썰어 금어초와 함께 졸였다. 고기가 없어도 씹는 맛이 살아 있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          360,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SQUIRREL_FISH",
+          "탕수어",
+          "음식",
+          "희귀",
+          null,
+          "칼집 낸 생선을 튀겨 새콤달콤한 토마토소스를 끼얹었다. 모양이 다람쥐 꼬리를 닮았다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          380,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SHRIMP_BALLS",
+          "황금 새우볼",
+          "음식",
+          "희귀",
+          null,
+          "으깬 감자로 새우살을 감싸 황금빛으로 튀겼다. 한 입 크기라 나눠 먹기 좋다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_BAMBOO_SOUP",
+          "죽순 수프",
+          "음식",
+          "희귀",
+          null,
+          "죽순과 햄, 고기를 약한 불에 오래 고아 낸 수프. 국물 맛이 깊다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          400,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_PERCH_STEW",
+          "삶은 검정 농어",
+          "음식",
+          "희귀",
+          null,
+          "생선을 절운고추와 유리주머니 향에 삶아 냈다. 리월 사람들이 명절 밥상에 올리는 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          440,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRAB_HAM_BAKE",
+          "꽃게알 야채찜",
+          "음식",
+          "희귀",
+          null,
+          "양배추와 햄 위에 꽃게알과 크림을 얹어 찐 요리. 진한 맛이 지친 몸을 일으켜 세운다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          400,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_POTATO_SHRIMP_PLATTER",
+          "바삭 쉬림프 카나페",
+          "음식",
+          "희귀",
+          null,
+          "바삭하게 구운 감자 위에 새우와 라즈베리 소스를 올린 전채 요리. 가볍지만 든든하다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_GRILLED_TIGER_FISH",
+          "흘호어 구이",
+          "음식",
+          "일반",
+          null,
+          "소금과 후추만 뿌려 센 불에 구운 생선 꼬치. 길을 떠나는 손님이 즐겨 찾는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_RICE_BUNS",
+          "쌀 찐빵",
+          "음식",
+          "일반",
+          null,
+          "쌀가루에 말총을 섞어 빚어 찐 폭신한 찐빵. 땀 흘린 뒤에 먹으면 더 맛있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FINE_TEA_FULL_MOON",
+          "차와 보름달",
+          "음식",
+          "희귀",
+          null,
+          "침옥 찻잎으로 향을 낸 둥근 과자와 차 한 잔. 침옥 골짜기의 느긋한 오후를 닮았다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_JADEVEIN_TEA_EGGS",
+          "옥무늬 찻잎 달걀",
+          "음식",
+          "일반",
+          null,
+          "찻잎 국물에 삶아 껍질에 옥 같은 무늬가 생긴 달걀. 교영 마을 사람들의 간식이다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          100,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_TEA_SMOKED_SQUAB",
+          "차향 훈제 비둘기",
+          "음식",
+          "고급",
+          null,
+          "찻잎 연기로 훈제한 새고기. 은은한 차향이 오래 남는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          210,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHENYU_BREW",
+          "침옥 차 이슬",
+          "음식",
+          "일반",
+          null,
+          "침옥 선잎을 우려 만든 맑은 차. 한 모금이면 머리가 맑아진다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          90,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRAB_ROE_TOFU",
+          "꽃게알 두부",
+          "음식",
+          "고급",
+          null,
+          "부드러운 두부 위에 꽃게알을 듬뿍 얹었다. 씹지 않아도 넘어갈 만큼 부드럽다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FULLMOON_EGG",
+          "명월 딤섬",
+          "음식",
+          "희귀",
+          null,
+          "생선살과 새우살로 소를 채워 보름달처럼 둥글게 빚은 리월 전통 딤섬.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          420,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FISH_NOODLES",
+          "생선 볶음면",
+          "음식",
+          "고급",
+          null,
+          "쌀국수에 생선살과 금어초를 넣고 볶은 한 그릇. 소박하지만 잔칫상에도 어울린다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          360,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_HUMBLY_ENOUGH",
+          "만족의 기쁨",
+          "음식",
+          "희귀",
+          null,
+          "매콤한 간장 소스에 조린 두부. 고기가 들지 않았는데도 고기 맛이 난다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_HONEY_CHAR_SIU",
+          "꿀 차사오",
+          "음식",
+          "일반",
+          null,
+          "꿀을 발라 윤기 나게 구운 리월식 고기구이. 밥 한 그릇으로는 모자라다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_LUCKY_SNOW_DELIGHT",
+          "풍요 백설기",
+          "음식",
+          "전설",
+          null,
+          "쌀로 쪄 낸 새하얀 떡. 입에 넣으면 눈처럼 사르르 녹는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          440,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          100,
+          300,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_GOLDEN_TEMPERED_JADE",
+          "빛나는 냉옥",
+          "음식",
+          "고급",
+          null,
+          "새고기를 삶아 차갑게 식힌 리월식 닭 요리. 젤리처럼 굳은 육즙이 별미다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ]
+      ],
+      "preparedRecoveryStockRows": [
+        [
+          "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_PIZZA",
+          "버섯피자",
+          130,
+          8,
+          "매일",
+          "없음",
+          "CRPG_LOCAL_V011 생활·성장 재고"
+        ],
+        [
+          "STK_LY_WANGSHU_EGG",
+          "MRC_LIYUE_WANGSHU_DINING",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "객잔 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_EGG",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_MATSUTAKE",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_MATSUTAKE_ROLL",
+          "버섯고기말이",
+          150,
+          8,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_PEACE",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_UNIVERSAL_PEACE",
+          "세계 평화",
+          315,
+          5,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_MOND_SARA_CHICKEN",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_SWEET_MADAME",
+          "달콤달콤 닭고기 스튜",
+          80,
+          8,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ],
+        [
+          "STK_MOND_SARA_EGG",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ],
+        [
+          "STK_MOND_SARA_POTATO",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_HASH_BROWN",
+          "몬드 감자전",
+          163,
+          8,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ]
+      ],
+      "normalizedInputBeforeSha256": "7be542663098128fbc10183d7fb10808c980e13c16fd5c0aeb46e363977404b9",
+      "normalizedInputAfterSha256": "7be542663098128fbc10183d7fb10808c980e13c16fd5c0aeb46e363977404b9",
+      "secondRuntimeFoodRowsSha256": "e5332661f80e24e99db9270bf361b6c6dd2ae1a387987c4dba33b83acfddfc6c",
+      "secondRuntimeStockRowsSha256": "89ba423dcd49b681d8638844e039692a71dfd18aaf3e85d7fe8684d8400b319b",
+      "foodRowsSha256": "e5332661f80e24e99db9270bf361b6c6dd2ae1a387987c4dba33b83acfddfc6c",
+      "preparedRowsSha256": "89ba423dcd49b681d8638844e039692a71dfd18aaf3e85d7fe8684d8400b319b",
+      "allShopStockRowsSha256": "813915f5ff4c18d67cb784a976cd6de62962b25d8ffaa6192ccf8eacd5933b7c",
+      "effects": [
+        {
+          "level": 5,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 140,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 140,
+                "healed": 140,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 154,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 154,
+                "healed": 154,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 528,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 528,
+                "healed": 528,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 580,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 580,
+                "healed": 580,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 683,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 683,
+                "healed": 683,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 751,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 751,
+                "healed": 751,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 438,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 438,
+                "healed": 438,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 481,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 481,
+                "healed": 481,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 1653,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 1653,
+                "healed": 1653,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 1819,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 1819,
+                "healed": 1819,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 2140,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2140,
+                "healed": 2140,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 2354,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2354,
+                "healed": 2354,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 2757,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2757,
+                "healed": 2757,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 3033,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 3033,
+                "healed": 3033,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 10417,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 10417,
+                "healed": 10417,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 11459,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 11459,
+                "healed": 11459,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 13481,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 13481,
+                "healed": 13481,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 14829,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 14829,
+                "healed": 14829,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "built browser runtime",
+      "balance": {
+        "book": {
+          "item": "MAT_CHAR_EXP_WANDERER",
+          "quantity": 1,
+          "xp": 50,
+          "owner": "MOND_AMBER"
+        },
+        "bookGrowth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        },
+        "bookHp": 0,
+        "ascensionQuote": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "cost": {
+            "mora": 800,
+            "items": {
+              "GROWTH_GEM_PYRO": 3,
+              "ING_LAMP_GRASS": 2,
+              "MAT_DAMAGED_MASK": 2
+            }
+          },
+          "gate": {
+            "ready": true,
+            "label": "몬드 본편 1장"
+          },
+          "nextCap": 20,
+          "reason": "돌파 재료가 부족합니다."
+        },
+        "ascensionReceipt": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 2080,
+          "remaining": 2080,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": false,
+          "final": false
+        },
+        "ascensionHp": 297,
+        "noelleHeals": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "MOND_NOELLE",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "MOND_AMBER",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "LIYUE_XIANGLING",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          }
+        ],
+        "gemRewards": {
+          "NEUTRAL": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "PYRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "HYDRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "ANEMO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "ELECTRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "CRYO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "GEO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "DENDRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          }
+        },
+        "gemCosts": {
+          "NEUTRAL": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "PYRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "HYDRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "ANEMO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "ELECTRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "CRYO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "GEO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "DENDRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ]
+        },
+        "talentBooks": {
+          "MOND": {
+            "5": 1,
+            "10": 2,
+            "15": 10,
+            "20": 20,
+            "25": 32
+          },
+          "LIYUE": {
+            "30": 3,
+            "35": 4,
+            "40": 7,
+            "45": 9,
+            "50": 19,
+            "55": 28,
+            "60": 80
+          }
+        },
+        "weeklyIds": [
+          "W_WIN",
+          "W_BOSS",
+          "W_DOMAIN",
+          "W_V168_REACTION",
+          "W_V168_OCEANID",
+          "W_V168_TALENT30",
+          "W_V168_ASCENSION",
+          "W_V168_EXPERIENCE",
+          "W_V168_REVELATION",
+          "W_V168_WEALTH",
+          "W_V168_GATHER",
+          "W_V168_MINE",
+          "W_V168_FISH",
+          "W_V168_HUNT",
+          "W_V168_COOK",
+          "W_V168_FORGE",
+          "W_V168_DOMAIN_CIRCUIT",
+          "W_V168_LIFE_SUPPLY",
+          "W_V168_ORE_SUPPLY",
+          "W_V169_INN",
+          "W_V169_PROCESS",
+          "W_V169_INCIDENT",
+          "W_V169_ENHANCE",
+          "W_V169_RECOVERY_MEAL"
+        ],
+        "weeklyBonus": {
+          "id": "W_ALL",
+          "scope": "weekly",
+          "name": "이번 주 임무 모두 달성",
+          "short": "모두 달성",
+          "icon": "bonus",
+          "goal": 24,
+          "progress": 0,
+          "done": false,
+          "claimed": false,
+          "lock": "",
+          "report": true,
+          "here": false,
+          "reward": {
+            "primogem": 200
+          }
+        }
+      },
+      "rawInputBeforeSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "rawInputAfterSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "canonicalFoodRows": [
+        [
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          "음식",
+          "일반",
+          null,
+          "간단한 달걀 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          90,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          8,
+          35,
+          20,
+          "요리",
+          "N",
+          "N",
+          "전 지역",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SWEET_MADAME",
+          "달콤달콤 닭고기 스튜",
+          "음식",
+          "고급",
+          null,
+          "달콤한 닭고기 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          20,
+          80,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_HASH_BROWN",
+          "몬드 감자전",
+          "음식",
+          "고급",
+          null,
+          "든든한 감자 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          26,
+          163,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_MATSUTAKE_ROLL",
+          "버섯고기말이",
+          "음식",
+          "고급",
+          null,
+          "고기와 버섯 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          300,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          30,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_UNIVERSAL_PEACE",
+          "세계 평화",
+          "음식",
+          "희귀",
+          null,
+          "리월식 회복 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          45,
+          315,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "원작 음식명 기반/TRPG 효과",
+          ""
+        ],
+        [
+          "FOOD_PIZZA",
+          "버섯피자",
+          "음식",
+          "고급",
+          null,
+          "버섯을 올린 피자",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          260,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          16,
+          130,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SAKURA_MOCHI",
+          "벚꽃 모찌",
+          "음식",
+          "고급",
+          null,
+          "이나즈마식 디저트",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          190,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          50,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "이나즈마",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_TAHCHIN",
+          "타친",
+          "음식",
+          "고급",
+          null,
+          "수메르식 쌀요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          240,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          80,
+          240,
+          10,
+          "요리",
+          "N",
+          "N",
+          "수메르",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+          "글루포프 호밀빵",
+          "음식",
+          "고급",
+          null,
+          "호밀 가루로 구운 검고 향이 짙은 빵.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          200,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          50,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "원작 즉시+지속 회복형 효과를 CRPG 총회복량으로 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_BERRY_ICE_CREAM",
+          "베리 아이스크림",
+          "음식",
+          "고급",
+          null,
+          "차갑고 달콤한 열매와 크림으로 만든 디저트.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          200,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          75,
+          225,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+          "옛뜰 훈제 소시지",
+          "음식",
+          "일반",
+          null,
+          "짙은 향을 살려 훈제한 소시지 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          250,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "회복형 효과 기반 CRPG 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_MEDOVIK",
+          "메도빅",
+          "음식",
+          "고급",
+          null,
+          "달콤한 층을 겹겹이 쌓아 만든 케이크.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          65,
+          195,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "지속 회복형 효과를 CRPG 즉시 회복량으로 합산·환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_ZHARKOYE",
+          "자르코예",
+          "음식",
+          "희귀",
+          null,
+          "고기와 감자를 사워크림과 함께 익힌 든든한 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          320,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          85,
+          255,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "HP 회복형 효과 기반 CRPG 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_STEAK",
+          "스테이크",
+          "음식",
+          "일반",
+          null,
+          "짐승고기를 두툼하게 썰어 센 불에 구웠다. 소박하지만 배를 든든히 채워 준다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHICKEN_SKEWER",
+          "버섯 닭꼬치",
+          "음식",
+          "일반",
+          null,
+          "새고기와 버섯을 번갈아 꿰어 구운 꼬치. 모험가들이 야영지에서 즐겨 만든다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MOND_GRILLED_FISH",
+          "몬드 생선구이",
+          "음식",
+          "일반",
+          null,
+          "후추만 뿌려 구운 생선. 막 잡은 생선일수록 맛이 산다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_RADISH_SOUP",
+          "무 수프",
+          "음식",
+          "일반",
+          null,
+          "흰 무와 민트를 넣어 맑게 끓인 수프. 지친 속을 편안하게 달래 준다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MINT_JELLY",
+          "민트 젤리",
+          "음식",
+          "일반",
+          null,
+          "민트 향이 시원하게 퍼지는 말랑한 젤리. 입가심으로도 좋다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_PANCAKE_TEA_BREAK",
+          "장원 팬케이크",
+          "음식",
+          "고급",
+          null,
+          "라즈베리를 듬뿍 올린 폭신한 팬케이크. 오후의 휴식 시간에 잘 어울린다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          240,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_BOLOGNESE",
+          "불꽃 미트 스파게티",
+          "음식",
+          "고급",
+          null,
+          "토마토소스에 다진 고기를 듬뿍 넣은 스파게티. 한 접시면 기운이 돈다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          210,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_APPLE_STEW",
+          "북극 사과고기찜",
+          "음식",
+          "희귀",
+          null,
+          "사과와 고기를 버터에 함께 졸여 달콤함과 짭짤함이 어우러진다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          380,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHICKEN_BURGER",
+          "바삭바삭 치킨버거",
+          "음식",
+          "희귀",
+          null,
+          "버터에 바삭하게 튀긴 새고기와 양배추를 빵 사이에 넣었다. 베어 무는 소리부터 맛있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          320,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MORA_MEAT",
+          "모라육",
+          "음식",
+          "일반",
+          null,
+          "양념한 고기를 둥근 빵 사이에 끼워 구웠다. 모라 동전처럼 생긴 리월의 길거리 음식.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_STIR_FRIED_FILET",
+          "고기볶음",
+          "음식",
+          "일반",
+          null,
+          "절운고추를 넣고 센 불에 재빨리 볶은 고기. 매운 향이 코끝을 찌른다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRYSTAL_SHRIMP",
+          "수정 새우딤섬",
+          "음식",
+          "고급",
+          null,
+          "얇은 피 속으로 새우살이 비쳐 보이는 딤섬. 만민당의 인기 메뉴다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          220,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_VEGETARIAN_ABALONE",
+          "채식 전복",
+          "음식",
+          "고급",
+          null,
+          "송이버섯을 전복처럼 썰어 금어초와 함께 졸였다. 고기가 없어도 씹는 맛이 살아 있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          360,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SQUIRREL_FISH",
+          "탕수어",
+          "음식",
+          "희귀",
+          null,
+          "칼집 낸 생선을 튀겨 새콤달콤한 토마토소스를 끼얹었다. 모양이 다람쥐 꼬리를 닮았다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          380,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SHRIMP_BALLS",
+          "황금 새우볼",
+          "음식",
+          "희귀",
+          null,
+          "으깬 감자로 새우살을 감싸 황금빛으로 튀겼다. 한 입 크기라 나눠 먹기 좋다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_BAMBOO_SOUP",
+          "죽순 수프",
+          "음식",
+          "희귀",
+          null,
+          "죽순과 햄, 고기를 약한 불에 오래 고아 낸 수프. 국물 맛이 깊다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          400,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_PERCH_STEW",
+          "삶은 검정 농어",
+          "음식",
+          "희귀",
+          null,
+          "생선을 절운고추와 유리주머니 향에 삶아 냈다. 리월 사람들이 명절 밥상에 올리는 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          440,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRAB_HAM_BAKE",
+          "꽃게알 야채찜",
+          "음식",
+          "희귀",
+          null,
+          "양배추와 햄 위에 꽃게알과 크림을 얹어 찐 요리. 진한 맛이 지친 몸을 일으켜 세운다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          400,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_POTATO_SHRIMP_PLATTER",
+          "바삭 쉬림프 카나페",
+          "음식",
+          "희귀",
+          null,
+          "바삭하게 구운 감자 위에 새우와 라즈베리 소스를 올린 전채 요리. 가볍지만 든든하다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_GRILLED_TIGER_FISH",
+          "흘호어 구이",
+          "음식",
+          "일반",
+          null,
+          "소금과 후추만 뿌려 센 불에 구운 생선 꼬치. 길을 떠나는 손님이 즐겨 찾는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_RICE_BUNS",
+          "쌀 찐빵",
+          "음식",
+          "일반",
+          null,
+          "쌀가루에 말총을 섞어 빚어 찐 폭신한 찐빵. 땀 흘린 뒤에 먹으면 더 맛있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FINE_TEA_FULL_MOON",
+          "차와 보름달",
+          "음식",
+          "희귀",
+          null,
+          "침옥 찻잎으로 향을 낸 둥근 과자와 차 한 잔. 침옥 골짜기의 느긋한 오후를 닮았다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_JADEVEIN_TEA_EGGS",
+          "옥무늬 찻잎 달걀",
+          "음식",
+          "일반",
+          null,
+          "찻잎 국물에 삶아 껍질에 옥 같은 무늬가 생긴 달걀. 교영 마을 사람들의 간식이다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          100,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_TEA_SMOKED_SQUAB",
+          "차향 훈제 비둘기",
+          "음식",
+          "고급",
+          null,
+          "찻잎 연기로 훈제한 새고기. 은은한 차향이 오래 남는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          210,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHENYU_BREW",
+          "침옥 차 이슬",
+          "음식",
+          "일반",
+          null,
+          "침옥 선잎을 우려 만든 맑은 차. 한 모금이면 머리가 맑아진다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          90,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRAB_ROE_TOFU",
+          "꽃게알 두부",
+          "음식",
+          "고급",
+          null,
+          "부드러운 두부 위에 꽃게알을 듬뿍 얹었다. 씹지 않아도 넘어갈 만큼 부드럽다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FULLMOON_EGG",
+          "명월 딤섬",
+          "음식",
+          "희귀",
+          null,
+          "생선살과 새우살로 소를 채워 보름달처럼 둥글게 빚은 리월 전통 딤섬.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          420,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FISH_NOODLES",
+          "생선 볶음면",
+          "음식",
+          "고급",
+          null,
+          "쌀국수에 생선살과 금어초를 넣고 볶은 한 그릇. 소박하지만 잔칫상에도 어울린다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          360,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_HUMBLY_ENOUGH",
+          "만족의 기쁨",
+          "음식",
+          "희귀",
+          null,
+          "매콤한 간장 소스에 조린 두부. 고기가 들지 않았는데도 고기 맛이 난다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_HONEY_CHAR_SIU",
+          "꿀 차사오",
+          "음식",
+          "일반",
+          null,
+          "꿀을 발라 윤기 나게 구운 리월식 고기구이. 밥 한 그릇으로는 모자라다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_LUCKY_SNOW_DELIGHT",
+          "풍요 백설기",
+          "음식",
+          "전설",
+          null,
+          "쌀로 쪄 낸 새하얀 떡. 입에 넣으면 눈처럼 사르르 녹는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          440,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          100,
+          300,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_GOLDEN_TEMPERED_JADE",
+          "빛나는 냉옥",
+          "음식",
+          "고급",
+          null,
+          "새고기를 삶아 차갑게 식힌 리월식 닭 요리. 젤리처럼 굳은 육즙이 별미다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ]
+      ],
+      "preparedRecoveryStockRows": [
+        [
+          "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_PIZZA",
+          "버섯피자",
+          130,
+          8,
+          "매일",
+          "없음",
+          "CRPG_LOCAL_V011 생활·성장 재고"
+        ],
+        [
+          "STK_LY_WANGSHU_EGG",
+          "MRC_LIYUE_WANGSHU_DINING",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "객잔 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_EGG",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_MATSUTAKE",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_MATSUTAKE_ROLL",
+          "버섯고기말이",
+          150,
+          8,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_PEACE",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_UNIVERSAL_PEACE",
+          "세계 평화",
+          315,
+          5,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_MOND_SARA_CHICKEN",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_SWEET_MADAME",
+          "달콤달콤 닭고기 스튜",
+          80,
+          8,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ],
+        [
+          "STK_MOND_SARA_EGG",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ],
+        [
+          "STK_MOND_SARA_POTATO",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_HASH_BROWN",
+          "몬드 감자전",
+          163,
+          8,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ]
+      ],
+      "normalizedInputBeforeSha256": "7be542663098128fbc10183d7fb10808c980e13c16fd5c0aeb46e363977404b9",
+      "normalizedInputAfterSha256": "7be542663098128fbc10183d7fb10808c980e13c16fd5c0aeb46e363977404b9",
+      "secondRuntimeFoodRowsSha256": "e5332661f80e24e99db9270bf361b6c6dd2ae1a387987c4dba33b83acfddfc6c",
+      "secondRuntimeStockRowsSha256": "89ba423dcd49b681d8638844e039692a71dfd18aaf3e85d7fe8684d8400b319b",
+      "foodRowsSha256": "e5332661f80e24e99db9270bf361b6c6dd2ae1a387987c4dba33b83acfddfc6c",
+      "preparedRowsSha256": "89ba423dcd49b681d8638844e039692a71dfd18aaf3e85d7fe8684d8400b319b",
+      "allShopStockRowsSha256": "813915f5ff4c18d67cb784a976cd6de62962b25d8ffaa6192ccf8eacd5933b7c",
+      "effects": [
+        {
+          "level": 5,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 140,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 140,
+                "healed": 140,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 154,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 154,
+                "healed": 154,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 528,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 528,
+                "healed": 528,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 580,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 580,
+                "healed": 580,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 683,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 683,
+                "healed": 683,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 751,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 751,
+                "healed": 751,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 438,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 438,
+                "healed": 438,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 481,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 481,
+                "healed": 481,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 1653,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 1653,
+                "healed": 1653,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 1819,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 1819,
+                "healed": 1819,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 2140,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2140,
+                "healed": 2140,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 2354,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2354,
+                "healed": 2354,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 2757,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2757,
+                "healed": 2757,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 3033,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 3033,
+                "healed": 3033,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 10417,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 10417,
+                "healed": 10417,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 11459,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 11459,
+                "healed": 11459,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 13481,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 13481,
+                "healed": 13481,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 14829,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 14829,
+                "healed": 14829,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "actual imported server engine",
+      "balance": {
+        "book": {
+          "item": "MAT_CHAR_EXP_WANDERER",
+          "quantity": 1,
+          "xp": 50,
+          "owner": "MOND_AMBER"
+        },
+        "bookGrowth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        },
+        "bookHp": 0,
+        "ascensionQuote": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "cost": {
+            "mora": 800,
+            "items": {
+              "GROWTH_GEM_PYRO": 3,
+              "ING_LAMP_GRASS": 2,
+              "MAT_DAMAGED_MASK": 2
+            }
+          },
+          "gate": {
+            "ready": true,
+            "label": "몬드 본편 1장"
+          },
+          "nextCap": 20,
+          "reason": "돌파 재료가 부족합니다."
+        },
+        "ascensionReceipt": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 2080,
+          "remaining": 2080,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": false,
+          "final": false
+        },
+        "ascensionHp": 297,
+        "noelleHeals": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "MOND_NOELLE",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "MOND_AMBER",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          },
+          {
+            "target": "LIYUE_XIANGLING",
+            "nominal": 86.46093106055098,
+            "applied": 95
+          }
+        ],
+        "gemRewards": {
+          "NEUTRAL": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "PYRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "HYDRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "ANEMO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "ELECTRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "CRYO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "GEO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          },
+          "DENDRO": {
+            "5": 1,
+            "10": 2,
+            "15": 3,
+            "20": 10,
+            "25": 32,
+            "30": 47,
+            "35": 105,
+            "40": 153,
+            "45": 318,
+            "50": 642,
+            "55": 1932,
+            "60": 5400
+          }
+        },
+        "gemCosts": {
+          "NEUTRAL": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "PYRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "HYDRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "ANEMO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "ELECTRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "CRYO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "GEO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ],
+          "DENDRO": [
+            3,
+            6,
+            94,
+            765,
+            5136,
+            135000
+          ]
+        },
+        "talentBooks": {
+          "MOND": {
+            "5": 1,
+            "10": 2,
+            "15": 10,
+            "20": 20,
+            "25": 32
+          },
+          "LIYUE": {
+            "30": 3,
+            "35": 4,
+            "40": 7,
+            "45": 9,
+            "50": 19,
+            "55": 28,
+            "60": 80
+          }
+        },
+        "weeklyIds": [
+          "W_WIN",
+          "W_BOSS",
+          "W_DOMAIN",
+          "W_V168_REACTION",
+          "W_V168_OCEANID",
+          "W_V168_TALENT30",
+          "W_V168_ASCENSION",
+          "W_V168_EXPERIENCE",
+          "W_V168_REVELATION",
+          "W_V168_WEALTH",
+          "W_V168_GATHER",
+          "W_V168_MINE",
+          "W_V168_FISH",
+          "W_V168_HUNT",
+          "W_V168_COOK",
+          "W_V168_FORGE",
+          "W_V168_DOMAIN_CIRCUIT",
+          "W_V168_LIFE_SUPPLY",
+          "W_V168_ORE_SUPPLY",
+          "W_V169_INN",
+          "W_V169_PROCESS",
+          "W_V169_INCIDENT",
+          "W_V169_ENHANCE",
+          "W_V169_RECOVERY_MEAL"
+        ],
+        "weeklyBonus": {
+          "id": "W_ALL",
+          "scope": "weekly",
+          "name": "이번 주 임무 모두 달성",
+          "short": "모두 달성",
+          "icon": "bonus",
+          "goal": 24,
+          "progress": 0,
+          "done": false,
+          "claimed": false,
+          "lock": "",
+          "report": true,
+          "here": false,
+          "reward": {
+            "primogem": 200
+          }
+        }
+      },
+      "rawInputBeforeSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "rawInputAfterSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "canonicalFoodRows": [
+        [
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          "음식",
+          "일반",
+          null,
+          "간단한 달걀 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          90,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          8,
+          35,
+          20,
+          "요리",
+          "N",
+          "N",
+          "전 지역",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SWEET_MADAME",
+          "달콤달콤 닭고기 스튜",
+          "음식",
+          "고급",
+          null,
+          "달콤한 닭고기 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          20,
+          80,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_HASH_BROWN",
+          "몬드 감자전",
+          "음식",
+          "고급",
+          null,
+          "든든한 감자 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          26,
+          163,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_MATSUTAKE_ROLL",
+          "버섯고기말이",
+          "음식",
+          "고급",
+          null,
+          "고기와 버섯 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          300,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          30,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_UNIVERSAL_PEACE",
+          "세계 평화",
+          "음식",
+          "희귀",
+          null,
+          "리월식 회복 요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          45,
+          315,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "원작 음식명 기반/TRPG 효과",
+          ""
+        ],
+        [
+          "FOOD_PIZZA",
+          "버섯피자",
+          "음식",
+          "고급",
+          null,
+          "버섯을 올린 피자",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          260,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          16,
+          130,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SAKURA_MOCHI",
+          "벚꽃 모찌",
+          "음식",
+          "고급",
+          null,
+          "이나즈마식 디저트",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          190,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          50,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "이나즈마",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_TAHCHIN",
+          "타친",
+          "음식",
+          "고급",
+          null,
+          "수메르식 쌀요리",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          240,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          80,
+          240,
+          10,
+          "요리",
+          "N",
+          "N",
+          "수메르",
+          "TRPG 회복량 환산",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+          "글루포프 호밀빵",
+          "음식",
+          "고급",
+          null,
+          "호밀 가루로 구운 검고 향이 짙은 빵.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          200,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          50,
+          150,
+          20,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "원작 즉시+지속 회복형 효과를 CRPG 총회복량으로 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_BERRY_ICE_CREAM",
+          "베리 아이스크림",
+          "음식",
+          "고급",
+          null,
+          "차갑고 달콤한 열매와 크림으로 만든 디저트.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          200,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          75,
+          225,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+          "옛뜰 훈제 소시지",
+          "음식",
+          "일반",
+          null,
+          "짙은 향을 살려 훈제한 소시지 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          250,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "회복형 효과 기반 CRPG 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_MEDOVIK",
+          "메도빅",
+          "음식",
+          "고급",
+          null,
+          "달콤한 층을 겹겹이 쌓아 만든 케이크.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          65,
+          195,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "지속 회복형 효과를 CRPG 즉시 회복량으로 합산·환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_SNEZ_ZHARKOYE",
+          "자르코예",
+          "음식",
+          "희귀",
+          null,
+          "고기와 감자를 사워크림과 함께 익힌 든든한 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          320,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          85,
+          255,
+          10,
+          "요리",
+          "N",
+          "N",
+          "스네즈나야",
+          "HP 회복형 효과 기반 CRPG 환산. 1인분.",
+          ""
+        ],
+        [
+          "FOOD_STEAK",
+          "스테이크",
+          "음식",
+          "일반",
+          null,
+          "짐승고기를 두툼하게 썰어 센 불에 구웠다. 소박하지만 배를 든든히 채워 준다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHICKEN_SKEWER",
+          "버섯 닭꼬치",
+          "음식",
+          "일반",
+          null,
+          "새고기와 버섯을 번갈아 꿰어 구운 꼬치. 모험가들이 야영지에서 즐겨 만든다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MOND_GRILLED_FISH",
+          "몬드 생선구이",
+          "음식",
+          "일반",
+          null,
+          "후추만 뿌려 구운 생선. 막 잡은 생선일수록 맛이 산다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_RADISH_SOUP",
+          "무 수프",
+          "음식",
+          "일반",
+          null,
+          "흰 무와 민트를 넣어 맑게 끓인 수프. 지친 속을 편안하게 달래 준다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MINT_JELLY",
+          "민트 젤리",
+          "음식",
+          "일반",
+          null,
+          "민트 향이 시원하게 퍼지는 말랑한 젤리. 입가심으로도 좋다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_PANCAKE_TEA_BREAK",
+          "장원 팬케이크",
+          "음식",
+          "고급",
+          null,
+          "라즈베리를 듬뿍 올린 폭신한 팬케이크. 오후의 휴식 시간에 잘 어울린다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          240,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_BOLOGNESE",
+          "불꽃 미트 스파게티",
+          "음식",
+          "고급",
+          null,
+          "토마토소스에 다진 고기를 듬뿍 넣은 스파게티. 한 접시면 기운이 돈다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          210,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_APPLE_STEW",
+          "북극 사과고기찜",
+          "음식",
+          "희귀",
+          null,
+          "사과와 고기를 버터에 함께 졸여 달콤함과 짭짤함이 어우러진다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          380,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHICKEN_BURGER",
+          "바삭바삭 치킨버거",
+          "음식",
+          "희귀",
+          null,
+          "버터에 바삭하게 튀긴 새고기와 양배추를 빵 사이에 넣었다. 베어 무는 소리부터 맛있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          320,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_MORA_MEAT",
+          "모라육",
+          "음식",
+          "일반",
+          null,
+          "양념한 고기를 둥근 빵 사이에 끼워 구웠다. 모라 동전처럼 생긴 리월의 길거리 음식.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_STIR_FRIED_FILET",
+          "고기볶음",
+          "음식",
+          "일반",
+          null,
+          "절운고추를 넣고 센 불에 재빨리 볶은 고기. 매운 향이 코끝을 찌른다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRYSTAL_SHRIMP",
+          "수정 새우딤섬",
+          "음식",
+          "고급",
+          null,
+          "얇은 피 속으로 새우살이 비쳐 보이는 딤섬. 만민당의 인기 메뉴다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          220,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_VEGETARIAN_ABALONE",
+          "채식 전복",
+          "음식",
+          "고급",
+          null,
+          "송이버섯을 전복처럼 썰어 금어초와 함께 졸였다. 고기가 없어도 씹는 맛이 살아 있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          360,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SQUIRREL_FISH",
+          "탕수어",
+          "음식",
+          "희귀",
+          null,
+          "칼집 낸 생선을 튀겨 새콤달콤한 토마토소스를 끼얹었다. 모양이 다람쥐 꼬리를 닮았다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          380,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_SHRIMP_BALLS",
+          "황금 새우볼",
+          "음식",
+          "희귀",
+          null,
+          "으깬 감자로 새우살을 감싸 황금빛으로 튀겼다. 한 입 크기라 나눠 먹기 좋다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_BAMBOO_SOUP",
+          "죽순 수프",
+          "음식",
+          "희귀",
+          null,
+          "죽순과 햄, 고기를 약한 불에 오래 고아 낸 수프. 국물 맛이 깊다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          400,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_PERCH_STEW",
+          "삶은 검정 농어",
+          "음식",
+          "희귀",
+          null,
+          "생선을 절운고추와 유리주머니 향에 삶아 냈다. 리월 사람들이 명절 밥상에 올리는 요리.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          440,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.0 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRAB_HAM_BAKE",
+          "꽃게알 야채찜",
+          "음식",
+          "희귀",
+          null,
+          "양배추와 햄 위에 꽃게알과 크림을 얹어 찐 요리. 진한 맛이 지친 몸을 일으켜 세운다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          400,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_POTATO_SHRIMP_PLATTER",
+          "바삭 쉬림프 카나페",
+          "음식",
+          "희귀",
+          null,
+          "바삭하게 구운 감자 위에 새우와 라즈베리 소스를 올린 전채 요리. 가볍지만 든든하다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "몬드",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_GRILLED_TIGER_FISH",
+          "흘호어 구이",
+          "음식",
+          "일반",
+          null,
+          "소금과 후추만 뿌려 센 불에 구운 생선 꼬치. 길을 떠나는 손님이 즐겨 찾는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_RICE_BUNS",
+          "쌀 찐빵",
+          "음식",
+          "일반",
+          null,
+          "쌀가루에 말총을 섞어 빚어 찐 폭신한 찐빵. 땀 흘린 뒤에 먹으면 더 맛있다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          110,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FINE_TEA_FULL_MOON",
+          "차와 보름달",
+          "음식",
+          "희귀",
+          null,
+          "침옥 찻잎으로 향을 낸 둥근 과자와 차 한 잔. 침옥 골짜기의 느긋한 오후를 닮았다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_JADEVEIN_TEA_EGGS",
+          "옥무늬 찻잎 달걀",
+          "음식",
+          "일반",
+          null,
+          "찻잎 국물에 삶아 껍질에 옥 같은 무늬가 생긴 달걀. 교영 마을 사람들의 간식이다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          100,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_TEA_SMOKED_SQUAB",
+          "차향 훈제 비둘기",
+          "음식",
+          "고급",
+          null,
+          "찻잎 연기로 훈제한 새고기. 은은한 차향이 오래 남는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          210,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CHENYU_BREW",
+          "침옥 차 이슬",
+          "음식",
+          "일반",
+          null,
+          "침옥 선잎을 우려 만든 맑은 차. 한 모금이면 머리가 맑아진다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          90,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_CRAB_ROE_TOFU",
+          "꽃게알 두부",
+          "음식",
+          "고급",
+          null,
+          "부드러운 두부 위에 꽃게알을 듬뿍 얹었다. 씹지 않아도 넘어갈 만큼 부드럽다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          280,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FULLMOON_EGG",
+          "명월 딤섬",
+          "음식",
+          "희귀",
+          null,
+          "생선살과 새우살로 소를 채워 보름달처럼 둥글게 빚은 리월 전통 딤섬.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          420,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_FISH_NOODLES",
+          "생선 볶음면",
+          "음식",
+          "고급",
+          null,
+          "쌀국수에 생선살과 금어초를 넣고 볶은 한 그릇. 소박하지만 잔칫상에도 어울린다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          360,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_HUMBLY_ENOUGH",
+          "만족의 기쁨",
+          "음식",
+          "희귀",
+          null,
+          "매콤한 간장 소스에 조린 두부. 고기가 들지 않았는데도 고기 맛이 난다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          340,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          60,
+          180,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_HONEY_CHAR_SIU",
+          "꿀 차사오",
+          "음식",
+          "일반",
+          null,
+          "꿀을 발라 윤기 나게 구운 리월식 고기구이. 밥 한 그릇으로는 모자라다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          120,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          15,
+          45,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_LUCKY_SNOW_DELIGHT",
+          "풍요 백설기",
+          "음식",
+          "전설",
+          null,
+          "쌀로 쪄 낸 새하얀 떡. 입에 넣으면 눈처럼 사르르 녹는다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          440,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          100,
+          300,
+          10,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ],
+        [
+          "FOOD_GOLDEN_TEMPERED_JADE",
+          "빛나는 냉옥",
+          "음식",
+          "고급",
+          null,
+          "새고기를 삶아 차갑게 식힌 리월식 닭 요리. 젤리처럼 굳은 육즙이 별미다.",
+          "비전투/식사",
+          "지정 캐릭터 HP 회복",
+          180,
+          null,
+          "N",
+          "지정 CHAR_ID",
+          "즉시",
+          "전투 중 사용 불가",
+          35,
+          105,
+          20,
+          "요리",
+          "N",
+          "N",
+          "리월",
+          "v0.14.3 요리 확장",
+          ""
+        ]
+      ],
+      "preparedRecoveryStockRows": [
+        [
+          "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_PIZZA",
+          "버섯피자",
+          130,
+          8,
+          "매일",
+          "없음",
+          "CRPG_LOCAL_V011 생활·성장 재고"
+        ],
+        [
+          "STK_LY_WANGSHU_EGG",
+          "MRC_LIYUE_WANGSHU_DINING",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "객잔 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_EGG",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_MATSUTAKE",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_MATSUTAKE_ROLL",
+          "버섯고기말이",
+          150,
+          8,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_LY_WANMIN_PEACE",
+          "MRC_LIYUE_WANMIN",
+          "ITEM",
+          "FOOD_UNIVERSAL_PEACE",
+          "세계 평화",
+          315,
+          5,
+          "매일",
+          "없음",
+          "만민당 편의 재고"
+        ],
+        [
+          "STK_MOND_SARA_CHICKEN",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_SWEET_MADAME",
+          "달콤달콤 닭고기 스튜",
+          80,
+          8,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ],
+        [
+          "STK_MOND_SARA_EGG",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          35,
+          10,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ],
+        [
+          "STK_MOND_SARA_POTATO",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_HASH_BROWN",
+          "몬드 감자전",
+          163,
+          8,
+          "매일",
+          "없음",
+          "CRPG 편의 재고. 기존 음식 구매가 사용."
+        ]
+      ],
+      "normalizedInputBeforeSha256": "7be542663098128fbc10183d7fb10808c980e13c16fd5c0aeb46e363977404b9",
+      "normalizedInputAfterSha256": "7be542663098128fbc10183d7fb10808c980e13c16fd5c0aeb46e363977404b9",
+      "secondRuntimeFoodRowsSha256": "e5332661f80e24e99db9270bf361b6c6dd2ae1a387987c4dba33b83acfddfc6c",
+      "secondRuntimeStockRowsSha256": "89ba423dcd49b681d8638844e039692a71dfd18aaf3e85d7fe8684d8400b319b",
+      "foodRowsSha256": "e5332661f80e24e99db9270bf361b6c6dd2ae1a387987c4dba33b83acfddfc6c",
+      "preparedRowsSha256": "89ba423dcd49b681d8638844e039692a71dfd18aaf3e85d7fe8684d8400b319b",
+      "allShopStockRowsSha256": "813915f5ff4c18d67cb784a976cd6de62962b25d8ffaa6192ccf8eacd5933b7c",
+      "effects": [
+        {
+          "level": 5,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 140,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 140,
+                "healed": 140,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 154,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 154,
+                "healed": 154,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 528,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 528,
+                "healed": 528,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 580,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 580,
+                "healed": 580,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 683,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 683,
+                "healed": 683,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 5,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 751,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 751,
+                "healed": 751,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 438,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 438,
+                "healed": 438,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 481,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 481,
+                "healed": 481,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 1653,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 1653,
+                "healed": 1653,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 1819,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 1819,
+                "healed": 1819,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 2140,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2140,
+                "healed": 2140,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 20,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 2354,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2354,
+                "healed": 2354,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 90,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "티바트 달걀 프라이"
+          },
+          "expected": 2757,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 2757,
+                "healed": 2757,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "티바트 달걀 프라이"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_TEA_BREAK_PANCAKE",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_TEA_BREAK_PANCAKE",
+            "heal": 99,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "티바트 달걀 프라이 · 바바라 특제"
+          },
+          "expected": 3033,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_TEA_BREAK_PANCAKE",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 3033,
+                "healed": 3033,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "티바트 달걀 프라이 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 340,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "몬드 감자전"
+          },
+          "expected": 10417,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 10417,
+                "healed": 10417,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "몬드 감자전"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_HASH_BROWN",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_HASH_BROWN",
+            "heal": 374,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "몬드 감자전 · 바바라 특제"
+          },
+          "expected": 11459,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_HASH_BROWN",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 11459,
+                "healed": 11459,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "몬드 감자전 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "NORMAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 440,
+            "status": null,
+            "variant": "NORMAL",
+            "name": "삶은 검정 농어"
+          },
+          "expected": 13481,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 13481,
+                "healed": 13481,
+                "absorbed": 0,
+                "variant": "NORMAL",
+                "name": "삶은 검정 농어"
+              }
+            ],
+            "minutes": 10
+          }
+        },
+        {
+          "level": 60,
+          "item": "FOOD_PERCH_STEW",
+          "variant": "BARBARA_SPECIAL",
+          "autoSpec": {
+            "item": "FOOD_PERCH_STEW",
+            "heal": 484,
+            "status": null,
+            "variant": "BARBARA_SPECIAL",
+            "name": "삶은 검정 농어 · 바바라 특제"
+          },
+          "expected": 14829,
+          "receipt": {
+            "meals": [
+              {
+                "item": "FOOD_PERCH_STEW",
+                "owner": "MOND_AMBER",
+                "quantity": 1,
+                "status": null,
+                "requestedHealing": 14829,
+                "healed": 14829,
+                "absorbed": 0,
+                "variant": "BARBARA_SPECIAL",
+                "name": "삶은 검정 농어 · 바바라 특제"
+              }
+            ],
+            "minutes": 10
+          }
+        }
+      ]
+    }
+  ]
+}

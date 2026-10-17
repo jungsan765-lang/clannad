@@ -1,0 +1,24 @@
+{
+  "test": "tests/test_incoming_defense_v01622.cjs",
+  "command": [
+    "node",
+    "tests/test_incoming_defense_v01622.cjs"
+  ],
+  "startedAt": "2026-10-10T10:12:00.513656+00:00",
+  "endedAt": "2026-10-10T10:12:16.366833+00:00",
+  "seconds": 15.279,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_character_balance_v01625.cjs": {
+      "before": "2d2263af0da450c603a9be484574601e9de4c3bdff52200a9482eb8e89f80d59",
+      "after": "6c2bd3125827ffa1ffc1f6571f581d5a5e9f25f9c6093b9e3b29be2430f571e4"
+    }
+  },
+  "testSha256": "00578059251f57211d69f617448e59611d64271e1dc6dc0812a3ad6ac63ccbb6",
+  "generatedEngineSha256": "94375793eb78c78d83eacf38759cccf1b1bca3060aec0fe3268acdab14842409",
+  "stdoutSha256": "775e9a37816a9836e3c2e88972a1dd715dab59ba32d2e7dea26c5f82f473b9ea",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_incoming_defense_v01622.stdout.log",
+  "stderrLog": "test_incoming_defense_v01622.stderr.log"
+}

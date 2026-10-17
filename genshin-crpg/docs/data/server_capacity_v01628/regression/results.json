@@ -1,0 +1,158 @@
+[
+  {
+    "test": "tests/test_runtime_capacity_v01628.cjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 28.49
+  },
+  {
+    "test": "tests/test_server_capacity_v01628.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 2.74
+  },
+  {
+    "test": "tests/test_fixed_region_live.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 5.43
+  },
+  {
+    "test": "tests/test_admin_balance_v01623.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 12.83
+  },
+  {
+    "test": "tests/test_admin_balance_growth_v01623.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 5.9
+  },
+  {
+    "test": "tests/test_server_capacity_audit_fixes.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 0.65
+  },
+  {
+    "test": "tests/test_server_load_boundaries_v01513.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 79.21
+  },
+  {
+    "test": "tests/test_server_remaining_audit_v01513.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 0.83
+  },
+  {
+    "test": "tests/test_server_account_audit_fixes.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 7.23
+  },
+  {
+    "test": "tests/test_server_social_audit_fixes.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 4.76
+  },
+  {
+    "test": "tests/test_server_coop_audit_fixes.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 13.8
+  },
+  {
+    "test": "tests/test_server_coop_recovery_v01512.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 12.7
+  },
+  {
+    "test": "tests/test_server_coop_retry_v0161.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 3.74
+  },
+  {
+    "test": "tests/test_server_coop_roam_v0160.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 12.89
+  },
+  {
+    "test": "tests/test_social_concurrency_v01511.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 5.16
+  },
+  {
+    "test": "tests/test_letters_v0151.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 9.45
+  },
+  {
+    "test": "tests/test_growth_online_v01522.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 20.62
+  },
+  {
+    "test": "tests/test_authoritative_flow.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 7.11
+  },
+  {
+    "test": "tests/test_reading_checkpoint.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 27.09
+  },
+  {
+    "test": "tests/test_action_recovery.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 192.15
+  },
+  {
+    "test": "tests/test_durable_account.mjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 7.07
+  },
+  {
+    "test": "tests/test_engine_identity.py",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 0.05
+  },
+  {
+    "test": "tests/test_release_isolation_v01513.py",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 0.96
+  },
+  {
+    "test": "tests/test_content_boundaries_v01513.cjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 7.12
+  },
+  {
+    "test": "tests/test_test_release_pin.cjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 0.12
+  },
+  {
+    "test": "tests/test_test_release_transaction.cjs",
+    "ok": true,
+    "exitCode": 0,
+    "seconds": 16.99
+  }
+]

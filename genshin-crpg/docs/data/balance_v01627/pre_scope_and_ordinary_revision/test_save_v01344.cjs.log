@@ -1,0 +1,31 @@
+fatal: not a git repository (or any of the parent directories): .git
+node:child_process:981
+    throw err;
+    ^
+
+Error: Command failed: git show f0c08d6:genshin-crpg/source/index.html
+fatal: not a git repository (or any of the parent directories): .git
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at Object.execFileSync (node:child_process:978:15)
+    at read (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_save_v01344.cjs:8:111)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_save_v01344.cjs:11:18)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12) {
+  status: 128,
+  signal: null,
+  output: [
+    null,
+    '',
+    'fatal: not a git repository (or any of the parent directories): .git\n'
+  ],
+  pid: 898,
+  stdout: '',
+  stderr: 'fatal: not a git repository (or any of the parent directories): .git\n'
+}
+
+Node.js v24.19.0

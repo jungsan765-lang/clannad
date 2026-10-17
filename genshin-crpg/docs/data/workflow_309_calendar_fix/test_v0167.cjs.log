@@ -1,0 +1,25 @@
+PASS 이전 저장의 목표·보상 보존과 갈래 집계: 성공한 실제 행동만 집계
+FAIL 받기 pays frozen rewards once; 모두 받기 claims the frontier; the day bonus counts toward the week
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+0 !== 2
+
+    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_v0167.cjs:59:114
+    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_v0167.cjs:11:29)
+    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_v0167.cjs:41:1)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+PASS the day turns at Korean midnight and the week on Monday
+PASS a save with a broken board is refused; the server lets 「받기」 through
+PASS 임무 보상 획득: what a claim paid shows itself; a finished task says so once
+PASS 의뢰 한 줄: state, name, place, reward pictures, one small button; the row opens the whole card
+PASS 메인 화면: no scrolling — pages filled by the real layout, tall cards paged by their rows, nothing cut
+PASS 전투: only a fighter’s own skill is named, over its own side; the dock box is gone
+PASS 캐릭터: books in one line per character, four tabs, where materials come from, nothing scrolls
+PASS version 0.16.7 with its notes on top of the full chain
+{"ok":false,"checks":9}

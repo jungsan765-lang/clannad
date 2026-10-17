@@ -1,0 +1,44 @@
+{
+  "ok": true,
+  "checks": [
+    "Real admin authentication loads a new SQLite balance profile",
+    "Real server preview displays actual default HP and proposed HP in Korean",
+    "Browser apply reaches real atomic SQLite profile and audit metadata",
+    "Independent real API change advances the version",
+    "Real HTTP 409 preserves the operator draft",
+    "Real conflict rebase preserves unrelated concurrent changes",
+    "Real API recognizes the nested growth tier and a Korean field label",
+    "Real SQLite profile retains nested growth settings",
+    "Real history preview shows all fields that will be restored",
+    "Real rollback restores initial values and records its source revision",
+    "Phone browser applies numeric changes to the real API",
+    "Phone browser restores historical values through the real API",
+    "Real-API browser session has no uncaught script errors"
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "source/admin.js": "b9286ce6de826b57834ede4cf8a6d2550332adef2ac97af706e72fa47456f314",
+    "source/admin.css": "f4d64e045a1625d7b52b79c19e2a14d1827ba882b6c237eb1b2ecc4ffde5b073",
+    "source/runtime_balance_admin_v01623.js": "4adbb1b8725932df7cc7be4bd9f4a11a8fa060f3b1bcb8f07a30392781d5a5de",
+    "server/admin-api.mjs": "ee4964e98e1f48f84cf91dcfb2f6f9f0896076e7a6f708a7897c43dc044e16d8"
+  },
+  "engineVersion": "0.16.22",
+  "bootstrap": "Existing generated engine plus explicitly imported current admin balance module; generated source was not changed by this QA.",
+  "database": ":memory:",
+  "liveDeployment": false,
+  "finalProfileRevision": 7,
+  "finalConfig": {
+    "tables": [],
+    "enemies": {},
+    "characters": {},
+    "cards": {},
+    "economy": {},
+    "encounters": {},
+    "growth": {
+      "domains": {},
+      "ascension": {},
+      "talents": {}
+    }
+  },
+  "screenshot": "native_phone.png"
+}

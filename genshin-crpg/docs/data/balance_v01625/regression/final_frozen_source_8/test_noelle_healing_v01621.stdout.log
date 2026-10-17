@@ -1,0 +1,7 @@
+PASS C0 50% proc and C1/C6 certainty share one Breastplate heal per round
+PASS C1/C6 require Breastplate: absent/other/broken shield does not consume eligibility
+PASS native round end resets shared gate; E/Q recasts in the same round do not
+PASS Q expiry returns C1/C6 to native 50% Breastplate proc
+PASS misses and E/Q damage cannot proc; living allies heal while KO stays zero
+PASS killing normal hit, successive hits and restored in-flight state keep one proc
+PASS same-round normal damage hits share one proc and summon/follow-up damage cannot use it

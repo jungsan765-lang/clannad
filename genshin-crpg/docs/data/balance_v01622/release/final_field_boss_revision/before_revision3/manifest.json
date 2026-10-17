@@ -1,0 +1,35 @@
+{
+  "purpose": "Exact predecessor product/QA source originals for planned field-boss behavior revision; not application code",
+  "files": [
+    {
+      "sourcePath": "source/runtime_field_bosses.js",
+      "copyPath": "before_revision3/source/runtime_field_bosses.js",
+      "bytes": 58758,
+      "sha256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563"
+    },
+    {
+      "sourcePath": "tools/test_field_bosses.cjs",
+      "copyPath": "before_revision3/tools/test_field_bosses.cjs",
+      "bytes": 15051,
+      "sha256": "52982f00a9dc1ec543b73afbc835cba5acb2f07ff06fdbe995142521d5461c96"
+    },
+    {
+      "sourcePath": "tools/test_field_boss_immunity_v01618.cjs",
+      "copyPath": "before_revision3/tools/test_field_boss_immunity_v01618.cjs",
+      "bytes": 13775,
+      "sha256": "cff92470bdde761021825c3c4033832b42097bdbea18e5bb0731b609b718d0ea"
+    },
+    {
+      "sourcePath": "tools/test_boss_boundaries_v01619.cjs",
+      "copyPath": "before_revision3/tools/test_boss_boundaries_v01619.cjs",
+      "bytes": 10628,
+      "sha256": "1b2710d4174c99c60ca01b95479340e57506e4bb480aa0babffa939ee957f8fc"
+    },
+    {
+      "sourcePath": "tools/verify_release.py",
+      "copyPath": "before_revision3/tools/verify_release.py",
+      "bytes": 11446,
+      "sha256": "ccbfa7037cee22c83dc393525a29d81727e07973a5d7dd6b4c340592baae5873"
+    }
+  ]
+}

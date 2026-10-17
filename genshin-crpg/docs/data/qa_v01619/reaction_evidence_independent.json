@@ -1,0 +1,348 @@
+{
+  "checkedAt": "2026-10-09T17:13:07.761306+00:00",
+  "scope": "Independent validation of archived reaction and control evidence. No rerun or source edit.",
+  "reaction": {
+    "broadRegressionTests": 42,
+    "broadPassed": 42,
+    "additionalEulaTests": 1,
+    "additionalEulaPassed": 1,
+    "declaredFinal": 43,
+    "declaredFinalPassed": 43,
+    "combinedArithmeticMatches": true,
+    "allResultFlagsTrue": true,
+    "counterfactual": "Original faulty Aggravate formula is detected by the new behavior expectation; exact command output is preserved separately.",
+    "finalSourceHashes": "reaction_fixes/sourcehash.json is the owner load-time snapshot, not an assertion every later unrelated module matches it."
+  },
+  "control": {
+    "scope": "One applyCombatControl function only; originalControlOnly restores just its previous body in VM, leaving product files unchanged.",
+    "checks": {
+      "syntax": true,
+      "diffWhitespace": true
+    },
+    "source": {
+      "file": "source/runtime_rules.js",
+      "functionSha256": "efe0fe36417b2479a5e26f877aa95666c0150273786ec44e240d7e538f505c73",
+      "functionText": "P.applyCombatControl=function(source,target,kind,o={}){if(target.hp<=0||o.element&&this.hasElementImmunity(target,el(o.element)))return false;const size=this.combatSize(target);if(o.bossImmune&&size==='BOSS')return false;if(size==='BOSS'||size==='LARGE'&&kind==='FREEZE')return !!this.addCombatStatus(target,'BOSS_CONTROL',1);if(size==='LARGE'&&['PULL','PUSH','LIFT'].includes(kind))return false;let chance=o.chance??100;if((target.statuses||[]).some(s=>s.staggerResist)||st(target,'THUNDERWOLF'))chance*=.5;if(chance<100&&this.die()>chance)return false;if(kind==='FREEZE')return !!this.addCombatStatus(target,'STATUS_FREEZE',1,{coexist:['물','얼음']});else if(kind==='LIFT'){if(!this.addCombatStatus(target,'LIFTED',1))return false;target.nextScorePenalty=Math.max(10,target.nextScorePenalty||0);}else if(kind==='PULL'||kind==='PUSH')return this.displaceCombatActor(source,target,kind==='PULL',{cause:kind==='PULL'?'끌어당김':'밀치기'});return true;};"
+    },
+    "test": {
+      "file": "tests/test_control_grace_v01619.cjs",
+      "sha256": "e24f20513ca73dca9495b3a913d8f2c8a0747d238c21f4e4c72c0f7c543717e4"
+    },
+    "reports": [
+      {
+        "name": "originalControlOnly",
+        "file": "/tmp/control_grace_v01619_original_control.log",
+        "ok": false,
+        "total": 10,
+        "passed": 5,
+        "evidence": [
+          {
+            "name": "rejected freeze during grace keeps native charge and releases next own turn",
+            "ok": false,
+            "error": "AssertionError [ERR_ASSERTION]: rejected status is rejected control\n\ntrue !== false\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:30:41\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:26:36)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"
+          },
+          {
+            "name": "rejected freeze during grace keeps native charge and releases next own turn after restore",
+            "ok": false,
+            "error": "AssertionError [ERR_ASSERTION]: rejected status is rejected control\n\ntrue !== false\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:30:41\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:26:36)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"
+          },
+          {
+            "name": "landed freeze immediately interrupts once and keeps existing expiry",
+            "ok": true,
+            "evidence": {
+              "reloaded": false,
+              "immediateInterrupt": true,
+              "interruptedLogs": 1
+            }
+          },
+          {
+            "name": "landed freeze immediately interrupts once and keeps existing expiry after restore",
+            "ok": true,
+            "evidence": {
+              "reloaded": true,
+              "immediateInterrupt": true,
+              "interruptedLogs": 1
+            }
+          },
+          {
+            "name": "native equipment resistance rejects FREEZE without action delay",
+            "ok": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:47:89\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:45:37)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"
+          },
+          {
+            "name": "native equipment resistance rejects LIFT without action delay",
+            "ok": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:47:89\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:45:37)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"
+          },
+          {
+            "name": "successful lift preserves delay and immediately interrupts native charge",
+            "ok": true,
+            "evidence": {
+              "delay": 10,
+              "interrupted": true
+            }
+          },
+          {
+            "name": "native large enemy retains soft freeze and displacement immunity",
+            "ok": true,
+            "evidence": {
+              "softFreeze": true,
+              "largeDisplacementImmune": true
+            }
+          },
+          {
+            "name": "native boss soft control reports a real status while immune Osial rejects it",
+            "ok": false,
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:70:111\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_control_grace_v01619.cjs:66:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"
+          },
+          {
+            "name": "native successful push interrupts but wall-blocked push keeps charge",
+            "ok": true,
+            "evidence": {
+              "successfulPushInterrupts": true,
+              "wallBlockedPushPreservesCharge": true
+            }
+          }
+        ]
+      },
+      {
+        "name": "patched",
+        "file": "/tmp/control_grace_v01619_after.log",
+        "ok": true,
+        "total": 10,
+        "passed": 10,
+        "evidence": [
+          {
+            "name": "rejected freeze during grace keeps native charge and releases next own turn",
+            "ok": true,
+            "evidence": {
+              "reloaded": false,
+              "graceGuard": 3,
+              "chargeReleased": true
+            }
+          },
+          {
+            "name": "rejected freeze during grace keeps native charge and releases next own turn after restore",
+            "ok": true,
+            "evidence": {
+              "reloaded": true,
+              "graceGuard": 3,
+              "chargeReleased": true
+            }
+          },
+          {
+            "name": "landed freeze immediately interrupts once and keeps existing expiry",
+            "ok": true,
+            "evidence": {
+              "reloaded": false,
+              "immediateInterrupt": true,
+              "interruptedLogs": 1
+            }
+          },
+          {
+            "name": "landed freeze immediately interrupts once and keeps existing expiry after restore",
+            "ok": true,
+            "evidence": {
+              "reloaded": true,
+              "immediateInterrupt": true,
+              "interruptedLogs": 1
+            }
+          },
+          {
+            "name": "native equipment resistance rejects FREEZE without action delay",
+            "ok": true,
+            "evidence": {
+              "kind": "FREEZE",
+              "resistanceRejects": true,
+              "failedResistanceRollAdmits": true
+            }
+          },
+          {
+            "name": "native equipment resistance rejects LIFT without action delay",
+            "ok": true,
+            "evidence": {
+              "kind": "LIFT",
+              "resistanceRejects": true,
+              "failedResistanceRollAdmits": true
+            }
+          },
+          {
+            "name": "successful lift preserves delay and immediately interrupts native charge",
+            "ok": true,
+            "evidence": {
+              "delay": 10,
+              "interrupted": true
+            }
+          },
+          {
+            "name": "native large enemy retains soft freeze and displacement immunity",
+            "ok": true,
+            "evidence": {
+              "softFreeze": true,
+              "largeDisplacementImmune": true
+            }
+          },
+          {
+            "name": "native boss soft control reports a real status while immune Osial rejects it",
+            "ok": true,
+            "evidence": {
+              "existingSoftBossControl": true,
+              "osialImmune": true
+            }
+          },
+          {
+            "name": "native successful push interrupts but wall-blocked push keeps charge",
+            "ok": true,
+            "evidence": {
+              "successfulPushInterrupts": true,
+              "wallBlockedPushPreservesCharge": true
+            }
+          }
+        ]
+      },
+      {
+        "name": "monsterRegression",
+        "file": "/tmp/monster_control_v01619_regression.log",
+        "ok": true,
+        "total": 13,
+        "passed": 13,
+        "evidence": [
+          {
+            "name": "enemy guardian KO sends remaining legal Diluc hits to original target",
+            "ok": true,
+            "evidence": {
+              "reloaded": false,
+              "guardHp": 0,
+              "targetHpBefore": 3880,
+              "targetHpAfter": 1053,
+              "remainingHits": 2
+            }
+          },
+          {
+            "name": "enemy guardian KO sends remaining legal Diluc hits to original target after restore",
+            "ok": true,
+            "evidence": {
+              "reloaded": true,
+              "guardHp": 0,
+              "targetHpBefore": 3880,
+              "targetHpAfter": 1053,
+              "remainingHits": 2
+            }
+          },
+          {
+            "name": "ally cover KO sends remaining legal enemy barrage hits to original target",
+            "ok": true,
+            "evidence": {
+              "reloaded": false,
+              "coverHp": 0,
+              "targetHpBefore": 4769,
+              "targetHpAfter": 4747,
+              "remainingHits": 2
+            }
+          },
+          {
+            "name": "ally cover KO sends remaining legal enemy barrage hits to original target after restore",
+            "ok": true,
+            "evidence": {
+              "reloaded": true,
+              "coverHp": 0,
+              "targetHpBefore": 4769,
+              "targetHpAfter": 4747,
+              "remainingHits": 2
+            }
+          },
+          {
+            "name": "living cover choices keep one roll; disabled cached guards stop redirecting without re-roll",
+            "ok": true,
+            "evidence": {
+              "guardRolls": 1,
+              "coverRolls": 1
+            }
+          },
+          {
+            "name": "native DRENCH creates finite Hydro aura through complete round boundary",
+            "ok": true,
+            "evidence": {
+              "reloaded": false,
+              "expiryBoundaries": 3,
+              "permanentAura": null
+            }
+          },
+          {
+            "name": "native DRENCH creates finite Hydro aura through complete round boundary after restore",
+            "ok": true,
+            "evidence": {
+              "reloaded": true,
+              "expiryBoundaries": 3,
+              "permanentAura": null
+            }
+          },
+          {
+            "name": "flood Hydro supports a legal cryo card and preserves waterproof mitigation",
+            "ok": true,
+            "evidence": {
+              "freeze": true,
+              "waterproofThresholdPreserved": true
+            }
+          },
+          {
+            "name": "legal petrify immediately cancels PYRO charge and expires exposed at own turn",
+            "ok": true,
+            "evidence": {
+              "element": "PYRO",
+              "reloaded": false,
+              "immediateExposure": true,
+              "skippedFirstOwnTurn": true,
+              "nextTurnFree": true
+            }
+          },
+          {
+            "name": "legal petrify immediately cancels PYRO charge and expires exposed at own turn after restore",
+            "ok": true,
+            "evidence": {
+              "element": "PYRO",
+              "reloaded": true,
+              "immediateExposure": true,
+              "skippedFirstOwnTurn": true,
+              "nextTurnFree": true
+            }
+          },
+          {
+            "name": "legal petrify immediately cancels CRYO charge and expires exposed at own turn",
+            "ok": true,
+            "evidence": {
+              "element": "CRYO",
+              "reloaded": false,
+              "immediateExposure": true,
+              "skippedFirstOwnTurn": true,
+              "nextTurnFree": true
+            }
+          },
+          {
+            "name": "legal petrify immediately cancels CRYO charge and expires exposed at own turn after restore",
+            "ok": true,
+            "evidence": {
+              "element": "CRYO",
+              "reloaded": true,
+              "immediateExposure": true,
+              "skippedFirstOwnTurn": true,
+              "nextTurnFree": true
+            }
+          },
+          {
+            "name": "rejected petrify during control grace does not interrupt a valid new charge",
+            "ok": true,
+            "evidence": {
+              "gracePreserved": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "Reaction43 is42 broad cases plus1 targeted Eula follow-up; these are not43 native campaign wins.",
+    "Control source hash snapshot and source-scope early JSON were collected before subsequent unrelated healing/shield edits.",
+    "Stable final combined source requires the final suite and separate current QA requested by root."
+  ]
+}

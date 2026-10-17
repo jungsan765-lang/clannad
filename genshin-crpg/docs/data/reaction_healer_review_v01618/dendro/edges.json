@@ -1,0 +1,347 @@
+{
+  "readOnly": true,
+  "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "rows": [
+    {
+      "name": "native_created_quicken_물",
+      "selected": "RX_BLOOM",
+      "before": {
+        "auras": [
+          {
+            "element": "풀",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          {
+            "element": "번개",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 0
+      },
+      "after": {
+        "auras": [
+          {
+            "element": "번개",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 1
+      },
+      "electroAfter": "RX_AGGRAVATE"
+    },
+    {
+      "name": "native_created_quicken_불",
+      "selected": "RX_OVERLOADED",
+      "before": {
+        "auras": [
+          {
+            "element": "풀",
+            "rounds": 2,
+            "createdRound": 1
+          },
+          {
+            "element": "번개",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 0
+      },
+      "after": {
+        "auras": [
+          {
+            "element": "풀",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 0
+      },
+      "electroAfter": "RX_AGGRAVATE"
+    },
+    {
+      "name": "status_only_quicken_물",
+      "selected": null,
+      "before": {
+        "auras": [],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 0
+      },
+      "after": {
+        "auras": [
+          {
+            "element": "물",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 0
+      }
+    },
+    {
+      "name": "status_only_quicken_불",
+      "selected": null,
+      "before": {
+        "auras": [],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 0
+      },
+      "after": {
+        "auras": [
+          {
+            "element": "불",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "statuses": [
+          {
+            "id": "QUICKEN",
+            "rounds": 2,
+            "createdRound": 1
+          }
+        ],
+        "cores": 0
+      }
+    },
+    {
+      "name": "lunar_crystal",
+      "level": 20,
+      "dead": false,
+      "base": 370.29333333333335,
+      "packets": [
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 425,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": "RX_LUNAR_CRYSTALLIZE",
+          "card": "PLAYER_BASIC_ATTACK",
+          "sourceKind": null
+        },
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 364,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "reaction": "RX_LUNAR_CRYSTALLIZE",
+          "sourceKind": "REACTION"
+        }
+      ],
+      "shields": []
+    },
+    {
+      "name": "lunar_crystal",
+      "level": 20,
+      "dead": true,
+      "base": 370.29333333333335,
+      "packets": [
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 425,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": "RX_CRYSTALLIZE",
+          "card": "PLAYER_BASIC_ATTACK",
+          "sourceKind": null
+        }
+      ],
+      "shields": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 370,
+          "initialValue": 370,
+          "rounds": 3,
+          "createdRound": 1
+        }
+      ]
+    },
+    {
+      "name": "lunar_crystal",
+      "level": 40,
+      "dead": false,
+      "base": 1533.8533333333332,
+      "packets": [
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 1281,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": "RX_LUNAR_CRYSTALLIZE",
+          "card": "PLAYER_BASIC_ATTACK",
+          "sourceKind": null
+        },
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 1509,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "reaction": "RX_LUNAR_CRYSTALLIZE",
+          "sourceKind": "REACTION"
+        }
+      ],
+      "shields": []
+    },
+    {
+      "name": "lunar_crystal",
+      "level": 40,
+      "dead": true,
+      "base": 1533.8533333333332,
+      "packets": [
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 1281,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": "RX_CRYSTALLIZE",
+          "card": "PLAYER_BASIC_ATTACK",
+          "sourceKind": null
+        }
+      ],
+      "shields": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 1534,
+          "initialValue": 1534,
+          "rounds": 3,
+          "createdRound": 1
+        }
+      ]
+    },
+    {
+      "name": "lunar_crystal",
+      "level": 60,
+      "dead": false,
+      "base": 3881.9466666666667,
+      "packets": [
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 3144,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": "RX_LUNAR_CRYSTALLIZE",
+          "card": "PLAYER_BASIC_ATTACK",
+          "sourceKind": null
+        },
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 3819,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "reaction": "RX_LUNAR_CRYSTALLIZE",
+          "sourceKind": "REACTION"
+        }
+      ],
+      "shields": []
+    },
+    {
+      "name": "lunar_crystal",
+      "level": 60,
+      "dead": true,
+      "base": 3881.9466666666667,
+      "packets": [
+        {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 3144,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": "RX_CRYSTALLIZE",
+          "card": "PLAYER_BASIC_ATTACK",
+          "sourceKind": null
+        }
+      ],
+      "shields": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 3882,
+          "initialValue": 3882,
+          "rounds": 3,
+          "createdRound": 1
+        }
+      ]
+    }
+  ]
+}

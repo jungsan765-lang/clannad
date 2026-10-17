@@ -1,0 +1,511 @@
+{
+  "version": "0.16.26",
+  "pairs": 21,
+  "nativeRuns": 42,
+  "baselineRooms": 50,
+  "finalRooms": 37,
+  "baselineCounts": {
+    "CLEARED": 12,
+    "TIMEOUT": 9
+  },
+  "finalCounts": {
+    "DOWNED": 9,
+    "TIMEOUT": 6,
+    "CLEARED": 6
+  },
+  "baselineEarlyPcKoAdvanced": 13,
+  "baselineAffectedRuns": 9,
+  "finalEarlyPcKoAdvanced": 0,
+  "errors": 0,
+  "inputLimits": 0,
+  "entryBlocked": 0,
+  "runnerPairParity": "Identical native fixture and action logic. Final checksum allowlist additionally permits the authorized runtime_formations.js change.",
+  "changedRuntimeSources": [
+    "source/runtime_abyss.js",
+    "source/runtime_formations.js"
+  ],
+  "baselineFingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "finalFingerprint": "3d37c3e03b28661d8023d6416e46ed83a5fcf95b34348a46c1457c7a921da128",
+  "rawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "coupledObservations": {
+    "clearsLostToNativePcKO": 6,
+    "allPreparedC6Outcomes": [
+      "CLEARED",
+      "CLEARED",
+      "CLEARED"
+    ],
+    "previousNoPcKoClearFinalOutcomes": [
+      "CLEARED",
+      "CLEARED",
+      "CLEARED",
+      "CLEARED",
+      "CLEARED",
+      "CLEARED"
+    ]
+  },
+  "sameInputsVerified": [
+    "natural equipped artifacts and their rolls",
+    "all equipment",
+    "initial HP",
+    "talents",
+    "constellations",
+    "operator profile",
+    "first chamber actor stats",
+    "first chamber food consumption",
+    "combat RNG seed",
+    "opening score roll"
+  ],
+  "limits": [
+    "Diagnostic funded fixtures at Lv60; acquisition and full 12-floor roster climb were not simulated.",
+    "Seven selected conditions × three seeds; no all-composition win-rate claim.",
+    "KO in chamber3 can legally clear when companions win and is not grouped with early-room advancement bugs.",
+    "Opening SPD changes are real even if all chosen Lv60 allies remain faster than enemies.",
+    "Food and gear rules/values remain unchanged."
+  ],
+  "pairsDetail": [
+    {
+      "id": "f10_four_c6_exclusive_meals",
+      "seed": 717,
+      "floor": 10,
+      "baseline": "CLEARED",
+      "final": "DOWNED",
+      "baselineRounds": 10,
+      "finalRounds": 3,
+      "baselineEarlyPcKo": 2,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 18,
+      "finalMeals": 4,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "f10_four_c6_exclusive_meals",
+      "seed": 4242,
+      "floor": 10,
+      "baseline": "TIMEOUT",
+      "final": "DOWNED",
+      "baselineRounds": 18,
+      "finalRounds": 6,
+      "baselineEarlyPcKo": 1,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 18,
+      "finalMeals": 10,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "f10_four_c6_exclusive_meals",
+      "seed": 9031,
+      "floor": 10,
+      "baseline": "CLEARED",
+      "final": "DOWNED",
+      "baselineRounds": 9,
+      "finalRounds": 6,
+      "baselineEarlyPcKo": 1,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 16,
+      "finalMeals": 10,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "f11_mixed_exclusive_meals",
+      "seed": 717,
+      "floor": 11,
+      "baseline": "CLEARED",
+      "final": "DOWNED",
+      "baselineRounds": 13,
+      "finalRounds": 6,
+      "baselineEarlyPcKo": 2,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 21,
+      "finalMeals": 4,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "f11_mixed_exclusive_meals",
+      "seed": 4242,
+      "floor": 11,
+      "baseline": "CLEARED",
+      "final": "DOWNED",
+      "baselineRounds": 17,
+      "finalRounds": 5,
+      "baselineEarlyPcKo": 2,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 19,
+      "finalMeals": 4,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "f11_mixed_exclusive_meals",
+      "seed": 9031,
+      "floor": 11,
+      "baseline": "CLEARED",
+      "final": "DOWNED",
+      "baselineRounds": 10,
+      "finalRounds": 5,
+      "baselineEarlyPcKo": 2,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 18,
+      "finalMeals": 4,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "seed": 717,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "DOWNED",
+      "baselineRounds": 24,
+      "finalRounds": 12,
+      "baselineEarlyPcKo": 1,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 0,
+      "finalMeals": 0,
+      "baselineRoomStates": [
+        "NEXT",
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "seed": 4242,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "TIMEOUT",
+      "baselineRounds": 12,
+      "finalRounds": 12,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 0,
+      "finalMeals": 0,
+      "baselineRoomStates": [
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "TIMEOUT"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "seed": 9031,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "TIMEOUT",
+      "baselineRounds": 12,
+      "finalRounds": 12,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 0,
+      "finalMeals": 0,
+      "baselineRoomStates": [
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "TIMEOUT"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "seed": 717,
+      "floor": 12,
+      "baseline": "CLEARED",
+      "final": "CLEARED",
+      "baselineRounds": 32,
+      "finalRounds": 32,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 38,
+      "finalMeals": 38,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "seed": 4242,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "TIMEOUT",
+      "baselineRounds": 12,
+      "finalRounds": 12,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 12,
+      "finalMeals": 12,
+      "baselineRoomStates": [
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "TIMEOUT"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "seed": 9031,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "TIMEOUT",
+      "baselineRounds": 12,
+      "finalRounds": 12,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 12,
+      "finalMeals": 12,
+      "baselineRoomStates": [
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "TIMEOUT"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_all_healing",
+      "seed": 717,
+      "floor": 12,
+      "baseline": "CLEARED",
+      "final": "CLEARED",
+      "baselineRounds": 32,
+      "finalRounds": 32,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 62,
+      "finalMeals": 62,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_all_healing",
+      "seed": 4242,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "TIMEOUT",
+      "baselineRounds": 12,
+      "finalRounds": 12,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 20,
+      "finalMeals": 20,
+      "baselineRoomStates": [
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "TIMEOUT"
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_all_healing",
+      "seed": 9031,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "TIMEOUT",
+      "baselineRounds": 12,
+      "finalRounds": 12,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 20,
+      "finalMeals": 20,
+      "baselineRoomStates": [
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "TIMEOUT"
+      ]
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "seed": 717,
+      "floor": 12,
+      "baseline": "TIMEOUT",
+      "final": "DOWNED",
+      "baselineRounds": 32,
+      "finalRounds": 20,
+      "baselineEarlyPcKo": 1,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 38,
+      "finalMeals": 24,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "TIMEOUT"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "seed": 4242,
+      "floor": 12,
+      "baseline": "CLEARED",
+      "final": "CLEARED",
+      "baselineRounds": 31,
+      "finalRounds": 31,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 40,
+      "finalMeals": 40,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ]
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "seed": 9031,
+      "floor": 12,
+      "baseline": "CLEARED",
+      "final": "DOWNED",
+      "baselineRounds": 30,
+      "finalRounds": 19,
+      "baselineEarlyPcKo": 1,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 40,
+      "finalMeals": 26,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "DOWNED"
+      ]
+    },
+    {
+      "id": "fixed_f12_c6_guard_feast_healing",
+      "seed": 717,
+      "floor": 12,
+      "baseline": "CLEARED",
+      "final": "CLEARED",
+      "baselineRounds": 22,
+      "finalRounds": 22,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 12,
+      "finalMeals": 12,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ]
+    },
+    {
+      "id": "fixed_f12_c6_guard_feast_healing",
+      "seed": 4242,
+      "floor": 12,
+      "baseline": "CLEARED",
+      "final": "CLEARED",
+      "baselineRounds": 26,
+      "finalRounds": 26,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 12,
+      "finalMeals": 12,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ]
+    },
+    {
+      "id": "fixed_f12_c6_guard_feast_healing",
+      "seed": 9031,
+      "floor": 12,
+      "baseline": "CLEARED",
+      "final": "CLEARED",
+      "baselineRounds": 26,
+      "finalRounds": 26,
+      "baselineEarlyPcKo": 0,
+      "finalEarlyPcKoAdvanced": 0,
+      "baselineMeals": 12,
+      "finalMeals": 12,
+      "baselineRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ],
+      "finalRoomStates": [
+        "NEXT",
+        "NEXT",
+        "CLEARED"
+      ]
+    }
+  ]
+}

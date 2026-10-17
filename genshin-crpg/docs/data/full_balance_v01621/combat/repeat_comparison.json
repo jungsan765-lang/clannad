@@ -1,0 +1,1482 @@
+{
+  "schema": 1,
+  "beforeCounts": {
+    "conditions": 56,
+    "battles": 201,
+    "wins": 181,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 33,
+    "completeAllFull": 5
+  },
+  "afterCounts": {
+    "conditions": 56,
+    "battles": 202,
+    "wins": 182,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 33,
+    "completeAllFull": 6
+  },
+  "limits": "Same initial seed and native RNG; removing redundant C1/base RNG consumption changes later rolls. This is not a monotonic healing/win guarantee. No inn/food/HP reset is imposed. Inn cost20 at fullHP is an unbought service quote, not mandatory payment.",
+  "conditions": [
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 6524,
+        "healNominal": 8904.640800000005,
+        "overCap": 2384.5640000000008,
+        "allFull": false,
+        "koBattles": 1
+      },
+      "after": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 6524,
+        "healNominal": 8904.640800000005,
+        "overCap": 2384.5640000000008,
+        "allFull": false,
+        "koBattles": 1
+      }
+    },
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 4918,
+        "healNominal": 8105.235600000003,
+        "overCap": 3191.1020000000008,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 4918,
+        "healNominal": 8105.235600000003,
+        "overCap": 3191.1020000000008,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.5342592592592592,
+        "healApplied": 9465,
+        "healNominal": 23761.080200000015,
+        "overCap": 14291.796600000001,
+        "allFull": false,
+        "koBattles": 1
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.5342592592592592,
+        "healApplied": 9465,
+        "healNominal": 23761.080200000015,
+        "overCap": 14291.796600000001,
+        "allFull": false,
+        "koBattles": 1
+      }
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7434670781893004,
+        "healApplied": 10770,
+        "healNominal": 23169.159200000013,
+        "overCap": 12394.547400000003,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7434670781893004,
+        "healApplied": 10770,
+        "healNominal": 23169.159200000013,
+        "overCap": 12394.547400000003,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.23675787299948373,
+        "healApplied": 16956,
+        "healNominal": 17132.280000000002,
+        "overCap": 179.69000000000028,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.23675787299948373,
+        "healApplied": 16956,
+        "healNominal": 17132.280000000002,
+        "overCap": 179.69000000000028,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 3,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 16879,
+        "healNominal": 17132.280000000002,
+        "overCap": 256.6900000000003,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 3,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 16879,
+        "healNominal": 17132.280000000002,
+        "overCap": 256.6900000000003,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7244708311822405,
+        "healApplied": 16991,
+        "healNominal": 18734.980000000003,
+        "overCap": 1747.0400000000004,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7244708311822405,
+        "healApplied": 16991,
+        "healNominal": 18734.980000000003,
+        "overCap": 1747.0400000000004,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7547754259163655,
+        "healApplied": 14618,
+        "healNominal": 17021.752000000004,
+        "overCap": 2406.080000000001,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7547754259163655,
+        "healApplied": 14618,
+        "healNominal": 17021.752000000004,
+        "overCap": 2406.080000000001,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 665,
+        "healNominal": 665.7491691662425,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 665,
+        "healNominal": 665.7491691662425,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 95,
+        "healNominal": 190.21404833321216,
+        "overCap": 95.10702416660608,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 95,
+        "healNominal": 190.21404833321216,
+        "overCap": 95.10702416660608,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 25,
+      "seed": 717,
+      "changed": true,
+      "before": {
+        "wins": 3,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 5546,
+        "healNominal": 7311.290724998177,
+        "overCap": 1763.5751208330312,
+        "allFull": false,
+        "koBattles": 4
+      },
+      "after": {
+        "wins": 3,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 4406,
+        "healNominal": 5979.792386665696,
+        "overCap": 1573.3610724998189,
+        "allFull": false,
+        "koBattles": 4
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 25,
+      "seed": 925,
+      "changed": true,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 2971,
+        "healNominal": 4226.287507498729,
+        "overCap": 1253.9480966664246,
+        "allFull": false,
+        "koBattles": 3
+      },
+      "after": {
+        "wins": 3,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 4251,
+        "healNominal": 5314.043217499455,
+        "overCap": 1063.7340483332123,
+        "allFull": false,
+        "koBattles": 4
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 3240,
+        "healNominal": 3238.488,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 3240,
+        "healNominal": 3238.488,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 2160,
+        "healNominal": 2158.992,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 2160,
+        "healNominal": 2158.992,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 5341,
+        "healNominal": 6582.048000000002,
+        "overCap": 1243.0400000000004,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 5341,
+        "healNominal": 6582.048000000002,
+        "overCap": 1243.0400000000004,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 6011,
+        "healNominal": 7661.544000000003,
+        "overCap": 1653.0400000000004,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 6011,
+        "healNominal": 7661.544000000003,
+        "overCap": 1653.0400000000004,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 7602,
+        "healNominal": 10660.528517760002,
+        "overCap": 3053.2755240000006,
+        "allFull": false,
+        "koBattles": 3
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 7602,
+        "healNominal": 10660.528517760002,
+        "overCap": 3053.2755240000006,
+        "allFull": false,
+        "koBattles": 3
+      }
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 8583,
+        "healNominal": 11798.504370312003,
+        "overCap": 3209.730628800001,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 8583,
+        "healNominal": 11798.504370312003,
+        "overCap": 3209.730628800001,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 12793,
+        "healNominal": 13820.494308192006,
+        "overCap": 1024.4348011520005,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 12793,
+        "healNominal": 13820.494308192006,
+        "overCap": 1024.4348011520005,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 10048,
+        "healNominal": 11245.385592672003,
+        "overCap": 1195.2500152320004,
+        "allFull": false,
+        "koBattles": 3
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 10048,
+        "healNominal": 11245.385592672003,
+        "overCap": 1195.2500152320004,
+        "allFull": false,
+        "koBattles": 3
+      }
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 3,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 17833,
+        "healNominal": 21744.976704000008,
+        "overCap": 3906.3510399999996,
+        "allFull": false,
+        "koBattles": 3
+      },
+      "after": {
+        "wins": 3,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 17833,
+        "healNominal": 21744.976704000008,
+        "overCap": 3906.3510399999996,
+        "allFull": false,
+        "koBattles": 3
+      }
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.18634695142298707,
+        "healApplied": 20863,
+        "healNominal": 25013.246016000016,
+        "overCap": 4143.015935999999,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.18634695142298707,
+        "healApplied": 20863,
+        "healNominal": 25013.246016000016,
+        "overCap": 4143.015935999999,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 20449,
+        "healNominal": 32932.898348063994,
+        "overCap": 12485.676916992,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 20449,
+        "healNominal": 32932.898348063994,
+        "overCap": 12485.676916992,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 18100,
+        "healNominal": 26805.149618015996,
+        "overCap": 8706.928186944002,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 18100,
+        "healNominal": 26805.149618015996,
+        "overCap": 8706.928186944002,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 25,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 1,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 25,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "hpRatio": 0,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 2
+      }
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 25,
+      "seed": 717,
+      "changed": true,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 33064,
+        "healNominal": 73326.38765666366,
+        "overCap": 40254.67614916485,
+        "allFull": true,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 46983,
+        "healNominal": 79937.5037859976,
+        "overCap": 32941.165610832344,
+        "allFull": true,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 25,
+      "seed": 925,
+      "changed": true,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9160645880812684,
+        "healApplied": 47841,
+        "healNominal": 72661.93341499753,
+        "overCap": 24806.882586665717,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 43211,
+        "healNominal": 71659.29926999792,
+        "overCap": 28437.434314165905,
+        "allFull": true,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.944229174146106,
+        "healApplied": 18681,
+        "healNominal": 42615.935999999994,
+        "overCap": 23932.951999999994,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.944229174146106,
+        "healApplied": 18681,
+        "healNominal": 42615.935999999994,
+        "overCap": 23932.951999999994,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8948586850217265,
+        "healApplied": 21548,
+        "healNominal": 42615.935999999994,
+        "overCap": 21064.959999999995,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8948586850217265,
+        "healApplied": 21548,
+        "healNominal": 42615.935999999994,
+        "overCap": 21064.959999999995,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9758594649467052,
+        "healApplied": 9429,
+        "healNominal": 61460.93535999998,
+        "overCap": 52031.93535999999,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9758594649467052,
+        "healApplied": 9429,
+        "healNominal": 61460.93535999998,
+        "overCap": 52031.93535999999,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9827549921388514,
+        "healApplied": 11391,
+        "healNominal": 79884.78783999998,
+        "overCap": 68493.78783999998,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9827549921388514,
+        "healApplied": 11391,
+        "healNominal": 79884.78783999998,
+        "overCap": 68493.78783999998,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9672797315769852,
+        "healApplied": 12103,
+        "healNominal": 14141.072000000002,
+        "overCap": 2039.536000000001,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9672797315769852,
+        "healApplied": 12103,
+        "healNominal": 14141.072000000002,
+        "overCap": 2039.536000000001,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9764011432832111,
+        "healApplied": 12015,
+        "healNominal": 14141.072000000002,
+        "overCap": 2126.8040000000015,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9764011432832111,
+        "healApplied": 12015,
+        "healNominal": 14141.072000000002,
+        "overCap": 2126.8040000000015,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9927674909904313,
+        "healApplied": 9682,
+        "healNominal": 29123.644000000008,
+        "overCap": 19441.644000000008,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9927674909904313,
+        "healApplied": 9682,
+        "healNominal": 29123.644000000008,
+        "overCap": 19441.644000000008,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9669442028085,
+        "healApplied": 8588,
+        "healNominal": 27356.010000000006,
+        "overCap": 18768.010000000006,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9669442028085,
+        "healApplied": 8588,
+        "healNominal": 27356.010000000006,
+        "overCap": 18768.010000000006,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7254870035471304,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7254870035471304,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7615165435831831,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7615165435831831,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9162877246031285,
+        "healApplied": 4321,
+        "healNominal": 18517.840000000004,
+        "overCap": 14196.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9162877246031285,
+        "healApplied": 4321,
+        "healNominal": 18517.840000000004,
+        "overCap": 14196.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9112984822934233,
+        "healApplied": 4034,
+        "healNominal": 18517.840000000004,
+        "overCap": 14483.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9112984822934233,
+        "healApplied": 4034,
+        "healNominal": 18517.840000000004,
+        "overCap": 14483.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8249198041533007,
+        "healApplied": 4515,
+        "healNominal": 4514.202,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8249198041533007,
+        "healApplied": 4515,
+        "healNominal": 4514.202,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8092424205880224,
+        "healApplied": 12040,
+        "healNominal": 12037.872000000001,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8092424205880224,
+        "healApplied": 12040,
+        "healNominal": 12037.872000000001,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.937121632377415,
+        "healApplied": 4008,
+        "healNominal": 18517.840000000004,
+        "overCap": 14509.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.937121632377415,
+        "healApplied": 4008,
+        "healNominal": 18517.840000000004,
+        "overCap": 14509.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9063336629603724,
+        "healApplied": 4008,
+        "healNominal": 18517.840000000004,
+        "overCap": 14509.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9063336629603724,
+        "healApplied": 4008,
+        "healNominal": 18517.840000000004,
+        "overCap": 14509.840000000004,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.98609691269679,
+        "healApplied": 15940,
+        "healNominal": 32849.510620608016,
+        "overCap": 16909.21518600001,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.98609691269679,
+        "healApplied": 15940,
+        "healNominal": 32849.510620608016,
+        "overCap": 16909.21518600001,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9899493161445835,
+        "healApplied": 14234,
+        "healNominal": 32849.510620608016,
+        "overCap": 18615.30198500001,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9899493161445835,
+        "healApplied": 14234,
+        "healNominal": 32849.510620608016,
+        "overCap": 18615.30198500001,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8815116917216369,
+        "healApplied": 14584,
+        "healNominal": 16707.908627520002,
+        "overCap": 2122.297664512,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.8815116917216369,
+        "healApplied": 14584,
+        "healNominal": 16707.908627520002,
+        "overCap": 2122.297664512,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.87875690042936,
+        "healApplied": 16849,
+        "healNominal": 18469.007171296,
+        "overCap": 1617.5814625280004,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.87875690042936,
+        "healApplied": 16849,
+        "healNominal": 18469.007171296,
+        "overCap": 1617.5814625280004,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 27998,
+        "healNominal": 124746.33599999998,
+        "overCap": 96748.572,
+        "allFull": true,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 27998,
+        "healNominal": 124746.33599999998,
+        "overCap": 96748.572,
+        "allFull": true,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9769170362669085,
+        "healApplied": 24741,
+        "healNominal": 103955.28,
+        "overCap": 79214.28000000001,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.9769170362669085,
+        "healApplied": 24741,
+        "healNominal": 103955.28,
+        "overCap": 79214.28000000001,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 20494,
+        "healNominal": 67416.1397536,
+        "overCap": 46922.9574624,
+        "allFull": true,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 20494,
+        "healNominal": 67416.1397536,
+        "overCap": 46922.9574624,
+        "allFull": true,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.98365377906687,
+        "healApplied": 19750,
+        "healNominal": 67416.1397536,
+        "overCap": 47666.9574624,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.98365377906687,
+        "healApplied": 19750,
+        "healNominal": 67416.1397536,
+        "overCap": 47666.9574624,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 60,
+      "seed": 717,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7651261116780872,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7651261116780872,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 60,
+      "seed": 925,
+      "changed": false,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7544345628614473,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 0.7544345628614473,
+        "healApplied": 0,
+        "healNominal": 0,
+        "overCap": 0,
+        "allFull": false,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 60,
+      "seed": 717,
+      "changed": true,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 28028,
+        "healNominal": 127055.93843708526,
+        "overCap": 99028.74988322222,
+        "allFull": true,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 29696,
+        "healNominal": 126041.25262781397,
+        "overCap": 96346.35092317832,
+        "allFull": true,
+        "koBattles": 0
+      }
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 60,
+      "seed": 925,
+      "changed": true,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 31401,
+        "healNominal": 123475.92243708528,
+        "overCap": 92076.56132935916,
+        "allFull": true,
+        "koBattles": 0
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "hpRatio": 1,
+        "healApplied": 29611,
+        "healNominal": 133051.04514472352,
+        "overCap": 103441.24504008786,
+        "allFull": true,
+        "koBattles": 0
+      }
+    }
+  ]
+}

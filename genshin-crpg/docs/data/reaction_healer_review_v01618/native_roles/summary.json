@@ -1,0 +1,712 @@
+{
+  "baseline": "0.16.18 local engine, pinned published SHA 1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "scope": "read-only reaction-role audit; no repository source or DB edits",
+  "fixture_warning": "Artificial isolated effect fixtures: native legal character level/phase/gear/talent and native same-level ordinary enemy DEF, but enemy HP raised to 10,000,000 and optional four-target cross geometry/class. These are not real fights or win-rate validation. Normalized comparison packets reuse native Kaeya stats while varying element/coefficient/card context, and therefore are not actual legal skill casts. EC candidate is a SINGLE APPLICATION effect-budget fixture with a consumed-neighbor ledger; repeated application, restoration, death/revive and source ownership remain untested. VM candidates do not edit repository.",
+  "counts": {
+    "normalized_packet_rows": 176,
+    "superconduct_two_round_sequences": 64,
+    "electrocharged_timelines": 16,
+    "crystal_absorption_sequences": 24,
+    "freeze_melt_shatter_class_sequences": 4
+  },
+  "primaryRows": [
+    {
+      "level": 10,
+      "reactionBase": 145,
+      "normalized_primary": 130,
+      "forward_amplify": 261,
+      "reverse_amplify": 195,
+      "overload_extra": 290,
+      "superconduct_extra": 73,
+      "swirl_extra": 87,
+      "shatter_extra": 435,
+      "crystal_shield": 145,
+      "EC_total": 522
+    },
+    {
+      "level": 20,
+      "reactionBase": 370.29333333333335,
+      "normalized_primary": 254,
+      "forward_amplify": 508,
+      "reverse_amplify": 381,
+      "overload_extra": 741,
+      "superconduct_extra": 185,
+      "swirl_extra": 222,
+      "shatter_extra": 1111,
+      "crystal_shield": 370,
+      "EC_total": 1332
+    },
+    {
+      "level": 40,
+      "reactionBase": 1533.8533333333332,
+      "normalized_primary": 657,
+      "forward_amplify": 1315,
+      "reverse_amplify": 986,
+      "overload_extra": 3068,
+      "superconduct_extra": 767,
+      "swirl_extra": 920,
+      "shatter_extra": 4602,
+      "crystal_shield": 1534,
+      "EC_total": 5523
+    },
+    {
+      "level": 60,
+      "reactionBase": 3881.9466666666667,
+      "normalized_primary": 1421,
+      "forward_amplify": 2842,
+      "reverse_amplify": 2132,
+      "overload_extra": 7764,
+      "superconduct_extra": 1941,
+      "swirl_extra": 2329,
+      "shatter_extra": 11646,
+      "crystal_shield": 3882,
+      "EC_total": 13974
+    }
+  ],
+  "scComparisons": [
+    {
+      "level": 10,
+      "candidate": {},
+      "normalized_elements": false,
+      "initial_reaction": 73,
+      "eight_followups": 2787,
+      "total": 2860
+    },
+    {
+      "level": 10,
+      "candidate": {},
+      "normalized_elements": true,
+      "initial_reaction": 73,
+      "eight_followups": 2230,
+      "total": 2303
+    },
+    {
+      "level": 10,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": false,
+      "initial_reaction": 145,
+      "eight_followups": 2787,
+      "total": 2932
+    },
+    {
+      "level": 10,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": true,
+      "initial_reaction": 145,
+      "eight_followups": 2230,
+      "total": 2375
+    },
+    {
+      "level": 10,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": false,
+      "initial_reaction": 218,
+      "eight_followups": 2787,
+      "total": 3005
+    },
+    {
+      "level": 10,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": true,
+      "initial_reaction": 218,
+      "eight_followups": 2230,
+      "total": 2448
+    },
+    {
+      "level": 10,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": false,
+      "initial_reaction": 73,
+      "eight_followups": 3009,
+      "total": 3082
+    },
+    {
+      "level": 10,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": true,
+      "initial_reaction": 73,
+      "eight_followups": 2230,
+      "total": 2303
+    },
+    {
+      "level": 20,
+      "candidate": {},
+      "normalized_elements": false,
+      "initial_reaction": 185,
+      "eight_followups": 4834,
+      "total": 5019
+    },
+    {
+      "level": 20,
+      "candidate": {},
+      "normalized_elements": true,
+      "initial_reaction": 185,
+      "eight_followups": 3870,
+      "total": 4055
+    },
+    {
+      "level": 20,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": false,
+      "initial_reaction": 370,
+      "eight_followups": 4834,
+      "total": 5204
+    },
+    {
+      "level": 20,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": true,
+      "initial_reaction": 370,
+      "eight_followups": 3870,
+      "total": 4240
+    },
+    {
+      "level": 20,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": false,
+      "initial_reaction": 555,
+      "eight_followups": 4834,
+      "total": 5389
+    },
+    {
+      "level": 20,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": true,
+      "initial_reaction": 555,
+      "eight_followups": 3870,
+      "total": 4425
+    },
+    {
+      "level": 20,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": false,
+      "initial_reaction": 185,
+      "eight_followups": 5221,
+      "total": 5406
+    },
+    {
+      "level": 20,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": true,
+      "initial_reaction": 185,
+      "eight_followups": 3870,
+      "total": 4055
+    },
+    {
+      "level": 40,
+      "candidate": {},
+      "normalized_elements": false,
+      "initial_reaction": 767,
+      "eight_followups": 13405,
+      "total": 14172
+    },
+    {
+      "level": 40,
+      "candidate": {},
+      "normalized_elements": true,
+      "initial_reaction": 767,
+      "eight_followups": 10725,
+      "total": 11492
+    },
+    {
+      "level": 40,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": false,
+      "initial_reaction": 1534,
+      "eight_followups": 13405,
+      "total": 14939
+    },
+    {
+      "level": 40,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": true,
+      "initial_reaction": 1534,
+      "eight_followups": 10725,
+      "total": 12259
+    },
+    {
+      "level": 40,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": false,
+      "initial_reaction": 2301,
+      "eight_followups": 13405,
+      "total": 15706
+    },
+    {
+      "level": 40,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": true,
+      "initial_reaction": 2301,
+      "eight_followups": 10725,
+      "total": 13026
+    },
+    {
+      "level": 40,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": false,
+      "initial_reaction": 767,
+      "eight_followups": 14480,
+      "total": 15247
+    },
+    {
+      "level": 40,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": true,
+      "initial_reaction": 767,
+      "eight_followups": 10725,
+      "total": 11492
+    },
+    {
+      "level": 60,
+      "candidate": {},
+      "normalized_elements": false,
+      "initial_reaction": 1941,
+      "eight_followups": 32205,
+      "total": 34146
+    },
+    {
+      "level": 60,
+      "candidate": {},
+      "normalized_elements": true,
+      "initial_reaction": 1941,
+      "eight_followups": 25765,
+      "total": 27706
+    },
+    {
+      "level": 60,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": false,
+      "initial_reaction": 3882,
+      "eight_followups": 32205,
+      "total": 36087
+    },
+    {
+      "level": 60,
+      "candidate": {
+        "scDmg": 1
+      },
+      "normalized_elements": true,
+      "initial_reaction": 3882,
+      "eight_followups": 25765,
+      "total": 29647
+    },
+    {
+      "level": 60,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": false,
+      "initial_reaction": 5823,
+      "eight_followups": 32205,
+      "total": 38028
+    },
+    {
+      "level": 60,
+      "candidate": {
+        "scDmg": 1.5
+      },
+      "normalized_elements": true,
+      "initial_reaction": 5823,
+      "eight_followups": 25765,
+      "total": 31588
+    },
+    {
+      "level": 60,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": false,
+      "initial_reaction": 1941,
+      "eight_followups": 34782,
+      "total": 36723
+    },
+    {
+      "level": 60,
+      "candidate": {
+        "scPhys": 1.35
+      },
+      "normalized_elements": true,
+      "initial_reaction": 1941,
+      "eight_followups": 25765,
+      "total": 27706
+    }
+  ],
+  "ec": [
+    {
+      "level": 10,
+      "neighbors": 1,
+      "candidate": "base",
+      "total": 522,
+      "timeline": {
+        "cast": 0,
+        "END1": 174,
+        "END2": 174,
+        "END3": 174,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 10,
+      "neighbors": 1,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 522,
+      "timeline": {
+        "cast": 174,
+        "END1": 0,
+        "END2": 174,
+        "END3": 174,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 10,
+      "neighbors": 4,
+      "candidate": "base",
+      "total": 1566,
+      "timeline": {
+        "cast": 0,
+        "END1": 174,
+        "END2": 696,
+        "END3": 696,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 10,
+      "neighbors": 4,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 1566,
+      "timeline": {
+        "cast": 696,
+        "END1": 0,
+        "END2": 696,
+        "END3": 174,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 20,
+      "neighbors": 1,
+      "candidate": "base",
+      "total": 1332,
+      "timeline": {
+        "cast": 0,
+        "END1": 444,
+        "END2": 444,
+        "END3": 444,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 20,
+      "neighbors": 1,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 1332,
+      "timeline": {
+        "cast": 444,
+        "END1": 0,
+        "END2": 444,
+        "END3": 444,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 20,
+      "neighbors": 4,
+      "candidate": "base",
+      "total": 3996,
+      "timeline": {
+        "cast": 0,
+        "END1": 444,
+        "END2": 1776,
+        "END3": 1776,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 20,
+      "neighbors": 4,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 3996,
+      "timeline": {
+        "cast": 1776,
+        "END1": 0,
+        "END2": 1776,
+        "END3": 444,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 40,
+      "neighbors": 1,
+      "candidate": "base",
+      "total": 5523,
+      "timeline": {
+        "cast": 0,
+        "END1": 1841,
+        "END2": 1841,
+        "END3": 1841,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 40,
+      "neighbors": 1,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 5523,
+      "timeline": {
+        "cast": 1841,
+        "END1": 0,
+        "END2": 1841,
+        "END3": 1841,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 40,
+      "neighbors": 4,
+      "candidate": "base",
+      "total": 16569,
+      "timeline": {
+        "cast": 0,
+        "END1": 1841,
+        "END2": 7364,
+        "END3": 7364,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 40,
+      "neighbors": 4,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 16569,
+      "timeline": {
+        "cast": 7364,
+        "END1": 0,
+        "END2": 7364,
+        "END3": 1841,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 60,
+      "neighbors": 1,
+      "candidate": "base",
+      "total": 13974,
+      "timeline": {
+        "cast": 0,
+        "END1": 4658,
+        "END2": 4658,
+        "END3": 4658,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 60,
+      "neighbors": 1,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 13974,
+      "timeline": {
+        "cast": 4658,
+        "END1": 0,
+        "END2": 4658,
+        "END3": 4658,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 60,
+      "neighbors": 4,
+      "candidate": "base",
+      "total": 41922,
+      "timeline": {
+        "cast": 0,
+        "END1": 4658,
+        "END2": 18632,
+        "END3": 18632,
+        "END4": 0,
+        "END5": 0
+      }
+    },
+    {
+      "level": 60,
+      "neighbors": 4,
+      "candidate": "same_total_early_first_and_spread",
+      "total": 41922,
+      "timeline": {
+        "cast": 18632,
+        "END1": 0,
+        "END2": 18632,
+        "END3": 4658,
+        "END4": 0,
+        "END5": 0
+      }
+    }
+  ],
+  "crystal": [
+    {
+      "level": 10,
+      "same_element_factor": 1,
+      "shield": 145,
+      "normalized_character_max_hp": 1632,
+      "prevented_native_rounded_damage": 145,
+      "hp_percent": 8.884803921568627
+    },
+    {
+      "level": 10,
+      "same_element_factor": 2,
+      "shield": 145,
+      "normalized_character_max_hp": 1632,
+      "prevented_native_rounded_damage": 290,
+      "hp_percent": 17.769607843137255
+    },
+    {
+      "level": 10,
+      "same_element_factor": 2.5,
+      "shield": 145,
+      "normalized_character_max_hp": 1632,
+      "prevented_native_rounded_damage": 362,
+      "hp_percent": 22.181372549019606
+    },
+    {
+      "level": 20,
+      "same_element_factor": 1,
+      "shield": 370,
+      "normalized_character_max_hp": 3403,
+      "prevented_native_rounded_damage": 370,
+      "hp_percent": 10.872759330002939
+    },
+    {
+      "level": 20,
+      "same_element_factor": 2,
+      "shield": 370,
+      "normalized_character_max_hp": 3403,
+      "prevented_native_rounded_damage": 740,
+      "hp_percent": 21.745518660005878
+    },
+    {
+      "level": 20,
+      "same_element_factor": 2.5,
+      "shield": 370,
+      "normalized_character_max_hp": 3403,
+      "prevented_native_rounded_damage": 925,
+      "hp_percent": 27.181898325007346
+    },
+    {
+      "level": 40,
+      "same_element_factor": 1,
+      "shield": 1534,
+      "normalized_character_max_hp": 9439,
+      "prevented_native_rounded_damage": 1534,
+      "hp_percent": 16.25172158067592
+    },
+    {
+      "level": 40,
+      "same_element_factor": 2,
+      "shield": 1534,
+      "normalized_character_max_hp": 9439,
+      "prevented_native_rounded_damage": 3068,
+      "hp_percent": 32.50344316135184
+    },
+    {
+      "level": 40,
+      "same_element_factor": 2.5,
+      "shield": 1534,
+      "normalized_character_max_hp": 9439,
+      "prevented_native_rounded_damage": 3835,
+      "hp_percent": 40.6293039516898
+    },
+    {
+      "level": 60,
+      "same_element_factor": 1,
+      "shield": 3882,
+      "normalized_character_max_hp": 21446,
+      "prevented_native_rounded_damage": 3882,
+      "hp_percent": 18.10127762752961
+    },
+    {
+      "level": 60,
+      "same_element_factor": 2,
+      "shield": 3882,
+      "normalized_character_max_hp": 21446,
+      "prevented_native_rounded_damage": 7764,
+      "hp_percent": 36.20255525505922
+    },
+    {
+      "level": 60,
+      "same_element_factor": 2.5,
+      "shield": 3882,
+      "normalized_character_max_hp": 21446,
+      "prevented_native_rounded_damage": 9705,
+      "hp_percent": 45.25319406882402
+    }
+  ],
+  "sourceHashCount": 118,
+  "sourceHashesEqual": true,
+  "evidenceFiles": [
+    "canon_edges.json",
+    "probe.cjs",
+    "canon_edge_probes.cjs",
+    "native_cast_paths.cjs",
+    "native_cast_paths.json",
+    "ec_early_failed.json",
+    "enemy_shield_packets.json",
+    "native_roles.json",
+    "ec_early_failed.cjs",
+    "native_roles_partial.json",
+    "enemy_shield_packet_probe.cjs",
+    "control_grace_native_whopper.json"
+  ]
+}

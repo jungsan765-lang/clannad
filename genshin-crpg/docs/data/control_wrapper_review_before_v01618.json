@@ -1,0 +1,151 @@
+{
+  "readOnly": true,
+  "cases": [
+    {
+      "name": "native counter KO during Isekai E leaves an orphaned new mark until next multiplier",
+      "ok": true,
+      "evidence": {
+        "confirmedIssue": "EXPOSED_ADDED_AFTER_COUNTER_KO",
+        "after": {
+          "playerHp": 0,
+          "enemyHp": 513,
+          "mark": {
+            "id": "STATUS_ISEKAI_EXPOSED",
+            "rounds": 2,
+            "createdRound": 1,
+            "caster": "PLAYER_CUSTOM",
+            "pct": 30
+          },
+          "counter": [
+            {
+              "actor": "우인단 선발대·풍권 돌격대",
+              "target": "클라나드",
+              "damage": 32,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "바람",
+              "critical": true,
+              "reaction": null,
+              "card": "ECARD_FATUI_ANEMO_GUARD",
+              "sourceKind": "COUNTER"
+            }
+          ],
+          "casterStatus": [
+            {
+              "target": "우인단 선발대·풍권 돌격대",
+              "targetId": "MON_FATUI_ANEMO#1",
+              "actorId": "PLAYER_CUSTOM",
+              "actor": "클라나드",
+              "round": 1,
+              "actionSequence": 0,
+              "statusApplied": {
+                "id": "STATUS_ISEKAI_EXPOSED",
+                "rounds": 2,
+                "createdRound": 1,
+                "caster": "PLAYER_CUSTOM",
+                "pct": 30
+              }
+            }
+          ]
+        },
+        "savedOrphan": true,
+        "beforeNextMultiplier": true,
+        "nextMultiplier": 1,
+        "afterNextMultiplier": false,
+        "impact": "No damage bonus leaks: multiplier validates owner before C1. Orphaned status persists until next multiplier, including save/load."
+      }
+    },
+    {
+      "name": "native guest mark is scoped to guest actor ID; host and guest deaths are separated before C1",
+      "ok": true,
+      "evidence": {
+        "hostId": "PLAYER_CUSTOM",
+        "guestId": "COOP_1",
+        "before": 1,
+        "active": 1.9500000000000002,
+        "hostDead": 1.625,
+        "bothDead": 1,
+        "correctDeathCleanup": true
+      }
+    },
+    {
+      "name": "native immune normal hit healing is hit-based, not positive-damage based",
+      "ok": true,
+      "evidence": {
+        "observation": "IMMUNE_CONNECTED_HIT_HEALING",
+        "landed": true,
+        "enemyDamage": 0,
+        "ownHealing": 568,
+        "partyHealing": 332,
+        "log": [
+          {
+            "actor": "바바라",
+            "target": "물 슬라임",
+            "element": "물",
+            "critical": true,
+            "reaction": null,
+            "card": null,
+            "sourceKind": null,
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "바바라",
+            "target": "클라나드",
+            "heal": 332
+          },
+          {
+            "actor": "바바라",
+            "target": "바바라",
+            "heal": 332
+          },
+          {
+            "actor": "바바라",
+            "target": "미카",
+            "heal": 0
+          },
+          {
+            "actor": "미카",
+            "target": "바바라",
+            "heal": 236
+          }
+        ],
+        "classification": "Not confirmed bug: existing healing effects are declared on normal hit, unlike damage-dealt requirements. Immune body retains connected hit for native reaction processing."
+      }
+    },
+    {
+      "name": "native Cryo core completion keeps four hits and exposure/death cleanup false",
+      "ok": true,
+      "evidence": {
+        "ownerDead": false,
+        "coreHits": [
+          "냉기 핵에 금이 갔다 · 1/4",
+          "냉기 핵에 금이 갔다 · 2/4",
+          "냉기 핵에 금이 갔다 · 3/4",
+          "냉기 핵에 금이 갔다 · 4/4"
+        ],
+        "victory": true,
+        "finalCasterHp": 4829,
+        "receiptId": "V011-5:B1"
+      }
+    },
+    {
+      "name": "native Cryo core completion keeps four hits and exposure/death cleanup true",
+      "ok": true,
+      "evidence": {
+        "ownerDead": true,
+        "coreHits": [
+          "냉기 핵에 금이 갔다 · 1/4",
+          "냉기 핵에 금이 갔다 · 2/4",
+          "냉기 핵에 금이 갔다 · 3/4",
+          "냉기 핵에 금이 갔다 · 4/4"
+        ],
+        "victory": true,
+        "finalCasterHp": 0,
+        "receiptId": "V011-6:B1"
+      }
+    }
+  ]
+}

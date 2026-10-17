@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "scope": "Read-only ascension210 quotes/96rewards/12payments; no current combat duration validation, no requirement/reward edits",
+  "finishedUTC": "2026-10-09T19:09:50.799641+00:00",
+  "sourceWrites": false,
+  "files": [
+    {
+      "path": "README_KO.md",
+      "bytes": 1395,
+      "sha256": "627debf56ed39949b2f311af781f5ed808ca44f388980228ed8b71160e10a018"
+    },
+    {
+      "path": "audit.cjs",
+      "bytes": 6844,
+      "sha256": "f590d1da39071ab3db817ef915ed81ba1195ce024ca76560b4249f252f3aece5"
+    },
+    {
+      "path": "baseline_cost_parity.json",
+      "bytes": 5533,
+      "sha256": "f86cac1aaa422e5766fb237993f7e13b818bd6e719aba03e27760ce92ab42d9e"
+    },
+    {
+      "path": "level25_reward_cost_read.json",
+      "bytes": 2815,
+      "sha256": "f54acaae9ffd15abdf4b4ca555bbc0c504e81677c80bcc8a653a4f8a63b09996"
+    },
+    {
+      "path": "minimal_verification.json",
+      "bytes": 1120,
+      "sha256": "e4cc9eef0a4e2fde1c125e700186ab04831914c58b461d54ddc620605fc2e9d5"
+    },
+    {
+      "path": "native_quotes.json",
+      "bytes": 283696,
+      "sha256": "8240f837d8a1bb8bdb20fbec426018c14a7b4a749eb33dd5e6b7225045ee15a2"
+    },
+    {
+      "path": "original_executed_audit.cjs.gz",
+      "bytes": 2300,
+      "sha256": "67360e600a2094370173b4f681372cb31150d4cc5baf4ff9f159440d786ea47e",
+      "uncompressedBytes": 5325,
+      "uncompressedSHA256": "73d1ae7987d97c3a2dac595b159e55a7f5a244902b47cf424a4ecadb9403cf88"
+    },
+    {
+      "path": "original_runtime_helper.cjs.gz",
+      "bytes": 714,
+      "sha256": "13364672c3d8494dcf1db6c1cf3f6e5417ee4e2aa44cdec695189a6d35dc63cf",
+      "uncompressedBytes": 1091,
+      "uncompressedSHA256": "8b2bf05f22d44aacf0788e80bb75a013373dd4b3665a521e52976ce39ae01ada"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 943,
+      "sha256": "6e74b315416a71e136cad78f4737dbbe6c780fbbc07f10cc88a0068c71291c9e"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 21252,
+      "sha256": "4626d381c58709c718324196a29bf77bfba4a31e02d235ec5ff3e4fffa1b116c"
+    },
+    {
+      "path": "verify_read_only.py",
+      "bytes": 3904,
+      "sha256": "027f224bee60bcc216c4887c58d7bdb6eccd522cf44eb895cce4800b2d82bf26"
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+[
+  {
+    "seed": 717,
+    "before": 717,
+    "edge": "EDGE_LY_DETAIL_038_A",
+    "why": "",
+    "receipt": {
+      "ok": true,
+      "type": "MOVE",
+      "result": {
+        "map": "MAP_CHASM_SURFACE",
+        "minutes": 20,
+        "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_1"
+      },
+      "revision": 1
+    },
+    "map": "MAP_CHASM_SURFACE",
+    "trigger": 5,
+    "pool": 14,
+    "after": 621701819,
+    "enemyBalanceRevision": 1,
+    "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+    "origin": "RANDOM",
+    "enemies": [
+      {
+        "source": "MON_TH_SCOUT",
+        "grade": "일반",
+        "level": 50,
+        "hp": 26400,
+        "atk": 5957,
+        "def": 760,
+        "variant": {
+          "version": 1,
+          "tier": 5,
+          "label": "지역 위험 개체",
+          "affixes": [
+            "VANGUARD",
+            "SCORCH"
+          ],
+          "acts": 0
+        }
+      },
+      {
+        "source": "MON_TH_SCOUT",
+        "grade": "일반",
+        "level": 50,
+        "hp": 16500,
+        "atk": 5180,
+        "def": 691
+      },
+      {
+        "source": "MON_TH_SCOUT",
+        "grade": "일반",
+        "level": 50,
+        "hp": 16500,
+        "atk": 5180,
+        "def": 691
+      },
+      {
+        "source": "MON_TH_POTION_PYRO",
+        "grade": "일반",
+        "level": 50,
+        "hp": 16500,
+        "atk": 5180,
+        "def": 691,
+        "variant": {
+          "version": 1,
+          "tier": 2,
+          "label": "강화 일반",
+          "affixes": [
+            "WARDED"
+          ],
+          "acts": 0
+        }
+      }
+    ],
+    "note": "ordinary prepared world state explicitly grants story access and clears encounter cooldown; neither rollEncounter nor monsters are replaced"
+  },
+  {
+    "seed": 19,
+    "before": 19,
+    "edge": "EDGE_LY_DETAIL_038_A",
+    "why": "",
+    "receipt": {
+      "ok": true,
+      "type": "MOVE",
+      "result": {
+        "map": "MAP_CHASM_SURFACE",
+        "minutes": 20,
+        "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_1"
+      },
+      "revision": 1
+    },
+    "map": "MAP_CHASM_SURFACE",
+    "trigger": 1,
+    "pool": 30,
+    "after": 2358098299,
+    "enemyBalanceRevision": 1,
+    "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+    "origin": "RANDOM",
+    "enemies": [
+      {
+        "source": "MON_TH_SCOUT",
+        "grade": "일반",
+        "level": 50,
+        "hp": 16500,
+        "atk": 5180,
+        "def": 691
+      },
+      {
+        "source": "MON_TH_SCOUT",
+        "grade": "일반",
+        "level": 50,
+        "hp": 16500,
+        "atk": 5180,
+        "def": 691
+      },
+      {
+        "source": "MON_TH_POTION_PYRO",
+        "grade": "일반",
+        "level": 50,
+        "hp": 16500,
+        "atk": 6216,
+        "def": 691,
+        "variant": {
+          "version": 1,
+          "tier": 2,
+          "label": "강화 일반",
+          "affixes": [
+            "FEROCIOUS"
+          ],
+          "acts": 0
+        }
+      }
+    ],
+    "note": "ordinary prepared world state explicitly grants story access and clears encounter cooldown; neither rollEncounter nor monsters are replaced"
+  },
+  {
+    "seed": 43,
+    "before": 43,
+    "edge": "EDGE_LY_DETAIL_038_A",
+    "why": "",
+    "receipt": {
+      "ok": true,
+      "type": "MOVE",
+      "result": {
+        "map": "MAP_CHASM_SURFACE",
+        "minutes": 20,
+        "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_3"
+      },
+      "revision": 1
+    },
+    "map": "MAP_CHASM_SURFACE",
+    "trigger": 1,
+    "pool": 68,
+    "after": 742968081,
+    "enemyBalanceRevision": 1,
+    "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_3",
+    "origin": "RANDOM",
+    "enemies": [
+      {
+        "source": "MON_MITACHURL_ROCK",
+        "grade": "정예",
+        "level": 50,
+        "hp": 46135,
+        "atk": 8063,
+        "def": 966
+      },
+      {
+        "source": "MON_HILI_FIGHTER",
+        "grade": "일반",
+        "level": 50,
+        "hp": 16500,
+        "atk": 5180,
+        "def": 691
+      }
+    ],
+    "note": "ordinary prepared world state explicitly grants story access and clears encounter cooldown; neither rollEncounter nor monsters are replaced"
+  }
+]

@@ -1,0 +1,325 @@
+{
+  "version": "0.16.13",
+  "baseline_commit": "447145bb95cc4b457e45992ffc2e1affc0753bd6",
+  "recorded_at_utc": "2026-10-08T03:13:06.216645+00:00",
+  "scope": {
+    "ascension_base_rewards": {
+      "55": 20,
+      "60": 32
+    },
+    "earlier_rewards_unchanged": true,
+    "ascension_requirements_unchanged": [
+      441,
+      882
+    ],
+    "material_bonus_shared_first_three": true,
+    "five_star_and_protagonist_stella_starlight_price": 100,
+    "four_star_stella_starlight_price": 25,
+    "task_revision": 172,
+    "daily": 11,
+    "weekly": 27,
+    "finite_commissions": 288,
+    "new_story_created": false,
+    "new_mission_system_created": false,
+    "facility_layout_preserved": true
+  },
+  "local_related_programs": [
+    {
+      "test": "tests/test_starlight_price_v01613.cjs",
+      "ok": true,
+      "seconds": 14.34,
+      "stdout_tail": [
+        "PASS live exchange view shows 25~100, selected prices, 99 rejection and an actual 100 purchase",
+        "{\"total\":6,\"passed\":6}"
+      ],
+      "source_sha256": "493bba5ff93e5dd30118de043dac08534a6138a05c12546b3db14c6af0b89ac3"
+    },
+    {
+      "test": "tests/test_katheryne_facility_v01613.cjs",
+      "ok": true,
+      "seconds": 10.66,
+      "stdout_tail": [
+        "PASS 캐서린과 같은 이름을 가진 다른 시설은 길드 강조 대상이 아니다",
+        "8 facility checks passed"
+      ],
+      "source_sha256": "2eb43e5b6caa2afdd277d3e04e2cb03f0f723ca1e41e63fbc88c5573d6696971"
+    },
+    {
+      "test": "tests/test_task_wording_v01613.cjs",
+      "ok": true,
+      "seconds": 9.98,
+      "stdout_tail": [
+        "PASS all 288 generated commissions have purpose labels without fabricated story content",
+        "{\"ok\":true,\"checks\":6,\"objectives\":288,\"revision\":172}"
+      ],
+      "source_sha256": "446683a6026400c1b23fa54b325fe033a5cab0b22e35b418d4e2fa093a39075e"
+    },
+    {
+      "test": "tests/test_task_branches_v01612.cjs",
+      "ok": true,
+      "seconds": 42.81,
+      "stdout_tail": [
+        "PASS the current whole-week bonus counts only remaining targets while an already-paid bonus cannot replay",
+        "{\"ok\":true,\"checks\":10,\"native171SourceHashes\":{\"runtime_tasks_v0167.js\":\"4e9e9d0348244b887b10372782f74bb7cb992f1d746b7bf3fbaf0405db045a42\",\"runtime_task_learning_catalog_v0169.js\":\"9cf171b0ce3c346c5e6767976233f6c2fb74d27a567d30a833b0138a6de240b5\"}}"
+      ],
+      "source_sha256": "9bea53b8f78c1074714ad44d669401629fc8e647bd58f1b16676a39b289ca09a"
+    },
+    {
+      "test": "tests/test_task_branches_v01611.cjs",
+      "ok": true,
+      "seconds": 76.15,
+      "stdout_tail": [
+        "PASS the first public gathering activity after midnight counts before any task view",
+        "{\"ok\":true,\"checks\":24}"
+      ],
+      "source_sha256": "8b89ab0d7d5d9ebf53512aca9b226c55a4e47e4cf088bc35b5759ce3dbae3ef7"
+    },
+    {
+      "test": "tests/test_task_learning_delivery_v0169.cjs",
+      "ok": true,
+      "seconds": 24.62,
+      "stdout_tail": [
+        "PASS incident battle settlement nested in a public action counts exactly once",
+        "task learning/delivery 15/15"
+      ],
+      "source_sha256": "ed0b29d1d6976271745df3f59e12c47682866200ae03e50aaa22fd95ffd022e1"
+    },
+    {
+      "test": "tests/test_tasks_v0169.cjs",
+      "ok": true,
+      "seconds": 53.47,
+      "stdout_tail": [
+        "PASS snapshot tampering cannot inflate goal, currency reward or accepted time",
+        "{\"ok\":true,\"checks\":16}"
+      ],
+      "source_sha256": "042f0e466e39b63899e58955839daf245eb93c14d22bfaa1a49df767e877f664"
+    },
+    {
+      "test": "tests/test_task_catalog_v0169.cjs",
+      "ok": true,
+      "seconds": 0.2,
+      "stdout_tail": [
+        "통과: frozen 0.16.9 definitions/rewards · 0.16.12 active daily11/weekly27/finite288 · exactly five requested retirements"
+      ],
+      "source_sha256": "7d673e19ba030e14d6effad4aa27a2e8f99b57e65c95b7a39c38857bebe75a81"
+    },
+    {
+      "test": "tests/test_task_board_v0169.cjs",
+      "ok": true,
+      "seconds": 5.72,
+      "stdout_tail": [
+        "PASS 메인 일일 완료 숫자는 새 갈래가 열려도 고정된 전체 목표와 완료 기록을 유지한다",
+        "{\"ok\":true,\"checks\":4,\"scope\":\"real board/module bindings + deterministic layout; browser media sizing excluded\"}"
+      ],
+      "source_sha256": "0431993be6586525127a241d68f004fcebbcf16f7a39b7328ce8fd5b0c8b7906"
+    },
+    {
+      "test": "tests/test_v0148.cjs",
+      "ok": true,
+      "seconds": 21.7,
+      "stdout_tail": [
+        "PASS travel map: every connection on an atlas is a straight line between its two places",
+        "{\"total\":11,\"passed\":11}"
+      ],
+      "source_sha256": "aed7dfcb91db5e831e6d89fb9598a19e0490f0291d2a7cf078ef7b7ff67308a3"
+    },
+    {
+      "test": "tests/test_v01413.cjs",
+      "ok": true,
+      "seconds": 8.88,
+      "stdout_tail": [
+        "PASS production promotion copies the tested release only: no build there, a save backup first, rollback on failure",
+        "{\"total\":10,\"passed\":10}"
+      ],
+      "source_sha256": "a690326b2a364c5e87373163db46952b01dbc7b461d8b9afffa2180298f91600"
+    },
+    {
+      "test": "tests/test_v0167.cjs",
+      "ok": true,
+      "seconds": 4.7,
+      "stdout_tail": [
+        "PASS version 0.16.7 with its notes on top of the full chain",
+        "{\"ok\":true,\"checks\":10}"
+      ],
+      "source_sha256": "ae7b8600b59df000c59f09087d6e64ff033c4a2483de6a081b31a490f2eb89af"
+    },
+    {
+      "test": "tests/test_ascension_efficiency_v01613.cjs",
+      "ok": true,
+      "seconds": 42.65,
+      "stdout_tail": [
+        "PASS talent and ascension still share three bonuses; EXP and defeats consume none and domains pay no books or Mora",
+        "PASS native four-person battles on both protagonist routes award the preview amount without enemy edits or forced victories",
+        "{\"checks\":6,\"ok\":true}"
+      ],
+      "source_sha256": "a0e68251ecd98148112d098538d19a9b515412b2161f76dcb743eae353c0a6ac"
+    },
+    {
+      "test": "tests/test_task_materials_v0169.cjs",
+      "ok": true,
+      "seconds": 48.0,
+      "stdout_tail": [
+        "PASS early gems and talent books stay unchanged while the highest ascension stage pays 32 gems without cloning books",
+        "PASS material-domain XP, talent payouts and the entire XP curve remain the existing 0.16.8 tables",
+        "{\"version\":\"0.16.9\",\"checks\":8,\"ok\":true,\"model\":\"native-cost-and-payout-model-not-60-fights\"}"
+      ],
+      "source_sha256": "791dd4c08befb9a1d5b6d771e85144420e7024d2c5cd36f5c438fb6ffecb5538"
+    },
+    {
+      "test": "tests/test_growth_v01522.cjs",
+      "ok": true,
+      "seconds": 64.96,
+      "stdout_tail": [
+        "PASS Bennett field heals below 70%, buffs above it, C1 removes the HP gate, and stun blocks action",
+        "PASS native Anemo swirls incoming elements without retaining them; Geo is not a reverse crystallize reagent",
+        "PASS the combat lesson waits for the Traveler element and Bennett keeps base attack in a guest snapshot"
+      ],
+      "source_sha256": "960c0c59008274c492d5699b869c19641685157f2048fdc9edec5123208189e4"
+    },
+    {
+      "test": "tests/test_growth_balance_v01522.cjs",
+      "ok": true,
+      "seconds": 21.3,
+      "stdout_tail": [
+        "{\"map\":\"MAP_MOND_WOLVENDOM\",\"rounds\":[{\"level\":17,\"average\":19.333333333333332},{\"level\":30,\"average\":5.666666666666667},{\"level\":45,\"average\":3.3333333333333335}]}",
+        "{\"map\":\"MAP_LIYUE_PLAINS\",\"rounds\":[{\"level\":32,\"average\":14},{\"level\":45,\"average\":8.333333333333334},{\"level\":60,\"average\":5.666666666666667}]}"
+      ],
+      "source_sha256": "f462a763469f4759309653b257ef3debf58bb745e067676fc8ad9e316927fd99"
+    },
+    {
+      "test": "tests/test_balance_saves_v0166.cjs",
+      "ok": true,
+      "seconds": 33.11,
+      "stdout_tail": [
+        "PASS late story foes use fixed chapter levels while ordinary visits retain their regional levels",
+        "PASS high-enhancement success, hold and downgrade all pay the quoted cost exactly once",
+        "{\"passed\":6,\"nativeBalanceCases\":2,\"saveMigrationCases\":2,\"fixedLevelCase\":1,\"isolatedSettlementCase\":1}"
+      ],
+      "source_sha256": "30d8631217a9e6da64457b61a9eeb3af235046824e7e430212da039e57352365"
+    },
+    {
+      "test": "tests/test_update_recovery.cjs",
+      "ok": true,
+      "seconds": 0.09,
+      "stdout_tail": [
+        "{\"ok\":true,\"engineMismatchUpdateRecovery\":true,\"realSaveFailurePreserved\":true}"
+      ],
+      "source_sha256": "514c172e2d86858ef49d0827b6fa7bd7557bbeed23acb63c05788ec51caafe50"
+    },
+    {
+      "test": "tests/test_feature_boundaries_v01513.cjs",
+      "ok": true,
+      "seconds": 103.22,
+      "stdout_tail": [
+        "    }",
+        "  ]",
+        "}"
+      ],
+      "source_sha256": "706e375e00a6c946a9bd0c4ed8fd8d36947d7c9fd08ad7ac59a68b8e2d944b02"
+    },
+    {
+      "test": "tools/build_server.py",
+      "ok": true,
+      "seconds": 3.17,
+      "stdout_tail": [
+        "{\"version\": \"0.16.13\", \"runtime_files\": 119, \"bytes\": 28324495, \"gzip_bytes\": 5369292}"
+      ],
+      "source_sha256": "6b5b8e927e2422e9bd846eb70de010edc26943e2e61183daf6fed10f1d42ff4c"
+    }
+  ],
+  "local_related_passed": 20,
+  "local_test_programs_passed": 19,
+  "server_build_passed": true,
+  "new_checks": {
+    "ascension": 6,
+    "starlight": 6,
+    "facility": 8,
+    "task_wording": 6
+  },
+  "native_efficiency_audit": {
+    "rows": 288,
+    "wins": 288,
+    "conditions": 16,
+    "party_size": 4,
+    "combat_speed": 2,
+    "maximum_tier_minimum_efficiency_ratio_to_best_measured_lower_tier": 1.0329923118832862,
+    "not_whole_growth_completion_time": true,
+    "remaining_adjacent_efficiency_decreases": {
+      "20_to_25": 3,
+      "30_to_35": 3,
+      "40_to_45": 5,
+      "45_to_50": 6
+    },
+    "file": "ascension_efficiency_v01613.json"
+  },
+  "independent_review": {
+    "reported_checks": {
+      "starlight": 6,
+      "native171_migration": 10,
+      "learning_delivery": 15,
+      "wording": 6,
+      "ascension": 6
+    },
+    "actual_previous_premium_code_purchase_and_retry_preserved": true,
+    "actual_previous_growth_code_inflight_saves_preserved": true,
+    "old_high_tier_doubled_payouts": [
+      22,
+      24
+    ],
+    "next_new_high_tier_doubled_payouts": [
+      40,
+      64
+    ],
+    "malformed_marker_rejected": true,
+    "new_story_absent": true
+  },
+  "limits": {
+    "browser_pixel_checks": "Not run: Chromium executable unavailable. Facility renderer/handlers/labels were checked in deterministic DOM and native runtime.",
+    "previous_v01411_asset_checks": "12/14; two failures are locally missing pre-existing currency icon and wish video. Exchange case passed.",
+    "old_standalone_adventure_test": "Not in release gate; stale loader omits world_content/liyue_card_content and fails before task tests. No unrelated repair was made.",
+    "full_release_gate": "155 programs registered; completion is not awaited. No claim that full CI passed.",
+    "server_installation": false,
+    "production_promotion": false,
+    "main_merge": false,
+    "local_authoring_assets_published": false
+  },
+  "file_sha256": {
+    "AGENTS.md": "f0a5252b30086f231ffa27712c46decdcbd8e82825be3cde80786b20eec415a1",
+    "content/release-notes.json": "43991c5afc871e26ea48da41d468bb79e292c6e53ba6c82e48783231d4ac4754",
+    "docs/AI_HANDOFF.md": "bcdc47c1f7626315ff186dfb51d3d7d6b3742a4e371b7f33babb20ef57ea1838",
+    "docs/APPLY_0.16.13_KO.md": "1385c9ab0cab5226f9ced295507a452f18121634587db9979bc82bd0f4fa0730",
+    "docs/ASCENSION_EFFICIENCY_V01613_KO.md": "720a4fcac36afb51fcc4e5b172eb9cf31cf0a92ee2c93fe0a40811ea32ffcade",
+    "docs/NEXT_STEPS_KO.md": "647665c0e72b11c42449ff00008dc79fd0b11b994bd3e273e5cfdbfe4dc6259b",
+    "docs/PATCH_0.16.13_KO.md": "74b4a4e3f0df653b739d08a405007c3d36d6957a79a9ece0be462fd85dcaae32",
+    "docs/TASKS_GUIDE_KO.md": "26255c790802a2bddd4c11d03eeec205324dfd8eb675357c7e40b70522274849",
+    "docs/TASK_WORDING_V01613_KO.md": "32b234de6c3a7f5c516df7264edf3488cd1dd4b94f2cecfc849981ab9896a4ec",
+    "docs/data/ascension_efficiency_v01613.json": "892eef2ae4ddc5013f049db67df933d81ade0dda8b7f535ac033a1637af2157a",
+    "docs/data/task_materials_v01613.json": "36f8ebb0abe5e6a6c91bc3fa19f09a9cf3f339f95840192e25cb801be9afd75b",
+    "package-lock.json": "51ba631e7967eba37a5c1600f3117211a0df15f45623945c09c50ccaf4d5bc2d",
+    "package.json": "25c4ddd692cce6ea2b25789e647a220e80c29d61be027e7f38014f0846194f01",
+    "source/app_adventure.js": "e8740d9b5d43923734c7634c63a7f934a0ed16f674c1786bdb2115f5343c95b7",
+    "source/app_mainscreen_v0167.js": "d6c972efc3705a20624067b540cad70e27e69a3c748655e7d363616db11d9668",
+    "source/app_premium_v0148.js": "b6b25b5a5f099bffcfcb241f267bdd5c3873ca06eb0cebc08ddc9469b79b9f8e",
+    "source/runtime_growth_v01522.js": "f077163de4f1f02b11980d6b1f46222253af07d0ad0598c47a2503a974e77d73",
+    "source/runtime_premium_v0148.js": "8edbccf1b110ae9ce9be79fc4e74b78986a83e6ba41ad38604ddfe2dddd02ac2",
+    "source/runtime_task_learning_catalog_v0169.js": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18",
+    "source/runtime_tasks_v0167.js": "a71a30aa7139c4f5e82aaab766b98cb02a5b96c94e504b24f4d0c063aa0c030e",
+    "source/shell.css": "9d1289f984487456dd7bb42f68cbddbd6e7520cb68ebbb8c106cc83571fb1a26",
+    "tests/test_ascension_efficiency_v01613.cjs": "a0e68251ecd98148112d098538d19a9b515412b2161f76dcb743eae353c0a6ac",
+    "tests/test_katheryne_facility_v01613.cjs": "2eb43e5b6caa2afdd277d3e04e2cb03f0f723ca1e41e63fbc88c5573d6696971",
+    "tests/test_starlight_price_v01613.cjs": "493bba5ff93e5dd30118de043dac08534a6138a05c12546b3db14c6af0b89ac3",
+    "tests/test_task_materials_v0169.cjs": "791dd4c08befb9a1d5b6d771e85144420e7024d2c5cd36f5c438fb6ffecb5538",
+    "tests/test_task_wording_v01613.cjs": "446683a6026400c1b23fa54b325fe033a5cab0b22e35b418d4e2fa093a39075e",
+    "tests/test_v01411.cjs": "32b9b22f8af2f0bf7f066745be0e3352cc68b00eafb9062889fea2497fac82ff",
+    "tools/audit_task_materials_v0169.cjs": "c2e51cf1bb6a3b97a33c46b75a19daabd75b32d626e95700f04bfd24005a846c",
+    "tools/verify_release.py": "f49e755a15f5d9e48b4a9beff1898e41af98d33743f046753840f97187a21f40"
+  },
+  "publication": {
+    "branch": "test/crpg-v01414-story",
+    "pull_request": 20,
+    "workflow_completion_awaited": false,
+    "remote_db_and_assets_preserved": true,
+    "local_baseline_nonformat_differences_to_remote": 0,
+    "three_baseline_differences_only_trailing_blank_lines": true
+  }
+}

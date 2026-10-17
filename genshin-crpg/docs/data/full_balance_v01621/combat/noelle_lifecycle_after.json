@@ -1,0 +1,1179 @@
+{
+  "fingerprint": "6095344c74d938dd787b75344bea77137b5afe9e8c82d82f137e17338c942340",
+  "fixture": {
+    "partySize": 4,
+    "level": 25,
+    "seed": 717,
+    "sourceRoot": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+    "scope": "isolated native lifecycle; enemy HP durability only"
+  },
+  "results": [
+    {
+      "name": "C0 50% proc and C1/C6 certainty share one Breastplate heal per round",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 0,
+          "roll": 1,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 0,
+          "roll": 60,
+          "first": {
+            "hit": true,
+            "events": []
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 1,
+          "roll": 1,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 1,
+          "roll": 60,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 6,
+          "roll": 1,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 6,
+          "roll": 60,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "C1/C6 require Breastplate: absent/other/broken shield does not consume eligibility",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 1,
+          "none": {
+            "hit": true,
+            "events": []
+          },
+          "other": {
+            "hit": true,
+            "events": []
+          },
+          "eligible": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "broken": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 6,
+          "none": {
+            "hit": true,
+            "events": []
+          },
+          "other": {
+            "hit": true,
+            "events": []
+          },
+          "eligible": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "broken": {
+            "hit": true,
+            "events": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "native round end resets shared gate; E/Q recasts in the same round do not",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 0,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "recast": {
+            "hit": true,
+            "events": []
+          },
+          "next": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              }
+            ]
+          }
+        },
+        {
+          "c": 1,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "recast": {
+            "hit": true,
+            "events": []
+          },
+          "next": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              }
+            ]
+          }
+        },
+        {
+          "c": 6,
+          "first": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "recast": {
+            "hit": true,
+            "events": []
+          },
+          "next": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Q expiry returns C1/C6 to native 50% Breastplate proc",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 1,
+          "failed": {
+            "hit": true,
+            "events": []
+          },
+          "base": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              }
+            ]
+          }
+        },
+        {
+          "c": 6,
+          "failed": {
+            "hit": true,
+            "events": []
+          },
+          "base": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "misses and E/Q damage cannot proc; living allies heal while KO stays zero",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 0,
+          "miss": {
+            "hit": false,
+            "events": []
+          },
+          "hit": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 0,
+                "before": 0,
+                "after": 0,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          }
+        },
+        {
+          "c": 1,
+          "miss": {
+            "hit": false,
+            "events": []
+          },
+          "hit": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          }
+        },
+        {
+          "c": 6,
+          "miss": {
+            "hit": false,
+            "events": []
+          },
+          "hit": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "killing normal hit, successive hits and restored in-flight state keep one proc",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 0,
+          "kill": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          },
+          "same": {
+            "hit": true,
+            "events": []
+          },
+          "next": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              }
+            ]
+          }
+        },
+        {
+          "c": 1,
+          "kill": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          },
+          "same": {
+            "hit": true,
+            "events": []
+          },
+          "next": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              }
+            ]
+          }
+        },
+        {
+          "c": 6,
+          "kill": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 1
+              }
+            ]
+          },
+          "second": {
+            "hit": true,
+            "events": []
+          },
+          "same": {
+            "hit": true,
+            "events": []
+          },
+          "next": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 2
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "same-round normal damage hits share one proc and summon/follow-up damage cannot use it",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 1,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_NOELLE",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_AMBER",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "LIYUE_XIANGLING",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            }
+          ],
+          "next": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 6,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_NOELLE",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_AMBER",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "LIYUE_XIANGLING",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            }
+          ],
+          "next": {
+            "hit": true,
+            "events": []
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3578 @@
+{
+  "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+  "conditions": 40,
+  "wins": 34,
+  "defeats": 6,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 123,
+  "drift": [],
+  "rows": [
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 6,
+      "seconds": 118.84,
+      "cpuSeconds": 0.28812868,
+      "hp": 0.33735344509020054,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 72.62,
+      "cpuSeconds": 0.152076659,
+      "hp": 0.11541760898385713,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 103.5,
+      "cpuSeconds": 0.144224021,
+      "hp": 0.11338683275442168,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 96.32,
+      "cpuSeconds": 0.161115516,
+      "hp": 0.35777874827829476,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 4,
+      "seconds": 117.28,
+      "cpuSeconds": 0.194851389,
+      "hp": 0.3157187489501797,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 6,
+      "seconds": 118.84,
+      "cpuSeconds": 0.179516245,
+      "hp": 0.33735344509020054,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 72.62,
+      "cpuSeconds": 0.1309191,
+      "hp": 0.13627856195897997,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 103.5,
+      "cpuSeconds": 0.150255835,
+      "hp": 0.11338683275442168,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 96.32,
+      "cpuSeconds": 0.149663392,
+      "hp": 0.35777874827829476,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 4,
+      "seconds": 117.28,
+      "cpuSeconds": 0.202846982,
+      "hp": 0.3157187489501797,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2055,
+          "def": 236
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20736
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.116792424,
+      "hp": 0,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.103638939,
+      "hp": 0,
+      "ko": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 151.07999999999998,
+      "cpuSeconds": 0.098823089,
+      "hp": 0,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.097508413,
+      "hp": 0,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.098185504,
+      "hp": 0,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 108.19,
+      "cpuSeconds": 0.166950926,
+      "hp": 0.5040306871647338,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 69.61,
+      "cpuSeconds": 0.126344193,
+      "hp": 0.5793415781222784,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 109.76,
+      "cpuSeconds": 0.145258412,
+      "hp": 0.5273693976591493,
+      "ko": [
+        "MOND_MONA"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 103.75,
+      "cpuSeconds": 0.169456155,
+      "hp": 0.5377446132638077,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 7,
+      "seconds": 98.66,
+      "cpuSeconds": 0.19793151,
+      "hp": 0.4698372741166951,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 3744,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20736
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 93.37,
+      "cpuSeconds": 0.223533233,
+      "hp": 0.7213368747233289,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 6,
+      "seconds": 64.78,
+      "cpuSeconds": 0.212279706,
+      "hp": 0.648354198806777,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 100.62,
+      "cpuSeconds": 0.186157991,
+      "hp": 0.4893080704112927,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 9,
+      "inputs": 8,
+      "seconds": 101.14,
+      "cpuSeconds": 0.196347989,
+      "hp": 0.5810558933855222,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 88.93,
+      "cpuSeconds": 0.182359461,
+      "hp": 0.773106404790196,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 93.37,
+      "cpuSeconds": 0.17163444,
+      "hp": 0.7213368747233289,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 6,
+      "seconds": 64.78,
+      "cpuSeconds": 0.186213193,
+      "hp": 0.648354198806777,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 100.62,
+      "cpuSeconds": 0.148449004,
+      "hp": 0.4893080704112927,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 9,
+      "inputs": 8,
+      "seconds": 103.49,
+      "cpuSeconds": 0.210456468,
+      "hp": 0.6313226625661098,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 88.93,
+      "cpuSeconds": 0.188467758,
+      "hp": 0.773106404790196,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 66.61,
+      "cpuSeconds": 0.153098245,
+      "hp": 0.7460414849421192,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 4,
+      "seconds": 63.09,
+      "cpuSeconds": 0.162693064,
+      "hp": 0.03631200006948003,
+      "ko": [
+        "LIYUE_KEQING",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 4,
+      "seconds": 96.65,
+      "cpuSeconds": 0.164225758,
+      "hp": 0.08691389713287523,
+      "ko": [
+        "MOND_MONA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 5,
+      "seconds": 70.07,
+      "cpuSeconds": 0.130328504,
+      "hp": 0.8185809961708482,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 69.47999999999999,
+      "cpuSeconds": 0.157815752,
+      "hp": 0.8814145685181626,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 66.61,
+      "cpuSeconds": 0.208837936,
+      "hp": 0.7460414849421192,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_TWO_DPS_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 57.54,
+      "cpuSeconds": 0.169187223,
+      "hp": 0.11334798203941254,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_ALT_FIVE_PURE_HEAL",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 5,
+      "seconds": 160.76,
+      "cpuSeconds": 0.154427704,
+      "hp": 0,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 77.84,
+      "cpuSeconds": 0.19832695,
+      "hp": 0.8414967696151628,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "GRID_Q18_E30_J65_PUBLIC_GUARD",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "MOND_JEAN_Q": {
+            "healingMultiplier": 0.65
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmPatch": {
+        "zhongliQHp": 0.18,
+        "zhongliShieldCore": 0.3,
+        "zhongliEarly": [
+          0.5,
+          0.7,
+          0.85,
+          0.95
+        ]
+      },
+      "vmFingerprint": "64cd81030602dd42770684cd38fd9bad72e7f939735fafaf610c782e0b4fc162",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 76.14,
+      "cpuSeconds": 0.267778323,
+      "hp": 0.8328035600762873,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 501,
+      "operatorProfile": {
+        "revision": 501,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "MOND_JEAN_Q": {
+              "healingMultiplier": 0.65
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    }
+  ]
+}

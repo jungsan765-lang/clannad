@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "docs/data/food_balance_v01620/build/verify_build_evidence.py",
+    "--browser-root",
+    "/tmp/crpg_food_v01620/browser_build_final",
+    "--out",
+    "docs/data/food_balance_v01620/build/evidence_verification.json"
+  ],
+  "cwd": "project root",
+  "exitCode": 0,
+  "result": "evidence_verification.json",
+  "finalFollowup": "After adding the saved verification result to MANIFEST, the same tool was run again without --out; all final hashes passed."
+}

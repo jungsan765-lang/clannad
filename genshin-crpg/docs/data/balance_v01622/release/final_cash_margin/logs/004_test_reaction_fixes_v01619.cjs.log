@@ -1,0 +1,42 @@
+PASS Pyro Melt spends real Frozen and keeps control grace
+PASS Pyro Melt spends real Frozen and keeps control grace after restore
+PASS confirmed blunt hit spends Frozen: MOND_DILUC/PLAYER_BASIC_ATTACK/PHYSICAL
+PASS confirmed blunt hit spends Frozen: MOND_DILUC/PLAYER_BASIC_ATTACK/PYRO
+PASS confirmed blunt hit spends Frozen: MOND_DILUC/MOND_DILUC_E/PYRO
+PASS confirmed blunt hit spends Frozen: MOND_NOELLE/PLAYER_BASIC_ATTACK/PHYSICAL/noAura
+PASS confirmed blunt hit spends Frozen: MOND_KLEE/PLAYER_BASIC_ATTACK/PYRO
+PASS confirmed blunt hit spends Frozen: MOND_KLEE/MOND_KLEE_E/PYRO
+PASS confirmed blunt hit spends Frozen: LIYUE_GAMING/LIYUE_GAMING_E/PYRO
+PASS confirmed blunt hit spends Frozen: LIYUE_NINGGUANG/LIYUE_NINGGUANG_E/GEO
+PASS confirmed blunt hit spends Frozen: MOND_EULA/MOND_EULA_E/CRYO
+PASS confirmed blunt hit spends Frozen: MOND_EULA/MOND_EULA_Q/CRYO
+PASS confirmed blunt hit spends Frozen: MOND_EULA/LIGHTFALL_EXPLOSION/PHYSICAL
+PASS native claymore basicHit really Shatters without charged tags
+PASS native Eula hold distinguishes its blunt slash from both nonblunt followups
+PASS nonblunt charged or nonblunt followup does not Shatter: LIYUE_GANYU/LIYUE_GANYU_E
+PASS nonblunt charged or nonblunt followup does not Shatter: MOND_LISA/MOND_LISA_E
+PASS nonblunt charged or nonblunt followup does not Shatter: MOND_KAEYA/PLAYER_BASIC_ATTACK
+PASS nonblunt charged or nonblunt followup does not Shatter: LIYUE_GAMING/LIYUE_GAMING_Q
+PASS nonblunt charged or nonblunt followup does not Shatter: MOND_EULA/MOND_EULA_E
+PASS actual equipped weapon and saved co-op weapon decide blunt normal attacks
+PASS actual Baron Bunny explosion is blunt; Amber arrows are not
+PASS miss and expired target never spend Frozen or create a Shatter packet
+PASS direct talent scales but RX_AGGRAVATE addition does not at level 30
+PASS direct talent scales but RX_SPREAD addition does not at level 30
+PASS direct talent scales but RX_AGGRAVATE addition does not at level 50
+PASS direct talent scales but RX_SPREAD addition does not at level 50
+PASS direct talent scales but RX_AGGRAVATE addition does not at level 60
+PASS direct talent scales but RX_SPREAD addition does not at level 60
+PASS skill coefficient affects direct damage only, with legal C3/C5 levels and saved guest talent snapshot
+PASS additive hit still shares native critical damage, defense and constellation damage bonus
+PASS Superconduct Cryo damage immunity still applies physical vulnerability: MON_SLIME_CRYO
+PASS Superconduct Cryo damage immunity still applies physical vulnerability: MON_SLIME_LARGE_CRYO
+PASS Swirl preserves 물 spread and correct neighboring packet scope
+PASS Swirl preserves 불 spread and correct neighboring packet scope
+PASS Crystallize absorbs 2.5 times its own element
+PASS Crystallize absorbs 2.5 times its own element after restore
+PASS Burning is extinguished only by Hydro in the existing model: 물
+PASS Burning is extinguished only by Hydro in the existing model: 얼음
+PASS sixth shared Dendro Core detonates the oldest owner, preserves five and object sequence
+PASS sixth shared Dendro Core detonates the oldest owner, preserves five and object sequence after restore
+PASS legacy six-core state normalizes on the next creation; other object kinds have no five-object cap

@@ -1,0 +1,16 @@
+{
+  "command": "node tools/audit_balance_engines_v01624.cjs <browser> docs/data/balance_v01624/build/three_engines",
+  "exitCode": 1,
+  "result": "Preserved intermediate test execution; not final acceptance.",
+  "reasons": [
+    "Field test grew from51 to53 contracts during first execution, so the final frozen test is rerun in three_engines_final.",
+    "Prior daily targeting wrong-origin probe still carried the independent new daily pressure marker; native DAILY_PRESSURE_SAVE correctly rejected before prior DAILY_TARGET_SAVE. The probe now removes pressure marker to isolate prior targeting invariant. Independent new pressure scope invalid-origin contract is maintained."
+  ],
+  "evidence": [
+    "three_engines/source-test_field_boss_strategy_v01623.cjs.json",
+    "three_engines/browser-test_field_boss_strategy_v01623.cjs.json",
+    "three_engines/server-test_field_boss_strategy_v01623.cjs.json",
+    "three_engines/source-test_daily_boss_targeting_v01623.cjs.json"
+  ],
+  "productChangesRequired": false
+}

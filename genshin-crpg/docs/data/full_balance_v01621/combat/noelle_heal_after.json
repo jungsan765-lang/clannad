@@ -1,0 +1,2292 @@
+{
+  "schema": 1,
+  "sourceRoot": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+  "fingerprint": "3ae6546ed22b09127ff8bd61213a66fa286c0614b989da6268131ede2d979ea0",
+  "toolSha256": "ded4dbefd9ede27f107d36ce9e6a4708fcce373ad20519c94307ea20799dc57b",
+  "assumptions": {
+    "fixture": "Native current fixed-four Lv25/phase/talents/craft+3 gear and actual domain actors/cards; allyHP half after native skill setup, RNG1 or60 isolates base50%proc; no enemy/ATK/DEF/skill/heal changes.",
+    "calls": "Native executeCard E/Q and basicHit isolate normal-hit effect; copied logs retain precise per-recipient applications. This is a lifecycle probe, not farming or a full battle.",
+    "scope": "Own current-game C1 text says Breastplate heal becomes certain during Sweeping Time; here Eshield eligibility and duplicate application are measured separately."
+  },
+  "cases": [
+    {
+      "constellation": 0,
+      "shield": false,
+      "die": 1,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [],
+      "healEventCount": 0,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 961,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": true,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13189
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12228
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13189,
+          "hpAfter": 12228,
+          "maxHp": 13650
+        }
+      ]
+    },
+    {
+      "constellation": 0,
+      "shield": false,
+      "die": 60,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [],
+      "healEventCount": 0,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 620,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13353
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12733
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13353,
+          "hpAfter": 12733,
+          "maxHp": 13650
+        }
+      ]
+    },
+    {
+      "constellation": 0,
+      "shield": true,
+      "die": 1,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "MOND_NOELLE_E",
+          "value": 1237,
+          "initialValue": 1237,
+          "rounds": 2,
+          "createdRound": 1
+        },
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2403,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3168,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2701,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2612,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [
+        {
+          "target": "PLAYER_CUSTOM",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2308,
+          "after": 2403
+        },
+        {
+          "target": "MOND_NOELLE",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 3073,
+          "after": 3168
+        },
+        {
+          "target": "MOND_AMBER",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2606,
+          "after": 2701
+        },
+        {
+          "target": "LIYUE_XIANGLING",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2517,
+          "after": 2612
+        }
+      ],
+      "healEventCount": 4,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 961,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": true,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12796
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 11835
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 12796,
+          "hpAfter": 11835,
+          "maxHp": 13650
+        },
+        {
+          "actor": "노엘",
+          "target": "동일 조건 비교",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2403
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2308,
+          "hpAfter": 2403,
+          "maxHp": 4616
+        },
+        {
+          "actor": "노엘",
+          "target": "노엘",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3168
+            }
+          ],
+          "targetId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 3073,
+          "hpAfter": 3168,
+          "maxHp": 6147
+        },
+        {
+          "actor": "노엘",
+          "target": "엠버",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2701
+            }
+          ],
+          "targetId": "MOND_AMBER",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2606,
+          "hpAfter": 2701,
+          "maxHp": 5213
+        },
+        {
+          "actor": "노엘",
+          "target": "향릉",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2612
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2517,
+          "hpAfter": 2612,
+          "maxHp": 5034
+        }
+      ]
+    },
+    {
+      "constellation": 0,
+      "shield": true,
+      "die": 60,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "MOND_NOELLE_E",
+          "value": 1237,
+          "initialValue": 1237,
+          "rounds": 2,
+          "createdRound": 1
+        },
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [],
+      "healEventCount": 0,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 620,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13099
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12479
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13099,
+          "hpAfter": 12479,
+          "maxHp": 13650
+        }
+      ]
+    },
+    {
+      "constellation": 1,
+      "shield": false,
+      "die": 1,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [],
+      "healEventCount": 0,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 961,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": true,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13189
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12228
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13189,
+          "hpAfter": 12228,
+          "maxHp": 13650
+        }
+      ]
+    },
+    {
+      "constellation": 1,
+      "shield": false,
+      "die": 60,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [],
+      "healEventCount": 0,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 620,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13353
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12733
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13353,
+          "hpAfter": 12733,
+          "maxHp": 13650
+        }
+      ]
+    },
+    {
+      "constellation": 1,
+      "shield": true,
+      "die": 1,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "MOND_NOELLE_E",
+          "value": 1237,
+          "initialValue": 1237,
+          "rounds": 2,
+          "createdRound": 1
+        },
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2403,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3168,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2701,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2612,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [
+        {
+          "target": "PLAYER_CUSTOM",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2308,
+          "after": 2403
+        },
+        {
+          "target": "MOND_NOELLE",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 3073,
+          "after": 3168
+        },
+        {
+          "target": "MOND_AMBER",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2606,
+          "after": 2701
+        },
+        {
+          "target": "LIYUE_XIANGLING",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2517,
+          "after": 2612
+        }
+      ],
+      "healEventCount": 4,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 961,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": true,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12796
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 11835
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 12796,
+          "hpAfter": 11835,
+          "maxHp": 13650
+        },
+        {
+          "actor": "노엘",
+          "target": "동일 조건 비교",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2403
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2308,
+          "hpAfter": 2403,
+          "maxHp": 4616,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "노엘",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3168
+            }
+          ],
+          "targetId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 3073,
+          "hpAfter": 3168,
+          "maxHp": 6147,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "엠버",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2701
+            }
+          ],
+          "targetId": "MOND_AMBER",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2606,
+          "hpAfter": 2701,
+          "maxHp": 5213,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "향릉",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2612
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2517,
+          "hpAfter": 2612,
+          "maxHp": 5034,
+          "actorId": "MOND_NOELLE"
+        }
+      ]
+    },
+    {
+      "constellation": 1,
+      "shield": true,
+      "die": 60,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "MOND_NOELLE_E",
+          "value": 1237,
+          "initialValue": 1237,
+          "rounds": 2,
+          "createdRound": 1
+        },
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2403,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3168,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2701,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2612,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [
+        {
+          "target": "PLAYER_CUSTOM",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2308,
+          "after": 2403
+        },
+        {
+          "target": "MOND_NOELLE",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 3073,
+          "after": 3168
+        },
+        {
+          "target": "MOND_AMBER",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2606,
+          "after": 2701
+        },
+        {
+          "target": "LIYUE_XIANGLING",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2517,
+          "after": 2612
+        }
+      ],
+      "healEventCount": 4,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 620,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13099
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12479
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13099,
+          "hpAfter": 12479,
+          "maxHp": 13650
+        },
+        {
+          "actor": "노엘",
+          "target": "동일 조건 비교",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2403
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2308,
+          "hpAfter": 2403,
+          "maxHp": 4616,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "노엘",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3168
+            }
+          ],
+          "targetId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 3073,
+          "hpAfter": 3168,
+          "maxHp": 6147,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "엠버",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2701
+            }
+          ],
+          "targetId": "MOND_AMBER",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2606,
+          "hpAfter": 2701,
+          "maxHp": 5213,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "향릉",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2612
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2517,
+          "hpAfter": 2612,
+          "maxHp": 5034,
+          "actorId": "MOND_NOELLE"
+        }
+      ]
+    },
+    {
+      "constellation": 6,
+      "shield": false,
+      "die": 1,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [],
+      "healEventCount": 0,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 1585,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": true,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13059
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 11474
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13059,
+          "hpAfter": 11474,
+          "maxHp": 13650
+        }
+      ]
+    },
+    {
+      "constellation": 6,
+      "shield": false,
+      "die": 60,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [],
+      "healEventCount": 0,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 1023,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 13269
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12246
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 13269,
+          "hpAfter": 12246,
+          "maxHp": 13650
+        }
+      ]
+    },
+    {
+      "constellation": 6,
+      "shield": true,
+      "die": 1,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "MOND_NOELLE_E",
+          "value": 1587,
+          "initialValue": 1587,
+          "rounds": 2,
+          "createdRound": 1
+        },
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2403,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3168,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2701,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2612,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [
+        {
+          "target": "PLAYER_CUSTOM",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2308,
+          "after": 2403
+        },
+        {
+          "target": "MOND_NOELLE",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 3073,
+          "after": 3168
+        },
+        {
+          "target": "MOND_AMBER",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2606,
+          "after": 2701
+        },
+        {
+          "target": "LIYUE_XIANGLING",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2517,
+          "after": 2612
+        }
+      ],
+      "healEventCount": 4,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 1585,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": true,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12555
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 10970
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 12555,
+          "hpAfter": 10970,
+          "maxHp": 13650
+        },
+        {
+          "actor": "노엘",
+          "target": "동일 조건 비교",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2403
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2308,
+          "hpAfter": 2403,
+          "maxHp": 4616,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "노엘",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3168
+            }
+          ],
+          "targetId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 3073,
+          "hpAfter": 3168,
+          "maxHp": 6147,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "엠버",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2701
+            }
+          ],
+          "targetId": "MOND_AMBER",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2606,
+          "hpAfter": 2701,
+          "maxHp": 5213,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "향릉",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2612
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2517,
+          "hpAfter": 2612,
+          "maxHp": 5034,
+          "actorId": "MOND_NOELLE"
+        }
+      ]
+    },
+    {
+      "constellation": 6,
+      "shield": true,
+      "die": 60,
+      "hit": true,
+      "noelleDef": 345.8437242422039,
+      "noelleShield": [
+        {
+          "source": "MOND_NOELLE_E",
+          "value": 1587,
+          "initialValue": 1587,
+          "rounds": 2,
+          "createdRound": 1
+        },
+        {
+          "source": "RX_CRYSTALLIZE",
+          "value": 785,
+          "initialValue": 785,
+          "rounds": 3,
+          "createdRound": 1,
+          "element": "물",
+          "damageMultipliers": {
+            "물": 0.4
+          }
+        }
+      ],
+      "sweepActive": true,
+      "before": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2308,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3073,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2606,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2517,
+          "maxHp": 5034
+        }
+      ],
+      "after": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 2403,
+          "maxHp": 4616
+        },
+        {
+          "source": "MOND_NOELLE",
+          "hp": 3168,
+          "maxHp": 6147
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 2701,
+          "maxHp": 5213
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 2612,
+          "maxHp": 5034
+        }
+      ],
+      "healEvents": [
+        {
+          "target": "PLAYER_CUSTOM",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2308,
+          "after": 2403
+        },
+        {
+          "target": "MOND_NOELLE",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 3073,
+          "after": 3168
+        },
+        {
+          "target": "MOND_AMBER",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2606,
+          "after": 2701
+        },
+        {
+          "target": "LIYUE_XIANGLING",
+          "source": "노엘",
+          "input": 86.46093106055098,
+          "applied": 95,
+          "before": 2517,
+          "after": 2612
+        }
+      ],
+      "healEventCount": 4,
+      "log": [
+        {
+          "actor": "노엘",
+          "target": "불도끼 츄츄 폭도",
+          "damage": 1023,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바위",
+          "critical": false,
+          "reaction": null,
+          "card": null,
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 4616
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 6147
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 4965
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 5034
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 12944
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            },
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            },
+            {
+              "id": "MON_MITACHURL_AXE#1",
+              "hp": 11921
+            }
+          ],
+          "targetId": "MON_MITACHURL_AXE#1",
+          "actorId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 12944,
+          "hpAfter": 11921,
+          "maxHp": 13650
+        },
+        {
+          "actor": "노엘",
+          "target": "동일 조건 비교",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2308
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 2403
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2308,
+          "hpAfter": 2403,
+          "maxHp": 4616,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "노엘",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3073
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_NOELLE",
+              "hp": 3168
+            }
+          ],
+          "targetId": "MOND_NOELLE",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 3073,
+          "hpAfter": 3168,
+          "maxHp": 6147,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "엠버",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2606
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_AMBER",
+              "hp": 2701
+            }
+          ],
+          "targetId": "MOND_AMBER",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2606,
+          "hpAfter": 2701,
+          "maxHp": 5213,
+          "actorId": "MOND_NOELLE"
+        },
+        {
+          "actor": "노엘",
+          "target": "향릉",
+          "heal": 95,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2517
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 2612
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 2517,
+          "hpAfter": 2612,
+          "maxHp": 5034,
+          "actorId": "MOND_NOELLE"
+        }
+      ]
+    }
+  ]
+}

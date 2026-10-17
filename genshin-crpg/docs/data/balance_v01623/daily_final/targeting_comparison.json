@@ -1,0 +1,6572 @@
+{
+  "scope": "Frozen final source. HP candidate A excluded. Equal legal-phase/gear/talent/seed fixtures and public entry/actions. Operator official createRuntime identity profile revision0. New battle admission only, prior first-clear fixture preserved; not natural fresh-account boss unlock acquisition.",
+  "oldBaseline": "/workspace/scratch/a62414469990/crpg-v01618-work/v01623-boss-review-work/daily_first_access_baseline",
+  "finalNative": "/workspace/scratch/a62414469990/crpg-v01618-work/v01623-boss-review-work/daily_targeting_final_native",
+  "rows": [
+    {
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "level": 25,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 3,
+        "inputs": 2,
+        "seconds": 44.22,
+        "hp": 0.790567265808842,
+        "ko": [],
+        "healingActual": 2175,
+        "cpuSeconds": 0.12901421,
+        "enemy": {
+          "id": "BOSS_ANDRIUS#1",
+          "source": "BOSS_ANDRIUS",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 11482,
+          "maxHp": 11482,
+          "atk": 934,
+          "def": 236,
+          "level": 25,
+          "spd": 69,
+          "range": "근접",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "andrius": {
+            "phase": 1,
+            "runResolved": false,
+            "phase3Resolved": false,
+            "rageStacks": 0,
+            "lastRageRound": 1,
+            "lastStormRound": 0,
+            "runResolving": false
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 3,
+        "inputs": 2,
+        "seconds": 44.22,
+        "hp": 0.790567265808842,
+        "ko": [],
+        "healingActual": 2175,
+        "cpuSeconds": 0.12929846,
+        "enemy": {
+          "id": "BOSS_ANDRIUS#1",
+          "source": "BOSS_ANDRIUS",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 11482,
+          "maxHp": 11482,
+          "atk": 934,
+          "def": 236,
+          "level": 25,
+          "spd": 69,
+          "range": "근접",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "andrius": {
+            "phase": 1,
+            "runResolved": false,
+            "phase3Resolved": false,
+            "rageStacks": 0,
+            "lastRageRound": 1,
+            "lastStormRound": 0,
+            "runResolving": false
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": null,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_ANDRIUS_RUN_PHASE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 217,
+              "absorbed": 0
+            },
+            "MOND_BARBARA": {
+              "packets": 1,
+              "hpLost": 154,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 314,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_LEAP": {
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 688,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 554,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_WIND_BLADE": {
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 404,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 273,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 237,
+              "absorbed": 0
+            }
+          },
+          "NONE": {
+            "MOND_FISCHL": {
+              "packets": 2,
+              "hpLost": 616,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 3,
+              "hpLost": 924,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 2,
+              "hpLost": 616,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_SWEEP": {
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 523,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 410,
+              "absorbed": 0
+            },
+            "MOND_BARBARA": {
+              "packets": 1,
+              "hpLost": 236,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_PHASE3": {
+            "MOND_BARBARA": {
+              "packets": 1,
+              "hpLost": 83,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 109,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 7,
+          "MOND_BARBARA": 3,
+          "MOND_FISCHL": 5,
+          "LIYUE_XIANGLING": 5
+        },
+        "packets": [
+          {
+            "index": 11,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 217,
+            "absorbed": 0,
+            "hpBefore": 4749,
+            "hpAfter": 4532,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 217
+          },
+          {
+            "index": 12,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "MOND_BARBARA",
+            "target": "바바라",
+            "damage": 154,
+            "absorbed": 0,
+            "hpBefore": 5098,
+            "hpAfter": 4944,
+            "source": "MOND_BARBARA",
+            "actualHpLost": 154
+          },
+          {
+            "index": 13,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 314,
+            "absorbed": 0,
+            "hpBefore": 5206,
+            "hpAfter": 4892,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 314
+          },
+          {
+            "index": 16,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 688,
+            "absorbed": 0,
+            "hpBefore": 5168,
+            "hpAfter": 4480,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 688
+          },
+          {
+            "index": 17,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 554,
+            "absorbed": 0,
+            "hpBefore": 4532,
+            "hpAfter": 3978,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 554
+          },
+          {
+            "index": 42,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 404,
+            "absorbed": 0,
+            "hpBefore": 5206,
+            "hpAfter": 4802,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 404
+          },
+          {
+            "index": 43,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4802,
+            "hpAfter": 4494,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 308
+          },
+          {
+            "index": 44,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4749,
+            "hpAfter": 4441,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 308
+          },
+          {
+            "index": 46,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 273,
+            "absorbed": 0,
+            "hpBefore": 5168,
+            "hpAfter": 4895,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 273
+          },
+          {
+            "index": 47,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4895,
+            "hpAfter": 4587,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 308
+          },
+          {
+            "index": 48,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4441,
+            "hpAfter": 4133,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 308
+          },
+          {
+            "index": 50,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 237,
+            "absorbed": 0,
+            "hpBefore": 4133,
+            "hpAfter": 3896,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 237
+          },
+          {
+            "index": 51,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 3896,
+            "hpAfter": 3588,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 308
+          },
+          {
+            "index": 52,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4587,
+            "hpAfter": 4279,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 308
+          },
+          {
+            "index": 53,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4494,
+            "hpAfter": 4186,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 308
+          },
+          {
+            "index": 56,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 523,
+            "absorbed": 0,
+            "hpBefore": 4186,
+            "hpAfter": 3663,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 523
+          },
+          {
+            "index": 60,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 410,
+            "absorbed": 0,
+            "hpBefore": 4279,
+            "hpAfter": 3869,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 410
+          },
+          {
+            "index": 63,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_BARBARA",
+            "target": "바바라",
+            "damage": 236,
+            "absorbed": 0,
+            "hpBefore": 5098,
+            "hpAfter": 4862,
+            "source": "MOND_BARBARA",
+            "actualHpLost": 236
+          },
+          {
+            "index": 68,
+            "round": 2,
+            "actionSequence": 11,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "MOND_BARBARA",
+            "target": "바바라",
+            "damage": 83,
+            "absorbed": 0,
+            "hpBefore": 4862,
+            "hpAfter": 4779,
+            "source": "MOND_BARBARA",
+            "actualHpLost": 83
+          },
+          {
+            "index": 69,
+            "round": 2,
+            "actionSequence": 11,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 109,
+            "absorbed": 0,
+            "hpBefore": 3588,
+            "hpAfter": 3479,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 109
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_ANDRIUS_RUN_PHASE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 217,
+              "absorbed": 0
+            },
+            "MOND_BARBARA": {
+              "packets": 1,
+              "hpLost": 154,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 314,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_LEAP": {
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 688,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 554,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_WIND_BLADE": {
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 404,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 273,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 237,
+              "absorbed": 0
+            }
+          },
+          "NONE": {
+            "MOND_FISCHL": {
+              "packets": 2,
+              "hpLost": 616,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 3,
+              "hpLost": 924,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 2,
+              "hpLost": 616,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_SWEEP": {
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 523,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 410,
+              "absorbed": 0
+            },
+            "MOND_BARBARA": {
+              "packets": 1,
+              "hpLost": 236,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_PHASE3": {
+            "MOND_BARBARA": {
+              "packets": 1,
+              "hpLost": 83,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 109,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 7,
+          "MOND_BARBARA": 3,
+          "MOND_FISCHL": 5,
+          "LIYUE_XIANGLING": 5
+        },
+        "packets": [
+          {
+            "index": 11,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 217,
+            "absorbed": 0,
+            "hpBefore": 4749,
+            "hpAfter": 4532,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 217
+          },
+          {
+            "index": 12,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "MOND_BARBARA",
+            "target": "바바라",
+            "damage": 154,
+            "absorbed": 0,
+            "hpBefore": 5098,
+            "hpAfter": 4944,
+            "source": "MOND_BARBARA",
+            "actualHpLost": 154
+          },
+          {
+            "index": 13,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 314,
+            "absorbed": 0,
+            "hpBefore": 5206,
+            "hpAfter": 4892,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 314
+          },
+          {
+            "index": 16,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 688,
+            "absorbed": 0,
+            "hpBefore": 5168,
+            "hpAfter": 4480,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 688
+          },
+          {
+            "index": 17,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 554,
+            "absorbed": 0,
+            "hpBefore": 4532,
+            "hpAfter": 3978,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 554
+          },
+          {
+            "index": 42,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 404,
+            "absorbed": 0,
+            "hpBefore": 5206,
+            "hpAfter": 4802,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 404
+          },
+          {
+            "index": 43,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4802,
+            "hpAfter": 4494,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 308
+          },
+          {
+            "index": 44,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4749,
+            "hpAfter": 4441,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 308
+          },
+          {
+            "index": 46,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 273,
+            "absorbed": 0,
+            "hpBefore": 5168,
+            "hpAfter": 4895,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 273
+          },
+          {
+            "index": 47,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4895,
+            "hpAfter": 4587,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 308
+          },
+          {
+            "index": 48,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4441,
+            "hpAfter": 4133,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 308
+          },
+          {
+            "index": 50,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 237,
+            "absorbed": 0,
+            "hpBefore": 4133,
+            "hpAfter": 3896,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 237
+          },
+          {
+            "index": 51,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 3896,
+            "hpAfter": 3588,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 308
+          },
+          {
+            "index": 52,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4587,
+            "hpAfter": 4279,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 308
+          },
+          {
+            "index": 53,
+            "round": 2,
+            "actionSequence": 9,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 308,
+            "absorbed": 0,
+            "hpBefore": 4494,
+            "hpAfter": 4186,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 308
+          },
+          {
+            "index": 56,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 523,
+            "absorbed": 0,
+            "hpBefore": 4186,
+            "hpAfter": 3663,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 523
+          },
+          {
+            "index": 60,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 410,
+            "absorbed": 0,
+            "hpBefore": 4279,
+            "hpAfter": 3869,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 410
+          },
+          {
+            "index": 63,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_BARBARA",
+            "target": "바바라",
+            "damage": 236,
+            "absorbed": 0,
+            "hpBefore": 5098,
+            "hpAfter": 4862,
+            "source": "MOND_BARBARA",
+            "actualHpLost": 236
+          },
+          {
+            "index": 68,
+            "round": 2,
+            "actionSequence": 11,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "MOND_BARBARA",
+            "target": "바바라",
+            "damage": 83,
+            "absorbed": 0,
+            "hpBefore": 4862,
+            "hpAfter": 4779,
+            "source": "MOND_BARBARA",
+            "actualHpLost": 83
+          },
+          {
+            "index": 69,
+            "round": 2,
+            "actionSequence": 11,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 109,
+            "absorbed": 0,
+            "hpBefore": 3588,
+            "hpAfter": 3479,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 109
+          }
+        ]
+      }
+    },
+    {
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "level": 25,
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 4,
+        "seconds": 64.13,
+        "hp": 0.876070816676185,
+        "ko": [],
+        "healingActual": 1070,
+        "cpuSeconds": 0.122099748,
+        "enemy": {
+          "id": "BOSS_ANDRIUS#1",
+          "source": "BOSS_ANDRIUS",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 11482,
+          "maxHp": 11482,
+          "atk": 934,
+          "def": 236,
+          "level": 25,
+          "spd": 69,
+          "range": "근접",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "andrius": {
+            "phase": 1,
+            "runResolved": false,
+            "phase3Resolved": false,
+            "rageStacks": 0,
+            "lastRageRound": 1,
+            "lastStormRound": 0,
+            "runResolving": false
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 4,
+        "seconds": 64.13,
+        "hp": 0.876070816676185,
+        "ko": [],
+        "healingActual": 1070,
+        "cpuSeconds": 0.154740629,
+        "enemy": {
+          "id": "BOSS_ANDRIUS#1",
+          "source": "BOSS_ANDRIUS",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 11482,
+          "maxHp": 11482,
+          "atk": 934,
+          "def": 236,
+          "level": 25,
+          "spd": 69,
+          "range": "근접",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "andrius": {
+            "phase": 1,
+            "runResolved": false,
+            "phase3Resolved": false,
+            "rageStacks": 0,
+            "lastRageRound": 1,
+            "lastStormRound": 0,
+            "runResolving": false
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": null,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_ANDRIUS_LEAP": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 434,
+              "absorbed": 0
+            },
+            "MOND_DILUC": {
+              "packets": 2,
+              "hpLost": 278,
+              "absorbed": 631
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 440
+            }
+          },
+          "ECARD_ANDRIUS_RUN_PHASE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 299
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 134
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 101
+            }
+          },
+          "ECARD_ANDRIUS_SWEEP": {
+            "MOND_JEAN": {
+              "packets": 2,
+              "hpLost": 292,
+              "absorbed": 204
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 565,
+              "absorbed": 376
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 318
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 424,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_PHASE3": {
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 62
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 143
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 95,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_WIND_BLADE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 273
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 138
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 400
+            }
+          },
+          "NONE": {
+            "PLAYER_CUSTOM": {
+              "packets": 3,
+              "hpLost": 296,
+              "absorbed": 698
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 5,
+              "hpLost": 254,
+              "absorbed": 1102
+            },
+            "MOND_JEAN": {
+              "packets": 4,
+              "hpLost": 620,
+              "absorbed": 682
+            },
+            "MOND_DILUC": {
+              "packets": 5,
+              "hpLost": 966,
+              "absorbed": 616
+            }
+          },
+          "ECARD_ANDRIUS_ROAR": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 590
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 323
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 453,
+              "absorbed": 0
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 465
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 10,
+          "MOND_DILUC": 11,
+          "MOND_JEAN": 11,
+          "LIYUE_ZHONGLI": 8
+        },
+        "packets": [
+          {
+            "index": 9,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 434,
+            "absorbed": 0,
+            "hpBefore": 4749,
+            "hpAfter": 4315,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 434
+          },
+          {
+            "index": 10,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 278,
+            "absorbed": 0,
+            "hpBefore": 7166,
+            "hpAfter": 6888,
+            "source": "MOND_DILUC",
+            "actualHpLost": 278
+          },
+          {
+            "index": 28,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 299,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 29,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 134,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 30,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 101,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 32,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 204,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 35,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 376,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 37,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 318,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 58,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 62,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 68,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 273,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 69,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 70,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 216,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 72,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 138,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 73,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 74,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 76,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 400,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 77,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 78,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 216,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 79,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 82,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 440,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 83,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 631,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 93,
+            "round": 3,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 143,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 94,
+            "round": 3,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 95,
+            "absorbed": 0,
+            "hpBefore": 7442,
+            "hpAfter": 7347,
+            "source": "MOND_DILUC",
+            "actualHpLost": 95
+          },
+          {
+            "index": 98,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 590,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 99,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 343,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 100,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 102,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 323,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 103,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 277,
+            "absorbed": 66,
+            "hpBefore": 7166,
+            "hpAfter": 6889,
+            "source": "MOND_JEAN",
+            "actualHpLost": 277
+          },
+          {
+            "index": 104,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 322,
+            "absorbed": 0,
+            "hpBefore": 7347,
+            "hpAfter": 7025,
+            "source": "MOND_DILUC",
+            "actualHpLost": 322
+          },
+          {
+            "index": 106,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 453,
+            "absorbed": 0,
+            "hpBefore": 7025,
+            "hpAfter": 6572,
+            "source": "MOND_DILUC",
+            "actualHpLost": 453
+          },
+          {
+            "index": 107,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 322,
+            "absorbed": 0,
+            "hpBefore": 6572,
+            "hpAfter": 6250,
+            "source": "MOND_DILUC",
+            "actualHpLost": 322
+          },
+          {
+            "index": 108,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 109,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 343,
+            "absorbed": 0,
+            "hpBefore": 6889,
+            "hpAfter": 6546,
+            "source": "MOND_JEAN",
+            "actualHpLost": 343
+          },
+          {
+            "index": 111,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 465,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 112,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 254,
+            "absorbed": 54,
+            "hpBefore": 10686,
+            "hpAfter": 10432,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 254
+          },
+          {
+            "index": 113,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 296,
+            "absorbed": 47,
+            "hpBefore": 4749,
+            "hpAfter": 4453,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 296
+          },
+          {
+            "index": 114,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 322,
+            "absorbed": 0,
+            "hpBefore": 6250,
+            "hpAfter": 5928,
+            "source": "MOND_DILUC",
+            "actualHpLost": 322
+          },
+          {
+            "index": 117,
+            "round": 4,
+            "actionSequence": 17,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 292,
+            "absorbed": 0,
+            "hpBefore": 6546,
+            "hpAfter": 6254,
+            "source": "MOND_JEAN",
+            "actualHpLost": 292
+          },
+          {
+            "index": 118,
+            "round": 4,
+            "actionSequence": 17,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 565,
+            "absorbed": 0,
+            "hpBefore": 4453,
+            "hpAfter": 3888,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 565
+          },
+          {
+            "index": 120,
+            "round": 4,
+            "actionSequence": 17,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 424,
+            "absorbed": 0,
+            "hpBefore": 10432,
+            "hpAfter": 10008,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 424
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_ANDRIUS_LEAP": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 434,
+              "absorbed": 0
+            },
+            "MOND_DILUC": {
+              "packets": 2,
+              "hpLost": 278,
+              "absorbed": 631
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 440
+            }
+          },
+          "ECARD_ANDRIUS_RUN_PHASE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 299
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 134
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 101
+            }
+          },
+          "ECARD_ANDRIUS_SWEEP": {
+            "MOND_JEAN": {
+              "packets": 2,
+              "hpLost": 292,
+              "absorbed": 204
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 565,
+              "absorbed": 376
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 318
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 424,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_PHASE3": {
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 62
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 143
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 95,
+              "absorbed": 0
+            }
+          },
+          "ECARD_ANDRIUS_WIND_BLADE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 273
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 138
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 400
+            }
+          },
+          "NONE": {
+            "PLAYER_CUSTOM": {
+              "packets": 3,
+              "hpLost": 296,
+              "absorbed": 698
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 5,
+              "hpLost": 254,
+              "absorbed": 1102
+            },
+            "MOND_JEAN": {
+              "packets": 4,
+              "hpLost": 620,
+              "absorbed": 682
+            },
+            "MOND_DILUC": {
+              "packets": 5,
+              "hpLost": 966,
+              "absorbed": 616
+            }
+          },
+          "ECARD_ANDRIUS_ROAR": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 590
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 323
+            },
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 453,
+              "absorbed": 0
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 465
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 10,
+          "MOND_DILUC": 11,
+          "MOND_JEAN": 11,
+          "LIYUE_ZHONGLI": 8
+        },
+        "packets": [
+          {
+            "index": 9,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 434,
+            "absorbed": 0,
+            "hpBefore": 4749,
+            "hpAfter": 4315,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 434
+          },
+          {
+            "index": 10,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 278,
+            "absorbed": 0,
+            "hpBefore": 7166,
+            "hpAfter": 6888,
+            "source": "MOND_DILUC",
+            "actualHpLost": 278
+          },
+          {
+            "index": 28,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 299,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 29,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 134,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 30,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_ANDRIUS_RUN_PHASE",
+            "cardName": "북풍의 질주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 101,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 32,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 204,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 35,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 376,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 37,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 318,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 58,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 62,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 68,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 273,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 69,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 70,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 216,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 72,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 138,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 73,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 74,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 76,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_ANDRIUS_WIND_BLADE",
+            "cardName": "북풍 칼날",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 400,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 77,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 78,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 216,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 79,
+            "round": 3,
+            "actionSequence": 14,
+            "cardName": "북풍 칼날",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 82,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 440,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 83,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_ANDRIUS_LEAP",
+            "cardName": "왕랑의 도약",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 631,
+            "hpBefore": 7524,
+            "hpAfter": 7524,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 93,
+            "round": 3,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 143,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 94,
+            "round": 3,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_PHASE3",
+            "sourceKind": "FIELD",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 95,
+            "absorbed": 0,
+            "hpBefore": 7442,
+            "hpAfter": 7347,
+            "source": "MOND_DILUC",
+            "actualHpLost": 95
+          },
+          {
+            "index": 98,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 590,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 99,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 343,
+            "hpBefore": 4749,
+            "hpAfter": 4749,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 100,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 102,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 323,
+            "hpBefore": 7166,
+            "hpAfter": 7166,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 103,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 277,
+            "absorbed": 66,
+            "hpBefore": 7166,
+            "hpAfter": 6889,
+            "source": "MOND_JEAN",
+            "actualHpLost": 277
+          },
+          {
+            "index": 104,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 322,
+            "absorbed": 0,
+            "hpBefore": 7347,
+            "hpAfter": 7025,
+            "source": "MOND_DILUC",
+            "actualHpLost": 322
+          },
+          {
+            "index": 106,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 453,
+            "absorbed": 0,
+            "hpBefore": 7025,
+            "hpAfter": 6572,
+            "source": "MOND_DILUC",
+            "actualHpLost": 453
+          },
+          {
+            "index": 107,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 322,
+            "absorbed": 0,
+            "hpBefore": 6572,
+            "hpAfter": 6250,
+            "source": "MOND_DILUC",
+            "actualHpLost": 322
+          },
+          {
+            "index": 108,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 308,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 109,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 343,
+            "absorbed": 0,
+            "hpBefore": 6889,
+            "hpAfter": 6546,
+            "source": "MOND_JEAN",
+            "actualHpLost": 343
+          },
+          {
+            "index": 111,
+            "round": 4,
+            "actionSequence": 16,
+            "card": "ECARD_ANDRIUS_ROAR",
+            "cardName": "왕랑의 포효",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 465,
+            "hpBefore": 10686,
+            "hpAfter": 10686,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 112,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 254,
+            "absorbed": 54,
+            "hpBefore": 10686,
+            "hpAfter": 10432,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 254
+          },
+          {
+            "index": 113,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 296,
+            "absorbed": 47,
+            "hpBefore": 4749,
+            "hpAfter": 4453,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 296
+          },
+          {
+            "index": 114,
+            "round": 4,
+            "actionSequence": 16,
+            "cardName": "왕랑의 포효",
+            "sourceKind": "REACTION",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 322,
+            "absorbed": 0,
+            "hpBefore": 6250,
+            "hpAfter": 5928,
+            "source": "MOND_DILUC",
+            "actualHpLost": 322
+          },
+          {
+            "index": 117,
+            "round": 4,
+            "actionSequence": 17,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 292,
+            "absorbed": 0,
+            "hpBefore": 6546,
+            "hpAfter": 6254,
+            "source": "MOND_JEAN",
+            "actualHpLost": 292
+          },
+          {
+            "index": 118,
+            "round": 4,
+            "actionSequence": 17,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 565,
+            "absorbed": 0,
+            "hpBefore": 4453,
+            "hpAfter": 3888,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 565
+          },
+          {
+            "index": 120,
+            "round": 4,
+            "actionSequence": 17,
+            "card": "ECARD_ANDRIUS_SWEEP",
+            "cardName": "빙원의 휩쓸기",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 424,
+            "absorbed": 0,
+            "hpBefore": 10432,
+            "hpAfter": 10008,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 424
+          }
+        ]
+      }
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C6",
+      "level": 28,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 2,
+        "inputs": 2,
+        "seconds": 34.36,
+        "hp": 1,
+        "ko": [],
+        "healingActual": 1810,
+        "cpuSeconds": 0.049658315,
+        "enemy": {
+          "id": "BOSS_DVALIN#1",
+          "source": "BOSS_DVALIN",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 10635,
+          "maxHp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "level": 28,
+          "spd": 69,
+          "range": "중거리",
+          "airborne": true,
+          "element": "바람",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 2,
+        "inputs": 2,
+        "seconds": 34.36,
+        "hp": 1,
+        "ko": [],
+        "healingActual": 1810,
+        "cpuSeconds": 0.057275425,
+        "enemy": {
+          "id": "BOSS_DVALIN#1",
+          "source": "BOSS_DVALIN",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 10635,
+          "maxHp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "level": 28,
+          "spd": 69,
+          "range": "중거리",
+          "airborne": true,
+          "element": "바람",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": null,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_DVALIN_DIVE": {
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 957,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 576,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "MOND_FISCHL": 1,
+          "PLAYER_CUSTOM": 1
+        },
+        "packets": [
+          {
+            "index": 12,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 957,
+            "absorbed": 0,
+            "hpBefore": 5814,
+            "hpAfter": 4857,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 957
+          },
+          {
+            "index": 13,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 576,
+            "absorbed": 0,
+            "hpBefore": 5301,
+            "hpAfter": 4725,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 576
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_DVALIN_DIVE": {
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 957,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 576,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "MOND_FISCHL": 1,
+          "PLAYER_CUSTOM": 1
+        },
+        "packets": [
+          {
+            "index": 12,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 957,
+            "absorbed": 0,
+            "hpBefore": 5814,
+            "hpAfter": 4857,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 957
+          },
+          {
+            "index": 13,
+            "round": 1,
+            "actionSequence": 3,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 576,
+            "absorbed": 0,
+            "hpBefore": 5301,
+            "hpAfter": 4725,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 576
+          }
+        ]
+      }
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "investment": "FIVE_C0",
+      "level": 28,
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 2,
+        "inputs": 2,
+        "seconds": 28.68,
+        "hp": 1,
+        "ko": [],
+        "healingActual": 986,
+        "cpuSeconds": 0.057254003,
+        "enemy": {
+          "id": "BOSS_DVALIN#1",
+          "source": "BOSS_DVALIN",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 10635,
+          "maxHp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "level": 28,
+          "spd": 69,
+          "range": "중거리",
+          "airborne": true,
+          "element": "바람",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 2,
+        "inputs": 2,
+        "seconds": 28.68,
+        "hp": 1,
+        "ko": [],
+        "healingActual": 986,
+        "cpuSeconds": 0.063133207,
+        "enemy": {
+          "id": "BOSS_DVALIN#1",
+          "source": "BOSS_DVALIN",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 10635,
+          "maxHp": 10635,
+          "atk": 1337,
+          "def": 270,
+          "level": 28,
+          "spd": 69,
+          "range": "중거리",
+          "airborne": true,
+          "element": "바람",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": null,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_DVALIN_DIVE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 585,
+              "absorbed": 0
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 1,
+          "LIYUE_ZHONGLI": 1
+        },
+        "packets": [
+          {
+            "index": 9,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 585,
+            "absorbed": 0,
+            "hpBefore": 5301,
+            "hpAfter": 4716,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 585
+          },
+          {
+            "index": 10,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 12012,
+            "hpAfter": 12012,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_DVALIN_DIVE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 585,
+              "absorbed": 0
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 1,
+          "LIYUE_ZHONGLI": 1
+        },
+        "packets": [
+          {
+            "index": 9,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 585,
+            "absorbed": 0,
+            "hpBefore": 5301,
+            "hpAfter": 4716,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 585
+          },
+          {
+            "index": 10,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_DVALIN_DIVE",
+            "cardName": "천공 강습",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 12012,
+            "hpAfter": 12012,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          }
+        ]
+      }
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "level": 50,
+      "team": [
+        "LIYUE_XIANGLING",
+        "LIYUE_XINGQIU",
+        "MOND_BENNETT"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 3,
+        "seconds": 43.760000000000005,
+        "hp": 0.826854681607778,
+        "ko": [],
+        "healingActual": 0,
+        "cpuSeconds": 0.101798327,
+        "enemy": {
+          "id": "BOSS_TARTAGLIA#1",
+          "source": "BOSS_TARTAGLIA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 59886,
+          "maxHp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "level": 50,
+          "spd": 86,
+          "range": "중거리",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 3,
+        "seconds": 43.760000000000005,
+        "hp": 0.822851321644952,
+        "ko": [],
+        "healingActual": 0,
+        "cpuSeconds": 0.098574981,
+        "enemy": {
+          "id": "BOSS_TARTAGLIA#1",
+          "source": "BOSS_TARTAGLIA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 59886,
+          "maxHp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "level": 50,
+          "spd": 86,
+          "range": "중거리",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": 1,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_TARTAGLIA_HYDRO_SWEEP": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 1043,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 879,
+              "absorbed": 0
+            }
+          },
+          "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 3332,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 4434,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 3,
+          "LIYUE_XIANGLING": 2
+        },
+        "packets": [
+          {
+            "index": 5,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1043,
+            "absorbed": 0,
+            "hpBefore": 12690,
+            "hpAfter": 11647,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1043
+          },
+          {
+            "index": 6,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 879,
+            "absorbed": 0,
+            "hpBefore": 13889,
+            "hpAfter": 13010,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 879
+          },
+          {
+            "index": 54,
+            "round": 4,
+            "actionSequence": 10,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 2978,
+            "absorbed": 0,
+            "hpBefore": 11647,
+            "hpAfter": 8669,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 2978
+          },
+          {
+            "index": 56,
+            "round": 4,
+            "actionSequence": 10,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 4434,
+            "absorbed": 0,
+            "hpBefore": 13010,
+            "hpAfter": 8576,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 4434
+          },
+          {
+            "index": 58,
+            "round": 4,
+            "actionSequence": 10,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 354,
+            "absorbed": 0,
+            "hpBefore": 8669,
+            "hpAfter": 8315,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 354
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_TARTAGLIA_HYDRO_SWEEP": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 1043,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 879,
+              "absorbed": 0
+            }
+          },
+          "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": {
+            "LIYUE_XIANGLING": {
+              "packets": 2,
+              "hpLost": 2906,
+              "absorbed": 0
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 5084,
+              "absorbed": 0
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 2,
+          "LIYUE_XIANGLING": 3
+        },
+        "packets": [
+          {
+            "index": 5,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1043,
+            "absorbed": 0,
+            "hpBefore": 12690,
+            "hpAfter": 11647,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1043
+          },
+          {
+            "index": 6,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 879,
+            "absorbed": 0,
+            "hpBefore": 13889,
+            "hpAfter": 13010,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 879
+          },
+          {
+            "index": 54,
+            "round": 4,
+            "actionSequence": 10,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 2597,
+            "absorbed": 0,
+            "hpBefore": 13010,
+            "hpAfter": 10413,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 2597
+          },
+          {
+            "index": 56,
+            "round": 4,
+            "actionSequence": 10,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 5084,
+            "absorbed": 0,
+            "hpBefore": 11647,
+            "hpAfter": 6563,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 5084
+          },
+          {
+            "index": 58,
+            "round": 4,
+            "actionSequence": 10,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 309,
+            "absorbed": 0,
+            "hpBefore": 10413,
+            "hpAfter": 10104,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 309
+          }
+        ]
+      }
+    },
+    {
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "level": 50,
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 4,
+        "seconds": 45.39,
+        "hp": 1,
+        "ko": [],
+        "healingActual": 2083,
+        "cpuSeconds": 0.096806795,
+        "enemy": {
+          "id": "BOSS_TARTAGLIA#1",
+          "source": "BOSS_TARTAGLIA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 59886,
+          "maxHp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "level": 50,
+          "spd": 86,
+          "range": "중거리",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 4,
+        "seconds": 46.5,
+        "hp": 1,
+        "ko": [],
+        "healingActual": 2083,
+        "cpuSeconds": 0.100909646,
+        "enemy": {
+          "id": "BOSS_TARTAGLIA#1",
+          "source": "BOSS_TARTAGLIA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 59886,
+          "maxHp": 59886,
+          "atk": 5107,
+          "def": 591,
+          "level": 50,
+          "spd": 86,
+          "range": "중거리",
+          "airborne": false,
+          "element": "물리",
+          "grade": "보스",
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": 1,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_TARTAGLIA_HYDRO_SWEEP": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 1043,
+              "absorbed": 0
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 0
+            }
+          },
+          "ECARD_TARTAGLIA_ELECTRO_ARC": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 2323
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 293
+            }
+          },
+          "NONE": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 5508
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 3362
+            }
+          },
+          "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": {
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 867
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 389
+            }
+          },
+          "ECARD_TARTAGLIA_FOUL_LEGACY_STRIKE": {
+            "LIYUE_ZHONGLI": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 806
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 5,
+          "LIYUE_ZHONGLI": 7
+        },
+        "packets": [
+          {
+            "index": 5,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1043,
+            "absorbed": 0,
+            "hpBefore": 12690,
+            "hpAfter": 11647,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1043
+          },
+          {
+            "index": 6,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 29,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_TARTAGLIA_ELECTRO_ARC",
+            "cardName": "번개의 궤적",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 2323,
+            "hpBefore": 12690,
+            "hpAfter": 12690,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 32,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_TARTAGLIA_ELECTRO_ARC",
+            "cardName": "번개의 궤적",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 293,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 53,
+            "round": 2,
+            "actionSequence": 10,
+            "sourceKind": "REACTION_DOT",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 2465,
+            "hpBefore": 12690,
+            "hpAfter": 12690,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 54,
+            "round": 2,
+            "actionSequence": 10,
+            "sourceKind": "REACTION_DOT",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 1232,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 62,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 867,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 64,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 389,
+            "hpBefore": 12690,
+            "hpAfter": 12690,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 65,
+            "round": 3,
+            "actionSequence": 15,
+            "sourceKind": "REACTION_DOT",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 3043,
+            "hpBefore": 12690,
+            "hpAfter": 12690,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 66,
+            "round": 3,
+            "actionSequence": 15,
+            "sourceKind": "REACTION_DOT",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 2130,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 69,
+            "round": 4,
+            "actionSequence": 15,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_STRIKE",
+            "cardName": "마왕 무장 연격",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 414,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 71,
+            "round": 4,
+            "actionSequence": 15,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_STRIKE",
+            "cardName": "마왕 무장 연격",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 392,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_TARTAGLIA_HYDRO_SWEEP": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 1043,
+              "absorbed": 0
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 0
+            }
+          },
+          "ECARD_TARTAGLIA_ELECTRO_ARC": {
+            "MOND_DILUC": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 1134
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 293
+            }
+          },
+          "NONE": {
+            "LIYUE_ZHONGLI": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 3362
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 3043
+            }
+          },
+          "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": {
+            "LIYUE_ZHONGLI": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 867
+            },
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 389
+            }
+          },
+          "ECARD_TARTAGLIA_FOUL_LEGACY_STRIKE": {
+            "LIYUE_ZHONGLI": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 806
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 3,
+          "LIYUE_ZHONGLI": 7,
+          "MOND_DILUC": 1
+        },
+        "packets": [
+          {
+            "index": 5,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1043,
+            "absorbed": 0,
+            "hpBefore": 12690,
+            "hpAfter": 11647,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1043
+          },
+          {
+            "index": 6,
+            "round": 1,
+            "actionSequence": 1,
+            "card": "ECARD_TARTAGLIA_HYDRO_SWEEP",
+            "cardName": "격류의 선회",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 29,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_TARTAGLIA_ELECTRO_ARC",
+            "cardName": "번개의 궤적",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 1134,
+            "hpBefore": 21838,
+            "hpAfter": 21838,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 30,
+            "round": 2,
+            "actionSequence": 6,
+            "card": "ECARD_TARTAGLIA_ELECTRO_ARC",
+            "cardName": "번개의 궤적",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 293,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 51,
+            "round": 2,
+            "actionSequence": 10,
+            "sourceKind": "REACTION_DOT",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 1232,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 60,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 867,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 62,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE",
+            "cardName": "마왕 무장의 파동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 389,
+            "hpBefore": 12690,
+            "hpAfter": 12690,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 63,
+            "round": 3,
+            "actionSequence": 15,
+            "sourceKind": "REACTION_DOT",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 3043,
+            "hpBefore": 12690,
+            "hpAfter": 12690,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 64,
+            "round": 3,
+            "actionSequence": 15,
+            "sourceKind": "REACTION_DOT",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 2130,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 67,
+            "round": 4,
+            "actionSequence": 15,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_STRIKE",
+            "cardName": "마왕 무장 연격",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 414,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 69,
+            "round": 4,
+            "actionSequence": 15,
+            "card": "ECARD_TARTAGLIA_FOUL_LEGACY_STRIKE",
+            "cardName": "마왕 무장 연격",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 392,
+            "hpBefore": 31556,
+            "hpAfter": 31556,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          }
+        ]
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FOUR_C6",
+      "level": 60,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_NOELLE"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 3,
+        "inputs": 2,
+        "seconds": 40.629999999999995,
+        "hp": 0.6068949560388709,
+        "ko": [],
+        "healingActual": 1008,
+        "cpuSeconds": 0.098889913,
+        "enemy": {
+          "id": "BOSS_AZHDAHA#1",
+          "source": "BOSS_AZHDAHA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 91916,
+          "maxHp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "level": 60,
+          "spd": 64,
+          "range": "근접",
+          "airborne": false,
+          "element": "바위",
+          "grade": "보스",
+          "azhdaha": {
+            "version": 1,
+            "element1": "PYRO",
+            "element2": "CRYO",
+            "current": "GEO",
+            "phase": 1,
+            "zhongliBound": false,
+            "neutralUsedRound": 0
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 3,
+        "inputs": 2,
+        "seconds": 40.629999999999995,
+        "hp": 0.6068949560388709,
+        "ko": [],
+        "healingActual": 1008,
+        "cpuSeconds": 0.10225943,
+        "enemy": {
+          "id": "BOSS_AZHDAHA#1",
+          "source": "BOSS_AZHDAHA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 91916,
+          "maxHp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "level": 60,
+          "spd": 64,
+          "range": "근접",
+          "airborne": false,
+          "element": "바위",
+          "grade": "보스",
+          "azhdaha": {
+            "version": 1,
+            "element1": "PYRO",
+            "element2": "CRYO",
+            "current": "GEO",
+            "phase": 1,
+            "zhongliBound": false,
+            "neutralUsedRound": 0
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": null,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_AZHDAHA_QUAKE": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 3284,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 1948,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 2179,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 1915
+            }
+          },
+          "ECARD_AZHDAHA_PHASE_SHIFT": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 5120,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 2,
+              "hpLost": 4515,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 2366
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 2876,
+              "absorbed": 0
+            }
+          },
+          "ECARD_AZHDAHA_TAILSTORM": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 5383,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 2,
+              "hpLost": 3458,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 2,
+              "hpLost": 3631,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 1725
+            }
+          },
+          "ECARD_AZHDAHA_ELEMENT_CORE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 903,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 853,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 838,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 465
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 7,
+          "LIYUE_XIANGLING": 5,
+          "MOND_FISCHL": 6,
+          "MOND_NOELLE": 6
+        },
+        "packets": [
+          {
+            "index": 18,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 2197,
+            "absorbed": 0,
+            "hpBefore": 19235,
+            "hpAfter": 17038,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 2197
+          },
+          {
+            "index": 19,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 1948,
+            "absorbed": 0,
+            "hpBefore": 21074,
+            "hpAfter": 19126,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 1948
+          },
+          {
+            "index": 20,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 2179,
+            "absorbed": 0,
+            "hpBefore": 21163,
+            "hpAfter": 18984,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 2179
+          },
+          {
+            "index": 21,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 1915,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 22,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1087,
+            "absorbed": 0,
+            "hpBefore": 17038,
+            "hpAfter": 15951,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1087
+          },
+          {
+            "index": 31,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1939,
+            "absorbed": 0,
+            "hpBefore": 15951,
+            "hpAfter": 14012,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1939
+          },
+          {
+            "index": 33,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 1792,
+            "absorbed": 0,
+            "hpBefore": 18984,
+            "hpAfter": 17192,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 1792
+          },
+          {
+            "index": 34,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 925,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 52,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 3181,
+            "absorbed": 0,
+            "hpBefore": 14012,
+            "hpAfter": 10831,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 3181
+          },
+          {
+            "index": 54,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 2876,
+            "absorbed": 0,
+            "hpBefore": 19126,
+            "hpAfter": 16250,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 2876
+          },
+          {
+            "index": 55,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 2723,
+            "absorbed": 0,
+            "hpBefore": 17192,
+            "hpAfter": 14469,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 2723
+          },
+          {
+            "index": 57,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 1441,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 59,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 3372,
+            "absorbed": 0,
+            "hpBefore": 10831,
+            "hpAfter": 7459,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 3372
+          },
+          {
+            "index": 60,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 2011,
+            "absorbed": 0,
+            "hpBefore": 7459,
+            "hpAfter": 5448,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 2011
+          },
+          {
+            "index": 61,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 1776,
+            "absorbed": 0,
+            "hpBefore": 16250,
+            "hpAfter": 14474,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 1776
+          },
+          {
+            "index": 63,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 1682,
+            "absorbed": 0,
+            "hpBefore": 14474,
+            "hpAfter": 12792,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 1682
+          },
+          {
+            "index": 64,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 1793,
+            "absorbed": 0,
+            "hpBefore": 14469,
+            "hpAfter": 12676,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 1793
+          },
+          {
+            "index": 65,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 1838,
+            "absorbed": 0,
+            "hpBefore": 12676,
+            "hpAfter": 10838,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 1838
+          },
+          {
+            "index": 66,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 839,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 67,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 886,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 70,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 903,
+            "absorbed": 0,
+            "hpBefore": 5448,
+            "hpAfter": 4545,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 903
+          },
+          {
+            "index": 71,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 853,
+            "absorbed": 0,
+            "hpBefore": 12792,
+            "hpAfter": 11939,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 853
+          },
+          {
+            "index": 72,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 838,
+            "absorbed": 0,
+            "hpBefore": 10838,
+            "hpAfter": 10000,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 838
+          },
+          {
+            "index": 73,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 465,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_AZHDAHA_QUAKE": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 3284,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 1948,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 2179,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 1915
+            }
+          },
+          "ECARD_AZHDAHA_PHASE_SHIFT": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 5120,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 2,
+              "hpLost": 4515,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 2366
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 2876,
+              "absorbed": 0
+            }
+          },
+          "ECARD_AZHDAHA_TAILSTORM": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 5383,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 2,
+              "hpLost": 3458,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 2,
+              "hpLost": 3631,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 1725
+            }
+          },
+          "ECARD_AZHDAHA_ELEMENT_CORE": {
+            "PLAYER_CUSTOM": {
+              "packets": 1,
+              "hpLost": 903,
+              "absorbed": 0
+            },
+            "LIYUE_XIANGLING": {
+              "packets": 1,
+              "hpLost": 853,
+              "absorbed": 0
+            },
+            "MOND_FISCHL": {
+              "packets": 1,
+              "hpLost": 838,
+              "absorbed": 0
+            },
+            "MOND_NOELLE": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 465
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 7,
+          "LIYUE_XIANGLING": 5,
+          "MOND_FISCHL": 6,
+          "MOND_NOELLE": 6
+        },
+        "packets": [
+          {
+            "index": 18,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 2197,
+            "absorbed": 0,
+            "hpBefore": 19235,
+            "hpAfter": 17038,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 2197
+          },
+          {
+            "index": 19,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 1948,
+            "absorbed": 0,
+            "hpBefore": 21074,
+            "hpAfter": 19126,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 1948
+          },
+          {
+            "index": 20,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 2179,
+            "absorbed": 0,
+            "hpBefore": 21163,
+            "hpAfter": 18984,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 2179
+          },
+          {
+            "index": 21,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 1915,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 22,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_QUAKE",
+            "cardName": "산하 진동",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1087,
+            "absorbed": 0,
+            "hpBefore": 17038,
+            "hpAfter": 15951,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1087
+          },
+          {
+            "index": 31,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1939,
+            "absorbed": 0,
+            "hpBefore": 15951,
+            "hpAfter": 14012,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1939
+          },
+          {
+            "index": 33,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 1792,
+            "absorbed": 0,
+            "hpBefore": 18984,
+            "hpAfter": 17192,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 1792
+          },
+          {
+            "index": 34,
+            "round": 2,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 925,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 52,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 3181,
+            "absorbed": 0,
+            "hpBefore": 14012,
+            "hpAfter": 10831,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 3181
+          },
+          {
+            "index": 54,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 2876,
+            "absorbed": 0,
+            "hpBefore": 19126,
+            "hpAfter": 16250,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 2876
+          },
+          {
+            "index": 55,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 2723,
+            "absorbed": 0,
+            "hpBefore": 17192,
+            "hpAfter": 14469,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 2723
+          },
+          {
+            "index": 57,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 1441,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 59,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 3372,
+            "absorbed": 0,
+            "hpBefore": 10831,
+            "hpAfter": 7459,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 3372
+          },
+          {
+            "index": 60,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 2011,
+            "absorbed": 0,
+            "hpBefore": 7459,
+            "hpAfter": 5448,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 2011
+          },
+          {
+            "index": 61,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 1776,
+            "absorbed": 0,
+            "hpBefore": 16250,
+            "hpAfter": 14474,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 1776
+          },
+          {
+            "index": 63,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 1682,
+            "absorbed": 0,
+            "hpBefore": 14474,
+            "hpAfter": 12792,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 1682
+          },
+          {
+            "index": 64,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 1793,
+            "absorbed": 0,
+            "hpBefore": 14469,
+            "hpAfter": 12676,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 1793
+          },
+          {
+            "index": 65,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 1838,
+            "absorbed": 0,
+            "hpBefore": 12676,
+            "hpAfter": 10838,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 1838
+          },
+          {
+            "index": 66,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 839,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 67,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 886,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          },
+          {
+            "index": 70,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 903,
+            "absorbed": 0,
+            "hpBefore": 5448,
+            "hpAfter": 4545,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 903
+          },
+          {
+            "index": 71,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_XIANGLING",
+            "target": "향릉",
+            "damage": 853,
+            "absorbed": 0,
+            "hpBefore": 12792,
+            "hpAfter": 11939,
+            "source": "LIYUE_XIANGLING",
+            "actualHpLost": 853
+          },
+          {
+            "index": 72,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_FISCHL",
+            "target": "피슬",
+            "damage": 838,
+            "absorbed": 0,
+            "hpBefore": 10838,
+            "hpAfter": 10000,
+            "source": "MOND_FISCHL",
+            "actualHpLost": 838
+          },
+          {
+            "index": 73,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_NOELLE",
+            "target": "노엘",
+            "damage": 0,
+            "absorbed": 465,
+            "hpBefore": 25976,
+            "hpAfter": 25976,
+            "source": "MOND_NOELLE",
+            "actualHpLost": 0
+          }
+        ]
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "level": 60,
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "baseline": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 3,
+        "seconds": 47.81,
+        "hp": 0.9858735344993274,
+        "ko": [],
+        "healingActual": 2223,
+        "cpuSeconds": 0.100361771,
+        "enemy": {
+          "id": "BOSS_AZHDAHA#1",
+          "source": "BOSS_AZHDAHA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 91916,
+          "maxHp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "level": 60,
+          "spd": 64,
+          "range": "근접",
+          "airborne": false,
+          "element": "바위",
+          "grade": "보스",
+          "azhdaha": {
+            "version": 1,
+            "element1": "PYRO",
+            "element2": "CRYO",
+            "current": "GEO",
+            "phase": 1,
+            "zhongliBound": true,
+            "neutralUsedRound": 0
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0
+        }
+      },
+      "final": {
+        "state": "WIN",
+        "rounds": 4,
+        "inputs": 3,
+        "seconds": 47.81,
+        "hp": 0.9858735344993274,
+        "ko": [],
+        "healingActual": 2223,
+        "cpuSeconds": 0.129881631,
+        "enemy": {
+          "id": "BOSS_AZHDAHA#1",
+          "source": "BOSS_AZHDAHA",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 91916,
+          "maxHp": 91916,
+          "atk": 9096,
+          "def": 778,
+          "level": 60,
+          "spd": 64,
+          "range": "근접",
+          "airborne": false,
+          "element": "바위",
+          "grade": "보스",
+          "azhdaha": {
+            "version": 1,
+            "element1": "PYRO",
+            "element2": "CRYO",
+            "current": "GEO",
+            "phase": 1,
+            "zhongliBound": true,
+            "neutralUsedRound": 0
+          },
+          "statuses": [],
+          "shields": [],
+          "cooldowns": {},
+          "turns": 0,
+          "growthScaled": true
+        }
+      },
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "adminBalanceRevision": 0,
+      "dailyTargetingRevision": null,
+      "initialEnemyDrift": {},
+      "initialAllyDrift": [],
+      "baselineTargets": {
+        "byCard": {
+          "ECARD_AZHDAHA_PHASE_SHIFT": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 1649,
+              "absorbed": 2285
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 504
+            },
+            "MOND_DILUC": {
+              "packets": 2,
+              "hpLost": 994,
+              "absorbed": 2221
+            },
+            "MOND_JEAN": {
+              "packets": 2,
+              "hpLost": 838,
+              "absorbed": 1073
+            }
+          },
+          "ECARD_AZHDAHA_ELEMENT_ERUPTION": {
+            "PLAYER_CUSTOM": {
+              "packets": 4,
+              "hpLost": 0,
+              "absorbed": 6500
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 4,
+              "hpLost": 0,
+              "absorbed": 1265
+            },
+            "MOND_DILUC": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2810
+            },
+            "MOND_JEAN": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2138
+            }
+          },
+          "ECARD_AZHDAHA_ELEMENT_CORE": {
+            "PLAYER_CUSTOM": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2485
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 445
+            },
+            "MOND_DILUC": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2159
+            },
+            "MOND_JEAN": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 1440
+            }
+          },
+          "ECARD_AZHDAHA_TAILSTORM": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 3049
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 913
+            },
+            "MOND_DILUC": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 1641
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 665
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 11,
+          "LIYUE_ZHONGLI": 12,
+          "MOND_DILUC": 10,
+          "MOND_JEAN": 9
+        },
+        "packets": [
+          {
+            "index": 22,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1649,
+            "absorbed": 0,
+            "hpBefore": 19235,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1649
+          },
+          {
+            "index": 23,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 24,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 994,
+            "absorbed": 0,
+            "hpBefore": 34594,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 994
+          },
+          {
+            "index": 25,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 838,
+            "absorbed": 0,
+            "hpBefore": 32947,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 838
+          },
+          {
+            "index": 27,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1322,
+            "hpBefore": 17586,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 28,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1630,
+            "hpBefore": 17586,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 29,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 30,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 32,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 732,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 33,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 578,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 34,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 713,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 36,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 843,
+            "hpBefore": 17586,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 37,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 38,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 838,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 39,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 667,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 57,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 2285,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 59,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 504,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 61,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 2221,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 63,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 1073,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 65,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1566,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 66,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1483,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 67,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 325,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 68,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 333,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 69,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 798,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 70,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 843,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 72,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 665,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 73,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 255,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 75,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 781,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 76,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 181,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 77,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 793,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 78,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 356,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 86,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1807,
+            "hpBefore": 18162,
+            "hpAfter": 18162,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 87,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1741,
+            "hpBefore": 18162,
+            "hpAfter": 18162,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 88,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 558,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 89,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 707,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 90,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 1005,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 91,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 1073,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 92,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 847,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 95,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 861,
+            "hpBefore": 18162,
+            "hpAfter": 18162,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 96,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 264,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 97,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 528,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 98,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 417,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          }
+        ]
+      },
+      "finalTargets": {
+        "byCard": {
+          "ECARD_AZHDAHA_PHASE_SHIFT": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 1649,
+              "absorbed": 2285
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 504
+            },
+            "MOND_DILUC": {
+              "packets": 2,
+              "hpLost": 994,
+              "absorbed": 2221
+            },
+            "MOND_JEAN": {
+              "packets": 2,
+              "hpLost": 838,
+              "absorbed": 1073
+            }
+          },
+          "ECARD_AZHDAHA_ELEMENT_ERUPTION": {
+            "PLAYER_CUSTOM": {
+              "packets": 4,
+              "hpLost": 0,
+              "absorbed": 6500
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 4,
+              "hpLost": 0,
+              "absorbed": 1265
+            },
+            "MOND_DILUC": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2810
+            },
+            "MOND_JEAN": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2138
+            }
+          },
+          "ECARD_AZHDAHA_ELEMENT_CORE": {
+            "PLAYER_CUSTOM": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2485
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 445
+            },
+            "MOND_DILUC": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 2159
+            },
+            "MOND_JEAN": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 1440
+            }
+          },
+          "ECARD_AZHDAHA_TAILSTORM": {
+            "PLAYER_CUSTOM": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 3049
+            },
+            "LIYUE_ZHONGLI": {
+              "packets": 3,
+              "hpLost": 0,
+              "absorbed": 913
+            },
+            "MOND_DILUC": {
+              "packets": 2,
+              "hpLost": 0,
+              "absorbed": 1641
+            },
+            "MOND_JEAN": {
+              "packets": 1,
+              "hpLost": 0,
+              "absorbed": 665
+            }
+          }
+        },
+        "byTarget": {
+          "PLAYER_CUSTOM": 11,
+          "LIYUE_ZHONGLI": 12,
+          "MOND_DILUC": 10,
+          "MOND_JEAN": 9
+        },
+        "packets": [
+          {
+            "index": 22,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 1649,
+            "absorbed": 0,
+            "hpBefore": 19235,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 1649
+          },
+          {
+            "index": 23,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 24,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 994,
+            "absorbed": 0,
+            "hpBefore": 34594,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 994
+          },
+          {
+            "index": 25,
+            "round": 1,
+            "actionSequence": 2,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 838,
+            "absorbed": 0,
+            "hpBefore": 32947,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 838
+          },
+          {
+            "index": 27,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1322,
+            "hpBefore": 17586,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 28,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1630,
+            "hpBefore": 17586,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 29,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 30,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 32,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 732,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 33,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 578,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 34,
+            "round": 1,
+            "actionSequence": 4,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 713,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 36,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 843,
+            "hpBefore": 17586,
+            "hpAfter": 17586,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 37,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 0,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 38,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 838,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 39,
+            "round": 1,
+            "actionSequence": 5,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 667,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 57,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 2285,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 59,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 504,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 61,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 2221,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 63,
+            "round": 2,
+            "actionSequence": 8,
+            "card": "ECARD_AZHDAHA_PHASE_SHIFT",
+            "cardName": "지맥의 원소 전환",
+            "sourceKind": "AZHDAHA_PHASE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 1073,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 65,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1566,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 66,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1483,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 67,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 325,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 68,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 333,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 69,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 798,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 70,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 843,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 72,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 665,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 73,
+            "round": 2,
+            "actionSequence": 9,
+            "card": "ECARD_AZHDAHA_TAILSTORM",
+            "cardName": "용왕의 지맥 폭주",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 255,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 75,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 781,
+            "hpBefore": 17871,
+            "hpAfter": 17871,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 76,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 181,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 77,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 793,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 78,
+            "round": 2,
+            "actionSequence": 10,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 356,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 86,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1807,
+            "hpBefore": 18162,
+            "hpAfter": 18162,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 87,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 1741,
+            "hpBefore": 18162,
+            "hpAfter": 18162,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 88,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 558,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 89,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 707,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 90,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 1005,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 91,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 1073,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 92,
+            "round": 3,
+            "actionSequence": 14,
+            "card": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
+            "cardName": "원소 지맥 분출",
+            "sourceKind": null,
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 847,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          },
+          {
+            "index": 95,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "PLAYER_CUSTOM",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 861,
+            "hpBefore": 18162,
+            "hpAfter": 18162,
+            "source": "PLAYER_CUSTOM",
+            "actualHpLost": 0
+          },
+          {
+            "index": 96,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "LIYUE_ZHONGLI",
+            "target": "종려",
+            "damage": 0,
+            "absorbed": 264,
+            "hpBefore": 50149,
+            "hpAfter": 50149,
+            "source": "LIYUE_ZHONGLI",
+            "actualHpLost": 0
+          },
+          {
+            "index": 97,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_DILUC",
+            "target": "다이루크",
+            "damage": 0,
+            "absorbed": 528,
+            "hpBefore": 33600,
+            "hpAfter": 33600,
+            "source": "MOND_DILUC",
+            "actualHpLost": 0
+          },
+          {
+            "index": 98,
+            "round": 3,
+            "actionSequence": 15,
+            "card": "ECARD_AZHDAHA_ELEMENT_CORE",
+            "sourceKind": "AZHDAHA_LEYLINE",
+            "targetId": "MOND_JEAN",
+            "target": "진",
+            "damage": 0,
+            "absorbed": 417,
+            "hpBefore": 32109,
+            "hpAfter": 32109,
+            "source": "MOND_JEAN",
+            "actualHpLost": 0
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "scope": "Real source/browser/server engines on the recorded local QA DB. Boundary contracts do not prove all-boss manual difficulty, natural account access or production authored DB equality.",
+  "rawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "rawDbUnchanged": true,
+  "engineFingerprint": "engine3-1b2c502f4d62bea2247c83625663b76d12b0cb9078373e3cced53f4d0251aab1",
+  "serverEngineSHA256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "rows": [
+    {
+      "test": "test_field_boss_strategy_v01623.cjs",
+      "engine": "source",
+      "engineFingerprint": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+      "toolSHA256": "672249305fb28a7f882d5c5085f20edc9e010529ea9389b6641a8eb99ae30e7b",
+      "output": "source-test_field_boss_strategy_v01623.cjs.json",
+      "outputSHA256": "57f638c47f130c13edd7d0f4401e4f0707999162bac8e9d25fe1e6b848710608",
+      "checks": 32,
+      "passed": 32,
+      "failed": 0,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_field_boss_strategy_v01623.cjs",
+      "engine": "browser",
+      "engineFingerprint": "engine3-1b2c502f4d62bea2247c83625663b76d12b0cb9078373e3cced53f4d0251aab1",
+      "toolSHA256": "672249305fb28a7f882d5c5085f20edc9e010529ea9389b6641a8eb99ae30e7b",
+      "output": "browser-test_field_boss_strategy_v01623.cjs.json",
+      "outputSHA256": "f7dd205aa0880cd92f100c088f3cdd7a13905a48234fe14f2a5c35aa9e011d4c",
+      "checks": 32,
+      "passed": 32,
+      "failed": 0,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_field_boss_strategy_v01623.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-1b2c502f4d62bea2247c83625663b76d12b0cb9078373e3cced53f4d0251aab1",
+      "toolSHA256": "672249305fb28a7f882d5c5085f20edc9e010529ea9389b6641a8eb99ae30e7b",
+      "output": "server-test_field_boss_strategy_v01623.cjs.json",
+      "outputSHA256": "f7dd205aa0880cd92f100c088f3cdd7a13905a48234fe14f2a5c35aa9e011d4c",
+      "checks": 32,
+      "passed": 32,
+      "failed": 0,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_boss_targeting_v01623.cjs",
+      "engine": "source",
+      "engineFingerprint": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+      "toolSHA256": "29c43bb168fcfd9d8f185ed462d73c5d48d98f750458bdd6a50cbd4d15f2a213",
+      "output": "source-test_daily_boss_targeting_v01623.cjs.json",
+      "outputSHA256": "61ac61edf23636d45395126734e2e8e807129a63141198535df21f2cc035a943",
+      "checks": 17,
+      "passed": 17,
+      "failed": 0,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_boss_targeting_v01623.cjs",
+      "engine": "browser",
+      "engineFingerprint": "engine3-1b2c502f4d62bea2247c83625663b76d12b0cb9078373e3cced53f4d0251aab1",
+      "toolSHA256": "29c43bb168fcfd9d8f185ed462d73c5d48d98f750458bdd6a50cbd4d15f2a213",
+      "output": "browser-test_daily_boss_targeting_v01623.cjs.json",
+      "outputSHA256": "4b0e5fe1ead43cb3234028461ed7b93e289e0b8e8e01b36462c984049d6680c8",
+      "checks": 17,
+      "passed": 17,
+      "failed": 0,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_boss_targeting_v01623.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-1b2c502f4d62bea2247c83625663b76d12b0cb9078373e3cced53f4d0251aab1",
+      "toolSHA256": "29c43bb168fcfd9d8f185ed462d73c5d48d98f750458bdd6a50cbd4d15f2a213",
+      "output": "server-test_daily_boss_targeting_v01623.cjs.json",
+      "outputSHA256": "4b0e5fe1ead43cb3234028461ed7b93e289e0b8e8e01b36462c984049d6680c8",
+      "checks": 17,
+      "passed": 17,
+      "failed": 0,
+      "rawDbObjectUnchanged": true
+    }
+  ],
+  "total": 147,
+  "passed": 147,
+  "failed": 0
+}

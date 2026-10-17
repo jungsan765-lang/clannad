@@ -1,0 +1,274 @@
+{
+  "frozen": {
+    "fingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429",
+    "dailyBossProfiles": {
+      "FB_ANEMO_HYPOSTASIS": {
+        "level": 18,
+        "hpMultiplier": 1.5020482476103778,
+        "atkMultiplier": 1.3739266198282591,
+        "defMultiplier": 1.2073170731707317
+      },
+      "FB_ELECTRO_HYPOSTASIS": {
+        "level": 20,
+        "hpMultiplier": 1.1516314779270633,
+        "atkMultiplier": 1.6951566951566952,
+        "defMultiplier": 1.1475409836065573
+      },
+      "FB_CRYO_REGISVINE": {
+        "level": 22,
+        "hpMultiplier": 1.565922032413491,
+        "atkMultiplier": 1.2125518058022497,
+        "defMultiplier": 1.1379310344827587
+      },
+      "FB_CRYO_HYPOSTASIS": {
+        "level": 30,
+        "hpMultiplier": 1.2915851272015655,
+        "atkMultiplier": 1.410205434062293,
+        "defMultiplier": 1.098639455782313
+      },
+      "FB_PYRO_REGISVINE": {
+        "level": 38,
+        "hpMultiplier": 1.6599478302110504,
+        "atkMultiplier": 1.588502269288956,
+        "defMultiplier": 1.2044887780548628
+      },
+      "FB_OCEANID": {
+        "level": 40,
+        "hpMultiplier": 1.1999901129594384,
+        "atkMultiplier": 1.644398766700925,
+        "defMultiplier": 1.1
+      },
+      "FB_GEO_HYPOSTASIS": {
+        "level": 45,
+        "hpMultiplier": 1.0999942432790282,
+        "atkMultiplier": 1.1999028418751518,
+        "defMultiplier": 1.0511811023622046
+      },
+      "FB_PRIMO_GEOVISHAP": {
+        "level": 48,
+        "hpMultiplier": 1.2412285341514158,
+        "atkMultiplier": 1.2888794205368557,
+        "defMultiplier": 1.073608617594255
+      },
+      "FB_RUIN_SERPENT": {
+        "level": 56,
+        "hpMultiplier": 1.1000047906486539,
+        "atkMultiplier": 1.1926020408163265,
+        "defMultiplier": 1.05
+      },
+      "BOSS_ANDRIUS": {
+        "level": 25,
+        "hpMultiplier": 1.75,
+        "atkMultiplier": 2.64,
+        "defMultiplier": 1.05
+      },
+      "BOSS_DVALIN": {
+        "level": 28,
+        "hpMultiplier": 4,
+        "atkMultiplier": 3.36,
+        "defMultiplier": 1
+      },
+      "BOSS_TARTAGLIA": {
+        "level": 50,
+        "hpMultiplier": 2.415,
+        "atkMultiplier": 3.135,
+        "defMultiplier": 1.2
+      },
+      "BOSS_AZHDAHA": {
+        "level": 60,
+        "hpMultiplier": 1.65,
+        "atkMultiplier": 2.03,
+        "defMultiplier": 1.1
+      }
+    },
+    "dailyPressure": {
+      "BOSS_ANDRIUS": {
+        "prefix": "ECARD_ANDRIUS_",
+        "shieldDamageMultiplier": 1.5
+      },
+      "BOSS_DVALIN": {
+        "prefix": "ECARD_DVALIN_",
+        "shieldDamageMultiplier": 3
+      },
+      "BOSS_TARTAGLIA": {
+        "prefix": "ECARD_TARTAGLIA_",
+        "shieldDamageMultiplier": 3
+      },
+      "BOSS_AZHDAHA": {
+        "prefix": "ECARD_AZHDAHA_",
+        "shieldDamageMultiplier": 1.5
+      }
+    },
+    "dailyCardDamage": {
+      "ECARD_TARTAGLIA_HYDRO_SWEEP": 1.6,
+      "ECARD_TARTAGLIA_ELECTRO_ARC": 2,
+      "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": 2.5,
+      "ECARD_AZHDAHA_TAILSTORM": 2
+    },
+    "defenseBasis": "level=>100+5*Math.max(0,Number(level)-35)",
+    "functionHash": {
+      "tuneGrowthEnemy": "61bd458463ff35c029122f1202633cfb41b69d33d77b992fd7143099e26e7e9b",
+      "combatDefenseBase": "da573f93595237522eeca7b8adaf6b1aaa529d14990edcc239baeb39ba1dd2a9",
+      "combatStat": "0159f4998ca30685a0b294170a6f4856139693628aa9523b990dee4bff6da053",
+      "damage": "addd088700eb1ffe2a600dd9205a1cf5b81111b8cfae6271aec75741fe4136ec",
+      "applyDamage": "addd088700eb1ffe2a600dd9205a1cf5b81111b8cfae6271aec75741fe4136ec",
+      "startBattle": "1b476635a5273924c1f538465f225099c292b58d696685efc848c9c4a08b24cd"
+    },
+    "files": {
+      "source/runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "source/runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "source/runtime_mond_boss_balance.js": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb",
+      "source/runtime_growth_v01522.js": "3bca119a37174c8d8729eb2eca76e72e8f83edd6749ebc6978fe52339ab7d30e",
+      "content/db.json": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+      "source/presentation.js": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3"
+    }
+  },
+  "currentlyLoaded": {
+    "fingerprint": "f5ac16a649deb3475601de4af5fc7a43f74f50074af279f9c9e34800f3e9b0ed",
+    "dailyBossProfiles": {
+      "FB_ANEMO_HYPOSTASIS": {
+        "level": 18,
+        "hpMultiplier": 1.5020482476103778,
+        "atkMultiplier": 1.3739266198282591,
+        "defMultiplier": 1.2073170731707317
+      },
+      "FB_ELECTRO_HYPOSTASIS": {
+        "level": 20,
+        "hpMultiplier": 1.1516314779270633,
+        "atkMultiplier": 1.6951566951566952,
+        "defMultiplier": 1.1475409836065573
+      },
+      "FB_CRYO_REGISVINE": {
+        "level": 22,
+        "hpMultiplier": 1.565922032413491,
+        "atkMultiplier": 1.2125518058022497,
+        "defMultiplier": 1.1379310344827587
+      },
+      "FB_CRYO_HYPOSTASIS": {
+        "level": 30,
+        "hpMultiplier": 1.2915851272015655,
+        "atkMultiplier": 1.410205434062293,
+        "defMultiplier": 1.098639455782313
+      },
+      "FB_PYRO_REGISVINE": {
+        "level": 38,
+        "hpMultiplier": 1.6599478302110504,
+        "atkMultiplier": 1.588502269288956,
+        "defMultiplier": 1.2044887780548628
+      },
+      "FB_OCEANID": {
+        "level": 40,
+        "hpMultiplier": 1.1999901129594384,
+        "atkMultiplier": 1.644398766700925,
+        "defMultiplier": 1.1
+      },
+      "FB_GEO_HYPOSTASIS": {
+        "level": 45,
+        "hpMultiplier": 1.0999942432790282,
+        "atkMultiplier": 1.1999028418751518,
+        "defMultiplier": 1.0511811023622046
+      },
+      "FB_PRIMO_GEOVISHAP": {
+        "level": 48,
+        "hpMultiplier": 1.2412285341514158,
+        "atkMultiplier": 1.2888794205368557,
+        "defMultiplier": 1.073608617594255
+      },
+      "FB_RUIN_SERPENT": {
+        "level": 56,
+        "hpMultiplier": 1.1000047906486539,
+        "atkMultiplier": 1.1926020408163265,
+        "defMultiplier": 1.05
+      },
+      "BOSS_ANDRIUS": {
+        "level": 25,
+        "hpMultiplier": 1.75,
+        "atkMultiplier": 2.64,
+        "defMultiplier": 1.05
+      },
+      "BOSS_DVALIN": {
+        "level": 28,
+        "hpMultiplier": 4,
+        "atkMultiplier": 3.36,
+        "defMultiplier": 1
+      },
+      "BOSS_TARTAGLIA": {
+        "level": 50,
+        "hpMultiplier": 2.415,
+        "atkMultiplier": 3.135,
+        "defMultiplier": 1.2
+      },
+      "BOSS_AZHDAHA": {
+        "level": 60,
+        "hpMultiplier": 1.65,
+        "atkMultiplier": 2.03,
+        "defMultiplier": 1.1
+      }
+    },
+    "dailyPressure": {
+      "BOSS_ANDRIUS": {
+        "prefix": "ECARD_ANDRIUS_",
+        "shieldDamageMultiplier": 1.5
+      },
+      "BOSS_DVALIN": {
+        "prefix": "ECARD_DVALIN_",
+        "shieldDamageMultiplier": 3
+      },
+      "BOSS_TARTAGLIA": {
+        "prefix": "ECARD_TARTAGLIA_",
+        "shieldDamageMultiplier": 3
+      },
+      "BOSS_AZHDAHA": {
+        "prefix": "ECARD_AZHDAHA_",
+        "shieldDamageMultiplier": 1.5
+      }
+    },
+    "dailyCardDamage": {
+      "ECARD_TARTAGLIA_HYDRO_SWEEP": 1.6,
+      "ECARD_TARTAGLIA_ELECTRO_ARC": 2,
+      "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": 2.5,
+      "ECARD_AZHDAHA_TAILSTORM": 2
+    },
+    "defenseBasis": "level=>100+5*Math.max(0,Number(level)-35)",
+    "functionHash": {
+      "tuneGrowthEnemy": "61bd458463ff35c029122f1202633cfb41b69d33d77b992fd7143099e26e7e9b",
+      "combatDefenseBase": "da573f93595237522eeca7b8adaf6b1aaa529d14990edcc239baeb39ba1dd2a9",
+      "combatStat": "0159f4998ca30685a0b294170a6f4856139693628aa9523b990dee4bff6da053",
+      "damage": "addd088700eb1ffe2a600dd9205a1cf5b81111b8cfae6271aec75741fe4136ec",
+      "applyDamage": "addd088700eb1ffe2a600dd9205a1cf5b81111b8cfae6271aec75741fe4136ec",
+      "startBattle": "1b476635a5273924c1f538465f225099c292b58d696685efc848c9c4a08b24cd"
+    },
+    "files": {
+      "source/runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "source/runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "source/runtime_mond_boss_balance.js": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb",
+      "source/runtime_growth_v01522.js": "1e1d6841b8f336bb245038145a8d17b8bff68179cf2b3f3ef9f69f794d483fce",
+      "content/db.json": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+      "source/presentation.js": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3"
+    }
+  },
+  "comparedKeys": [
+    "dailyBossProfiles",
+    "dailyPressure",
+    "dailyCardDamage",
+    "defenseBasis",
+    "functionHash"
+  ],
+  "dailyAnchorsIdentical": true,
+  "changedFiles": [
+    "source/runtime_growth_v01522.js"
+  ],
+  "meaning": "Final132 uses frozen source; later EXP reward/one recipe edits change source fingerprint, while actual daily boss policy/function anchors match.",
+  "allDeclaredInputDifferences": [
+    {
+      "path": "source/runtime_economy.js",
+      "frozenSha256": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+      "reportedCurrentSha256": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8"
+    },
+    {
+      "path": "source/runtime_growth_v01522.js",
+      "frozenSha256": "3bca119a37174c8d8729eb2eca76e72e8f83edd6749ebc6978fe52339ab7d30e",
+      "reportedCurrentSha256": "1e1d6841b8f336bb245038145a8d17b8bff68179cf2b3f3ef9f69f794d483fce"
+    }
+  ]
+}

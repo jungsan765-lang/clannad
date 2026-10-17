@@ -1,0 +1,294 @@
+{
+  "checkedUTC": "2026-10-09T15:53:36.045134+00:00",
+  "sourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "readOnlyProduct": true,
+  "inputsBefore": {
+    "baseline_comparison.json": {
+      "mtime": 1791560848.2958534,
+      "bytes": 28798,
+      "sha256": "e7956ee34b1cd4932f32f1f6e7d083e4696f54a77c0163c10ae44eb2fd2a65f9"
+    },
+    "growth_curve.cjs": {
+      "mtime": 1791560478.859482,
+      "bytes": 1435,
+      "sha256": "6cf0a01fde1c1d42f65332ddbf6b15ce96d0cf8bac9426b3c43f51bb0677975c"
+    },
+    "growth_curve.json": {
+      "mtime": 1791560483.2195747,
+      "bytes": 8645,
+      "sha256": "5c3c0d336e52b339cea819ea117f30bf1e2954c6efe00c52e639e7f1742cc54b"
+    },
+    "manifest.json": {
+      "mtime": 1791560848.3006027,
+      "bytes": 1834,
+      "sha256": "53453691bbdba56b46364e860e2ffc1738bcd91f06be9c8272f86169c6ce882a"
+    },
+    "native_mechanics.json": {
+      "mtime": 1791560657.2673035,
+      "bytes": 208056,
+      "sha256": "f9e87e496edaa4a828ffdedf77b996d134a12489a1ade6a0ca0ade2f3001dba2"
+    },
+    "native_mechanics_initial_harness.json": {
+      "mtime": 1791560455.2509801,
+      "bytes": 187723,
+      "sha256": "6a2a323831e5ad983a2531bff24965a89c770648ac80adbf67553888ea54fe9c"
+    },
+    "probe.cjs": {
+      "mtime": 1791560576.5655591,
+      "bytes": 14011,
+      "sha256": "e68ffa8545ff2ece30410c239bcf01d9cb846119d0b2e7849e143cf9e6a210db"
+    },
+    "source_hashes.json": {
+      "mtime": 1791560657.2713037,
+      "bytes": 25256,
+      "sha256": "5c44411f04e25c414de139feb02fffe64b52c249df72ea40e4d44040d47d1e04"
+    },
+    "summary.json": {
+      "mtime": 1791560848.2962277,
+      "bytes": 9751,
+      "sha256": "f5e23473fba90ae9562fbe74c4583e304736ea20278bb5260bc78fef7769de9e"
+    },
+    "summary.md": {
+      "mtime": 1791560848.2963696,
+      "bytes": 8648,
+      "sha256": "22a0a022b6de8f91b37a2aa5c456bb7d6ac74f83956380cc3d52e3d1da69ee5f"
+    }
+  },
+  "inputsStableDuringCheck": true,
+  "inputsAfter": {
+    "baseline_comparison.json": {
+      "mtime": 1791560848.2958534,
+      "bytes": 28798,
+      "sha256": "e7956ee34b1cd4932f32f1f6e7d083e4696f54a77c0163c10ae44eb2fd2a65f9"
+    },
+    "growth_curve.cjs": {
+      "mtime": 1791560478.859482,
+      "bytes": 1435,
+      "sha256": "6cf0a01fde1c1d42f65332ddbf6b15ce96d0cf8bac9426b3c43f51bb0677975c"
+    },
+    "growth_curve.json": {
+      "mtime": 1791560483.2195747,
+      "bytes": 8645,
+      "sha256": "5c3c0d336e52b339cea819ea117f30bf1e2954c6efe00c52e639e7f1742cc54b"
+    },
+    "manifest.json": {
+      "mtime": 1791560848.3006027,
+      "bytes": 1834,
+      "sha256": "53453691bbdba56b46364e860e2ffc1738bcd91f06be9c8272f86169c6ce882a"
+    },
+    "native_mechanics.json": {
+      "mtime": 1791560657.2673035,
+      "bytes": 208056,
+      "sha256": "f9e87e496edaa4a828ffdedf77b996d134a12489a1ade6a0ca0ade2f3001dba2"
+    },
+    "native_mechanics_initial_harness.json": {
+      "mtime": 1791560455.2509801,
+      "bytes": 187723,
+      "sha256": "6a2a323831e5ad983a2531bff24965a89c770648ac80adbf67553888ea54fe9c"
+    },
+    "probe.cjs": {
+      "mtime": 1791560576.5655591,
+      "bytes": 14011,
+      "sha256": "e68ffa8545ff2ece30410c239bcf01d9cb846119d0b2e7849e143cf9e6a210db"
+    },
+    "source_hashes.json": {
+      "mtime": 1791560657.2713037,
+      "bytes": 25256,
+      "sha256": "5c44411f04e25c414de139feb02fffe64b52c249df72ea40e4d44040d47d1e04"
+    },
+    "summary.json": {
+      "mtime": 1791560848.2962277,
+      "bytes": 9751,
+      "sha256": "f5e23473fba90ae9562fbe74c4583e304736ea20278bb5260bc78fef7769de9e"
+    },
+    "summary.md": {
+      "mtime": 1791560848.2963696,
+      "bytes": 8648,
+      "sha256": "22a0a022b6de8f91b37a2aa5c456bb7d6ac74f83956380cc3d52e3d1da69ee5f"
+    }
+  },
+  "counts": {
+    "bossStats": 9,
+    "isolatedMoves": 26,
+    "schedules": 9,
+    "checks": 11,
+    "passed": 11,
+    "failed": 0
+  },
+  "countsAgreeWithRawSummaryManifest": true,
+  "uniqueBossStats": 9,
+  "uniqueMoves": 26,
+  "uniqueSchedules": 9,
+  "uniqueGrowthRows": 52,
+  "growthRows": 52,
+  "manifestErrors": [],
+  "statsErrors": [],
+  "growthFormulaErrors": [],
+  "movePacketOrPercentErrors": [],
+  "scheduleAggregationErrors": [],
+  "transitions": [
+    {
+      "id": "FB_ANEMO_HYPOSTASIS",
+      "configuredEnemyLevel": 18,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 7469,
+      "finalHP": 13182,
+      "hpChangePercent": 76.48948989155176,
+      "sameBattlePreGrowthATK": 1281,
+      "finalATK": 574,
+      "atkChangePercent": -55.19125683060109,
+      "finalRawDEF": 164,
+      "finalEffectiveDEF": 82.97020104580787
+    },
+    {
+      "id": "FB_ELECTRO_HYPOSTASIS",
+      "configuredEnemyLevel": 20,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 5445,
+      "finalHP": 14588,
+      "hpChangePercent": 167.91551882460976,
+      "sameBattlePreGrowthATK": 1053,
+      "finalATK": 672,
+      "atkChangePercent": -36.182336182336186,
+      "finalRawDEF": 183,
+      "finalEffectiveDEF": 87.61096889244375
+    },
+    {
+      "id": "FB_CRYO_REGISVINE",
+      "configuredEnemyLevel": 22,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 7934,
+      "finalHP": 18264,
+      "hpChangePercent": 130.19914292916562,
+      "sameBattlePreGrowthATK": 1689,
+      "finalATK": 897,
+      "atkChangePercent": -46.891651865008875,
+      "finalRawDEF": 203,
+      "finalEffectiveDEF": 92.24414364027747
+    },
+    {
+      "id": "FB_CRYO_HYPOSTASIS",
+      "configuredEnemyLevel": 30,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 7207,
+      "finalHP": 25550,
+      "hpChangePercent": 254.5164423477175,
+      "sameBattlePreGrowthATK": 1488,
+      "finalATK": 1509,
+      "atkChangePercent": 1.4112903225806495,
+      "finalRawDEF": 294,
+      "finalEffectiveDEF": 111.09775095396134
+    },
+    {
+      "id": "FB_GEO_HYPOSTASIS",
+      "configuredEnemyLevel": 45,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 13042,
+      "finalHP": 52113,
+      "hpChangePercent": 299.5782855390277,
+      "sameBattlePreGrowthATK": 2592,
+      "finalATK": 4117,
+      "atkChangePercent": 58.834876543209866,
+      "finalRawDEF": 508,
+      "finalEffectiveDEF": 146.11220224631492
+    },
+    {
+      "id": "FB_PYRO_REGISVINE",
+      "configuredEnemyLevel": 38,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 10692,
+      "finalHP": 37953,
+      "hpChangePercent": 254.96632996632997,
+      "sameBattlePreGrowthATK": 2138,
+      "finalATK": 2644,
+      "atkChangePercent": 23.666978484565004,
+      "finalRawDEF": 401,
+      "finalEffectiveDEF": 129.78093878072997
+    },
+    {
+      "id": "FB_OCEANID",
+      "configuredEnemyLevel": 40,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 880,
+      "finalHP": 40457,
+      "hpChangePercent": 4497.386363636364,
+      "sameBattlePreGrowthATK": 2540,
+      "finalATK": 2919,
+      "atkChangePercent": 14.921259842519685,
+      "finalRawDEF": 430,
+      "finalEffectiveDEF": 134.35532048611577
+    },
+    {
+      "id": "FB_PRIMO_GEOVISHAP",
+      "configuredEnemyLevel": 48,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 19331,
+      "finalHP": 56718,
+      "hpChangePercent": 193.404376390254,
+      "sameBattlePreGrowthATK": 3251,
+      "finalATK": 4694,
+      "atkChangePercent": 44.38634266379575,
+      "finalRawDEF": 557,
+      "finalEffectiveDEF": 152.9215990364771
+    },
+    {
+      "id": "FB_RUIN_SERPENT",
+      "configuredEnemyLevel": 56,
+      "playerFixtureLevel": 25,
+      "sameBattlePreGrowthHP": 28829,
+      "finalHP": 83496,
+      "hpChangePercent": 189.62503035138226,
+      "sameBattlePreGrowthATK": 7050,
+      "finalATK": 7840,
+      "atkChangePercent": 11.205673758865252,
+      "finalRawDEF": 700,
+      "finalEffectiveDEF": 171.4214319924053
+    }
+  ],
+  "boundaryChecks": {
+    "softControlledRatio": 0.900398406374502,
+    "softLocked": false,
+    "softChargeStillBLAST": true,
+    "softSpeedDelta": -20,
+    "coreBeforeFourthHP1": true,
+    "coreFourthHP0": true,
+    "coreBreakCountOne": true,
+    "lastCoreFirstENDHits": 1,
+    "lastSecondENDRevivalExpired": true,
+    "notActualBattleWins": true
+  },
+  "sourceSubset119": {
+    "count": 119,
+    "beforeAfterEqual": true,
+    "currentAllEqual": true
+  },
+  "product233": {
+    "count": 233,
+    "allEqual": true,
+    "changed": {}
+  },
+  "remoteComparedSubset": {
+    "count": 119,
+    "allMatch": true
+  },
+  "initialHarness": {
+    "counts": {
+      "bossStats": 9,
+      "isolatedMoves": 26,
+      "schedules": 9,
+      "checks": 11,
+      "passed": 10,
+      "failed": 1
+    },
+    "superseded": true,
+    "finalReplacedFailures": true
+  },
+  "interpretationWarnings": [
+    "Pre-growth versus final is two stages of the SAME current0.16.18 battle setup, not a0.16.17/0.16.18 version comparison.",
+    "Player fixtureLv25 does not imply all bossesLv25: each boss retains configured native level18–56.",
+    "RawDEF and effectiveDEF are different units. EffectiveDEF is rawDEF/sqrt(adCurve(level)).",
+    "11/11 are mechanic assertions.26moves and9rotations reset/restore allies and step native methods; none is a complete legal battle win or win-rate denominator.",
+    "Midpoint RNG removes crit/miss variance for isolated packet observations; full repeat battles require separate evidence.",
+    "Superseded initial harness output had10/11passed. It is preserved for provenance and is not a product-bug result or final failure."
+  ]
+}

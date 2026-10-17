@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "candidate": "K5 direct enemy pressure + Xianyun immediate heal flat850 and field flat400, ratios unchanged .03/.08",
+  "status": "source-root candidate only; no product edit",
+  "beforeFingerprint": "3ae6546ed22b09127ff8bd61213a66fa286c0614b989da6268131ede2d979ea0",
+  "afterFingerprint": "6876ff102ebd8f15532b6b720591078e5377d85ab666392de94452afc8ad83e1",
+  "conditions": 4,
+  "rows": [
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "seed": 717,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "koBattles": 2,
+        "hpRatio": 0,
+        "innQuoteMora": 420,
+        "healApplied": 20449,
+        "healNominal": 32932.898348063994,
+        "seconds": 339.76,
+        "rounds": 22,
+        "firstVictory": true,
+        "firstHpRatio": 0.8457793619055899,
+        "firstKo": [],
+        "firstSeconds": 83.52
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "koBattles": 2,
+        "hpRatio": 0,
+        "innQuoteMora": 420,
+        "healApplied": 16624,
+        "healNominal": 22342.378680864007,
+        "seconds": 316.45,
+        "rounds": 19,
+        "firstVictory": true,
+        "firstHpRatio": 0.8266539163696427,
+        "firstKo": [],
+        "firstSeconds": 83.52
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "seed": 925,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "koBattles": 2,
+        "hpRatio": 0,
+        "innQuoteMora": 420,
+        "healApplied": 18100,
+        "healNominal": 26805.149618015996,
+        "seconds": 294.25,
+        "rounds": 22,
+        "firstVictory": true,
+        "firstHpRatio": 0.8276971224897852,
+        "firstKo": [],
+        "firstSeconds": 84.63
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "koBattles": 2,
+        "hpRatio": 0,
+        "innQuoteMora": 420,
+        "healApplied": 12372,
+        "healNominal": 16498.87525299201,
+        "seconds": 286.48,
+        "rounds": 16,
+        "firstVictory": true,
+        "firstHpRatio": 0.7475006520038251,
+        "firstKo": [],
+        "firstSeconds": 84.63
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "seed": 717,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 1,
+        "innQuoteMora": 20,
+        "healApplied": 20494,
+        "healNominal": 67416.1397536,
+        "seconds": 177.99,
+        "rounds": 12,
+        "firstVictory": true,
+        "firstHpRatio": 0.9881689242392528,
+        "firstKo": [],
+        "firstSeconds": 44.22
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.8980155289098865,
+        "innQuoteMora": 143,
+        "healApplied": 33546,
+        "healNominal": 49816.13975360001,
+        "seconds": 177.99,
+        "rounds": 12,
+        "firstVictory": true,
+        "firstHpRatio": 0.9590746444198587,
+        "firstKo": [],
+        "firstSeconds": 44.22
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "seed": 925,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.98365377906687,
+        "innQuoteMora": 41,
+        "healApplied": 19750,
+        "healNominal": 67416.1397536,
+        "seconds": 181.32,
+        "rounds": 12,
+        "firstVictory": true,
+        "firstHpRatio": 1.0,
+        "firstKo": [],
+        "firstSeconds": 45.33
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.8686122656460246,
+        "innQuoteMora": 179,
+        "healApplied": 28470,
+        "healNominal": 49816.13975360001,
+        "seconds": 184.64999999999998,
+        "rounds": 12,
+        "firstVictory": true,
+        "firstHpRatio": 0.9949864944333144,
+        "firstKo": [],
+        "firstSeconds": 45.33
+      }
+    }
+  ],
+  "scope": "Exact matched Lv25/60 seed717/925 keys from sealed 0.16.21; Lv25 pressureK5 math is baseline identical, so its differences isolate Xianyun healing. Current baseline14 replay matched sealed0.16.21 for shared key14. Inn Mora are quote, not payment."
+}

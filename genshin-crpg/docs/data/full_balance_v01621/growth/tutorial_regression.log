@@ -1,0 +1,13 @@
+PASS authored first Traveler fight requires Amber selection and a real equip action
+PASS save/reload preserves each first-fight preparation step
+PASS actual first victory releases only borrowed Amber and her borrowed bow
+PASS owned Amber remains owned after the same first story fight
+PASS first fight defeat and retry keep the scoped companion usable
+PASS first permanent wish during a loan is an acquisition, not a duplicate
+PASS loan metadata cannot claim another companion or escape the authored fight
+PASS unrelated free play does not demand wishes, a training room, domains or ascension
+PASS only successful actual actions teach combat and later first-use life activities
+PASS the old later switch migrates without replaying completed combat lessons or granting rewards
+PASS an older save already waiting at the first preparation receives the scoped lesson once
+PASS an unattended failed minigame does not mark its controls as learned
+12 tutorial regression checks passed

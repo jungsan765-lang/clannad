@@ -1,0 +1,934 @@
+{
+  "version": "0.16.6",
+  "generated_at": "2026-10-07T10:19:08.465343+00:00",
+  "report_status": "current_11_targeted_files_passed_with_historical_full_suite_separate",
+  "full_suite": {
+    "count": 128,
+    "pass": 121,
+    "fail": 7,
+    "log": "/tmp/crpg-release-v0166.log",
+    "log_sha256": "80e1013e858d08504eec0cd93d44da354e24dd8e9705b6060a1b2706cf3e166b",
+    "final_exact_tree_full_suite": false,
+    "results": [
+      {
+        "test": "tests/test_balance_saves_v0166.cjs",
+        "ok": false,
+        "seconds": 3.6
+      },
+      {
+        "test": "tests/test_defeat_settlement_v0166.cjs",
+        "ok": true,
+        "seconds": 14.8
+      },
+      {
+        "test": "tests/test_rewards_balance_v0161.cjs",
+        "ok": true,
+        "seconds": 34.3
+      },
+      {
+        "test": "tests/test_skill_fx_v0162.cjs",
+        "ok": true,
+        "seconds": 60.0
+      },
+      {
+        "test": "tests/test_server_coop_retry_v0161.mjs",
+        "ok": true,
+        "seconds": 17.9
+      },
+      {
+        "test": "tests/test_osial_pattern_v0161.cjs",
+        "ok": true,
+        "seconds": 11.3
+      },
+      {
+        "test": "tests/test_growth_pacing_v0161.cjs",
+        "ok": true,
+        "seconds": 57.7
+      },
+      {
+        "test": "tests/test_life_v010.cjs",
+        "ok": false,
+        "seconds": 28.7
+      },
+      {
+        "test": "tests/test_life_v0162.cjs",
+        "ok": true,
+        "seconds": 62.1
+      },
+      {
+        "test": "tests/test_v01524.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_combat_stalemate_v01523.cjs",
+        "ok": true,
+        "seconds": 9.0
+      },
+      {
+        "test": "tests/test_tutorial_v01523.cjs",
+        "ok": true,
+        "seconds": 43.7
+      },
+      {
+        "test": "tests/test_tutorial_online_v01523.mjs",
+        "ok": true,
+        "seconds": 26.4
+      },
+      {
+        "test": "tests/test_growth_v01522.cjs",
+        "ok": true,
+        "seconds": 72.4
+      },
+      {
+        "test": "tests/test_growth_online_v01522.mjs",
+        "ok": false,
+        "seconds": 17.4
+      },
+      {
+        "test": "tests/test_growth_balance_v01522.cjs",
+        "ok": false,
+        "seconds": 3.0
+      },
+      {
+        "test": "tests/test_durable_account.mjs",
+        "ok": true,
+        "seconds": 8.5
+      },
+      {
+        "test": "tests/test_durable_migration.mjs",
+        "ok": true,
+        "seconds": 5.4
+      },
+      {
+        "test": "tests/test_online_server.mjs",
+        "ok": true,
+        "seconds": 18.1
+      },
+      {
+        "test": "tests/test_authoritative_flow.mjs",
+        "ok": true,
+        "seconds": 10.4
+      },
+      {
+        "test": "tests/test_reading_checkpoint.mjs",
+        "ok": true,
+        "seconds": 30.0
+      },
+      {
+        "test": "tests/test_v01525.cjs",
+        "ok": true,
+        "seconds": 310.8
+      },
+      {
+        "test": "tests/test_update_recovery.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_engine_identity.py",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_combat_catalog_online.mjs",
+        "ok": true,
+        "seconds": 5.9
+      },
+      {
+        "test": "tests/test_action_feedback.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_online_bootstrap_v01343.cjs",
+        "ok": true,
+        "seconds": 0.3
+      },
+      {
+        "test": "tests/test_online_title_v01344.cjs",
+        "ok": true,
+        "seconds": 5.5
+      },
+      {
+        "test": "tests/test_local_dev_config.cjs",
+        "ok": false,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_combat_v0142.cjs",
+        "ok": true,
+        "seconds": 6.7
+      },
+      {
+        "test": "tests/test_v0142_combat_summons.cjs",
+        "ok": true,
+        "seconds": 5.6
+      },
+      {
+        "test": "tests/test_local_revision_v0141.cjs",
+        "ok": true,
+        "seconds": 19.6
+      },
+      {
+        "test": "tests/test_story_edition_v0141.cjs",
+        "ok": true,
+        "seconds": 3.0
+      },
+      {
+        "test": "tests/test_balance_v0141.cjs",
+        "ok": true,
+        "seconds": 31.0
+      },
+      {
+        "test": "tests/test_local_revision_online_v0141.mjs",
+        "ok": true,
+        "seconds": 12.9
+      },
+      {
+        "test": "tests/test_opening.cjs",
+        "ok": true,
+        "seconds": 25.3
+      },
+      {
+        "test": "tests/test_mond_content_v01344.cjs",
+        "ok": true,
+        "seconds": 11.6
+      },
+      {
+        "test": "tests/test_action_recovery.mjs",
+        "ok": true,
+        "seconds": 253.0
+      },
+      {
+        "test": "tests/test_save_v01344.cjs",
+        "ok": true,
+        "seconds": 16.2
+      },
+      {
+        "test": "tests/test_save_revision.cjs",
+        "ok": false,
+        "seconds": 37.6
+      },
+      {
+        "test": "tests/test_work_validation.cjs",
+        "ok": true,
+        "seconds": 28.2
+      },
+      {
+        "test": "tests/test_life_ui_v010.cjs",
+        "ok": false,
+        "seconds": 9.1
+      },
+      {
+        "test": "tests/test_playback_v08.cjs",
+        "ok": true,
+        "seconds": 2.2
+      },
+      {
+        "test": "tests/test_presentation.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_access_gear_v01343.cjs",
+        "ok": true,
+        "seconds": 18.5
+      },
+      {
+        "test": "tests/test_gear_ui_v01343.cjs",
+        "ok": true,
+        "seconds": 2.4
+      },
+      {
+        "test": "tests/test_quality_fixes_v01335.cjs",
+        "ok": true,
+        "seconds": 7.8
+      },
+      {
+        "test": "tests/test_quality_fixes_v01336.cjs",
+        "ok": true,
+        "seconds": 14.4
+      },
+      {
+        "test": "tests/test_quality_fixes_v01337.cjs",
+        "ok": true,
+        "seconds": 0.6
+      },
+      {
+        "test": "tests/test_quality_fixes_v01338.cjs",
+        "ok": true,
+        "seconds": 5.5
+      },
+      {
+        "test": "tests/test_liyue_rework_mechanics.cjs",
+        "ok": true,
+        "seconds": 79.6
+      },
+      {
+        "test": "tests/test_mond_full_v01344.cjs",
+        "ok": true,
+        "seconds": 355.5
+      },
+      {
+        "test": "tools/test_field_bosses.cjs",
+        "ok": true,
+        "seconds": 49.5
+      },
+      {
+        "test": "tools/test_exclusive_weapons.cjs",
+        "ok": true,
+        "seconds": 6.9
+      },
+      {
+        "test": "tests/test_update_v01341.cjs",
+        "ok": true,
+        "seconds": 85.5
+      },
+      {
+        "test": "tests/test_abyss_v01341.cjs",
+        "ok": true,
+        "seconds": 56.4
+      },
+      {
+        "test": "tests/test_v0144.cjs",
+        "ok": true,
+        "seconds": 21.5
+      },
+      {
+        "test": "tests/test_v0148.cjs",
+        "ok": true,
+        "seconds": 24.2
+      },
+      {
+        "test": "tests/test_v01410.cjs",
+        "ok": true,
+        "seconds": 0.7
+      },
+      {
+        "test": "tests/test_v01411.cjs",
+        "ok": true,
+        "seconds": 24.8
+      },
+      {
+        "test": "tests/test_admin_v01412.mjs",
+        "ok": true,
+        "seconds": 44.1
+      },
+      {
+        "test": "tests/test_v01413.cjs",
+        "ok": true,
+        "seconds": 9.0
+      },
+      {
+        "test": "tests/test_v01415.cjs",
+        "ok": true,
+        "seconds": 140.2
+      },
+      {
+        "test": "tests/test_liyue_rework_flow.cjs",
+        "ok": true,
+        "seconds": 525.2
+      },
+      {
+        "test": "tests/test_v0151.cjs",
+        "ok": true,
+        "seconds": 9.7
+      },
+      {
+        "test": "tests/test_social_v01415.mjs",
+        "ok": true,
+        "seconds": 38.6
+      },
+      {
+        "test": "tests/test_v0152.cjs",
+        "ok": true,
+        "seconds": 39.2
+      },
+      {
+        "test": "tests/test_letters_v0151.mjs",
+        "ok": true,
+        "seconds": 73.9
+      },
+      {
+        "test": "tests/test_balance_v0152.cjs",
+        "ok": true,
+        "seconds": 40.7
+      },
+      {
+        "test": "tests/test_server_v0152.mjs",
+        "ok": true,
+        "seconds": 40.2
+      },
+      {
+        "test": "tests/test_server_v0153.mjs",
+        "ok": true,
+        "seconds": 5.9
+      },
+      {
+        "test": "tests/test_v0153.cjs",
+        "ok": true,
+        "seconds": 59.2
+      },
+      {
+        "test": "tests/test_coop_v0153.cjs",
+        "ok": true,
+        "seconds": 51.6
+      },
+      {
+        "test": "tests/test_server_coop_world_v0159.mjs",
+        "ok": true,
+        "seconds": 21.5
+      },
+      {
+        "test": "tests/test_coop_world_ui_v0159.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_coop_world_v0160.cjs",
+        "ok": true,
+        "seconds": 24.7
+      },
+      {
+        "test": "tests/test_server_coop_v0153.mjs",
+        "ok": true,
+        "seconds": 93.5
+      },
+      {
+        "test": "tests/test_coop_world_screen_v0160.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_freeze_v0160.cjs",
+        "ok": true,
+        "seconds": 4.9
+      },
+      {
+        "test": "tests/test_battle_lines_v0162.cjs",
+        "ok": true,
+        "seconds": 26.2
+      },
+      {
+        "test": "tests/test_landmarks_v0163.cjs",
+        "ok": true,
+        "seconds": 10.2
+      },
+      {
+        "test": "tests/test_v0164.cjs",
+        "ok": true,
+        "seconds": 5.3
+      },
+      {
+        "test": "tests/test_vfx_v0165.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_server_coop_roam_v0160.mjs",
+        "ok": true,
+        "seconds": 93.1
+      },
+      {
+        "test": "tests/test_v0157.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_v0158.mjs",
+        "ok": true,
+        "seconds": 1.0
+      },
+      {
+        "test": "tests/test_v0156.cjs",
+        "ok": true,
+        "seconds": 19.5
+      },
+      {
+        "test": "tools/test_story_cleanup_v0140.cjs",
+        "ok": true,
+        "seconds": 3.9
+      },
+      {
+        "test": "tests/test_osial_v01341.cjs",
+        "ok": true,
+        "seconds": 13.8
+      },
+      {
+        "test": "tests/test_main_story_k_v0148.cjs",
+        "ok": true,
+        "seconds": 3.6
+      },
+      {
+        "test": "tests/test_fixed_region_live.mjs",
+        "ok": true,
+        "seconds": 16.8
+      },
+      {
+        "test": "tests/test_server_social_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 27.5
+      },
+      {
+        "test": "tests/test_server_account_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 59.9
+      },
+      {
+        "test": "tests/test_client_audit_fixes.cjs",
+        "ok": true,
+        "seconds": 0.3
+      },
+      {
+        "test": "tests/test_ui_audit_regressions.cjs",
+        "ok": true,
+        "seconds": 2.5
+      },
+      {
+        "test": "tests/test_test_banner_v01510.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_version.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_test_release_pin.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_test_release_transaction.cjs",
+        "ok": true,
+        "seconds": 21.4
+      },
+      {
+        "test": "tests/test_server_capacity_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 1.1
+      },
+      {
+        "test": "tests/test_social_concurrency_v01511.mjs",
+        "ok": true,
+        "seconds": 35.1
+      },
+      {
+        "test": "tests/test_asset_followup.cjs",
+        "ok": true,
+        "seconds": 2.1
+      },
+      {
+        "test": "tests/test_client_social_followup.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_wish_ui_audit_fixes.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_puzzle_ui_lifecycle.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_client_connection_recovery.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_popup_lifecycle_v01512.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_server_coop_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 85.3
+      },
+      {
+        "test": "tests/test_server_coop_recovery_v01512.mjs",
+        "ok": true,
+        "seconds": 51.2
+      },
+      {
+        "test": "tests/test_ui_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_settings_audio_v01513.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_content_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 7.6
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.cjs",
+        "ok": true,
+        "seconds": 8.6
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.py",
+        "ok": true,
+        "seconds": 1.0
+      },
+      {
+        "test": "tests/test_feature_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 113.8
+      },
+      {
+        "test": "tests/test_story_asset_bindings.cjs",
+        "ok": true,
+        "seconds": 56.3
+      },
+      {
+        "test": "tests/test_server_remaining_audit_v01513.mjs",
+        "ok": true,
+        "seconds": 0.9
+      },
+      {
+        "test": "tests/test_server_load_boundaries_v01513.mjs",
+        "ok": true,
+        "seconds": 107.0
+      },
+      {
+        "test": "tests/test_enemy_text_v01514.cjs",
+        "ok": true,
+        "seconds": 2.2
+      },
+      {
+        "test": "tests/test_v01515.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_story_named_text_v01514.cjs",
+        "ok": true,
+        "seconds": 4.7
+      },
+      {
+        "test": "tests/test_map_v01516.cjs",
+        "ok": true,
+        "seconds": 5.0
+      },
+      {
+        "test": "tests/test_v01518.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_v01517.cjs",
+        "ok": true,
+        "seconds": 4.4
+      },
+      {
+        "test": "tests/test_v01519.cjs",
+        "ok": true,
+        "seconds": 5.5
+      },
+      {
+        "test": "tests/test_v01520.cjs",
+        "ok": true,
+        "seconds": 4.4
+      },
+      {
+        "test": "tests/test_v01521.cjs",
+        "ok": true,
+        "seconds": 3.2
+      },
+      {
+        "test": "tests/v013/test_recruitment_cost_consistency.cjs",
+        "ok": true,
+        "seconds": 28.4
+      }
+    ]
+  },
+  "prior_retry_log_evidence": [
+    {
+      "test": "tests/test_balance_saves_v0166.cjs",
+      "log": "/tmp/crpg-new-balance-tests-final.log",
+      "sha256": "2545227fc6e37cc8e38ed9cc04668c880d84081e78c3dc17e73649629420036d",
+      "observed_success_lines": [
+        "PASS 0.16.5 XP migrates once for player, owned companion and bench without changing levels or belongings",
+        "PASS a prior-curve battle keeps its actors and initiative while only stored XP converts",
+        "PASS Lv3 loses the Lv10 and Lv12 story groups; correctly levelled four-person starter-weapon parties can win",
+        "PASS a prepared four-star counter party can beat the fixed Lv27 Frostarm Lawachurl without changing its stats",
+        "PASS late story foes use fixed chapter levels while ordinary visits retain their regional levels",
+        "PASS high-enhancement success, hold and downgrade all pay the quoted cost exactly once"
+      ],
+      "observed_structured_passes": 0,
+      "observed_error_markers": 0,
+      "success_exit_code_observed_by_this_agent": false,
+      "executed_by_this_agent": false
+    },
+    {
+      "test": "tests/test_life_v010.cjs",
+      "log": "/tmp/crpg-life-final.log",
+      "sha256": "9b45f55fda976c7e36028303953490656a2734abef995d38b8fb4b9b814bbf0f",
+      "observed_success_lines": [
+        "PASS all maps expose at most one kind and new dedicated sites have return routes",
+        "PASS gathering no longer permits mining; quarry permits only mining",
+        "PASS old in-flight mining save migrates safely with its spent quotas carried to quarry",
+        "PASS gathering pays the plants picked, Mond keeps its eggs and a high encounter roll stays peaceful",
+        "PASS hunt and gather encounter chance is one exact 5% roll and opens before any attack",
+        "PASS mining and fishing never trigger additional life encounters",
+        "PASS regional mining retains Starsilver and the Mond ore weights; a mine pays its broken veins",
+        "PASS rod and bait enforced, bait spent exactly once, cancelling keeps rod and grants no fish",
+        "PASS fishing timing, future inputs, dishonest success flags and repeated completions cannot grant fish",
+        "PASS actual tension controls catch fish, persist save and do not consume extra bait",
+        "PASS level increases fully heal protagonist and companion, non-level XP does not",
+        "PASS XP book action levels and heals its active owner",
+        "PASS Sara offers authored gated legends without accepting general commissions or other routes",
+        "PASS Angel Share is a new scoped facility and keeps old smith identity for saves",
+        "PASS contact registration obeys story/combat locks"
+      ],
+      "observed_structured_passes": 0,
+      "observed_error_markers": 0,
+      "success_exit_code_observed_by_this_agent": false,
+      "executed_by_this_agent": false
+    },
+    {
+      "test": "tests/test_growth_online_v01522.mjs",
+      "log": "/tmp/crpg-growth-online-final.log",
+      "sha256": "6f3ef79cce6b246212b73cc0b2c5069183431eab126b3ad43aadfa01301b088a",
+      "observed_success_lines": [
+        "PASS isolated Worker + SQLite: movement-first guide, ascension and talent costs, domain battle/reward, timed life inputs; rejected actions are atomic and retries never pay twice"
+      ],
+      "observed_structured_passes": 0,
+      "observed_error_markers": 0,
+      "success_exit_code_observed_by_this_agent": false,
+      "executed_by_this_agent": false
+    },
+    {
+      "test": "tests/test_growth_balance_v01522.cjs",
+      "log": "/tmp/crpg-growth-balance-final.log",
+      "sha256": "888f93d26e81e43cb9d5a286b571e03ab0b3d9a8ed7ad25f83bb72a951672401",
+      "observed_success_lines": [],
+      "observed_structured_passes": 0,
+      "observed_error_markers": 0,
+      "success_exit_code_observed_by_this_agent": false,
+      "executed_by_this_agent": false
+    },
+    {
+      "test": "tests/test_save_revision.cjs",
+      "log": "/tmp/crpg-save-final.log",
+      "sha256": "5c0e43fb6a9247cee4f630c561ca655ef4d4fb5f998448dc9e44c1e73f434788",
+      "observed_success_lines": [
+        "PASS prior released pack imports under stable compatibility and preserves progress",
+        "PASS future unknown content is rejected without mutating caller save",
+        "PASS validator returned normalized state is actually used",
+        "PASS main story SYSTEM checkpoint restores exact cursor RNG and XP",
+        "PASS experience carries across threshold and max level has no division target",
+        "PASS invalid XP increments leave state unchanged",
+        "PASS invalid protagonist XP checkpoints are rejected",
+        "PASS invalid companion fractional or overthreshold XP checkpoints are rejected",
+        "PASS owned bench and active companions can use books; unowned targets roll back",
+        "PASS free NPC visit persists an exact dialogue target",
+        "PASS same action ID retry never reconsumes an experience item",
+        "PASS default mode remains OFF and importing mode or consent cannot enable it"
+      ],
+      "observed_structured_passes": 12,
+      "observed_error_markers": 0,
+      "success_exit_code_observed_by_this_agent": false,
+      "executed_by_this_agent": false
+    },
+    {
+      "test": "tests/test_life_ui_v010.cjs",
+      "log": "/tmp/crpg-life-ui-final.log",
+      "sha256": "b1921dd92c2d0403c760aa466189b37055bf4bc19082395e3a9627d2e29a6a92",
+      "observed_success_lines": [
+        "PASS actual guest and off-party combatant growth appears once in the earned-reward summary",
+        "PASS XP book level-up produces a notice with full HP; sub-threshold XP does not invent one",
+        "PASS restoring the same fishing cast clears unsaved input and delegates to the normal restore hook",
+        "PASS Katheryne resolves her schedule from a profile with no playable owner even from another map",
+        "PASS Kaeya resolves his authored field contact and active party location takes precedence",
+        "PASS save labels resolve old and new maps both during a game and on the title screen"
+      ],
+      "observed_structured_passes": 6,
+      "observed_error_markers": 0,
+      "success_exit_code_observed_by_this_agent": false,
+      "executed_by_this_agent": false
+    }
+  ],
+  "caveat": "Report earlier 121/128 execution separately from the current 11 targeted file checks. Never describe these as one final exact-tree 128/128 execution.",
+  "current_targeted_rerun": {
+    "test_files": 11,
+    "passed_files": 11,
+    "pending_files": 0,
+    "full_128_exact_tree_rerun": false,
+    "results": [
+      {
+        "test": "tests/test_defeat_settlement_v0166.cjs",
+        "command": "node tests/test_defeat_settlement_v0166.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-defeat-restored.log",
+        "log_sha256": "2e8578eb32669f9ea872b095909fda7e5e1aeb7aa2c738b425f8ba506f5f25ba",
+        "observed_pass_lines": 8,
+        "assertion_groups": 8,
+        "coverage": "Two native existing-party-KO settlement cases; five isolated scheduling-hook cases; one actual formatter function case."
+      },
+      {
+        "test": "tests/test_balance_saves_v0166.cjs",
+        "command": "node tests/test_balance_saves_v0166.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-balance-restored.log",
+        "log_sha256": "6ad2aba6007cb16155dcaf29710ee3bbdca3f3c66d6e67ee0083825ae3243a3f",
+        "observed_pass_lines": 6,
+        "assertion_groups": 6,
+        "coverage": "Save XP-bar migration and in-flight actors/order; twelve fixed Lv10/Lv12 native fights; three prepared Lv27 native counter-party fights; fixed story levels; isolated enhancement RNG/facility with native payment/retry handling."
+      },
+      {
+        "test": "tests/test_life_v010.cjs",
+        "command": "node tests/test_life_v010.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-life-restored.log",
+        "log_sha256": "9b45f55fda976c7e36028303953490656a2734abef995d38b8fb4b9b814bbf0f",
+        "observed_pass_lines": 15,
+        "assertion_groups": 15,
+        "coverage": "Native life scenes, game-date resource rules, cancellation/input/payment and dynamic XP-healing thresholds."
+      },
+      {
+        "test": "tests/test_growth_balance_v01522.cjs",
+        "command": "node tests/test_growth_balance_v01522.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-growth-balance-restored.log",
+        "log_sha256": "888f93d26e81e43cb9d5a286b571e03ab0b3d9a8ed7ad25f83bb72a951672401",
+        "observed_pass_lines": 0,
+        "assertion_groups": null,
+        "coverage": "Eighteen native fights across two fixed regional encounters and three player-level bands; identical enemies remain fixed while growth reduces rounds."
+      },
+      {
+        "test": "tests/test_growth_online_v01522.mjs",
+        "command": "node tests/test_growth_online_v01522.mjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-growth-online-restored.log",
+        "log_sha256": "65828ac1041c07f14df89a7f1b10e187a10ead2940a487fc6238af7c7e5011fd",
+        "observed_pass_lines": 1,
+        "assertion_groups": 1,
+        "coverage": "Real Worker and isolated SQLite: rejected transactions/retries, movement/ascension/talents, prepared four-person domain party, declared enemy-HP=1 settlement fixture, native reward receipt and life inputs. This HTTP fixture is not balance evidence."
+      },
+      {
+        "test": "tests/test_save_revision.cjs",
+        "command": "node tests/test_save_revision.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-save-restored.log",
+        "log_sha256": "5c0e43fb6a9247cee4f630c561ca655ef4d4fb5f998448dc9e44c1e73f434788",
+        "observed_pass_lines": 12,
+        "assertion_groups": 12,
+        "coverage": "Save compatibility, normalized XP targets, exact RNG/cursor reload, book ownership and idempotent transaction retries."
+      },
+      {
+        "test": "tests/test_life_ui_v010.cjs",
+        "command": "node tests/test_life_ui_v010.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-life-ui-restored.log",
+        "log_sha256": "b1921dd92c2d0403c760aa466189b37055bf4bc19082395e3a9627d2e29a6a92",
+        "observed_pass_lines": 6,
+        "assertion_groups": 6,
+        "coverage": "Existing reward presenters and lifecycle helpers with actual runtime and recording DOM; no UI redesign."
+      },
+      {
+        "test": "tests/test_local_dev_config.cjs",
+        "command": "node tests/test_local_dev_config.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-local-dev-restored.log",
+        "log_sha256": "bbfeda2943e1e43aef7bef7af835381b04e3a6d9d01470fcb9a184da92f7d3b4",
+        "observed_pass_lines": 1,
+        "assertion_groups": 1,
+        "coverage": "Unweakened local/production isolation and package/lock/release-note version metadata consistency."
+      },
+      {
+        "test": "tests/test_growth_pacing_v0161.cjs",
+        "command": "node tests/test_growth_pacing_v0161.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "final_regression_agent",
+        "log": "/tmp/crpg-final-pacing-restored.log",
+        "log_sha256": "b30b1376e667ba74e031169b9c29be1f7e7ae6c41751e9677b61cdc43a080876",
+        "observed_pass_lines": 7,
+        "assertion_groups": 7,
+        "coverage": "Six native XP/save/gacha boundary checks plus twelve current native two-route/two-level fight samples and eight paid four-owner ascension/XP-cap checks. Does not reproduce unavailable historical all-level timing rows."
+      },
+      {
+        "test": "tests/test_balance_v0152.cjs",
+        "command": "node tests/test_balance_v0152.cjs",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "parent_agent",
+        "log": "/tmp/crpg-final-balance-v0152-restored.log",
+        "log_sha256": "1ca1e55b02807659d5b82d8503680d67b110c7c2bedcd17752ea082bd091c4e2",
+        "observed_pass_lines": 6,
+        "assertion_groups": 6,
+        "coverage": "Parent-run native prepared boss/rematch and stat-outlier regressions; updated fixed-growth hatchling range."
+      },
+      {
+        "test": "tests/test_engine_identity.py",
+        "command": "python3 tests/test_engine_identity.py",
+        "status": "passed",
+        "exit_code": 0,
+        "exit_code_verified_by": "parent_agent",
+        "log": "/tmp/crpg-final-engine-identity-restored.log",
+        "log_sha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc",
+        "observed_pass_lines": 0,
+        "assertion_groups": 1,
+        "coverage": "Parent-run engine compatibility/protocol identity regression."
+      }
+    ],
+    "source_sha256": {
+      "source/app_tutorial.js": "abc1905bf69332211a366fb25ff2d5f34527bcc7ced797feacaa4a89c1998a36",
+      "source/runtime_combat.js": "69f97debfaa521861e8e7a741890c6cf4fbb0cccaba78fc507fae20ee251a7c4",
+      "source/runtime_enhancement.js": "54f57234d9e7d8bc365ba26c62b6103370a1b8128eaa3a148aab667d91a83cdd",
+      "source/runtime_growth_data_v01522.js": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c",
+      "source/runtime_growth_v01522.js": "bac11c687c66b123ba5a4bcfa8f24a3dfe282d7c7869ae9ddf1144c6aa0802d1"
+    },
+    "runtime_fixture_db": {
+      "path": "content/db.json",
+      "origin": "Clean DB extracted from the shipped f89b2a750b7181044aadefd09fb6cba2744a1711 server artifact; parent recovery reports source-blob verification. Authored raw DB is not published by this balance patch.",
+      "sha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+    },
+    "limits": [
+      "The earlier full-suite run had 121 passes and 7 failures; those historical rows remain unaltered. Current targeted reruns are separate evidence.",
+      "Historical all-level timing rows were removed by workspace maintenance. Current smoke verifies actual native fights and paid XP boundaries, not every old timing-band estimate.",
+      "KO/reward/payment unit fixtures explicitly mock or prepare the state they isolate; use separate unforced native battle cases as combat-balance evidence.",
+      "No production or live market data and no real user saves were changed by these tests."
+    ],
+    "finished_at": "2026-10-07T10:19:08.465343+00:00"
+  },
+  "initial_pruning_blocker": {
+    "executed": false,
+    "reason": "Workspace maintenance removed project directory before child agent could execute tests. /tmp logs remain. No source changes by this child agent."
+  },
+  "requested_final_rerun": {
+    "executed": true,
+    "delegated_test_files": 9,
+    "delegated_passed": 9,
+    "parent_additional_test_files": 2,
+    "parent_additional_passed": 2,
+    "full_suite_repeated": false
+  }
+}

@@ -1,0 +1,413 @@
+{
+  "schema": 1,
+  "purpose": "Optional same-fingerprint replay of initial48; not required final combat contracts. Original48 preserved; extra24 complete.",
+  "command": [
+    "node",
+    "tools/audit_boss_balance_v01619.cjs",
+    "--mode",
+    "baseline",
+    "--baseline",
+    "/tmp/crpg_full_balance_v01621/combat_final_frozen",
+    "--cases",
+    "docs/data/full_balance_v01621/combat/boss_cases.json",
+    "--out",
+    "docs/data/full_balance_v01621/combat/boss_conditions_frozen_final.json"
+  ],
+  "exitCode": 137,
+  "observed": "Shell reports killed; no final JSON produced. Cause not independently established, during parallel native release verification.",
+  "partialLoggedConditions": 26,
+  "partialResults": [
+    {
+      "boss": "FB_ANEMO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 18,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        12
+      ],
+      "hp": 0.6159,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_ANEMO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 8,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        18
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_ANEMO_HYPOSTASIS",
+      "team": "PREPARED_C6",
+      "level": 18,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        5
+      ],
+      "hp": 0.8858,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_ANEMO_HYPOSTASIS",
+      "team": "FIVE_DEFENSIVE",
+      "level": 18,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        13
+      ],
+      "hp": 0.9842,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 20,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        14
+      ],
+      "hp": 0.762,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 10,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        11
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "team": "PREPARED_C6",
+      "level": 20,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        9
+      ],
+      "hp": 0.8261,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "team": "FIVE_DEFENSIVE",
+      "level": 20,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        10
+      ],
+      "hp": 1,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "PREPARED_C0",
+      "level": 22,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        10
+      ],
+      "hp": 0.5831,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "PREPARED_C0",
+      "level": 12,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        13
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "PREPARED_C0",
+      "level": 2,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        6
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "PREPARED_C6",
+      "level": 22,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        4
+      ],
+      "hp": 0.9358,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "FIVE_DEFENSIVE",
+      "level": 22,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        6
+      ],
+      "hp": 1,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 30,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        25
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 20,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        20
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 10,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        6
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "team": "PREPARED_C6",
+      "level": 30,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        11
+      ],
+      "hp": 0.8278,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "team": "FIVE_DEFENSIVE",
+      "level": 30,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        11
+      ],
+      "hp": 1,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 45,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        118
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 35,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        29
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        11
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "team": "PREPARED_C0",
+      "level": 15,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        5
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "team": "PREPARED_C6",
+      "level": 45,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        29
+      ],
+      "hp": 0.7359,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_GEO_HYPOSTASIS",
+      "team": "FIVE_DEFENSIVE",
+      "level": 45,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        10
+      ],
+      "hp": 1,
+      "ko": [
+        0
+      ]
+    },
+    {
+      "boss": "FB_PYRO_REGISVINE",
+      "team": "PREPARED_C0",
+      "level": 38,
+      "seed": 717,
+      "wins": 1,
+      "losses": 0,
+      "rounds": [
+        18
+      ],
+      "hp": 0.0754,
+      "ko": [
+        2
+      ]
+    },
+    {
+      "boss": "FB_PYRO_REGISVINE",
+      "team": "PREPARED_C0",
+      "level": 28,
+      "seed": 717,
+      "wins": 0,
+      "losses": 1,
+      "rounds": [
+        12
+      ],
+      "hp": 0,
+      "ko": [
+        4
+      ]
+    }
+  ],
+  "finalJSONExists": false,
+  "scope": "Do not count this incomplete process as a successful 48-condition replay. Complete native observations remain the initial48 and extra24 with separately declared source fingerprints."
+}

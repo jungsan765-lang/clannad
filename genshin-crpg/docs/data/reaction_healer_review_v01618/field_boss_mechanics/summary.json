@@ -1,0 +1,392 @@
+{
+  "scope": "0.16.18 final native field-boss stats, attack scheduling, immunity and core mechanics",
+  "counts": {
+    "bossStats": 9,
+    "isolatedMoves": 26,
+    "schedules": 9,
+    "checks": 11,
+    "passed": 11,
+    "failed": 0
+  },
+  "sourceUnchanged": true,
+  "baselineFilesCompared": 119,
+  "stats": [
+    {
+      "id": "FB_ANEMO_HYPOSTASIS",
+      "name": "무상의 바람",
+      "level": 18,
+      "hp": 13182,
+      "atk": 574,
+      "def": 164,
+      "effectiveDef": 82.97020104580787,
+      "beforeHp": 7469,
+      "beforeAtk": 1281,
+      "atkChangePercent": -55.19125683060109,
+      "actions": 2
+    },
+    {
+      "id": "FB_ELECTRO_HYPOSTASIS",
+      "name": "무상의 뇌전",
+      "level": 20,
+      "hp": 14588,
+      "atk": 672,
+      "def": 183,
+      "effectiveDef": 87.61096889244375,
+      "beforeHp": 5445,
+      "beforeAtk": 1053,
+      "atkChangePercent": -36.182336182336186,
+      "actions": 2
+    },
+    {
+      "id": "FB_CRYO_REGISVINE",
+      "name": "얼음 나무",
+      "level": 22,
+      "hp": 18264,
+      "atk": 897,
+      "def": 203,
+      "effectiveDef": 92.24414364027747,
+      "beforeHp": 7934,
+      "beforeAtk": 1689,
+      "atkChangePercent": -46.891651865008875,
+      "actions": 2
+    },
+    {
+      "id": "FB_CRYO_HYPOSTASIS",
+      "name": "무상의 얼음",
+      "level": 30,
+      "hp": 25550,
+      "atk": 1509,
+      "def": 294,
+      "effectiveDef": 111.09775095396134,
+      "beforeHp": 7207,
+      "beforeAtk": 1488,
+      "atkChangePercent": 1.4112903225806495,
+      "actions": 2
+    },
+    {
+      "id": "FB_GEO_HYPOSTASIS",
+      "name": "무상의 바위",
+      "level": 45,
+      "hp": 52113,
+      "atk": 4117,
+      "def": 508,
+      "effectiveDef": 146.11220224631492,
+      "beforeHp": 13042,
+      "beforeAtk": 2592,
+      "atkChangePercent": 58.834876543209866,
+      "actions": 2
+    },
+    {
+      "id": "FB_PYRO_REGISVINE",
+      "name": "폭염 나무",
+      "level": 38,
+      "hp": 37953,
+      "atk": 2644,
+      "def": 401,
+      "effectiveDef": 129.78093878072997,
+      "beforeHp": 10692,
+      "beforeAtk": 2138,
+      "atkChangePercent": 23.666978484565004,
+      "actions": 2
+    },
+    {
+      "id": "FB_OCEANID",
+      "name": "물의 정령",
+      "level": 40,
+      "hp": 40457,
+      "atk": 2919,
+      "def": 430,
+      "effectiveDef": 134.35532048611577,
+      "beforeHp": 880,
+      "beforeAtk": 2540,
+      "atkChangePercent": 14.921259842519685,
+      "actions": 2
+    },
+    {
+      "id": "FB_PRIMO_GEOVISHAP",
+      "name": "고대 바위 용 도마뱀",
+      "level": 48,
+      "hp": 56718,
+      "atk": 4694,
+      "def": 557,
+      "effectiveDef": 152.9215990364771,
+      "beforeHp": 19331,
+      "beforeAtk": 3251,
+      "atkChangePercent": 44.38634266379575,
+      "actions": 2
+    },
+    {
+      "id": "FB_RUIN_SERPENT",
+      "name": "유적의 뱀",
+      "level": 56,
+      "hp": 83496,
+      "atk": 7840,
+      "def": 700,
+      "effectiveDef": 171.4214319924053,
+      "beforeHp": 28829,
+      "beforeAtk": 7050,
+      "atkChangePercent": 11.205673758865252,
+      "actions": 2
+    }
+  ],
+  "cryoControl": {
+    "before": {
+      "id": "FB_CRYO_HYPOSTASIS",
+      "level": 30,
+      "hp": 25550,
+      "maxHp": 25550,
+      "atk": 1509,
+      "effectiveAtk": 1509,
+      "def": 294,
+      "effectiveDef": 111.09775095396134,
+      "spd": 70,
+      "effectiveSpd": 70,
+      "hit": 86,
+      "eva": 5,
+      "crit": 10,
+      "aura": "얼음",
+      "nativeAura": "얼음",
+      "shields": [],
+      "fb": {
+        "version": 1,
+        "kind": "CRYO_HYPO",
+        "acts": 0,
+        "next": "BLAST",
+        "stunned": false,
+        "exposedUntil": 0,
+        "revived": false,
+        "revival": null,
+        "shieldBreaks": 0,
+        "shieldReturn": 0,
+        "summoned": 0,
+        "burrowed": false,
+        "phase": 1
+      }
+    },
+    "after": {
+      "id": "FB_CRYO_HYPOSTASIS",
+      "level": 30,
+      "hp": 25550,
+      "maxHp": 25550,
+      "atk": 1509,
+      "effectiveAtk": 1509,
+      "def": 294,
+      "effectiveDef": 111.09775095396134,
+      "spd": 70,
+      "effectiveSpd": 50,
+      "hit": 86,
+      "eva": 5,
+      "crit": 10,
+      "aura": "얼음",
+      "nativeAura": "얼음",
+      "shields": [],
+      "fb": {
+        "version": 1,
+        "kind": "CRYO_HYPO",
+        "acts": 0,
+        "next": "BLAST",
+        "stunned": false,
+        "exposedUntil": 0,
+        "revived": false,
+        "revival": null,
+        "shieldBreaks": 0,
+        "shieldReturn": 0,
+        "summoned": 0,
+        "burrowed": false,
+        "phase": 1
+      }
+    },
+    "base": [
+      {
+        "actor": "무상의 얼음",
+        "target": "동일 조건 비교",
+        "targetId": "PLAYER_CUSTOM",
+        "card": "FB_LANCE",
+        "damage": 456,
+        "absorbed": 0,
+        "element": "얼음",
+        "reaction": null,
+        "sourceKind": null
+      },
+      {
+        "actor": "무상의 얼음",
+        "target": "다이루크",
+        "targetId": "MOND_DILUC",
+        "card": "FB_LANCE",
+        "damage": 297,
+        "absorbed": 0,
+        "element": "얼음",
+        "reaction": null,
+        "sourceKind": null
+      }
+    ],
+    "controlled": [
+      {
+        "actor": "무상의 얼음",
+        "target": "동일 조건 비교",
+        "targetId": "PLAYER_CUSTOM",
+        "card": "FB_LANCE",
+        "damage": 411,
+        "absorbed": 0,
+        "element": "얼음",
+        "reaction": null,
+        "sourceKind": null
+      },
+      {
+        "actor": "무상의 얼음",
+        "target": "다이루크",
+        "targetId": "MOND_DILUC",
+        "card": "FB_LANCE",
+        "damage": 267,
+        "absorbed": 0,
+        "element": "얼음",
+        "reaction": null,
+        "sourceKind": null
+      }
+    ],
+    "baseSum": 753,
+    "controlledSum": 678,
+    "locked": false,
+    "next": "BLAST",
+    "statuses": [
+      {
+        "id": "BOSS_CONTROL",
+        "rounds": 1,
+        "createdRound": 1
+      }
+    ]
+  },
+  "cryoSchedule": {
+    "id": "FB_CRYO_HYPOSTASIS",
+    "turns": [
+      {
+        "turn": 1,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_LANCE",
+          "FB_BLAST_READY"
+        ],
+        "directPackets": 2,
+        "directDamage": 753,
+        "hazardDamage": 0,
+        "next": "BLAST",
+        "rot": 2,
+        "endTurn": "1:1"
+      },
+      {
+        "turn": 2,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_BLAST",
+          "FB_LANCE"
+        ],
+        "directPackets": 6,
+        "directDamage": 1895,
+        "hazardDamage": 1327,
+        "next": null,
+        "rot": 3,
+        "endTurn": "1:1"
+      },
+      {
+        "turn": 3,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_WALL",
+          "FB_LANCE"
+        ],
+        "directPackets": 2,
+        "directDamage": 941,
+        "hazardDamage": 1327,
+        "next": null,
+        "rot": 5,
+        "endTurn": "1:1"
+      },
+      {
+        "turn": 4,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_BLAST_READY"
+        ],
+        "directPackets": 0,
+        "directDamage": 0,
+        "hazardDamage": 0,
+        "next": "BLAST",
+        "rot": 6,
+        "endTurn": "4:4"
+      },
+      {
+        "turn": 5,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_BLAST",
+          "FB_LANCE"
+        ],
+        "directPackets": 6,
+        "directDamage": 2000,
+        "hazardDamage": 1327,
+        "next": null,
+        "rot": 7,
+        "endTurn": "4:4"
+      },
+      {
+        "turn": 6,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_WALL",
+          "FB_LANCE"
+        ],
+        "directPackets": 2,
+        "directDamage": 941,
+        "hazardDamage": 1327,
+        "next": null,
+        "rot": 9,
+        "endTurn": "4:4"
+      },
+      {
+        "turn": 7,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_BLAST_READY"
+        ],
+        "directPackets": 0,
+        "directDamage": 0,
+        "hazardDamage": 0,
+        "next": "BLAST",
+        "rot": 10,
+        "endTurn": "7:7"
+      },
+      {
+        "turn": 8,
+        "advertisedActions": 2,
+        "executedLogMoves": [
+          "FB_BLAST",
+          "FB_LANCE"
+        ],
+        "directPackets": 6,
+        "directDamage": 2000,
+        "hazardDamage": 1327,
+        "next": null,
+        "rot": 11,
+        "endTurn": "7:7"
+      }
+    ],
+    "totalAdvertisedActions": 16,
+    "totalDirectPackets": 24,
+    "totalDirectDamage": 8530,
+    "totalHazardDamage": 6635
+  },
+  "confirmedTimingMismatches": [
+    "Serpent BURROW and EMERGE both execute within the same normal two-action turn, despite next-turn wording.",
+    "Cryo revival counter expires/restores HP before the last END native field tick."
+  ],
+  "notBugsOrNotEstablished": [
+    "Field-boss bespoke stat override is confirmed; it is a balance-path/design incompatibility, not proof every boss is weak. Cryo ATK final1509 slightly exceeds prior1488.",
+    "Diluc E gets one aura/reaction per three-hit card by the existing native noAura followup rule; Cryo native aura is intact.",
+    "1HP shields satisfying Primo mitigation/reflection are the current explicit presence gate. Canon comparison or tuning decision not made here.",
+    "Vine exposure applies immediately after shell break, to later hits of the same card, and whole-turn stun follows. Existing mechanic, no change."
+  ],
+  "initialHarnessArchive": {
+    "file": "native_mechanics_initial_harness.json",
+    "excluded": "Superseded diagnostic output; cross-VM array assertion artifact plus first-guard comparison state and exact melt-ID assertion corrected in final rerun. Not product bugs."
+  }
+}

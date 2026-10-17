@@ -1,0 +1,61 @@
+PASS actual guest and off-party combatant growth appears once in the earned-reward summary
+PASS XP book level-up keeps existing wounds; sub-threshold XP does not invent a level notice
+PASS restoring the same fishing cast clears unsaved input and delegates to the normal restore hook
+PASS Katheryne resolves her schedule from a profile with no playable owner even from another map
+PASS Kaeya resolves his authored field contact and active party location takes precedence
+PASS save labels resolve old and new maps both during a game and on the title screen
+PASS book XP receipt names and counts active and bench recipients without player XP
+PASS bench companion multi-level book XP includes consumed level thresholds exactly
+PASS book display discards cap overflow instead of copying nominal book XP
+PASS the shipped earned-reward renderer prints the companion name on its existing XP line
+PASS an unchanged snapshot after a book receipt never invents a second XP gain
+{
+  "total": 11,
+  "passed": 11,
+  "results": [
+    {
+      "name": "actual guest and off-party combatant growth appears once in the earned-reward summary",
+      "ok": true
+    },
+    {
+      "name": "XP book level-up keeps existing wounds; sub-threshold XP does not invent a level notice",
+      "ok": true
+    },
+    {
+      "name": "restoring the same fishing cast clears unsaved input and delegates to the normal restore hook",
+      "ok": true
+    },
+    {
+      "name": "Katheryne resolves her schedule from a profile with no playable owner even from another map",
+      "ok": true
+    },
+    {
+      "name": "Kaeya resolves his authored field contact and active party location takes precedence",
+      "ok": true
+    },
+    {
+      "name": "save labels resolve old and new maps both during a game and on the title screen",
+      "ok": true
+    },
+    {
+      "name": "book XP receipt names and counts active and bench recipients without player XP",
+      "ok": true
+    },
+    {
+      "name": "bench companion multi-level book XP includes consumed level thresholds exactly",
+      "ok": true
+    },
+    {
+      "name": "book display discards cap overflow instead of copying nominal book XP",
+      "ok": true
+    },
+    {
+      "name": "the shipped earned-reward renderer prints the companion name on its existing XP line",
+      "ok": true
+    },
+    {
+      "name": "an unchanged snapshot after a book receipt never invents a second XP gain",
+      "ok": true
+    }
+  ]
+}

@@ -44,7 +44,14 @@
   // Every character met on this journey, the ones with a story to play right now first.
   function relations(game) {
     const entries = game.storyEntries(), activities = game.relationshipActivityEntries?.() || [], people = game.tables['04_CHAR_DB'];
-    return Object.entries(game.s.relations).filter(([profile, r]) => r && r.firstContact !== null && people.get(profile)).map(([profile, r], order) => {
+    // 0.16.37 (TODO 8): a companion who came from a wish is someone you know even before any story met them (the screen
+    // stood empty with every companion owned). Shown only: their record is written the first time it changes.
+    const listed = Object.entries(game.s.relations || {}).filter(([profile, r]) => r && r.firstContact !== null && people.get(profile));
+    try {
+      const owned = JSON.parse(game.s.global.COMPANION_ELIGIBILITY_JSON || '{}'), seen = new Set(listed.map(([p]) => p));
+      for (const [profile, row] of people) if (!seen.has(profile) && row?.[1] && (owned[row[1]]?.state === 'JOINED' || game.s.wishOwned?.[row[1]])) listed.push([profile, {BOND_SCORE: 0, firstContact: 0}]);
+    } catch {}
+    return listed.map(([profile, r], order) => {
       const track = affectionTrack(game, profile, entries), score = Number(r.BOND_SCORE ?? (r.heart || 0) * 20);
       const acts = activities.filter(a => a.profileId === profile).map(a => ({id:a.id, label:(a.title || a.name) + ' · 30분', reason:a.reason || ''}));
       return {profile, name:people.get(profile)[2], order, score, hearts:Math.min(5, Math.floor(score / 20)), track,

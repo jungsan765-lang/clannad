@@ -1,0 +1,112 @@
+{
+  "scope": "Same isolated native fixture as the retained old shield test; fact collection, not full battle or victory evidence.",
+  "budget": {
+    "zhongliShieldMultiplier": 0.25,
+    "zhongliQHpRatio": 0.18,
+    "zhongliSelfTaken": [
+      1,
+      0.5,
+      0.7,
+      0.85,
+      0.95,
+      1
+    ]
+  },
+  "revision": 1,
+  "round": 2,
+  "owners": {
+    "zhongliHP": 10600,
+    "baizhuHP": 6893
+  },
+  "before": [
+    {
+      "source": "LIYUE_ZHONGLI_E",
+      "value": 740,
+      "initialValue": 740,
+      "rounds": 2,
+      "createdRound": 1,
+      "ignoreForcedMove": true
+    },
+    {
+      "source": "LIYUE_BAIZHU_Q",
+      "value": 758,
+      "initialValue": 758,
+      "rounds": 1,
+      "createdRound": 2,
+      "actor": "LIYUE_BAIZHU"
+    }
+  ],
+  "jadeValue": 0,
+  "baizhuValue": 0,
+  "packet": 759,
+  "oldFixturePrecondition": false,
+  "hpBefore": 2336,
+  "hpAfter": 2790,
+  "heals": [
+    {
+      "target": "PLAYER_CUSTOM",
+      "raw": 413.58,
+      "source": "백출",
+      "actual": 455,
+      "delta": 455
+    }
+  ],
+  "after": [],
+  "packetLog": {
+    "actor": "암흑의 빈 갑주·기수",
+    "target": "동일 조건 비교",
+    "damage": 1,
+    "absorbed": 758,
+    "shieldBefore": 1498,
+    "shieldAfter": 0,
+    "brokenShields": [
+      "LIYUE_ZHONGLI_E",
+      "LIYUE_BAIZHU_Q"
+    ],
+    "element": "물리",
+    "sourceKind": "TEST_FINAL_PACKET",
+    "presentationActorsBefore": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": 2336,
+        "shields": [
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 740,
+            "initialValue": 740,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true
+          },
+          {
+            "source": "LIYUE_BAIZHU_Q",
+            "value": 758,
+            "initialValue": 758,
+            "rounds": 1,
+            "createdRound": 2,
+            "actor": "LIYUE_BAIZHU"
+          }
+        ]
+      }
+    ],
+    "presentationActorsAfter": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": 2335,
+        "shields": []
+      }
+    ],
+    "targetId": "PLAYER_CUSTOM",
+    "actorId": "MON_HUSK_STANDARD#1",
+    "round": 2,
+    "actionSequence": 0,
+    "hpBefore": 2336,
+    "hpAfter": 2335,
+    "maxHp": 4673
+  },
+  "hashes": {
+    "source/runtime_combat.js": "b8b30487a9cf88018fa7253135b69bf097ee37bb57e0c4cea4d4f376cf2387e9",
+    "source/runtime_liyue_cards.js": "2d5a05ae22f2276d5de033ae3334373391daf6b077293b05679bb7762fa095c7",
+    "source/runtime_constellations_v01411.js": "cd8297ea56598788b531102d1cc07cab956e6ce716ea1d69dbeb25031a87a19a"
+  }
+}

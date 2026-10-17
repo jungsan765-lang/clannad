@@ -1,0 +1,71 @@
+{
+  "ok": true,
+  "total": 121,
+  "passed": 121,
+  "node": "v24.19.0",
+  "suites": [
+    {
+      "name": "reactions_43",
+      "test": "tests/test_reaction_fixes_v01619.cjs",
+      "total": 43,
+      "passed": 43,
+      "logPassLines": 43,
+      "ok": true,
+      "result": "reactions_43.json",
+      "log": "reactions_43.log"
+    },
+    {
+      "name": "immunity_41",
+      "test": "tests/test_element_immunity_v01618.cjs",
+      "total": 41,
+      "passed": 41,
+      "logPassLines": 41,
+      "ok": true,
+      "result": "immunity_41.json",
+      "log": "immunity_41.log"
+    },
+    {
+      "name": "legacy_reactions_14",
+      "test": "tests/test_control_reactions_v0168.cjs",
+      "total": 14,
+      "passed": 14,
+      "logPassLines": 14,
+      "ok": true,
+      "result": "legacy_reactions_14.json",
+      "log": "legacy_reactions_14.log"
+    },
+    {
+      "name": "control_grace_10",
+      "test": "tests/test_control_grace_v01619.cjs",
+      "total": 10,
+      "passed": 10,
+      "logPassLines": 10,
+      "ok": true,
+      "result": "control_grace_10.json",
+      "log": "control_grace_10.log"
+    },
+    {
+      "name": "monster_control_13",
+      "test": "tests/test_monster_control_fixes_v01618.cjs",
+      "total": 13,
+      "passed": 13,
+      "logPassLines": 13,
+      "ok": true,
+      "result": "monster_control_13.json",
+      "log": "monster_control_13.log"
+    }
+  ],
+  "counterfactual": {
+    "expectedFailure": true,
+    "observedFailure": true,
+    "script": "replay_counterfactual.cjs",
+    "log": "counterfactual_additive.log",
+    "expectedDamageRounded": 3601,
+    "oldObservedDamage": 4452
+  },
+  "sourceStableDuringRecordedInterval": true,
+  "helpers": [
+    "tests/helpers_v011.cjs",
+    "tools/audit_protagonist_v01618.cjs"
+  ]
+}

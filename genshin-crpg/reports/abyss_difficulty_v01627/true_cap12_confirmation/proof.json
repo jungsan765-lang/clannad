@@ -1,0 +1,4675 @@
+{
+  "scope": "Existing genuine 0.16.26 full +12 benchmark verified, plus final 0.16.27 native first-room entry and public cap-ascension proof. No new full battle runs.",
+  "beforeFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "currentFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "archives": {
+    "c0": {
+      "path": "reports/abyss_difficulty_v01627/baseline_mastery_c0_final/native.json.gz",
+      "sha256": "946c5c51fd0233cfa9c20fd219893656696139130eb7a57da6517c3004455806",
+      "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159"
+    },
+    "c2": {
+      "path": "reports/abyss_difficulty_v01627/baseline_mastery_c2_final/native.json.gz",
+      "sha256": "b44e4a94c38b9796018965225773ebd95d0cb0f02fd16b21ab2071ec73157df4",
+      "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159"
+    },
+    "c6": {
+      "path": "reports/abyss_difficulty_v01627/baseline_mastery_c6_final/native.json.gz",
+      "sha256": "210db872ec95f406d1ec41dcf8caa8e89b72d227ae809212136eaf10a4f812b8",
+      "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159"
+    }
+  },
+  "sourceHashes": {
+    "source/runtime_abyss.js": "bfe0d10cde798b29b91e13db7feb3d74da3c5e5b6561f63af523eba751eb9d84",
+    "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+    "source/runtime_liyue_artifacts.js": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+    "source/runtime_gear_traits.js": "6d1413b7f43f717572b75608a70939ec8d10bb6c2e2d31ce519e7ab2d14af3af",
+    "source/runtime_combat_v0148.js": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e"
+  },
+  "equipmentStats": [
+    {
+      "equip": "EQ_SWORD_RANCOUR",
+      "name": "참암 프로토타입",
+      "supported": true,
+      "hasGain": true,
+      "cap": 12,
+      "stats0": {
+        "ATK": 63,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats10": {
+        "ATK": 97,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats12": {
+        "ATK": 115,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "delta12vs10": {
+        "ATK": 18,
+        "DEF": 0,
+        "MAX_HP": 0
+      }
+    },
+    {
+      "equip": "EQ_ACC_HEALER_BROOCH",
+      "name": "치유사의 브로치",
+      "supported": true,
+      "hasGain": true,
+      "cap": 12,
+      "stats0": {
+        "ATK": 0,
+        "DEF": 0,
+        "MAX_HP": 80
+      },
+      "stats10": {
+        "ATK": 0,
+        "DEF": 0,
+        "MAX_HP": 120
+      },
+      "stats12": {
+        "ATK": 0,
+        "DEF": 0,
+        "MAX_HP": 144
+      },
+      "delta12vs10": {
+        "ATK": 0,
+        "DEF": 0,
+        "MAX_HP": 24
+      }
+    },
+    {
+      "equip": "EQ_FB_ARMOR_JADE_BULWARK",
+      "name": "설익은 옥 원소 갑옷",
+      "supported": true,
+      "hasGain": true,
+      "cap": 12,
+      "stats0": {
+        "ATK": 0,
+        "DEF": 48,
+        "MAX_HP": 260
+      },
+      "stats10": {
+        "ATK": 0,
+        "DEF": 72,
+        "MAX_HP": 390
+      },
+      "stats12": {
+        "ATK": 0,
+        "DEF": 86,
+        "MAX_HP": 468
+      },
+      "delta12vs10": {
+        "ATK": 0,
+        "DEF": 14,
+        "MAX_HP": 78
+      }
+    },
+    {
+      "equip": "EQ_EX_MOND_DILUC",
+      "name": "새벽 와이너리 대검",
+      "supported": true,
+      "hasGain": true,
+      "cap": 12,
+      "stats0": {
+        "ATK": 70,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats10": {
+        "ATK": 105,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats12": {
+        "ATK": 126,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "delta12vs10": {
+        "ATK": 21,
+        "DEF": 0,
+        "MAX_HP": 0
+      }
+    },
+    {
+      "equip": "EQ_EX_MOND_JEAN",
+      "name": "민들레 기사의 검",
+      "supported": true,
+      "hasGain": true,
+      "cap": 12,
+      "stats0": {
+        "ATK": 64,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats10": {
+        "ATK": 96,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats12": {
+        "ATK": 115,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "delta12vs10": {
+        "ATK": 19,
+        "DEF": 0,
+        "MAX_HP": 0
+      }
+    },
+    {
+      "equip": "EQ_EX_LIYUE_ZHONGLI",
+      "name": "계약 수호의 창",
+      "supported": true,
+      "hasGain": true,
+      "cap": 12,
+      "stats0": {
+        "ATK": 64,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats10": {
+        "ATK": 96,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "stats12": {
+        "ATK": 115,
+        "DEF": 0,
+        "MAX_HP": 0
+      },
+      "delta12vs10": {
+        "ATK": 19,
+        "DEF": 0,
+        "MAX_HP": 0
+      }
+    }
+  ],
+  "publicAscensions": [
+    {
+      "equip": "EQ_SWORD_RANCOUR",
+      "quote": {
+        "slot": "EQI_000003",
+        "name": "참암 프로토타입",
+        "equip": "EQ_SWORD_RANCOUR",
+        "level": 10,
+        "cap": 10,
+        "instanceRevision": 0,
+        "supported": true,
+        "kind": "ASCEND",
+        "target": 12,
+        "reason": "강적의 잔향이 부족합니다.",
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 97,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 10000,
+        "down": 0,
+        "hold": 0,
+        "statsAfter": {
+          "ATK": 97,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      },
+      "result": {
+        "kind": "ASCEND",
+        "slot": "EQI_000003",
+        "equip": "EQ_SWORD_RANCOUR",
+        "name": "참암 프로토타입",
+        "from": 10,
+        "level": 10,
+        "cap": 12,
+        "outcome": "ASCENDED",
+        "chance": {
+          "success": 10000,
+          "hold": 0,
+          "down": 0,
+          "units": "basis_points_per_attempt"
+        },
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 97,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsAfter": {
+          "ATK": 97,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "minutes": 60
+      },
+      "actualCap": 12,
+      "actualMoraPaid": 3000,
+      "nextPublicQuote": {
+        "slot": "EQI_000003",
+        "name": "참암 프로토타입",
+        "equip": "EQ_SWORD_RANCOUR",
+        "level": 10,
+        "cap": 12,
+        "instanceRevision": 1,
+        "supported": true,
+        "kind": "ENHANCE",
+        "target": 11,
+        "reason": "",
+        "cost": {
+          "mora": 22400,
+          "items": {
+            "ORE_WHITE_IRON": 64,
+            "ORE_CRYSTAL": 40
+          }
+        },
+        "statsBefore": {
+          "ATK": 97,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 2500,
+        "down": 200,
+        "hold": 7300,
+        "statsAfter": {
+          "ATK": 106,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsDown": {
+          "ATK": 93,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      }
+    },
+    {
+      "equip": "EQ_ACC_HEALER_BROOCH",
+      "quote": {
+        "slot": "EQI_000012",
+        "name": "치유사의 브로치",
+        "equip": "EQ_ACC_HEALER_BROOCH",
+        "level": 10,
+        "cap": 10,
+        "instanceRevision": 0,
+        "supported": true,
+        "kind": "ASCEND",
+        "target": 12,
+        "reason": "강적의 잔향이 부족합니다.",
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 0,
+          "DEF": 0,
+          "MAX_HP": 120
+        },
+        "success": 10000,
+        "down": 0,
+        "hold": 0,
+        "statsAfter": {
+          "ATK": 0,
+          "DEF": 0,
+          "MAX_HP": 120
+        }
+      },
+      "result": {
+        "kind": "ASCEND",
+        "slot": "EQI_000012",
+        "equip": "EQ_ACC_HEALER_BROOCH",
+        "name": "치유사의 브로치",
+        "from": 10,
+        "level": 10,
+        "cap": 12,
+        "outcome": "ASCENDED",
+        "chance": {
+          "success": 10000,
+          "hold": 0,
+          "down": 0,
+          "units": "basis_points_per_attempt"
+        },
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 0,
+          "DEF": 0,
+          "MAX_HP": 120
+        },
+        "statsAfter": {
+          "ATK": 0,
+          "DEF": 0,
+          "MAX_HP": 120
+        },
+        "minutes": 60
+      },
+      "actualCap": 12,
+      "actualMoraPaid": 3000,
+      "nextPublicQuote": {
+        "slot": "EQI_000012",
+        "name": "치유사의 브로치",
+        "equip": "EQ_ACC_HEALER_BROOCH",
+        "level": 10,
+        "cap": 12,
+        "instanceRevision": 1,
+        "supported": true,
+        "kind": "ENHANCE",
+        "target": 11,
+        "reason": "",
+        "cost": {
+          "mora": 22400,
+          "items": {
+            "ORE_WHITE_IRON": 64,
+            "ORE_CRYSTAL": 40
+          }
+        },
+        "statsBefore": {
+          "ATK": 0,
+          "DEF": 0,
+          "MAX_HP": 120
+        },
+        "success": 2500,
+        "down": 200,
+        "hold": 7300,
+        "statsAfter": {
+          "ATK": 0,
+          "DEF": 0,
+          "MAX_HP": 132
+        },
+        "statsDown": {
+          "ATK": 0,
+          "DEF": 0,
+          "MAX_HP": 116
+        }
+      }
+    },
+    {
+      "equip": "EQ_FB_ARMOR_JADE_BULWARK",
+      "quote": {
+        "slot": "EQI_000013",
+        "name": "설익은 옥 원소 갑옷",
+        "equip": "EQ_FB_ARMOR_JADE_BULWARK",
+        "level": 10,
+        "cap": 10,
+        "instanceRevision": 0,
+        "supported": true,
+        "kind": "ASCEND",
+        "target": 12,
+        "reason": "강적의 잔향이 부족합니다.",
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 0,
+          "DEF": 72,
+          "MAX_HP": 390
+        },
+        "success": 10000,
+        "down": 0,
+        "hold": 0,
+        "statsAfter": {
+          "ATK": 0,
+          "DEF": 72,
+          "MAX_HP": 390
+        }
+      },
+      "result": {
+        "kind": "ASCEND",
+        "slot": "EQI_000013",
+        "equip": "EQ_FB_ARMOR_JADE_BULWARK",
+        "name": "설익은 옥 원소 갑옷",
+        "from": 10,
+        "level": 10,
+        "cap": 12,
+        "outcome": "ASCENDED",
+        "chance": {
+          "success": 10000,
+          "hold": 0,
+          "down": 0,
+          "units": "basis_points_per_attempt"
+        },
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 0,
+          "DEF": 72,
+          "MAX_HP": 390
+        },
+        "statsAfter": {
+          "ATK": 0,
+          "DEF": 72,
+          "MAX_HP": 390
+        },
+        "minutes": 60
+      },
+      "actualCap": 12,
+      "actualMoraPaid": 3000,
+      "nextPublicQuote": {
+        "slot": "EQI_000013",
+        "name": "설익은 옥 원소 갑옷",
+        "equip": "EQ_FB_ARMOR_JADE_BULWARK",
+        "level": 10,
+        "cap": 12,
+        "instanceRevision": 1,
+        "supported": true,
+        "kind": "ENHANCE",
+        "target": 11,
+        "reason": "",
+        "cost": {
+          "mora": 22400,
+          "items": {
+            "ORE_WHITE_IRON": 64,
+            "ORE_CRYSTAL": 40
+          }
+        },
+        "statsBefore": {
+          "ATK": 0,
+          "DEF": 72,
+          "MAX_HP": 390
+        },
+        "success": 2500,
+        "down": 200,
+        "hold": 7300,
+        "statsAfter": {
+          "ATK": 0,
+          "DEF": 79,
+          "MAX_HP": 429
+        },
+        "statsDown": {
+          "ATK": 0,
+          "DEF": 70,
+          "MAX_HP": 377
+        }
+      }
+    },
+    {
+      "equip": "EQ_EX_MOND_DILUC",
+      "quote": {
+        "slot": "EQI_000014",
+        "name": "새벽 와이너리 대검",
+        "equip": "EQ_EX_MOND_DILUC",
+        "level": 10,
+        "cap": 10,
+        "instanceRevision": 0,
+        "supported": true,
+        "kind": "ASCEND",
+        "target": 12,
+        "reason": "강적의 잔향이 부족합니다.",
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 105,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 10000,
+        "down": 0,
+        "hold": 0,
+        "statsAfter": {
+          "ATK": 105,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      },
+      "result": {
+        "kind": "ASCEND",
+        "slot": "EQI_000014",
+        "equip": "EQ_EX_MOND_DILUC",
+        "name": "새벽 와이너리 대검",
+        "from": 10,
+        "level": 10,
+        "cap": 12,
+        "outcome": "ASCENDED",
+        "chance": {
+          "success": 10000,
+          "hold": 0,
+          "down": 0,
+          "units": "basis_points_per_attempt"
+        },
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 105,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsAfter": {
+          "ATK": 105,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "minutes": 60
+      },
+      "actualCap": 12,
+      "actualMoraPaid": 3000,
+      "nextPublicQuote": {
+        "slot": "EQI_000014",
+        "name": "새벽 와이너리 대검",
+        "equip": "EQ_EX_MOND_DILUC",
+        "level": 10,
+        "cap": 12,
+        "instanceRevision": 1,
+        "supported": true,
+        "kind": "ENHANCE",
+        "target": 11,
+        "reason": "",
+        "cost": {
+          "mora": 22400,
+          "items": {
+            "ORE_WHITE_IRON": 64,
+            "ORE_CRYSTAL": 40
+          }
+        },
+        "statsBefore": {
+          "ATK": 105,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 2500,
+        "down": 200,
+        "hold": 7300,
+        "statsAfter": {
+          "ATK": 116,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsDown": {
+          "ATK": 102,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      }
+    },
+    {
+      "equip": "EQ_EX_MOND_JEAN",
+      "quote": {
+        "slot": "EQI_000015",
+        "name": "민들레 기사의 검",
+        "equip": "EQ_EX_MOND_JEAN",
+        "level": 10,
+        "cap": 10,
+        "instanceRevision": 0,
+        "supported": true,
+        "kind": "ASCEND",
+        "target": 12,
+        "reason": "강적의 잔향이 부족합니다.",
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 10000,
+        "down": 0,
+        "hold": 0,
+        "statsAfter": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      },
+      "result": {
+        "kind": "ASCEND",
+        "slot": "EQI_000015",
+        "equip": "EQ_EX_MOND_JEAN",
+        "name": "민들레 기사의 검",
+        "from": 10,
+        "level": 10,
+        "cap": 12,
+        "outcome": "ASCENDED",
+        "chance": {
+          "success": 10000,
+          "hold": 0,
+          "down": 0,
+          "units": "basis_points_per_attempt"
+        },
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsAfter": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "minutes": 60
+      },
+      "actualCap": 12,
+      "actualMoraPaid": 3000,
+      "nextPublicQuote": {
+        "slot": "EQI_000015",
+        "name": "민들레 기사의 검",
+        "equip": "EQ_EX_MOND_JEAN",
+        "level": 10,
+        "cap": 12,
+        "instanceRevision": 1,
+        "supported": true,
+        "kind": "ENHANCE",
+        "target": 11,
+        "reason": "",
+        "cost": {
+          "mora": 22400,
+          "items": {
+            "ORE_WHITE_IRON": 64,
+            "ORE_CRYSTAL": 40
+          }
+        },
+        "statsBefore": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 2500,
+        "down": 200,
+        "hold": 7300,
+        "statsAfter": {
+          "ATK": 106,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsDown": {
+          "ATK": 93,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      }
+    },
+    {
+      "equip": "EQ_EX_LIYUE_ZHONGLI",
+      "quote": {
+        "slot": "EQI_000016",
+        "name": "계약 수호의 창",
+        "equip": "EQ_EX_LIYUE_ZHONGLI",
+        "level": 10,
+        "cap": 10,
+        "instanceRevision": 0,
+        "supported": true,
+        "kind": "ASCEND",
+        "target": 12,
+        "reason": "강적의 잔향이 부족합니다.",
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 10000,
+        "down": 0,
+        "hold": 0,
+        "statsAfter": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      },
+      "result": {
+        "kind": "ASCEND",
+        "slot": "EQI_000016",
+        "equip": "EQ_EX_LIYUE_ZHONGLI",
+        "name": "계약 수호의 창",
+        "from": 10,
+        "level": 10,
+        "cap": 12,
+        "outcome": "ASCENDED",
+        "chance": {
+          "success": 10000,
+          "hold": 0,
+          "down": 0,
+          "units": "basis_points_per_attempt"
+        },
+        "cost": {
+          "mora": 3000,
+          "items": {
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1,
+            "ORE_CRYSTAL": 5
+          }
+        },
+        "statsBefore": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsAfter": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "minutes": 60
+      },
+      "actualCap": 12,
+      "actualMoraPaid": 3000,
+      "nextPublicQuote": {
+        "slot": "EQI_000016",
+        "name": "계약 수호의 창",
+        "equip": "EQ_EX_LIYUE_ZHONGLI",
+        "level": 10,
+        "cap": 12,
+        "instanceRevision": 1,
+        "supported": true,
+        "kind": "ENHANCE",
+        "target": 11,
+        "reason": "",
+        "cost": {
+          "mora": 22400,
+          "items": {
+            "ORE_WHITE_IRON": 64,
+            "ORE_CRYSTAL": 40
+          }
+        },
+        "statsBefore": {
+          "ATK": 96,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "success": 2500,
+        "down": 200,
+        "hold": 7300,
+        "statsAfter": {
+          "ATK": 106,
+          "DEF": 0,
+          "MAX_HP": 0
+        },
+        "statsDown": {
+          "ATK": 93,
+          "DEF": 0,
+          "MAX_HP": 0
+        }
+      }
+    }
+  ],
+  "rows": [
+    {
+      "policy": "C0",
+      "seed": 717,
+      "enhance": 12,
+      "cap": 12,
+      "state": "TIMEOUT",
+      "totalRounds": 12,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0,
+            "MOND_DILUC": 0.8577548758201264,
+            "MOND_JEAN": 0.9523716024795938,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 38065,
+          "shieldSpent": 139210,
+          "healActual": 21026
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 19,
+          "level": 5,
+          "quality": 997,
+          "stats": {
+            "ATK": 82.5,
+            "SPD": 21,
+            "HIT": 21,
+            "CRIT": 6.5,
+            "CRIT_DMG": 38.5,
+            "EVA": 9.8
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 37,
+          "level": 5,
+          "quality": 916,
+          "stats": {
+            "ATK": 92.5,
+            "SPD": 18.5,
+            "HIT": 24,
+            "CRIT": 6,
+            "STATUS_RESIST": 8.8,
+            "DEF": 57.5
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 80,
+          "level": 5,
+          "quality": 971,
+          "stats": {
+            "ATK": 117.5,
+            "SPD": 25.5,
+            "HIT": 23.5,
+            "CRIT": 6.8,
+            "MAX_HP": 235,
+            "CRIT_DMG": 18.5
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 8,
+          "level": 5,
+          "quality": 937,
+          "stats": {
+            "ATK": 70,
+            "DEF": 100,
+            "MAX_HP": 637.5,
+            "CRIT": 7,
+            "CRIT_DMG": 49.3,
+            "EVA": 12.3,
+            "SPD": 10.5
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C0",
+      "seed": 4242,
+      "enhance": 12,
+      "cap": 12,
+      "state": "DOWNED",
+      "totalRounds": 8,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "DOWNED",
+          "rounds": 8,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523680429419579,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 28994,
+          "shieldSpent": 68541,
+          "healActual": 11536
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 20,
+          "level": 5,
+          "quality": 905,
+          "stats": {
+            "ATK": 90,
+            "DEF": 92.5,
+            "MAX_HP": 437.5,
+            "CRIT": 5.8,
+            "CRIT_DMG": 43.8,
+            "EVA": 9.3,
+            "SPD": 8.8
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 103,
+          "level": 5,
+          "quality": 958,
+          "stats": {
+            "ATK": 80,
+            "DEF": 102.5,
+            "MAX_HP": 530,
+            "CRIT": 7,
+            "CRIT_DMG": 32.5,
+            "SPD": 13.5,
+            "EVA": 12
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 116,
+          "level": 5,
+          "quality": 996,
+          "stats": {
+            "ATK": 82.5,
+            "DEF": 90,
+            "MAX_HP": 717.5,
+            "CRIT": 6.5,
+            "CRIT_DMG": 51.5,
+            "SPD": 10.3,
+            "HIT": 8.8
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 5,
+          "level": 5,
+          "quality": 983,
+          "stats": {
+            "DEF": 217.5,
+            "MAX_HP": 830,
+            "STATUS_RESIST": 16,
+            "CRIT_DMG": 21.8,
+            "ATK": 47.5
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C0",
+      "seed": 9031,
+      "enhance": 12,
+      "cap": 12,
+      "state": "DOWNED",
+      "totalRounds": 17,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 9,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0.84347336642276,
+            "MOND_DILUC": 0.8724639363770934,
+            "MOND_JEAN": 0.9523785047929891,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 12956,
+          "shieldSpent": 93489,
+          "healActual": 8768
+        },
+        {
+          "chamber": 2,
+          "state": "DOWNED",
+          "rounds": 8,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0,
+            "MOND_DILUC": 0.7556961657910777,
+            "MOND_JEAN": 0.9523785047929891,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 43324,
+          "shieldSpent": 89633,
+          "healActual": 22113
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 25,
+          "level": 5,
+          "quality": 987,
+          "stats": {
+            "ATK": 77.5,
+            "DEF": 80,
+            "MAX_HP": 605,
+            "CRIT": 9,
+            "CRIT_DMG": 33.8,
+            "HIT": 8.3,
+            "SPD": 12
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 22,
+          "level": 5,
+          "quality": 958,
+          "stats": {
+            "ATK": 110,
+            "SPD": 22.8,
+            "HIT": 21,
+            "CRIT": 8.8,
+            "DEF": 35,
+            "MAX_HP": 440
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 7,
+          "level": 5,
+          "quality": 953,
+          "stats": {
+            "MAX_HP": 1507.5,
+            "DEF": 55,
+            "STATUS_RESIST": 8,
+            "ATK": 45,
+            "EVA": 10.5
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 12,
+          "level": 5,
+          "quality": 905,
+          "stats": {
+            "ATK": 72.5,
+            "DEF": 90,
+            "MAX_HP": 457.5,
+            "CRIT": 6.5,
+            "CRIT_DMG": 29.3,
+            "HIT": 6.5,
+            "STATUS_RESIST": 12.3
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C2",
+      "seed": 717,
+      "enhance": 12,
+      "cap": 12,
+      "state": "DOWNED",
+      "totalRounds": 18,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 10,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0.2974342212779866,
+            "MOND_DILUC": 0.8577548758201264,
+            "MOND_JEAN": 0.9523716024795938,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 31582,
+          "shieldSpent": 112308,
+          "healActual": 18660
+        },
+        {
+          "chamber": 2,
+          "state": "DOWNED",
+          "rounds": 8,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0,
+            "MOND_DILUC": 0.8408580245064262,
+            "MOND_JEAN": 0.9523716024795938,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 33061,
+          "shieldSpent": 87781,
+          "healActual": 17616
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 19,
+          "level": 5,
+          "quality": 997,
+          "stats": {
+            "ATK": 82.5,
+            "SPD": 21,
+            "HIT": 21,
+            "CRIT": 6.5,
+            "CRIT_DMG": 38.5,
+            "EVA": 9.8
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 37,
+          "level": 5,
+          "quality": 916,
+          "stats": {
+            "ATK": 92.5,
+            "SPD": 18.5,
+            "HIT": 24,
+            "CRIT": 6,
+            "STATUS_RESIST": 8.8,
+            "DEF": 57.5
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 80,
+          "level": 5,
+          "quality": 971,
+          "stats": {
+            "ATK": 117.5,
+            "SPD": 25.5,
+            "HIT": 23.5,
+            "CRIT": 6.8,
+            "MAX_HP": 235,
+            "CRIT_DMG": 18.5
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 8,
+          "level": 5,
+          "quality": 937,
+          "stats": {
+            "ATK": 70,
+            "DEF": 100,
+            "MAX_HP": 637.5,
+            "CRIT": 7,
+            "CRIT_DMG": 49.3,
+            "EVA": 12.3,
+            "SPD": 10.5
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C2",
+      "seed": 4242,
+      "enhance": 12,
+      "cap": 12,
+      "state": "DOWNED",
+      "totalRounds": 5,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "DOWNED",
+          "rounds": 5,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523680429419579,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 28542,
+          "shieldSpent": 44482,
+          "healActual": 11084
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 20,
+          "level": 5,
+          "quality": 905,
+          "stats": {
+            "ATK": 90,
+            "DEF": 92.5,
+            "MAX_HP": 437.5,
+            "CRIT": 5.8,
+            "CRIT_DMG": 43.8,
+            "EVA": 9.3,
+            "SPD": 8.8
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 103,
+          "level": 5,
+          "quality": 958,
+          "stats": {
+            "ATK": 80,
+            "DEF": 102.5,
+            "MAX_HP": 530,
+            "CRIT": 7,
+            "CRIT_DMG": 32.5,
+            "SPD": 13.5,
+            "EVA": 12
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 116,
+          "level": 5,
+          "quality": 996,
+          "stats": {
+            "ATK": 82.5,
+            "DEF": 90,
+            "MAX_HP": 717.5,
+            "CRIT": 6.5,
+            "CRIT_DMG": 51.5,
+            "SPD": 10.3,
+            "HIT": 8.8
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 5,
+          "level": 5,
+          "quality": 983,
+          "stats": {
+            "DEF": 217.5,
+            "MAX_HP": 830,
+            "STATUS_RESIST": 16,
+            "CRIT_DMG": 21.8,
+            "ATK": 47.5
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C2",
+      "seed": 9031,
+      "enhance": 12,
+      "cap": 12,
+      "state": "CLEARED",
+      "totalRounds": 22,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 7,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0.857033208821573,
+            "MOND_DILUC": 0.9017211853829855,
+            "MOND_JEAN": 0.9523785047929891,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 6477,
+          "shieldSpent": 80340,
+          "healActual": 7806
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 7,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0.023896024151870233,
+            "MOND_DILUC": 0.8455286912605579,
+            "MOND_JEAN": 0.9523785047929891,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 34633,
+          "shieldSpent": 68225,
+          "healActual": 19489
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 8,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0,
+            "MOND_DILUC": 0.7099236641221374,
+            "MOND_JEAN": 0.9092287527948395,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 43622,
+          "shieldSpent": 74615,
+          "healActual": 19511
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 25,
+          "level": 5,
+          "quality": 987,
+          "stats": {
+            "ATK": 77.5,
+            "DEF": 80,
+            "MAX_HP": 605,
+            "CRIT": 9,
+            "CRIT_DMG": 33.8,
+            "HIT": 8.3,
+            "SPD": 12
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 22,
+          "level": 5,
+          "quality": 958,
+          "stats": {
+            "ATK": 110,
+            "SPD": 22.8,
+            "HIT": 21,
+            "CRIT": 8.8,
+            "DEF": 35,
+            "MAX_HP": 440
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 7,
+          "level": 5,
+          "quality": 953,
+          "stats": {
+            "MAX_HP": 1507.5,
+            "DEF": 55,
+            "STATUS_RESIST": 8,
+            "ATK": 45,
+            "EVA": 10.5
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 12,
+          "level": 5,
+          "quality": 905,
+          "stats": {
+            "ATK": 72.5,
+            "DEF": 90,
+            "MAX_HP": 457.5,
+            "CRIT": 6.5,
+            "CRIT_DMG": 29.3,
+            "HIT": 6.5,
+            "STATUS_RESIST": 12.3
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C6",
+      "seed": 717,
+      "enhance": 12,
+      "cap": 12,
+      "state": "CLEARED",
+      "totalRounds": 19,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 7,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 1,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523716024795938,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 385,
+          "shieldSpent": 60875,
+          "healActual": 2083
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 7,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0.9699842022116903,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523716024795938,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 1809,
+          "shieldSpent": 57049,
+          "healActual": 3507
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 5,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 0.8699678596720597,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523716024795938,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 4804,
+          "shieldSpent": 41468,
+          "healActual": 4115
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 19,
+          "level": 5,
+          "quality": 997,
+          "stats": {
+            "ATK": 82.5,
+            "SPD": 21,
+            "HIT": 21,
+            "CRIT": 6.5,
+            "CRIT_DMG": 38.5,
+            "EVA": 9.8
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 37,
+          "level": 5,
+          "quality": 916,
+          "stats": {
+            "ATK": 92.5,
+            "SPD": 18.5,
+            "HIT": 24,
+            "CRIT": 6,
+            "STATUS_RESIST": 8.8,
+            "DEF": 57.5
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 80,
+          "level": 5,
+          "quality": 971,
+          "stats": {
+            "ATK": 117.5,
+            "SPD": 25.5,
+            "HIT": 23.5,
+            "CRIT": 6.8,
+            "MAX_HP": 235,
+            "CRIT_DMG": 18.5
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 8,
+          "level": 5,
+          "quality": 937,
+          "stats": {
+            "ATK": 70,
+            "DEF": 100,
+            "MAX_HP": 637.5,
+            "CRIT": 7,
+            "CRIT_DMG": 49.3,
+            "EVA": 12.3,
+            "SPD": 10.5
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C6",
+      "seed": 4242,
+      "enhance": 12,
+      "cap": 12,
+      "state": "CLEARED",
+      "totalRounds": 14,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 4,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 1,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523680429419579,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 0,
+          "shieldSpent": 34912,
+          "healActual": 1757
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 5,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 1,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523680429419579,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 0,
+          "shieldSpent": 38908,
+          "healActual": 1757
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 5,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 1,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523680429419579,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 0,
+          "shieldSpent": 38270,
+          "healActual": 1757
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 20,
+          "level": 5,
+          "quality": 905,
+          "stats": {
+            "ATK": 90,
+            "DEF": 92.5,
+            "MAX_HP": 437.5,
+            "CRIT": 5.8,
+            "CRIT_DMG": 43.8,
+            "EVA": 9.3,
+            "SPD": 8.8
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 103,
+          "level": 5,
+          "quality": 958,
+          "stats": {
+            "ATK": 80,
+            "DEF": 102.5,
+            "MAX_HP": 530,
+            "CRIT": 7,
+            "CRIT_DMG": 32.5,
+            "SPD": 13.5,
+            "EVA": 12
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 116,
+          "level": 5,
+          "quality": 996,
+          "stats": {
+            "ATK": 82.5,
+            "DEF": 90,
+            "MAX_HP": 717.5,
+            "CRIT": 6.5,
+            "CRIT_DMG": 51.5,
+            "SPD": 10.3,
+            "HIT": 8.8
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 5,
+          "level": 5,
+          "quality": 983,
+          "stats": {
+            "DEF": 217.5,
+            "MAX_HP": 830,
+            "STATUS_RESIST": 16,
+            "CRIT_DMG": 21.8,
+            "ATK": 47.5
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    },
+    {
+      "policy": "C6",
+      "seed": 9031,
+      "enhance": 12,
+      "cap": 12,
+      "state": "CLEARED",
+      "totalRounds": 18,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 5,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 1,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523785047929891,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 0,
+          "shieldSpent": 37103,
+          "healActual": 1853
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 6,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 1,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523785047929891,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 0,
+          "shieldSpent": 42377,
+          "healActual": 1853
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 7,
+          "ko": [],
+          "minHpBySource": {
+            "PLAYER_CUSTOM": 1,
+            "MOND_DILUC": 1,
+            "MOND_JEAN": 0.9523785047929891,
+            "LIYUE_ZHONGLI": 1
+          },
+          "hpDamage": 0,
+          "shieldSpent": 54317,
+          "healActual": 1853
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "attempts": 25,
+          "level": 5,
+          "quality": 987,
+          "stats": {
+            "ATK": 77.5,
+            "DEF": 80,
+            "MAX_HP": 605,
+            "CRIT": 9,
+            "CRIT_DMG": 33.8,
+            "HIT": 8.3,
+            "SPD": 12
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "attempts": 22,
+          "level": 5,
+          "quality": 958,
+          "stats": {
+            "ATK": 110,
+            "SPD": 22.8,
+            "HIT": 21,
+            "CRIT": 8.8,
+            "DEF": 35,
+            "MAX_HP": 440
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "attempts": 7,
+          "level": 5,
+          "quality": 953,
+          "stats": {
+            "MAX_HP": 1507.5,
+            "DEF": 55,
+            "STATUS_RESIST": 8,
+            "ATK": 45,
+            "EVA": 10.5
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "attempts": 12,
+          "level": 5,
+          "quality": 905,
+          "stats": {
+            "ATK": 72.5,
+            "DEF": 90,
+            "MAX_HP": 457.5,
+            "CRIT": 6.5,
+            "CRIT_DMG": 29.3,
+            "HIT": 6.5,
+            "STATUS_RESIST": 12.3
+          }
+        }
+      ],
+      "sameEquipmentArtifactsAndBaseTalentsAsC0": true
+    }
+  ],
+  "nativeEntries": [
+    {
+      "policy": "C0",
+      "seed": 717,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "side": "ALLY",
+          "control": "PLAYER",
+          "hp": 18357,
+          "maxHp": 18357,
+          "atk": 3552,
+          "def": 1412,
+          "spd": 95,
+          "level": 60,
+          "crit": 11.5,
+          "critDmg": 88.5,
+          "hit": 102,
+          "eva": 14.8,
+          "resist": 7,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "cooldowns": {},
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 1,
+          "tactic": "균형",
+          "protagonist": {
+            "version": 1,
+            "route": "ROUTE_ISEKAI",
+            "skillIds": [
+              "PLAYER_ISEKAI_E",
+              "PLAYER_ISEKAI_Q"
+            ]
+          },
+          "traits": {
+            "STACK_ATK": 3,
+            "PRECISION": 5,
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 0
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "name": "다이루크",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 33379,
+          "maxHp": 33379,
+          "atk": 7237.34,
+          "def": 4206.26,
+          "spd": 93.5,
+          "level": 60,
+          "crit": 29,
+          "critDmg": 70,
+          "hit": 119,
+          "eva": 8,
+          "resist": 47.8,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1.1,
+              "supportOut": 1,
+              "role": "연계우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[불]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6778,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 2,
+          "tactic": "연계우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "ARMOR_BREAK": 25,
+            "SIGNATURE": 20,
+            "ELEMENT_BOOST": {
+              "불": 10
+            },
+            "LIGHT": 8
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 1
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "name": "진",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 33953,
+          "maxHp": 35651,
+          "atk": 6430.660000000001,
+          "def": 4151.320000000001,
+          "spd": 96.5,
+          "level": 60,
+          "crit": 22.8,
+          "critDmg": 78.5,
+          "hit": 118.5,
+          "eva": 9,
+          "resist": 39,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                }
+              },
+              "taken": 1.06,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "role": "공격우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바람]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 5923,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 3,
+          "tactic": "공격우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "PRECISION": 5,
+            "SIGNATURE": 15,
+            "HEAL_OUT": 15,
+            "COVER": 15
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "source": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 52137,
+          "maxHp": 52137,
+          "atk": 6949.240000000001,
+          "def": 6158.64,
+          "spd": 75.5,
+          "level": 60,
+          "crit": 21,
+          "critDmg": 114.3,
+          "hit": 95,
+          "eva": 19.3,
+          "resist": 39,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1.12,
+              "role": "지원우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바위]",
+            "[선인]",
+            "[바위의 집정관]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6568,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 4,
+          "tactic": "지원우선",
+          "slotDamageMultiplier": 0.8,
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "SHIELD_BREAK": 25,
+            "SIGNATURE": 15,
+            "SHIELD_OUT": 25,
+            "COVER": 20
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "별의 파편",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 0,
+          "abyssHealer": false,
+          "abyssAir": false
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "파편의 그림자",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 1
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 1,
+          "abyssHealer": false,
+          "abyssAir": false
+        }
+      ],
+      "order": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "first": false,
+          "score": 96
+        },
+        {
+          "id": "MOND_JEAN",
+          "first": false,
+          "score": 105.5
+        },
+        {
+          "id": "MOND_DILUC",
+          "first": false,
+          "score": 99.5
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "first": false,
+          "score": 81.5
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "first": false,
+          "score": 57
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "first": false,
+          "score": 57
+        }
+      ],
+      "rng": 3224147643,
+      "mastery": true,
+      "beforeAndFinalNativeEntryEqual": true
+    },
+    {
+      "policy": "C0",
+      "seed": 4242,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "side": "ALLY",
+          "control": "PLAYER",
+          "hp": 19215,
+          "maxHp": 19215,
+          "atk": 3572.4,
+          "def": 1616,
+          "spd": 82.8,
+          "level": 60,
+          "crit": 10.8,
+          "critDmg": 93.8,
+          "hit": 81,
+          "eva": 14.3,
+          "resist": 7,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "cooldowns": {},
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 1,
+          "tactic": "균형",
+          "protagonist": {
+            "version": 1,
+            "route": "ROUTE_ISEKAI",
+            "skillIds": [
+              "PLAYER_ISEKAI_E",
+              "PLAYER_ISEKAI_Q"
+            ]
+          },
+          "traits": {
+            "STACK_ATK": 3,
+            "PRECISION": 5,
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 0
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "name": "다이루크",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 34672,
+          "maxHp": 34672,
+          "atk": 7203.84,
+          "def": 4326.860000000001,
+          "spd": 88.5,
+          "level": 60,
+          "crit": 30,
+          "critDmg": 102.5,
+          "hit": 95,
+          "eva": 20,
+          "resist": 39,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1.1,
+              "supportOut": 1,
+              "role": "연계우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[불]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6778,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 2,
+          "tactic": "연계우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "ARMOR_BREAK": 25,
+            "SIGNATURE": 20,
+            "ELEMENT_BOOST": {
+              "불": 10
+            },
+            "LIGHT": 8
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 1
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "name": "진",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 35130,
+          "maxHp": 36887,
+          "atk": 6336.860000000001,
+          "def": 4392.52,
+          "spd": 81.3,
+          "level": 60,
+          "crit": 22.5,
+          "critDmg": 111.5,
+          "hit": 103.8,
+          "eva": 7,
+          "resist": 39,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                }
+              },
+              "taken": 1.06,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "role": "공격우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바람]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 5923,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 3,
+          "tactic": "공격우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "PRECISION": 5,
+            "SIGNATURE": 15,
+            "HEAL_OUT": 15,
+            "COVER": 15
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "source": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 52606,
+          "maxHp": 52606,
+          "atk": 6888.9400000000005,
+          "def": 6473.54,
+          "spd": 65,
+          "level": 60,
+          "crit": 14,
+          "critDmg": 86.8,
+          "hit": 95,
+          "eva": 6,
+          "resist": 55,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1.12,
+              "role": "지원우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바위]",
+            "[선인]",
+            "[바위의 집정관]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6568,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 4,
+          "tactic": "지원우선",
+          "slotDamageMultiplier": 0.8,
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "SHIELD_BREAK": 25,
+            "SIGNATURE": 15,
+            "SHIELD_OUT": 25,
+            "COVER": 20
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "별의 파편",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 0,
+          "abyssHealer": false,
+          "abyssAir": false
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "파편의 그림자",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 1
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 1,
+          "abyssHealer": false,
+          "abyssAir": false
+        }
+      ],
+      "order": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "first": false,
+          "score": 90.8
+        },
+        {
+          "id": "MOND_DILUC",
+          "first": false,
+          "score": 95.5
+        },
+        {
+          "id": "MOND_JEAN",
+          "first": false,
+          "score": 84.3
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "first": false,
+          "score": 66
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "first": false,
+          "score": 56
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "first": false,
+          "score": 51
+        }
+      ],
+      "rng": 2960606766,
+      "mastery": true,
+      "beforeAndFinalNativeEntryEqual": true
+    },
+    {
+      "policy": "C0",
+      "seed": 9031,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "side": "ALLY",
+          "control": "PLAYER",
+          "hp": 19543,
+          "maxHp": 19543,
+          "atk": 3538.7999999999997,
+          "def": 1588,
+          "spd": 86,
+          "level": 60,
+          "crit": 14,
+          "critDmg": 83.8,
+          "hit": 89.3,
+          "eva": 5,
+          "resist": 7,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "cooldowns": {},
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 1,
+          "tactic": "균형",
+          "protagonist": {
+            "version": 1,
+            "route": "ROUTE_ISEKAI",
+            "skillIds": [
+              "PLAYER_ISEKAI_E",
+              "PLAYER_ISEKAI_Q"
+            ]
+          },
+          "traits": {
+            "STACK_ATK": 3,
+            "PRECISION": 5,
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 0
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "name": "다이루크",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 34453,
+          "maxHp": 34453,
+          "atk": 7284.240000000001,
+          "def": 4145.96,
+          "spd": 97.8,
+          "level": 60,
+          "crit": 31.8,
+          "critDmg": 70,
+          "hit": 116,
+          "eva": 9,
+          "resist": 39,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1.1,
+              "supportOut": 1,
+              "role": "연계우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[불]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6778,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 2,
+          "tactic": "연계우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "ARMOR_BREAK": 25,
+            "SIGNATURE": 20,
+            "ELEMENT_BOOST": {
+              "불": 10
+            },
+            "LIGHT": 8
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 1
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "name": "진",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 37058,
+          "maxHp": 38911,
+          "atk": 6236.360000000001,
+          "def": 4298.72,
+          "spd": 71,
+          "level": 60,
+          "crit": 16,
+          "critDmg": 60,
+          "hit": 95,
+          "eva": 16.5,
+          "resist": 47,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                }
+              },
+              "taken": 1.06,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "role": "공격우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바람]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 5923,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 3,
+          "tactic": "공격우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "PRECISION": 5,
+            "SIGNATURE": 15,
+            "HEAL_OUT": 15,
+            "COVER": 15
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "source": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 51698,
+          "maxHp": 51698,
+          "atk": 6955.9400000000005,
+          "def": 6131.84,
+          "spd": 65,
+          "level": 60,
+          "crit": 20.5,
+          "critDmg": 94.3,
+          "hit": 101.5,
+          "eva": 6,
+          "resist": 51.3,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1.12,
+              "role": "지원우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바위]",
+            "[선인]",
+            "[바위의 집정관]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6568,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 4,
+          "tactic": "지원우선",
+          "slotDamageMultiplier": 0.8,
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "SHIELD_BREAK": 25,
+            "SIGNATURE": 15,
+            "SHIELD_OUT": 25,
+            "COVER": 20
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "별의 파편",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 0,
+          "abyssHealer": false,
+          "abyssAir": false
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "파편의 그림자",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 1
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 1,
+          "abyssHealer": false,
+          "abyssAir": false
+        }
+      ],
+      "order": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "first": false,
+          "score": 86
+        },
+        {
+          "id": "MOND_DILUC",
+          "first": false,
+          "score": 98.8
+        },
+        {
+          "id": "MOND_JEAN",
+          "first": false,
+          "score": 76
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "first": false,
+          "score": 72
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "first": false,
+          "score": 56
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "first": false,
+          "score": 52
+        }
+      ],
+      "rng": 937814912,
+      "mastery": true,
+      "beforeAndFinalNativeEntryEqual": true
+    },
+    {
+      "policy": "C2",
+      "seed": 717,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "side": "ALLY",
+          "control": "PLAYER",
+          "hp": 18357,
+          "maxHp": 18357,
+          "atk": 3552,
+          "def": 1412,
+          "spd": 95,
+          "level": 60,
+          "crit": 11.5,
+          "critDmg": 88.5,
+          "hit": 102,
+          "eva": 14.8,
+          "resist": 7,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "cooldowns": {},
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 1,
+          "tactic": "균형",
+          "protagonist": {
+            "version": 1,
+            "route": "ROUTE_ISEKAI",
+            "skillIds": [
+              "PLAYER_ISEKAI_E",
+              "PLAYER_ISEKAI_Q"
+            ]
+          },
+          "traits": {
+            "STACK_ATK": 3,
+            "PRECISION": 5,
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 0
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "name": "다이루크",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 33379,
+          "maxHp": 33379,
+          "atk": 7237.34,
+          "def": 4206.26,
+          "spd": 93.5,
+          "level": 60,
+          "crit": 29,
+          "critDmg": 70,
+          "hit": 119,
+          "eva": 8,
+          "resist": 47.8,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1.1,
+              "supportOut": 1,
+              "role": "연계우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[불]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6778,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 2,
+          "tactic": "연계우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "ARMOR_BREAK": 25,
+            "SIGNATURE": 20,
+            "ELEMENT_BOOST": {
+              "불": 10
+            },
+            "LIGHT": 8
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 1
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "name": "진",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 33953,
+          "maxHp": 35651,
+          "atk": 6430.660000000001,
+          "def": 4151.320000000001,
+          "spd": 96.5,
+          "level": 60,
+          "crit": 22.8,
+          "critDmg": 78.5,
+          "hit": 118.5,
+          "eva": 9,
+          "resist": 39,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                }
+              },
+              "taken": 1.06,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "role": "공격우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바람]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 5923,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 3,
+          "tactic": "공격우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "PRECISION": 5,
+            "SIGNATURE": 15,
+            "HEAL_OUT": 15,
+            "COVER": 15
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "source": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 52137,
+          "maxHp": 52137,
+          "atk": 6949.240000000001,
+          "def": 6158.64,
+          "spd": 75.5,
+          "level": 60,
+          "crit": 21,
+          "critDmg": 114.3,
+          "hit": 95,
+          "eva": 19.3,
+          "resist": 39,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1.12,
+              "role": "지원우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바위]",
+            "[선인]",
+            "[바위의 집정관]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6568,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 4,
+          "tactic": "지원우선",
+          "slotDamageMultiplier": 0.8,
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "SHIELD_BREAK": 25,
+            "SIGNATURE": 15,
+            "SHIELD_OUT": 25,
+            "COVER": 20
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "별의 파편",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 0,
+          "abyssHealer": false,
+          "abyssAir": false
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "파편의 그림자",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 1
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 1,
+          "abyssHealer": false,
+          "abyssAir": false
+        }
+      ],
+      "order": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "first": false,
+          "score": 96
+        },
+        {
+          "id": "MOND_JEAN",
+          "first": false,
+          "score": 105.5
+        },
+        {
+          "id": "MOND_DILUC",
+          "first": false,
+          "score": 99.5
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "first": false,
+          "score": 81.5
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "first": false,
+          "score": 57
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "first": false,
+          "score": 57
+        }
+      ],
+      "rng": 3224147643,
+      "mastery": true,
+      "beforeAndFinalNativeEntryEqual": true
+    },
+    {
+      "policy": "C2",
+      "seed": 4242,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "side": "ALLY",
+          "control": "PLAYER",
+          "hp": 19215,
+          "maxHp": 19215,
+          "atk": 3572.4,
+          "def": 1616,
+          "spd": 82.8,
+          "level": 60,
+          "crit": 10.8,
+          "critDmg": 93.8,
+          "hit": 81,
+          "eva": 14.3,
+          "resist": 7,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "cooldowns": {},
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 1,
+          "tactic": "균형",
+          "protagonist": {
+            "version": 1,
+            "route": "ROUTE_ISEKAI",
+            "skillIds": [
+              "PLAYER_ISEKAI_E",
+              "PLAYER_ISEKAI_Q"
+            ]
+          },
+          "traits": {
+            "STACK_ATK": 3,
+            "PRECISION": 5,
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 0
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "name": "다이루크",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 34672,
+          "maxHp": 34672,
+          "atk": 7203.84,
+          "def": 4326.860000000001,
+          "spd": 88.5,
+          "level": 60,
+          "crit": 30,
+          "critDmg": 102.5,
+          "hit": 95,
+          "eva": 20,
+          "resist": 39,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1.1,
+              "supportOut": 1,
+              "role": "연계우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[불]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6778,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 2,
+          "tactic": "연계우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "ARMOR_BREAK": 25,
+            "SIGNATURE": 20,
+            "ELEMENT_BOOST": {
+              "불": 10
+            },
+            "LIGHT": 8
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 1
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "name": "진",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 35130,
+          "maxHp": 36887,
+          "atk": 6336.860000000001,
+          "def": 4392.52,
+          "spd": 81.3,
+          "level": 60,
+          "crit": 22.5,
+          "critDmg": 111.5,
+          "hit": 103.8,
+          "eva": 7,
+          "resist": 39,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                }
+              },
+              "taken": 1.06,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "role": "공격우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바람]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 5923,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 3,
+          "tactic": "공격우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "PRECISION": 5,
+            "SIGNATURE": 15,
+            "HEAL_OUT": 15,
+            "COVER": 15
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "source": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 52606,
+          "maxHp": 52606,
+          "atk": 6888.9400000000005,
+          "def": 6473.54,
+          "spd": 65,
+          "level": 60,
+          "crit": 14,
+          "critDmg": 86.8,
+          "hit": 95,
+          "eva": 6,
+          "resist": 55,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1.12,
+              "role": "지원우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바위]",
+            "[선인]",
+            "[바위의 집정관]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6568,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 4,
+          "tactic": "지원우선",
+          "slotDamageMultiplier": 0.8,
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "SHIELD_BREAK": 25,
+            "SIGNATURE": 15,
+            "SHIELD_OUT": 25,
+            "COVER": 20
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "별의 파편",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 0,
+          "abyssHealer": false,
+          "abyssAir": false
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "파편의 그림자",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 1
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 1,
+          "abyssHealer": false,
+          "abyssAir": false
+        }
+      ],
+      "order": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "first": false,
+          "score": 90.8
+        },
+        {
+          "id": "MOND_DILUC",
+          "first": false,
+          "score": 95.5
+        },
+        {
+          "id": "MOND_JEAN",
+          "first": false,
+          "score": 84.3
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "first": false,
+          "score": 66
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "first": false,
+          "score": 56
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "first": false,
+          "score": 51
+        }
+      ],
+      "rng": 2960606766,
+      "mastery": true,
+      "beforeAndFinalNativeEntryEqual": true
+    },
+    {
+      "policy": "C2",
+      "seed": 9031,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "side": "ALLY",
+          "control": "PLAYER",
+          "hp": 19543,
+          "maxHp": 19543,
+          "atk": 3538.7999999999997,
+          "def": 1588,
+          "spd": 86,
+          "level": 60,
+          "crit": 14,
+          "critDmg": 83.8,
+          "hit": 89.3,
+          "eva": 5,
+          "resist": 7,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            }
+          ],
+          "cooldowns": {},
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 1,
+          "tactic": "균형",
+          "protagonist": {
+            "version": 1,
+            "route": "ROUTE_ISEKAI",
+            "skillIds": [
+              "PLAYER_ISEKAI_E",
+              "PLAYER_ISEKAI_Q"
+            ]
+          },
+          "traits": {
+            "STACK_ATK": 3,
+            "PRECISION": 5,
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 0
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "name": "다이루크",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 34453,
+          "maxHp": 34453,
+          "atk": 7284.240000000001,
+          "def": 4145.96,
+          "spd": 97.8,
+          "level": 60,
+          "crit": 31.8,
+          "critDmg": 70,
+          "hit": 116,
+          "eva": 9,
+          "resist": 39,
+          "range": "근접",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1.1,
+              "supportOut": 1,
+              "role": "연계우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[불]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6778,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 2,
+          "tactic": "연계우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "ARMOR_BREAK": 25,
+            "SIGNATURE": 20,
+            "ELEMENT_BOOST": {
+              "불": 10
+            },
+            "LIGHT": 8
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 1
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "name": "진",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 37058,
+          "maxHp": 38911,
+          "atk": 6236.360000000001,
+          "def": 4298.72,
+          "spd": 71,
+          "level": 60,
+          "crit": 16,
+          "critDmg": 60,
+          "hit": 95,
+          "eva": 16.5,
+          "resist": 47,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                }
+              },
+              "taken": 1.06,
+              "reactionOut": 1,
+              "supportOut": 1,
+              "role": "공격우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바람]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 5923,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 3,
+          "tactic": "공격우선",
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "PRECISION": 5,
+            "SIGNATURE": 15,
+            "HEAL_OUT": 15,
+            "COVER": 15
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "source": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "side": "ALLY",
+          "control": "AI",
+          "hp": 51698,
+          "maxHp": 51698,
+          "atk": 6955.9400000000005,
+          "def": 6131.84,
+          "spd": 65,
+          "level": 60,
+          "crit": 20.5,
+          "critDmg": 94.3,
+          "hit": 101.5,
+          "eva": 6,
+          "resist": 51.3,
+          "range": "중거리",
+          "aura": null,
+          "statuses": [
+            {
+              "id": "FORMATION",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {
+                "atk": {
+                  "pct": 6,
+                  "flat": 0
+                },
+                "hit": {
+                  "pct": 0,
+                  "flat": 10
+                }
+              },
+              "taken": 1,
+              "reactionOut": 1.15,
+              "supportOut": 1,
+              "formation": "DOUBLE_LINE"
+            },
+            {
+              "id": "ROLE",
+              "rounds": null,
+              "createdRound": 1,
+              "mods": {},
+              "taken": 1,
+              "reactionOut": 1,
+              "supportOut": 1.12,
+              "role": "지원우선"
+            }
+          ],
+          "cooldowns": {},
+          "tags": [
+            "[광계]",
+            "[바위]",
+            "[선인]",
+            "[바위의 집정관]"
+          ],
+          "bondHearts": 0,
+          "bondBonusPercent": 0,
+          "baseAttack": 6568,
+          "guest": false,
+          "shields": [],
+          "turns": 0,
+          "slot": 4,
+          "tactic": "지원우선",
+          "slotDamageMultiplier": 0.8,
+          "traits": {
+            "HEAL_BOOST": 10,
+            "SHIELD_BOOST": 25,
+            "ELEMENT_RES": {
+              "ALL": 12
+            },
+            "AOE_GUARD": 10,
+            "SHIELD_BREAK": 25,
+            "SIGNATURE": 15,
+            "SHIELD_OUT": 25,
+            "COVER": 20
+          },
+          "traitState": {
+            "firstHit": false,
+            "firstStrike": false
+          },
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "size": "MEDIUM",
+          "facing": 1,
+          "nextScorePenalty": 0
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "별의 파편",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 0,
+          "abyssHealer": false,
+          "abyssAir": false
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "source": "MON_ABYSS_WARDEN",
+          "name": "파편의 그림자",
+          "side": "ENEMY",
+          "control": "AI",
+          "hp": 179472,
+          "maxHp": 179472,
+          "atk": 30633,
+          "def": 5651,
+          "crit": 5,
+          "critDmg": 50,
+          "level": 60,
+          "spd": 50,
+          "hit": 98,
+          "eva": 18,
+          "resist": 95,
+          "range": "전장",
+          "grade": "보스",
+          "tags": [
+            "[나선비경]"
+          ],
+          "tactic": "균형",
+          "nativeAura": null,
+          "aura": null,
+          "statuses": [],
+          "cooldowns": {},
+          "shields": [],
+          "turns": 0,
+          "airborne": false,
+          "element": "물리",
+          "hasDedicatedCards": false,
+          "position": {
+            "x": 3,
+            "y": 1
+          },
+          "size": "BOSS",
+          "facing": -1,
+          "nextScorePenalty": 0,
+          "family": "나선비경",
+          "targetRule": "SPREAD",
+          "abyssWarden": true,
+          "abyssIndex": 1,
+          "abyssHealer": false,
+          "abyssAir": false
+        }
+      ],
+      "order": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "first": false,
+          "score": 86
+        },
+        {
+          "id": "MOND_DILUC",
+          "first": false,
+          "score": 98.8
+        },
+        {
+          "id": "MOND_JEAN",
+          "first": false,
+          "score": 76
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "first": false,
+          "score": 72
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "first": false,
+          "score": 56
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "first": false,
+          "score": 52
+        }
+      ],
+      "rng": 937814912,
+      "mastery": true,
+      "beforeAndFinalNativeEntryEqual": true
+    }
+  ],
+  "limitations": [
+    "Preparation grants acquired ownership, grown stats, naturally generated artifacts, equipment and finite items; it does not prove complete natural account procurement.",
+    "12F artifacts use the first naturally gate-qualified roll, up to 4000 per owner, not fixed best-of-80. Actual sample attempts are reported.",
+    "Three seeds per constellation with the fixed native roster/control policy are observational cases, not a population win-rate estimate.",
+    "Final source retains native Abyss combat policies; earlier complete combat results are preserved separately and not counted as new runs."
+  ]
+}

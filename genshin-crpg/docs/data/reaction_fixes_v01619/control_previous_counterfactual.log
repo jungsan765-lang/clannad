@@ -1,0 +1,82 @@
+Counterfactual: only applyCombatControl restored in VM; product files unchanged.
+FAIL rejected freeze during grace keeps native charge and releases next own turn
+AssertionError [ERR_ASSERTION]: rejected status is rejected control
+
+true !== false
+
+    at tests/test_control_grace_v01619.cjs:30:41
+    at check (tests/test_control_grace_v01619.cjs:9:44)
+    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:26:36)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+    at require (node:internal/modules/helpers:153:16)
+FAIL rejected freeze during grace keeps native charge and releases next own turn after restore
+AssertionError [ERR_ASSERTION]: rejected status is rejected control
+
+true !== false
+
+    at tests/test_control_grace_v01619.cjs:30:41
+    at check (tests/test_control_grace_v01619.cjs:9:44)
+    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:26:36)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+    at require (node:internal/modules/helpers:153:16)
+PASS landed freeze immediately interrupts once and keeps existing expiry
+PASS landed freeze immediately interrupts once and keeps existing expiry after restore
+FAIL native equipment resistance rejects FREEZE without action delay
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at tests/test_control_grace_v01619.cjs:47:89
+    at check (tests/test_control_grace_v01619.cjs:9:44)
+    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:45:37)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+    at require (node:internal/modules/helpers:153:16)
+FAIL native equipment resistance rejects LIFT without action delay
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at tests/test_control_grace_v01619.cjs:47:89
+    at check (tests/test_control_grace_v01619.cjs:9:44)
+    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:45:37)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+    at require (node:internal/modules/helpers:153:16)
+PASS successful lift preserves delay and immediately interrupts native charge
+PASS native large enemy retains soft freeze and displacement immunity
+FAIL native boss soft control reports a real status while immune Osial rejects it
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+true !== false
+
+    at tests/test_control_grace_v01619.cjs:70:111
+    at check (tests/test_control_grace_v01619.cjs:9:44)
+    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:66:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+    at require (node:internal/modules/helpers:153:16)
+PASS native successful push interrupts but wall-blocked push keeps charge
+{"ok":false,"total":10,"passed":5,"evidence":[{"name":"rejected freeze during grace keeps native charge and releases next own turn","ok":false,"error":"AssertionError [ERR_ASSERTION]: rejected status is rejected control\n\ntrue !== false\n\n    at tests/test_control_grace_v01619.cjs:30:41\n    at check (tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:26:36)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"},{"name":"rejected freeze during grace keeps native charge and releases next own turn after restore","ok":false,"error":"AssertionError [ERR_ASSERTION]: rejected status is rejected control\n\ntrue !== false\n\n    at tests/test_control_grace_v01619.cjs:30:41\n    at check (tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:26:36)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"},{"name":"landed freeze immediately interrupts once and keeps existing expiry","ok":true,"evidence":{"reloaded":false,"immediateInterrupt":true,"interruptedLogs":1}},{"name":"landed freeze immediately interrupts once and keeps existing expiry after restore","ok":true,"evidence":{"reloaded":true,"immediateInterrupt":true,"interruptedLogs":1}},{"name":"native equipment resistance rejects FREEZE without action delay","ok":false,"error":"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at tests/test_control_grace_v01619.cjs:47:89\n    at check (tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:45:37)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"},{"name":"native equipment resistance rejects LIFT without action delay","ok":false,"error":"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at tests/test_control_grace_v01619.cjs:47:89\n    at check (tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:45:37)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"},{"name":"successful lift preserves delay and immediately interrupts native charge","ok":true,"evidence":{"delay":10,"interrupted":true}},{"name":"native large enemy retains soft freeze and displacement immunity","ok":true,"evidence":{"softFreeze":true,"largeDisplacementImmune":true}},{"name":"native boss soft control reports a real status while immune Osial rejects it","ok":false,"error":"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\ntrue !== false\n\n    at tests/test_control_grace_v01619.cjs:70:111\n    at check (tests/test_control_grace_v01619.cjs:9:44)\n    at Object.<anonymous> (tests/test_control_grace_v01619.cjs:66:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)"},{"name":"native successful push interrupts but wall-blocked push keeps charge","ok":true,"evidence":{"successfulPushInterrupts":true,"wallBlockedPushPreservesCharge":true}}]}

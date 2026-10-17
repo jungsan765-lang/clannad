@@ -1,0 +1,3386 @@
+{
+  "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "conditions": 48,
+  "wins": 34,
+  "defeats": 14,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 123,
+  "drift": [],
+  "rows": [
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 7,
+      "seconds": 108.52,
+      "cpuSeconds": 0.283754538,
+      "hp": 0.49437698419815973,
+      "preRewardHp": 0.5011237545790787,
+      "ko": [
+        "LIYUE_XIANGLING"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 72.28999999999999,
+      "cpuSeconds": 0.134798529,
+      "hp": 0.3977618011855148,
+      "preRewardHp": 0.3692532031326801,
+      "ko": [
+        "MOND_DAHLIA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 9,
+      "inputs": 7,
+      "seconds": 159.9,
+      "cpuSeconds": 0.208119173,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 88.02,
+      "cpuSeconds": 0.142245783,
+      "hp": 0.40550939516062157,
+      "preRewardHp": 0.3999051388570868,
+      "ko": [
+        "LIYUE_XIANGLING"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 9,
+      "inputs": 7,
+      "seconds": 164.20999999999998,
+      "cpuSeconds": 0.229071204,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 81.49000000000001,
+      "cpuSeconds": 0.191312108,
+      "hp": 0.9256827113634073,
+      "preRewardHp": 0.9133042801040614,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 7,
+      "seconds": 108.52,
+      "cpuSeconds": 0.194722077,
+      "hp": 0.49437698419815973,
+      "preRewardHp": 0.5011237545790787,
+      "ko": [
+        "LIYUE_XIANGLING"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 72.28999999999999,
+      "cpuSeconds": 0.114873601,
+      "hp": 0.3977618011855148,
+      "preRewardHp": 0.3692532031326801,
+      "ko": [
+        "MOND_DAHLIA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 9,
+      "inputs": 7,
+      "seconds": 159.9,
+      "cpuSeconds": 0.165617095,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 88.02,
+      "cpuSeconds": 0.1389197,
+      "hp": 0.40550939516062157,
+      "preRewardHp": 0.3999051388570868,
+      "ko": [
+        "LIYUE_XIANGLING"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 9,
+      "inputs": 7,
+      "seconds": 164.20999999999998,
+      "cpuSeconds": 0.168741278,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 81.49000000000001,
+      "cpuSeconds": 0.14456593,
+      "hp": 0.9256827113634073,
+      "preRewardHp": 0.9133042801040614,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 15,
+      "inputs": 9,
+      "seconds": 181.25,
+      "cpuSeconds": 0.205073109,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 6,
+      "seconds": 78.88,
+      "cpuSeconds": 0.171015204,
+      "hp": 0.7501578964863876,
+      "preRewardHp": 0.741222067727208,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 14,
+      "inputs": 5,
+      "seconds": 116.17,
+      "cpuSeconds": 0.223067388,
+      "hp": 0.1952890193611519,
+      "preRewardHp": 0.17834534195805807,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 9,
+      "inputs": 9,
+      "seconds": 106.23,
+      "cpuSeconds": 0.18266689,
+      "hp": 0.5133808655281048,
+      "preRewardHp": 0.5072799362118118,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 12,
+      "inputs": 8,
+      "seconds": 116.29,
+      "cpuSeconds": 0.206585678,
+      "hp": 0.2427133570979241,
+      "preRewardHp": 0.2252019981123823,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 80.77000000000001,
+      "cpuSeconds": 0.143614804,
+      "hp": 0.7196976463757759,
+      "preRewardHp": 0.7230618188236332,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 17,
+      "inputs": 8,
+      "seconds": 183.67000000000002,
+      "cpuSeconds": 0.199193528,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 6,
+      "seconds": 78.88,
+      "cpuSeconds": 0.190196999,
+      "hp": 0.7501578964863876,
+      "preRewardHp": 0.741222067727208,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 14,
+      "inputs": 5,
+      "seconds": 116.17,
+      "cpuSeconds": 0.212351087,
+      "hp": 0.1952890193611519,
+      "preRewardHp": 0.17834534195805807,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 9,
+      "inputs": 9,
+      "seconds": 106.23,
+      "cpuSeconds": 0.183950927,
+      "hp": 0.5133808655281048,
+      "preRewardHp": 0.5072799362118118,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 11,
+      "inputs": 7,
+      "seconds": 108.98,
+      "cpuSeconds": 0.197751346,
+      "hp": 0.26410148878171524,
+      "preRewardHp": 0.24633410833083952,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_TARTAGLIA": {
+            "hp": 2.415,
+            "atk": 3.135,
+            "def": 1.2
+          }
+        }
+      },
+      "vmFingerprint": "bde36ef9bc70a1f142b4679a7828f0b0c8961bedbafc439262d4b395a23184c5",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 80.77000000000001,
+      "cpuSeconds": 0.133162663,
+      "hp": 0.7196976463757759,
+      "preRewardHp": 0.7230618188236332,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 144625,
+          "maxHp": 144625,
+          "atk": 16010,
+          "def": 709
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20737
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 158.86,
+      "cpuSeconds": 0.314942804,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 6,
+      "seconds": 111.53,
+      "cpuSeconds": 0.226193342,
+      "hp": 0.30617690221016586,
+      "preRewardHp": 0.2790460414449795,
+      "ko": [
+        "LIYUE_XIANGLING",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 107.94,
+      "cpuSeconds": 0.109144214,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 3,
+      "seconds": 69.88,
+      "cpuSeconds": 0.166145751,
+      "hp": 0.37474869767080227,
+      "preRewardHp": 0.34746124774059267,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 9,
+      "inputs": 6,
+      "seconds": 173.36,
+      "cpuSeconds": 0.235926077,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 107.61,
+      "cpuSeconds": 0.226988197,
+      "hp": 0.1420509368338382,
+      "preRewardHp": 0.14014987989683303,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 166.17000000000002,
+      "cpuSeconds": 0.206798324,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 9,
+      "inputs": 8,
+      "seconds": 174.32999999999998,
+      "cpuSeconds": 0.258400399,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 107.94,
+      "cpuSeconds": 0.105630697,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 3,
+      "seconds": 69.88,
+      "cpuSeconds": 0.140964739,
+      "hp": 0.37474869767080227,
+      "preRewardHp": 0.34746124774059267,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 11,
+      "inputs": 10,
+      "seconds": 198.29000000000002,
+      "cpuSeconds": 0.25708145,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 7,
+      "seconds": 173.03,
+      "cpuSeconds": 0.263913059,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 10,
+      "inputs": 5,
+      "seconds": 94.82,
+      "cpuSeconds": 0.204430409,
+      "hp": 0.22167684324132528,
+      "preRewardHp": 0.20495891911630454,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 58.32,
+      "cpuSeconds": 0.139817327,
+      "hp": 0.6712085350164545,
+      "preRewardHp": 0.6483893847569154,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 3,
+      "seconds": 75.03999999999999,
+      "cpuSeconds": 0.145118557,
+      "hp": 0.44233356495512943,
+      "preRewardHp": 0.4229614752601789,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 78.82,
+      "cpuSeconds": 0.162043566,
+      "hp": 0.4545164401827002,
+      "preRewardHp": 0.43491422805247226,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 13,
+      "inputs": 3,
+      "seconds": 103.97,
+      "cpuSeconds": 0.20372129,
+      "hp": 0.1410281050873017,
+      "preRewardHp": 0.12528026291765565,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 3,
+      "seconds": 53.1,
+      "cpuSeconds": 0.126080494,
+      "hp": 0.659433915051511,
+      "preRewardHp": 0.6372041446239255,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 10,
+      "inputs": 8,
+      "seconds": 107.28,
+      "cpuSeconds": 0.224778257,
+      "hp": 0.2078164964000059,
+      "preRewardHp": 0.19126529121782,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 68.96000000000001,
+      "cpuSeconds": 0.146112993,
+      "hp": 0.6844503202052725,
+      "preRewardHp": 0.6762407039375277,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 5,
+      "seconds": 87.7,
+      "cpuSeconds": 0.217397388,
+      "hp": 0.41533730540073033,
+      "preRewardHp": 0.3962899397480372,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 78.95,
+      "cpuSeconds": 0.170335733,
+      "hp": 0.605194473602088,
+      "preRewardHp": 0.5979510034757259,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 13,
+      "inputs": 3,
+      "seconds": 103.97,
+      "cpuSeconds": 0.214022657,
+      "hp": 0.1410281050873017,
+      "preRewardHp": 0.12528026291765565,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    },
+    {
+      "candidate": "D_DAILY_PREPARED_GEAR",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_AZHDAHA": {
+            "hp": 1.7249999999999999,
+            "atk": 2.2475,
+            "def": 1.15
+          }
+        }
+      },
+      "vmFingerprint": "5c39f3a9659be11f989bb28065be879b3f2a3b152207b3f233715a355ebc4f1b",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 3,
+      "seconds": 53.1,
+      "cpuSeconds": 0.11493553,
+      "hp": 0.659433915051511,
+      "preRewardHp": 0.6372041446239255,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 158555,
+          "maxHp": 158555,
+          "atk": 20443,
+          "def": 895
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20737
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20737
+      }
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "readOnly": true,
+  "stage": "after",
+  "sourceHashes": {
+    "runtime_combat_v0148.js": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e",
+    "runtime_rules.js": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+    "runtime_andrius.js": "dcb505716d41cdf3dcb09e13e95e2c55b9c26dde4d9e719615114eb9b124dcf4",
+    "runtime_field_bosses.js": "a06cc37300871d06e8028485d865e08c3c8e71378e9f94acea7b81f79d2709b7"
+  },
+  "cases": [
+    {
+      "name": "native counter KO during Isekai E mark cleanup after",
+      "ok": true,
+      "evidence": {
+        "issue": "EXPOSED_ADDED_AFTER_COUNTER_KO",
+        "stage": "after",
+        "after": {
+          "playerHp": 0,
+          "enemyHp": 513,
+          "mark": null,
+          "counter": [
+            {
+              "actor": "우인단 선발대·풍권 돌격대",
+              "target": "클라나드",
+              "damage": 32,
+              "absorbed": 0,
+              "shieldBefore": 0,
+              "shieldAfter": 0,
+              "element": "바람",
+              "critical": true,
+              "reaction": null,
+              "card": "ECARD_FATUI_ANEMO_GUARD",
+              "sourceKind": "COUNTER"
+            }
+          ],
+          "casterStatus": []
+        },
+        "savedOrphan": false,
+        "beforeNextMultiplier": false,
+        "nextMultiplier": 1,
+        "afterNextMultiplier": false,
+        "impact": "No orphaned mark is created; save/load remains clean."
+      }
+    },
+    {
+      "name": "native guest mark is scoped to guest actor ID; host and guest deaths are separated before C1",
+      "ok": true,
+      "evidence": {
+        "hostId": "PLAYER_CUSTOM",
+        "guestId": "COOP_1",
+        "before": 1,
+        "active": 1.9500000000000002,
+        "hostDead": 1.625,
+        "bothDead": 1,
+        "correctDeathCleanup": true
+      }
+    },
+    {
+      "name": "native immune normal hit healing is hit-based, not positive-damage based",
+      "ok": true,
+      "evidence": {
+        "observation": "IMMUNE_CONNECTED_HIT_HEALING",
+        "landed": true,
+        "enemyDamage": 0,
+        "ownHealing": 568,
+        "partyHealing": 332,
+        "log": [
+          {
+            "actor": "바바라",
+            "target": "물 슬라임",
+            "element": "물",
+            "critical": true,
+            "reaction": null,
+            "card": null,
+            "sourceKind": null,
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "바바라",
+            "target": "클라나드",
+            "heal": 332
+          },
+          {
+            "actor": "바바라",
+            "target": "바바라",
+            "heal": 332
+          },
+          {
+            "actor": "바바라",
+            "target": "미카",
+            "heal": 0
+          },
+          {
+            "actor": "미카",
+            "target": "바바라",
+            "heal": 236
+          }
+        ],
+        "classification": "Not confirmed bug: existing healing effects are declared on normal hit, unlike damage-dealt requirements. Immune body retains connected hit for native reaction processing."
+      }
+    },
+    {
+      "name": "native Cryo core completion keeps four hits and exposure/death cleanup false",
+      "ok": true,
+      "evidence": {
+        "ownerDead": false,
+        "coreHits": [
+          "냉기 핵에 금이 갔다 · 1/4",
+          "냉기 핵에 금이 갔다 · 2/4",
+          "냉기 핵에 금이 갔다 · 3/4",
+          "냉기 핵에 금이 갔다 · 4/4"
+        ],
+        "victory": true,
+        "finalCasterHp": 4829,
+        "receiptId": "V011-5:B1"
+      }
+    },
+    {
+      "name": "native Cryo core completion keeps four hits and exposure/death cleanup true",
+      "ok": true,
+      "evidence": {
+        "ownerDead": true,
+        "coreHits": [
+          "냉기 핵에 금이 갔다 · 1/4",
+          "냉기 핵에 금이 갔다 · 2/4",
+          "냉기 핵에 금이 갔다 · 3/4",
+          "냉기 핵에 금이 갔다 · 4/4"
+        ],
+        "victory": true,
+        "finalCasterHp": 0,
+        "receiptId": "V011-6:B1"
+      }
+    }
+  ]
+}

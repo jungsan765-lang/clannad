@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "status": "awaiting_final_qa_freeze",
+  "versionRequired": "0.16.22",
+  "scope": "New cashmargin growth reward/request adjustment over unchanged final protect-formation combat/healing/LiyueEND product. Prior 36/36 sealed candidate remains unchanged.",
+  "baseGateCount": 32,
+  "baseTests": [
+    "tests/test_growth_balance_v01621.cjs",
+    "tests/test_noelle_healing_v01621.cjs",
+    "tests/test_food_balance_v01620.cjs",
+    "tests/test_reaction_fixes_v01619.cjs",
+    "tests/test_healing_v01619.cjs",
+    "tests/test_shield_balance_v01619.cjs",
+    "tests/test_shield_meter_v01619.cjs",
+    "tests/test_shield_playback_v01619.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_other_healers_v01619.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_protagonist_support_v01618.cjs",
+    "tests/test_food_lodging_v01617.cjs",
+    "tests/test_material_rewards_v01616.cjs",
+    "tests/test_inn_recovery_pricing_v01615.cjs",
+    "tests/test_material_budget_v01615.cjs",
+    "tests/test_ascension_balance_v01614.cjs",
+    "tests/test_ascension_efficiency_v01613.cjs",
+    "tests/test_task_materials_v0169.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_control_reactions_v0168.cjs",
+    "tests/test_gear_effects_v0168.cjs",
+    "tests/test_xp_pacing_v0168.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_osial_pattern_v0161.cjs",
+    "tests/test_growth_online_v01522.mjs",
+    "tests/test_life_v010.cjs",
+    "tests/test_life_ui_v010.cjs",
+    "tests/test_version.cjs"
+  ],
+  "newTests": [
+    "tests/test_incoming_defense_v01622.cjs",
+    "tests/test_xianyun_balance_v01622.cjs",
+    "tests/test_material_efficiency_v01622.cjs"
+  ],
+  "finalGateRange": [
+    36,
+    36
+  ],
+  "pendingNewHealingAndGrowthTests": null,
+  "nativeWorkersAtStart": 1,
+  "maxNativeWorkers": 2,
+  "memoryGuard": {
+    "atLeast4GiB": "launch ceiling2",
+    "atLeast6GiB": "launch ceiling1",
+    "measurementUnavailable": "launch ceiling2"
+  },
+  "historicalInputGapsCarriedFromV01621": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ],
+  "buildSteps": [
+    {
+      "step": "server",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/build_server.py"
+      ],
+      "environment": {},
+      "returnCode": 0,
+      "error": null,
+      "ok": true,
+      "startedAt": "2026-10-10T05:14:16.275423+00:00",
+      "seconds": 2.271,
+      "log": "server.log.gz",
+      "logBytes": 87,
+      "logSha256": "86bfd4d4e41bcf813869fca4faa6e6390c46d85de843306166ca45e80b749ef3"
+    },
+    {
+      "step": "browser",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/build.py"
+      ],
+      "environment": {
+        "CRPG_BUILD_DIR": "../v01622-cash-margin-verification-work/browser",
+        "CRPG_BUILD_REPORT": "docs/data/balance_v01622/release/final_cash_margin/build/browser_report.json"
+      },
+      "returnCode": 0,
+      "error": null,
+      "ok": true,
+      "startedAt": "2026-10-10T05:14:18.546806+00:00",
+      "seconds": 2.121,
+      "log": "browser.log.gz",
+      "logBytes": 102,
+      "logSha256": "640573db0cdec4c4e54808a99b8da5ca5bdb5e870a66016d30a163710e6e722b"
+    },
+    {
+      "step": "engine_identity",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_engine_identity.py"
+      ],
+      "environment": {},
+      "returnCode": 0,
+      "error": null,
+      "ok": true,
+      "startedAt": "2026-10-10T05:14:20.668188+00:00",
+      "seconds": 0.032,
+      "log": "engine_identity.log.gz",
+      "logBytes": 91,
+      "logSha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc"
+    }
+  ],
+  "notes": [
+    "Do not import tools/verify_release.py; first TESTS declaration is parsed withAST for membership verification only.",
+    "Final manifest/resultshashes captured only after product/test/build freeze.",
+    "Build outputs/evidence are separate0.22 files; do not touch docs/data/full_balance_v01621."
+  ],
+  "tests": [
+    "tests/test_growth_balance_v01621.cjs",
+    "tests/test_noelle_healing_v01621.cjs",
+    "tests/test_food_balance_v01620.cjs",
+    "tests/test_reaction_fixes_v01619.cjs",
+    "tests/test_healing_v01619.cjs",
+    "tests/test_shield_balance_v01619.cjs",
+    "tests/test_shield_meter_v01619.cjs",
+    "tests/test_shield_playback_v01619.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_other_healers_v01619.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_protagonist_support_v01618.cjs",
+    "tests/test_food_lodging_v01617.cjs",
+    "tests/test_material_rewards_v01616.cjs",
+    "tests/test_inn_recovery_pricing_v01615.cjs",
+    "tests/test_material_budget_v01615.cjs",
+    "tests/test_ascension_balance_v01614.cjs",
+    "tests/test_ascension_efficiency_v01613.cjs",
+    "tests/test_task_materials_v0169.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_control_reactions_v0168.cjs",
+    "tests/test_gear_effects_v0168.cjs",
+    "tests/test_xp_pacing_v0168.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_osial_pattern_v0161.cjs",
+    "tests/test_growth_online_v01522.mjs",
+    "tests/test_life_v010.cjs",
+    "tests/test_life_ui_v010.cjs",
+    "tests/test_version.cjs",
+    "tests/test_incoming_defense_v01622.cjs",
+    "tests/test_xianyun_balance_v01622.cjs",
+    "tests/test_material_efficiency_v01622.cjs",
+    "tests/test_liyue_growth_gate_v01622.cjs"
+  ],
+  "gateCount": 36,
+  "freezeAuthorization": "Root product frozen; final growth QA and recorded dependencies still pending",
+  "confirmedFinalQASha256": {},
+  "metadataCorrection": "Prepared build path labels synchronized to actual final run_build command receipts; selectedtest36list remains unchanged.",
+  "preparedAt": "2026-10-10T05:15:13.321117+00:00"
+}

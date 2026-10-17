@@ -1,0 +1,313 @@
+{
+  "base_sha": "f96d972acef02fbe8673e8c65522c7247bf7daff",
+  "base_tree_sha": "7e3540568bce512eeb6c035c8c7e38c3f97d89cc",
+  "selected_files": {
+    ".github/workflows/crpg-sync-dist.yml": {
+      "bytes": 15164,
+      "git_blob_sha": "2d7de9a8ae02cc34b99c326a8c816705d3358251",
+      "sha256": "f3a6234e0768476a5dd42ea26468d07689bb8dc91fdfab8d77d68c886edd7212"
+    },
+    "genshin-crpg/AGENTS.md": {
+      "bytes": 30994,
+      "git_blob_sha": "18c57eff3637ecd7201dae423c885f7c2dd2e68e",
+      "sha256": "5defa7ae749999bab4fcb8328f8d530517b011955f3b4f332a527f3e77a2627e"
+    },
+    "genshin-crpg/docs/AI_HANDOFF.md": {
+      "bytes": 157786,
+      "git_blob_sha": "4c0ca944b413c7c3a93e9cd74dd2e7af8fde21d5",
+      "sha256": "e1082ab38e715a5fc899c52729f194d6e0e0a0c3b1c6cf8287039ed50a7b6345"
+    },
+    "genshin-crpg/docs/NEXT_STEPS_KO.md": {
+      "bytes": 62505,
+      "git_blob_sha": "11b07654c7ce4e95652298ea9197616ff8fc576a",
+      "sha256": "c44f3ebb412ec33988a047029bb06e8ebc8d369183bdcf4e2e3e25a2e4abd774"
+    },
+    "genshin-crpg/docs/WORKFLOW_FIX_0.16.26_KO.md": {
+      "bytes": 6096,
+      "git_blob_sha": "f63b686a38867eac4cc7c6c78efce87a21d77c32",
+      "sha256": "aadbb7cdc5837d169a224d859ad4fab49fc86f4efa7fd0be63c823cbd463d3a9"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/balance-current-v01626.json": {
+      "bytes": 40088,
+      "git_blob_sha": "e33c05754475a97222d09189f076c436417db44e",
+      "sha256": "f37ef7bd2e0d90516c59d4e5fd8a9c951ea396200d120bf6fdc5bf8fefea13b9"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/balance-tests.json": {
+      "bytes": 5997,
+      "git_blob_sha": "77035585c93d419bb8a78d50a07a55c06c15b54d",
+      "sha256": "6cd78f70eda6df66aa407f0e139c8ceb07cad36154679679706aa3f1f5dfe033"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/balance.json": {
+      "bytes": 13260,
+      "git_blob_sha": "b371b7f10ffd007380e179cd950f21529c3e7d3a",
+      "sha256": "71d61334fbb43b2614bb1eb098b5a9088439b0fe1d9e5024a0517726d73ce23d"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/boss_boundaries_current.json": {
+      "bytes": 11247,
+      "git_blob_sha": "168269403b8800742eb6e5a0af83004a0d7ab63c",
+      "sha256": "443622beb5ac495b6b3a695dd3d97c891e3eb1b2bd278432cd089594789b4106"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/browser-results.json": {
+      "bytes": 297,
+      "git_blob_sha": "27e836d82b4abe151dbd6658d6fb0552354e75c7",
+      "sha256": "186dd05f5d8c4bb3ee04652f1ee03120316b522750a5c4bbac148d9409dcb2fd"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/content-boundaries-final.log": {
+      "bytes": 898,
+      "git_blob_sha": "d688028f261879ee71b0c59f6924a3e79e69a8d1",
+      "sha256": "5ec91acf24a71439e8565cd604a750bce552c3bb96070cdd3b06ca94bf20f590"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/dist-sqlite-browser.json": {
+      "bytes": 2331,
+      "git_blob_sha": "1451beb1cdd569eaccd7b8db5d02bc9f849863a9",
+      "sha256": "b0c1ef65ca70158cf5dc9f876f0b104820911152856a75b337ae375078e6c3ce"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/dist-worker-browser.json": {
+      "bytes": 2319,
+      "git_blob_sha": "d98c4ba4c2ba6809a78fb699e67539d20ff734b1",
+      "sha256": "fd4efc41d0be2d8816eae8166e69a30f1c83cb8a552e7741eee739cd2826c8aa"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_abyss_v01341.cjs.log": {
+      "bytes": 844,
+      "git_blob_sha": "387a1e78dfeaf10e74dcb5259f19c7a9c1f75bc2",
+      "sha256": "6deb543a28d9f08d08974246632608eb5b28cb90c9a1e286cec06232f984d7a8"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_balance_v0141.cjs.log": {
+      "bytes": 3694,
+      "git_blob_sha": "afdda9e0236a637485ea5904c0fd8cd03ceccc08",
+      "sha256": "08870256c0215ac892080b6dc1c25d131a8e746baaf344e9d466e948747480ed"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_balance_v0152.cjs.log": {
+      "bytes": 2494,
+      "git_blob_sha": "134b1cfff783acd14166ab8f9e230cee75bdaba6",
+      "sha256": "c7dd13eafd22ec757437f34728c5549056d19c6e8bb95953d48628a9f00f6fd3"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_boss_boundaries_v01619.cjs.log": {
+      "bytes": 2352,
+      "git_blob_sha": "c72a91d116c407ac7c6342bc0c3bc36efbd5c35d",
+      "sha256": "aec1b9049172b0f429c4f863e2c385ebda2fd292b2262a0fdf5d0f09be386bbe"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_boss_difficulty_scope_v01624.cjs.log": {
+      "bytes": 207,
+      "git_blob_sha": "b70048388ee9175b207a60ebc28979baefb61d2f",
+      "sha256": "c09af69e99b90bfe4143b4f4299705f837b2b7ebe1bfc024f1e8e0d247993838"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_client_audit_fixes.cjs.log": {
+      "bytes": 127,
+      "git_blob_sha": "10829210a68e4d268e55f45b501c81f5dda78831",
+      "sha256": "a0e0dac5db579d865a4095a15d6742800996908b5569b732e3d5a08bcdb1c77e"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_online_title_v01344.cjs.log": {
+      "bytes": 151,
+      "git_blob_sha": "0e898fd8c3d3a13ed4af8f264846ec0a08126bc8",
+      "sha256": "6ff73a2f7a9333f676aeedab0f99e7f4f3d4f870e586817f81af35dfd92ec722"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/failed_run_308/test_other_healers_v01619.cjs.log": {
+      "bytes": 1122,
+      "git_blob_sha": "6cc877e0098e1d8c389894d884c0aa99fbe978cf",
+      "sha256": "2735f46f5e6a8067336ea3024c86a6b3256f5819073e978b08145baae6ec335f"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/other_healers_current.json": {
+      "bytes": 17502,
+      "git_blob_sha": "abe9ed32fe1fc4330edcbced18cad31aa6f2aa7a",
+      "sha256": "ced9d76a1043dac33c01ab68d360a17e565568236607e75b69cd56ee6c5619e8"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_abyss_v01341.cjs.log": {
+      "bytes": 215,
+      "git_blob_sha": "6ab86cc940278ad45b8332e291e84d01801ebc96",
+      "sha256": "1ed7d218334eb055de22abecfe678e1b71b16e7602a6a505cea187f581012d3a"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_balance_v0141.cjs.log": {
+      "bytes": 853,
+      "git_blob_sha": "47f59b691b2da335c084d933b5dd78da015c4293",
+      "sha256": "bf46d142ccba6e72beeb8cf2052a0ffd17f8bf0f883879c0a4a29dda3776a44a"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_balance_v0152.cjs.log": {
+      "bytes": 669,
+      "git_blob_sha": "784beb849930b554e3c5ebfbe7fa422c7d4c92d7",
+      "sha256": "abf51775fc0bb428f3ef2eb78ce4558810cfc7f1410c79c90a2a47adbab9f22f"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_boss_boundaries_v01619.cjs.log": {
+      "bytes": 1727,
+      "git_blob_sha": "7be7f3b2bacd8f98e77b9798c8fef2c483de99c7",
+      "sha256": "fb72889c5bd1350a504dbe15f6e461f82305c6f130fc5800e483433c067cad62"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_boss_difficulty_scope_v01624.cjs.log": {
+      "bytes": 7636,
+      "git_blob_sha": "4ccdef3e5e538dd51ccb82e7cd0b89688a706967",
+      "sha256": "f6beec37fd022ad9aac3121744fe25c58a3be71b29d2c3f5646289bd811ea77e"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_client_audit_fixes.cjs.log": {
+      "bytes": 2045,
+      "git_blob_sha": "74bace22cae78d92a0c7dfca0fe26bb11fb42c76",
+      "sha256": "fb63d063404dc678b09aef4f1289b948664de47975ac8b12da10c6e7f3e17c28"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_online_title_v01344.cjs.log": {
+      "bytes": 150,
+      "git_blob_sha": "cf015e9e6cf1c95d26efba1cf21234b3c771e788",
+      "sha256": "82812cc8530ebe5ce98428f1b8beca69002b8d2cb453eae51212d7f76a6ffa6b"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/passed_current/test_other_healers_v01619.cjs.log": {
+      "bytes": 925,
+      "git_blob_sha": "ed96d6ac9d21819fe5c0b3310038c0a91dcba69a",
+      "sha256": "adced3e643bad2377eea2e006851f006047b488450d401a2ca0cb528f607a4f7"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/release-isolation-final.log": {
+      "bytes": 105,
+      "git_blob_sha": "e72be341181727fd919b86816eb88dde62522128",
+      "sha256": "5d27ea481ad79235974d80a46c3786943a6571f9661b09dd8aedfda7ac412692"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/results-shard-1-of-4.json": {
+      "bytes": 4778,
+      "git_blob_sha": "7c1c3cca1587e544042ee3a78dcbeb1815666d4a",
+      "sha256": "b136900955feda16fa54d5ec3e783b7dc8aaa2a0e91bf7dfda5d85a690b565fc"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/results-shard-2-of-4.json": {
+      "bytes": 4831,
+      "git_blob_sha": "d2b16ec4ef082de036871f53e18f1dcbbf5b0474",
+      "sha256": "b765d84d6e99b938ac46fdf40d5409bc27a1b03d5aefc09f8ababe3c749a36a5"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/results-shard-3-of-4.json": {
+      "bytes": 4910,
+      "git_blob_sha": "00a1c228be6c2907ff611855c677c61b9214b738",
+      "sha256": "a0d6c60c20c2670614de20db61ef90a667bdbeb799c674af0ecb39dfa90fee3a"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/results-shard-4-of-4.json": {
+      "bytes": 3519,
+      "git_blob_sha": "eef53c2b42c8b63ca208509990b4e00da4f595b1",
+      "sha256": "e1e8b8cccf11f3f9ad8752e9ce585ea3cb76e3b34f57fd5151db56b855715895"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/source-sqlite-browser.json": {
+      "bytes": 2303,
+      "git_blob_sha": "e6cc26dc80564b410fa1225e7e56c9c733e42f32",
+      "sha256": "6214ef53248507be93d4ff76b0f40af373c4d08028d44db460d75734d18fa6ec"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/source-worker-browser.json": {
+      "bytes": 2302,
+      "git_blob_sha": "d8a0ffa8b80cfb901c0e13d1b22622507aae6935",
+      "sha256": "336b820f3cff8a1854501e9540c59400a43b3ea6280b48745d3258e59a38a49d"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/verification.json": {
+      "bytes": 55816,
+      "git_blob_sha": "a8acea289fff801a4057ade8242875e039e5ed2f",
+      "sha256": "d94daa6a5dbfd10d6373284cf5ddaafbfd39f28a34e50d2a3cc50eb1da98a777"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/workflow-baseline-first.json": {
+      "bytes": 61669,
+      "git_blob_sha": "3ee131f4eda0e73a87d42836fd5768e3f95dd5b6",
+      "sha256": "a88a3a1f035fb45f1ab3a162b6d33fc2f47f4c669a2b30977b3b9d6cf444a065"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/workflow-baseline-rejection.json": {
+      "bytes": 1918,
+      "git_blob_sha": "4700770eb45e4dfd0636d8081f6b239f6c252ae7",
+      "sha256": "c6c86f94fd6dc824c8a9878f46dc686abcbb2e1a3e9e4f12b2b8f05f2f161162"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/workflow-character-final.json": {
+      "bytes": 76869,
+      "git_blob_sha": "727699aeb92e0ec1d7744c008ee14b8cd83e8172",
+      "sha256": "eb5c013fc9d46d7a553f817d1526aef983a3718815aa96e8e39687cee2734401"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/workflow-character-rejection.json": {
+      "bytes": 2162,
+      "git_blob_sha": "987de2111c5684917d120dc9bd9a62b7a4a440d8",
+      "sha256": "2883eea19bd8db68b402c8755c5689811136cac15345a81882f24774e5ff1187"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/workflow-character-strict-final.json": {
+      "bytes": 77205,
+      "git_blob_sha": "579e3a8de02c6fe0fa8ef3c40c5632c1a9223b89",
+      "sha256": "f63d7696f39464373a15dc655ac9ae6930f40b0205cb15009395ff5f7f06ddba"
+    },
+    "genshin-crpg/docs/data/workflow_fix_v01626/workflow-ownership-final.json": {
+      "bytes": 26044,
+      "git_blob_sha": "c37125e76a0291434ff3a66a132788d6328b6eb2",
+      "sha256": "1eefb4ae81e1f74442aa3773bf244a4dae493debcb58964b9bebd4da3edd1cfc"
+    },
+    "genshin-crpg/tests/fixtures/boss_scope_v01623/README.md": {
+      "bytes": 1352,
+      "git_blob_sha": "fbffb77ebd5f3b98fb1b2238e2b976c92c435385",
+      "sha256": "31c82d5d7ba966099da3de7693d609daa0a17425e48b9e0b4a4b6293cf6af2e4"
+    },
+    "genshin-crpg/tests/fixtures/boss_scope_v01623/provenance.json": {
+      "bytes": 1391,
+      "git_blob_sha": "5f556a42d02944d556d3e0ab4672630783ae4cc1",
+      "sha256": "64294863e0bb8d7aa1efefc4c6395989c61b35ad5aec1afa6c078452004c043d"
+    },
+    "genshin-crpg/tests/fixtures/boss_scope_v01623/source/runtime_abyss.js": {
+      "bytes": 41359,
+      "git_blob_sha": "3e387fbeab929f2b2b28c9542a0ef18ac380bc14",
+      "sha256": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb"
+    },
+    "genshin-crpg/tests/fixtures/boss_scope_v01623/source/runtime_exclusive_weapons.js": {
+      "bytes": 18955,
+      "git_blob_sha": "434b0a473b558d9832d78c24df542e1020354731",
+      "sha256": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+    },
+    "genshin-crpg/tests/fixtures/boss_scope_v01623/source/runtime_formations.js": {
+      "bytes": 7143,
+      "git_blob_sha": "94418cdbe5d5f52f13bee090a14b09011a022f70",
+      "sha256": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c"
+    },
+    "genshin-crpg/tests/fixtures/boss_scope_v01623/source/runtime_skill_rhythm.js": {
+      "bytes": 4762,
+      "git_blob_sha": "98481137fbed454477df5dcbd0b89d850d5d3305",
+      "sha256": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5"
+    },
+    "genshin-crpg/tests/helpers_abyss_ci_v01626.cjs": {
+      "bytes": 5452,
+      "git_blob_sha": "3bc6a35a886e4f0cb1c242dd4b7dd7dda64bf815",
+      "sha256": "062de8a915e2d26465ff0d5bc772ff0428a04b75a173125b7c3b59e6f9a0c160"
+    },
+    "genshin-crpg/tests/test_abyss_v01341.cjs": {
+      "bytes": 17366,
+      "git_blob_sha": "5f2583055a357375e1ad70c03f6ed2060d92b3f3",
+      "sha256": "38665ee0e097f2e8a62b54e462d8f1a7ed8cbe12c08663825ef820cb06d8a4ed"
+    },
+    "genshin-crpg/tests/test_balance_v0141.cjs": {
+      "bytes": 9446,
+      "git_blob_sha": "8be95ea5522517391a9d93adbacfd1ece588083b",
+      "sha256": "18a9b10dee88c4154a5032a19354680a666bcd03555eaeef291211741ae0505f"
+    },
+    "genshin-crpg/tests/test_balance_v0152.cjs": {
+      "bytes": 10410,
+      "git_blob_sha": "0dc05b12f229f49355a1359d639431d42951a9ab",
+      "sha256": "1e30a6d6e657af4d70352fbbd64f04fb53102fa483f574ddd1e2d959ec6b074d"
+    },
+    "genshin-crpg/tests/test_boss_difficulty_scope_v01624.cjs": {
+      "bytes": 23112,
+      "git_blob_sha": "9b1242f01979f00288f4e15a3d3e0834716886e2",
+      "sha256": "223286a04bd5d48133c38195088acc469f5f5301c3507d881ab7419ef206c884"
+    },
+    "genshin-crpg/tests/test_character_balance_v01625.cjs": {
+      "bytes": 34357,
+      "git_blob_sha": "a6406abc8dab009f94f56fd5334fbf142a597a13",
+      "sha256": "fc9beb0e49480a5be8ff56e2630fdbfeb9c716f684abe11a57c8e755e47f8858"
+    },
+    "genshin-crpg/tests/test_client_audit_fixes.cjs": {
+      "bytes": 19159,
+      "git_blob_sha": "3bb2e982912f5a3a20659f5732200d692d8de290",
+      "sha256": "688c3eab7c755a583575c7374e974d242d7e47d77f301f4debcaf42c72980bd9"
+    },
+    "genshin-crpg/tests/test_online_title_v01344.cjs": {
+      "bytes": 6827,
+      "git_blob_sha": "5fc6b470fdbb7fab32240b897ae1d9777e75b2e7",
+      "sha256": "9ea097d7d02b6bb5a3ea0168abe763e0196ff9701c41f1f62528262ba4726b1a"
+    },
+    "genshin-crpg/tools/test_boss_boundaries_v01619.cjs": {
+      "bytes": 11990,
+      "git_blob_sha": "df2c7bdf2acecd9876d7410b22aa601bbd0a38d8",
+      "sha256": "ff28ca314454b54bf9a89975fc9ea468f6256bada1ac8a2b58e23e4552640506"
+    },
+    "genshin-crpg/tools/test_other_healers_v01619.cjs": {
+      "bytes": 12588,
+      "git_blob_sha": "126bb55d457dd9d5326fff428b8d60c47f6228e1",
+      "sha256": "0df6369df6c4cc4e4e93b2cdfd1714acdf5c849b5622cd865d89275be8ea9f17"
+    },
+    "genshin-crpg/tools/verify_release.py": {
+      "bytes": 12018,
+      "git_blob_sha": "6e724e5de1d7cbdd9b82fc12d7a87e57ea6a1d80",
+      "sha256": "0df64c85422ca3d7616ffc8c449892cb9ef5bf684561ce5c6986b50b12f76e31"
+    }
+  },
+  "all_unselected_remote_files": "must be byte-identical in candidate Git tree",
+  "manifest_own_file": "Excluded from its own checksum list to avoid a circular checksum."
+}

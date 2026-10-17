@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_shield_meter_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_shield_meter_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T09:11:04.834036+00:00",
+  "endedAt": "2026-10-10T09:11:05.053911+00:00",
+  "seconds": 0.073,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "73fc1a5094673350e13e26465514bbec56af00cb3e0c309879acf32f2258f8d0",
+  "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "stdoutSha256": "066e7c1f39a4959b6b30bfe6180648e6fc897852d711c93cccd3c00ee3c44f3f",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_shield_meter_v01619.stdout.log",
+  "stderrLog": "test_shield_meter_v01619.stderr.log"
+}

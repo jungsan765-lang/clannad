@@ -1,0 +1,928 @@
+{
+  "schema": 1,
+  "version": "0.16.19",
+  "sourceRoot": "/tmp/crpg_food_v01620/baseline",
+  "sourceDigest": "6fd58231b7efd170ca979c58a877bd6486b5b48b8c26e87c3cee07eca64d21cc",
+  "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "recipes": [
+    {
+      "food": "FOOD_TEA_BREAK_PANCAKE",
+      "name": "티바트 달걀 프라이",
+      "baseHealing": 90,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 3,
+      "totalOpportunityMora": 7,
+      "moraPer100BaseHp": 7.778,
+      "npcResaleMora": 8,
+      "ingredientUnits": 1,
+      "stocks": [
+        {
+          "stock": "STK_MOND_SARA_EGG",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "price": 35,
+          "quantity": 10,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        },
+        {
+          "stock": "STK_LY_WANMIN_EGG",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "price": 35,
+          "quantity": 10,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        },
+        {
+          "stock": "STK_LY_WANGSHU_EGG",
+          "merchant": "MRC_LIYUE_WANGSHU_DINING",
+          "price": 35,
+          "quantity": 10,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "food": "FOOD_SWEET_MADAME",
+      "name": "달콤달콤 닭고기 스튜",
+      "baseHealing": 180,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 20,
+      "totalOpportunityMora": 24,
+      "moraPer100BaseHp": 13.333,
+      "npcResaleMora": 20,
+      "ingredientUnits": 4,
+      "stocks": [
+        {
+          "stock": "STK_MOND_SARA_CHICKEN",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "price": 80,
+          "quantity": 8,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "food": "FOOD_HASH_BROWN",
+      "name": "몬드 감자전",
+      "baseHealing": 220,
+      "craftMora": 2,
+      "ingredientOpportunityMora": 24,
+      "totalOpportunityMora": 26,
+      "moraPer100BaseHp": 11.818,
+      "npcResaleMora": 26,
+      "ingredientUnits": 4,
+      "stocks": [
+        {
+          "stock": "STK_MOND_SARA_POTATO",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "price": 105,
+          "quantity": 8,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "food": "FOOD_MATSUTAKE_ROLL",
+      "name": "버섯고기말이",
+      "baseHealing": 240,
+      "craftMora": 2,
+      "ingredientOpportunityMora": 48,
+      "totalOpportunityMora": 50,
+      "moraPer100BaseHp": 20.833,
+      "npcResaleMora": 30,
+      "ingredientUnits": 4,
+      "stocks": [
+        {
+          "stock": "STK_LY_WANMIN_MATSUTAKE",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "price": 120,
+          "quantity": 8,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "food": "FOOD_UNIVERSAL_PEACE",
+      "name": "세계 평화",
+      "baseHealing": 160,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 28,
+      "totalOpportunityMora": 31,
+      "moraPer100BaseHp": 19.375,
+      "npcResaleMora": 45,
+      "ingredientUnits": 5,
+      "stocks": [
+        {
+          "stock": "STK_LY_WANMIN_PEACE",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "price": 180,
+          "quantity": 5,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "food": "FOOD_PIZZA",
+      "name": "버섯피자",
+      "baseHealing": 130,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 34,
+      "totalOpportunityMora": 38,
+      "moraPer100BaseHp": 29.231,
+      "npcResaleMora": 16,
+      "ingredientUnits": 7,
+      "stocks": [
+        {
+          "stock": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "price": 65,
+          "quantity": 8,
+          "period": "매일",
+          "condition": "없음",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "food": "FOOD_SAKURA_MOCHI",
+      "name": "벚꽃 모찌",
+      "baseHealing": 170,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 23,
+      "totalOpportunityMora": 26,
+      "moraPer100BaseHp": 15.294,
+      "npcResaleMora": 50,
+      "ingredientUnits": 4,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_TAHCHIN",
+      "name": "타친",
+      "baseHealing": 145,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 31,
+      "totalOpportunityMora": 34,
+      "moraPer100BaseHp": 23.448,
+      "npcResaleMora": 80,
+      "ingredientUnits": 4,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "name": "글루포프 호밀빵",
+      "baseHealing": 200,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 32,
+      "totalOpportunityMora": 35,
+      "moraPer100BaseHp": 17.5,
+      "npcResaleMora": 50,
+      "ingredientUnits": 4,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_BERRY_ICE_CREAM",
+      "name": "베리 아이스크림",
+      "baseHealing": 200,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 41,
+      "totalOpportunityMora": 44,
+      "moraPer100BaseHp": 22.0,
+      "npcResaleMora": 75,
+      "ingredientUnits": 4,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "name": "옛뜰 훈제 소시지",
+      "baseHealing": 120,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 30,
+      "totalOpportunityMora": 34,
+      "moraPer100BaseHp": 28.333,
+      "npcResaleMora": 35,
+      "ingredientUnits": 3,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_MEDOVIK",
+      "name": "메도빅",
+      "baseHealing": 220,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 29,
+      "totalOpportunityMora": 32,
+      "moraPer100BaseHp": 14.545,
+      "npcResaleMora": 65,
+      "ingredientUnits": 5,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_SNEZ_ZHARKOYE",
+      "name": "자르코예",
+      "baseHealing": 260,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 41,
+      "totalOpportunityMora": 44,
+      "moraPer100BaseHp": 16.923,
+      "npcResaleMora": 85,
+      "ingredientUnits": 5,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_STEAK",
+      "name": "스테이크",
+      "baseHealing": 110,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 18,
+      "totalOpportunityMora": 22,
+      "moraPer100BaseHp": 20.0,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_CHICKEN_SKEWER",
+      "name": "버섯 닭꼬치",
+      "baseHealing": 100,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 10,
+      "totalOpportunityMora": 13,
+      "moraPer100BaseHp": 13.0,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_MOND_GRILLED_FISH",
+      "name": "몬드 생선구이",
+      "baseHealing": 100,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 14,
+      "totalOpportunityMora": 17,
+      "moraPer100BaseHp": 17.0,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_RADISH_SOUP",
+      "name": "무 수프",
+      "baseHealing": 90,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 6,
+      "totalOpportunityMora": 10,
+      "moraPer100BaseHp": 11.111,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_MINT_JELLY",
+      "name": "민트 젤리",
+      "baseHealing": 90,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 9,
+      "totalOpportunityMora": 13,
+      "moraPer100BaseHp": 14.444,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_PANCAKE_TEA_BREAK",
+      "name": "장원 팬케이크",
+      "baseHealing": 170,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 26,
+      "totalOpportunityMora": 29,
+      "moraPer100BaseHp": 17.059,
+      "npcResaleMora": 35,
+      "ingredientUnits": 6,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_BOLOGNESE",
+      "name": "불꽃 미트 스파게티",
+      "baseHealing": 180,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 30,
+      "totalOpportunityMora": 34,
+      "moraPer100BaseHp": 18.889,
+      "npcResaleMora": 35,
+      "ingredientUnits": 5,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_APPLE_STEW",
+      "name": "북극 사과고기찜",
+      "baseHealing": 240,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 50,
+      "totalOpportunityMora": 53,
+      "moraPer100BaseHp": 22.083,
+      "npcResaleMora": 60,
+      "ingredientUnits": 8,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_CHICKEN_BURGER",
+      "name": "바삭바삭 치킨버거",
+      "baseHealing": 250,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 47,
+      "totalOpportunityMora": 51,
+      "moraPer100BaseHp": 20.4,
+      "npcResaleMora": 60,
+      "ingredientUnits": 8,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_MORA_MEAT",
+      "name": "모라육",
+      "baseHealing": 100,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 13,
+      "totalOpportunityMora": 17,
+      "moraPer100BaseHp": 17.0,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_STIR_FRIED_FILET",
+      "name": "고기볶음",
+      "baseHealing": 110,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 29,
+      "totalOpportunityMora": 32,
+      "moraPer100BaseHp": 29.091,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_CRYSTAL_SHRIMP",
+      "name": "수정 새우딤섬",
+      "baseHealing": 190,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 47,
+      "totalOpportunityMora": 51,
+      "moraPer100BaseHp": 26.842,
+      "npcResaleMora": 35,
+      "ingredientUnits": 5,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_VEGETARIAN_ABALONE",
+      "name": "채식 전복",
+      "baseHealing": 170,
+      "craftMora": 2,
+      "ingredientOpportunityMora": 40,
+      "totalOpportunityMora": 42,
+      "moraPer100BaseHp": 24.706,
+      "npcResaleMora": 35,
+      "ingredientUnits": 4,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_SQUIRREL_FISH",
+      "name": "탕수어",
+      "baseHealing": 250,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 52,
+      "totalOpportunityMora": 55,
+      "moraPer100BaseHp": 22.0,
+      "npcResaleMora": 60,
+      "ingredientUnits": 8,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_SHRIMP_BALLS",
+      "name": "황금 새우볼",
+      "baseHealing": 240,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 80,
+      "totalOpportunityMora": 83,
+      "moraPer100BaseHp": 34.583,
+      "npcResaleMora": 60,
+      "ingredientUnits": 9,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_BAMBOO_SOUP",
+      "name": "죽순 수프",
+      "baseHealing": 240,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 50,
+      "totalOpportunityMora": 53,
+      "moraPer100BaseHp": 22.083,
+      "npcResaleMora": 60,
+      "ingredientUnits": 5,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_PERCH_STEW",
+      "name": "삶은 검정 농어",
+      "baseHealing": 260,
+      "craftMora": 2,
+      "ingredientOpportunityMora": 72,
+      "totalOpportunityMora": 74,
+      "moraPer100BaseHp": 28.462,
+      "npcResaleMora": 60,
+      "ingredientUnits": 6,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_CRAB_HAM_BAKE",
+      "name": "꽃게알 야채찜",
+      "baseHealing": 230,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 55,
+      "totalOpportunityMora": 58,
+      "moraPer100BaseHp": 25.217,
+      "npcResaleMora": 60,
+      "ingredientUnits": 4,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_POTATO_SHRIMP_PLATTER",
+      "name": "바삭 쉬림프 카나페",
+      "baseHealing": 230,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 72,
+      "totalOpportunityMora": 76,
+      "moraPer100BaseHp": 33.043,
+      "npcResaleMora": 60,
+      "ingredientUnits": 10,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_GRILLED_TIGER_FISH",
+      "name": "흘호어 구이",
+      "baseHealing": 100,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 14,
+      "totalOpportunityMora": 17,
+      "moraPer100BaseHp": 17.0,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_RICE_BUNS",
+      "name": "쌀 찐빵",
+      "baseHealing": 100,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 10,
+      "totalOpportunityMora": 13,
+      "moraPer100BaseHp": 13.0,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_FINE_TEA_FULL_MOON",
+      "name": "차와 보름달",
+      "baseHealing": 240,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 32,
+      "totalOpportunityMora": 35,
+      "moraPer100BaseHp": 14.583,
+      "npcResaleMora": 60,
+      "ingredientUnits": 7,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_JADEVEIN_TEA_EGGS",
+      "name": "옥무늬 찻잎 달걀",
+      "baseHealing": 90,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 9,
+      "totalOpportunityMora": 12,
+      "moraPer100BaseHp": 13.333,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_TEA_SMOKED_SQUAB",
+      "name": "차향 훈제 비둘기",
+      "baseHealing": 180,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 26,
+      "totalOpportunityMora": 29,
+      "moraPer100BaseHp": 16.111,
+      "npcResaleMora": 35,
+      "ingredientUnits": 4,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_CHENYU_BREW",
+      "name": "침옥 차 이슬",
+      "baseHealing": 90,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 12,
+      "totalOpportunityMora": 15,
+      "moraPer100BaseHp": 16.667,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_CRAB_ROE_TOFU",
+      "name": "꽃게알 두부",
+      "baseHealing": 170,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 26,
+      "totalOpportunityMora": 29,
+      "moraPer100BaseHp": 17.059,
+      "npcResaleMora": 35,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_FULLMOON_EGG",
+      "name": "명월 딤섬",
+      "baseHealing": 230,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 70,
+      "totalOpportunityMora": 73,
+      "moraPer100BaseHp": 31.739,
+      "npcResaleMora": 60,
+      "ingredientUnits": 8,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_FISH_NOODLES",
+      "name": "생선 볶음면",
+      "baseHealing": 170,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 44,
+      "totalOpportunityMora": 47,
+      "moraPer100BaseHp": 27.647,
+      "npcResaleMora": 35,
+      "ingredientUnits": 6,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_HUMBLY_ENOUGH",
+      "name": "만족의 기쁨",
+      "baseHealing": 230,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 62,
+      "totalOpportunityMora": 65,
+      "moraPer100BaseHp": 28.261,
+      "npcResaleMora": 60,
+      "ingredientUnits": 6,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_HONEY_CHAR_SIU",
+      "name": "꿀 차사오",
+      "baseHealing": 90,
+      "craftMora": 3,
+      "ingredientOpportunityMora": 15,
+      "totalOpportunityMora": 18,
+      "moraPer100BaseHp": 20.0,
+      "npcResaleMora": 15,
+      "ingredientUnits": 2,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_LUCKY_SNOW_DELIGHT",
+      "name": "풍요 백설기",
+      "baseHealing": 270,
+      "craftMora": 2,
+      "ingredientOpportunityMora": 72,
+      "totalOpportunityMora": 74,
+      "moraPer100BaseHp": 27.407,
+      "npcResaleMora": 100,
+      "ingredientUnits": 7,
+      "stocks": []
+    },
+    {
+      "food": "FOOD_GOLDEN_TEMPERED_JADE",
+      "name": "빛나는 냉옥",
+      "baseHealing": 170,
+      "craftMora": 4,
+      "ingredientOpportunityMora": 18,
+      "totalOpportunityMora": 22,
+      "moraPer100BaseHp": 12.941,
+      "npcResaleMora": 35,
+      "ingredientUnits": 4,
+      "stocks": []
+    }
+  ],
+  "inn50Percent": [
+    {
+      "level": 1,
+      "mora": {
+        "MOND": 28,
+        "LIYUE": 36
+      },
+      "hp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 1,
+          "hp": 300,
+          "maxHp": 600,
+          "lastMeal": ""
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 1,
+          "hp": 325,
+          "maxHp": 650,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 1,
+          "hp": 350,
+          "maxHp": 700,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_LISA",
+          "level": 1,
+          "hp": 320,
+          "maxHp": 640,
+          "lastMeal": "NONE"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "mora": {
+        "MOND": 101,
+        "LIYUE": 120
+      },
+      "hp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 10,
+          "hp": 866,
+          "maxHp": 1733,
+          "lastMeal": ""
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 10,
+          "hp": 925,
+          "maxHp": 1850,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 10,
+          "hp": 983,
+          "maxHp": 1966,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_LISA",
+          "level": 10,
+          "hp": 913,
+          "maxHp": 1826,
+          "lastMeal": "NONE"
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "mora": {
+        "MOND": 182,
+        "LIYUE": 212
+      },
+      "hp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 1652,
+          "maxHp": 3305,
+          "lastMeal": ""
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 20,
+          "hp": 1774,
+          "maxHp": 3548,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 20,
+          "hp": 1895,
+          "maxHp": 3791,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_LISA",
+          "level": 20,
+          "hp": 1750,
+          "maxHp": 3500,
+          "lastMeal": "NONE"
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "mora": {
+        "MOND": 262,
+        "LIYUE": 306
+      },
+      "hp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 30,
+          "hp": 2803,
+          "maxHp": 5607,
+          "lastMeal": ""
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 30,
+          "hp": 3017,
+          "maxHp": 6034,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 30,
+          "hp": 3229,
+          "maxHp": 6459,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_LISA",
+          "level": 30,
+          "hp": 2974,
+          "maxHp": 5948,
+          "lastMeal": "NONE"
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "mora": {
+        "MOND": 343,
+        "LIYUE": 400
+      },
+      "hp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 4324,
+          "maxHp": 8649,
+          "lastMeal": ""
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 40,
+          "hp": 4662,
+          "maxHp": 9324,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 40,
+          "hp": 4998,
+          "maxHp": 9997,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_LISA",
+          "level": 40,
+          "hp": 4594,
+          "maxHp": 9189,
+          "lastMeal": "NONE"
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "mora": {
+        "MOND": 422,
+        "LIYUE": 492
+      },
+      "hp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 6297,
+          "maxHp": 12595,
+          "lastMeal": ""
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 50,
+          "hp": 6797,
+          "maxHp": 13594,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 50,
+          "hp": 7295,
+          "maxHp": 14591,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_LISA",
+          "level": 50,
+          "hp": 6697,
+          "maxHp": 13394,
+          "lastMeal": "NONE"
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "mora": {
+        "MOND": 502,
+        "LIYUE": 586
+      },
+      "hp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 9561,
+          "maxHp": 19122,
+          "lastMeal": ""
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 60,
+          "hp": 10327,
+          "maxHp": 20654,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_KAEYA",
+          "level": 60,
+          "hp": 11092,
+          "maxHp": 22185,
+          "lastMeal": "NONE"
+        },
+        {
+          "owner": "MOND_LISA",
+          "level": 60,
+          "hp": 10173,
+          "maxHp": 20347,
+          "lastMeal": "NONE"
+        }
+      ]
+    }
+  ],
+  "resourceSampleCount": 384,
+  "npcPurchaseCraftResaleViolations": [],
+  "readyFoodCaps": {
+    "FOOD_TEA_BREAK_PANCAKE": 8,
+    "FOOD_SWEET_MADAME": 20,
+    "FOOD_HASH_BROWN": 26,
+    "FOOD_MATSUTAKE_ROLL": 30,
+    "FOOD_UNIVERSAL_PEACE": 45,
+    "FOOD_PIZZA": 16
+  },
+  "market": {
+    "rules": {
+      "version": 1,
+      "open": [
+        "음식",
+        "몬스터 재료",
+        "식재료",
+        "가공 식재료",
+        "광물",
+        "제작 재료",
+        "지역 특산물",
+        "기계 부품",
+        "연금 재료",
+        "소모품",
+        "전투 치료품",
+        "탐험 도구",
+        "전술 도구"
+      ],
+      "limit": {
+        "entries": 6,
+        "quantity": 999
+      },
+      "minLevel": 10
+    },
+    "serverFee": 0.05,
+    "minFee": 1,
+    "minListingBundle": 10,
+    "maxListings": 8
+  },
+  "noProductWrites": true
+}

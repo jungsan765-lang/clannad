@@ -1,0 +1,32 @@
+PASS 타르탈리아 (Liyue act 3, Lv.50): a fixed Lv.50 boss; a Lv.50 party wins after a long fight with real damage
+PASS 타르탈리아 of the 이세계 route (Lv.50 subdue fight): no longer falls in one round
+PASS 야타용왕 (Lv.60): a Lv.60 party wins most fights and has to work for it
+FAIL repeat challenges: Tartaglia Lv.50 from protagonist Lv.45, Azhdaha Lv.60 from Lv.55; +12 gear wins and a 5★ team clearly does better than a 4★ one
+AssertionError [ERR_ASSERTION]: [{"victory":false,"rounds":13,"hp":0},{"victory":false,"rounds":15,"hp":0},{"victory":false,"rounds":12,"hp":0}]
+
+0 !== 3
+
+    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:56:9
+    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:8:44)
+    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:48:1)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+FAIL two-day rematches: a party at the recommended level wins most fights (Andrius Lv.25, Dvalin Lv.28 with the wind route)
+AssertionError [ERR_ASSERTION]: [{"victory":true,"rounds":6,"hp":7},{"victory":false,"rounds":6,"hp":0},{"victory":false,"rounds":6,"hp":0}]
+    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:64:2
+    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:8:44)
+    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:62:1)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+PASS stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers
+{"total":6,"passed":4}

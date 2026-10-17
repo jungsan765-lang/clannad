@@ -1,0 +1,1854 @@
+{
+  "sourceHash": "67e4e0618d6bf612b9fac239fc40b53fdbb22bba4956bc4a66d350860b1ab067",
+  "patch": {
+    "needle": "ordinary:{hp:1.4,atk:1.6,def:1.5}",
+    "matches": 1
+  },
+  "assumptions": "Only isolated VM growth ordinary ATK literal changes; H.load candidate=null avoids any protagonist patch. Same legal C0 four-star party at Lv50, craft+6 and base talents8, public Diamond/rear/roles, full preentry HP once, no artifacts/exclusive/boss gear/food. Declared ownership/story access and cooldown0; exact native public MOVE, RNG/AI and COMBAT policy retained. Acquisition duration not simulated.",
+  "rows": [
+    {
+      "atk": 2.6,
+      "seed": 717,
+      "entry": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_SURFACE",
+          "minutes": 20,
+          "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_1"
+        },
+        "revision": 18
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initial": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13794,
+          "maxHp": 13794,
+          "atk": 2784.6,
+          "def": 1508.4
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13194,
+          "maxHp": 13194,
+          "atk": 2784.6,
+          "def": 1405.8
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13594,
+          "maxHp": 14274,
+          "atk": 1855.8,
+          "def": 1558.8
+        },
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 11797,
+          "maxHp": 11797,
+          "atk": 2067.6,
+          "def": 848
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 7980,
+          "def": 933,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "ARMORED"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9576,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9576,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 7980,
+          "def": 691,
+          "grade": "일반"
+        }
+      ],
+      "gear": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "LIYUE_XIANGLING": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_FISCHL": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_BARBARA": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        }
+      },
+      "result": {
+        "mora": 128,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-717:B18",
+        "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-717:B18",
+        "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-717",
+        "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+        "origin": "RANDOM",
+        "gate": "RANDOM",
+        "branch": null,
+        "victory": true,
+        "xp": 1680,
+        "loot": {
+          "MAT_TREASURE_INSIGNIA": 9,
+          "MAT_SILVER_INSIGNIA": 1
+        },
+        "rounds": 2,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "tierBonus": {
+          "version": 1,
+          "loot": {},
+          "enemies": [
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "갑주"
+              ]
+            },
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "사나운"
+              ]
+            },
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "사나운"
+              ]
+            }
+          ]
+        }
+      },
+      "hp": 0.7916093405454305,
+      "ko": 0,
+      "meter": {
+        "ms": 38030,
+        "inputs": 2,
+        "ownDamage": 2837,
+        "allyDamage": 63163,
+        "jointDamage": 8838,
+        "exposureDamage": 0,
+        "heal": 8895,
+        "actions": 0
+      }
+    },
+    {
+      "atk": 2.6,
+      "seed": 19,
+      "entry": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_SURFACE",
+          "minutes": 20,
+          "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_1"
+        },
+        "revision": 18
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initial": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13794,
+          "maxHp": 13794,
+          "atk": 2784.6,
+          "def": 1508.4
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13194,
+          "maxHp": 13194,
+          "atk": 2784.6,
+          "def": 1405.8
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13594,
+          "maxHp": 14274,
+          "atk": 1855.8,
+          "def": 1558.8
+        },
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 11797,
+          "maxHp": 11797,
+          "atk": 2067.6,
+          "def": 848
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 7980,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "REGEN"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 7980,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 7980,
+          "def": 691,
+          "grade": "일반"
+        }
+      ],
+      "gear": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "LIYUE_XIANGLING": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_FISCHL": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_BARBARA": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        }
+      },
+      "result": {
+        "mora": 96,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-19:B18",
+        "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-19:B18",
+        "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-19",
+        "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+        "origin": "RANDOM",
+        "gate": "RANDOM",
+        "branch": null,
+        "victory": true,
+        "xp": 1260,
+        "loot": {
+          "MAT_TREASURE_INSIGNIA": 3,
+          "MAT_SILVER_INSIGNIA": 2
+        },
+        "rounds": 2,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "tierBonus": {
+          "version": 1,
+          "loot": {},
+          "enemies": [
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "재생"
+              ]
+            },
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "선봉"
+              ]
+            }
+          ]
+        }
+      },
+      "hp": 0.8761378842420702,
+      "ko": 0,
+      "meter": {
+        "ms": 24710,
+        "inputs": 2,
+        "ownDamage": 4177,
+        "allyDamage": 46313,
+        "jointDamage": 6815,
+        "exposureDamage": 0,
+        "heal": 7434,
+        "actions": 0
+      }
+    },
+    {
+      "atk": 2.6,
+      "seed": 43,
+      "entry": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_SURFACE",
+          "minutes": 20,
+          "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_3"
+        },
+        "revision": 18
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_3",
+      "initial": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13794,
+          "maxHp": 13794,
+          "atk": 2784.6,
+          "def": 1508.4
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13194,
+          "maxHp": 13194,
+          "atk": 2784.6,
+          "def": 1405.8
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13594,
+          "maxHp": 14274,
+          "atk": 1855.8,
+          "def": 1558.8
+        },
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 11797,
+          "maxHp": 11797,
+          "atk": 2067.6,
+          "def": 848
+        },
+        {
+          "source": "MON_MITACHURL_ROCK",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 46135,
+          "maxHp": 46135,
+          "atk": 14907,
+          "def": 1304,
+          "grade": "정예",
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "FEROCIOUS",
+              "ARMORED"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9576,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        }
+      ],
+      "gear": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "LIYUE_XIANGLING": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_FISCHL": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_BARBARA": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        }
+      },
+      "result": {
+        "mora": 112,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-43:B18",
+        "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-43:B18",
+        "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-43",
+        "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_3",
+        "origin": "RANDOM",
+        "gate": "RANDOM",
+        "branch": null,
+        "victory": true,
+        "xp": 1470,
+        "loot": {
+          "MAT_DAMAGED_MASK": 1,
+          "MAT_STAINED_MASK": 1,
+          "MAT_OMINOUS_MASK": 3
+        },
+        "rounds": 3,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "tierBonus": {
+          "version": 1,
+          "loot": {
+            "MAT_OMINOUS_MASK": 3
+          },
+          "enemies": [
+            {
+              "name": "돌방패 츄츄 폭도",
+              "tier": 4,
+              "label": "강한 정예",
+              "affixes": [
+                "사나운",
+                "갑주"
+              ]
+            },
+            {
+              "name": "츄츄 싸움꾼",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "사나운"
+              ]
+            }
+          ]
+        }
+      },
+      "hp": 0.7089089504136904,
+      "ko": 0,
+      "meter": {
+        "ms": 43580,
+        "inputs": 3,
+        "ownDamage": 4534,
+        "allyDamage": 71942,
+        "jointDamage": 9145,
+        "exposureDamage": 0,
+        "heal": 1364,
+        "actions": 0
+      }
+    },
+    {
+      "atk": 3.2,
+      "seed": 717,
+      "entry": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_SURFACE",
+          "minutes": 20,
+          "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_1"
+        },
+        "revision": 18
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initial": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13794,
+          "maxHp": 13794,
+          "atk": 2784.6,
+          "def": 1508.4
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13194,
+          "maxHp": 13194,
+          "atk": 2784.6,
+          "def": 1405.8
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13594,
+          "maxHp": 14274,
+          "atk": 1855.8,
+          "def": 1558.8
+        },
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 11797,
+          "maxHp": 11797,
+          "atk": 2067.6,
+          "def": 848
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9660,
+          "def": 933,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "ARMORED"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 11592,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 11592,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9660,
+          "def": 691,
+          "grade": "일반"
+        }
+      ],
+      "gear": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "LIYUE_XIANGLING": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_FISCHL": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_BARBARA": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        }
+      },
+      "result": {
+        "mora": 128,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-717:B18",
+        "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-717:B18",
+        "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-717",
+        "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+        "origin": "RANDOM",
+        "gate": "RANDOM",
+        "branch": null,
+        "victory": true,
+        "xp": 1680,
+        "loot": {
+          "MAT_TREASURE_INSIGNIA": 9,
+          "MAT_SILVER_INSIGNIA": 1
+        },
+        "rounds": 2,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "tierBonus": {
+          "version": 1,
+          "loot": {},
+          "enemies": [
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "갑주"
+              ]
+            },
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "사나운"
+              ]
+            },
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "사나운"
+              ]
+            }
+          ]
+        }
+      },
+      "hp": 0.7222148928551235,
+      "ko": 0,
+      "meter": {
+        "ms": 38030,
+        "inputs": 2,
+        "ownDamage": 2837,
+        "allyDamage": 63163,
+        "jointDamage": 8838,
+        "exposureDamage": 0,
+        "heal": 9268,
+        "actions": 0
+      }
+    },
+    {
+      "atk": 3.2,
+      "seed": 19,
+      "entry": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_SURFACE",
+          "minutes": 20,
+          "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_1"
+        },
+        "revision": 18
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initial": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13794,
+          "maxHp": 13794,
+          "atk": 2784.6,
+          "def": 1508.4
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13194,
+          "maxHp": 13194,
+          "atk": 2784.6,
+          "def": 1405.8
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13594,
+          "maxHp": 14274,
+          "atk": 1855.8,
+          "def": 1558.8
+        },
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 11797,
+          "maxHp": 11797,
+          "atk": 2067.6,
+          "def": 848
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9660,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "REGEN"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9660,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 9660,
+          "def": 691,
+          "grade": "일반"
+        }
+      ],
+      "gear": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "LIYUE_XIANGLING": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_FISCHL": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_BARBARA": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        }
+      },
+      "result": {
+        "mora": 96,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-19:B18",
+        "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-19:B18",
+        "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-19",
+        "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+        "origin": "RANDOM",
+        "gate": "RANDOM",
+        "branch": null,
+        "victory": true,
+        "xp": 1260,
+        "loot": {
+          "MAT_TREASURE_INSIGNIA": 3,
+          "MAT_SILVER_INSIGNIA": 2
+        },
+        "rounds": 2,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "tierBonus": {
+          "version": 1,
+          "loot": {},
+          "enemies": [
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "재생"
+              ]
+            },
+            {
+              "name": "보물 사냥단·척후병",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "선봉"
+              ]
+            }
+          ]
+        }
+      },
+      "hp": 0.8271923707570817,
+      "ko": 0,
+      "meter": {
+        "ms": 24710,
+        "inputs": 2,
+        "ownDamage": 4177,
+        "allyDamage": 46313,
+        "jointDamage": 6815,
+        "exposureDamage": 0,
+        "heal": 7434,
+        "actions": 0
+      }
+    },
+    {
+      "atk": 3.2,
+      "seed": 43,
+      "entry": {
+        "ok": true,
+        "type": "MOVE",
+        "result": {
+          "map": "MAP_CHASM_SURFACE",
+          "minutes": 20,
+          "encounter": "EG_LIYUE_LOCAL_CHASM_SURFACE_3"
+        },
+        "revision": 18
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_3",
+      "initial": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13794,
+          "maxHp": 13794,
+          "atk": 2784.6,
+          "def": 1508.4
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13194,
+          "maxHp": 13194,
+          "atk": 2784.6,
+          "def": 1405.8
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 13594,
+          "maxHp": 14274,
+          "atk": 1855.8,
+          "def": 1558.8
+        },
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "level": 50,
+          "hp": 11797,
+          "maxHp": 11797,
+          "atk": 2067.6,
+          "def": 848
+        },
+        {
+          "source": "MON_MITACHURL_ROCK",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 46135,
+          "maxHp": 46135,
+          "atk": 18045,
+          "def": 1304,
+          "grade": "정예",
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "FEROCIOUS",
+              "ARMORED"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "side": "ENEMY",
+          "level": 50,
+          "hp": 16500,
+          "maxHp": 16500,
+          "atk": 11592,
+          "def": 691,
+          "grade": "일반",
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        }
+      ],
+      "gear": [
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_SWORD_RANCOUR",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "PLAYER_CUSTOM",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "LIYUE_XIANGLING",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_BOW_CRESCENT",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_FISCHL",
+          "equipped": true,
+          "category": "ACCESSORY"
+        },
+        {
+          "slot": "EQI_000018",
+          "equip": "EQ_CATALYST_MAPPA",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "WEAPON"
+        },
+        {
+          "slot": "EQI_000019",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ARMOR"
+        },
+        {
+          "slot": "EQI_000020",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "quantity": 1,
+          "enhance": 6,
+          "instanceRevision": 0,
+          "owner": "MOND_BARBARA",
+          "equipped": true,
+          "category": "ACCESSORY"
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "LIYUE_XIANGLING": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_FISCHL": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "MOND_BARBARA": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        }
+      },
+      "result": {
+        "mora": 112,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-43:B18",
+        "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-43:B18",
+        "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-50-43",
+        "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_3",
+        "origin": "RANDOM",
+        "gate": "RANDOM",
+        "branch": null,
+        "victory": true,
+        "xp": 1470,
+        "loot": {
+          "MAT_DAMAGED_MASK": 1,
+          "MAT_STAINED_MASK": 1,
+          "MAT_OMINOUS_MASK": 3
+        },
+        "rounds": 3,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "tierBonus": {
+          "version": 1,
+          "loot": {
+            "MAT_OMINOUS_MASK": 3
+          },
+          "enemies": [
+            {
+              "name": "돌방패 츄츄 폭도",
+              "tier": 4,
+              "label": "강한 정예",
+              "affixes": [
+                "사나운",
+                "갑주"
+              ]
+            },
+            {
+              "name": "츄츄 싸움꾼",
+              "tier": 2,
+              "label": "강화 일반",
+              "affixes": [
+                "사나운"
+              ]
+            }
+          ]
+        }
+      },
+      "hp": 0.6448858817542735,
+      "ko": 0,
+      "meter": {
+        "ms": 43580,
+        "inputs": 3,
+        "ownDamage": 4534,
+        "allyDamage": 71942,
+        "jointDamage": 9145,
+        "exposureDamage": 0,
+        "heal": 1364,
+        "actions": 0
+      }
+    }
+  ]
+}

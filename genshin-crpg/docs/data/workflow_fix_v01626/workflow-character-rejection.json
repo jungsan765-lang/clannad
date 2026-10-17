@@ -1,0 +1,15 @@
+{
+  "version": "0.16.25",
+  "scope": "Character-only new-battle revision, Zhongli/Jean/Baizhu effect and description contracts, existing constellation/admin multiplier behavior, genuine 0.16.24 PENDING/WAIT save and resumed-action preservation. Not natural acquisition or whole-combat balance proof.",
+  "fixturePolicy": "Owned Traveler and declared three companions, legal equal levels/phase/base talents, no equipment/artifacts unless explicitly declared for late public-entry saves, constellation level declared per case. Coefficient boundary probes call existing executeCard directly without turn scheduling; they do not force a victory or modify enemy stats, damage formulas or RNG. Genuine saved-fight probes use public daily admission and public player actions.",
+  "checks": [
+    {
+      "id": "verified_v01624_before_overlay_and_same_actual_db",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: complete original 0.16.24 source closure; current DB is not replaced\n+ actual - expected\n\n+ 'f125d05c60195d0d6a1ff4a9578c18afdf4fcd26f848893cd107b14fe94b5040'\n- '840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc'\n\n    at recordedSourceClosure (/workspace/scratch/a62414469990/workflow-v01626-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:611)\n    at /workspace/scratch/a62414469990/workflow-v01626-work/genshin-crpg/tests/test_character_balance_v01625.cjs:28:928\n    at check (/workspace/scratch/a62414469990/workflow-v01626-work/genshin-crpg/tests/test_character_balance_v01625.cjs:11:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/workflow-v01626-work/genshin-crpg/tests/test_character_balance_v01625.cjs:28:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    }
+  ],
+  "total": 1,
+  "passed": 0,
+  "failed": 1
+}

@@ -1,0 +1,192 @@
+[
+  {
+    "test": "tests/test_action_recovery.mjs",
+    "ok": true,
+    "seconds": 222.2
+  },
+  {
+    "test": "tests/test_server_load_boundaries_v01513.mjs",
+    "ok": true,
+    "seconds": 108.5
+  },
+  {
+    "test": "tests/test_feature_boundaries_v01513.cjs",
+    "ok": true,
+    "seconds": 118.5
+  },
+  {
+    "test": "tests/test_control_reactions_v0168.cjs",
+    "ok": true,
+    "seconds": 72.8
+  },
+  {
+    "test": "tests/test_coop_receipt_v0168.mjs",
+    "ok": true,
+    "seconds": 61.3
+  },
+  {
+    "test": "tests/test_v0153.cjs",
+    "ok": true,
+    "seconds": 59.9
+  },
+  {
+    "test": "tests/test_skill_owner_v0169.cjs",
+    "ok": true,
+    "seconds": 54.9
+  },
+  {
+    "test": "tests/test_coop_v0153.cjs",
+    "ok": true,
+    "seconds": 46.8
+  },
+  {
+    "test": "tests/test_admin_v01412.mjs",
+    "ok": true,
+    "seconds": 41.0
+  },
+  {
+    "test": "tests/test_tutorial_v01523.cjs",
+    "ok": true,
+    "seconds": 40.6
+  },
+  {
+    "test": "tests/test_combat_boundaries_v0168.cjs",
+    "ok": true,
+    "seconds": 34.4
+  },
+  {
+    "test": "tests/test_balance_v0141.cjs",
+    "ok": true,
+    "seconds": 27.2
+  },
+  {
+    "test": "tests/test_task_learning_delivery_v0169.cjs",
+    "ok": true,
+    "seconds": 23.3
+  },
+  {
+    "test": "tests/test_coop_world_v0160.cjs",
+    "ok": true,
+    "seconds": 22.5
+  },
+  {
+    "test": "tests/test_local_dev_config.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_map_v01516.cjs",
+    "ok": true,
+    "seconds": 4.3
+  },
+  {
+    "test": "tests/test_mond_content_v01344.cjs",
+    "ok": true,
+    "seconds": 9.0
+  },
+  {
+    "test": "tests/test_online_server.mjs",
+    "ok": true,
+    "seconds": 14.7
+  },
+  {
+    "test": "tests/test_playback_pause_v0168.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_protagonist_support_v01618.cjs",
+    "ok": true,
+    "seconds": 22.4
+  },
+  {
+    "test": "tests/test_quality_fixes_v01337.cjs",
+    "ok": true,
+    "seconds": 0.5
+  },
+  {
+    "test": "tests/test_release_isolation_v01513.py",
+    "ok": true,
+    "seconds": 0.9
+  },
+  {
+    "test": "tests/test_server_coop_world_v0159.mjs",
+    "ok": true,
+    "seconds": 18.9
+  },
+  {
+    "test": "tests/test_shield_balance_v01619.cjs",
+    "ok": true,
+    "seconds": 16.5
+  },
+  {
+    "test": "tests/test_skill_rhythm_ownership_v01625.cjs",
+    "ok": true,
+    "seconds": 17.8
+  },
+  {
+    "test": "tests/test_task_board_v0169.cjs",
+    "ok": true,
+    "seconds": 5.2
+  },
+  {
+    "test": "tests/test_task_catalog_v0169.cjs",
+    "ok": true,
+    "seconds": 0.2
+  },
+  {
+    "test": "tests/test_test_banner_v01510.cjs",
+    "ok": true,
+    "seconds": 0.2
+  },
+  {
+    "test": "tests/test_ui_audit_regressions.cjs",
+    "ok": true,
+    "seconds": 1.8
+  },
+  {
+    "test": "tests/test_v01411.cjs",
+    "ok": true,
+    "seconds": 25.3
+  },
+  {
+    "test": "tests/test_v0148.cjs",
+    "ok": true,
+    "seconds": 24.3
+  },
+  {
+    "test": "tests/test_v01518.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_v01524.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_v0164.cjs",
+    "ok": true,
+    "seconds": 5.6
+  },
+  {
+    "test": "tests/test_weekly_retirement_v01621.cjs",
+    "ok": true,
+    "seconds": 5.3
+  },
+  {
+    "test": "tools/audit_economy_v0168.cjs",
+    "ok": true,
+    "seconds": 3.3
+  },
+  {
+    "test": "tools/test_exclusive_weapons.cjs",
+    "ok": true,
+    "seconds": 6.9
+  },
+  {
+    "test": "tools/test_story_cleanup_v0140.cjs",
+    "ok": true,
+    "seconds": 3.3
+  }
+]

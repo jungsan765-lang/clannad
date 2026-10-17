@@ -1,0 +1,9 @@
+PASS living player and companion level gains preserve existing absolute HP deficit
+PASS KO player and companion remain KO when XP causes a level gain
+PASS multiple native level gains add only maximum-HP growth and keep the wound
+PASS non-level XP and capped XP never restore HP
+PASS healthy living characters remain healthy after native level growth
+PASS public XP books preserve KO and exact one-book consumption
+PASS public ascension preserves wounds or KO while charging each native quoted item and Mora
+PASS current book and ascension receipt replay and save reload never heal or charge again
+PASS six actually settled 0.16.20 growth saves and receipts keep their historical HP and replay exactly

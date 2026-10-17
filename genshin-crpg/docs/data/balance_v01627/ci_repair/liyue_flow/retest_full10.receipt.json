@@ -1,0 +1,1006 @@
+{
+  "schema": 1,
+  "program": "tests/test_liyue_rework_flow.cjs",
+  "scope": "Targeted full ten-branch FLOW QA retest after initial full195 finished194PASS/1FAIL; not a fresh full195 rerun and not a game-difficulty or natural-acquisition proof.",
+  "exitCode": 0,
+  "exitCodeEvidence": "Actual completed exec session20673 returned exit_code0.",
+  "started": "2026-10-10T19:24:19.883Z",
+  "finished": "2026-10-10T19:29:37.842Z",
+  "elapsedSeconds": 317.959,
+  "elapsedSecondsBasis": "suite result.started to result.finished; excludes helper-module initialization before started. No whole-subprocess wall-time claim.",
+  "wholeSubprocessWallSeconds": null,
+  "runsTotal": 10,
+  "runsPassed": 10,
+  "runsFailed": 0,
+  "saveLoadRestores": 389,
+  "runnerSHA256": "75b2923527692cbd72d9deb91535aa183a57008029987e0b290dbf75ab5467a8",
+  "beforeRunnerSHA256": "e9218ece69a99b15e80c2c3d4e3459b1dfe8efeea3c44b1dcd9657712aaf3651",
+  "sourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "sourceFingerprintPolicy": "H.load native script filenames/texts in index order plus raw authoredDB; presentation loaded but not included in hash.",
+  "authoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "productChanges": 0,
+  "newUiOrFeatures": 0,
+  "seed": 71247,
+  "runtimeInitialization": "The existing helpers_v011.fresh uses seed71247/saveIdsV011-1,V011-2 for Traveler A/B; the eight Isekai fixture saves retain their own saved PRNG. All subsequent PRNG is native and save/load checked.",
+  "initialFull195": {
+    "total": 195,
+    "passed": 194,
+    "failed": 1,
+    "exitCode": 1,
+    "resultsSHA256": "9fb77d745e2dbb2b994d8bb5c34c822dffa95f57228b1cac56064f21a80468d5",
+    "failedProgram": "tests/test_liyue_rework_flow.cjs",
+    "logFile": "initial_full_run.log",
+    "logSha256": "52380757c7e73725f1787c6b81b58e56730a2d82b0f2613aa953b590d8a4a18f"
+  },
+  "fixtureChanges": {
+    "numericPreparationChanged": false,
+    "protagonist": "level20/baseHP100000/baseATK10000/baseDEF1000/phase1 as before",
+    "companions": "Fischl/Xiangling/Barbara Lv60/phase6/+10/base talents8 as before",
+    "publicPreparation": "Native starter-kit synchronization/wearing, then nine public EQUIP calls; every declared slot/owner/category/enhance is checked at setup and battle/save boundaries.",
+    "travelerBoundary": "Missing FLAG_TRV_ANEMO_UNLOCKED now matches actual post-Mondstadt boundary; genuine/current STORY_NEXT M01_E002 and current full-Mondstadt male/female final saves show it already true.",
+    "combatPolicy": "Original basic attack/guard outside objective, existing available Traveler/ Isekai area skills on formation-protection battles.",
+    "healingChanged": false,
+    "betweenBattleHpReset": false,
+    "enemyOrRngMutation": false,
+    "existingAssertionsPreserved": [
+      "all ten story leaves reach terminal with quests claimed",
+      "real public battle victory",
+      "formation charge8 and local defense minimumround5",
+      "no forced finishBattle or defeat recovery",
+      "existing reward and quest completion conditions",
+      "serialize/load preserves original actor/objective/cursor/flags/Liyue/RNG subset"
+    ]
+  },
+  "resultsFile": "retest_full10.results.json",
+  "resultsSHA256": "0ca8f47c59a3d28caf66cec3e55578c4de9657abfe7d87a653509202dfedfbb5",
+  "stdoutFile": "retest_full10.log",
+  "stdoutSHA256": "88aae7b1268beede0380cbadda891a278536a362614ecb4ba1f0c930c2f683d6",
+  "rawFinalSavesTar": "retest_full10_saves.tar.gz",
+  "rawFinalSavesTarSHA256": "0e78429c61fb1438114eb169a4219ad586d2e2c57ce64ef987e8cd1de585108a",
+  "rawFinalSaves": [
+    {
+      "leaf": "K1",
+      "member": "qa-liyue-final-K1.json",
+      "uncompressedSha256": "a55304ce4b632b26c479f8785435d152039da791af28bfa5d525e5cf8f5a232d",
+      "uncompressedBytes": 354926,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 695,
+      "restores": 58,
+      "battles": [
+        {
+          "group": "EG_ISK_L03_GOLDEN",
+          "rounds": 3,
+          "victory": true
+        },
+        {
+          "group": "EG_ISK_L04_OSIAL",
+          "rounds": 10,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "K2",
+      "member": "qa-liyue-final-K2.json",
+      "uncompressedSha256": "1ae23b7c1327c7d7aa0509dfc2f660ee76e83f71d7ad6805e9380a8a21757036",
+      "uncompressedBytes": 375876,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 795,
+      "restores": 63,
+      "battles": [
+        {
+          "group": "EG_ISK_L03_GOLDEN",
+          "rounds": 3,
+          "victory": true
+        },
+        {
+          "group": "EG_ISK_L04_OSIAL",
+          "rounds": 10,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "AA1",
+      "member": "qa-liyue-final-AA1.json",
+      "uncompressedSha256": "a3b63e745d57221c43a138aa7110d9b6824e46d50c35338eb1a6aecc3b62e01a",
+      "uncompressedBytes": 292607,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 507,
+      "restores": 29,
+      "battles": [
+        {
+          "group": "EG_ISK_L04_AA1_EVAC",
+          "rounds": 5,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "AA2",
+      "member": "qa-liyue-final-AA2.json",
+      "uncompressedSha256": "ee21a96f37fd56424413b685a9f1b1dd3f1ad80f839245b8e81e1a2a9501ce93",
+      "uncompressedBytes": 310298,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 534,
+      "restores": 27,
+      "battles": [
+        {
+          "group": "EG_ISK_L04_AA2_CART",
+          "rounds": 5,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "AB1",
+      "member": "qa-liyue-final-AB1.json",
+      "uncompressedSha256": "47242d0b488425f8d9b4eb30adf7135c873ca477f1eb72fee1bfd4eed10f01b9",
+      "uncompressedBytes": 292744,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 528,
+      "restores": 25,
+      "battles": [
+        {
+          "group": "EG_ISK_L04_AB1_STREET",
+          "rounds": 5,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "AB2",
+      "member": "qa-liyue-final-AB2.json",
+      "uncompressedSha256": "3309f92bb9951bd636401e2d75fee70ca593eb2a516e1b0333156bf8c70b7069",
+      "uncompressedBytes": 302670,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 568,
+      "restores": 39,
+      "battles": [
+        {
+          "group": "EG_ISK_L04_AB2_STORE",
+          "rounds": 5,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "B1",
+      "member": "qa-liyue-final-B1.json",
+      "uncompressedSha256": "380ce7a81395842474664bc8acbfe651bc62fb1927d26d26a4f0fee03b5d7eb7",
+      "uncompressedBytes": 315510,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 465,
+      "restores": 30,
+      "battles": [
+        {
+          "group": "EG_ISK_L04_B1_ROAD",
+          "rounds": 5,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "B2",
+      "member": "qa-liyue-final-B2.json",
+      "uncompressedSha256": "265c23d16da7df53cd54a41b35c1a34e7d1539c110550883ca8ffc59bb333fcd",
+      "uncompressedBytes": 312909,
+      "equipment": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000003",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000004",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000005",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000007",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000008",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000009",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 461,
+      "restores": 32,
+      "battles": [
+        {
+          "group": "EG_ISK_L04_B2_BOAT",
+          "rounds": 5,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "TRV_A",
+      "member": "qa-liyue-final-TRV_A.json",
+      "uncompressedSha256": "ebaa1c3d486aa736f1b064bb64337ba59741a5aad9fe8c3a76183f704b975f2c",
+      "uncompressedBytes": 112228,
+      "equipment": [
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 846,
+      "restores": 42,
+      "battles": [
+        {
+          "group": "EG_BOSS_TARTAGLIA",
+          "rounds": 3,
+          "victory": true
+        },
+        {
+          "group": "EG_FATUI_PATROL",
+          "rounds": 4,
+          "victory": true
+        },
+        {
+          "group": "EG_BOSS_OSIAL",
+          "rounds": 9,
+          "victory": true
+        }
+      ]
+    },
+    {
+      "leaf": "TRV_B",
+      "member": "qa-liyue-final-TRV_B.json",
+      "uncompressedSha256": "705e83137821ccb2bfb1c3211d5b22a41776cc9740052d3fb343713dc66d44ee",
+      "uncompressedBytes": 118280,
+      "equipment": [
+        {
+          "slot": "EQI_000006",
+          "equip": "EQ_BOW_CRESCENT",
+          "owner": "MOND_FISCHL",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000010",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_FISCHL",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000011",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000012",
+          "equip": "EQ_POLEARM_CRESCENT",
+          "owner": "LIYUE_XIANGLING",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000013",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000014",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "LIYUE_XIANGLING",
+          "category": "ACCESSORY",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000015",
+          "equip": "EQ_CATALYST_MAPPA",
+          "owner": "MOND_BARBARA",
+          "category": "WEAPON",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000016",
+          "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+          "owner": "MOND_BARBARA",
+          "category": "ARMOR",
+          "enhance": 10
+        },
+        {
+          "slot": "EQI_000017",
+          "equip": "EQ_ACC_HEALER_BROOCH",
+          "owner": "MOND_BARBARA",
+          "category": "ACCESSORY",
+          "enhance": 10
+        }
+      ],
+      "companionLevels": [
+        60,
+        60,
+        60
+      ],
+      "companionBaseTalents": {
+        "na": 8,
+        "e": 8,
+        "q": 8
+      },
+      "actions": 844,
+      "restores": 44,
+      "battles": [
+        {
+          "group": "EG_FATUI_PATROL",
+          "rounds": 3,
+          "victory": true
+        },
+        {
+          "group": "EG_BOSS_OSIAL",
+          "rounds": 9,
+          "victory": true
+        }
+      ]
+    }
+  ],
+  "diagnosticReference": "osial_diagnostic_summary.json",
+  "diagnosticRaw": "osial_before_current_diagnostic.json.gz",
+  "diagnosticComparisons": {
+    "matched": 12,
+    "total": 12,
+    "cases": 4,
+    "syntheticFullHpCases": 2,
+    "note": "FullHP before/current rows isolate fatigue only and are not the repaired FLOW fixture. The repaired FLOW retains native HP carry-over."
+  },
+  "isekaiInputFixturePRNG": {
+    "K1": 71247,
+    "K2": 71247,
+    "AA1": 71247,
+    "AA2": 71247,
+    "AB1": 71247,
+    "AB2": 71247,
+    "B1": 71247,
+    "B2": 71247
+  }
+}

@@ -1,0 +1,620 @@
+{
+  "ok": true,
+  "total": 43,
+  "passed": 43,
+  "tests": [
+    {
+      "name": "Pyro Melt spends real Frozen and keeps control grace",
+      "ok": true,
+      "evidence": {
+        "restore": false,
+        "guard": 3,
+        "meltSpentFrozen": true
+      }
+    },
+    {
+      "name": "Pyro Melt spends real Frozen and keeps control grace after restore",
+      "ok": true,
+      "evidence": {
+        "restore": true,
+        "guard": 3,
+        "meltSpentFrozen": true
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_DILUC/PLAYER_BASIC_ATTACK/PHYSICAL",
+      "ok": true,
+      "evidence": {
+        "card": "PLAYER_BASIC_ATTACK",
+        "element": "PHYSICAL",
+        "shatterPacket": {
+          "actor": "다이루크",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_DILUC/PLAYER_BASIC_ATTACK/PYRO",
+      "ok": true,
+      "evidence": {
+        "card": "PLAYER_BASIC_ATTACK",
+        "element": "PYRO",
+        "shatterPacket": {
+          "actor": "다이루크",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_DILUC/MOND_DILUC_E/PYRO",
+      "ok": true,
+      "evidence": {
+        "card": "MOND_DILUC_E",
+        "element": "PYRO",
+        "shatterPacket": {
+          "actor": "다이루크",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_NOELLE/PLAYER_BASIC_ATTACK/PHYSICAL/noAura",
+      "ok": true,
+      "evidence": {
+        "card": "PLAYER_BASIC_ATTACK",
+        "element": "PHYSICAL",
+        "shatterPacket": {
+          "actor": "노엘",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_KLEE/PLAYER_BASIC_ATTACK/PYRO",
+      "ok": true,
+      "evidence": {
+        "card": "PLAYER_BASIC_ATTACK",
+        "element": "PYRO",
+        "shatterPacket": {
+          "actor": "클레",
+          "target": "츄츄 싸움꾼",
+          "damage": 487,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_KLEE/MOND_KLEE_E/PYRO",
+      "ok": true,
+      "evidence": {
+        "card": "MOND_KLEE_E",
+        "element": "PYRO",
+        "shatterPacket": {
+          "actor": "클레",
+          "target": "츄츄 싸움꾼",
+          "damage": 487,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: LIYUE_GAMING/LIYUE_GAMING_E/PYRO",
+      "ok": true,
+      "evidence": {
+        "card": "LIYUE_GAMING_E",
+        "element": "PYRO",
+        "shatterPacket": {
+          "actor": "가명",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: LIYUE_NINGGUANG/LIYUE_NINGGUANG_E/GEO",
+      "ok": true,
+      "evidence": {
+        "card": "LIYUE_NINGGUANG_E",
+        "element": "GEO",
+        "shatterPacket": {
+          "actor": "응광",
+          "target": "츄츄 싸움꾼",
+          "damage": 487,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_EULA/MOND_EULA_E/CRYO",
+      "ok": true,
+      "evidence": {
+        "card": "MOND_EULA_E",
+        "element": "CRYO",
+        "shatterPacket": {
+          "actor": "유라",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_EULA/MOND_EULA_Q/CRYO",
+      "ok": true,
+      "evidence": {
+        "card": "MOND_EULA_Q",
+        "element": "CRYO",
+        "shatterPacket": {
+          "actor": "유라",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "confirmed blunt hit spends Frozen: MOND_EULA/LIGHTFALL_EXPLOSION/PHYSICAL",
+      "ok": true,
+      "evidence": {
+        "card": "MOND_EULA_Q",
+        "element": "PHYSICAL",
+        "shatterPacket": {
+          "actor": "유라",
+          "target": "츄츄 싸움꾼",
+          "damage": 435,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물리",
+          "reaction": "RX_SHATTER",
+          "sourceKind": "REACTION"
+        }
+      }
+    },
+    {
+      "name": "native claymore basicHit really Shatters without charged tags",
+      "ok": true
+    },
+    {
+      "name": "native Eula hold distinguishes its blunt slash from both nonblunt followups",
+      "ok": true
+    },
+    {
+      "name": "nonblunt charged or nonblunt followup does not Shatter: LIYUE_GANYU/LIYUE_GANYU_E",
+      "ok": true
+    },
+    {
+      "name": "nonblunt charged or nonblunt followup does not Shatter: MOND_LISA/MOND_LISA_E",
+      "ok": true
+    },
+    {
+      "name": "nonblunt charged or nonblunt followup does not Shatter: MOND_KAEYA/PLAYER_BASIC_ATTACK",
+      "ok": true
+    },
+    {
+      "name": "nonblunt charged or nonblunt followup does not Shatter: LIYUE_GAMING/LIYUE_GAMING_Q",
+      "ok": true
+    },
+    {
+      "name": "nonblunt charged or nonblunt followup does not Shatter: MOND_EULA/MOND_EULA_E",
+      "ok": true
+    },
+    {
+      "name": "actual equipped weapon and saved co-op weapon decide blunt normal attacks",
+      "ok": true
+    },
+    {
+      "name": "actual Baron Bunny explosion is blunt; Amber arrows are not",
+      "ok": true
+    },
+    {
+      "name": "miss and expired target never spend Frozen or create a Shatter packet",
+      "ok": true
+    },
+    {
+      "name": "direct talent scales but RX_AGGRAVATE addition does not at level 30",
+      "ok": true,
+      "evidence": [
+        {
+          "baseTalent": 1,
+          "actualTalent": 1,
+          "directDamage": 89,
+          "quickenDamage": 761,
+          "additionDamage": 672.5699515440213
+        },
+        {
+          "baseTalent": 4,
+          "actualTalent": 1.27,
+          "directDamage": 113,
+          "quickenDamage": 785,
+          "additionDamage": 672.5699515440213
+        }
+      ]
+    },
+    {
+      "name": "direct talent scales but RX_SPREAD addition does not at level 30",
+      "ok": true,
+      "evidence": [
+        {
+          "baseTalent": 1,
+          "actualTalent": 1,
+          "directDamage": 69,
+          "quickenDamage": 800,
+          "additionDamage": 731.0542951565449
+        },
+        {
+          "baseTalent": 4,
+          "actualTalent": 1.27,
+          "directDamage": 87,
+          "quickenDamage": 818,
+          "additionDamage": 731.0542951565449
+        }
+      ]
+    },
+    {
+      "name": "direct talent scales but RX_AGGRAVATE addition does not at level 50",
+      "ok": true,
+      "evidence": [
+        {
+          "baseTalent": 1,
+          "actualTalent": 1,
+          "directDamage": 221,
+          "quickenDamage": 2281,
+          "additionDamage": 2059.7965823025347
+        },
+        {
+          "baseTalent": 4,
+          "actualTalent": 1.27,
+          "directDamage": 281,
+          "quickenDamage": 2341,
+          "additionDamage": 2059.7965823025347
+        },
+        {
+          "baseTalent": 7,
+          "actualTalent": 1.63,
+          "directDamage": 360,
+          "quickenDamage": 2420,
+          "additionDamage": 2059.7965823025347
+        }
+      ]
+    },
+    {
+      "name": "direct talent scales but RX_SPREAD addition does not at level 50",
+      "ok": true,
+      "evidence": [
+        {
+          "baseTalent": 1,
+          "actualTalent": 1,
+          "directDamage": 178,
+          "quickenDamage": 2417,
+          "additionDamage": 2238.909328589712
+        },
+        {
+          "baseTalent": 4,
+          "actualTalent": 1.27,
+          "directDamage": 226,
+          "quickenDamage": 2465,
+          "additionDamage": 2238.909328589712
+        },
+        {
+          "baseTalent": 7,
+          "actualTalent": 1.63,
+          "directDamage": 290,
+          "quickenDamage": 2529,
+          "additionDamage": 2238.909328589712
+        }
+      ]
+    },
+    {
+      "name": "direct talent scales but RX_AGGRAVATE addition does not at level 60",
+      "ok": true,
+      "evidence": [
+        {
+          "baseTalent": 1,
+          "actualTalent": 1,
+          "directDamage": 352,
+          "quickenDamage": 3506,
+          "additionDamage": 3153.21214985766
+        },
+        {
+          "baseTalent": 4,
+          "actualTalent": 1.27,
+          "directDamage": 447,
+          "quickenDamage": 3601,
+          "additionDamage": 3153.21214985766
+        },
+        {
+          "baseTalent": 7,
+          "actualTalent": 1.63,
+          "directDamage": 574,
+          "quickenDamage": 3728,
+          "additionDamage": 3153.21214985766
+        },
+        {
+          "baseTalent": 10,
+          "actualTalent": 2.08,
+          "directDamage": 733,
+          "quickenDamage": 3886,
+          "additionDamage": 3153.21214985766
+        }
+      ]
+    },
+    {
+      "name": "direct talent scales but RX_SPREAD addition does not at level 60",
+      "ok": true,
+      "evidence": [
+        {
+          "baseTalent": 1,
+          "actualTalent": 1,
+          "directDamage": 292,
+          "quickenDamage": 3719,
+          "additionDamage": 3427.404510714848
+        },
+        {
+          "baseTalent": 4,
+          "actualTalent": 1.27,
+          "directDamage": 370,
+          "quickenDamage": 3798,
+          "additionDamage": 3427.404510714848
+        },
+        {
+          "baseTalent": 7,
+          "actualTalent": 1.63,
+          "directDamage": 475,
+          "quickenDamage": 3903,
+          "additionDamage": 3427.404510714848
+        },
+        {
+          "baseTalent": 10,
+          "actualTalent": 2.08,
+          "directDamage": 606,
+          "quickenDamage": 4034,
+          "additionDamage": 3427.404510714848
+        }
+      ]
+    },
+    {
+      "name": "skill coefficient affects direct damage only, with legal C3/C5 levels and saved guest talent snapshot",
+      "ok": true,
+      "evidence": [
+        {
+          "talent": 2.62,
+          "damage": 4449,
+          "expected": 4449.465663061239,
+          "base": 3881.9466666666667,
+          "addition": 4464.238666666666,
+          "common": 0.706326965312561
+        },
+        {
+          "talent": 2.62,
+          "damage": 4285,
+          "expected": 4285.30981726275,
+          "base": 3881.9466666666667,
+          "addition": 4464.238666666666,
+          "common": 0.706326965312561
+        },
+        {
+          "talent": 2.62,
+          "damage": 4517,
+          "expected": 4516.651542843515,
+          "base": 3881.9466666666667,
+          "addition": 4852.433333333333,
+          "common": 0.706326965312561
+        },
+        {
+          "talent": 2.62,
+          "damage": 4364,
+          "expected": 4364.2130450303985,
+          "base": 3881.9466666666667,
+          "addition": 4852.433333333333,
+          "common": 0.706326965312561
+        }
+      ]
+    },
+    {
+      "name": "additive hit still shares native critical damage, defense and constellation damage bonus",
+      "ok": true,
+      "evidence": {
+        "talent": 2.62,
+        "damage": 10233,
+        "expected": 10232.677109773891,
+        "base": 3881.9466666666667,
+        "addition": 4464.238666666666,
+        "common": 1.7730792766153194
+      }
+    },
+    {
+      "name": "Superconduct Cryo damage immunity still applies physical vulnerability: MON_SLIME_CRYO",
+      "ok": true,
+      "evidence": {
+        "id": "MON_SLIME_CRYO",
+        "immuneDamage": 0,
+        "physicalBonus": 25
+      }
+    },
+    {
+      "name": "Superconduct Cryo damage immunity still applies physical vulnerability: MON_SLIME_LARGE_CRYO",
+      "ok": true,
+      "evidence": {
+        "id": "MON_SLIME_LARGE_CRYO",
+        "immuneDamage": 0,
+        "physicalBonus": 25
+      }
+    },
+    {
+      "name": "Swirl preserves 물 spread and correct neighboring packet scope",
+      "ok": true,
+      "evidence": {
+        "element": "물",
+        "neighbors": 1,
+        "packets": [
+          {
+            "actor": "설탕",
+            "target": "츄츄 궁수",
+            "damage": 94,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "물",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Swirl preserves 불 spread and correct neighboring packet scope",
+      "ok": true,
+      "evidence": {
+        "element": "불",
+        "neighbors": 1,
+        "packets": [
+          {
+            "actor": "설탕",
+            "target": "츄츄 궁수",
+            "damage": 94,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "설탕",
+            "target": "츄츄 싸움꾼",
+            "damage": 94,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Crystallize absorbs 2.5 times its own element",
+      "ok": true,
+      "evidence": {
+        "restore": false,
+        "original": 145,
+        "sameElementDrain": 40,
+        "otherElementDrain": 100
+      }
+    },
+    {
+      "name": "Crystallize absorbs 2.5 times its own element after restore",
+      "ok": true,
+      "evidence": {
+        "restore": true,
+        "original": 145,
+        "sameElementDrain": 40,
+        "otherElementDrain": 100
+      }
+    },
+    {
+      "name": "Burning is extinguished only by Hydro in the existing model: 물",
+      "ok": true
+    },
+    {
+      "name": "Burning is extinguished only by Hydro in the existing model: 얼음",
+      "ok": true
+    },
+    {
+      "name": "sixth shared Dendro Core detonates the oldest owner, preserves five and object sequence",
+      "ok": true,
+      "evidence": {
+        "restore": false,
+        "firstOwner": "LIYUE_BAIZHU",
+        "coreCount": 5,
+        "firstDetonated": "V011-35:B3:O1",
+        "lastPreserved": "V011-35:B3:O5"
+      }
+    },
+    {
+      "name": "sixth shared Dendro Core detonates the oldest owner, preserves five and object sequence after restore",
+      "ok": true,
+      "evidence": {
+        "restore": true,
+        "firstOwner": "LIYUE_BAIZHU",
+        "coreCount": 5,
+        "firstDetonated": "V011-36:B3:O1",
+        "lastPreserved": "V011-36:B3:O5"
+      }
+    },
+    {
+      "name": "legacy six-core state normalizes on the next creation; other object kinds have no five-object cap",
+      "ok": true
+    },
+    {
+      "name": "Electro-Charged keeps its existing deferred coefficient and ownership",
+      "ok": true,
+      "evidence": {
+        "coefficient": 1.2,
+        "advanceDamage": 0,
+        "firstEndTick": 210
+      }
+    }
+  ]
+}

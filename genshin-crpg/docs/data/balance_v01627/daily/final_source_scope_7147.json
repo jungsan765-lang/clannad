@@ -1,0 +1,67 @@
+{
+  "sourceComparison": "Final current source vs actual Dvalin no-wind63 loaded input. Read-only hash/code scope check, not a rerun of native132/63.",
+  "latestFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "oldDvalinFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+  "rulesFileIdentical": true,
+  "mondBossFileIdentical": true,
+  "rawAuthoredDbIdentical": true,
+  "unchangedAnchors": {
+    "dailyProfiles": {
+      "SHA256": "698d9ef18b621336e1d8d0dcfc67eeda1308a3e764f69c6f15753173456ad9d0",
+      "identical": true,
+      "bytes": 1364
+    },
+    "bossOrigins": {
+      "SHA256": "f1e66e2cd728c388f58dabf1cd2208e777df742398ed22f6338388871067e32b",
+      "identical": true,
+      "bytes": 347
+    },
+    "dailyPressureAndDamage": {
+      "SHA256": "e0dbf53aef3c80668945d709be910883ab89bbc452ce9b66c8445eac02ee1617",
+      "identical": true,
+      "bytes": 1302
+    },
+    "defenseBasis": {
+      "SHA256": "9238f72affa62e194040d432edd399b436b0758b5b12381118e65e1a7bfa3e63",
+      "identical": true,
+      "bytes": 67
+    },
+    "growthCurves": {
+      "SHA256": "82953160a15923213add22c2e9a5de47a68052d5bb3b4668518c9d9e55dd9fb4",
+      "identical": true,
+      "bytes": 80
+    }
+  },
+  "changedLoadedFiles": [
+    {
+      "file": "runtime_enhancement.js",
+      "oldSHA256": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+      "latestSHA256": "5ae47a9743c7e7cc5d9dcd104df2c808742438ba66d2a4105d568f29d67ba5d7"
+    },
+    {
+      "file": "runtime_local_revision.js",
+      "oldSHA256": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730",
+      "latestSHA256": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+    },
+    {
+      "file": "runtime_growth_v01522.js",
+      "oldSHA256": "83d1890cbb4ae82d7d60cefa884aee7bcab93fe1fbdc256c2947b18da4a261f0",
+      "latestSHA256": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee"
+    },
+    {
+      "file": "runtime_balance_admin_v01623.js",
+      "oldSHA256": "d2770061e9165c23fbda518abd526c32f4f17d32f31abcbde02931615b0d5623",
+      "latestSHA256": "0c2e4c4c57e6fb2b40f5c9a7d83e18a7f0463c30437619008850d440acf67b6c"
+    }
+  ],
+  "scopeFindings": [
+    "ordinary ATK budget changed and early curve now eased <=30; native daily boss bodies have grade 보스(i=3) and skip i!==3 ordinary/domain multipliers.",
+    "Boss MATERIAL_CHALLENGE origins are not LIYUE_FIELD; the new ESCORT/DEFEND predicate excludes only those existing objective origins.",
+    "Growth base curves, daily profile multipliers, daily shield/card pressure and defense basis are unchanged.",
+    "Enhancement changes alter +11/+12 payment and ores, not primaryGrowth combat stats.",
+    "Local revision change corrects only no-wind Dvalin blocked-card guidance text.",
+    "Administrator catalogue talentRewardVersion change changes catalog display; empty revision0 remains.",
+    "EXP60 and TALENT60 rewards change only their domain settlement; daily damage/behavior functions unchanged."
+  ],
+  "claimLimit": "Existing daily105/Dvalin63 measurements remain their original loaded-source recordings. This scope proof does not relabel them as newly executed on the final fingerprint."
+}

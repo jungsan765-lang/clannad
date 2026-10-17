@@ -1,0 +1,6628 @@
+{
+  "fingerprint": "6a13b07940ebe22617caa508eccaa8ab4eaaad02c5bb8985042d677e7f1e3253",
+  "scope": "Native direct Q packet fixtures separate from public ordinary domain fights. No source numeric/hook edits. Official admin detached profiles only; default profile remains identity.",
+  "fixtures": "Traveler+three companions; same level/legal phase/max base talent; craft+10/cap10; no artifacts/exclusive/boss weapons; three4star companions nativeC6 or three5starC0. Skills measured at deterministic dice50/random.5, huge neutral boss targetHP to avoid truncation. Normal attacks/2END field ticks are declared opportunities, not full-fight policy.",
+  "q": [
+    {
+      "level": 25,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "BASELINE",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 10686,
+        "atk": 1362.5664000000002,
+        "def": 458.4899658525217,
+        "baseTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effectiveTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 99.65704385978036,
+        "rawQ": 3761.5531200000005
+      },
+      "immediate": 2512,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 2512,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 592,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 592,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 25,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "D35_S45",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 10686,
+        "atk": 1362.5664000000002,
+        "def": 458.4899658525217,
+        "baseTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effectiveTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 99.65704385978036,
+        "rawQ": 3761.5531200000005
+      },
+      "immediate": 879,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 879,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 592,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 592,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 25,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "D50_S50",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 10686,
+        "atk": 1362.5664000000002,
+        "def": 458.4899658525217,
+        "baseTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effectiveTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 99.65704385978036,
+        "rawQ": 3761.5531200000005
+      },
+      "immediate": 1256,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 1256,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 592,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 592,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 25,
+      "owner": "MOND_NOELLE",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "MOND_NOELLE_Q",
+      "stats": {
+        "hp": 6281,
+        "atk": 888.9159999999999,
+        "def": 355.89388375009696,
+        "baseTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effectiveTalents": {
+          "na": 4,
+          "e": 7,
+          "q": 7,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 99.65704385978036,
+        "rawQ": null
+      },
+      "immediate": 327,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "MOND_NOELLE",
+          "card": "MOND_NOELLE_Q",
+          "sourceKind": "DIRECT",
+          "amount": 327,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "MOND_NOELLE",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 853,
+          "element": "바위"
+        },
+        {
+          "source": "MOND_NOELLE",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 868,
+          "element": "바위"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 4
+    },
+    {
+      "level": 25,
+      "owner": "LIYUE_XIANGLING",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "LIYUE_XIANGLING_Q",
+      "stats": {
+        "hp": 5426,
+        "atk": 1006.1519999999999,
+        "def": 219.32995161343186,
+        "baseTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effectiveTalents": {
+          "na": 4,
+          "e": 7,
+          "q": 7,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "targetDef": 99.65704385978036,
+        "rawQ": null
+      },
+      "immediate": 0,
+      "persistentTwoRounds": 1898,
+      "immediatePackets": [],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 416,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "amount": 949,
+          "element": "불"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 416,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "amount": 949,
+          "element": "불"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 5
+    },
+    {
+      "level": 25,
+      "owner": "LIYUE_BEIDOU",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "LIYUE_BEIDOU_Q",
+      "stats": {
+        "hp": 6072,
+        "atk": 1121.904,
+        "def": 296.1841125561438,
+        "baseTalents": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effectiveTalents": {
+          "na": 4,
+          "e": 7,
+          "q": 7,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 99.65704385978036,
+        "rawQ": null
+      },
+      "immediate": 0,
+      "persistentTwoRounds": 2672,
+      "immediatePackets": [],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 329,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 329,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 329,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 329,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 793,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 339,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 339,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 339,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 339,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 817,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 5
+    },
+    {
+      "level": 50,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "BASELINE",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 31556,
+        "atk": 4328.1072,
+        "def": 938.8998955256511,
+        "baseTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "effectiveTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8,
+          "base": {
+            "na": 8,
+            "e": 8,
+            "q": 8
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 157.4852525530901,
+        "rawQ": 11351.48576
+      },
+      "immediate": 8193,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 8193,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2031,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2031,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 50,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "D35_S45",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 31556,
+        "atk": 4328.1072,
+        "def": 938.8998955256511,
+        "baseTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "effectiveTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8,
+          "base": {
+            "na": 8,
+            "e": 8,
+            "q": 8
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 157.4852525530901,
+        "rawQ": 11351.48576
+      },
+      "immediate": 2868,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 2868,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2031,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2031,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 50,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "D50_S50",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 31556,
+        "atk": 4328.1072,
+        "def": 938.8998955256511,
+        "baseTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "effectiveTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8,
+          "base": {
+            "na": 8,
+            "e": 8,
+            "q": 8
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 157.4852525530901,
+        "rawQ": 11351.48576
+      },
+      "immediate": 4097,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 4097,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2031,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2031,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 50,
+      "owner": "MOND_NOELLE",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "MOND_NOELLE_Q",
+      "stats": {
+        "hp": 17082,
+        "atk": 2564.3520000000003,
+        "def": 671.0310710307809,
+        "baseTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "effectiveTalents": {
+          "na": 8,
+          "e": 11,
+          "q": 11,
+          "base": {
+            "na": 8,
+            "e": 8,
+            "q": 8
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 157.4852525530901,
+        "rawQ": null
+      },
+      "immediate": 660,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "MOND_NOELLE",
+          "card": "MOND_NOELLE_Q",
+          "sourceKind": "DIRECT",
+          "amount": 660,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "MOND_NOELLE",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2291,
+          "element": "바위"
+        },
+        {
+          "source": "MOND_NOELLE",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2337,
+          "element": "바위"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 4
+    },
+    {
+      "level": 50,
+      "owner": "LIYUE_XIANGLING",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "LIYUE_XIANGLING_Q",
+      "stats": {
+        "hp": 14583,
+        "atk": 2976.48,
+        "def": 405.7843360200433,
+        "baseTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "effectiveTalents": {
+          "na": 8,
+          "e": 11,
+          "q": 11,
+          "base": {
+            "na": 8,
+            "e": 8,
+            "q": 8
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "targetDef": 157.4852525530901,
+        "rawQ": null
+      },
+      "immediate": 0,
+      "persistentTwoRounds": 6008,
+      "immediatePackets": [],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 1330,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "amount": 3004,
+          "element": "불"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 1330,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "amount": 3004,
+          "element": "불"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 5
+    },
+    {
+      "level": 50,
+      "owner": "LIYUE_BEIDOU",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "LIYUE_BEIDOU_Q",
+      "stats": {
+        "hp": 16484,
+        "atk": 3318.0120000000006,
+        "def": 549.1998401216898,
+        "baseTalents": {
+          "na": 8,
+          "e": 8,
+          "q": 8
+        },
+        "effectiveTalents": {
+          "na": 8,
+          "e": 11,
+          "q": 11,
+          "base": {
+            "na": 8,
+            "e": 8,
+            "q": 8
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 157.4852525530901,
+        "rawQ": null
+      },
+      "immediate": 0,
+      "persistentTwoRounds": 6120,
+      "immediatePackets": [],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 754,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 754,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 754,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 754,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2237,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 776,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 776,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 776,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 776,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2303,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 5
+    },
+    {
+      "level": 60,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "BASELINE",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 50149,
+        "atk": 7110.522400000001,
+        "def": 1350.6371239643042,
+        "baseTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "effectiveTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10,
+          "base": {
+            "na": 10,
+            "e": 10,
+            "q": 10
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 180.7689908762255,
+        "rawQ": 18225.66792
+      },
+      "immediate": 14177,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 14177,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3595,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3595,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 60,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "D35_S45",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 50149,
+        "atk": 7110.522400000001,
+        "def": 1350.6371239643042,
+        "baseTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "effectiveTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10,
+          "base": {
+            "na": 10,
+            "e": 10,
+            "q": 10
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 180.7689908762255,
+        "rawQ": 18225.66792
+      },
+      "immediate": 4962,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 4962,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3595,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3595,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 60,
+      "owner": "LIYUE_ZHONGLI",
+      "constellation": 0,
+      "profile": "D50_S50",
+      "card": "LIYUE_ZHONGLI_Q",
+      "stats": {
+        "hp": 50149,
+        "atk": 7110.522400000001,
+        "def": 1350.6371239643042,
+        "baseTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "effectiveTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10,
+          "base": {
+            "na": 10,
+            "e": 10,
+            "q": 10
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 180.7689908762255,
+        "rawQ": 18225.66792
+      },
+      "immediate": 7089,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": "LIYUE_ZHONGLI_Q",
+          "sourceKind": "DIRECT",
+          "amount": 7089,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3595,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3595,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 3
+    },
+    {
+      "level": 60,
+      "owner": "MOND_NOELLE",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "MOND_NOELLE_Q",
+      "stats": {
+        "hp": 25976,
+        "atk": 4046.020000000001,
+        "def": 928.2882678003807,
+        "baseTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "effectiveTalents": {
+          "na": 10,
+          "e": 13,
+          "q": 13,
+          "base": {
+            "na": 10,
+            "e": 10,
+            "q": 10
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 180.7689908762255,
+        "rawQ": null
+      },
+      "immediate": 975,
+      "persistentTwoRounds": 0,
+      "immediatePackets": [
+        {
+          "source": "MOND_NOELLE",
+          "card": "MOND_NOELLE_Q",
+          "sourceKind": "DIRECT",
+          "amount": 975,
+          "element": "바위"
+        }
+      ],
+      "persistentPackets": [
+        {
+          "source": "MOND_NOELLE",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3749,
+          "element": "바위"
+        },
+        {
+          "source": "MOND_NOELLE",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3828,
+          "element": "바위"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 4
+    },
+    {
+      "level": 60,
+      "owner": "LIYUE_XIANGLING",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "LIYUE_XIANGLING_Q",
+      "stats": {
+        "hp": 22128,
+        "atk": 4712.972000000001,
+        "def": 559.2221172762205,
+        "baseTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "effectiveTalents": {
+          "na": 10,
+          "e": 13,
+          "q": 13,
+          "base": {
+            "na": 10,
+            "e": 10,
+            "q": 10
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "targetDef": 180.7689908762255,
+        "rawQ": null
+      },
+      "immediate": 0,
+      "persistentTwoRounds": 10160,
+      "immediatePackets": [],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2269,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "amount": 5080,
+          "element": "불"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 2269,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "amount": 5080,
+          "element": "불"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 5
+    },
+    {
+      "level": 60,
+      "owner": "LIYUE_BEIDOU",
+      "constellation": 6,
+      "profile": "BASELINE",
+      "card": "LIYUE_BEIDOU_Q",
+      "stats": {
+        "hp": 25057,
+        "atk": 5256.328,
+        "def": 758.0680072400686,
+        "baseTalents": {
+          "na": 10,
+          "e": 10,
+          "q": 10
+        },
+        "effectiveTalents": {
+          "na": 10,
+          "e": 13,
+          "q": 13,
+          "base": {
+            "na": 10,
+            "e": 10,
+            "q": 10
+          },
+          "kinds": {
+            "c3": "e",
+            "c5": "q"
+          }
+        },
+        "targetDef": 180.7689908762255,
+        "rawQ": null
+      },
+      "immediate": 0,
+      "persistentTwoRounds": 8892,
+      "immediatePackets": [],
+      "persistentPackets": [
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1095,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1095,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1095,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1095,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3626,
+          "element": "물리"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1128,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1128,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1128,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "FOLLOWUP",
+          "amount": 1128,
+          "element": "번개"
+        },
+        {
+          "source": "LIYUE_BEIDOU",
+          "card": null,
+          "sourceKind": "DIRECT",
+          "amount": 3735,
+          "element": "물리"
+        }
+      ],
+      "rhythm": null,
+      "cooldown": 5
+    }
+  ],
+  "domains": [
+    {
+      "level": 20,
+      "kind": "EXP",
+      "key": "PEAK_OF_VINDAGNYR",
+      "profile": "BASELINE",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3422,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 1017,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3277,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_ICE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_CRYO_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            }
+          ],
+          "seconds": 62.17
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 1073,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3277,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 1723,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_ICE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_CRYO_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            }
+          ],
+          "seconds": 68.5
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 1723,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "hpRatio": 0.9168094795083974,
+      "innQuote": {
+        "cost": 60,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 9.929865575686733,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 1723,
+            "maxHp": 3422,
+            "lostHpRatio": 0.49649327878433663,
+            "recoveryCost": 40
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 7229,
+            "maxHp": 7229,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 2090
+    },
+    {
+      "level": 20,
+      "kind": "EXP",
+      "key": "PEAK_OF_VINDAGNYR",
+      "profile": "D35_S45",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3422,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 6,
+          "stalled": false,
+          "healing": 1877,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_ICE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_CRYO_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            }
+          ],
+          "seconds": 77.9
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 7,
+          "stalled": false,
+          "healing": 1158,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_ICE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_CRYO_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            }
+          ],
+          "seconds": 80.25
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3422,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 3422,
+            "maxHp": 3422,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 7229,
+            "maxHp": 7229,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 3035
+    },
+    {
+      "level": 20,
+      "kind": "EXP",
+      "key": "PEAK_OF_VINDAGNYR",
+      "profile": "D50_S50",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3422,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 7,
+          "stalled": false,
+          "healing": 1526,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_ICE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_CRYO_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            }
+          ],
+          "seconds": 81.36
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 6,
+          "stalled": false,
+          "healing": 413,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3285,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_ICE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_CRYO_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_CRYO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            }
+          ],
+          "seconds": 66.15
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3285,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "hpRatio": 0.9932918768055623,
+      "innQuote": {
+        "cost": 24,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 0.8007013442431327,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 3285,
+            "maxHp": 3422,
+            "lostHpRatio": 0.04003506721215663,
+            "recoveryCost": 4
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 7229,
+            "maxHp": 7229,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 1939
+    },
+    {
+      "level": 20,
+      "kind": "TALENT",
+      "key": "FORSAKEN_RIFT",
+      "profile": "BASELINE",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3422,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 382,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_AXE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_ANEMO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            }
+          ],
+          "seconds": 61.19
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 6,
+          "stalled": false,
+          "healing": 877,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 2237,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_AXE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_ANEMO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            }
+          ],
+          "seconds": 79.00999999999999
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 2237,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "hpRatio": 0.9419771825882584,
+      "innQuote": {
+        "cost": 48,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 6.925774400935126,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 2237,
+            "maxHp": 3422,
+            "lostHpRatio": 0.34628872004675626,
+            "recoveryCost": 28
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 7229,
+            "maxHp": 7229,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 1259
+    },
+    {
+      "level": 20,
+      "kind": "TALENT",
+      "key": "FORSAKEN_RIFT",
+      "profile": "D35_S45",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3422,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 6,
+          "stalled": false,
+          "healing": 383,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 2218,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 3978,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_AXE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_ANEMO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            }
+          ],
+          "seconds": 79.14
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 2361,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 2218,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 3978,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 286,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4853,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_AXE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_ANEMO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            }
+          ],
+          "seconds": 69.47999999999999
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 286,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4853,
+          "maxHp": 4886
+        }
+      ],
+      "hpRatio": 0.8448318072761103,
+      "innQuote": {
+        "cost": 95,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 18.46354270709404,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 286,
+            "maxHp": 3422,
+            "lostHpRatio": 0.9164231443600234,
+            "recoveryCost": 74
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 7229,
+            "maxHp": 7229,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4853,
+            "maxHp": 4886,
+            "lostHpRatio": 0.006753990994678674,
+            "recoveryCost": 1
+          }
+        ]
+      },
+      "totalHealing": 2744
+    },
+    {
+      "level": 20,
+      "kind": "TALENT",
+      "key": "FORSAKEN_RIFT",
+      "profile": "D50_S50",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 3422,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 6,
+          "stalled": false,
+          "healing": 382,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 3422,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 2274,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4034,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_AXE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_ANEMO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            }
+          ],
+          "seconds": 73.92
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 6,
+          "stalled": false,
+          "healing": 3801,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 2274,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4034,
+              "maxHp": 4886
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 20,
+              "hp": 1350,
+              "maxHp": 3422
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 20,
+              "hp": 7229,
+              "maxHp": 7229
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 20,
+              "hp": 4886,
+              "maxHp": 4886
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_MITACHURL_AXE",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SAMACHURL_ANEMO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_SLIME_LARGE_HYDRO",
+              "hp": 10987,
+              "atk": 1717,
+              "def": 122,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            },
+            {
+              "source": "MON_HILI_SHOOTER",
+              "hp": 4300,
+              "atk": 1250,
+              "def": 87,
+              "level": 20
+            }
+          ],
+          "seconds": 78.36
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 1350,
+          "maxHp": 3422
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 20,
+          "hp": 7229,
+          "maxHp": 7229
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 20,
+          "hp": 4886,
+          "maxHp": 4886
+        }
+      ],
+      "hpRatio": 0.8985457572344905,
+      "innQuote": {
+        "cost": 69,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 80,
+        "weightedHpLoss": 12.10987726475745,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 20,
+            "hp": 1350,
+            "maxHp": 3422,
+            "lostHpRatio": 0.6054938632378726,
+            "recoveryCost": 49
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 20,
+            "hp": 7229,
+            "maxHp": 7229,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 20,
+            "hp": 4886,
+            "maxHp": 4886,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 4183
+    },
+    {
+      "level": 40,
+      "kind": "EXP",
+      "key": "ZHOU_FORMULA",
+      "profile": "BASELINE",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 4,
+          "stalled": false,
+          "healing": 2433,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 7606,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_ABYSS_MAGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_SLIME_LARGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 58.71
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 1822,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 7606,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8243,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_ABYSS_MAGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_SLIME_LARGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 57.6
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8243,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "hpRatio": 0.9914219959550875,
+      "innQuote": {
+        "cost": 30,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 2.253005151688609,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 8243,
+            "maxHp": 8735,
+            "lostHpRatio": 0.056325128792215226,
+            "recoveryCost": 10
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 4255
+    },
+    {
+      "level": 40,
+      "kind": "EXP",
+      "key": "ZHOU_FORMULA",
+      "profile": "D35_S45",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 2433,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 4474,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_ABYSS_MAGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_SLIME_LARGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 68.11
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 3082,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 4474,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 5316,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_ABYSS_MAGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_SLIME_LARGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 64.78
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 5316,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "hpRatio": 0.9403898458748867,
+      "innQuote": {
+        "cost": 83,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 15.656554092730396,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 5316,
+            "maxHp": 8735,
+            "lostHpRatio": 0.39141385231825987,
+            "recoveryCost": 63
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 5515
+    },
+    {
+      "level": 40,
+      "kind": "EXP",
+      "key": "ZHOU_FORMULA",
+      "profile": "D50_S50",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 2433,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 5363,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_ABYSS_MAGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_SLIME_LARGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 67
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 5,
+          "stalled": false,
+          "healing": 3166,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 5363,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 6705,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_ABYSS_MAGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_SLIME_LARGE_PYRO",
+              "hp": 24527,
+              "atk": 3747,
+              "def": 287,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 64.91
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 6705,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "hpRatio": 0.9646070158309505,
+      "innQuote": {
+        "cost": 58,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 9.29593589009731,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 6705,
+            "maxHp": 8735,
+            "lostHpRatio": 0.23239839725243275,
+            "recoveryCost": 38
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 5599
+    },
+    {
+      "level": 40,
+      "kind": "TALENT",
+      "key": "TAISHAN_MANSION",
+      "profile": "BASELINE",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 1,
+          "stalled": false,
+          "healing": 1420,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_POTION_PYRO",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 19.15
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 1,
+          "stalled": false,
+          "healing": 1262,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_POTION_PYRO",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 18.04
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 8735,
+            "maxHp": 8735,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 2682
+    },
+    {
+      "level": 40,
+      "kind": "TALENT",
+      "key": "TAISHAN_MANSION",
+      "profile": "D35_S45",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 1,
+          "stalled": false,
+          "healing": 1420,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_POTION_PYRO",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 19.15
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 1,
+          "stalled": false,
+          "healing": 1262,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_POTION_PYRO",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 18.04
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 8735,
+            "maxHp": 8735,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 2682
+    },
+    {
+      "level": 40,
+      "kind": "TALENT",
+      "key": "TAISHAN_MANSION",
+      "profile": "D50_S50",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 1,
+          "stalled": false,
+          "healing": 1420,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_POTION_PYRO",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 19.15
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 1,
+          "stalled": false,
+          "healing": 1262,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 40,
+              "hp": 8735,
+              "maxHp": 8735
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 40,
+              "hp": 20919,
+              "maxHp": 20919
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 40,
+              "hp": 13851,
+              "maxHp": 13851
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_SCOUT",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_TH_POTION_PYRO",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 9000,
+              "atk": 2500,
+              "def": 205,
+              "level": 40
+            }
+          ],
+          "seconds": 18.04
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8735,
+          "maxHp": 8735
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 40,
+          "hp": 20919,
+          "maxHp": 20919
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 40,
+          "hp": 13851,
+          "maxHp": 13851
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 160,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 40,
+            "hp": 8735,
+            "maxHp": 8735,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 40,
+            "hp": 20919,
+            "maxHp": 20919,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 40,
+            "hp": 13851,
+            "maxHp": 13851,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 2682
+    },
+    {
+      "level": 60,
+      "kind": "EXP",
+      "key": "LOST_VALLEY",
+      "profile": "BASELINE",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 3,
+          "stalled": false,
+          "healing": 2287,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_CRYO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ANEMO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ELECTRO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            }
+          ],
+          "seconds": 44.739999999999995
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 3,
+          "stalled": false,
+          "healing": 1647,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_CRYO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ANEMO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ELECTRO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            }
+          ],
+          "seconds": 41.28
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19235,
+            "maxHp": 19235,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 3934
+    },
+    {
+      "level": 60,
+      "kind": "EXP",
+      "key": "LOST_VALLEY",
+      "profile": "D35_S45",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 4,
+          "stalled": false,
+          "healing": 2287,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_CRYO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ANEMO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ELECTRO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            }
+          ],
+          "seconds": 45.85
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 3,
+          "stalled": false,
+          "healing": 1944,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 15288,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_CRYO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ANEMO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ELECTRO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            }
+          ],
+          "seconds": 44.739999999999995
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 15288,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "hpRatio": 0.9708230458759,
+      "innQuote": {
+        "cost": 70,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 12.31193137509748,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 15288,
+            "maxHp": 19235,
+            "lostHpRatio": 0.20519885625162465,
+            "recoveryCost": 50
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 4231
+    },
+    {
+      "level": 60,
+      "kind": "EXP",
+      "key": "LOST_VALLEY",
+      "profile": "D50_S50",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 4,
+          "stalled": false,
+          "healing": 2287,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_CRYO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ANEMO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ELECTRO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            }
+          ],
+          "seconds": 45.85
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 3,
+          "stalled": false,
+          "healing": 1944,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 16034,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_RUIN_GUARD_VARIANT",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_CRYO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ANEMO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_FATUI_ELECTRO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            }
+          ],
+          "seconds": 39.519999999999996
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 16034,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "hpRatio": 0.9763376158724996,
+      "innQuote": {
+        "cost": 60,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 9.984923316870288,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 16034,
+            "maxHp": 19235,
+            "lostHpRatio": 0.1664153886145048,
+            "recoveryCost": 40
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 4231
+    },
+    {
+      "level": 60,
+      "kind": "TALENT",
+      "key": "TAISHAN_MANSION",
+      "profile": "BASELINE",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "stalled": false,
+          "healing": 1647,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_GEO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_MITACHURL_ROCK",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            }
+          ],
+          "seconds": 30.9
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "stalled": false,
+          "healing": 2169,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_GEO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_MITACHURL_ROCK",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            }
+          ],
+          "seconds": 26.79
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19235,
+            "maxHp": 19235,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 3816
+    },
+    {
+      "level": 60,
+      "kind": "TALENT",
+      "key": "TAISHAN_MANSION",
+      "profile": "D35_S45",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 3,
+          "stalled": false,
+          "healing": 1647,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_GEO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_MITACHURL_ROCK",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            }
+          ],
+          "seconds": 32.989999999999995
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 2,
+          "stalled": false,
+          "healing": 2157,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_GEO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_MITACHURL_ROCK",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            }
+          ],
+          "seconds": 28.55
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19235,
+            "maxHp": 19235,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 3804
+    },
+    {
+      "level": 60,
+      "kind": "TALENT",
+      "key": "TAISHAN_MANSION",
+      "profile": "D50_S50",
+      "initial": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "battles": [
+        {
+          "n": 1,
+          "victory": true,
+          "rounds": 2,
+          "stalled": false,
+          "healing": 1647,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_GEO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_MITACHURL_ROCK",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            }
+          ],
+          "seconds": 31.88
+        },
+        {
+          "n": 2,
+          "victory": true,
+          "rounds": 3,
+          "stalled": false,
+          "healing": 4212,
+          "ko": [],
+          "beforeHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "afterHp": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19235,
+              "maxHp": 19235
+            },
+            {
+              "owner": "LIYUE_ZHONGLI",
+              "level": 60,
+              "hp": 50149,
+              "maxHp": 50149
+            },
+            {
+              "owner": "MOND_DILUC",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            },
+            {
+              "owner": "MOND_JEAN",
+              "level": 60,
+              "hp": 32947,
+              "maxHp": 32947
+            }
+          ],
+          "enemyStart": [
+            {
+              "source": "MON_FATUI_GEO",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_MITACHURL_ROCK",
+              "hp": 49471,
+              "atk": 8015,
+              "def": 519,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            },
+            {
+              "source": "MON_GEOVISHAP_HATCHLING",
+              "hp": 17000,
+              "atk": 4900,
+              "def": 370,
+              "level": 60
+            }
+          ],
+          "seconds": 32.989999999999995
+        }
+      ],
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19235,
+          "maxHp": 19235
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 32947,
+          "maxHp": 32947
+        }
+      ],
+      "hpRatio": 1,
+      "innQuote": {
+        "cost": 20,
+        "roomCost": 20,
+        "regionalRate": 1,
+        "totalLevel": 240,
+        "weightedHpLoss": 0,
+        "targets": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19235,
+            "maxHp": 19235,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "LIYUE_ZHONGLI",
+            "level": 60,
+            "hp": 50149,
+            "maxHp": 50149,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_DILUC",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          },
+          {
+            "owner": "MOND_JEAN",
+            "level": 60,
+            "hp": 32947,
+            "maxHp": 32947,
+            "lostHpRatio": 0,
+            "recoveryCost": 0
+          }
+        ]
+      },
+      "totalHealing": 5859
+    }
+  ],
+  "errors": [],
+  "inputSHA256": {
+    "source/world_content.js": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0",
+    "source/runtime.js": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+    "source/runtime_extensions.js": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69",
+    "source/runtime_story.js": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798",
+    "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+    "source/runtime_events.js": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9",
+    "source/runtime_relationships.js": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b",
+    "source/runtime_combat.js": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473",
+    "source/runtime_mond_cards.js": "7d8c6c7e74673ddfd11344af29011ca03121778f21b36c5c64e15d2ede2a2cc0",
+    "source/runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+    "source/runtime_passives.js": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7",
+    "source/runtime_rules.js": "cfe4c9ffb128478deb84a6abacba9b927bc8262078dce044f1c9e19db9674b9f",
+    "source/runtime_andrius.js": "dcb505716d41cdf3dcb09e13e95e2c55b9c26dde4d9e719615114eb9b124dcf4",
+    "source/runtime_flow.js": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d",
+    "source/runtime_party.js": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39",
+    "source/runtime_opening.js": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b",
+    "source/runtime_places.js": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a",
+    "source/runtime_places_joint.js": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f",
+    "source/runtime_adventure.js": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5",
+    "source/runtime_exploration.js": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c",
+    "source/runtime_life.js": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b",
+    "source/runtime_world.js": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8",
+    "source/runtime_journey.js": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e",
+    "source/runtime_market.js": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb",
+    "source/runtime_geography.js": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c",
+    "source/runtime_liyue.js": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163",
+    "source/runtime_liyue_card_content.js": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0",
+    "source/runtime_liyue_cards.js": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94",
+    "source/runtime_liyue_combat.js": "444a369277d88f9fa2f5f2cf04698050554ffdcdd2ba3a4a7dc905b83061790f",
+    "source/runtime_geo_oculi.js": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb",
+    "source/runtime_encounter.js": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311",
+    "source/runtime_recruitment.js": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951",
+    "source/runtime_protagonist.js": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b",
+    "source/runtime_equipment.js": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524",
+    "source/runtime_liyue_equipment.js": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8",
+    "source/runtime_liyue_forge.js": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad",
+    "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817",
+    "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+    "source/runtime_liyue_artifacts.js": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+    "source/runtime_mond_encounters.js": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6",
+    "source/runtime_enemy_content.js": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358",
+    "source/runtime_enemy_skills.js": "8e3235afce2283d266e51dde2023ae35ce4e34a873968b23870f2dafd2dee8d3",
+    "source/runtime_mond_boss_balance.js": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb",
+    "source/runtime_mond_balance.js": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426",
+    "source/runtime_navigation.js": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c",
+    "source/runtime_liyue_area_content.js": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df",
+    "source/runtime_liyue_areas.js": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85",
+    "source/runtime_chasm_skills.js": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638",
+    "source/runtime_liyue_encounters.js": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f",
+    "source/runtime_play_fixes.js": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97",
+    "source/runtime_gear_traits.js": "6d1413b7f43f717572b75608a70939ec8d10bb6c2e2d31ce519e7ab2d14af3af",
+    "source/runtime_enemy_tiers.js": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31",
+    "source/runtime_field_bosses.js": "b3cba3078c6f440102ce2e1be2e42b97f46bb3993bc1bc0d1f2a8aa597bbb99d",
+    "source/runtime_quality_fixes.js": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664",
+    "source/runtime_field_scenes.js": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d",
+    "source/runtime_liyue_rework_content.js": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363",
+    "source/runtime_liyue_rework.js": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45",
+    "source/runtime_liyue_places.js": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4",
+    "source/runtime_liyue_region_guide.js": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a",
+    "source/runtime_traveler_geo.js": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658",
+    "source/runtime_geo_trails.js": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26",
+    "source/runtime_abyss.js": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb",
+    "source/runtime_formations.js": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c",
+    "source/runtime_field_boss_limits.js": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb",
+    "source/runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+    "source/runtime_boss_rematch.js": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44",
+    "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+    "source/runtime_trade.js": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba",
+    "source/runtime_personal_expansion.js": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43",
+    "source/runtime_operator.js": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04",
+    "source/runtime_mond_revision.js": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e",
+    "source/runtime_local_revision.js": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730",
+    "source/runtime_local_story_content.js": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab",
+    "source/runtime_local_story.js": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e",
+    "source/runtime_main_story_k_content.js": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616",
+    "source/runtime_main_story_k.js": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3",
+    "source/runtime_commission_stories.js": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5",
+    "source/runtime_combat_v0148.js": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e",
+    "source/runtime_economy_v0148.js": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096",
+    "source/runtime_personal_v0148.js": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635",
+    "source/runtime_premium_v0148.js": "78a9ab3a6a4d08d83d89c1f599af12d3e8f7d37bcca1262adf61dc286b532b22",
+    "source/runtime_constellations_v01411.js": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b",
+    "source/runtime_wish_v01411.js": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95",
+    "source/runtime_admin_v01412.js": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e",
+    "source/runtime_rarity_v01412.js": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240",
+    "source/runtime_presets_v01411.js": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128",
+    "source/runtime_chests_v01415.js": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721",
+    "source/runtime_offerings_v01415.js": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7",
+    "source/runtime_mail_v0151.js": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74",
+    "source/runtime_puzzles_v0152.js": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069",
+    "source/runtime_balance_v0152.js": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1",
+    "source/runtime_mutations_v0152.js": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0",
+    "source/runtime_events_v0152.js": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e",
+    "source/runtime_raid_v0152.js": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9",
+    "source/runtime_achievements_v0152.js": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b",
+    "source/runtime_early_story_v0153.js": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb",
+    "source/runtime_story_pacing_v0153.js": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8",
+    "source/runtime_starter_kit_v0153.js": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0",
+    "source/runtime_map_v01516.js": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e",
+    "source/runtime_coop_v0153.js": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321",
+    "source/runtime_status_catalog_v01522.js": "9edfa00369436a9e20053d7719f4dd4f4f7579d1291e16302fbcba9791d0d300",
+    "source/runtime_status_v01522.js": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee",
+    "source/runtime_life_v01522.js": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902",
+    "source/runtime_life_v0162.js": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708",
+    "source/runtime_growth_data_v01522.js": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c",
+    "source/runtime_growth_v01522.js": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+    "source/runtime_roster_v01522.js": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6",
+    "source/runtime_tutorial_v01522.js": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d",
+    "source/runtime_battle_capacity_v01522.js": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7",
+    "source/runtime_story_companions_v01525.js": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc",
+    "source/runtime_coop_world_v0160.js": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc",
+    "source/runtime_battle_lines_v0162.js": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e",
+    "source/runtime_landmarks_v0163.js": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8",
+    "source/runtime_task_catalog_v0168.js": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8",
+    "source/runtime_task_learning_catalog_v0169.js": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18",
+    "source/runtime_tasks_v0167.js": "cc21ab26ac16a7b6265e04a6cf38543170e9a0bdbff01489174006f99e232bb9",
+    "source/runtime_task_learning_v0169.js": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748",
+    "source/runtime_balance_admin_v01623.js": "bb6183b915b3261511ea84d0c0ba384e722f56c3651c43c863752955215803f1",
+    "source/runtime_reading.js": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633",
+    "source/index.html": "91509d6f145191483fff4a5c3c474f60de12fff6e696f87d2a3d599532365cc8",
+    "source/presentation.js": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "tools/audit_protagonist_v01618.cjs": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9"
+  },
+  "inputDrift": []
+}

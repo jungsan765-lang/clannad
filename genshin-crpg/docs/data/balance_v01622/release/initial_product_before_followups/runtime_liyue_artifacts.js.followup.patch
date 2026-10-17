@@ -1,0 +1,11 @@
+--- runtime_liyue_artifacts.js.initial
++++ runtime_liyue_artifacts.js.final
+@@ -87,7 +87,7 @@
+ P.liyueArtifactUnlocked=function(kind){
+  if(kind==='TARTAGLIA'){
+   const qids=['Q_TRV_LIYUE_03','Q_ISK_LIYUE_03'];
+-  return yes(this.s.flags.FLAG_TRV_LY_TARTAGLIA_WON)||Object.values(this.s.combatReceipts||{}).some(r=>r?.victory&&r.group==='EG_BOSS_TARTAGLIA')||qids.some(id=>{const q=this.s.quests?.[id];return q?.claimed||q?.state==='완료';});
++  return yes(this.s.flags.FLAG_TRV_LY_TARTAGLIA_WON)||Object.values(this.s.combatReceipts||{}).some(r=>r?.victory&&r.group==='EG_BOSS_TARTAGLIA')||qids.some(id=>{const q=this.s.quests?.[id];return q?.claimed||q?.state==='완료';})||this.liyueChapterEnded?.('Q_ISK_LIYUE_03')===true;
+  }
+  if(kind==='AZHDAHA'){
+   const route=this.tables['35_BOSS_ROUTE_DB']?.get('BRT_AZHDAHA'),flag=route?.[13];

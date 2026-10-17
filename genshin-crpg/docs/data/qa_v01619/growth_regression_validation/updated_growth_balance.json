@@ -1,0 +1,591 @@
+[
+  {
+    "map": "MAP_MOND_WOLVENDOM",
+    "group": "EG_MOND_HILI_ELITE",
+    "byLevel": [
+      {
+        "level": 17,
+        "battles": [
+          {
+            "seed": 11,
+            "victory": true,
+            "rounds": 12,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                17,
+                3880,
+                1136,
+                74
+              ]
+            ]
+          },
+          {
+            "seed": 22,
+            "victory": false,
+            "rounds": 25,
+            "defeat": {
+              "actualPartyWipe": true,
+              "enemyStillAlive": true,
+              "zeroRewards": true,
+              "oneReceipt": true,
+              "saveRestored": true,
+              "duplicateSettlementUnchanged": true
+            },
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                17,
+                3880,
+                1136,
+                74
+              ]
+            ]
+          },
+          {
+            "seed": 33,
+            "victory": true,
+            "rounds": 19,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ]
+            ]
+          }
+        ],
+        "wins": 2,
+        "losses": 1,
+        "averageRounds": 15.5
+      },
+      {
+        "level": 30,
+        "battles": [
+          {
+            "seed": 11,
+            "victory": true,
+            "rounds": 6,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                17,
+                3880,
+                1136,
+                74
+              ]
+            ]
+          },
+          {
+            "seed": 22,
+            "victory": true,
+            "rounds": 6,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                17,
+                3880,
+                1136,
+                74
+              ]
+            ]
+          },
+          {
+            "seed": 33,
+            "victory": true,
+            "rounds": 5,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ]
+            ]
+          }
+        ],
+        "wins": 3,
+        "losses": 0,
+        "averageRounds": 5.666666666666667
+      },
+      {
+        "level": 45,
+        "battles": [
+          {
+            "seed": 11,
+            "victory": true,
+            "rounds": 3,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                17,
+                3880,
+                1136,
+                74
+              ]
+            ]
+          },
+          {
+            "seed": 22,
+            "victory": true,
+            "rounds": 4,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                17,
+                3880,
+                1136,
+                74
+              ]
+            ]
+          },
+          {
+            "seed": 33,
+            "victory": true,
+            "rounds": 3,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                17,
+                3880,
+                1136,
+                74
+              ],
+              [
+                "MON_MITACHURL_AXE",
+                17,
+                9825,
+                1544,
+                103
+              ]
+            ]
+          }
+        ],
+        "wins": 3,
+        "losses": 0,
+        "averageRounds": 3.3333333333333335
+      }
+    ]
+  },
+  {
+    "map": "MAP_LIYUE_PLAINS",
+    "group": "EG_LIYUE_HILI_ROCK",
+    "byLevel": [
+      {
+        "level": 32,
+        "battles": [
+          {
+            "seed": 11,
+            "victory": true,
+            "rounds": 14,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          },
+          {
+            "seed": 22,
+            "victory": true,
+            "rounds": 15,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          },
+          {
+            "seed": 33,
+            "victory": true,
+            "rounds": 13,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          }
+        ],
+        "wins": 3,
+        "losses": 0,
+        "averageRounds": 14
+      },
+      {
+        "level": 45,
+        "battles": [
+          {
+            "seed": 11,
+            "victory": true,
+            "rounds": 7,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          },
+          {
+            "seed": 22,
+            "victory": true,
+            "rounds": 9,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          },
+          {
+            "seed": 33,
+            "victory": true,
+            "rounds": 9,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          }
+        ],
+        "wins": 3,
+        "losses": 0,
+        "averageRounds": 8.333333333333334
+      },
+      {
+        "level": 60,
+        "battles": [
+          {
+            "seed": 11,
+            "victory": true,
+            "rounds": 6,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          },
+          {
+            "seed": 22,
+            "victory": true,
+            "rounds": 5,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ],
+              [
+                "MON_HILI_SHOOTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          },
+          {
+            "seed": 33,
+            "victory": true,
+            "rounds": 6,
+            "defeat": null,
+            "enemies": [
+              [
+                "MON_MITACHURL_ROCK",
+                32,
+                18805,
+                2788,
+                213
+              ],
+              [
+                "MON_HILI_FIGHTER",
+                32,
+                7000,
+                1900,
+                152
+              ]
+            ]
+          }
+        ],
+        "wins": 3,
+        "losses": 0,
+        "averageRounds": 5.666666666666667
+      }
+    ]
+  }
+]

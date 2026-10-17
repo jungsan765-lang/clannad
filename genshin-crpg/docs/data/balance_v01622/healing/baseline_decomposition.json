@@ -1,0 +1,1476 @@
+{
+  "schema": 1,
+  "source": "docs/data/full_balance_v01621/combat/repeated_after.json.gz",
+  "sourceSha256": "4149c1b50963b9e36a8d3142af62aa03577af1b560995b900ef074b5f81d6bcb",
+  "scope": "Exact sealed 0.16.21 repetition observation extraction; no new combat execution and no product change. Growth metadata variations do not change combat math; new product fingerprints require independent comparison.",
+  "rows": [
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 1,
+      "losses": 1,
+      "koBattles": 1,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 6524,
+      "nominal": 8904.640800000005,
+      "overcap": 2384.5640000000008,
+      "hpDamage": 27937,
+      "absorbed": 0,
+      "fightRounds": [
+        5,
+        11
+      ],
+      "perBattleHeal": [
+        2194,
+        4330
+      ]
+    },
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 4918,
+      "nominal": 8105.235600000003,
+      "overcap": 3191.1020000000008,
+      "hpDamage": 26636,
+      "absorbed": 0,
+      "fightRounds": [
+        5,
+        5,
+        2
+      ],
+      "perBattleHeal": [
+        1861,
+        2258,
+        799
+      ]
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 25,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 1,
+      "hpRatio": 0.5342592592592592,
+      "innMora": 207,
+      "healing": 9465,
+      "nominal": 23761.080200000015,
+      "overcap": 14291.796600000001,
+      "hpDamage": 33770,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        4
+      ],
+      "perBattleHeal": [
+        1914,
+        2233,
+        2247,
+        3071
+      ]
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 25,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.7434670781893004,
+      "innMora": 128,
+      "healing": 10770,
+      "nominal": 23169.159200000013,
+      "overcap": 12394.547400000003,
+      "hpDamage": 31304,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        2105,
+        2401,
+        3642,
+        2622
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 2,
+      "hpRatio": 0.23675787299948373,
+      "innMora": 328,
+      "healing": 16956,
+      "nominal": 17132.280000000002,
+      "overcap": 179.69000000000028,
+      "hpDamage": 33023,
+      "absorbed": 3750,
+      "fightRounds": [
+        5,
+        5,
+        5,
+        4
+      ],
+      "perBattleHeal": [
+        4104,
+        4284,
+        4284,
+        4284
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 3,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 16879,
+      "nominal": 17132.280000000002,
+      "overcap": 256.6900000000003,
+      "hpDamage": 38029,
+      "absorbed": 4910,
+      "fightRounds": [
+        5,
+        5,
+        5,
+        6
+      ],
+      "perBattleHeal": [
+        4027,
+        4284,
+        4284,
+        4284
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 25,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.7244708311822405,
+      "innMora": 131,
+      "healing": 16991,
+      "nominal": 18734.980000000003,
+      "overcap": 1747.0400000000004,
+      "hpDamage": 22087,
+      "absorbed": 1575,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        2
+      ],
+      "perBattleHeal": [
+        3668,
+        3668,
+        4542,
+        5113
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 25,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.7547754259163655,
+      "innMora": 120,
+      "healing": 14618,
+      "nominal": 17021.752000000004,
+      "overcap": 2406.080000000001,
+      "hpDamage": 19368,
+      "absorbed": 3694,
+      "fightRounds": [
+        3,
+        2,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        3668,
+        3187,
+        4105,
+        3658
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 1,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 665,
+      "nominal": 665.7491691662425,
+      "overcap": 0,
+      "hpDamage": 23898,
+      "absorbed": 4297,
+      "fightRounds": [
+        5,
+        9
+      ],
+      "perBattleHeal": [
+        570,
+        95
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 1,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 95,
+      "nominal": 190.21404833321216,
+      "overcap": 95.10702416660608,
+      "hpDamage": 23366,
+      "absorbed": 6415,
+      "fightRounds": [
+        6,
+        8
+      ],
+      "perBattleHeal": [
+        95,
+        0
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 25,
+      "seed": 717,
+      "wins": 3,
+      "losses": 1,
+      "koBattles": 4,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 4406,
+      "nominal": 5979.792386665696,
+      "overcap": 1573.3610724998189,
+      "hpDamage": 29709,
+      "absorbed": 21481,
+      "fightRounds": [
+        3,
+        5,
+        27,
+        4
+      ],
+      "perBattleHeal": [
+        431,
+        2005,
+        1970,
+        0
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 25,
+      "seed": 925,
+      "wins": 3,
+      "losses": 1,
+      "koBattles": 4,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 4251,
+      "nominal": 5314.043217499455,
+      "overcap": 1063.7340483332123,
+      "hpDamage": 30846,
+      "absorbed": 19730,
+      "fightRounds": [
+        3,
+        5,
+        23,
+        3
+      ],
+      "perBattleHeal": [
+        431,
+        2325,
+        1495,
+        0
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 1,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 3240,
+      "nominal": 3238.488,
+      "overcap": 0,
+      "hpDamage": 26446,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        3
+      ],
+      "perBattleHeal": [
+        2160,
+        1080
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 1,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 2160,
+      "nominal": 2158.992,
+      "overcap": 0,
+      "hpDamage": 23402,
+      "absorbed": 0,
+      "fightRounds": [
+        5,
+        2
+      ],
+      "perBattleHeal": [
+        1800,
+        360
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 25,
+      "seed": 717,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 5341,
+      "nominal": 6582.048000000002,
+      "overcap": 1243.0400000000004,
+      "hpDamage": 30153,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        4,
+        3
+      ],
+      "perBattleHeal": [
+        1681,
+        1825,
+        1835
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 25,
+      "seed": 925,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 6011,
+      "nominal": 7661.544000000003,
+      "overcap": 1653.0400000000004,
+      "hpDamage": 32104,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        1681,
+        1775,
+        2555
+      ]
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 3,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 7602,
+      "nominal": 10660.528517760002,
+      "overcap": 3053.2755240000006,
+      "hpDamage": 32667,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        5,
+        6
+      ],
+      "perBattleHeal": [
+        1381,
+        3276,
+        2945
+      ]
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 8583,
+      "nominal": 11798.504370312003,
+      "overcap": 3209.730628800001,
+      "hpDamage": 32961,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        5,
+        8
+      ],
+      "perBattleHeal": [
+        1484,
+        3497,
+        3602
+      ]
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 12793,
+      "nominal": 13820.494308192006,
+      "overcap": 1024.4348011520005,
+      "hpDamage": 36348,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        4,
+        7
+      ],
+      "perBattleHeal": [
+        5028,
+        4094,
+        3671
+      ]
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 3,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 10048,
+      "nominal": 11245.385592672003,
+      "overcap": 1195.2500152320004,
+      "hpDamage": 34204,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        5,
+        7
+      ],
+      "perBattleHeal": [
+        3236,
+        3141,
+        3671
+      ]
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 3,
+      "losses": 1,
+      "koBattles": 3,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 17833,
+      "nominal": 21744.976704000008,
+      "overcap": 3906.3510399999996,
+      "hpDamage": 42051,
+      "absorbed": 4563,
+      "fightRounds": [
+        5,
+        4,
+        4,
+        7
+      ],
+      "perBattleHeal": [
+        5436,
+        4166,
+        3787,
+        4444
+      ]
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 2,
+      "hpRatio": 0.18634695142298707,
+      "innMora": 357,
+      "healing": 20863,
+      "nominal": 25013.246016000016,
+      "overcap": 4143.015935999999,
+      "hpDamage": 40398,
+      "absorbed": 3844,
+      "fightRounds": [
+        4,
+        4,
+        4,
+        9
+      ],
+      "perBattleHeal": [
+        4478,
+        6561,
+        4951,
+        4873
+      ]
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 20449,
+      "nominal": 32932.898348063994,
+      "overcap": 12485.676916992,
+      "hpDamage": 46819,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        5,
+        13
+      ],
+      "perBattleHeal": [
+        5189,
+        8447,
+        6813
+      ]
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 18100,
+      "nominal": 26805.149618015996,
+      "overcap": 8706.928186944002,
+      "hpDamage": 43598,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        12,
+        6
+      ],
+      "perBattleHeal": [
+        6508,
+        8528,
+        3064
+      ]
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 25,
+      "seed": 717,
+      "wins": 1,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 0,
+      "nominal": 0,
+      "overcap": 0,
+      "hpDamage": 23302,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        5
+      ],
+      "perBattleHeal": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 25,
+      "seed": 925,
+      "wins": 2,
+      "losses": 1,
+      "koBattles": 2,
+      "hpRatio": 0,
+      "innMora": 420,
+      "healing": 0,
+      "nominal": 0,
+      "overcap": 0,
+      "hpDamage": 22612,
+      "absorbed": 0,
+      "fightRounds": [
+        4,
+        5,
+        1
+      ],
+      "perBattleHeal": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 25,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 1,
+      "innMora": 20,
+      "healing": 46983,
+      "nominal": 79937.5037859976,
+      "overcap": 32941.165610832344,
+      "hpDamage": 46003,
+      "absorbed": 17653,
+      "fightRounds": [
+        8,
+        8,
+        7,
+        7
+      ],
+      "perBattleHeal": [
+        11435,
+        13685,
+        10676,
+        11187
+      ]
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 25,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 1,
+      "innMora": 20,
+      "healing": 43211,
+      "nominal": 71659.29926999792,
+      "overcap": 28437.434314165905,
+      "hpDamage": 42476,
+      "absorbed": 17746,
+      "fightRounds": [
+        7,
+        6,
+        7,
+        8
+      ],
+      "perBattleHeal": [
+        12643,
+        8090,
+        12372,
+        10106
+      ]
+    },
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.944229174146106,
+      "innMora": 77,
+      "healing": 18681,
+      "nominal": 42615.935999999994,
+      "overcap": 23932.951999999994,
+      "hpDamage": 20675,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        1615,
+        3446,
+        7292,
+        6328
+      ]
+    },
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.8948586850217265,
+      "innMora": 123,
+      "healing": 21548,
+      "nominal": 42615.935999999994,
+      "overcap": 21064.959999999995,
+      "hpDamage": 27035,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        1002,
+        6715,
+        7503,
+        6328
+      ]
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9758594649467052,
+      "innMora": 45,
+      "healing": 9429,
+      "nominal": 61460.93535999998,
+      "overcap": 52031.93535999999,
+      "hpDamage": 8017,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "perBattleHeal": [
+        1002,
+        1780,
+        2622,
+        4025
+      ]
+    },
+    {
+      "name": "MOND_BARBARA_C6",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9827549921388514,
+      "innMora": 38,
+      "healing": 11391,
+      "nominal": 79884.78783999998,
+      "overcap": 68493.78783999998,
+      "hpDamage": 9594,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "perBattleHeal": [
+        2201,
+        1782,
+        4377,
+        3031
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9672797315769852,
+      "innMora": 53,
+      "healing": 12103,
+      "nominal": 14141.072000000002,
+      "overcap": 2039.536000000001,
+      "hpDamage": 13269,
+      "absorbed": 2367,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        3338,
+        2932,
+        2297,
+        3536
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9764011432832111,
+      "innMora": 45,
+      "healing": 12015,
+      "nominal": 14141.072000000002,
+      "overcap": 2126.8040000000015,
+      "hpDamage": 11910,
+      "absorbed": 901,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        2626,
+        2971,
+        2882,
+        3536
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9927674909904313,
+      "innMora": 27,
+      "healing": 9682,
+      "nominal": 29123.644000000008,
+      "overcap": 19441.644000000008,
+      "hpDamage": 6256,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "perBattleHeal": [
+        1768,
+        3079,
+        2172,
+        2663
+      ]
+    },
+    {
+      "name": "MOND_DIONA_C6",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9669442028085,
+      "innMora": 53,
+      "healing": 8588,
+      "nominal": 27356.010000000006,
+      "overcap": 18768.010000000006,
+      "hpDamage": 8068,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "perBattleHeal": [
+        2257,
+        1614,
+        2282,
+        2435
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.7254870035471304,
+      "innMora": 305,
+      "healing": 0,
+      "nominal": 0,
+      "overcap": 0,
+      "hpDamage": 23604,
+      "absorbed": 763,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.7615165435831831,
+      "innMora": 266,
+      "healing": 0,
+      "nominal": 0,
+      "overcap": 0,
+      "hpDamage": 20506,
+      "absorbed": 384,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9162877246031285,
+      "innMora": 108,
+      "healing": 4321,
+      "nominal": 18517.840000000004,
+      "overcap": 14196.840000000004,
+      "hpDamage": 8513,
+      "absorbed": 1523,
+      "fightRounds": [
+        2,
+        2,
+        3,
+        2
+      ],
+      "perBattleHeal": [
+        1002,
+        1002,
+        1315,
+        1002
+      ]
+    },
+    {
+      "name": "MOND_NOELLE_C6",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9112984822934233,
+      "innMora": 114,
+      "healing": 4034,
+      "nominal": 18517.840000000004,
+      "overcap": 14483.840000000004,
+      "hpDamage": 9300,
+      "absorbed": 633,
+      "fightRounds": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "perBattleHeal": [
+        1002,
+        1002,
+        1002,
+        1028
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.8249198041533007,
+      "innMora": 195,
+      "healing": 4515,
+      "nominal": 4514.202,
+      "overcap": 0,
+      "hpDamage": 19033,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        0,
+        0,
+        1505,
+        3010
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.8092424205880224,
+      "innMora": 209,
+      "healing": 12040,
+      "nominal": 12037.872000000001,
+      "overcap": 0,
+      "hpDamage": 27858,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        0,
+        1505,
+        4515,
+        6020
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.937121632377415,
+      "innMora": 82,
+      "healing": 4008,
+      "nominal": 18517.840000000004,
+      "overcap": 14509.840000000004,
+      "hpDamage": 6040,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "perBattleHeal": [
+        1002,
+        1002,
+        1002,
+        1002
+      ]
+    },
+    {
+      "name": "MOND_BENNETT_C6",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9063336629603724,
+      "innMora": 113,
+      "healing": 4008,
+      "nominal": 18517.840000000004,
+      "overcap": 14509.840000000004,
+      "hpDamage": 9212,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "perBattleHeal": [
+        1002,
+        1002,
+        1002,
+        1002
+      ]
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.98609691269679,
+      "innMora": 32,
+      "healing": 15940,
+      "nominal": 32849.510620608016,
+      "overcap": 16909.21518600001,
+      "hpDamage": 14087,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        3,
+        2,
+        3
+      ],
+      "perBattleHeal": [
+        2207,
+        4377,
+        4491,
+        4865
+      ]
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9899493161445835,
+      "innMora": 32,
+      "healing": 14234,
+      "nominal": 32849.510620608016,
+      "overcap": 18615.30198500001,
+      "hpDamage": 12306,
+      "absorbed": 0,
+      "fightRounds": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        1594,
+        3751,
+        5366,
+        3523
+      ]
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.8815116917216369,
+      "innMora": 151,
+      "healing": 14584,
+      "nominal": 16707.908627520002,
+      "overcap": 2122.297664512,
+      "hpDamage": 22008,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        2336,
+        4252,
+        4632,
+        3364
+      ]
+    },
+    {
+      "name": "LIYUE_QIQI_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.87875690042936,
+      "innMora": 153,
+      "healing": 16849,
+      "nominal": 18469.007171296,
+      "overcap": 1617.5814625280004,
+      "hpDamage": 24250,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        3752,
+        4252,
+        4632,
+        4213
+      ]
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 1,
+      "innMora": 20,
+      "healing": 27998,
+      "nominal": 124746.33599999998,
+      "overcap": 96748.572,
+      "hpDamage": 23990,
+      "absorbed": 2353,
+      "fightRounds": [
+        4,
+        4,
+        3,
+        4
+      ],
+      "perBattleHeal": [
+        7544,
+        1534,
+        6127,
+        12793
+      ]
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.9769170362669085,
+      "innMora": 45,
+      "healing": 24741,
+      "nominal": 103955.28,
+      "overcap": 79214.28000000001,
+      "hpDamage": 23627,
+      "absorbed": 2361,
+      "fightRounds": [
+        4,
+        3,
+        4,
+        3
+      ],
+      "perBattleHeal": [
+        7501,
+        2158,
+        7664,
+        7418
+      ]
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 1,
+      "innMora": 20,
+      "healing": 20494,
+      "nominal": 67416.1397536,
+      "overcap": 46922.9574624,
+      "hpDamage": 16559,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        3261,
+        5935,
+        6103,
+        5195
+      ]
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.98365377906687,
+      "innMora": 41,
+      "healing": 19750,
+      "nominal": 67416.1397536,
+      "overcap": 47666.9574624,
+      "hpDamage": 17382,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        3147,
+        4822,
+        5546,
+        6235
+      ]
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.7651261116780872,
+      "innMora": 254,
+      "healing": 0,
+      "nominal": 0,
+      "overcap": 0,
+      "hpDamage": 19332,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 0.7544345628614473,
+      "innMora": 261,
+      "healing": 0,
+      "nominal": 0,
+      "overcap": 0,
+      "hpDamage": 20212,
+      "absorbed": 0,
+      "fightRounds": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "perBattleHeal": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 60,
+      "seed": 717,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 1,
+      "innMora": 20,
+      "healing": 29696,
+      "nominal": 126041.25262781397,
+      "overcap": 96346.35092317832,
+      "hpDamage": 25628,
+      "absorbed": 18105,
+      "fightRounds": [
+        6,
+        7,
+        6,
+        6
+      ],
+      "perBattleHeal": [
+        7970,
+        8068,
+        6901,
+        6757
+      ]
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 60,
+      "seed": 925,
+      "wins": 4,
+      "losses": 0,
+      "koBattles": 0,
+      "hpRatio": 1,
+      "innMora": 20,
+      "healing": 29611,
+      "nominal": 133051.04514472352,
+      "overcap": 103441.24504008786,
+      "hpDamage": 25543,
+      "absorbed": 16935,
+      "fightRounds": [
+        6,
+        5,
+        6,
+        6
+      ],
+      "perBattleHeal": [
+        8856,
+        6843,
+        7412,
+        6500
+      ]
+    }
+  ]
+}

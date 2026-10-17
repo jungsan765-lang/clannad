@@ -1,0 +1,19 @@
+runtime.js:51
+  this.s=clone(before);try{if(this.assertActionAllowed)this.assertActionAllowed(a);const result=this.apply(a);this.s.global.SAVE_REVISION++;this.s.global.LAST_COMMITTED_ACTION_SEQ++;this.s.global.LAST_COMMITTED_ACTION_ID=a.id;this.s.global.TURN++;const receipt={ok:true,type:a.type,result:result??null,revision:this.s.global.SAVE_REVISION};this.s.global.LAST_ACTION_RECEIPT_JSON=JSON.stringify(receipt);this.validateSave(this.s);return clone(receipt);}catch(e){this.s=before;throw e;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+
+RuleError: 전투불능 상태입니다. 먼저 회복해 주세요.
+    at P.assertActionAllowed (runtime_flow.js:67:97)
+    at P.assertActionAllowed (runtime_abyss.js:341:155)
+    at Runtime.transact (runtime.js:51:61)
+    at P.transact (runtime_equipment.js:251:53)
+    at Runtime.action (runtime.js:47:59)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/full_balance_v01621/combat/audit_recovery_settlement.cjs:8:92)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12) {
+  code: 'ACTION_LOCK'
+}
+
+Node.js v24.19.0

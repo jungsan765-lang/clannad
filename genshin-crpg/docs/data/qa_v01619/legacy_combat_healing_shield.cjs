@@ -1,0 +1,18 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const Q=require('./qa_helpers_v01619.cjs'),repo=Q.repo();
+const H=require(path.join(repo,'tools/audit_protagonist_v01618.cjs')),old=H.load(Q.baseline(repo)),now=H.load(repo),cp=x=>JSON.parse(JSON.stringify(x));
+const r=H.setup(old,{level:50,team:['MOND_JEAN','MOND_BARBARA','LIYUE_ZHONGLI'],route:'ROUTE_TRAVELER',seed:717,talent:5,enhance:6,map:'MAP_LIYUE_JUEYUN'});
+r.startBattle(old.api.fieldBosses.group('FB_GEO_HYPOSTASIS'),'BOSS:'+old.api.fieldBosses.route('FB_GEO_HYPOSTASIS'));r.action('COMBAT_BEGIN');
+for(const id of['MOND_BARBARA_E','MOND_JEAN_Q','LIYUE_ZHONGLI_E']){const a=r.s.runtime.actors.find(x=>x.source===id.replace(/_[EQ]$/,'')),c=r.actorCards(a).find(x=>x.id===id);r.executeCard(a,c,r.s.runtime.actors.find(x=>x.side==='ENEMY').id);}
+for(const a of r.s.runtime.actors.filter(x=>x.side==='ALLY'))a.hp=Math.floor(a.maxHp*.4);
+const saved=JSON.parse(r.serialize()),baselineReload=new old.R(old.db,cp(saved)),currentReload=new now.R(now.db,cp(saved));
+const report={baselineFingerprint:old.fingerprint,currentFingerprint:now.fingerprint,scope:'Original16.18 serialized active field-boss battle with Barbara melody/Jean field/Zhongli shield loaded by19; native callbacks checked without numeric replacement.',checks:[]};
+function chk(name,f){try{report.checks.push({name,passed:true,evidence:f()});}catch(e){report.checks.push({name,passed:false,message:e.message});}}
+const fields=r=>cp(r.s.runtime.fields),allies=r=>r.s.runtime.actors.filter(x=>x.side==='ALLY');
+chk('old_fields_statuses_shields_hp_restored_exactly',()=>{assert.deepEqual(fields(currentReload),fields(baselineReload));const sel=x=>allies(x).map(a=>({source:a.source,hp:a.hp,maxHp:a.maxHp,statuses:a.statuses,shields:a.shields}));assert.deepEqual(cp(sel(currentReload)),cp(sel(baselineReload)));return{fieldCount:fields(currentReload).length};});
+chk('old_Jean_field_keeps_all_four_native_end_heals',()=>{const a=allies(baselineReload).map(x=>x.hp),b=allies(currentReload).map(x=>x.hp);baselineReload.tickFields('END');currentReload.tickFields('END');const x=allies(baselineReload).map((v,i)=>v.hp-a[i]),y=allies(currentReload).map((v,i)=>v.hp-b[i]);assert.deepEqual(cp(y),cp(x));assert(x.every(v=>v>0));return{effectiveHeal:x};});
+chk('old_Barbara_melody_keeps_native_six_percent_per_landed_basic',()=>{const run=(r)=>{r.die=()=>50;r.random=()=>.5;const a=allies(r).find(x=>x.source==='MOND_BARBARA'),t=r.s.runtime.actors.find(x=>x.side==='ENEMY'),before=allies(r).map(x=>x.hp);r.basicHit(a,t);return allies(r).map((x,i)=>x.hp-before[i]);};const x=run(baselineReload),y=run(currentReload);assert.deepEqual(cp(y),cp(x));assert(x.every(v=>v>0));return{effectiveHeal:x};});
+chk('old_Jade_shield_has_original_full_stored_strength_until_native_use',()=>{const oldShield=allies(baselineReload).map(x=>x.shields.find(s=>s.source==='LIYUE_ZHONGLI_E').value),newShield=allies(currentReload).map(x=>x.shields.find(s=>s.source==='LIYUE_ZHONGLI_E').value);assert.deepEqual(cp(newShield),cp(oldShield));return{values:newShield};});
+chk('legacy_boss_schedule_revision_is_not_added_by_load',()=>{assert.equal(saved.runtime.fieldBoss.behaviorRevision,undefined);assert.equal(currentReload.s.runtime.fieldBoss.behaviorRevision,undefined);return{behaviorRevisionAbsent:true};});
+report.total=report.checks.length;report.failed=report.checks.filter(x=>!x.passed).length;fs.writeFileSync(Q.outputFile('legacy_combat_healing_shield.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({fingerprint:report.currentFingerprint||report.fingerprint,total:report.total,failed:report.failed}));if(report.failed)process.exitCode=1;

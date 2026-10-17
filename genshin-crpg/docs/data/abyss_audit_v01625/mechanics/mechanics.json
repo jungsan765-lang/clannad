@@ -1,0 +1,2262 @@
+{
+  "publishedSHA": "46190377b713e6218e66b26bc4292f18fb5a348d",
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "scope": "Read-only floor rules and controlled mechanism probes; none of the forced settlement or controlled gate mutations constitute a native combat win/clear-rate measurement.",
+  "qaDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "inputSHA256": {
+    "source/world_content.js": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0",
+    "source/runtime.js": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+    "source/runtime_extensions.js": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69",
+    "source/runtime_story.js": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798",
+    "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+    "source/runtime_events.js": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9",
+    "source/runtime_relationships.js": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b",
+    "source/runtime_combat.js": "00e7257c98ab788b9eb8c3ca15783d45441f9869d83b1430b420b4dfdf339125",
+    "source/runtime_mond_cards.js": "7d8c6c7e74673ddfd11344af29011ca03121778f21b36c5c64e15d2ede2a2cc0",
+    "source/runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+    "source/runtime_passives.js": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7",
+    "source/runtime_rules.js": "cfe4c9ffb128478deb84a6abacba9b927bc8262078dce044f1c9e19db9674b9f",
+    "source/runtime_andrius.js": "dcb505716d41cdf3dcb09e13e95e2c55b9c26dde4d9e719615114eb9b124dcf4",
+    "source/runtime_flow.js": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d",
+    "source/runtime_party.js": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39",
+    "source/runtime_opening.js": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b",
+    "source/runtime_places.js": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a",
+    "source/runtime_places_joint.js": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f",
+    "source/runtime_adventure.js": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5",
+    "source/runtime_exploration.js": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c",
+    "source/runtime_life.js": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b",
+    "source/runtime_world.js": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8",
+    "source/runtime_journey.js": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e",
+    "source/runtime_market.js": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb",
+    "source/runtime_geography.js": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c",
+    "source/runtime_liyue.js": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163",
+    "source/runtime_liyue_card_content.js": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0",
+    "source/runtime_liyue_cards.js": "e0f10bb88666c9247b33345f9bca3bc51ce5893b1f3c16eae4db3a81340c1a39",
+    "source/runtime_liyue_combat.js": "444a369277d88f9fa2f5f2cf04698050554ffdcdd2ba3a4a7dc905b83061790f",
+    "source/runtime_geo_oculi.js": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb",
+    "source/runtime_encounter.js": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311",
+    "source/runtime_recruitment.js": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951",
+    "source/runtime_protagonist.js": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b",
+    "source/runtime_equipment.js": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524",
+    "source/runtime_liyue_equipment.js": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8",
+    "source/runtime_liyue_forge.js": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad",
+    "source/runtime_exclusive_weapons.js": "fb3a5580a1feefe0990f3520de15b70b711b7c69b4a3e6e732490c5f330c8649",
+    "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+    "source/runtime_liyue_artifacts.js": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+    "source/runtime_mond_encounters.js": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6",
+    "source/runtime_enemy_content.js": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358",
+    "source/runtime_enemy_skills.js": "8e3235afce2283d266e51dde2023ae35ce4e34a873968b23870f2dafd2dee8d3",
+    "source/runtime_mond_boss_balance.js": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb",
+    "source/runtime_mond_balance.js": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426",
+    "source/runtime_navigation.js": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c",
+    "source/runtime_liyue_area_content.js": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df",
+    "source/runtime_liyue_areas.js": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85",
+    "source/runtime_chasm_skills.js": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638",
+    "source/runtime_liyue_encounters.js": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f",
+    "source/runtime_play_fixes.js": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97",
+    "source/runtime_gear_traits.js": "6d1413b7f43f717572b75608a70939ec8d10bb6c2e2d31ce519e7ab2d14af3af",
+    "source/runtime_enemy_tiers.js": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31",
+    "source/runtime_field_bosses.js": "7812eeee9b88252acb78a42d4c6d5b4636a71b8a59132afbb87600338d44b97e",
+    "source/runtime_quality_fixes.js": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664",
+    "source/runtime_field_scenes.js": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d",
+    "source/runtime_liyue_rework_content.js": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363",
+    "source/runtime_liyue_rework.js": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45",
+    "source/runtime_liyue_places.js": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4",
+    "source/runtime_liyue_region_guide.js": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a",
+    "source/runtime_traveler_geo.js": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658",
+    "source/runtime_geo_trails.js": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26",
+    "source/runtime_abyss.js": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb",
+    "source/runtime_formations.js": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c",
+    "source/runtime_field_boss_limits.js": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb",
+    "source/runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+    "source/runtime_boss_rematch.js": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44",
+    "source/runtime_skill_rhythm.js": "f7c92f32f6ae9206b71a7cba4df47665b471c6ea11adfb56cdbb08f243036485",
+    "source/runtime_trade.js": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba",
+    "source/runtime_personal_expansion.js": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43",
+    "source/runtime_operator.js": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04",
+    "source/runtime_mond_revision.js": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e",
+    "source/runtime_local_revision.js": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730",
+    "source/runtime_local_story_content.js": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab",
+    "source/runtime_local_story.js": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e",
+    "source/runtime_main_story_k_content.js": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616",
+    "source/runtime_main_story_k.js": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3",
+    "source/runtime_commission_stories.js": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5",
+    "source/runtime_combat_v0148.js": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e",
+    "source/runtime_economy_v0148.js": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096",
+    "source/runtime_personal_v0148.js": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635",
+    "source/runtime_premium_v0148.js": "78a9ab3a6a4d08d83d89c1f599af12d3e8f7d37bcca1262adf61dc286b532b22",
+    "source/runtime_constellations_v01411.js": "cd8297ea56598788b531102d1cc07cab956e6ce716ea1d69dbeb25031a87a19a",
+    "source/runtime_wish_v01411.js": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95",
+    "source/runtime_admin_v01412.js": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e",
+    "source/runtime_rarity_v01412.js": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240",
+    "source/runtime_presets_v01411.js": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128",
+    "source/runtime_chests_v01415.js": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721",
+    "source/runtime_offerings_v01415.js": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7",
+    "source/runtime_mail_v0151.js": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74",
+    "source/runtime_puzzles_v0152.js": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069",
+    "source/runtime_balance_v0152.js": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1",
+    "source/runtime_mutations_v0152.js": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0",
+    "source/runtime_events_v0152.js": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e",
+    "source/runtime_raid_v0152.js": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9",
+    "source/runtime_achievements_v0152.js": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b",
+    "source/runtime_early_story_v0153.js": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb",
+    "source/runtime_story_pacing_v0153.js": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8",
+    "source/runtime_starter_kit_v0153.js": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0",
+    "source/runtime_map_v01516.js": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e",
+    "source/runtime_coop_v0153.js": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321",
+    "source/runtime_status_catalog_v01522.js": "9edfa00369436a9e20053d7719f4dd4f4f7579d1291e16302fbcba9791d0d300",
+    "source/runtime_status_v01522.js": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee",
+    "source/runtime_life_v01522.js": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902",
+    "source/runtime_life_v0162.js": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708",
+    "source/runtime_growth_data_v01522.js": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c",
+    "source/runtime_growth_v01522.js": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81",
+    "source/runtime_roster_v01522.js": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6",
+    "source/runtime_tutorial_v01522.js": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d",
+    "source/runtime_battle_capacity_v01522.js": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7",
+    "source/runtime_story_companions_v01525.js": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc",
+    "source/runtime_coop_world_v0160.js": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc",
+    "source/runtime_battle_lines_v0162.js": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e",
+    "source/runtime_landmarks_v0163.js": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8",
+    "source/runtime_task_catalog_v0168.js": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8",
+    "source/runtime_task_learning_catalog_v0169.js": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18",
+    "source/runtime_tasks_v0167.js": "cc21ab26ac16a7b6265e04a6cf38543170e9a0bdbff01489174006f99e232bb9",
+    "source/runtime_task_learning_v0169.js": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748",
+    "source/runtime_balance_admin_v01623.js": "49df090970f8cacaf5614c4a0731100120b8cb763f8cca33e895f4b65b591f7b",
+    "source/runtime_reading.js": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633",
+    "source/index.html": "91509d6f145191483fff4a5c3c474f60de12fff6e696f87d2a3d599532365cc8",
+    "source/presentation.js": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3",
+    "source/app_abyss.js": "5f46a08f37c609e7330fdc44cb367ee378707728429c68c0a45346c5203c78d2",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "tests/helpers_v011.cjs": "8b2bf05f22d44aacf0788e80bb75a013373dd4b3665a521e52976ce39ae01ada",
+    "tests/helpers_abyss.cjs": "89151cd0a45e74e92dbcb4f3f6f21d972abd6a3e4081a239c5961966d9561cc3",
+    "tests/helpers_abyss_artifacts.cjs": "1123dec86094b6520f066ee36fa20f7e3b4dadaaf19d6209ae46c2df4a7b14c6"
+  },
+  "inputDrift": [],
+  "summary": {
+    "checks": 26,
+    "passed": 26,
+    "errors": 0
+  },
+  "floors": [
+    {
+      "floor": 1,
+      "name": "입구의 잔향",
+      "level": 15,
+      "minEntryLevel": 10,
+      "base": {
+        "hp": 3960,
+        "atk": 622,
+        "def": 320
+      },
+      "reward": {
+        "primogem": 100,
+        "mora": 800
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "잔향의 문지기",
+          "hint": "입구를 지키는 잔향 둘이 창끝을 겨눈다.",
+          "foes": [
+            {
+              "n": "잔향 파수꾼"
+            },
+            {
+              "n": "잔향 창병"
+            }
+          ],
+          "limit": 14,
+          "enemyStats": [
+            {
+              "name": "잔향 파수꾼",
+              "level": 15,
+              "hp": 3390,
+              "atk": 588,
+              "def": 320,
+              "spd": 28,
+              "hit": 98,
+              "eva": 7,
+              "resist": 95
+            },
+            {
+              "name": "잔향 창병",
+              "level": 15,
+              "hp": 3390,
+              "atk": 588,
+              "def": 320,
+              "spd": 28,
+              "hit": 98,
+              "eva": 7,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "떠오른 잔향",
+          "hint": "발끝이 바닥에 닿지 않는 잔향들이 천장 가까이에서 흔들린다.",
+          "foes": [
+            {
+              "n": "떠오른 사수",
+              "air": true
+            },
+            {
+              "n": "떠오른 척후",
+              "air": true
+            }
+          ],
+          "limit": 15,
+          "hp": 0.6,
+          "enemyStats": [
+            {
+              "name": "떠오른 사수",
+              "level": 15,
+              "hp": 2288,
+              "atk": 620,
+              "def": 320,
+              "spd": 28,
+              "hit": 98,
+              "eva": 7,
+              "resist": 95
+            },
+            {
+              "name": "떠오른 척후",
+              "level": 15,
+              "hp": 2288,
+              "atk": 620,
+              "def": 320,
+              "spd": 28,
+              "hit": 98,
+              "eva": 7,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "되살리는 잔향",
+          "hint": "뒤쪽의 잔향 하나가 쉬지 않고 무언가를 읊조린다.",
+          "foes": [
+            {
+              "n": "잔향 파수꾼"
+            },
+            {
+              "n": "잔향 치유사",
+              "heal": true,
+              "hp": 0.8
+            }
+          ],
+          "limit": 14,
+          "healPct": 0.12,
+          "enemyStats": [
+            {
+              "name": "잔향 파수꾼",
+              "level": 15,
+              "hp": 4237,
+              "atk": 653,
+              "def": 320,
+              "spd": 28,
+              "hit": 98,
+              "eva": 7,
+              "resist": 95
+            },
+            {
+              "name": "잔향 치유사",
+              "level": 15,
+              "hp": 3390,
+              "atk": 653,
+              "def": 320,
+              "spd": 28,
+              "hit": 98,
+              "eva": 7,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 2,
+      "name": "엇갈린 회랑",
+      "level": 20,
+      "minEntryLevel": 15,
+      "base": {
+        "hp": 4752,
+        "atk": 1739,
+        "def": 513
+      },
+      "reward": {
+        "primogem": 120,
+        "mora": 1000,
+        "items": {
+          "ORE_WHITE_IRON": 3
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "회랑의 사수",
+          "hint": "회랑 높은 곳에 사수들이 자리를 잡았고, 아래에서는 파수꾼이 길을 막는다.",
+          "foes": [
+            {
+              "n": "회랑 사수",
+              "air": true
+            },
+            {
+              "n": "회랑 사수",
+              "air": true
+            },
+            {
+              "n": "회랑 파수꾼"
+            }
+          ],
+          "limit": 14,
+          "hp": 0.6,
+          "enemyStats": [
+            {
+              "name": "회랑 사수",
+              "level": 20,
+              "hp": 2441,
+              "atk": 1643,
+              "def": 513,
+              "spd": 30,
+              "hit": 98,
+              "eva": 8,
+              "resist": 95
+            },
+            {
+              "name": "회랑 사수",
+              "level": 20,
+              "hp": 2441,
+              "atk": 1643,
+              "def": 513,
+              "spd": 30,
+              "hit": 98,
+              "eva": 8,
+              "resist": 95
+            },
+            {
+              "name": "회랑 파수꾼",
+              "level": 20,
+              "hp": 2441,
+              "atk": 1643,
+              "def": 513,
+              "spd": 30,
+              "hit": 98,
+              "eva": 8,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "불꽃 장막",
+          "hint": "두 적이 일렁이는 불꽃의 막을 두르고 있다.",
+          "foes": [
+            {
+              "n": "불꽃 장막 술사"
+            },
+            {
+              "n": "불꽃 장막 창병"
+            }
+          ],
+          "limit": 14,
+          "el": "PYRO",
+          "shield": {
+            "element": "불",
+            "pct": 0.4,
+            "weak": {
+              "물": 2,
+              "얼음": 1.5
+            }
+          },
+          "enemyStats": [
+            {
+              "name": "불꽃 장막 술사",
+              "level": 20,
+              "hp": 4576,
+              "atk": 1735,
+              "def": 513,
+              "spd": 30,
+              "hit": 98,
+              "eva": 8,
+              "resist": 95
+            },
+            {
+              "name": "불꽃 장막 창병",
+              "level": 20,
+              "hp": 4576,
+              "atk": 1735,
+              "def": 513,
+              "spd": 30,
+              "hit": 98,
+              "eva": 8,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "엇갈린 쌍둥이",
+          "hint": "서로의 이름을 부르며 싸우는 쌍둥이.",
+          "foes": [
+            {
+              "n": "쌍둥이 · 해"
+            },
+            {
+              "n": "쌍둥이 · 달"
+            }
+          ],
+          "limit": 15,
+          "twin": true,
+          "enemyStats": [
+            {
+              "name": "쌍둥이 · 해",
+              "level": 20,
+              "hp": 5085,
+              "atk": 1826,
+              "def": 513,
+              "spd": 30,
+              "hit": 98,
+              "eva": 8,
+              "resist": 95
+            },
+            {
+              "name": "쌍둥이 · 달",
+              "level": 20,
+              "hp": 5085,
+              "atk": 1826,
+              "def": 513,
+              "spd": 30,
+              "hit": 98,
+              "eva": 8,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 3,
+      "name": "무너지는 발판",
+      "level": 25,
+      "minEntryLevel": 20,
+      "base": {
+        "hp": 11520,
+        "atk": 2545,
+        "def": 769
+      },
+      "reward": {
+        "primogem": 140,
+        "mora": 1200,
+        "items": {
+          "ORE_WHITE_IRON": 5
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "갈라지는 발판",
+          "hint": "발밑의 돌판이 조금씩 갈라지며 기운을 빨아들인다.",
+          "foes": [
+            {
+              "n": "발판 파수꾼"
+            },
+            {
+              "n": "발판 창병"
+            },
+            {
+              "n": "발판 사수"
+            }
+          ],
+          "limit": 14,
+          "hp": 0.65,
+          "erosion": 0.02,
+          "enemyStats": [
+            {
+              "name": "발판 파수꾼",
+              "level": 25,
+              "hp": 6410,
+              "atk": 2405,
+              "def": 769,
+              "spd": 32,
+              "hit": 98,
+              "eva": 9,
+              "resist": 95
+            },
+            {
+              "name": "발판 창병",
+              "level": 25,
+              "hp": 6410,
+              "atk": 2405,
+              "def": 769,
+              "spd": 32,
+              "hit": 98,
+              "eva": 9,
+              "resist": 95
+            },
+            {
+              "name": "발판 사수",
+              "level": 25,
+              "hp": 6410,
+              "atk": 2405,
+              "def": 769,
+              "spd": 32,
+              "hit": 98,
+              "eva": 9,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "추격하는 그림자",
+          "hint": "그림자들은 지쳐 보이는 쪽을 끈질기게 쫓는다.",
+          "foes": [
+            {
+              "n": "그림자 추격자"
+            },
+            {
+              "n": "그림자 사냥꾼"
+            }
+          ],
+          "limit": 14,
+          "pursuit": true,
+          "enemyStats": [
+            {
+              "name": "그림자 추격자",
+              "level": 25,
+              "hp": 11094,
+              "atk": 2539,
+              "def": 769,
+              "spd": 32,
+              "hit": 98,
+              "eva": 9,
+              "resist": 95
+            },
+            {
+              "name": "그림자 사냥꾼",
+              "level": 25,
+              "hp": 11094,
+              "atk": 2539,
+              "def": 769,
+              "spd": 32,
+              "hit": 98,
+              "eva": 9,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "무너지는 왕좌",
+          "hint": "시간이 흐를수록 왕좌를 지키는 자들의 숨소리가 거칠어진다.",
+          "foes": [
+            {
+              "n": "왕좌의 파수꾼"
+            },
+            {
+              "n": "왕좌의 근위병"
+            }
+          ],
+          "limit": 12,
+          "enrage": [
+            6,
+            1.6
+          ],
+          "enemyStats": [
+            {
+              "name": "왕좌의 파수꾼",
+              "level": 25,
+              "hp": 12326,
+              "atk": 2672,
+              "def": 769,
+              "spd": 32,
+              "hit": 98,
+              "eva": 9,
+              "resist": 95
+            },
+            {
+              "name": "왕좌의 근위병",
+              "level": 25,
+              "hp": 12326,
+              "atk": 2672,
+              "def": 769,
+              "spd": 32,
+              "hit": 98,
+              "eva": 9,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 4,
+      "name": "분리된 문",
+      "level": 30,
+      "minEntryLevel": 25,
+      "base": {
+        "hp": 8736,
+        "atk": 4290,
+        "def": 1095
+      },
+      "reward": {
+        "primogem": 180,
+        "mora": 1500,
+        "items": {
+          "ORE_CRYSTAL": 3
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "얼음 장막",
+          "hint": "두 적이 서늘한 얼음의 막을 두르고 있다.",
+          "foes": [
+            {
+              "n": "얼음 장막 술사"
+            },
+            {
+              "n": "얼음 장막 창병"
+            }
+          ],
+          "limit": 13,
+          "el": "CRYO",
+          "shield": {
+            "element": "얼음",
+            "pct": 0.4,
+            "weak": {
+              "불": 2,
+              "바위": 1.5
+            }
+          },
+          "enemyStats": [
+            {
+              "name": "얼음 장막 술사",
+              "level": 30,
+              "hp": 7478,
+              "atk": 4054,
+              "def": 1095,
+              "spd": 34,
+              "hit": 98,
+              "eva": 10,
+              "resist": 95
+            },
+            {
+              "name": "얼음 장막 창병",
+              "level": 30,
+              "hp": 7478,
+              "atk": 4054,
+              "def": 1095,
+              "spd": 34,
+              "hit": 98,
+              "eva": 10,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "굶주린 문",
+          "hint": "문지기의 배에서 꼬르륵 소리가 난다. 빈손으로 온 자는 쳐다보지도 않는다.",
+          "foes": [
+            {
+              "n": "굶주린 문지기"
+            },
+            {
+              "n": "굶주린 창병"
+            }
+          ],
+          "limit": 13,
+          "food": [
+            "STATUS_FOOD_ATK",
+            "STATUS_FOOD_FEAST"
+          ],
+          "enemyStats": [
+            {
+              "name": "굶주린 문지기",
+              "level": 30,
+              "hp": 8413,
+              "atk": 4279,
+              "def": 1095,
+              "spd": 34,
+              "hit": 98,
+              "eva": 10,
+              "resist": 95
+            },
+            {
+              "name": "굶주린 창병",
+              "level": 30,
+              "hp": 8413,
+              "atk": 4279,
+              "def": 1095,
+              "spd": 34,
+              "hit": 98,
+              "eva": 10,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "분리된 두 문",
+          "hint": "두 문이 번갈아 빗장을 건다.",
+          "foes": [
+            {
+              "n": "왼쪽 문지기"
+            },
+            {
+              "n": "오른쪽 문지기"
+            }
+          ],
+          "limit": 15,
+          "hp": 0.7,
+          "alternate": true,
+          "enemyStats": [
+            {
+              "name": "왼쪽 문지기",
+              "level": 30,
+              "hp": 6543,
+              "atk": 4505,
+              "def": 1095,
+              "spd": 34,
+              "hit": 98,
+              "eva": 10,
+              "resist": 95
+            },
+            {
+              "name": "오른쪽 문지기",
+              "level": 30,
+              "hp": 6543,
+              "atk": 4505,
+              "def": 1095,
+              "spd": 34,
+              "hit": 98,
+              "eva": 10,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 5,
+      "name": "되돌아오는 파수꾼",
+      "level": 35,
+      "minEntryLevel": 30,
+      "base": {
+        "hp": 15413,
+        "atk": 6451,
+        "def": 1496
+      },
+      "reward": {
+        "primogem": 200,
+        "mora": 1800,
+        "items": {
+          "ORE_CRYSTAL": 4
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "안개 낀 제단",
+          "hint": "짙은 안개가 제단을 감쌌다. 적의 윤곽조차 흐릿하다.",
+          "foes": [
+            {
+              "n": "안개 파수꾼"
+            },
+            {
+              "n": "안개 사수"
+            }
+          ],
+          "limit": 13,
+          "accuracy": 100,
+          "enemyStats": [
+            {
+              "name": "안개 파수꾼",
+              "level": 35,
+              "hp": 13194,
+              "atk": 6096,
+              "def": 1496,
+              "spd": 36,
+              "hit": 98,
+              "eva": 11,
+              "resist": 95
+            },
+            {
+              "name": "안개 사수",
+              "level": 35,
+              "hp": 13194,
+              "atk": 6096,
+              "def": 1496,
+              "spd": 36,
+              "hit": 98,
+              "eva": 11,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "치유의 사제",
+          "hint": "물의 막 뒤에서 사제가 조용히 기도를 올린다.",
+          "foes": [
+            {
+              "n": "제단 파수꾼"
+            },
+            {
+              "n": "제단 사제",
+              "heal": true,
+              "hp": 0.8,
+              "shield": true
+            }
+          ],
+          "limit": 13,
+          "hp": 0.75,
+          "el": "HYDRO",
+          "healPct": 0.1,
+          "shield": {
+            "element": "물",
+            "pct": 0.45,
+            "weak": {
+              "얼음": 2,
+              "번개": 1.5
+            }
+          },
+          "enemyStats": [
+            {
+              "name": "제단 파수꾼",
+              "level": 35,
+              "hp": 11132,
+              "atk": 6435,
+              "def": 1496,
+              "spd": 36,
+              "hit": 98,
+              "eva": 11,
+              "resist": 95
+            },
+            {
+              "name": "제단 사제",
+              "level": 35,
+              "hp": 8906,
+              "atk": 6435,
+              "def": 1496,
+              "spd": 36,
+              "hit": 98,
+              "eva": 11,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "되돌아오는 파수꾼",
+          "hint": "두 파수꾼이 서로를 등지고 선다.",
+          "foes": [
+            {
+              "n": "되돌아오는 파수꾼"
+            },
+            {
+              "n": "되돌아오는 추격자"
+            }
+          ],
+          "limit": 14,
+          "hp": 0.8,
+          "twin": true,
+          "enemyStats": [
+            {
+              "name": "되돌아오는 파수꾼",
+              "level": 35,
+              "hp": 13194,
+              "atk": 6774,
+              "def": 1496,
+              "spd": 36,
+              "hit": 98,
+              "eva": 11,
+              "resist": 95
+            },
+            {
+              "name": "되돌아오는 추격자",
+              "level": 35,
+              "hp": 13194,
+              "atk": 6774,
+              "def": 1496,
+              "spd": 36,
+              "hit": 98,
+              "eva": 11,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 6,
+      "name": "침식의 회랑",
+      "level": 40,
+      "minEntryLevel": 35,
+      "base": {
+        "hp": 18860,
+        "atk": 7898,
+        "def": 1977
+      },
+      "reward": {
+        "primogem": 240,
+        "mora": 2100,
+        "items": {
+          "ORE_CRYSTAL": 5
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "침식의 숨결",
+          "hint": "회랑의 공기가 살갗을 조금씩 갉아먹는다.",
+          "foes": [
+            {
+              "n": "침식 파수꾼"
+            },
+            {
+              "n": "침식 창병"
+            },
+            {
+              "n": "침식 사수"
+            }
+          ],
+          "limit": 13,
+          "hp": 0.65,
+          "erosion": 0.03,
+          "enemyStats": [
+            {
+              "name": "침식 파수꾼",
+              "level": 40,
+              "hp": 10494,
+              "atk": 7464,
+              "def": 1977,
+              "spd": 38,
+              "hit": 98,
+              "eva": 12,
+              "resist": 95
+            },
+            {
+              "name": "침식 창병",
+              "level": 40,
+              "hp": 10494,
+              "atk": 7464,
+              "def": 1977,
+              "spd": 38,
+              "hit": 98,
+              "eva": 12,
+              "resist": 95
+            },
+            {
+              "name": "침식 사수",
+              "level": 40,
+              "hp": 10494,
+              "atk": 7464,
+              "def": 1977,
+              "spd": 38,
+              "hit": 98,
+              "eva": 12,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "가시 갑주",
+          "hint": "갑주 곳곳에 가시가 돋아 있다.",
+          "foes": [
+            {
+              "n": "가시 갑주 기사"
+            },
+            {
+              "n": "가시 갑주 창병"
+            }
+          ],
+          "limit": 13,
+          "reflect": 0.3,
+          "enemyStats": [
+            {
+              "name": "가시 갑주 기사",
+              "level": 40,
+              "hp": 18162,
+              "atk": 7878,
+              "def": 1977,
+              "spd": 38,
+              "hit": 98,
+              "eva": 12,
+              "resist": 95
+            },
+            {
+              "name": "가시 갑주 창병",
+              "level": 40,
+              "hp": 18162,
+              "atk": 7878,
+              "def": 1977,
+              "spd": 38,
+              "hit": 98,
+              "eva": 12,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "만찬의 결계",
+          "hint": "결계 너머로 잔칫상 냄새가 흘러나온다.",
+          "foes": [
+            {
+              "n": "만찬의 문지기"
+            },
+            {
+              "n": "만찬의 시종"
+            }
+          ],
+          "limit": 13,
+          "food": [
+            "STATUS_FOOD_FEAST"
+          ],
+          "enemyStats": [
+            {
+              "name": "만찬의 문지기",
+              "level": 40,
+              "hp": 20180,
+              "atk": 8293,
+              "def": 1977,
+              "spd": 38,
+              "hit": 98,
+              "eva": 12,
+              "resist": 95
+            },
+            {
+              "name": "만찬의 시종",
+              "level": 40,
+              "hp": 20180,
+              "atk": 8293,
+              "def": 1977,
+              "spd": 38,
+              "hit": 98,
+              "eva": 12,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 7,
+      "name": "멈추지 않는 추격",
+      "level": 45,
+      "minEntryLevel": 40,
+      "base": {
+        "hp": 22848,
+        "atk": 12275,
+        "def": 2630
+      },
+      "reward": {
+        "primogem": 280,
+        "mora": 2400,
+        "items": {
+          "TRPG_BOSS_ESSENCE": 2
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "사냥개의 추격",
+          "hint": "사냥개는 지칠 줄 모르고, 시간이 지날수록 사나워진다.",
+          "foes": [
+            {
+              "n": "심연 사냥개"
+            },
+            {
+              "n": "심연 몰이꾼"
+            }
+          ],
+          "limit": 12,
+          "pursuit": true,
+          "enrage": [
+            5,
+            1.4
+          ],
+          "enemyStats": [
+            {
+              "name": "심연 사냥개",
+              "level": 45,
+              "hp": 19558,
+              "atk": 11600,
+              "def": 2630,
+              "spd": 40,
+              "hit": 98,
+              "eva": 13,
+              "resist": 95
+            },
+            {
+              "name": "심연 몰이꾼",
+              "level": 45,
+              "hp": 19558,
+              "atk": 11600,
+              "def": 2630,
+              "spd": 40,
+              "hit": 98,
+              "eva": 13,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "선인의 환영",
+          "hint": "안개 속 형상은 보일 듯 말 듯하다. 아주 오래된 맛을 그리워하는 것 같다.",
+          "foes": [
+            {
+              "n": "선인의 환영",
+              "hp": 1
+            }
+          ],
+          "limit": 13,
+          "dish": [
+            "FOOD_ADEPTUS_TEMPTATION",
+            "FOOD_ALMOND_TOFU"
+          ],
+          "enemyStats": [
+            {
+              "name": "선인의 환영",
+              "level": 45,
+              "hp": 22003,
+              "atk": 12244,
+              "def": 2630,
+              "spd": 40,
+              "hit": 98,
+              "eva": 13,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "희생의 제단",
+          "hint": "제단은 무언가를 바라고 있다.",
+          "foes": [
+            {
+              "n": "제단의 집행자"
+            },
+            {
+              "n": "제단의 수호자"
+            }
+          ],
+          "limit": 15,
+          "hp": 0.5,
+          "sacrifice": 2,
+          "enemyStats": [
+            {
+              "name": "제단의 집행자",
+              "level": 45,
+              "hp": 12224,
+              "atk": 12889,
+              "def": 2630,
+              "spd": 40,
+              "hit": 98,
+              "eva": 13,
+              "resist": 95
+            },
+            {
+              "name": "제단의 수호자",
+              "level": 45,
+              "hp": 12224,
+              "atk": 12889,
+              "def": 2630,
+              "spd": 40,
+              "hit": 98,
+              "eva": 13,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 8,
+      "name": "침묵의 벽",
+      "level": 50,
+      "minEntryLevel": 45,
+      "base": {
+        "hp": 18018,
+        "atk": 15616,
+        "def": 3205
+      },
+      "reward": {
+        "primogem": 340,
+        "mora": 2800,
+        "items": {
+          "TRPG_BOSS_ESSENCE": 3
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "침묵의 벽",
+          "hint": "칼날도 원소도 이 벽 앞에서는 소리를 잃는다.",
+          "foes": [
+            {
+              "n": "침묵의 벽"
+            },
+            {
+              "n": "침묵의 파수꾼"
+            }
+          ],
+          "limit": 14,
+          "fixedOnly": true,
+          "enemyStats": [
+            {
+              "name": "침묵의 벽",
+              "level": 50,
+              "hp": 15423,
+              "atk": 14757,
+              "def": 3205,
+              "spd": 42,
+              "hit": 98,
+              "eva": 14,
+              "resist": 95
+            },
+            {
+              "name": "침묵의 파수꾼",
+              "level": 50,
+              "hp": 15423,
+              "atk": 14757,
+              "def": 3205,
+              "spd": 42,
+              "hit": 98,
+              "eva": 14,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "독이 고인 정원",
+          "hint": "벽은 여전히 침묵하고, 발밑에서 독이 스며 오른다.",
+          "foes": [
+            {
+              "n": "정원의 벽"
+            },
+            {
+              "n": "정원의 파수꾼"
+            }
+          ],
+          "limit": 14,
+          "fixedOnly": true,
+          "erosion": 0.03,
+          "enemyStats": [
+            {
+              "name": "정원의 벽",
+              "level": 50,
+              "hp": 17351,
+              "atk": 15577,
+              "def": 3205,
+              "spd": 42,
+              "hit": 98,
+              "eva": 14,
+              "resist": 95
+            },
+            {
+              "name": "정원의 파수꾼",
+              "level": 50,
+              "hp": 17351,
+              "atk": 15577,
+              "def": 3205,
+              "spd": 42,
+              "hit": 98,
+              "eva": 14,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "이음새 없는 갑주",
+          "hint": "틈 하나 보이지 않는 갑주.",
+          "foes": [
+            {
+              "n": "틈을 감춘 기사"
+            },
+            {
+              "n": "틈을 감춘 창병"
+            }
+          ],
+          "limit": 15,
+          "hp": 0.4,
+          "critOnly": 1,
+          "enemyStats": [
+            {
+              "name": "틈을 감춘 기사",
+              "level": 50,
+              "hp": 7712,
+              "atk": 16397,
+              "def": 3205,
+              "spd": 42,
+              "hit": 98,
+              "eva": 14,
+              "resist": 95
+            },
+            {
+              "name": "틈을 감춘 창병",
+              "level": 50,
+              "hp": 7712,
+              "atk": 16397,
+              "def": 3205,
+              "spd": 42,
+              "hit": 98,
+              "eva": 14,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 9,
+      "name": "거울의 제단",
+      "level": 55,
+      "minEntryLevel": 50,
+      "base": {
+        "hp": 35640,
+        "atk": 20926,
+        "def": 3693
+      },
+      "reward": {
+        "mora": 3200,
+        "items": {
+          "TRPG_BOSS_ESSENCE": 3,
+          "ORE_CRYSTAL": 5
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "거울 방패",
+          "hint": "거울이 모든 공격을 비춰 흘려보낸다.",
+          "foes": [
+            {
+              "n": "거울 방패병"
+            },
+            {
+              "n": "거울 사제"
+            }
+          ],
+          "limit": 14,
+          "shieldHolder": true,
+          "dmgMult": 2.5,
+          "enemyStats": [
+            {
+              "name": "거울 방패병",
+              "level": 55,
+              "hp": 30508,
+              "atk": 19775,
+              "def": 3693,
+              "spd": 44,
+              "hit": 98,
+              "eva": 15,
+              "resist": 95
+            },
+            {
+              "name": "거울 사제",
+              "level": 55,
+              "hp": 30508,
+              "atk": 19775,
+              "def": 3693,
+              "spd": 44,
+              "hit": 98,
+              "eva": 15,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "안개의 제단",
+          "hint": "안개가 한층 더 짙어졌다.",
+          "foes": [
+            {
+              "n": "안개 제단의 파수꾼"
+            },
+            {
+              "n": "안개 제단의 사수"
+            }
+          ],
+          "limit": 13,
+          "hp": 0.6,
+          "accuracy": 110,
+          "enemyStats": [
+            {
+              "name": "안개 제단의 파수꾼",
+              "level": 55,
+              "hp": 20593,
+              "atk": 20874,
+              "def": 3693,
+              "spd": 44,
+              "hit": 98,
+              "eva": 15,
+              "resist": 95
+            },
+            {
+              "name": "안개 제단의 사수",
+              "level": 55,
+              "hp": 20593,
+              "atk": 20874,
+              "def": 3693,
+              "spd": 44,
+              "hit": 98,
+              "eva": 15,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "거울의 제단",
+          "hint": "거울은 이제 더 많은 것을 비춘다.",
+          "foes": [
+            {
+              "n": "거울 제단의 수호자"
+            },
+            {
+              "n": "거울 제단의 사제"
+            }
+          ],
+          "limit": 14,
+          "shieldHolder": true,
+          "gear": [
+            "EQ_ACC_STEADFAST",
+            9
+          ],
+          "dmgMult": 2.75,
+          "enemyStats": [
+            {
+              "name": "거울 제단의 수호자",
+              "level": 55,
+              "hp": 38135,
+              "atk": 21972,
+              "def": 3693,
+              "spd": 44,
+              "hit": 98,
+              "eva": 15,
+              "resist": 95
+            },
+            {
+              "name": "거울 제단의 사제",
+              "level": 55,
+              "hp": 38135,
+              "atk": 21972,
+              "def": 3693,
+              "spd": 44,
+              "hit": 98,
+              "eva": 15,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 10,
+      "name": "폭풍의 닫힌 고리",
+      "level": 60,
+      "minEntryLevel": 60,
+      "base": {
+        "hp": 124800,
+        "atk": 23853,
+        "def": 4646
+      },
+      "reward": {
+        "mora": 3600,
+        "items": {
+          "TRPG_BOSS_CORE": 1,
+          "TRPG_BOSS_ESSENCE": 3
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "폭풍의 입구",
+          "hint": "폭풍이 길을 막아선다.",
+          "foes": [
+            {
+              "n": "폭풍의 문지기"
+            },
+            {
+              "n": "폭풍의 창병"
+            }
+          ],
+          "limit": 11,
+          "elements": [
+            "HYDRO",
+            "ELECTRO",
+            "ANEMO"
+          ],
+          "weapons": 10,
+          "dmgMult": 1.6,
+          "enemyStats": [
+            {
+              "name": "폭풍의 문지기",
+              "level": 60,
+              "hp": 99840,
+              "atk": 21468,
+              "def": 4646,
+              "spd": 46,
+              "hit": 98,
+              "eva": 16,
+              "resist": 95
+            },
+            {
+              "name": "폭풍의 창병",
+              "level": 60,
+              "hp": 99840,
+              "atk": 21468,
+              "def": 4646,
+              "spd": 46,
+              "hit": 98,
+              "eva": 16,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "닫힌 고리",
+          "hint": "세 개의 고리가 맞물려 돌아간다.",
+          "foes": [
+            {
+              "n": "고리의 파수꾼"
+            },
+            {
+              "n": "고리의 사수"
+            }
+          ],
+          "limit": 11,
+          "hp": 0.8,
+          "elements": [
+            "HYDRO",
+            "ELECTRO",
+            "ANEMO"
+          ],
+          "sequence": [
+            "HYDRO",
+            "ELECTRO",
+            "ANEMO"
+          ],
+          "dmgMult": 2.2,
+          "enemyStats": [
+            {
+              "name": "고리의 파수꾼",
+              "level": 60,
+              "hp": 89856,
+              "atk": 22660,
+              "def": 4646,
+              "spd": 46,
+              "hit": 98,
+              "eva": 16,
+              "resist": 95
+            },
+            {
+              "name": "고리의 사수",
+              "level": 60,
+              "hp": 89856,
+              "atk": 22660,
+              "def": 4646,
+              "spd": 46,
+              "hit": 98,
+              "eva": 16,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "폭풍의 눈",
+          "hint": "폭풍의 눈은 하늘 너머에 있다.",
+          "foes": [
+            {
+              "n": "폭풍의 눈"
+            },
+            {
+              "n": "폭풍의 사도"
+            }
+          ],
+          "limit": 12,
+          "elements": [
+            "HYDRO",
+            "ELECTRO",
+            "ANEMO"
+          ],
+          "sequence": [
+            "HYDRO",
+            "ELECTRO",
+            "ANEMO"
+          ],
+          "weapons": 10,
+          "teamGear": [
+            "EQ_LY_ACC_STARGAZER",
+            10
+          ],
+          "dmgMult": 2.75,
+          "enemyStats": [
+            {
+              "name": "폭풍의 눈",
+              "level": 60,
+              "hp": 124800,
+              "atk": 23853,
+              "def": 4646,
+              "spd": 46,
+              "hit": 98,
+              "eva": 16,
+              "resist": 95
+            },
+            {
+              "name": "폭풍의 사도",
+              "level": 60,
+              "hp": 124800,
+              "atk": 23853,
+              "def": 4646,
+              "spd": 46,
+              "hit": 98,
+              "eva": 16,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 11,
+      "name": "서로 잠긴 왕좌",
+      "level": 60,
+      "minEntryLevel": 60,
+      "base": {
+        "hp": 102502,
+        "atk": 22630,
+        "def": 5149
+      },
+      "reward": {
+        "mora": 4000,
+        "items": {
+          "TRPG_BOSS_CORE": 1,
+          "ORE_CRYSTAL": 8
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "서리 왕좌",
+          "hint": "왕좌에서 뿜어 나오는 한기에 갑옷이 삐걱거린다.",
+          "foes": [
+            {
+              "n": "서리 왕좌의 기사"
+            },
+            {
+              "n": "서리 왕좌의 시종"
+            }
+          ],
+          "limit": 13,
+          "elements": [
+            "PYRO",
+            "CRYO",
+            "GEO"
+          ],
+          "armor": 10,
+          "dmgMult": 3.2,
+          "enemyStats": [
+            {
+              "name": "서리 왕좌의 기사",
+              "level": 60,
+              "hp": 87742,
+              "atk": 21385,
+              "def": 5149,
+              "spd": 48,
+              "hit": 98,
+              "eva": 17,
+              "resist": 95
+            },
+            {
+              "name": "서리 왕좌의 시종",
+              "level": 60,
+              "hp": 87742,
+              "atk": 21385,
+              "def": 5149,
+              "spd": 48,
+              "hit": 98,
+              "eva": 17,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "잠긴 왕좌",
+          "hint": "두 왕좌가 번갈아 숨을 죽인다.",
+          "foes": [
+            {
+              "n": "해의 왕좌"
+            },
+            {
+              "n": "달의 왕좌"
+            }
+          ],
+          "limit": 10,
+          "hp": 0.55,
+          "elements": [
+            "PYRO",
+            "CRYO",
+            "GEO"
+          ],
+          "alternate": true,
+          "reflect": 0.2,
+          "dmgMult": 5,
+          "enemyStats": [
+            {
+              "name": "해의 왕좌",
+              "level": 60,
+              "hp": 54290,
+              "atk": 22573,
+              "def": 5149,
+              "spd": 48,
+              "hit": 98,
+              "eva": 17,
+              "resist": 95
+            },
+            {
+              "name": "달의 왕좌",
+              "level": 60,
+              "hp": 54290,
+              "atk": 22573,
+              "def": 5149,
+              "spd": 48,
+              "hit": 98,
+              "eva": 17,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "서로 잠긴 왕좌",
+          "hint": "왕좌의 속삭임이 마음을 흔든다.",
+          "foes": [
+            {
+              "n": "잠긴 왕좌의 주인"
+            },
+            {
+              "n": "잠긴 왕좌의 그림자"
+            }
+          ],
+          "limit": 11,
+          "hp": 0.72,
+          "elements": [
+            "PYRO",
+            "CRYO",
+            "GEO"
+          ],
+          "alternate": true,
+          "armor": 10,
+          "teamGear": [
+            "EQ_LY_ACC_QINGXIN_SACHET",
+            10
+          ],
+          "dmgMult": 4.85,
+          "enemyStats": [
+            {
+              "name": "잠긴 왕좌의 주인",
+              "level": 60,
+              "hp": 78968,
+              "atk": 23762,
+              "def": 5149,
+              "spd": 48,
+              "hit": 98,
+              "eva": 17,
+              "resist": 95
+            },
+            {
+              "name": "잠긴 왕좌의 그림자",
+              "level": 60,
+              "hp": 78968,
+              "atk": 23762,
+              "def": 5149,
+              "spd": 48,
+              "hit": 98,
+              "eva": 17,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 12,
+      "name": "끝을 삼키는 별",
+      "level": 60,
+      "minEntryLevel": 60,
+      "base": {
+        "hp": 209664,
+        "atk": 32416,
+        "def": 5651
+      },
+      "reward": {
+        "mora": 6000,
+        "artifact": true,
+        "items": {
+          "TRPG_BOSS_CORE": 1
+        }
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "name": "별의 파편",
+          "hint": "정점에 선 자들만이 별에 닿는다.",
+          "foes": [
+            {
+              "n": "별의 파편"
+            },
+            {
+              "n": "파편의 그림자"
+            }
+          ],
+          "limit": 12,
+          "mastery": true,
+          "critOnly": 3,
+          "dmgMult": 2.65,
+          "enemyStats": [
+            {
+              "name": "별의 파편",
+              "level": 60,
+              "hp": 179472,
+              "atk": 30633,
+              "def": 5651,
+              "spd": 50,
+              "hit": 98,
+              "eva": 18,
+              "resist": 95
+            },
+            {
+              "name": "파편의 그림자",
+              "level": 60,
+              "hp": 179472,
+              "atk": 30633,
+              "def": 5651,
+              "spd": 50,
+              "hit": 98,
+              "eva": 18,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 2,
+          "name": "삼키는 별",
+          "hint": "별이 빛을 삼키며 곁에 선 모든 것을 갉아먹는다.",
+          "foes": [
+            {
+              "n": "삼키는 별"
+            },
+            {
+              "n": "별을 삼킨 자"
+            }
+          ],
+          "limit": 12,
+          "mastery": true,
+          "erosion": 0.03,
+          "dmgMult": 2.65,
+          "enemyStats": [
+            {
+              "name": "삼키는 별",
+              "level": 60,
+              "hp": 201906,
+              "atk": 32335,
+              "def": 5651,
+              "spd": 50,
+              "hit": 98,
+              "eva": 18,
+              "resist": 95
+            },
+            {
+              "name": "별을 삼킨 자",
+              "level": 60,
+              "hp": 201906,
+              "atk": 32335,
+              "def": 5651,
+              "spd": 50,
+              "hit": 98,
+              "eva": 18,
+              "resist": 95
+            }
+          ]
+        },
+        {
+          "chamber": 3,
+          "name": "끝을 삼키는 별",
+          "hint": "정점의 끝.",
+          "foes": [
+            {
+              "n": "끝을 삼키는 별"
+            },
+            {
+              "n": "별의 잔해"
+            }
+          ],
+          "limit": 12,
+          "hp": 0.85,
+          "mastery": true,
+          "critOnly": 3,
+          "erosion": 0.045,
+          "dmgMult": 2.65,
+          "enemyStats": [
+            {
+              "name": "끝을 삼키는 별",
+              "level": 60,
+              "hp": 190689,
+              "atk": 34037,
+              "def": 5651,
+              "spd": 50,
+              "hit": 98,
+              "eva": 18,
+              "resist": 95
+            },
+            {
+              "name": "별의 잔해",
+              "level": 60,
+              "hp": 190689,
+              "atk": 34037,
+              "def": 5651,
+              "spd": 50,
+              "hit": 98,
+              "eva": 18,
+              "resist": 95
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "prepared_floor12_enters",
+      "pass": true,
+      "entryReason": "",
+      "opening": "PENDING"
+    },
+    {
+      "id": "prepared_floor12_mastery_native_rolls",
+      "pass": true,
+      "prepared": true,
+      "party": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "level": 60
+        },
+        {
+          "source": "MOND_DILUC",
+          "level": 60
+        },
+        {
+          "source": "MOND_JEAN",
+          "level": 60
+        },
+        {
+          "source": "LIYUE_ZHONGLI",
+          "level": 60
+        }
+      ],
+      "artifacts": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "quality": 941,
+          "level": 5,
+          "stats": {
+            "ATK": 182.5,
+            "CRIT": 12.5,
+            "CRIT_DMG": 89.3,
+            "MAX_HP": 417.5,
+            "DEF": 27.5
+          }
+        },
+        {
+          "owner": "MOND_DILUC",
+          "quality": 983,
+          "level": 5,
+          "stats": {
+            "ATK": 192.5,
+            "CRIT": 10.8,
+            "CRIT_DMG": 59.8,
+            "DEF": 35,
+            "MAX_HP": 197.5
+          }
+        },
+        {
+          "owner": "MOND_JEAN",
+          "quality": 911,
+          "level": 5,
+          "stats": {
+            "ATK": 160,
+            "CRIT": 12.5,
+            "CRIT_DMG": 61,
+            "MAX_HP": 385,
+            "DEF": 60
+          }
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "quality": 963,
+          "level": 5,
+          "stats": {
+            "ATK": 182.5,
+            "CRIT": 12.8,
+            "CRIT_DMG": 82,
+            "DEF": 55,
+            "MAX_HP": 225
+          }
+        }
+      ],
+      "enemies": [
+        {
+          "source": "MON_ABYSS_WARDEN",
+          "level": 60,
+          "hp": 179472,
+          "atk": 30633,
+          "def": 5651
+        },
+        {
+          "source": "MON_ABYSS_WARDEN",
+          "level": 60,
+          "hp": 179472,
+          "atk": 30633,
+          "def": 5651
+        }
+      ]
+    },
+    {
+      "id": "opening_order_still_uses_template_enemy_speed",
+      "pass": true,
+      "firstRoundUsesFinalSpeed": false,
+      "rows": [
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "templateSpeed": 28,
+          "finalSpeed": 50,
+          "savedScore": 37,
+          "templateRoll": 9
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "templateSpeed": 28,
+          "finalSpeed": 50,
+          "savedScore": 33,
+          "templateRoll": 5
+        }
+      ]
+    },
+    {
+      "id": "later_round_uses_final_enemy_speed",
+      "pass": true,
+      "laterRoundUsesFinalSpeed": true,
+      "rows": [
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "finalSpeed": 50,
+          "savedScore": 58,
+          "finalRoll": 8
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "finalSpeed": 50,
+          "savedScore": 56,
+          "finalRoll": 6
+        }
+      ]
+    },
+    {
+      "id": "floor12_new_character_policy",
+      "pass": true,
+      "revision": 1,
+      "budget": {
+        "zhongliShieldMultiplier": 0.25,
+        "zhongliQHpRatio": 0.18,
+        "zhongliSelfTaken": [
+          1,
+          0.5,
+          0.7,
+          0.85,
+          0.95,
+          1
+        ]
+      },
+      "healing": {
+        "jeanQRatio": 0.035,
+        "jeanQFlat": 300,
+        "jeanFieldRatio": 0.02,
+        "jeanFieldFlat": 40,
+        "jeanFieldTicks": 2,
+        "barbaraQRatio": 0.04,
+        "barbaraQFlat": 250,
+        "barbaraERatio": 0.012,
+        "barbaraEFlat": 60,
+        "dionaFieldRatio": 0.02,
+        "dionaFieldFlat": 1200
+      }
+    },
+    {
+      "id": "floor12_missing_LIYUE_ZHONGLI",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "floor12_missing_MOND_JEAN",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "floor12_no_pyro",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "floor12_weapon_plus11",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "floor12_weapon_cap10",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "floor12_artifact_quality899",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "floor12_artifact_level4",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "floor12_artifact_without_atk",
+      "pass": true,
+      "blocked": true,
+      "damage": 0,
+      "display": "무적입니다."
+    },
+    {
+      "id": "prepared_floor12_damage_not_blocked",
+      "pass": true,
+      "actualDamage": 2650
+    },
+    {
+      "id": "floor12_snapshot_save_preserved",
+      "pass": true,
+      "runtimePreserved": true,
+      "activePreserved": true
+    },
+    {
+      "id": "healing_survival_without_damage_times_out",
+      "pass": true,
+      "outcome": "TIMEOUT",
+      "allAlliesAlive": true,
+      "cleared": false
+    },
+    {
+      "id": "floor10_elements_ignore_protagonist",
+      "pass": true,
+      "protagonistHydroCannotReplaceCompanionHydro": true
+    },
+    {
+      "id": "floor10_weapon9_blocks_every_ally",
+      "pass": true,
+      "onePlus9WeaponBlocksEntireParty": true
+    },
+    {
+      "id": "room_break_no_automatic_heal",
+      "pass": true,
+      "forcedSettlement": true,
+      "before": 33565,
+      "after": 33565,
+      "automaticHeal": 0
+    },
+    {
+      "id": "break_food_consumes_and_next_battle_effect",
+      "pass": true,
+      "consumed": 1,
+      "pendingEffect": true
+    },
+    {
+      "id": "break_treatment_policy_and_executor_disagree",
+      "pass": true,
+      "abyssBreakWhitelistAccepts": true,
+      "actualUseRejects": "전투 치료품은 전투 중에만 사용할 수 있습니다."
+    },
+    {
+      "id": "break_no_inn_or_cooking_or_party_replacement",
+      "pass": true,
+      "blocked": [
+        "MOVE",
+        "BUY",
+        "CRAFT",
+        "MEAL",
+        "PARTY_REPLACE",
+        "RECOVER"
+      ],
+      "foodViaUseItem": true
+    },
+    {
+      "id": "break_reload_and_next_room_hp_carry",
+      "pass": true,
+      "hpCarried": 33565,
+      "foodEffectInstalled": true,
+      "pendingEffectRemoved": true
+    },
+    {
+      "id": "marked_companions_cannot_switch_floors",
+      "pass": true,
+      "differentFloorBlocked": true,
+      "marks": {
+        "MOND_DILUC": 3,
+        "MOND_NOELLE": 3,
+        "MOND_JEAN": 3
+      }
+    },
+    {
+      "id": "full_reset_removes_clears_and_marks",
+      "pass": true,
+      "clearsRemoved": true,
+      "marksRemoved": true,
+      "claimedRewardsKept": true,
+      "reusingPreviousTeamDoesNotRetainFloorProgress": true
+    },
+    {
+      "id": "fallen_protagonist_after_chamber_win_revives_and_advances",
+      "pass": true,
+      "forcedSettlement": true,
+      "nativeActorHpAtSettlement": 0,
+      "afterHp": 2016,
+      "maxHp": 20157,
+      "revivedWithoutItem": true,
+      "abyssOutcome": "NEXT",
+      "expectedAbyssBranch": "DOWNED",
+      "basis": "runtime_play_fixes.finishBattle revives before runtime_abyss.finishBattle tests persistent PLAYER_HP_CURRENT"
+    }
+  ]
+}

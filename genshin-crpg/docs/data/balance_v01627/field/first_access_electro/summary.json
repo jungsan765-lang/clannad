@@ -1,0 +1,100 @@
+{
+  "totalRecordedCases": 24,
+  "currentCases": 15,
+  "beforeMatchedCases": 9,
+  "countsByVersion": {
+    "BEFORE_SAME_ORDER": {
+      "ALL_KO_DEFEAT": 5,
+      "NATIVE_STALEMATE": 3,
+      "WIN": 1
+    },
+    "CURRENT": {
+      "ALL_KO_DEFEAT": 11,
+      "WIN": 4
+    }
+  },
+  "countsByGroup": [
+    {
+      "version": "BEFORE_SAME_ORDER",
+      "group": "noelle6",
+      "counts": {
+        "ALL_KO_DEFEAT": 2,
+        "NATIVE_STALEMATE": 1
+      }
+    },
+    {
+      "version": "BEFORE_SAME_ORDER",
+      "group": "noelle10",
+      "counts": {
+        "ALL_KO_DEFEAT": 1,
+        "NATIVE_STALEMATE": 2
+      }
+    },
+    {
+      "version": "BEFORE_SAME_ORDER",
+      "group": "allpyro10",
+      "counts": {
+        "ALL_KO_DEFEAT": 2,
+        "WIN": 1
+      }
+    },
+    {
+      "version": "CURRENT",
+      "group": "noelle6",
+      "counts": {
+        "ALL_KO_DEFEAT": 3
+      }
+    },
+    {
+      "version": "CURRENT",
+      "group": "noelle10",
+      "counts": {
+        "ALL_KO_DEFEAT": 3
+      }
+    },
+    {
+      "version": "CURRENT",
+      "group": "allpyro10",
+      "counts": {
+        "WIN": 1,
+        "ALL_KO_DEFEAT": 2
+      }
+    },
+    {
+      "version": "CURRENT",
+      "group": "pyro_noelle10",
+      "counts": {
+        "ALL_KO_DEFEAT": 3
+      }
+    },
+    {
+      "version": "CURRENT",
+      "group": "xiang_chong_barbara10",
+      "counts": {
+        "WIN": 3
+      }
+    }
+  ],
+  "engineErrors": 0,
+  "inputLimitCases": 0,
+  "nativeStalemateBefore": 3,
+  "matchedPreparationPairs": 9,
+  "matchedPreparationChecksAllPassed": true,
+  "actualLegalBaseTalents": 2,
+  "constellations": 0,
+  "artifactRolls": 0,
+  "food": false,
+  "bossGear": false,
+  "thunderwardUsed": false,
+  "productEditsByThisAudit": 0,
+  "sourceFingerprintsByVersion": {
+    "BEFORE_SAME_ORDER": [
+      "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159"
+    ],
+    "CURRENT": [
+      "22a63a16bd914ba878954f3272812dca54cd5b5c9c28b9a5d27fe0984ba9862b",
+      "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98"
+    ]
+  }
+}

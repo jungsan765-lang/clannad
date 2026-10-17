@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "scope": "Frozen targeted FLOW QA repair; product source7147 unchanged. Current full10 retest and initial failure/genuine protected-battle diagnostics are separate.",
+  "receipt": "retest_full10.receipt.json",
+  "files": [
+    {
+      "file": "README_KO.md",
+      "sha256": "cb632c56de52107994cd4dd693fb9b233a7da7235f8b3bc800c64e3f465f09de",
+      "bytes": 5905
+    },
+    {
+      "file": "after_runner.cjs",
+      "sha256": "75b2923527692cbd72d9deb91535aa183a57008029987e0b290dbf75ab5467a8",
+      "bytes": 11991
+    },
+    {
+      "file": "anemo_boundary.json",
+      "sha256": "95631dea07a1c51725a67657ffce0299555edc6f7fd82af888c9c5412260dce2",
+      "bytes": 2169
+    },
+    {
+      "file": "anemo_boundary_runner.cjs",
+      "sha256": "6c03c6f462109352bc9224f5822dbc6a6ef5880d3a249328fda60821c6e286f8",
+      "bytes": 1340
+    },
+    {
+      "file": "before_runner.cjs",
+      "sha256": "e9218ece69a99b15e80c2c3d4e3459b1dfe8efeea3c44b1dcd9657712aaf3651",
+      "bytes": 10779
+    },
+    {
+      "file": "initial_failure_TRV_A.json.gz",
+      "sha256": "5ca107b1a8063f548f441af3df043de3a8f5240b86433d421037fb57161ce36a",
+      "bytes": 32273
+    },
+    {
+      "file": "initial_full_run.log",
+      "sha256": "52380757c7e73725f1787c6b81b58e56730a2d82b0f2613aa953b590d8a4a18f",
+      "bytes": 2140
+    },
+    {
+      "file": "mond_final_TRV_FEMALE.json.gz",
+      "sha256": "2763a223a3e48e820c9a7a78120cb2467a0bcb2ccaa5b9bd5534076d412a8422",
+      "bytes": 14674
+    },
+    {
+      "file": "mond_final_TRV_MALE.json.gz",
+      "sha256": "dcce0da1dc9cc9f6aa46f64ecc1138abe10032d75991685cb55ff718ba0b637c",
+      "bytes": 15000
+    },
+    {
+      "file": "mond_unlock_receipts.json",
+      "sha256": "d086ecec31270389b5247794754a57ffec52d12761151af0f57711d71b21f39a",
+      "bytes": 1019
+    },
+    {
+      "file": "osial_before_current_diagnostic.json.gz",
+      "sha256": "5eee52909f001fc702eefcd7c3b352671ef0cdec255d395f01721d1bb89b10cd",
+      "bytes": 202318
+    },
+    {
+      "file": "osial_diagnostic_runner.cjs",
+      "sha256": "19170180fae33b86168a1cbc44f4e4b0bb177c2789b32eb449172f5b05155d53",
+      "bytes": 4889
+    },
+    {
+      "file": "osial_diagnostic_summary.json",
+      "sha256": "977169946282120aa0d485c3527a13b5819f4954339d962bb77329e461722124",
+      "bytes": 11387
+    },
+    {
+      "file": "public_recovery_path_diagnostic.json",
+      "sha256": "cb3065f8bda1d4470fb64ce552cc8defdde5797d5805d90db9355c216bfd20ee",
+      "bytes": 2432
+    },
+    {
+      "file": "retest_full10.log",
+      "sha256": "88aae7b1268beede0380cbadda891a278536a362614ecb4ba1f0c930c2f683d6",
+      "bytes": 1361
+    },
+    {
+      "file": "retest_full10.receipt.json",
+      "sha256": "ef8bc2622e9669d7366f79e629a47ad09156dc4aa384357f321b65baa87cec08",
+      "bytes": 27584
+    },
+    {
+      "file": "retest_full10.results.json",
+      "sha256": "0ca8f47c59a3d28caf66cec3e55578c4de9657abfe7d87a653509202dfedfbb5",
+      "bytes": 143511
+    },
+    {
+      "file": "retest_full10_saves.tar.gz",
+      "sha256": "0e78429c61fb1438114eb169a4219ad586d2e2c57ce64ef987e8cd1de585108a",
+      "bytes": 312697
+    }
+  ]
+}

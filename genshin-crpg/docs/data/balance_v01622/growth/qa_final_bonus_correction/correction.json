@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "scope": "Root-approved single stale QA expectation correction; actual final reward1932 with shared bonus2x gives3864. Product/runtime/native/cash sixth-gate evidence unchanged. Original36 frozen snapshot continues and its FAIL remains preserved; corrected file requires one separate recheck.",
+  "productSHA256": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03",
+  "path": "tests/test_ascension_efficiency_v01613.cjs",
+  "beforeSHA256": "593a18f606ae5c7456cce3bf729d70d0dfc8b4f80613650d666af9008f06ad57",
+  "afterSHA256": "855a2afdef130e5eb7e65a620152f3751299e7048b77aefdf128f94fbd0f9a80",
+  "literalChange": {
+    "before": 3686,
+    "after": 3864,
+    "reason": "Prior B1843x2 literal missed while common table correctly updated to final1932x2"
+  },
+  "caseReview": [
+    {
+      "domain": "TAISHAN_MANSION:60",
+      "kind": "talent",
+      "bonus": true,
+      "expected": 160,
+      "base": 80,
+      "matches": true
+    },
+    {
+      "domain": "MIDSUMMER_COURTYARD:5",
+      "kind": "exp",
+      "bonusConsumed": false,
+      "expectedMaterialSum": 0
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "kind": "ascension",
+      "bonus": true,
+      "expected": 10800,
+      "base": 5400,
+      "matches": true
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:55",
+      "kind": "ascension",
+      "bonus": true,
+      "expected": 3864,
+      "base": 1932,
+      "matches": true
+    },
+    {
+      "domain": "LIANSHAN_FORMULA:60",
+      "kind": "ascension",
+      "bonus": false,
+      "expected": 5400,
+      "base": 5400,
+      "matches": true
+    }
+  ],
+  "originalFailureSHA256": "cfddefb5b6b5bc57f7858ab1af97b991dc3ae421ec03e1b48f1fdeecc2c756c5",
+  "releaseRecheck": {
+    "path": "docs/data/balance_v01622/growth/qa_final_bonus_correction/release_recheck_exact/result.json",
+    "testSHA256": "855a2afdef130e5eb7e65a620152f3751299e7048b77aefdf128f94fbd0f9a80",
+    "contractsPassed": 6,
+    "nativeBothRoutesIncluded": true,
+    "rawLogSHA256": "582128cae9d9353c2c53d845cd317eaca3c016277a6dd1fc9615d21ec18265b6",
+    "compressedLogSHA256": "174eb4010901ec385f566b8c67376539e0e1c41f93df3036544838797424203e",
+    "inputDrift": [],
+    "sourceProductChanges": []
+  },
+  "sealedGrowthManifest": "growth_manifest_sha256.json SHA1f697bfaadaa13a8422c5f78b3ae18692f795012c18ab4b7e91e982dc17515a2 retained unchanged; current QA is this declared delta.",
+  "publicationState": "Corrected after file is final working QA. Original36 frozen run35PASS1stale-expectationFAIL and all raw failures preserved. One separate whole-test recheck completed6contractsPASS with both-route native victory/payout cases; input drift0 and product changes0. Effective targeted coverage35 unchanged passes plus corrected1 pass, not a retroactive edit of the old36 run."
+}

@@ -1,0 +1,252 @@
+[
+  {
+    "id": "f12_counter_none",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "NONE",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "COUNTER",
+    "buffs": []
+  },
+  {
+    "id": "f12_counter_feast",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "COUNTER",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION"
+    ]
+  },
+  {
+    "id": "f12_counter_crit",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "COUNTER",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ]
+  },
+  {
+    "id": "f12_counter_all",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "COUNTER",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD",
+      "FOOD_FISHERMANS_TOAST",
+      "FOOD_CREAM_STEW"
+    ]
+  },
+  {
+    "id": "f12_counter_crit_medicines",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "COUNTER",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "medicines": true
+  },
+  {
+    "id": "f10_mixed_five_c0_guard_crit",
+    "floor": 10,
+    "team": [
+      "MOND_BARBARA",
+      "LIYUE_KEQING",
+      "MOND_SUCROSE"
+    ],
+    "investment": "MIXED_FIVE_C0",
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uc9c0\uc6d0\uc6b0\uc120"
+    ]
+  },
+  {
+    "id": "f10_four_c0_guard_crit",
+    "floor": 10,
+    "team": [
+      "MOND_BARBARA",
+      "MOND_LISA",
+      "MOND_SUCROSE"
+    ],
+    "investment": "FOUR_C0",
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uc9c0\uc6d0\uc6b0\uc120"
+    ]
+  },
+  {
+    "id": "f10_four_c6_guard_crit",
+    "floor": 10,
+    "team": [
+      "MOND_BARBARA",
+      "MOND_LISA",
+      "MOND_SUCROSE"
+    ],
+    "investment": "FOUR_C6",
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uc9c0\uc6d0\uc6b0\uc120"
+    ]
+  },
+  {
+    "id": "f11_mixed_five_c0_guard_crit",
+    "floor": 11,
+    "team": [
+      "LIYUE_HUTAO",
+      "LIYUE_GANYU",
+      "LIYUE_NINGGUANG"
+    ],
+    "investment": "MIXED_FIVE_C0",
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uc9c0\uc6d0\uc6b0\uc120"
+    ]
+  },
+  {
+    "id": "f11_four_c0_guard_crit",
+    "floor": 11,
+    "team": [
+      "LIYUE_XIANGLING",
+      "MOND_KAEYA",
+      "MOND_NOELLE"
+    ],
+    "investment": "FOUR_C0",
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uc9c0\uc6d0\uc6b0\uc120"
+    ]
+  },
+  {
+    "id": "f11_four_c6_guard_crit",
+    "floor": 11,
+    "team": [
+      "LIYUE_XIANGLING",
+      "MOND_KAEYA",
+      "MOND_NOELLE"
+    ],
+    "investment": "FOUR_C6",
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uc9c0\uc6d0\uc6b0\uc120"
+    ]
+  }
+]

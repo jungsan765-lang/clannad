@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-09T16:48:06.759816+00:00",
+  "scope": "Independent unchanged-healer baseline screening, read-only; no product modifications. Does not certify final combined19 balance.",
+  "counts": {
+    "conditions": 42,
+    "uniqueConditions": 42,
+    "fights": 123,
+    "wins": 115,
+    "losses": 8,
+    "executionErrors": 0,
+    "threeWins": 34,
+    "threeWinsAllAlive": 30,
+    "threeWinsFullHP": 6,
+    "battlesWithAtLeastOneKO": 24,
+    "rawHeals": 635,
+    "actualHeal": 440840
+  },
+  "errors": [],
+  "runtimeFingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "sha256": {
+    "summary.json": "33da2679b93572bc66e408edfc17bc30e6f00adb3158a3ebce00ad94b823f223",
+    "native.json.gz": "328a41ca035777ebb607b2ddf2a013d264cb65b99f1d386cbff201a852d3953d"
+  },
+  "nativeSemantics": [
+    "Four active allied slots; original native enemy domain groups may contain5+ enemies.",
+    "Native H.play COMBAT victory exactly checked; defeat causes stop, no auto-recovery.",
+    "Actual talents25=4,50=5,60=6 all within native caps; companion and Traveler C0.",
+    "All 42 cases preserve initial level; no level-up recovery occurred.",
+    "No BUY/MOVE/food/recovery between fights; final native quote is hypothetical, not paid Mora.",
+    "Basic inn room fee20 still appears at full HP; zero healing requirement must not be reported as free room.",
+    "Successful3win conditions may include KO/protagonist native10%victory revival. AllAlive and fullHP checked separately; failed finalquote excluded.",
+    "Combat-only slot MaxHP bonuses are clipped by native settlement; final stored HP is used.",
+    "Healing ledger records native returned effective amounts after talents/traits and missing-HP clamp. Source-specific raw requested amount is not effective healing."
+  ],
+  "findings": "Xianyun Lv60 fullHP 2/2; Lv50 98.9%2/2, but Lv25 one loss and one 73.9% with KOs. Qiqi/Yaoyao near-fullHP at50/60 may replace Jean for low-rest farming; not an assertion that every composition or low-level works.",
+  "summaryFile": "/tmp/crpg_v01619_qa/other_healers_baseline/summary.json"
+}

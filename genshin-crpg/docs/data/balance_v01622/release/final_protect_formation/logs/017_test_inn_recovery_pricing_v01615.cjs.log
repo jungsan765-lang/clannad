@@ -1,0 +1,12 @@
+PASS only each target recovery costs scale with level and lost HP; regional rounding is per target
+PASS integer recovery fees never gain an extra Mora from floating-point lost-HP subtraction
+PASS mixed levels, a dead ally, injury and a reserve use only active real targets
+PASS healthy high-level members never inflate another target low-level recovery fee
+PASS summons, unknown entries, inactive members and duplicate sources cannot inflate the quote
+PASS full HP pays only the fixed room fee and retains the existing eight-hour stay
+PASS removing an injured member lowers the bill but cannot heal that member on rejoining
+PASS different maximum HP at the same level has the same fee for the same lost-HP percentage
+PASS displayed stock price, affordability, direct debit and receipt use the same pre-heal quote
+PASS invalid lodging quantities fail before either direct-buy or transactional resource mutation
+PASS HP and party changes reprice the current visit; settled and old receipts never pay twice
+PASS all regional inn rates remain authored and ordinary shop prices retain their fixed values

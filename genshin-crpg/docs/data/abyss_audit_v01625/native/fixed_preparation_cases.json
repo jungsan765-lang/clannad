@@ -1,0 +1,137 @@
+[
+  {
+    "id": "fixed_f12_c0_guard_none_buffonly",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "NONE",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "GUARD",
+    "buffs": [],
+    "artifactSeed": 717
+  },
+  {
+    "id": "fixed_f12_c0_guard_none_healing",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "GUARD",
+    "buffs": [],
+    "artifactSeed": 717
+  },
+  {
+    "id": "fixed_f12_c0_guard_feast_healing",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION"
+    ],
+    "artifactSeed": 717
+  },
+  {
+    "id": "fixed_f12_c0_guard_attack_healing",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS"
+    ],
+    "artifactSeed": 717
+  },
+  {
+    "id": "fixed_f12_c0_guard_crit_healing",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "artifactSeed": 717
+  },
+  {
+    "id": "fixed_f12_c0_guard_all_healing",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "\uc9c0\uc6d0\uc6b0\uc120",
+      "\uc5f0\uacc4\uc6b0\uc120",
+      "\uacf5\uaca9\uc6b0\uc120"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD",
+      "FOOD_FISHERMANS_TOAST",
+      "FOOD_CREAM_STEW"
+    ],
+    "artifactSeed": 717
+  }
+]

@@ -5,7 +5,7 @@
  * An exclusive weapon amplifies its owner's own elemental skill and burst (전용 공명) and adds a role trait; its plain
  * ATK stays at or below the best generic forge weapons, so it is strong for that character without being the answer
  * to everything (12-6-7). Boss materials also make nine pieces of boss gear with strong counter traits.
- * Names are CRPG originals; icons borrow official weapon/artifact textures as a visual base.
+ * Exclusive weapons take the official name of the weapon picture they use (0.16.31); boss gear names are CRPG originals.
  * Load after runtime_liyue_forge.js and BEFORE runtime_enhancement.js (crafted rows get the shared enhancement). */
 (function(root){'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.exclusiveWeaponsVersion)return;
@@ -58,7 +58,9 @@ const WEAPONS=[
  ['LIYUE_ZHONGLI','계약 수호의 창','장병기',64,{},[S(15),['SHIELD_OUT',25],['COVER',20]],'GEO',true,'UI_EquipIcon_Pole_Kunwu','관홍의 창'],
  ['LIYUE_CHONGYUN','퇴마 방사의 대검','양손검',66,{},[S(18),['ELEMENT_BOOST','얼음',10]],'CRYO_VINE',true,'UI_EquipIcon_Claymore_Theocrat','왕실의 대검'],
  ['LIYUE_ZIBAI','달결정 수양검','한손검',64,{},[S(18),['ELEMENT_BOOST','바위',10]],'PRIMO',false,'UI_EquipIcon_Sword_Theocrat','왕실의 장검']
-].map(([owner,name,type,atk,extra,traits,mat,official,icon,iconSource])=>({id:'EQ_EX_'+owner,owner,name,type,atk,...extra,traits,material:MAT[mat],official,icon,iconSource}));
+// 0.16.31 (user: 「공식 무기 이름으로 해야지 당연히」): each exclusive weapon is called by the official name of the weapon whose
+// picture it wears; the old CRPG name stays only as a note here.
+].map(([owner,oldName,type,atk,extra,traits,mat,official,icon,iconSource])=>({id:'EQ_EX_'+owner,owner,name:iconSource,type,atk,...extra,traits,material:MAT[mat],official,icon,iconSource}));
 // Boss gear: one piece per boss material, strong counter traits, modest stats.
 const BOSS_GEAR=[
  {id:'EQ_FB_ACC_STORM_CHARM',name:'폭풍 씨앗 부적',type:'장신구',hp:80,traits:[['AIR_ACCESS',1],['ANTI_AIR',15],['STAGGER_RES',50]],material:MAT.ANEMO,role:'공중 적·밀치기 대응',icon:'UI_RelicIcon_15002_2',iconSource:'청록색 그림자'},
@@ -125,7 +127,7 @@ P.craftReason=function(input){const r=this.recipeDefinition(input[0]),owner=OWNE
 P.combatDamageMultiplier=function(a,t,e,o={}){let n=old.combatDamageMultiplier.call(this,a,t,e,o);
  if(a?.side==='ALLY'&&t?.side!=='ALLY'){const sig=tv(a,'SIGNATURE');if(sig&&String(o.card||'').startsWith(a.source+'_'))n*=1+sig/100;}
  return n;};
-P.heal=function(a,amount,source=''){const b=this.s.runtime;if(b&&a?.side==='ALLY'&&source){const healer=b.actors.find(x=>x.side==='ALLY'&&x.name===source&&x.hp>0),v=tv(healer,'HEAL_OUT');if(v)amount*=1+v/100;}return old.heal.call(this,a,amount,source);};
+P.heal=function(a,amount,source='',sourceActorId=''){const b=this.s.runtime;if(b&&a?.side==='ALLY'&&(source||sourceActorId)){const healer=b.actors.find(x=>x.side==='ALLY'&&(sourceActorId?x.id===sourceActorId:x.name===source)&&x.hp>0),v=tv(healer,'HEAL_OUT');if(v)amount*=1+v/100;}return b?.characterBalanceRevision===1?old.heal.call(this,a,amount,source,sourceActorId):old.heal.call(this,a,amount,source);};
 P.shield=function(a,value,source,rounds,extra={}){const b=this.s.runtime;if(b&&a?.side==='ALLY'&&typeof source==='string'){const caster=b.actors.find(x=>x.side==='ALLY'&&source.startsWith(x.source+'_')),v=tv(caster,'SHIELD_OUT');if(v)value*=1+v/100;}return old.shield.call(this,a,value,source,rounds,extra);};
 P.exclusiveWeaponsVersion=1;
 api.exclusiveWeapons={version:1,weapons:copy(WEAPONS),bossGear:copy(BOSS_GEAR),materials:copy(MAT),traits:Object.keys(NEW_TRAITS),recipeId:g=>recipeId(g)};

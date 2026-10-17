@@ -1,0 +1,109 @@
+{
+  "fixture": "Actual native Pyro Abyss Mage and its authored shield properties. Shield capacity raised to isolate absorption math; explicit reaction packet injection, not legal formation or battle efficiency.",
+  "group": "EG_MOND_ABYSS_MAGE",
+  "target": "MON_ABYSS_MAGE_PYRO",
+  "targetLevel": 1,
+  "casterLevel": 40,
+  "authoredShield": [
+    {
+      "source": "ECARD_ABYSS_PYRO_SHIELD",
+      "value": 241,
+      "initialValue": 186,
+      "rounds": null,
+      "createdRound": 1,
+      "element": "불",
+      "damageMultipliers": {
+        "물": 2,
+        "얼음": 1.5
+      }
+    }
+  ],
+  "rows": [
+    {
+      "rx": "RX_OVERLOADED",
+      "element": "불",
+      "raw": 3067.7066666666665,
+      "packets": [
+        {
+          "damage": 0,
+          "absorbed": 0,
+          "immune": true,
+          "reason": "보호막 원소 면역",
+          "shieldBefore": 1000000,
+          "shieldAfter": 1000000
+        }
+      ]
+    },
+    {
+      "rx": "RX_SUPERCONDUCT",
+      "element": "얼음",
+      "raw": 766.9266666666666,
+      "packets": [
+        {
+          "damage": 0,
+          "absorbed": 1151,
+          "immune": false,
+          "shieldBefore": 1000000,
+          "shieldAfter": 998850
+        }
+      ]
+    },
+    {
+      "rx": "RX_SWIRL",
+      "element": "불",
+      "raw": 920.3119999999999,
+      "packets": [
+        {
+          "damage": 0,
+          "absorbed": 0,
+          "immune": true,
+          "reason": "보호막 원소 면역",
+          "shieldBefore": 1000000,
+          "shieldAfter": 1000000
+        }
+      ]
+    },
+    {
+      "rx": "RX_SWIRL",
+      "element": "물",
+      "raw": 920.3119999999999,
+      "packets": [
+        {
+          "damage": 0,
+          "absorbed": 1840,
+          "immune": false,
+          "shieldBefore": 1000000,
+          "shieldAfter": 998160
+        }
+      ]
+    },
+    {
+      "rx": "RX_ELECTROCHARGED",
+      "element": "번개",
+      "raw": 1840.6239999999998,
+      "packets": [
+        {
+          "damage": 0,
+          "absorbed": 1841,
+          "immune": false,
+          "shieldBefore": 1000000,
+          "shieldAfter": 998159
+        }
+      ]
+    },
+    {
+      "rx": "RX_SHATTER",
+      "element": "물리",
+      "raw": 4601.5599999999995,
+      "packets": [
+        {
+          "damage": 0,
+          "absorbed": 4602,
+          "immune": false,
+          "shieldBefore": 1000000,
+          "shieldAfter": 995398
+        }
+      ]
+    }
+  ]
+}

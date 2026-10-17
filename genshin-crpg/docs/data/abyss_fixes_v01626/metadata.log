@@ -1,0 +1,20 @@
+PASS loaded badge comes from MANIFEST, independently of newer release metadata
+PASS release check uses no-store and does not activate/reload automatically
+PASS without a service worker update navigates to the requested release URL after saving
+PASS paused autosave blocks update before any save, activation or reload
+PASS save failure blocks update and preserves current game and save records
+PASS apply drains queued writes and saves current progress before activating
+PASS duplicate apply clicks perform one save, one activation and one reload
+PASS activation timeout blocks reload and releases busy state
+PASS redundant installing worker blocks reload
+PASS installation timeout without waiting worker blocks reload
+PASS old active worker without update blocks a misleading same-version reload
+PASS already active matching pack allows saved reload without skipWaiting
+PASS automatic activation before the installation continuation does not wait for a second controllerchange
+PASS controllerchange alone cannot approve a worker from a different pack
+PASS actual workerVersion helper uses a request port and returns its version
+PASS actual workerVersion helper times out cleanly for older workers without GET_VERSION
+PASS recovery worker activates after validated core; pack/status messages never activate it
+PASS worker release fetch bypasses caches and uses no-store
+PASS worker activation still claims clients when cache enumeration is unavailable, without touching user saves
+PASS worker GET_VERSION reports the loaded pack through the requesting port

@@ -1,0 +1,83 @@
+{
+  "checks": 13,
+  "passed": 13,
+  "equipmentRows": 169,
+  "nativeSamples": 3,
+  "nativePairedAttempts": 11,
+  "seedSelectedBoundaryCases": 6,
+  "marketRows": 169,
+  "observedOutcomes": [
+    "SUCCESS",
+    "HOLD"
+  ],
+  "marginal": {
+    "before": {
+      "from": 10,
+      "to": 12,
+      "expected": {
+        "attempts": 9.91441,
+        "mora": 309777.83733333333,
+        "ORE_IRON": 0,
+        "ORE_WHITE_IRON": 805.6328933333333,
+        "ORE_CRYSTAL": 596.4756133333333
+      },
+      "matrix": {
+        "attempts": 9.91441,
+        "mora": 309777.83733333333,
+        "ORE_IRON": 0,
+        "ORE_WHITE_IRON": 805.6328933333334,
+        "ORE_CRYSTAL": 596.4756133333333
+      },
+      "error": {
+        "attempts": 0,
+        "mora": 0,
+        "ORE_IRON": 0,
+        "ORE_WHITE_IRON": -1.1368683772161603e-13,
+        "ORE_CRYSTAL": 0
+      },
+      "ascension": {
+        "mora": 3000,
+        "items": {
+          "TRPG_BOSS_ESSENCE": 3,
+          "TRPG_BOSS_CORE": 1,
+          "ORE_CRYSTAL": 5
+        },
+        "actions": 1
+      }
+    },
+    "current": {
+      "from": 10,
+      "to": 12,
+      "expected": {
+        "attempts": 9.91441,
+        "mora": 161137.83733333333,
+        "ORE_IRON": 0,
+        "ORE_WHITE_IRON": 435.2328933333333,
+        "ORE_CRYSTAL": 321.27561333333335
+      },
+      "matrix": {
+        "attempts": 9.91441,
+        "mora": 161137.83733333333,
+        "ORE_IRON": 0,
+        "ORE_WHITE_IRON": 435.2328933333333,
+        "ORE_CRYSTAL": 321.27561333333335
+      },
+      "error": {
+        "attempts": 0,
+        "mora": 0,
+        "ORE_IRON": 0,
+        "ORE_WHITE_IRON": 0,
+        "ORE_CRYSTAL": 0
+      },
+      "ascension": {
+        "mora": 3000,
+        "items": {
+          "TRPG_BOSS_ESSENCE": 3,
+          "TRPG_BOSS_CORE": 1,
+          "ORE_CRYSTAL": 5
+        },
+        "actions": 1
+      }
+    }
+  }
+}

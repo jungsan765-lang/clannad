@@ -1,0 +1,28 @@
+{
+  "test": "tests/test_shield_balance_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_shield_balance_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T10:12:16.367470+00:00",
+  "endedAt": "2026-10-10T10:12:51.704348+00:00",
+  "seconds": 34.898,
+  "exitCode": 1,
+  "passed": false,
+  "inputDrift": {
+    "tests/test_skill_rhythm_ownership_v01625.cjs": {
+      "before": "1fe4773bdbccfe5c39763fb5815ebefac12a066ccc134a08c35459d3faa707ee",
+      "after": "85b391115db56ebaedab0bca1eb4a0fc1fec469680a828cda5603d003352b381"
+    },
+    "tools/audit_daily_v01625.cjs": {
+      "before": "f5cc10dbcf2c10e78605a8725b58316e1119e0d0aabbdb1f42e18530b3526d25",
+      "after": "a8b7decd791a8f19c683f6edbd69eb0b4de526a6c998f95a70d8d13db68108e5"
+    }
+  },
+  "testSha256": "4063780ed1251a91890b253aaacf5ef646510794b14db15b42e33c01064d3008",
+  "generatedEngineSha256": "94375793eb78c78d83eacf38759cccf1b1bca3060aec0fe3268acdab14842409",
+  "stdoutSha256": "342f4b4d51eadf0e6f48e1e593de302785c1bd91ca9f3b96b534f9edb0084640",
+  "stderrSha256": "023d7383a2ffdea05dada810254862a87f007928aac7290931e9d549dd77b17f",
+  "stdoutLog": "test_shield_balance_v01619.stdout.log",
+  "stderrLog": "test_shield_balance_v01619.stderr.log"
+}

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "reason": "Outdated assertion demanded old EXP60=10000 for a newly entered v0.16.27 battle; current intended payout is24000. QA only changed, product unchanged.",
+  "contracts": {
+    "current": {
+      "exp60": 24000,
+      "talent60": 90,
+      "materialXP60": 1600,
+      "booksFromDomains": false,
+      "moraFromDomains": 0
+    },
+    "genuineBefore": {
+      "version": "0.16.26",
+      "commit": "7f33d2b34c48834c67c9134e2548d48932782e5c",
+      "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+      "exp60": 10000,
+      "talent60": 80,
+      "pendingAndStartedNativeSavesPreserved": true,
+      "exactNativeSettlementAndResultingSaveEqual": true,
+      "duplicateSettlementDenied": true
+    },
+    "clock": "Both genuine historical and current engines use the same helper clock; no game-time or production rules changed."
+  },
+  "result": {
+    "exitCode": 0,
+    "total": 10,
+    "passed": 10
+  },
+  "runtimeFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "expectedProductFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "productUnchanged": true,
+  "authoredDbSha256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "test": {
+    "path": "tests/test_rewards_balance_v0161.cjs",
+    "sha256": "f4de3f541548d82d29f2780186066f1284400353917bd040552e5330b85dd763"
+  },
+  "log": {
+    "path": "evidence/release/test_rewards_balance_v0161.cjs.repaired.log",
+    "sha256": "7dbe381e911bc7e41783378363fa876209ffba77aa0a24426473daf74f26dcc6"
+  }
+}

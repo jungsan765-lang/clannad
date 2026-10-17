@@ -1,0 +1,101 @@
+{
+  "scope": "Read-only exact Markov gear expected costs and mathematical RNG artifact approximation; no fights, legal acquisition campaign, exchange prices or elapsed real campaign proof. Drop schedule under runtime_boss_rematch is real KST daily, not early48 in-game hours.",
+  "inputsNativeQuery": {
+    "version": "0.16.25",
+    "publishedSha": "46190377b713e6218e66b26bc4292f18fb5a348d",
+    "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "scope": "Native read-only query fixtures; costs and rules, no natural acquisition or fight proof",
+    "sourceSha256": {
+      "source/runtime_abyss.js": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb",
+      "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+      "source/runtime_liyue_artifacts.js": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+      "source/runtime_boss_rematch.js": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44",
+      "source/runtime_growth_v01522.js": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81",
+      "source/runtime_exclusive_weapons.js": "fb3a5580a1feefe0990f3520de15b70b711b7c69b4a3e6e732490c5f330c8649",
+      "source/runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+      "source/runtime_trade.js": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba",
+      "source/runtime_economy_v0148.js": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096"
+    }
+  },
+  "gearFirstPassageExpected": {
+    "10": {
+      "mora": 76068.09169983784,
+      "attempts": 16.627951373531868,
+      "ORE_IRON": 47.42599144921127,
+      "ORE_WHITE_IRON": 241.6395238095238,
+      "ORE_CRYSTAL": 139.95666666666665
+    },
+    "12": {
+      "mora": 382845.92903317115,
+      "attempts": 26.542361373531868,
+      "ORE_IRON": 47.42599144921127,
+      "ORE_WHITE_IRON": 1047.2724171428572,
+      "ORE_CRYSTAL": 731.4322799999999
+    }
+  },
+  "artifact0to5Expected": {
+    "mora": 26773.881673881675,
+    "crystals": 34.65223665223665,
+    "attempts": 12.11976911976912,
+    "expectedSuccessfulAzhdahaWins": 11.550745550745551
+  },
+  "artifactRoleAcquisition": {
+    "sampleRolls": 1000000,
+    "seed": 46190377,
+    "quality90plusExactProbability": 0.04681064541260971,
+    "countsByEligibleActorBitmask": {
+      "0": 959480,
+      "12": 10319,
+      "3": 4342,
+      "15": 9800,
+      "1": 10880,
+      "14": 4670,
+      "2": 509
+    },
+    "bitmaskLegend": {
+      "1": "Zhongli",
+      "2": "Jean",
+      "4": "Attacker1",
+      "8": "Attacker2"
+    },
+    "expectedRollsToFirstRole": {
+      "Zhongli": 39.96483094876508,
+      "Jean": 51.75715542673775,
+      "Attacker": 40.34047359716003
+    },
+    "fourSuitablePiecesAssignmentSimulation": {
+      "samples": 20000,
+      "meanRolls": 116.4369,
+      "medianRolls": 106,
+      "p90Rolls": 197,
+      "scheduleAssumption": "one successful Tartaglia artifact per real KST day; all wins, no market, no inventory, initial story artifact not subtracted"
+    }
+  },
+  "growthBudget": {
+    "allTalents1to10Mora": {
+      "fourStarOrProtagonist": 213750,
+      "fiveStar": 320625
+    },
+    "allSixAscensionsMora": {
+      "fourStarOrProtagonist": 93200,
+      "fiveStar": 167760
+    },
+    "fullParty60C0Reference": {
+      "composition": [
+        "PLAYER_CUSTOM",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "LIYUE_ZHONGLI"
+      ],
+      "talentBaseMax": 10,
+      "naturalLevelXp": "not simulated",
+      "equipmentPiecesAt12": 12,
+      "artifactPiecesAt5": 4,
+      "talentMora": 1175625,
+      "ascensionMora": 596480,
+      "gearMoraExpected": 4630151.148398054,
+      "artifactMoraExpected": 107095.5266955267,
+      "subtotalMoraExpected": 6509351.675093581
+    }
+  }
+}

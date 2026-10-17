@@ -1,0 +1,12 @@
+'use strict';
+const assert=require('node:assert/strict'),H=require('../tools/audit_healing_helpers_v01619.cjs'),E=H.load(),copy=x=>JSON.parse(JSON.stringify(x));
+let checked=0;
+function fixture(level){const key=level<=25?'FORSAKEN_RIFT':'TAISHAN_MANSION',r=H.setup(E,{level,team:['LIYUE_XIANGLING','MOND_FISCHL','MOND_NOELLE'],route:'ROUTE_TRAVELER',map:E.api.growthV01522.domains[key].map});r.action('DOMAIN_START',{domain:key+':'+level});return r;}
+function packet(r,attacker,target,revision){const prior=copy(r.s),oldRandom=r.random;attacker=r.s.runtime.actors.find(a=>a.id===attacker.id);target=r.s.runtime.actors.find(a=>a.id===target.id);r.random=()=>.5;if(revision===undefined)delete r.s.runtime.defenseRevision;else r.s.runtime.defenseRevision=revision;let measured=null,base=r.applyDamage;r.applyDamage=function(a,t,n,o){measured=n;return base.call(this,a,t,n,o);};try{assert(r.damage(attacker,target,.75,'PHYSICAL',{sureHit:true,noCrit:true,noAura:true}));return measured;}finally{r.applyDamage=base;r.random=oldRandom;r.s=prior;}}
+for(const level of [10,25,35,40,60]){const r=fixture(level),b=r.s.runtime;assert.equal(b.defenseRevision,1);assert.equal(b.healingBalanceRevision,1);const enemy=b.actors.find(a=>a.side==='ENEMY'),ally=b.actors.find(a=>a.source==='PLAYER_CUSTOM'),def=r.combatStat(ally,'def');const old=packet(r,enemy,ally,undefined),fresh=packet(r,enemy,ally,1);if(level<=35)assert.equal(fresh,old);else assert(fresh>old*(level===40?1.1:1.2)&&fresh<old*3);assert.equal(r.combatStat(r.s.runtime.actors.find(a=>a.source==='PLAYER_CUSTOM'),'def'),def);checked++;}
+{
+ const r=fixture(60),a=r.s.runtime.actors.find(a=>a.side==='ALLY'),t=r.s.runtime.actors.find(a=>a.side==='ENEMY');assert.equal(packet(r,a,t,undefined),packet(r,a,t,1));checked++;
+ const old=copy(r.s);delete old.runtime.defenseRevision;delete old.runtime.healingBalanceRevision;r.validateSave(old);assert.equal(old.runtime.defenseRevision,undefined);assert.equal(old.runtime.healingBalanceRevision,undefined);checked++;
+ for(const key of ['defenseRevision','healingBalanceRevision']){const bad=copy(r.s);bad.runtime[key]=2;assert.throws(()=>r.validateSave(bad),e=>e.code===(key==='defenseRevision'?'DEFENSE_VERSION':'HEALING_BALANCE_SAVE'));checked++;}
+}
+console.log(JSON.stringify({test:'incoming_defense_v01622',checks:checked,result:'PASS',contracts:'Native incoming packets at5 levels; outgoing unchanged; raw effective DEF preserved; old save markers remain absent; unknown policies rejected.'}));

@@ -1,0 +1,120 @@
+{
+  "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "battle": {
+    "stats": [
+      [
+        "PLAYER_CUSTOM",
+        17,
+        2721,
+        436.8,
+        186
+      ],
+      [
+        "MOND_AMBER",
+        17,
+        3096,
+        466.79999999999995,
+        296.4
+      ],
+      [
+        "MOND_KAEYA",
+        17,
+        3469,
+        522,
+        336
+      ],
+      [
+        "MOND_NOELLE",
+        17,
+        3804,
+        487.2,
+        486
+      ],
+      [
+        "MON_HILI_FIGHTER",
+        17,
+        3880,
+        1136,
+        74
+      ],
+      [
+        "MON_MITACHURL_AXE",
+        17,
+        9825,
+        1544,
+        103
+      ],
+      [
+        "MON_HILI_SHOOTER",
+        17,
+        3880,
+        1136,
+        74
+      ]
+    ],
+    "result": {
+      "mora": 0,
+      "rewardPolicy": "MOND_BALANCE_V1",
+      "bond": null,
+      "id": "GROWTH-FEEL-22:B1",
+      "battleId": "GROWTH-FEEL-22:B1",
+      "saveId": "GROWTH-FEEL-22",
+      "group": "EG_MOND_HILI_ELITE",
+      "origin": "EXPLICIT",
+      "gate": "EXPLICIT",
+      "branch": null,
+      "victory": false,
+      "xp": 0,
+      "loot": {},
+      "rounds": 25,
+      "result": "DEFEAT",
+      "unsupportedEffects": [],
+      "defeatPenalty": {
+        "mora": 300,
+        "seconds": 60
+      }
+    }
+  },
+  "afterDefeat": {
+    "runtime": false,
+    "map": "MAP_MOND_WOLVENDOM",
+    "mode": "NORMAL",
+    "screen": "REWARD",
+    "mora": 2700,
+    "lock": 60000,
+    "hp": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 2721
+      },
+      {
+        "id": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 3096
+      },
+      {
+        "id": "MOND_KAEYA",
+        "hp": 0,
+        "maxHp": 3304
+      },
+      {
+        "id": "MOND_NOELLE",
+        "hp": 0,
+        "maxHp": 3804
+      }
+    ]
+  },
+  "errors": [
+    {
+      "message": "No inn in returned map",
+      "stack": "Error: No inn in returned map\n    at [stdin]:5:361\n    at runScriptInThisContext (node:internal/vm:219:10)\n    at node:internal/process/execution:451:12\n    at [stdin]-wrapper:6:24\n    at runScriptInContext (node:internal/process/execution:449:60)\n    at evalFunction (node:internal/process/execution:283:30)\n    at evalTypeScript (node:internal/process/execution:295:3)\n    at node:internal/main/eval_stdin:51:5\n    at Socket.<anonymous> (node:internal/process/execution:205:5)\n    at Socket.emit (node:events:521:24)"
+    }
+  ],
+  "saveRestores": true,
+  "restoredMap": "MAP_MOND_WOLVENDOM",
+  "afterLock": {
+    "remaining": 0,
+    "mode": "NORMAL"
+  }
+}

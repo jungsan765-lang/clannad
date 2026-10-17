@@ -1,0 +1,37 @@
+{
+  "authorizedBy": "Root final field-boss3 QA freeze; original2/unmarked once-revival contracts remain intentionally legacy-specific; new3 newtool18coversrepeat; outputarg override only reportdestination",
+  "changes": [
+    {
+      "path": "tools/test_field_bosses.cjs",
+      "beforeSha256": "52982f00a9dc1ec543b73afbc835cba5acb2f07ff06fdbe995142521d5461c96",
+      "afterSha256": "26355ba3b05b0c9a9229b01f97aeb8616ca64cdd6743173cb9573a3ce537e1a2",
+      "diff": "test_field_bosses.cjs.diff"
+    },
+    {
+      "path": "tools/test_field_boss_immunity_v01618.cjs",
+      "beforeSha256": "cff92470bdde761021825c3c4033832b42097bdbea18e5bb0731b609b718d0ea",
+      "afterSha256": "e2014322a5afb05acd43a491003b0dbde71ba55a30f889d12110c3dfc8e39119",
+      "diff": "test_field_boss_immunity_v01618.cjs.diff"
+    },
+    {
+      "path": "tools/test_boss_boundaries_v01619.cjs",
+      "beforeSha256": "1b2710d4174c99c60ca01b95479340e57506e4bb480aa0babffa939ee957f8fc",
+      "afterSha256": "4512acb719ac75ef97fbc25c67133b39b4e319b414b61110e2361d10930536e0",
+      "diff": "test_boss_boundaries_v01619.cjs.diff"
+    },
+    {
+      "path": "tools/verify_release.py",
+      "beforeSha256": "ccbfa7037cee22c83dc393525a29d81727e07973a5d7dd6b4c340592baae5873",
+      "afterSha256": "ad27759f5799f5471d506a14da1dd5cc8932a8f69bd8cc4dc8a502500b08c137",
+      "diff": "verify_release.py.diff"
+    }
+  ],
+  "newStrategyTest": {
+    "path": "tools/test_field_boss_strategy_v01622.cjs",
+    "sha256": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322",
+    "contracts": 18
+  },
+  "registeredPrograms": 182,
+  "allRegisteredProgramsRetested": false,
+  "preparationFailuresPreserved": "docs/data/balance_v01622/field_boss_strategy; original first6 and Guoba17PASS/nullreadFAIL owned by growth"
+}

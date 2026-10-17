@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict'),h=require('./helpers_v011.cjs'),{fresh,R,db}=h,fs=h.fs,path=h.path,results=[];
 function test(name,fn){try{fn();results.push({name,ok:true});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
-function guild(r){r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});}
+function guild(r){r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});/* Native prerequisite bootstrap preserves the historical mechanic under test. */if(!r.s.quests.Q_TASK_LEARN_01?.claimed){r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});}}
 
 test('forge weapons, white iron and crystal chunks are absent from every shop',()=>{
  const r=fresh(),forge=new Set(r.rows('17_RECIPE_DB').filter(x=>x[1]==='무기 제작'&&x[2]==='EQUIP').map(x=>x[3]));
@@ -71,3 +71,4 @@ test('UI exposes pin controls for commission legend and affection and a 30 secon
 });
 
 fs.writeFileSync(path.join(h.root,'reports/quality-fixes-v01336.json'),JSON.stringify({total:results.length,passed:results.filter(x=>x.ok).length,results},null,2));if(results.some(x=>!x.ok))process.exitCode=1;
+

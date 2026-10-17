@@ -1,0 +1,198 @@
+{
+  "status": "SEALED_FINAL_381_PASSED",
+  "scope": "Includes separate excluded preliminary two-source build, authentic archived legacy overlays, final-four-source build inputs and actual engine outputs. No additional test expansion after all381 pass.",
+  "files": {
+    "docs/data/abyss_fixes_v01626/engines/AUDIT_RUN.json": {
+      "bytes": 1377,
+      "sha256": "d505892beeb6e338a610b300105ac66b6af9f30db67466cf4b0661f5bbff9255"
+    },
+    "docs/data/abyss_fixes_v01626/engines/README_KO.md": {
+      "bytes": 3305,
+      "sha256": "621ad91645df8611119b84ff357a5be81a430ffa8d024556faad6913472dd2fe"
+    },
+    "docs/data/abyss_fixes_v01626/engines/build_input_snapshot.json": {
+      "bytes": 214660,
+      "sha256": "8553c3df894368fb88756ad3d2f335f37dd3ac415b03e1e90d6a3a4198e595ff"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/manifest.json": {
+      "bytes": 946,
+      "sha256": "1ab86c8ba57b4e92282bae1ad3bd40e1bbf78579627e5f9b2dadd299a61633e7"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_abyss.js": {
+      "bytes": 41359,
+      "sha256": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_balance_admin_v01623.js": {
+      "bytes": 28739,
+      "sha256": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_combat.js": {
+      "bytes": 67839,
+      "sha256": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_constellations_v01411.js": {
+      "bytes": 75857,
+      "sha256": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_exclusive_weapons.js": {
+      "bytes": 18955,
+      "sha256": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_formations.js": {
+      "bytes": 7143,
+      "sha256": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_growth_v01522.js": {
+      "bytes": 63394,
+      "sha256": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_liyue_cards.js": {
+      "bytes": 33866,
+      "sha256": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94"
+    },
+    "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624/source/runtime_skill_rhythm.js": {
+      "bytes": 4762,
+      "sha256": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser-abyss-contracts/contracts.json": {
+      "bytes": 15726,
+      "sha256": "4a933f85a72bd58fac7ead5284b3c9ed0251f445a8e03b9fad038217be9c209c"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser-summary.json": {
+      "bytes": 2769,
+      "sha256": "3efe77df27062ceb7d620e6c688f1cbeaa5345dc56055d62ad41c262b9ab3ff6"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser-test_basic_air_range_v01624.cjs.json": {
+      "bytes": 2749,
+      "sha256": "83ce0eed0b47a5f973c42ea3f80cee31f408e9ce141d3742cbf86e36ef7fc165"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser-test_character_balance_v01625.cjs.json": {
+      "bytes": 74845,
+      "sha256": "493651e3abafd09fbfced42099d5a6d6c63cff6c0a4b364949e548566d2f99ec"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser-test_daily_pressure_v01624.cjs.json": {
+      "bytes": 77003,
+      "sha256": "a8ddf8e8e09c7ef5f0a0c6ffaf064b42e6e03f0e57fd734d7519303e5cc165c9"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser-test_skill_rhythm_ownership_v01625.cjs.json": {
+      "bytes": 26052,
+      "sha256": "559878755cb5acde9dd07ffc2e7dccdf6d329e18467efa46a33cfd69ddf3baf1"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser.stdout.log": {
+      "bytes": 7510,
+      "sha256": "f56ceb1bc9009d869ed259d9c411f6ba0285704b1667aa2bea210f12e43fee63"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser_offline_pack.json.gz": {
+      "bytes": 90119,
+      "sha256": "c581580ccf6bf07aeb710e515b21e649acfbe011ba92d100a5ed21affce4a546"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/browser_release.json": {
+      "bytes": 182,
+      "sha256": "ca4cb425dc9c92f40dcc063a547cafcda7b7e4d3350ed52c0f06d1d186005d5e"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/build_identity.json": {
+      "bytes": 30492,
+      "sha256": "6c853afac47b3e3618817babd5aecb8cc6f29d29b210a5cd41db9a537080eb63"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server-abyss-contracts/contracts.json": {
+      "bytes": 15726,
+      "sha256": "4a933f85a72bd58fac7ead5284b3c9ed0251f445a8e03b9fad038217be9c209c"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server-summary.json": {
+      "bytes": 2758,
+      "sha256": "fba917d7aafdadfb4008a9307b9f1138f1403d43a30e16d246842f9d5bdb8fd4"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server-test_basic_air_range_v01624.cjs.json": {
+      "bytes": 2749,
+      "sha256": "83ce0eed0b47a5f973c42ea3f80cee31f408e9ce141d3742cbf86e36ef7fc165"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server-test_character_balance_v01625.cjs.json": {
+      "bytes": 74845,
+      "sha256": "493651e3abafd09fbfced42099d5a6d6c63cff6c0a4b364949e548566d2f99ec"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server-test_daily_pressure_v01624.cjs.json": {
+      "bytes": 77003,
+      "sha256": "a8ddf8e8e09c7ef5f0a0c6ffaf064b42e6e03f0e57fd734d7519303e5cc165c9"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server-test_skill_rhythm_ownership_v01625.cjs.json": {
+      "bytes": 26052,
+      "sha256": "559878755cb5acde9dd07ffc2e7dccdf6d329e18467efa46a33cfd69ddf3baf1"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/server.stdout.log": {
+      "bytes": 7507,
+      "sha256": "4ebbc3c0c887d69f13871f0fa069bc61443eeb31b188dcdeaf2c11686332866a"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source-abyss-contracts/contracts.json": {
+      "bytes": 15726,
+      "sha256": "4a933f85a72bd58fac7ead5284b3c9ed0251f445a8e03b9fad038217be9c209c"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source-summary.json": {
+      "bytes": 2710,
+      "sha256": "ee7b128e9bcc3ee257d80ad6e5ee7193c12d6205d6687c29cd28449080de3566"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source-test_basic_air_range_v01624.cjs.json": {
+      "bytes": 2741,
+      "sha256": "f5f3a62a14a6cb099c019c8a9ee0cedcf1d29533a6e7103e51af56a460d05f05"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source-test_character_balance_v01625.cjs.json": {
+      "bytes": 74829,
+      "sha256": "639a098e579a5d9d95782812e44a9716e1a65ccacc0bbd03cfc4992175f6fd7f"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source-test_daily_pressure_v01624.cjs.json": {
+      "bytes": 76995,
+      "sha256": "be0a9485fc864824834e6a5b4c3769ce7f71ff9ae7e4dbfae4b8d9ba29ad9a3d"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source-test_skill_rhythm_ownership_v01625.cjs.json": {
+      "bytes": 26044,
+      "sha256": "1eefb4ae81e1f74442aa3773bf244a4dae493debcb58964b9bebd4da3edd1cfc"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/source.stdout.log": {
+      "bytes": 7491,
+      "sha256": "ac9bec34b3ce48d111fa4b9f13d55aab4249722f988244e7283181f6d29fc42d"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/static_build_report.json": {
+      "bytes": 608,
+      "sha256": "4439662b3dc3dba3bd23cf303280a033210bbd32f61620fcdadc5f851fc6069e"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final4source/summary.json": {
+      "bytes": 8460,
+      "sha256": "c1286638c7dbe96add75caf0307ff0b212fe7230edd2911635bd15c4dacaffa1"
+    },
+    "docs/data/abyss_fixes_v01626/engines/final_build_input_snapshot.json": {
+      "bytes": 214891,
+      "sha256": "4aa12f9ce0ccdbae22a9068f4842abadb294cd33e82e2d60aa8927a6d1d7d069"
+    },
+    "docs/data/abyss_fixes_v01626/engines/preliminary2source/browser_release.json": {
+      "bytes": 173,
+      "sha256": "e03cf69d7ecd07929be14cbd9ed031afc1d9f3fc1016adae66b981f5ef5052ba"
+    },
+    "docs/data/abyss_fixes_v01626/engines/preliminary2source/build_input_snapshot.json": {
+      "bytes": 214660,
+      "sha256": "8553c3df894368fb88756ad3d2f335f37dd3ac415b03e1e90d6a3a4198e595ff"
+    },
+    "docs/data/abyss_fixes_v01626/engines/preliminary2source/static_build_report.json": {
+      "bytes": 608,
+      "sha256": "2b82b19375aebcd49568b2b1430bf112dfbb0a1ba63c09d44bc55eba14afa43d"
+    },
+    "docs/data/abyss_fixes_v01626/engines/preliminary2source/summary.json": {
+      "bytes": 628,
+      "sha256": "e74ea59629c277888b53a1ec685084d450bb3a03371c47e3f19567f761504bc1"
+    },
+    "docs/data/abyss_fixes_v01626/engines/verify_build.py": {
+      "bytes": 4769,
+      "sha256": "10c27702abc98e878c256dbff6de198615e6ab2f0c7bdaf6665a912162deb5ae"
+    }
+  }
+}

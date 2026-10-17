@@ -1,0 +1,53 @@
+{
+  "atUTC": "2026-10-09T16:16:55.892849+00:00",
+  "sourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "latestRemoteRefConfirmedThisTurn": true,
+  "productFilesChecked": 233,
+  "productChanges": [],
+  "newReviewMarkdown": {
+    "REACTION_HEALER_REVIEW_V01618_KO.md": {
+      "sha256": "6a08454d65e3e6bfff413be714980bdfef995d51281f19f10ebee950cf6b8047",
+      "bytes": 31347
+    },
+    "FIELD_BOSS_LEVEL_GAP_AUDIT_V01618_KO.md": {
+      "sha256": "eb3413b8b03352491e0cf72262f3a4ace29be733391d78c86c75072f425581fc",
+      "bytes": 21329
+    },
+    "AI_HANDOFF.md": {
+      "sha256": "117d36b0de0c0c061f04aae9f349e150c919c1fd6fe183cb569d3dc786178212",
+      "bytes": 128014
+    },
+    "NEXT_STEPS_KO.md": {
+      "sha256": "dfb9dc4f612a218736b3607640c14a7520e6fc59fbd2c5d2841789c5a7807f52",
+      "bytes": 44318
+    }
+  },
+  "missingLocalLinksInNewReviewSections": [],
+  "archiveArtifacts": 203,
+  "archiveGeneratedFiles": 8,
+  "archiveHashErrors": [],
+  "independentQALocations": [
+    "portable_validation/archive_final_qa.json",
+    "field_boss_mechanics/evidence_qa.json",
+    "field_boss_repeat/c0_evidence_qa.json",
+    "field_boss_repeat/c6_evidence_qa.json",
+    "rarity_growth/evidence_qa.json",
+    "chasm_gap/evidence_qa.json",
+    "chasm_gap/two_cited_metrics_qa.json"
+  ],
+  "reviewCounts": {
+    "healerExecutions": 462,
+    "healerUniqueConditions": 450,
+    "healerMainFights": 2853,
+    "healerMainWins": 2672,
+    "healerMainLosses": 181,
+    "dendroCampaigns": 68,
+    "dendroMainFights": 220,
+    "bossConditions": 72,
+    "bossMainFights": 172,
+    "chasmConditions": 160,
+    "chasmMainFights": 257
+  },
+  "scope": "Review documents and evidence only; no product/DB/server/Git/remote writes. Numeric candidates are VM-only, not deployment source. Combat losses retained. Basic/supplemental and isolated/native denominators remain separate.",
+  "passed": true
+}

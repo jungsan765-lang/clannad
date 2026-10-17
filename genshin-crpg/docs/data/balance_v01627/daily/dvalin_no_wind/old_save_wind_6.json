@@ -1,0 +1,453 @@
+{
+  "clock": 1791648240000,
+  "clockPolicy": "Identical fixed real clock in both comparison VM engines, including native defeat cooldown; no battle HP/action/stat overrides.",
+  "oldFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "newFingerprint": "22a63a16bd914ba878954f3272812dca54cd5b5c9c28b9a5d27fe0984ba9862b",
+  "conditions": 6,
+  "rows": [
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "windActions": 1,
+      "legacyNoWindMarkerAbsent": true,
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_FISCHL": 0,
+        "MOND_DIONA": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "windActions": 1,
+      "legacyNoWindMarkerAbsent": true,
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_FISCHL": 0,
+        "MOND_DIONA": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "windActions": 1,
+      "legacyNoWindMarkerAbsent": true,
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_FISCHL": 0,
+        "MOND_DIONA": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "windActions": 1,
+      "legacyNoWindMarkerAbsent": true,
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_ZHONGLI": 0,
+        "MOND_DILUC": 0,
+        "MOND_JEAN": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-717",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "windActions": 1,
+      "legacyNoWindMarkerAbsent": true,
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_ZHONGLI": 0,
+        "MOND_DILUC": 0,
+        "MOND_JEAN": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-4242",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    },
+    {
+      "boss": "BOSS_DVALIN",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "windActions": 1,
+      "legacyNoWindMarkerAbsent": true,
+      "actualConstellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_ZHONGLI": 0,
+        "MOND_DILUC": 0,
+        "MOND_JEAN": 0
+      },
+      "oldBattleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031:B13",
+      "oldRevision": null,
+      "oldStats": [
+        {
+          "source": "BOSS_DVALIN",
+          "hp": 42540,
+          "atk": 3744,
+          "def": 270,
+          "level": 28
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-28-9031",
+        "group": "EG_BOSS_DVALIN",
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "gate": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "defeatReason": "TERRAIN_COLLAPSE",
+        "defeatMessage": "지형이 모두 무너져 전멸했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 100000,
+          "seconds": 60
+        },
+        "twinBoss": {
+          "boss": "BOSS_DVALIN",
+          "seen": [
+            "STORM_WING",
+            "CORROSIVE_BREATH"
+          ]
+        },
+        "rematch": {
+          "boss": "BOSS_DVALIN",
+          "level": 28
+        }
+      },
+      "finalKo": [
+        "PLAYER_CUSTOM",
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "checks": [
+        "save load exact",
+        "public full battle result exact",
+        "pre-reward actors and log exact",
+        "full final save and RNG exact"
+      ]
+    }
+  ]
+}

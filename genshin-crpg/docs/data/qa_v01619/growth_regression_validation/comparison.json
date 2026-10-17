@@ -1,0 +1,880 @@
+{
+  "schemaVersion": 1,
+  "baselineConditions": 18,
+  "baselineWins": 18,
+  "finalConditions": 18,
+  "finalWins": 17,
+  "allInitialEnemiesAndFixturesUnchanged": true,
+  "errors": [],
+  "pairs": [
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 17,
+      "seed": 11,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 12,
+      "afterRounds": 12,
+      "beforeHealing": 420,
+      "afterHealing": 420,
+      "beforeMisses": 5,
+      "afterMisses": 5
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 17,
+      "seed": 22,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": false,
+      "beforeRounds": 27,
+      "afterRounds": 25,
+      "beforeHealing": 700,
+      "afterHealing": 280,
+      "beforeMisses": 7,
+      "afterMisses": 5
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 17,
+      "seed": 33,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 19,
+      "afterRounds": 19,
+      "beforeHealing": 350,
+      "afterHealing": 420,
+      "beforeMisses": 5,
+      "afterMisses": 5
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 30,
+      "seed": 11,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 6,
+      "afterRounds": 6,
+      "beforeHealing": 0,
+      "afterHealing": 0,
+      "beforeMisses": 0,
+      "afterMisses": 0
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 30,
+      "seed": 22,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 6,
+      "afterRounds": 6,
+      "beforeHealing": 312,
+      "afterHealing": 312,
+      "beforeMisses": 4,
+      "afterMisses": 4
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 30,
+      "seed": 33,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 5,
+      "afterRounds": 5,
+      "beforeHealing": 624,
+      "afterHealing": 624,
+      "beforeMisses": 1,
+      "afterMisses": 1
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 45,
+      "seed": 11,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 3,
+      "afterRounds": 3,
+      "beforeHealing": 0,
+      "afterHealing": 0,
+      "beforeMisses": 0,
+      "afterMisses": 0
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 45,
+      "seed": 22,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 4,
+      "afterRounds": 4,
+      "beforeHealing": 0,
+      "afterHealing": 0,
+      "beforeMisses": 2,
+      "afterMisses": 2
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "level": 45,
+      "seed": 33,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 3,
+      "afterRounds": 3,
+      "beforeHealing": 0,
+      "afterHealing": 0,
+      "beforeMisses": 0,
+      "afterMisses": 0
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 32,
+      "seed": 11,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 14,
+      "afterRounds": 14,
+      "beforeHealing": 984,
+      "afterHealing": 984,
+      "beforeMisses": 2,
+      "afterMisses": 2
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 32,
+      "seed": 22,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 15,
+      "afterRounds": 15,
+      "beforeHealing": 369,
+      "afterHealing": 369,
+      "beforeMisses": 3,
+      "afterMisses": 3
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 32,
+      "seed": 33,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 13,
+      "afterRounds": 13,
+      "beforeHealing": 738,
+      "afterHealing": 738,
+      "beforeMisses": 3,
+      "afterMisses": 3
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 45,
+      "seed": 11,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 7,
+      "afterRounds": 7,
+      "beforeHealing": 680,
+      "afterHealing": 680,
+      "beforeMisses": 0,
+      "afterMisses": 0
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 45,
+      "seed": 22,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 9,
+      "afterRounds": 9,
+      "beforeHealing": 1212,
+      "afterHealing": 1212,
+      "beforeMisses": 2,
+      "afterMisses": 2
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 45,
+      "seed": 33,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 9,
+      "afterRounds": 9,
+      "beforeHealing": 680,
+      "afterHealing": 680,
+      "beforeMisses": 2,
+      "afterMisses": 2
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 60,
+      "seed": 11,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 6,
+      "afterRounds": 6,
+      "beforeHealing": 506,
+      "afterHealing": 506,
+      "beforeMisses": 0,
+      "afterMisses": 0
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 60,
+      "seed": 22,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 5,
+      "afterRounds": 5,
+      "beforeHealing": 641,
+      "afterHealing": 641,
+      "beforeMisses": 2,
+      "afterMisses": 2
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "level": 60,
+      "seed": 33,
+      "sameAllStatRows": true,
+      "sameEnemyActors": true,
+      "sameFixture": true,
+      "beforeVictory": true,
+      "afterVictory": true,
+      "beforeRounds": 6,
+      "afterRounds": 6,
+      "beforeHealing": 1012,
+      "afterHealing": 1012,
+      "beforeMisses": 2,
+      "afterMisses": 2
+    }
+  ],
+  "firstChangedDamagePacket": {
+    "packetIndex": 34,
+    "before": {
+      "actor": "MON_HILI_SHOOTER",
+      "target": "MOND_NOELLE",
+      "actorId": "MON_HILI_SHOOTER#1",
+      "targetId": "MOND_NOELLE",
+      "actorSide": "ENEMY",
+      "targetSide": "ALLY",
+      "round": 3,
+      "requested": 229.06812261996922,
+      "details": {
+        "element": "물리",
+        "critical": false,
+        "reaction": null,
+        "card": "ECARD_MOND_HILI_SHOOTER_SPECIAL",
+        "sourceKind": null
+      },
+      "result": 0,
+      "before": {
+        "hp": 3804,
+        "shields": [
+          {
+            "source": "RX_CRYSTALLIZE",
+            "value": 483,
+            "initialValue": 483,
+            "rounds": 3,
+            "createdRound": 2
+          },
+          {
+            "source": "MOND_NOELLE_E",
+            "value": 713,
+            "initialValue": 713,
+            "rounds": 2,
+            "createdRound": 2
+          }
+        ]
+      },
+      "after": {
+        "hp": 3804,
+        "shields": [
+          {
+            "source": "RX_CRYSTALLIZE",
+            "value": 483,
+            "initialValue": 483,
+            "rounds": 3,
+            "createdRound": 2
+          },
+          {
+            "source": "MOND_NOELLE_E",
+            "value": 484,
+            "initialValue": 713,
+            "rounds": 2,
+            "createdRound": 2
+          }
+        ]
+      }
+    },
+    "after": {
+      "actor": "MON_HILI_SHOOTER",
+      "target": "MOND_NOELLE",
+      "actorId": "MON_HILI_SHOOTER#1",
+      "targetId": "MOND_NOELLE",
+      "actorSide": "ENEMY",
+      "targetSide": "ALLY",
+      "round": 3,
+      "requested": 229.06812261996922,
+      "details": {
+        "element": "물리",
+        "critical": false,
+        "reaction": null,
+        "card": "ECARD_MOND_HILI_SHOOTER_SPECIAL",
+        "sourceKind": null
+      },
+      "result": 0,
+      "before": {
+        "hp": 3804,
+        "shields": [
+          {
+            "source": "RX_CRYSTALLIZE",
+            "value": 483,
+            "initialValue": 483,
+            "rounds": 3,
+            "createdRound": 2,
+            "element": "얼음",
+            "damageMultipliers": {
+              "얼음": 0.4
+            }
+          },
+          {
+            "source": "MOND_NOELLE_E",
+            "value": 713,
+            "initialValue": 713,
+            "rounds": 2,
+            "createdRound": 2
+          }
+        ]
+      },
+      "after": {
+        "hp": 3804,
+        "shields": [
+          {
+            "source": "RX_CRYSTALLIZE",
+            "value": 254,
+            "initialValue": 483,
+            "rounds": 3,
+            "createdRound": 2,
+            "element": "얼음",
+            "damageMultipliers": {
+              "얼음": 0.4
+            }
+          },
+          {
+            "source": "MOND_NOELLE_E",
+            "value": 484,
+            "initialValue": 713,
+            "rounds": 2,
+            "createdRound": 2
+          }
+        ]
+      }
+    }
+  },
+  "failureMetricsBefore": {
+    "healing": 700,
+    "healEvents": 32,
+    "healingSources": {
+      "노엘": 32
+    },
+    "shieldSources": {
+      "RX_CRYSTALLIZE": 13,
+      "MOND_NOELLE_E": 7
+    },
+    "allyHpLost": 10427,
+    "enemyHpLost": 17585,
+    "shieldStrengthConsumed": 5750,
+    "multiAllyShieldPackets": 7,
+    "misses": 7,
+    "allyMisses": 0,
+    "enemyMisses": 7,
+    "reactions": {
+      "RX_CRYSTALLIZE": 13,
+      "RX_MELT_PYRO": 1
+    },
+    "cards": {
+      "PLAYER_BASIC_ATTACK": 2,
+      "MOND_KAEYA_Q": 4,
+      "MOND_AMBER_Q": 1,
+      "ECARD_MOND_HILI_SHOOTER_SPECIAL": 3,
+      "MOND_NOELLE_Q": 7,
+      "ECARD_MOND_HILI_FIGHTER_SPECIAL": 2,
+      "ECARD_MITA_AXE_LEAP": 13,
+      "MOND_KAEYA_E": 7,
+      "ECARD_MOND_HILI_SHOOTER_BASIC": 3,
+      "ECARD_MOND_HILI_FIGHTER_BASIC": 1,
+      "MOND_AMBER_E": 1,
+      "ECARD_MITA_AXE_SWEEP": 13,
+      "MOND_NOELLE_E": 7,
+      "폭발": 4
+    }
+  },
+  "failureMetricsAfter": {
+    "healing": 280,
+    "healEvents": 16,
+    "healingSources": {
+      "노엘": 16
+    },
+    "shieldSources": {
+      "RX_CRYSTALLIZE": 11,
+      "MOND_NOELLE_E": 6
+    },
+    "allyHpLost": 11044,
+    "enemyHpLost": 15513,
+    "shieldStrengthConsumed": 5968,
+    "multiAllyShieldPackets": 4,
+    "misses": 5,
+    "allyMisses": 0,
+    "enemyMisses": 5,
+    "reactions": {
+      "RX_CRYSTALLIZE": 11,
+      "RX_MELT_PYRO": 1
+    },
+    "cards": {
+      "PLAYER_BASIC_ATTACK": 2,
+      "MOND_KAEYA_Q": 3,
+      "MOND_AMBER_Q": 1,
+      "ECARD_MOND_HILI_SHOOTER_SPECIAL": 3,
+      "MOND_NOELLE_Q": 7,
+      "ECARD_MOND_HILI_FIGHTER_SPECIAL": 2,
+      "ECARD_MITA_AXE_LEAP": 13,
+      "MOND_KAEYA_E": 5,
+      "ECARD_MOND_HILI_SHOOTER_BASIC": 3,
+      "ECARD_MOND_HILI_FIGHTER_BASIC": 1,
+      "MOND_AMBER_E": 1,
+      "ECARD_MITA_AXE_SWEEP": 12,
+      "MOND_NOELLE_E": 6,
+      "폭발": 4
+    }
+  },
+  "isolations": [
+    {
+      "mode": "OLD_SEQUENTIAL_SHIELDS",
+      "victory": true,
+      "rounds": 27,
+      "metrics": {
+        "healing": 700,
+        "healEvents": 32,
+        "healingSources": {
+          "노엘": 32
+        },
+        "shieldSources": {
+          "RX_CRYSTALLIZE": 13,
+          "MOND_NOELLE_E": 7
+        },
+        "allyHpLost": 10427,
+        "enemyHpLost": 17585,
+        "shieldStrengthConsumed": 5750,
+        "multiAllyShieldPackets": 7,
+        "misses": 7,
+        "allyMisses": 0,
+        "enemyMisses": 7,
+        "reactions": {
+          "RX_CRYSTALLIZE": 13,
+          "RX_MELT_PYRO": 1
+        },
+        "cards": {
+          "PLAYER_BASIC_ATTACK": 2,
+          "MOND_KAEYA_Q": 4,
+          "MOND_AMBER_Q": 1,
+          "ECARD_MOND_HILI_SHOOTER_SPECIAL": 3,
+          "MOND_NOELLE_Q": 7,
+          "ECARD_MOND_HILI_FIGHTER_SPECIAL": 2,
+          "ECARD_MITA_AXE_LEAP": 13,
+          "MOND_KAEYA_E": 7,
+          "ECARD_MOND_HILI_SHOOTER_BASIC": 3,
+          "ECARD_MOND_HILI_FIGHTER_BASIC": 1,
+          "MOND_AMBER_E": 1,
+          "ECARD_MITA_AXE_SWEEP": 13,
+          "MOND_NOELLE_E": 7,
+          "폭발": 4
+        }
+      }
+    },
+    {
+      "mode": "OLD_MELT_FREEZE",
+      "victory": false,
+      "rounds": 25,
+      "metrics": {
+        "healing": 280,
+        "healEvents": 16,
+        "healingSources": {
+          "노엘": 16
+        },
+        "shieldSources": {
+          "RX_CRYSTALLIZE": 11,
+          "MOND_NOELLE_E": 6
+        },
+        "allyHpLost": 11044,
+        "enemyHpLost": 15513,
+        "shieldStrengthConsumed": 5968,
+        "multiAllyShieldPackets": 4,
+        "misses": 5,
+        "allyMisses": 0,
+        "enemyMisses": 5,
+        "reactions": {
+          "RX_CRYSTALLIZE": 11,
+          "RX_MELT_PYRO": 1
+        },
+        "cards": {
+          "PLAYER_BASIC_ATTACK": 2,
+          "MOND_KAEYA_Q": 3,
+          "MOND_AMBER_Q": 1,
+          "ECARD_MOND_HILI_SHOOTER_SPECIAL": 3,
+          "MOND_NOELLE_Q": 7,
+          "ECARD_MOND_HILI_FIGHTER_SPECIAL": 2,
+          "ECARD_MITA_AXE_LEAP": 13,
+          "MOND_KAEYA_E": 5,
+          "ECARD_MOND_HILI_SHOOTER_BASIC": 3,
+          "ECARD_MOND_HILI_FIGHTER_BASIC": 1,
+          "MOND_AMBER_E": 1,
+          "ECARD_MITA_AXE_SWEEP": 12,
+          "MOND_NOELLE_E": 6,
+          "폭발": 4
+        }
+      }
+    },
+    {
+      "mode": "OLD_REACTION_SELECTION",
+      "victory": false,
+      "rounds": 25,
+      "metrics": {
+        "healing": 280,
+        "healEvents": 16,
+        "healingSources": {
+          "노엘": 16
+        },
+        "shieldSources": {
+          "RX_CRYSTALLIZE": 11,
+          "MOND_NOELLE_E": 6
+        },
+        "allyHpLost": 11044,
+        "enemyHpLost": 15513,
+        "shieldStrengthConsumed": 5968,
+        "multiAllyShieldPackets": 4,
+        "misses": 5,
+        "allyMisses": 0,
+        "enemyMisses": 5,
+        "reactions": {
+          "RX_CRYSTALLIZE": 11,
+          "RX_MELT_PYRO": 1
+        },
+        "cards": {
+          "PLAYER_BASIC_ATTACK": 2,
+          "MOND_KAEYA_Q": 3,
+          "MOND_AMBER_Q": 1,
+          "ECARD_MOND_HILI_SHOOTER_SPECIAL": 3,
+          "MOND_NOELLE_Q": 7,
+          "ECARD_MOND_HILI_FIGHTER_SPECIAL": 2,
+          "ECARD_MITA_AXE_LEAP": 13,
+          "MOND_KAEYA_E": 5,
+          "ECARD_MOND_HILI_SHOOTER_BASIC": 3,
+          "ECARD_MOND_HILI_FIGHTER_BASIC": 1,
+          "MOND_AMBER_E": 1,
+          "ECARD_MITA_AXE_SWEEP": 12,
+          "MOND_NOELLE_E": 6,
+          "폭발": 4
+        }
+      }
+    },
+    {
+      "mode": "OLD_ALL_THREE",
+      "victory": true,
+      "rounds": 27,
+      "metrics": {
+        "healing": 700,
+        "healEvents": 32,
+        "healingSources": {
+          "노엘": 32
+        },
+        "shieldSources": {
+          "RX_CRYSTALLIZE": 13,
+          "MOND_NOELLE_E": 7
+        },
+        "allyHpLost": 10427,
+        "enemyHpLost": 17585,
+        "shieldStrengthConsumed": 5750,
+        "multiAllyShieldPackets": 7,
+        "misses": 7,
+        "allyMisses": 0,
+        "enemyMisses": 7,
+        "reactions": {
+          "RX_CRYSTALLIZE": 13,
+          "RX_MELT_PYRO": 1
+        },
+        "cards": {
+          "PLAYER_BASIC_ATTACK": 2,
+          "MOND_KAEYA_Q": 4,
+          "MOND_AMBER_Q": 1,
+          "ECARD_MOND_HILI_SHOOTER_SPECIAL": 3,
+          "MOND_NOELLE_Q": 7,
+          "ECARD_MOND_HILI_FIGHTER_SPECIAL": 2,
+          "ECARD_MITA_AXE_LEAP": 13,
+          "MOND_KAEYA_E": 7,
+          "ECARD_MOND_HILI_SHOOTER_BASIC": 3,
+          "ECARD_MOND_HILI_FIGHTER_BASIC": 1,
+          "MOND_AMBER_E": 1,
+          "ECARD_MITA_AXE_SWEEP": 13,
+          "MOND_NOELLE_E": 7,
+          "폭발": 4
+        }
+      }
+    }
+  ],
+  "recoveryVerified": {
+    "saveRestores": true,
+    "fullHp": true,
+    "noExtraMoraCost": true,
+    "freePhase": true,
+    "safeMap": true
+  },
+  "interpretation": "The single outcome change is reproduced by simultaneous ally-shield depletion. Restoring only sequential shields restores the original outcome. The historical unconditional-win assertion is sensitive to the removed shield-stacking advantage. This is not an enemy-stat change or an irreversible field progression lock. It is not a whole-story difficulty or all-user-save audit.",
+  "fixedAcrossPartyLevelChecks": [
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "seed": 11,
+      "partyLevels": [
+        17,
+        30,
+        45
+      ],
+      "enemyStats": [
+        [
+          "MON_HILI_FIGHTER",
+          17,
+          3880,
+          1136,
+          74
+        ],
+        [
+          "MON_MITACHURL_AXE",
+          17,
+          9825,
+          1544,
+          103
+        ],
+        [
+          "MON_HILI_SHOOTER",
+          17,
+          3880,
+          1136,
+          74
+        ]
+      ],
+      "fixedAcrossPartyLevels": true
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "seed": 22,
+      "partyLevels": [
+        17,
+        30,
+        45
+      ],
+      "enemyStats": [
+        [
+          "MON_HILI_FIGHTER",
+          17,
+          3880,
+          1136,
+          74
+        ],
+        [
+          "MON_MITACHURL_AXE",
+          17,
+          9825,
+          1544,
+          103
+        ],
+        [
+          "MON_HILI_SHOOTER",
+          17,
+          3880,
+          1136,
+          74
+        ]
+      ],
+      "fixedAcrossPartyLevels": true
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "seed": 33,
+      "partyLevels": [
+        17,
+        30,
+        45
+      ],
+      "enemyStats": [
+        [
+          "MON_HILI_FIGHTER",
+          17,
+          3880,
+          1136,
+          74
+        ],
+        [
+          "MON_HILI_FIGHTER",
+          17,
+          3880,
+          1136,
+          74
+        ],
+        [
+          "MON_MITACHURL_AXE",
+          17,
+          9825,
+          1544,
+          103
+        ]
+      ],
+      "fixedAcrossPartyLevels": true
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "seed": 11,
+      "partyLevels": [
+        32,
+        45,
+        60
+      ],
+      "enemyStats": [
+        [
+          "MON_MITACHURL_ROCK",
+          32,
+          18805,
+          2788,
+          213
+        ],
+        [
+          "MON_HILI_FIGHTER",
+          32,
+          7000,
+          1900,
+          152
+        ],
+        [
+          "MON_HILI_SHOOTER",
+          32,
+          7000,
+          1900,
+          152
+        ]
+      ],
+      "fixedAcrossPartyLevels": true
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "seed": 22,
+      "partyLevels": [
+        32,
+        45,
+        60
+      ],
+      "enemyStats": [
+        [
+          "MON_MITACHURL_ROCK",
+          32,
+          18805,
+          2788,
+          213
+        ],
+        [
+          "MON_HILI_FIGHTER",
+          32,
+          7000,
+          1900,
+          152
+        ],
+        [
+          "MON_HILI_FIGHTER",
+          32,
+          7000,
+          1900,
+          152
+        ],
+        [
+          "MON_HILI_SHOOTER",
+          32,
+          7000,
+          1900,
+          152
+        ]
+      ],
+      "fixedAcrossPartyLevels": true
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "seed": 33,
+      "partyLevels": [
+        32,
+        45,
+        60
+      ],
+      "enemyStats": [
+        [
+          "MON_MITACHURL_ROCK",
+          32,
+          18805,
+          2788,
+          213
+        ],
+        [
+          "MON_HILI_FIGHTER",
+          32,
+          7000,
+          1900,
+          152
+        ]
+      ],
+      "fixedAcrossPartyLevels": true
+    }
+  ]
+}

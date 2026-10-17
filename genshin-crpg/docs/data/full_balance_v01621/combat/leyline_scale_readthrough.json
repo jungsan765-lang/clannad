@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "baselineCommit": "df1d2c48b630bf8a152481bcc4bcc3e5b8b37785",
+  "sources": [
+    {
+      "path": "source/runtime_ley_lines.js",
+      "beforeSha256": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "currentSha256": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f"
+    },
+    {
+      "path": "source/runtime_growth_v01522.js",
+      "beforeSha256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+      "currentSha256": "ef07b08757a96a540f508b29da854a271f5ff3b3db4fc990bc0ee4f8320bde6c"
+    },
+    {
+      "path": "source/runtime_enemy_tiers.js",
+      "beforeSha256": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31",
+      "currentSha256": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31"
+    },
+    {
+      "path": "source/index.html",
+      "beforeSha256": "a75e6f516654442a2dd038cdb8f4d8aa0792ff5d92472a9cba38edae79fe98e3",
+      "currentSha256": "a75e6f516654442a2dd038cdb8f4d8aa0792ff5d92472a9cba38edae79fe98e3"
+    }
+  ],
+  "finding": "ley_lines relevel/dedicated HP-ATK-DEF scaling executes first. Later growth.startBattle uses b.leyLine.level and tuneGrowthEnemy rewrites HP/ATK/DEF to the shared fixed-four curve. enemyTierEligible excludes BOSS origins. This same connection exists in the baseline, so the observed late-level speed is not a new Noelle/growth-HP regression.",
+  "level60OrdinaryFinal": {
+    "hp": 17000,
+    "atk": 4900,
+    "def": 370
+  },
+  "oldDedicatedMultipliersAt60": {
+    "hp": 1.855,
+    "atk": 18.2,
+    "def": 2.65
+  },
+  "recommendation": "Preserve current actual curve during this bug fix. Reapplying dormant multipliers is a large difficulty change and does not follow from the observed short duration. No forced lodging or uniform enemy buff.",
+  "nativeEvidence": "../economy/leyline_native.json",
+  "proofBoundary": "Read-through and native initial values; historical author intent and every composition difficulty are not asserted."
+}

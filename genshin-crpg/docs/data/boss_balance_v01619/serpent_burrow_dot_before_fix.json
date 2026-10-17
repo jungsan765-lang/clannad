@@ -1,0 +1,44 @@
+{
+  "fingerprint": "bc16f74ab05811da12dff1199047cc215e56a30b0e3730d02707dab6c78ece0a",
+  "scope": "Read-only diagnostic: opened Serpent armor, two native own-turn actions, then positive allied final Pyro DoT packet",
+  "before": {
+    "hp": 83496,
+    "burrowed": true,
+    "armorOpened": true
+  },
+  "after": {
+    "hp": 83396,
+    "burrowed": true
+  },
+  "packets": [
+    {
+      "actor": "동일 조건 비교",
+      "target": "유적의 뱀",
+      "damage": 100,
+      "absorbed": 0,
+      "shieldBefore": 0,
+      "shieldAfter": 0,
+      "element": "불",
+      "sourceKind": "REACTION_DOT",
+      "presentationActorsBefore": [
+        {
+          "id": "FB_RUIN_SERPENT#1",
+          "hp": 83496
+        }
+      ],
+      "presentationActorsAfter": [
+        {
+          "id": "FB_RUIN_SERPENT#1",
+          "hp": 83396
+        }
+      ],
+      "targetId": "FB_RUIN_SERPENT#1",
+      "actorId": "PLAYER_CUSTOM",
+      "round": 1,
+      "actionSequence": 0,
+      "hpBefore": 83496,
+      "hpAfter": 83396,
+      "maxHp": 83496
+    }
+  ]
+}

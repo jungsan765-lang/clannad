@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_material_efficiency_v01622.cjs",
+  "command": [
+    "node",
+    "tests/test_material_efficiency_v01622.cjs"
+  ],
+  "startedAt": "2026-10-10T09:19:44.245348+00:00",
+  "endedAt": "2026-10-10T09:19:45.187536+00:00",
+  "seconds": 0.738,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "178c701451b58f8c0867d07d8875dcdbaf57745d1326e5943fcac635605995db",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_material_efficiency_v01622.stdout.log",
+  "stderrLog": "test_material_efficiency_v01622.stderr.log"
+}

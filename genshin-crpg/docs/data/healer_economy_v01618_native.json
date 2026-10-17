@@ -1,0 +1,780 @@
+{
+  "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "changes": "None; synthetic ownership/levels/gates followed by native runtime actions.",
+  "rows": [
+    {
+      "name": "Dead Lv.1 active learner and dead Lv.1 reserve receive full and quarter XP, native victory",
+      "before": {
+        "party": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_AMBER",
+            "level": 1,
+            "hp": 0,
+            "maxHp": 650
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 60,
+            "hp": 20041,
+            "maxHp": 20041
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "reserve": {
+          "level": 1,
+          "xp": 0,
+          "hp": 0,
+          "statuses": []
+        },
+        "entry": {
+          "id": "MIDSUMMER_COURTYARD:15",
+          "key": "MIDSUMMER_COURTYARD",
+          "kind": "EXP",
+          "name": "한 여름의 정원",
+          "trial": "경험치",
+          "region": "몬드",
+          "level": 15,
+          "levels": [
+            5,
+            10,
+            15
+          ],
+          "map": "MAP_D163_MIDSUMMER_COURTYARD",
+          "reason": "",
+          "lock": ""
+        }
+      },
+      "initial": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 19122,
+          "maxHp": 19122,
+          "side": "ALLY"
+        },
+        {
+          "id": "MOND_AMBER",
+          "level": 1,
+          "hp": 0,
+          "maxHp": 650,
+          "side": "ALLY"
+        },
+        {
+          "id": "MOND_FISCHL",
+          "level": 60,
+          "hp": 20041,
+          "maxHp": 21043,
+          "side": "ALLY"
+        },
+        {
+          "id": "MOND_BARBARA",
+          "level": 60,
+          "hp": 20654,
+          "maxHp": 20654,
+          "side": "ALLY"
+        },
+        {
+          "id": "MON_HILI_ELECTRO_SHOOTER#1",
+          "level": 15,
+          "hp": 3600,
+          "maxHp": 3600,
+          "side": "ENEMY"
+        },
+        {
+          "id": "MON_SLIME_LARGE_ELECTRO#1",
+          "level": 15,
+          "hp": 9063,
+          "maxHp": 9063,
+          "side": "ENEMY"
+        },
+        {
+          "id": "MON_HILI_FIGHTER#1",
+          "level": 15,
+          "hp": 3600,
+          "maxHp": 3600,
+          "side": "ENEMY"
+        },
+        {
+          "id": "MON_HILI_FIGHTER#2",
+          "level": 15,
+          "hp": 3600,
+          "maxHp": 3600,
+          "side": "ENEMY"
+        }
+      ],
+      "out": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+        "group": "EG_DOMAIN4_MIDSUMMER_COURTYARD_15",
+        "origin": "DOMAIN:MIDSUMMER_COURTYARD:15",
+        "gate": "DOMAIN:MIDSUMMER_COURTYARD:15",
+        "branch": null,
+        "victory": true,
+        "xp": 1000,
+        "loot": {
+          "MAT_DAMAGED_MASK": 3,
+          "MAT_SLIME_CONDENSATE": 2
+        },
+        "rounds": 1,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "domain": {
+          "id": "MIDSUMMER_COURTYARD:15",
+          "level": 15,
+          "bonus": false,
+          "items": {}
+        }
+      },
+      "after": {
+        "party": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_AMBER",
+            "level": 5,
+            "hp": 1009,
+            "maxHp": 1009
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 60,
+            "hp": 20041,
+            "maxHp": 20041
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          }
+        ],
+        "reserve": {
+          "level": 3,
+          "xp": 20,
+          "hp": 888,
+          "statuses": []
+        },
+        "growth": {
+          "PLAYER_CUSTOM": {
+            "gained": 0,
+            "fromLevel": 60,
+            "toLevel": 60,
+            "turn": 15
+          },
+          "MOND_AMBER": {
+            "gained": 1000,
+            "fromLevel": 1,
+            "toLevel": 5,
+            "turn": 15
+          },
+          "MOND_FISCHL": {
+            "gained": 0,
+            "fromLevel": 60,
+            "toLevel": 60,
+            "turn": 15
+          },
+          "MOND_BARBARA": {
+            "gained": 0,
+            "fromLevel": 60,
+            "toLevel": 60,
+            "turn": 15
+          },
+          "MOND_KAEYA": {
+            "gained": 250,
+            "fromLevel": 1,
+            "toLevel": 3,
+            "turn": 15
+          },
+          "MOND_NOELLE": {
+            "gained": 0,
+            "fromLevel": 55,
+            "toLevel": 55,
+            "turn": 15
+          },
+          "MOND_LISA": {
+            "gained": 0,
+            "fromLevel": 55,
+            "toLevel": 55,
+            "turn": 15
+          }
+        }
+      },
+      "learnerActions": [],
+      "combatBeforeReward": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "hp": 19122,
+          "maxHp": 19122,
+          "level": 60
+        },
+        {
+          "id": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 650,
+          "level": 1
+        },
+        {
+          "id": "MOND_FISCHL",
+          "hp": 20041,
+          "maxHp": 21043,
+          "level": 60
+        },
+        {
+          "id": "MOND_BARBARA",
+          "hp": 20654,
+          "maxHp": 20654,
+          "level": 60
+        }
+      ]
+    },
+    {
+      "name": "Native HP carry-over but Barbara E/Q cooldowns fresh next battle, capped levels",
+      "runs": [
+        {
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 11473,
+              "maxHp": 19122
+            },
+            {
+              "owner": "MOND_AMBER",
+              "level": 60,
+              "hp": 12392,
+              "maxHp": 20654
+            },
+            {
+              "owner": "MOND_KAEYA",
+              "level": 60,
+              "hp": 13311,
+              "maxHp": 22185
+            },
+            {
+              "owner": "MOND_BARBARA",
+              "level": 60,
+              "hp": 12392,
+              "maxHp": 20654
+            }
+          ],
+          "entry": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 11473,
+              "maxHp": 19122,
+              "cooldowns": {}
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 12392,
+              "maxHp": 20654,
+              "cooldowns": {}
+            },
+            {
+              "id": "MOND_KAEYA",
+              "hp": 13311,
+              "maxHp": 23294,
+              "cooldowns": {}
+            },
+            {
+              "id": "MOND_BARBARA",
+              "hp": 12392,
+              "maxHp": 20654,
+              "cooldowns": {}
+            }
+          ],
+          "out": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": true,
+            "xp": 220,
+            "loot": {
+              "MAT_DAMAGED_MASK": 4,
+              "MAT_STAINED_MASK": 5,
+              "MAT_SLIME_CONDENSATE": 2,
+              "MAT_SLIME_SECRETIONS": 2,
+              "MAT_OMINOUS_MASK": 1,
+              "GROWTH_TALENT_MOND": 32
+            },
+            "rounds": 2,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "FORSAKEN_RIFT:25",
+              "level": 25,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_MOND": 32
+              }
+            }
+          },
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122
+            },
+            {
+              "owner": "MOND_AMBER",
+              "level": 60,
+              "hp": 20271,
+              "maxHp": 20654
+            },
+            {
+              "owner": "MOND_KAEYA",
+              "level": 60,
+              "hp": 22185,
+              "maxHp": 22185
+            },
+            {
+              "owner": "MOND_BARBARA",
+              "level": 60,
+              "hp": 20654,
+              "maxHp": 20654
+            }
+          ],
+          "exit": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 19122,
+              "maxHp": 19122,
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 3,
+                "PLAYER_TRAVELER_ANEMO_E": 3
+              }
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 20271,
+              "maxHp": 20654,
+              "cooldowns": {
+                "MOND_AMBER_Q": 2,
+                "MOND_AMBER_E": 3
+              }
+            },
+            {
+              "id": "MOND_KAEYA",
+              "hp": 23294,
+              "maxHp": 23294,
+              "cooldowns": {
+                "MOND_KAEYA_Q": 3,
+                "MOND_KAEYA_E": 2
+              }
+            },
+            {
+              "id": "MOND_BARBARA",
+              "hp": 20654,
+              "maxHp": 20654,
+              "cooldowns": {
+                "MOND_BARBARA_Q": 6
+              }
+            }
+          ],
+          "barbaraCards": [
+            {
+              "card": "MOND_BARBARA_Q",
+              "round": 1,
+              "actor": "바바라",
+              "actorId": "MOND_BARBARA"
+            }
+          ],
+          "healing": [
+            {
+              "actor": "바바라",
+              "target": "동일 조건 비교",
+              "heal": 7649,
+              "presentationActorsBefore": [
+                {
+                  "id": "PLAYER_CUSTOM",
+                  "hp": 11473
+                },
+                {
+                  "id": "MOND_BARBARA",
+                  "turns": 0,
+                  "guard": null
+                }
+              ],
+              "presentationActorsAfter": [
+                {
+                  "id": "PLAYER_CUSTOM",
+                  "hp": 19122
+                },
+                {
+                  "id": "MOND_BARBARA",
+                  "turns": 1,
+                  "guard": false
+                }
+              ],
+              "targetId": "PLAYER_CUSTOM",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 11473,
+              "hpAfter": 19122,
+              "maxHp": 19122,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            },
+            {
+              "actor": "바바라",
+              "target": "엠버",
+              "heal": 8262,
+              "presentationActorsBefore": [
+                {
+                  "id": "MOND_AMBER",
+                  "hp": 12392
+                }
+              ],
+              "presentationActorsAfter": [
+                {
+                  "id": "MOND_AMBER",
+                  "hp": 20654
+                }
+              ],
+              "targetId": "MOND_AMBER",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 12392,
+              "hpAfter": 20654,
+              "maxHp": 20654,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            },
+            {
+              "actor": "바바라",
+              "target": "케이아",
+              "heal": 9983,
+              "presentationActorsBefore": [
+                {
+                  "id": "MOND_KAEYA",
+                  "hp": 13311
+                }
+              ],
+              "presentationActorsAfter": [
+                {
+                  "id": "MOND_KAEYA",
+                  "hp": 23294
+                }
+              ],
+              "targetId": "MOND_KAEYA",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 13311,
+              "hpAfter": 23294,
+              "maxHp": 23294,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            },
+            {
+              "actor": "바바라",
+              "target": "바바라",
+              "heal": 8262,
+              "presentationActorsBefore": [
+                {
+                  "id": "MOND_BARBARA",
+                  "hp": 12392
+                }
+              ],
+              "presentationActorsAfter": [
+                {
+                  "id": "MOND_BARBARA",
+                  "hp": 20654
+                }
+              ],
+              "targetId": "MOND_BARBARA",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 12392,
+              "hpAfter": 20654,
+              "maxHp": 20654,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            }
+          ]
+        },
+        {
+          "before": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122
+            },
+            {
+              "owner": "MOND_AMBER",
+              "level": 60,
+              "hp": 20271,
+              "maxHp": 20654
+            },
+            {
+              "owner": "MOND_KAEYA",
+              "level": 60,
+              "hp": 22185,
+              "maxHp": 22185
+            },
+            {
+              "owner": "MOND_BARBARA",
+              "level": 60,
+              "hp": 20654,
+              "maxHp": 20654
+            }
+          ],
+          "entry": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 19122,
+              "maxHp": 19122,
+              "cooldowns": {}
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 20271,
+              "maxHp": 20654,
+              "cooldowns": {}
+            },
+            {
+              "id": "MOND_KAEYA",
+              "hp": 22185,
+              "maxHp": 23294,
+              "cooldowns": {}
+            },
+            {
+              "id": "MOND_BARBARA",
+              "hp": 20654,
+              "maxHp": 20654,
+              "cooldowns": {}
+            }
+          ],
+          "out": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031:B17",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031:B17",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-9031",
+            "group": "EG_DOMAIN4_FORSAKEN_RIFT_25",
+            "origin": "DOMAIN:FORSAKEN_RIFT:25",
+            "gate": "DOMAIN:FORSAKEN_RIFT:25",
+            "branch": null,
+            "victory": true,
+            "xp": 220,
+            "loot": {
+              "MAT_DAMAGED_MASK": 6,
+              "MAT_SLIME_CONDENSATE": 4,
+              "MAT_SLIME_SECRETIONS": 1,
+              "GROWTH_TALENT_MOND": 32
+            },
+            "rounds": 2,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "FORSAKEN_RIFT:25",
+              "level": 25,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_MOND": 32
+              }
+            }
+          },
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122
+            },
+            {
+              "owner": "MOND_AMBER",
+              "level": 60,
+              "hp": 20278,
+              "maxHp": 20654
+            },
+            {
+              "owner": "MOND_KAEYA",
+              "level": 60,
+              "hp": 22185,
+              "maxHp": 22185
+            },
+            {
+              "owner": "MOND_BARBARA",
+              "level": 60,
+              "hp": 20654,
+              "maxHp": 20654
+            }
+          ],
+          "exit": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": 19122,
+              "maxHp": 19122,
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 3,
+                "PLAYER_TRAVELER_ANEMO_E": 3
+              }
+            },
+            {
+              "id": "MOND_AMBER",
+              "hp": 20278,
+              "maxHp": 20654,
+              "cooldowns": {
+                "MOND_AMBER_Q": 2,
+                "MOND_AMBER_E": 3
+              }
+            },
+            {
+              "id": "MOND_KAEYA",
+              "hp": 23294,
+              "maxHp": 23294,
+              "cooldowns": {
+                "MOND_KAEYA_Q": 3,
+                "MOND_KAEYA_E": 2
+              }
+            },
+            {
+              "id": "MOND_BARBARA",
+              "hp": 20654,
+              "maxHp": 20654,
+              "cooldowns": {
+                "MOND_BARBARA_Q": 5,
+                "MOND_BARBARA_E": 4
+              }
+            }
+          ],
+          "barbaraCards": [
+            {
+              "card": "MOND_BARBARA_Q",
+              "round": 1,
+              "actor": "바바라",
+              "actorId": "MOND_BARBARA"
+            },
+            {
+              "card": "MOND_BARBARA_E",
+              "round": 2,
+              "actor": "바바라",
+              "actorId": "MOND_BARBARA"
+            }
+          ],
+          "healing": [
+            {
+              "actor": "바바라",
+              "target": "동일 조건 비교",
+              "heal": 0,
+              "presentationActorsBefore": [
+                {
+                  "id": "MOND_BARBARA",
+                  "turns": 0,
+                  "guard": null
+                }
+              ],
+              "presentationActorsAfter": [
+                {
+                  "id": "MOND_BARBARA",
+                  "turns": 1,
+                  "guard": false
+                }
+              ],
+              "targetId": "PLAYER_CUSTOM",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 19122,
+              "hpAfter": 19122,
+              "maxHp": 19122,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            },
+            {
+              "actor": "바바라",
+              "target": "엠버",
+              "heal": 383,
+              "presentationActorsBefore": [
+                {
+                  "id": "MOND_AMBER",
+                  "hp": 20271
+                }
+              ],
+              "presentationActorsAfter": [
+                {
+                  "id": "MOND_AMBER",
+                  "hp": 20654
+                }
+              ],
+              "targetId": "MOND_AMBER",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 20271,
+              "hpAfter": 20654,
+              "maxHp": 20654,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            },
+            {
+              "actor": "바바라",
+              "target": "케이아",
+              "heal": 1109,
+              "presentationActorsBefore": [
+                {
+                  "id": "MOND_KAEYA",
+                  "hp": 22185
+                }
+              ],
+              "presentationActorsAfter": [
+                {
+                  "id": "MOND_KAEYA",
+                  "hp": 23294
+                }
+              ],
+              "targetId": "MOND_KAEYA",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 22185,
+              "hpAfter": 23294,
+              "maxHp": 23294,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            },
+            {
+              "actor": "바바라",
+              "target": "바바라",
+              "heal": 0,
+              "targetId": "MOND_BARBARA",
+              "round": 1,
+              "actionSequence": 3,
+              "hpBefore": 20654,
+              "hpAfter": 20654,
+              "maxHp": 20654,
+              "actorId": "MOND_BARBARA",
+              "cardName": "빛나는기적♪"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

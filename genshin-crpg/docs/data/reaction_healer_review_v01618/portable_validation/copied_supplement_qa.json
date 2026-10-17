@@ -1,0 +1,700 @@
+{
+  "checkedUTC": "2026-10-09T15:44:18.787843+00:00",
+  "sourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "reviewOnly": true,
+  "inputsBefore": {
+    "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/reaction_healer_review_v01618/barbara_late/native.json.gz": {
+      "mtime": 1791560613.9662392,
+      "bytes": 36908,
+      "sha256": "3e4f1c8237adb8ae5635f0cc7fd8f41807912752fbe74c8e00e8d284c0d54499"
+    },
+    "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/reaction_healer_review_v01618/barbara_late/native_lower.json.gz": {
+      "mtime": 1791560614.0011485,
+      "bytes": 37799,
+      "sha256": "47b8ba2e824a07d68abf2456c72563be6923da1fe5a8e516a8d7a3f4444593fd"
+    },
+    "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/reaction_healer_review_v01618/barbara_late/native_middle.json.gz": {
+      "mtime": 1791560614.0383554,
+      "bytes": 36943,
+      "sha256": "c47c70ad6984329b2346da2a5fdaacbd2cab59868fb5c77e34b5ed5cd4fd8802"
+    }
+  },
+  "inputsAfter": {
+    "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/reaction_healer_review_v01618/barbara_late/native.json.gz": {
+      "mtime": 1791560613.9662392,
+      "bytes": 36908,
+      "sha256": "3e4f1c8237adb8ae5635f0cc7fd8f41807912752fbe74c8e00e8d284c0d54499"
+    },
+    "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/reaction_healer_review_v01618/barbara_late/native_lower.json.gz": {
+      "mtime": 1791560614.0011485,
+      "bytes": 37799,
+      "sha256": "47b8ba2e824a07d68abf2456c72563be6923da1fe5a8e516a8d7a3f4444593fd"
+    },
+    "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/reaction_healer_review_v01618/barbara_late/native_middle.json.gz": {
+      "mtime": 1791560614.0383554,
+      "bytes": 36943,
+      "sha256": "c47c70ad6984329b2346da2a5fdaacbd2cab59868fb5c77e34b5ed5cd4fd8802"
+    }
+  },
+  "inputsStableDuringCheck": true,
+  "base438FilesAndQAPreserved": true,
+  "productSourceAndDB233": {
+    "count": 233,
+    "allUnchanged": true,
+    "changed": {}
+  },
+  "datasets": [
+    {
+      "file": "native.json.gz",
+      "candidate": {
+        "name": "BARBARA_LATE_Q008_E0015",
+        "jeanQ": 1.2,
+        "jeanField": 0.35,
+        "barbaraQ": 0.08,
+        "barbaraE": 0.015
+      },
+      "conditions": 8,
+      "mainFights": 64,
+      "wins": 64,
+      "losses": 0,
+      "koEvents": 0,
+      "executionErrors": [],
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "actualSupportTalents": [
+        [
+          50,
+          [
+            [
+              "e",
+              5
+            ],
+            [
+              "na",
+              5
+            ],
+            [
+              "q",
+              5
+            ]
+          ]
+        ],
+        [
+          60,
+          [
+            [
+              "e",
+              6
+            ],
+            [
+              "na",
+              6
+            ],
+            [
+              "q",
+              6
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "file": "native_lower.json.gz",
+      "candidate": {
+        "name": "BARBARA_LATE_Q003_E001",
+        "jeanQ": 1.2,
+        "jeanField": 0.35,
+        "barbaraQ": 0.03,
+        "barbaraE": 0.01
+      },
+      "conditions": 8,
+      "mainFights": 64,
+      "wins": 64,
+      "losses": 0,
+      "koEvents": 6,
+      "executionErrors": [],
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "actualSupportTalents": [
+        [
+          50,
+          [
+            [
+              "e",
+              5
+            ],
+            [
+              "na",
+              5
+            ],
+            [
+              "q",
+              5
+            ]
+          ]
+        ],
+        [
+          60,
+          [
+            [
+              "e",
+              6
+            ],
+            [
+              "na",
+              6
+            ],
+            [
+              "q",
+              6
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "file": "native_middle.json.gz",
+      "candidate": {
+        "name": "BARBARA_LATE_Q005_E0015",
+        "jeanQ": 1.2,
+        "jeanField": 0.35,
+        "barbaraQ": 0.05,
+        "barbaraE": 0.015
+      },
+      "conditions": 8,
+      "mainFights": 64,
+      "wins": 64,
+      "losses": 0,
+      "koEvents": 0,
+      "executionErrors": [],
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "actualSupportTalents": [
+        [
+          50,
+          [
+            [
+              "e",
+              5
+            ],
+            [
+              "na",
+              5
+            ],
+            [
+              "q",
+              5
+            ]
+          ]
+        ],
+        [
+          60,
+          [
+            [
+              "e",
+              6
+            ],
+            [
+              "na",
+              6
+            ],
+            [
+              "q",
+              6
+            ]
+          ]
+        ]
+      ]
+    }
+  ],
+  "supplementTotals": {
+    "executions": 24,
+    "uniqueConditions": 24,
+    "mainFights": 192,
+    "wins": 192,
+    "losses": 0,
+    "koEvents": 6,
+    "executionErrors": 0,
+    "failedEndpoints": 0
+  },
+  "wholeHealerExecutionTotals": {
+    "executions": 462,
+    "uniqueConditions": 450,
+    "mainFights": 2853,
+    "wins": 2672,
+    "losses": 181
+  },
+  "supplementDuplicates": [],
+  "overlapWithBaseConditions": [],
+  "sourceSubstitutions": [
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "file": "runtime_combat.js",
+      "replacementMatchCounts": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allExactlyOne": true,
+      "originalSHA256": "91c511ba36fdb2fdae5cb6250aa71412cefabfd9f1265b0eccd777240875dc13",
+      "independentlyReconstructedVMSourceSHA256": "93fc72ad7395c48fb89bd8ffdce1383ca03ff91f3e9ca9c4b3a1be7c829e3f12",
+      "jeanNumericFormulasPreserved": true
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "file": "runtime_rules.js",
+      "replacementMatchCounts": [
+        1
+      ],
+      "allExactlyOne": true,
+      "originalSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "independentlyReconstructedVMSourceSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "jeanNumericFormulasPreserved": true
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "file": "runtime_combat.js",
+      "replacementMatchCounts": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allExactlyOne": true,
+      "originalSHA256": "91c511ba36fdb2fdae5cb6250aa71412cefabfd9f1265b0eccd777240875dc13",
+      "independentlyReconstructedVMSourceSHA256": "e7c6470c9467e7672e50c1125ccb6bb05cb8bef9de3b62b23d8be719d556a4f5",
+      "jeanNumericFormulasPreserved": true
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "file": "runtime_rules.js",
+      "replacementMatchCounts": [
+        1
+      ],
+      "allExactlyOne": true,
+      "originalSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "independentlyReconstructedVMSourceSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "jeanNumericFormulasPreserved": true
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "file": "runtime_combat.js",
+      "replacementMatchCounts": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "allExactlyOne": true,
+      "originalSHA256": "91c511ba36fdb2fdae5cb6250aa71412cefabfd9f1265b0eccd777240875dc13",
+      "independentlyReconstructedVMSourceSHA256": "10d7843c7460736fdbd1256ed64c23282d7f1eae3692492757dac0d028eec9df",
+      "jeanNumericFormulasPreserved": true
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "file": "runtime_rules.js",
+      "replacementMatchCounts": [
+        1
+      ],
+      "allExactlyOne": true,
+      "originalSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "independentlyReconstructedVMSourceSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "jeanNumericFormulasPreserved": true
+    }
+  ],
+  "aggregationMismatches": [],
+  "healingHookVsNativeLogMismatches": [],
+  "illegalTalentConditions": [],
+  "rawRequestMatchesCandidateCoefficients": true,
+  "rawRequestCoefficientMismatches": [],
+  "endpoints": [
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 50,
+      "kind": "TALENT",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 109,
+      "innCostComparable": 109,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9207740188427328,
+      "mainSeconds": 375.87,
+      "totalSeconds": 419.47
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 50,
+      "kind": "TALENT",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 159,
+      "innCostComparable": 159,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.863343174680783,
+      "mainSeconds": 359.54999999999995,
+      "totalSeconds": 443.29999999999995
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 50,
+      "kind": "ASCENSION",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 118,
+      "innCostComparable": 118,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9033228651484665,
+      "mainSeconds": 347.79,
+      "totalSeconds": 373.79
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 50,
+      "kind": "ASCENSION",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 63,
+      "innCostComparable": 63,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9597570378171014,
+      "mainSeconds": 342.90000000000003,
+      "totalSeconds": 368.90000000000003
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 60,
+      "kind": "TALENT",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 28,
+      "innCostComparable": 28,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9485249514094358,
+      "mainSeconds": 358.32,
+      "totalSeconds": 414.78
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 60,
+      "kind": "TALENT",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 29,
+      "innCostComparable": 29,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9381754707404335,
+      "mainSeconds": 341.55,
+      "totalSeconds": 400.23
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 60,
+      "kind": "ASCENSION",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 98,
+      "innCostComparable": 98,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9359842529432884,
+      "mainSeconds": 288.27,
+      "totalSeconds": 314.27
+    },
+    {
+      "candidate": "BARBARA_LATE_Q008_E0015",
+      "level": 60,
+      "kind": "ASCENSION",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 85,
+      "innCostComparable": 85,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9468289240749224,
+      "mainSeconds": 282.72,
+      "totalSeconds": 308.72
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 50,
+      "kind": "TALENT",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 2,
+      "lodgingMora": 455,
+      "innCostComparable": 455,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.5412866464825018,
+      "mainSeconds": 373.2,
+      "totalSeconds": 403.2
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 50,
+      "kind": "TALENT",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 4,
+      "lodgingMora": 631,
+      "innCostComparable": 631,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.3533482520638622,
+      "mainSeconds": 393.78,
+      "totalSeconds": 423.78
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 50,
+      "kind": "ASCENSION",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 371,
+      "innCostComparable": 371,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.6367038381255054,
+      "mainSeconds": 347.79,
+      "totalSeconds": 373.79
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 50,
+      "kind": "ASCENSION",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 358,
+      "innCostComparable": 358,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.6486638960452827,
+      "mainSeconds": 342.90000000000003,
+      "totalSeconds": 368.90000000000003
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 60,
+      "kind": "TALENT",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 221,
+      "innCostComparable": 221,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.7888631664954133,
+      "mainSeconds": 358.32,
+      "totalSeconds": 414.78
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 60,
+      "kind": "TALENT",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 294,
+      "innCostComparable": 294,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.7130495066665016,
+      "mainSeconds": 341.55,
+      "totalSeconds": 400.23
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 60,
+      "kind": "ASCENSION",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 251,
+      "innCostComparable": 251,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.8034093863352192,
+      "mainSeconds": 288.27,
+      "totalSeconds": 314.27
+    },
+    {
+      "candidate": "BARBARA_LATE_Q003_E001",
+      "level": 60,
+      "kind": "ASCENSION",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 283,
+      "innCostComparable": 283,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.7739331740470679,
+      "mainSeconds": 282.72,
+      "totalSeconds": 308.72
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 50,
+      "kind": "TALENT",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 327,
+      "innCostComparable": 327,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.6906745397446264,
+      "mainSeconds": 375.87,
+      "totalSeconds": 419.47
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 50,
+      "kind": "TALENT",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 410,
+      "innCostComparable": 410,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.6073302367564924,
+      "mainSeconds": 359.54999999999995,
+      "totalSeconds": 438.0799999999999
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 50,
+      "kind": "ASCENSION",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 236,
+      "innCostComparable": 236,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.7795851589973108,
+      "mainSeconds": 347.79,
+      "totalSeconds": 373.79
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 50,
+      "kind": "ASCENSION",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 180,
+      "innCostComparable": 180,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.8377305978148447,
+      "mainSeconds": 342.90000000000003,
+      "totalSeconds": 368.90000000000003
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 60,
+      "kind": "TALENT",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 63,
+      "innCostComparable": 63,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.899773450363346,
+      "mainSeconds": 358.32,
+      "totalSeconds": 414.78
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 60,
+      "kind": "TALENT",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 64,
+      "innCostComparable": 64,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.8885945256694356,
+      "mainSeconds": 341.55,
+      "totalSeconds": 400.23
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 60,
+      "kind": "ASCENSION",
+      "seed": 717,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 116,
+      "innCostComparable": 116,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9187516248437055,
+      "mainSeconds": 288.27,
+      "totalSeconds": 314.27
+    },
+    {
+      "candidate": "BARBARA_LATE_Q005_E0015",
+      "level": 60,
+      "kind": "ASCENSION",
+      "seed": 925,
+      "mainWins": 8,
+      "mainLosses": 0,
+      "mainKoEvents": 0,
+      "lodgingMora": 117,
+      "innCostComparable": 117,
+      "recoveryFailure": null,
+      "fullEndpoint": true,
+      "afterMainHpRatio": 0.9205219307476138,
+      "mainSeconds": 282.72,
+      "totalSeconds": 308.72
+    }
+  ],
+  "interpretation": [
+    "Supplement native heal request values are unmodified-input quantities; they are checked only against candidate caster HP coefficients, not compared with final nominal/healed totals.",
+    "All24 conditions are late-level material domains, support Barbara, +6 gear, actual talents5 at50 and6 at60, two seeds. They do not validate these lower coefficients at levels10–40 or all equipment/compositions.",
+    "Jean formulas preserve numeric coefficients1.2 and0.35; formatting0.35 instead of.35 is semantically equivalent.",
+    "KO events are separate from campaign victory. Q0.03/E0.01 can still record8wins while party members were knocked out."
+  ]
+}

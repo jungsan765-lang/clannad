@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "finishedUTC": "2026-10-09T19:16:02.498892+00:00",
+  "submanifestEntriesVerified": 144,
+  "gzipOriginalHashesVerified": 55,
+  "baselineRestore": {
+    "files": 235,
+    "eachBytesSHA256GitBlobVerified": true,
+    "archiveSHA256": "d7a2ff7c6f6aa9a9a83ae455641d6638cdaa0674f77ecdec719d2115a0d3d851"
+  },
+  "newFoodRegression": {
+    "passed": 14,
+    "failed": 0
+  },
+  "nativeMealsEachBeforeAfter": 2856,
+  "economicChecks": {
+    "passed": 213,
+    "failed": 0
+  },
+  "actualEngineParity": {
+    "passed": 204,
+    "failed": 0
+  },
+  "finalProductScope": {
+    "passed": 12,
+    "failed": 0
+  },
+  "targetedLegacyPrograms": {
+    "ran": 21,
+    "passed": 20,
+    "failed": 1,
+    "failureDiagnostic": "regressions/legacy_failure_diagnosis.json",
+    "countedFailureAsPass": false
+  },
+  "whole174SuiteReexecuted": false,
+  "currentProductFrozen": true,
+  "growthRewardCostModified": false,
+  "publicationGuard": {
+    "baselineSHA": "da29f36312af19ca11dd2c0ac29b54d6b31ee8f4",
+    "treeSHA": "e2cddb62b4b0eb1fbec3bed12d925a050258e1e2",
+    "sourceBaselinePaths": 232,
+    "sourceBaselineMismatches": [],
+    "remoteOnlySourcePreserved": "genshin-crpg/source/db_planned.json",
+    "immutable": [
+      {
+        "path": "genshin-crpg/content/db.json",
+        "sha": "cc3996929c885d41289038ff501640039a4cc71e"
+      },
+      {
+        "path": "genshin-crpg/assets",
+        "sha": "c8e23881af963b1eea026ba8d0e559f9df0f2181"
+      },
+      {
+        "path": "genshin-crpg/source/index.html",
+        "sha": "b6f9d690b7573c0e9e8b4ff1654c2e615d41d918"
+      },
+      {
+        "path": "genshin-crpg/source/db_planned.json",
+        "sha": "03d51f8a019f46dbb043f7b28d014548f448c68d"
+      }
+    ]
+  }
+}

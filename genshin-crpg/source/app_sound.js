@@ -1,0 +1,230 @@
+/* 0.14.7 sound set: every effect is a Genshin recording. In-game recordings (the Sam Toki collection already
+ * credited in audio/genshin-sfx/CREDITS.md, trimmed so they start at once and levelled to the same loudness) and
+ * official web-event sounds. Nothing is synthesised at run time. Each game sound has one or more candidates; the
+ * first is the default and the player can audition and pick another in 설정 → 소리 · 효과음 고르기
+ * (settings.sfxChoice). Plain hits take the attacker's colour where a recording exists (a bow user's shot, a
+ * hilichurl's blow), and artifacts sound different from gear when equipped.
+ * 0.16.2 (user: 「원신에 있는 SE 써. 합성 다 없애버려」, then 「캐릭터마다 스킬 쓰면 그에 해당하는 이펙트랑 SE들을 다 만들어야」): the
+ * five sounds this project once made (prev_*, made_*) are gone, replaced by recordings, and battle skills have their own
+ * sounds (app_skill_fx_v0162.js plays them): an elemental skill by its element, a burst (Venti, Zhongli and Hu Tao with
+ * their own recordings), a summon, a shield, a boss's wind-up, terrain, reinforcements and a field's tick.
+ * Volume and on/off follow the existing 소리 settings. Load after app_av.js. */
+(function(){
+'use strict';
+if(typeof GameAudio==='undefined')return;
+const S=window.CRPGSound={};
+// Game sound → candidates [asset id, label]. Asset ids are audio/genshin-sfx files (MANIFEST.sfx) or the
+// official web-event click; 'none' plays nothing.
+const CHOICES={
+ click:[['ig_click_general2','본편 기본 클릭']],
+ hover:[['ig_hover_nav','본편 초점 이동'],['none','소리 없음']],
+ tab:[['ig_tab_click2','본편 탭']],
+ choice:[['ig_next','본편 대화 넘김']],
+ toast:[['ig_notification','본편 알림']],
+ error:[['ig_didi','본편 삐빅']],
+ menu_open:[['ig_paimon_open','본편 페이몬 메뉴 열기']],
+ menu_close:[['ig_paimon_close','본편 페이몬 메뉴 닫기']],
+ page:[['ig_page_flip1','본편 책장 넘김']],
+ handbook_open:[['ig_quests_open','본편 임무 일지 열기']],
+ travel:[['ig_teleport','본편 순간이동']],
+ equip:[['equip','본편 장착 1']],
+ equip_artifact:[['ig_item_arm2','본편 장착 2']],
+ item_receive:[['item_receive','본편 아이템 획득']],
+ unlock:[['unlock','웹 이벤트 해제']],
+ quest_complete:[['quest_complete','본편 임무 완료']],
+ commission_accept:[['commission_accept','본편 의뢰 수락']],
+ commission_complete:[['commission_complete','본편 의뢰 완료']],
+ cook_complete:[['cook_complete','본편 요리 완료']],
+ forge_complete:[['forge_complete','본편 단조 완료']],
+ craft_complete:[['craft_complete','본편 합성 완료']],
+ level_up:[['ig_battlepass_levelup','본편 기행 레벨업']],
+ victory:[['quest_complete','본편 임무 완료']],
+ defeat:[['defeat','본편 도전 실패']],
+ battle_start:[['ig_domain_enter','본편 비경 입장'],['ig_abyss_deepen','본편 나선비경 진입'],['ig_countdown','본편 카운트다운']],
+ encounter_hilichurl:[['encounter_hilichurl','본편 츄츄족 발견']],
+ hit:[['ig_pot_hit','본편 항아리 깨짐 (첫 충격)'],['ig_box_hit','본편 나무 상자 타격 (첫 충격)'],['ig_unarm2','본편 무기 넣기']],
+ bow_hit:[['ig_bow_shot','본편 활 공격']],
+ hili_hit:[['ig_hilichurl_attack','본편 츄츄족 공격'],['ig_box_break','본편 나무 상자 타격']],
+ slime_hit:[['slime_hit','본편 슬라임 공격']],
+ guard:[['ig_box_break','본편 나무 상자 타격']],
+ heal:[['ig_statue_heal_late','본편 신상 회복(후반)']],
+ fire:[['fire','웹 이벤트 불']],
+ water:[['ig_swim_splash_a','본편 물보라']],
+ ice:[['ice','웹 이벤트 얼음']],
+ lightning:[['ig_thunder_sphere','본편 번개 구체']],
+ wind:[['wind','웹 이벤트 바람']],
+ rock:[['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)']],
+ dendro:[['ig_tree_rustle','본편 석화된 나무 깨우기 (앞부분)'],['ig_tree_bloom','본편 석화된 나무 깨우기 (종소리)'],['ig_wing','본편 날개 펼치기']],
+ melt:[['fire','웹 이벤트 불']],
+ vaporize:[['ig_swim_splash_b','본편 물보라 2']],
+ overload:[['ig_thunder_sphere2','본편 번개 구체 2']],
+ freeze:[['ice','웹 이벤트 얼음']],
+ // 0.14.11 기원 and 운명의 자리.
+ wish_open:[['ig_wish_open','본편 기원 화면 열기']],
+ wish_click:[['ig_wish_click','본편 기원 버튼']],
+ wish_3:[['ig_wish_execute3','본편 기원 유성 (3★)']],
+ wish_4:[['ig_wish_execute4','본편 기원 유성 (4★)']],
+ wish_5:[['ig_wish_execute5','본편 기원 유성 (5★)']],
+ wish_return:[['ig_wish_return','본편 기원 결과에서 돌아가기']],
+ wish_close:[['ig_wish_close','본편 기원 화면 닫기']],
+ // 0.14.12: each result appearing after the original wish video, and the final list.
+ wish_reveal3:[['ig_wish_reveal3','본편 기원 결과 등장 (3★)']],
+ wish_reveal4:[['ig_wish_reveal4','본편 기원 결과 등장 (4★)']],
+ wish_reveal5:[['ig_wish_reveal5','본편 기원 결과 등장 (5★)']],
+ wish_result:[['ig_wish_result_list','본편 기원 결과 목록']],
+ constellation:[['ig_constellation_activate','본편 운명의 자리 활성화']],
+ constellation_open:[['ig_constellation_open','본편 운명의 자리 열기']],
+ constellation_node:[['ig_character_constellation','본편 운명의 자리 고르기']],
+ // 0.14.15 보물상자와 퍼즐.
+ chest_appear:[['ig_chest_appear','본편 보물상자 등장']],
+ chest_unlock:[['ig_chest_unlock','본편 퍼즐 해결 · 봉인 해제']],
+ chest_open:[['ig_chest_open','본편 보물상자 열기']],
+ chest_reward:[['ig_reward_popup','본편 보상 표시'],['ig_battlepass_levelup','본편 기행 레벨업']],
+ puzzle_light:[['ig_torch_activate','본편 유적 횃불 점화'],['ig_click_general2','본편 클릭']],
+ puzzle_step:[['ig_click_general2','본편 클릭'],['ig_tab_click2','본편 탭']],
+ // 0.16.2 전투 기술 (app_skill_fx_v0162.js).
+ skill_e:[['ig_skill_switch','본편 캐릭터 교체'],['ig_wing','본편 날개 펼치기'],['none','소리 없음']],
+ skill_q:[['ig_burst_ready','본편 원소폭발 준비 완료'],['ig_large_hint','본편 큰 알림']],
+ skill_e_venti:[['ig_venti_skill','본편 벤티 원소전투 스킬'],['ig_wing','본편 날개 펼치기']],
+ skill_q_venti:[['ig_venti_burst','본편 벤티 원소폭발'],['ig_burst_ready','본편 원소폭발 준비 완료']],
+ skill_q_zhongli:[['ig_zhongli_burst','본편 종려 원소폭발'],['ig_burst_ready','본편 원소폭발 준비 완료']],
+ skill_q_hutao:[['ig_hutao_burst','본편 호두 원소폭발 (대사가 섞였을 수 있음)'],['ig_burst_ready','본편 원소폭발 준비 완료']],
+ cast_fire:[['ig_torch_activate','본편 유적 횃불 점화'],['fire','웹 이벤트 불']],
+ cast_water:[['ig_swim_stroke','본편 수영 (한 번 젓기)'],['ig_swim_splash_b','본편 물보라 2']],
+ cast_ice:[['ice','웹 이벤트 얼음'],['ig_skill_switch','본편 캐릭터 교체']],
+ cast_lightning:[['ig_summon_granum','본편 소환 장치 (번개)'],['ig_thunder_sphere','본편 번개 구체']],
+ cast_wind:[['ig_wing','본편 날개 펼치기'],['wind','웹 이벤트 바람']],
+ cast_rock:[['ig_plate','본편 발판 작동'],['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)']],
+ cast_dendro:[['ig_tree_rustle','본편 석화된 나무 깨우기 (앞부분)'],['ig_tree_bloom','본편 석화된 나무 깨우기 (종소리)']],
+ summon:[['ig_summon_granum','본편 소환 장치 (번개)'],['ig_leyline_bloom','본편 지맥의 꽃']],
+ shield_up:[['ig_plate','본편 발판 작동'],['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)'],['ig_chest_unlock','본편 퍼즐 해결 · 봉인 해제']],
+ telegraph:[['ig_large_hint','본편 큰 알림'],['ig_countdown','본편 카운트다운'],['ig_env_info','본편 특수 환경 안내']],
+ hazard:[['ig_env_info','본편 특수 환경 안내'],['ig_large_hint','본편 큰 알림']],
+ reinforce:[['ig_reinforce','본편 적 증원'],['ig_large_hint','본편 큰 알림']],
+ tick_fire:[['fire','웹 이벤트 불'],['ig_torch_activate','본편 유적 횃불 점화']],
+ tick_water:[['ig_swim_splash_b','본편 물보라 2'],['ig_swim_splash_a','본편 물보라']],
+ tick_ice:[['ice','웹 이벤트 얼음']],
+ tick_lightning:[['ig_thunder_sphere2','본편 번개 구체 2'],['ig_thunder_sphere','본편 번개 구체']],
+ tick_wind:[['wind','웹 이벤트 바람'],['ig_wing','본편 날개 펼치기']],
+ tick_rock:[['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)'],['ig_plate','본편 발판 작동']],
+ tick_dendro:[['ig_tree_bloom','본편 석화된 나무 깨우기 (종소리)'],['ig_tree_rustle','본편 석화된 나무 깨우기 (앞부분)']]
+};
+// Playback level per sound. Every recording is first brought to the same loudness (see normal()); 0.45 is the
+// level the game always used for recordings, and interface ticks sit a little under the rest.
+const LEVEL={hover:.35,click:.7,tab:.7,choice:.75,error:.75,page:.75};
+const BASE=.45,OST=.6;
+// Loudness as heard: the loudest 50 ms above 150 Hz. Recordings from different sources differ by up to ~10 dB, so
+// each buffer gets a gain toward -24 dBFS (at most +8 dB, never past full scale).
+const norms=new WeakMap();
+function normal(b){
+ let g=norms.get(b);if(g)return g;
+ const sr=b.sampleRate,n=Math.min(b.length,Math.round(sr*3)),ch=b.numberOfChannels,w=2*Math.PI*150/sr,c=Math.cos(w),a=Math.sin(w)/1.414,a0=1+a,k=[(1+c)/2/a0,-(1+c)/a0,(1+c)/2/a0,-2*c/a0,(1-a)/a0];
+ let x1=0,x2=0,y1=0,y2=0,peak=0;const x=new Float32Array(n),data=Array.from({length:ch},(_,i)=>b.getChannelData(i));
+ for(let i=0;i<n;i++){let v=0;for(const d of data)v+=d[i]/ch;const y=k[0]*v+k[1]*x1+k[2]*x2-k[3]*y1-k[4]*y2;x2=x1;x1=v;y2=y1;y1=y;x[i]=y;}
+ for(const d of data)for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>peak)peak=v;}
+ const W=Math.round(sr*.05);let loud=0;for(let s=0;s<n;s+=W>>1){let e=0;const end=Math.min(n,s+W);for(let i=s;i<end;i++)e+=x[i]*x[i];loud=Math.max(loud,Math.sqrt(e/W));}
+ g=loud>0?Math.min(Math.pow(10,-24/20)/loud,2.5,peak>0?.98/peak:2.5):1;norms.set(b,g);return g;
+}
+const KEEP=new Set(['birds','hunt_bow','hunt_pig']);
+const sfxEntry=id=>{if(id==='official_click')return {url:'audio/official-review-click.mp3'};return typeof MANIFEST!=='undefined'?MANIFEST.sfx?.[id]||null:null;};
+const usable=id=>id==='none'||!!sfxEntry(id);
+S.CHOICES=CHOICES;S.usable=usable;
+S.options=name=>(CHOICES[name]||[]).filter(([id])=>usable(id));
+// Choices saved before the candidate lists were settled (0.14.7 round 2) are dropped once, so the defaults the
+// player picked by listening apply everywhere.
+const CHOICE_REV=2;
+function settled(){if(settings.sfxChoiceRev===CHOICE_REV&&settings.sfxChoice&&typeof settings.sfxChoice==='object'&&!Array.isArray(settings.sfxChoice))return;settings.sfxChoice={};settings.sfxChoiceRev=CHOICE_REV;try{persistSettings();}catch{}}
+S.choice=name=>{settled();const list=S.options(name),saved=settings.sfxChoice?.[name];return list.some(([id])=>id===saved)?saved:list[0]?.[0]||null;};
+S.setChoice=function(name,id){settled();if(!S.options(name).some(([candidate])=>candidate===id))return;settings.sfxChoice={...settings.sfxChoice,[name]:id};try{persistSettings();}catch{}};
+const priorBuffer=GameAudio.buffer.bind(GameAudio);
+// The official click is fetched by app_av.js under the name 'click'.
+GameAudio.buffer=async function(name,force){if(!this.context)return null;if(KEEP.has(name))return priorBuffer(name);const id=force||S.choice(name);if(!id||id==='none')return null;return priorBuffer(id==='official_click'?'click':id);};
+const levelOf=(name,id)=>String(id).startsWith('ost_')?OST:BASE*(LEVEL[name]??1);
+// OST endings fade in quickly and out gently; everything else plays as recorded.
+function playBuffer(buffer,level,id){
+ const c=GameAudio.context,src=c.createBufferSource(),g=c.createGain(),t=c.currentTime;src.buffer=buffer;level*=normal(buffer);
+ if(String(id).startsWith('ost_')){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(level,t+.12);g.gain.setValueAtTime(level,t+Math.max(.2,buffer.duration-1.1));g.gain.linearRampToValueAtTime(0,t+buffer.duration);}else g.gain.value=level;
+ src.connect(g).connect(c.destination);return {src,g};
+}
+// Fanfares dip the music for their length so they are heard.
+const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete','wish_3','wish_4','wish_5','wish_reveal4','wish_reveal5','constellation']);let duckUntil=0,duckOwner=null;
+const priorSync=GameAudio.sync.bind(GameAudio);
+GameAudio.sync=function(...args){const out=priorSync(...args);if(!this.enabled()||document.hidden||!S.effectVolume()){S.stopAudition();for(const voice of this.voices){try{voice.stop();}catch{}}this.voices.clear();}if(this.music&&performance.now()<duckUntil)this.music.volume=Math.min(this.music.volume,settings.musicVolume*.65*.25);return out;};
+function duck(seconds,owner=null){duckOwner=owner;duckUntil=performance.now()+seconds*1000;const m=GameAudio.music;if(m)m.volume=Math.min(m.volume,settings.musicVolume*.65*.25);clearTimeout(S.duckTimer);S.duckTimer=setTimeout(()=>{duckOwner=null;duckUntil=0;try{GameAudio.sync();}catch{}},seconds*1000+120);}
+// Settings: listen to a candidate (it does not change the choice by itself).
+let auditionToken=0;
+S.stopAudition=()=>{auditionToken++;const source=S.auditionSource;S.auditionSource=null;try{source?.stop();}catch{}if(source&&duckOwner===source){clearTimeout(S.duckTimer);duckOwner=null;duckUntil=0;try{GameAudio.sync();}catch{}}};
+S.audition=async function(name,id){S.stopAudition();const token=auditionToken,epoch=GameAudio.epoch;try{
+ const current=()=>token===auditionToken&&epoch===GameAudio.epoch&&GameAudio.enabled()&&!document.hidden&&S.effectVolume()>0;
+ if(id==='none'||!usable(id)||!current())return;await GameAudio.unlock?.();if(!current())return;
+ const b=await GameAudio.buffer(name,id);if(!b||!current()||GameAudio.context?.state!=='running')return;
+ const {src,g}=playBuffer(b,S.effectVolume()*levelOf(name,id),id);S.auditionSource=src;
+ src.onended=()=>{src.disconnect();g.disconnect();if(S.auditionSource===src)S.auditionSource=null;};
+ try{src.start();}catch(error){src.onended();throw error;}if(DUCK.has(name))duck(b.duration,src);
+}catch{}};
+const priorStop=GameAudio.stop.bind(GameAudio);
+GameAudio.stop=function(...args){clearTimeout(S.duckTimer);duckOwner=null;duckUntil=0;S.stopAudition();return priorStop(...args);};
+// A tab, page or menu has its own sound in Genshin; the generic click that every button makes yields to it.
+const OWN_CLICK=new Set(['tab','page','menu_open','menu_close','handbook_open','wish_open','wish_click','wish_return','wish_close','constellation_open','constellation_node']);
+const namedTokens=new Map();
+GameAudio.play=async function(name){
+ try{
+ if(!this.armed||!this.enabled()||document.hidden||!S.effectVolume())return;
+ if(name==='equip'&&S.equipKind==='artifact')name='equip_artifact';
+ const now=performance.now();
+ if(OWN_CLICK.has(name)&&now-(this.clickAt||0)<150){this.clickSkip=this.clickToken;try{this.clickSource?.stop();}catch{}}
+ let token=0;if(name==='click'){token=this.clickToken=(this.clickToken||0)+1;this.clickAt=now;}
+ const ui=['click','hover','tab','equip'].includes(name);if(ui){const gap=name==='hover'?45:90;if(now-(this['last_'+name]||0)<gap)return;this['last_'+name]=now;}
+ const epoch=this.epoch,namedToken=namedTokens.get(name),id=KEEP.has(name)?name:S.choice(name),buffer=await this.buffer(name);if(!buffer||epoch!==this.epoch||namedToken!==namedTokens.get(name)||!this.enabled()||document.hidden||!S.effectVolume()||this.context?.state!=='running')return;
+ if(token&&this.clickSkip===token)return;
+ if(this.voices.size>=8){const old=this.voices.values().next().value;try{old.stop();}catch{}this.voices.delete(old);}
+ const {src:source,g:gain}=playBuffer(buffer,S.effectVolume()*levelOf(name,id),id);
+ this.voices.add(source);source.onended=()=>{this.voices.delete(source);source.disconnect();gain.disconnect();if(this.clickSource===source)this.clickSource=null;if(this.named?.[name]===source)delete this.named[name];};try{source.start();}catch(error){source.onended();throw error;}if(token)this.clickSource=source;(this.named||(this.named={}))[name]=source;if(DUCK.has(name))duck(buffer.duration,source);
+ }catch{}
+};
+S.play=name=>{try{GameAudio.play(name);}catch{}};
+// A long recording (the wish's falling star) stops when its scene is skipped.
+S.stop=name=>{namedTokens.set(name,(namedTokens.get(name)||0)+1);try{GameAudio.named?.[name]?.stop();}catch{}if(DUCK.has(name)){duckUntil=0;try{GameAudio.sync();}catch{}}};
+// 0.14.12: the wish video carries its own sound; the music dips under it like under a fanfare. The video follows the
+// effect volume and the sound switch.
+S.duck=seconds=>{try{duck(seconds);}catch{}};
+S.unduck=()=>{clearTimeout(S.duckTimer);duckUntil=0;try{GameAudio.sync();}catch{}};
+S.effectVolume=()=>{try{return GameAudio.enabled()?Math.max(0,Math.min(1,Number(settings.sfxVolume)||0)):0;}catch{return 0;}};
+S.hover=()=>S.play('hover');
+// Plain hits take the attacker's colour: a bow user's shot sounds like a bow, a hilichurl's blow like a hilichurl.
+// Slimes keep app_av.js's own slime sound; elemental hits keep their element.
+function weaponOf(id){
+ try{const owner=String(id||'').split('#')[0],inv=game.s.inventory.find(i=>i.equipped&&i.owner===owner&&i.equip&&['한손검','양손검','장병기','활','법구'].includes(game.row('16_EQUIP_DB',i.equip)?.[2]));
+  return inv?game.row('16_EQUIP_DB',inv.equip)[2]:(game.equipmentProficiencies?.(owner)||[])[0]||null;}catch{return null;}
+}
+if(window.CRPGPresentation?.actionFrames){
+ const priorFrames=CRPGPresentation.actionFrames;
+ CRPGPresentation.actionFrames=function(events){
+  const frames=priorFrames(events);
+  try{for(const f of frames){if(f.kind!=='action')continue;const id=String(f.actorId||'');let cue=null;
+   if(/^MON_.*HILI/i.test(id))cue='hili_hit';else if(!/^MON_/i.test(id)&&typeof game!=='undefined'&&game&&weaponOf(id)==='활')cue='bow_hit';
+   if(cue)for(const t of f.targets)for(const e of t.events)if(e.cue==='hit')e.cue=cue;}}catch{}
+  return frames;
+ };
+}
+// Sounds for things that happen through actions.
+if(typeof act==='function'){
+ const priorAct=act;
+ act=async function(type,params={}){
+  const lv=typeof game!=='undefined'&&game?Number(game.s.global.PLAYER_LEVEL_STATE)||0:0;
+  // Equipping or removing an artifact sounds different from gear (app_av.js plays 'equip' during the action).
+  try{S.equipKind=['EQUIP','UNEQUIP'].includes(type)&&game?.s.inventory.find(i=>i.slot===params.slot)?.artifact?'artifact':null;}catch{S.equipKind=null;}
+  let out;try{out=await priorAct(type,params);}finally{S.equipKind=null;}
+  try{
+   if(out&&out.ok===false){if(type!=='MENU')S.play('error');}
+   else if(typeof game!=='undefined'&&game){
+    if(type==='STORY_CHOICE')S.play('choice');
+    if(type==='COMBAT_BEGIN')S.play('battle_start');
+    if(type==='MOVE')S.play('travel');
+    const now=Number(game.s.global.PLAYER_LEVEL_STATE)||0;if(lv&&now>lv){S.play('level_up');window.CRPGShell?.levelUp?.(lv,now);}
+   }
+  }catch{}
+  return out;
+ };
+}
+})();

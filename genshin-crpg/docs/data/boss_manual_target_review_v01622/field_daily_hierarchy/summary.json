@@ -1,0 +1,131 @@
+{
+  "fingerprint": "2a143c669f2e73ee1921e255ae795a9088957da75acafa076de2f0264faf11bc",
+  "conditions": 2,
+  "wins": 2,
+  "defeats": 0,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 122,
+  "drift": [],
+  "rows": [
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "level": 30,
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_BARBARA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 125.24,
+      "cpuSeconds": 0.215093897,
+      "hp": 0.9055121400810732,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "FB_CRYO_HYPOSTASIS",
+          "level": 30,
+          "hp": 25550,
+          "maxHp": 25550,
+          "atk": 1509,
+          "def": 294
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {},
+      "admissionAfter": {},
+      "fieldQuotaBefore": {
+        "window": 41473,
+        "wins": 0,
+        "limit": 3,
+        "left": 3,
+        "resetAt": "00:00",
+        "minutesLeft": 480,
+        "reason": ""
+      },
+      "fieldQuotaAfterEntry": {
+        "window": 41473,
+        "wins": 0,
+        "limit": 3,
+        "left": 3,
+        "resetAt": "00:00",
+        "minutesLeft": 480,
+        "reason": ""
+      },
+      "fieldQuotaAfter": {
+        "window": 41473,
+        "wins": 1,
+        "limit": 3,
+        "left": 2,
+        "resetAt": "00:00",
+        "minutesLeft": 480,
+        "reason": ""
+      }
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "level": 30,
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 86.72,
+      "cpuSeconds": 0.133083897,
+      "hp": 1,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "FB_CRYO_HYPOSTASIS",
+          "level": 30,
+          "hp": 25550,
+          "maxHp": 25550,
+          "atk": 1509,
+          "def": 294
+        }
+      ],
+      "terrain": null,
+      "admissionBefore": {},
+      "admissionAfterEntry": {},
+      "admissionAfter": {},
+      "fieldQuotaBefore": {
+        "window": 41473,
+        "wins": 0,
+        "limit": 3,
+        "left": 3,
+        "resetAt": "00:00",
+        "minutesLeft": 480,
+        "reason": ""
+      },
+      "fieldQuotaAfterEntry": {
+        "window": 41473,
+        "wins": 0,
+        "limit": 3,
+        "left": 3,
+        "resetAt": "00:00",
+        "minutesLeft": 480,
+        "reason": ""
+      },
+      "fieldQuotaAfter": {
+        "window": 41473,
+        "wins": 1,
+        "limit": 3,
+        "left": 2,
+        "resetAt": "00:00",
+        "minutesLeft": 480,
+        "reason": ""
+      }
+    }
+  ]
+}

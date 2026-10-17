@@ -1,0 +1,31 @@
+PASS qiqi_E_new_saved_field_uses_hybrid_and_direct_bonus
+PASS qiqi_E_legacy_saved_field_keeps_55pct
+PASS qiqi_Q_new_hybrid_saved_mark_and_once_per_round
+PASS qiqi_Q_legacy_45pct_saved_mark_and_once_per_round
+PASS xianyun_Q_immediate_party_heal_and_saved_single_target
+PASS xianyun_legacy_saved_star_keeps_party_25pct
+PASS yaoyao_E_new_saved_field_uses_15_per_mille_plus_180
+PASS yaoyao_E_legacy_saved_field_keeps_5pct
+PASS yaoyao_Q_party_hybrid_and_sage_metadata
+PASS diona_new_single_hybrid_saved_field
+PASS diona_legacy_party_8pct_saved_field
+FAIL native_card_numeric_metadata_and_DB_rows_are_preserved The expression evaluated to a falsy value:
+
+  assert(rows.find(x=>x.id==='LIYUE_ZHONGLI_E').script.includes('MAX_HP*0.13'))
+
+PASS signed_Liyue_definition_tampering_still_rejected
+FAIL Zhongli_13pct_display_does_not_double_scale_E_execution Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
++   740,
++   740,
++   740,
++   740
+-   1925,
+-   1925,
+-   1925,
+-   1925
+  ]
+
+{"checks":14,"failed":2,"out":"/home/runner/work/clannad/clannad/genshin-crpg/docs/data/other_healers_v01619/native_checks.json"}

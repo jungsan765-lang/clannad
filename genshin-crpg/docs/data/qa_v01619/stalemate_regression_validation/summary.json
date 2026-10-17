@@ -1,0 +1,872 @@
+{
+  "collectedUTC": "2026-10-09T17:58:14.413Z",
+  "baselinePublishedSHA": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "productSourceUnmodified": true,
+  "autoSources": {
+    "before": {
+      "sha256": "7776e94fa3157bc6ce620a93260c3ab4494ae6d670f1ddb36760f621d4399529",
+      "bytes": 3359
+    },
+    "after": {
+      "sha256": "7776e94fa3157bc6ce620a93260c3ab4494ae6d670f1ddb36760f621d4399529",
+      "bytes": 3359
+    }
+  },
+  "autoUntilPlayerIdentical": true,
+  "rows": [
+    {
+      "kind": "before",
+      "name": "EG_FB_PRIMO_GEOVISHAP",
+      "result": {
+        "victory": false,
+        "rounds": 409,
+        "defeatReason": "STALEMATE",
+        "hpBeforeReward": 50342,
+        "maxHp": 64608,
+        "deaths": 1,
+        "xp": 0,
+        "mora": 0,
+        "loot": {},
+        "events": 5227
+      },
+      "counters": {
+        "nativeAiActions": 2041,
+        "roundStarts": 409
+      },
+      "rounds": 409,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 11206
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "side": "ALLY",
+          "hp": 18343,
+          "maxHp": 19627
+        },
+        {
+          "id": "LIYUE_XINGQIU",
+          "source": "LIYUE_XINGQIU",
+          "side": "ALLY",
+          "hp": 12648,
+          "maxHp": 14148
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "side": "ALLY",
+          "hp": 19351,
+          "maxHp": 19627
+        },
+        {
+          "id": "FB_PRIMO_GEOVISHAP#1",
+          "source": "FB_PRIMO_GEOVISHAP",
+          "side": "ENEMY",
+          "hp": 56718,
+          "maxHp": 56718
+        }
+      ],
+      "resultReceipt": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B14",
+        "battleId": "V011-1:B14",
+        "saveId": "V011-1",
+        "group": "EG_FB_PRIMO_GEOVISHAP",
+        "origin": "EXPLICIT",
+        "gate": "EXPLICIT",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 409,
+        "result": "DEFEAT",
+        "defeatReason": "STALEMATE",
+        "defeatMessage": "주인공이 쓰러진 뒤 동료들의 전투가 장시간 결착 없이 이어져 후퇴했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 0,
+          "seconds": 60
+        },
+        "fieldBoss": {
+          "boss": "FB_PRIMO_GEOVISHAP",
+          "name": "고대 바위 용 도마뱀",
+          "seen": [
+            "INFUSE",
+            "CLAW",
+            "LEAP",
+            "BEAM"
+          ],
+          "victory": false
+        }
+      },
+      "receiptCount": 1,
+      "runtimeRemaining": false,
+      "restored": true,
+      "idempotent": true,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 11206,
+          "maxHp": 11206,
+          "atk": 1959.6,
+          "def": 805
+        },
+        {
+          "source": "MOND_DILUC",
+          "side": "ALLY",
+          "hp": 19627,
+          "maxHp": 19627,
+          "atk": 3962.28,
+          "def": 2304.44
+        },
+        {
+          "source": "LIYUE_XINGQIU",
+          "side": "ALLY",
+          "hp": 13474,
+          "maxHp": 14148,
+          "atk": 2395.8,
+          "def": 1665
+        },
+        {
+          "source": "MOND_JEAN",
+          "side": "ALLY",
+          "hp": 19627,
+          "maxHp": 19627,
+          "atk": 3468.32,
+          "def": 2325.6400000000003
+        },
+        {
+          "source": "FB_PRIMO_GEOVISHAP",
+          "side": "ENEMY",
+          "hp": 56718,
+          "maxHp": 56718,
+          "atk": 4694,
+          "def": 557
+        }
+      ],
+      "fixtureEdits": null,
+      "file": "before_EG_FB_PRIMO_GEOVISHAP.json.gz"
+    },
+    {
+      "kind": "before",
+      "name": "EG_FB_RUIN_SERPENT",
+      "result": {
+        "victory": false,
+        "rounds": 454,
+        "defeatReason": "STALEMATE",
+        "hpBeforeReward": 46985,
+        "maxHp": 73491,
+        "deaths": 1,
+        "xp": 0,
+        "mora": 0,
+        "loot": {},
+        "events": 5880
+      },
+      "counters": {
+        "nativeAiActions": 2141,
+        "roundStarts": 454
+      },
+      "rounds": 454,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 16325
+        },
+        {
+          "id": "MOND_FISCHL",
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "hp": 13310,
+          "maxHp": 18273
+        },
+        {
+          "id": "LIYUE_XIANGLING",
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "hp": 18057,
+          "maxHp": 20063
+        },
+        {
+          "id": "MOND_BARBARA",
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 15618,
+          "maxHp": 18830
+        },
+        {
+          "id": "FB_RUIN_SERPENT#1",
+          "source": "FB_RUIN_SERPENT",
+          "side": "ENEMY",
+          "hp": 83496,
+          "maxHp": 83496
+        }
+      ],
+      "resultReceipt": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B14",
+        "battleId": "V011-1:B14",
+        "saveId": "V011-1",
+        "group": "EG_FB_RUIN_SERPENT",
+        "origin": "EXPLICIT",
+        "gate": "EXPLICIT",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 454,
+        "result": "DEFEAT",
+        "defeatReason": "STALEMATE",
+        "defeatMessage": "주인공이 쓰러진 뒤 동료들의 전투가 장시간 결착 없이 이어져 후퇴했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 0,
+          "seconds": 60
+        },
+        "fieldBoss": {
+          "boss": "FB_RUIN_SERPENT",
+          "name": "유적의 뱀",
+          "seen": [
+            "BURROW",
+            "WAVE",
+            "CHARGE",
+            "BIND"
+          ],
+          "victory": false
+        }
+      },
+      "receiptCount": 1,
+      "runtimeRemaining": false,
+      "restored": true,
+      "idempotent": true,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 16325,
+          "maxHp": 16325,
+          "atk": 2952,
+          "def": 1208
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "hp": 18273,
+          "maxHp": 18273,
+          "atk": 3995.2000000000003,
+          "def": 2015.2000000000003
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "hp": 19108,
+          "maxHp": 20063,
+          "atk": 3995.2000000000003,
+          "def": 2162.6000000000004
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 18830,
+          "maxHp": 18830,
+          "atk": 2655.4,
+          "def": 2235.2000000000003
+        },
+        {
+          "source": "FB_RUIN_SERPENT",
+          "side": "ENEMY",
+          "hp": 83496,
+          "maxHp": 83496,
+          "atk": 7840,
+          "def": 700
+        }
+      ],
+      "fixtureEdits": null,
+      "file": "before_EG_FB_RUIN_SERPENT.json.gz"
+    },
+    {
+      "kind": "after",
+      "name": "EG_FB_PRIMO_GEOVISHAP",
+      "result": {
+        "victory": false,
+        "rounds": 45,
+        "hpBeforeReward": 0,
+        "maxHp": 64608,
+        "deaths": 4,
+        "xp": 0,
+        "mora": 0,
+        "loot": {},
+        "events": 420
+      },
+      "counters": {
+        "nativeAiActions": 183,
+        "roundStarts": 45
+      },
+      "rounds": 45,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 11206
+        },
+        {
+          "id": "MOND_DILUC",
+          "source": "MOND_DILUC",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 19627
+        },
+        {
+          "id": "LIYUE_XINGQIU",
+          "source": "LIYUE_XINGQIU",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 14148
+        },
+        {
+          "id": "MOND_JEAN",
+          "source": "MOND_JEAN",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 19627
+        },
+        {
+          "id": "FB_PRIMO_GEOVISHAP#1",
+          "source": "FB_PRIMO_GEOVISHAP",
+          "side": "ENEMY",
+          "hp": 56718,
+          "maxHp": 56718
+        }
+      ],
+      "resultReceipt": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B14",
+        "battleId": "V011-1:B14",
+        "saveId": "V011-1",
+        "group": "EG_FB_PRIMO_GEOVISHAP",
+        "origin": "EXPLICIT",
+        "gate": "EXPLICIT",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 45,
+        "result": "DEFEAT",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 0,
+          "seconds": 60
+        },
+        "fieldBoss": {
+          "boss": "FB_PRIMO_GEOVISHAP",
+          "name": "고대 바위 용 도마뱀",
+          "seen": [
+            "INFUSE",
+            "CLAW",
+            "LEAP",
+            "BEAM"
+          ],
+          "victory": false
+        }
+      },
+      "receiptCount": 1,
+      "runtimeRemaining": false,
+      "restored": true,
+      "idempotent": true,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 11206,
+          "maxHp": 11206,
+          "atk": 1959.6,
+          "def": 805
+        },
+        {
+          "source": "MOND_DILUC",
+          "side": "ALLY",
+          "hp": 19627,
+          "maxHp": 19627,
+          "atk": 3962.28,
+          "def": 2304.44
+        },
+        {
+          "source": "LIYUE_XINGQIU",
+          "side": "ALLY",
+          "hp": 13474,
+          "maxHp": 14148,
+          "atk": 2395.8,
+          "def": 1665
+        },
+        {
+          "source": "MOND_JEAN",
+          "side": "ALLY",
+          "hp": 19627,
+          "maxHp": 19627,
+          "atk": 3468.32,
+          "def": 2325.6400000000003
+        },
+        {
+          "source": "FB_PRIMO_GEOVISHAP",
+          "side": "ENEMY",
+          "hp": 56718,
+          "maxHp": 56718,
+          "atk": 4694,
+          "def": 557
+        }
+      ],
+      "fixtureEdits": null,
+      "file": "after_EG_FB_PRIMO_GEOVISHAP.json.gz"
+    },
+    {
+      "kind": "after",
+      "name": "EG_FB_RUIN_SERPENT",
+      "result": {
+        "victory": false,
+        "rounds": 44,
+        "hpBeforeReward": 0,
+        "maxHp": 73491,
+        "deaths": 4,
+        "xp": 0,
+        "mora": 0,
+        "loot": {},
+        "events": 486
+      },
+      "counters": {
+        "nativeAiActions": 185,
+        "roundStarts": 43
+      },
+      "rounds": 44,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 16325
+        },
+        {
+          "id": "MOND_FISCHL",
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 18273
+        },
+        {
+          "id": "LIYUE_XIANGLING",
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 20063
+        },
+        {
+          "id": "MOND_BARBARA",
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 18830
+        },
+        {
+          "id": "FB_RUIN_SERPENT#1",
+          "source": "FB_RUIN_SERPENT",
+          "side": "ENEMY",
+          "hp": 83496,
+          "maxHp": 83496
+        }
+      ],
+      "resultReceipt": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B14",
+        "battleId": "V011-1:B14",
+        "saveId": "V011-1",
+        "group": "EG_FB_RUIN_SERPENT",
+        "origin": "EXPLICIT",
+        "gate": "EXPLICIT",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 44,
+        "result": "DEFEAT",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 0,
+          "seconds": 60
+        },
+        "fieldBoss": {
+          "boss": "FB_RUIN_SERPENT",
+          "name": "유적의 뱀",
+          "seen": [
+            "BURROW",
+            "WAVE",
+            "CHARGE",
+            "BIND"
+          ],
+          "victory": false
+        }
+      },
+      "receiptCount": 1,
+      "runtimeRemaining": false,
+      "restored": true,
+      "idempotent": true,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 16325,
+          "maxHp": 16325,
+          "atk": 2952,
+          "def": 1208
+        },
+        {
+          "source": "MOND_FISCHL",
+          "side": "ALLY",
+          "hp": 18273,
+          "maxHp": 18273,
+          "atk": 3995.2000000000003,
+          "def": 2015.2000000000003
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "hp": 19108,
+          "maxHp": 20063,
+          "atk": 3995.2000000000003,
+          "def": 2162.6000000000004
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 18830,
+          "maxHp": 18830,
+          "atk": 2655.4,
+          "def": 2235.2000000000003
+        },
+        {
+          "source": "FB_RUIN_SERPENT",
+          "side": "ENEMY",
+          "hp": 83496,
+          "maxHp": 83496,
+          "atk": 7840,
+          "def": 700
+        }
+      ],
+      "fixtureEdits": null,
+      "file": "after_EG_FB_RUIN_SERPENT.json.gz"
+    },
+    {
+      "kind": "before",
+      "name": "STABLE_IMMUNITY",
+      "result": {
+        "victory": false,
+        "rounds": 500,
+        "defeatReason": "STALEMATE",
+        "hpBeforeReward": 1806,
+        "maxHp": 3402,
+        "deaths": 1,
+        "xp": 0,
+        "mora": 0,
+        "loot": {},
+        "events": 2909
+      },
+      "counters": {
+        "nativeAiActions": 1500,
+        "roundStarts": 500
+      },
+      "rounds": 500,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 1596
+        },
+        {
+          "id": "MOND_BARBARA",
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 1806,
+          "maxHp": 1806
+        },
+        {
+          "id": "MON_SLIME_HYDRO#1",
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244
+        },
+        {
+          "id": "MON_SLIME_HYDRO#2",
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244
+        }
+      ],
+      "resultReceipt": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B7",
+        "battleId": "V011-1:B7",
+        "saveId": "V011-1",
+        "group": "EG_ISK_L04_AA2_CART",
+        "origin": "EXPLICIT",
+        "gate": "EXPLICIT",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 500,
+        "result": "DEFEAT",
+        "defeatReason": "STALEMATE",
+        "defeatMessage": "주인공이 쓰러진 뒤 동료들의 전투가 장시간 결착 없이 이어져 후퇴했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 0,
+          "seconds": 60
+        }
+      },
+      "receiptCount": 1,
+      "runtimeRemaining": false,
+      "restored": true,
+      "idempotent": true,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 1596,
+          "maxHp": 1596,
+          "atk": 248.39999999999998,
+          "def": 108
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 1806,
+          "maxHp": 1806,
+          "atk": 214,
+          "def": 173
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244,
+          "atk": 35,
+          "def": 22
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244,
+          "atk": 35,
+          "def": 22
+        }
+      ],
+      "fixtureEdits": {
+        "protagonistHp": 0,
+        "enemyAtk": 0,
+        "allOtherActorStatsUnchanged": true
+      },
+      "file": "before_STABLE_IMMUNITY.json.gz"
+    },
+    {
+      "kind": "after",
+      "name": "STABLE_IMMUNITY",
+      "result": {
+        "victory": false,
+        "rounds": 500,
+        "defeatReason": "STALEMATE",
+        "hpBeforeReward": 1806,
+        "maxHp": 3402,
+        "deaths": 1,
+        "xp": 0,
+        "mora": 0,
+        "loot": {},
+        "events": 2909
+      },
+      "counters": {
+        "nativeAiActions": 1500,
+        "roundStarts": 500
+      },
+      "rounds": 500,
+      "actors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 1596
+        },
+        {
+          "id": "MOND_BARBARA",
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 1806,
+          "maxHp": 1806
+        },
+        {
+          "id": "MON_SLIME_HYDRO#1",
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244
+        },
+        {
+          "id": "MON_SLIME_HYDRO#2",
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244
+        }
+      ],
+      "resultReceipt": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B7",
+        "battleId": "V011-1:B7",
+        "saveId": "V011-1",
+        "group": "EG_ISK_L04_AA2_CART",
+        "origin": "EXPLICIT",
+        "gate": "EXPLICIT",
+        "branch": null,
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 500,
+        "result": "DEFEAT",
+        "defeatReason": "STALEMATE",
+        "defeatMessage": "주인공이 쓰러진 뒤 동료들의 전투가 장시간 결착 없이 이어져 후퇴했습니다.",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 0,
+          "seconds": 60
+        }
+      },
+      "receiptCount": 1,
+      "runtimeRemaining": false,
+      "restored": true,
+      "idempotent": true,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 1596,
+          "maxHp": 1596,
+          "atk": 248.39999999999998,
+          "def": 108
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 1806,
+          "maxHp": 1806,
+          "atk": 214,
+          "def": 173
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244,
+          "atk": 35,
+          "def": 22
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244,
+          "atk": 35,
+          "def": 22
+        }
+      ],
+      "fixtureEdits": {
+        "protagonistHp": 0,
+        "enemyAtk": 0,
+        "allOtherActorStatsUnchanged": true
+      },
+      "file": "after_STABLE_IMMUNITY.json.gz"
+    },
+    {
+      "kind": "after",
+      "name": "STABLE_IMMUNITY_NO_GUARD",
+      "error": {
+        "code": "COMBAT_LOOP",
+        "message": "자동 전투 진행 한도를 초과했습니다."
+      },
+      "counters": {
+        "nativeAiActions": 1500,
+        "roundStarts": 500
+      },
+      "resultReceipt": {},
+      "receiptCount": 0,
+      "runtimeRemaining": true,
+      "restored": false,
+      "idempotent": false,
+      "initialActors": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 1596,
+          "maxHp": 1596,
+          "atk": 248.39999999999998,
+          "def": 108
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 1806,
+          "maxHp": 1806,
+          "atk": 214,
+          "def": 173
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244,
+          "atk": 35,
+          "def": 22
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 244,
+          "maxHp": 244,
+          "atk": 35,
+          "def": 22
+        }
+      ],
+      "fixtureEdits": {
+        "protagonistHp": 0,
+        "enemyAtk": 0,
+        "allOtherActorStatsUnchanged": true
+      },
+      "file": "after_STABLE_IMMUNITY_NO_GUARD.json.gz"
+    }
+  ],
+  "limitations": "The stable regression is a declared input boundary: dead protagonist and zero enemy attack. No AI, damage, immunity or round function is replaced. The separate no-guard counterfactual changes only the 2,000-step settlement guard in VM memory; its COMBAT_LOOP failure is expected. Natural boss fixtures preserve original level, roster, gear, talents and seed."
+}

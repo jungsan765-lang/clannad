@@ -1,0 +1,25 @@
+{
+  "startedAt": "2026-10-10T09:09:54.265135+00:00",
+  "cwd": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+  "node": "v24.19.0",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "selectedTests": [
+    "tests/test_growth_balance_v01621.cjs",
+    "tests/test_liyue_growth_gate_v01622.cjs",
+    "tests/test_material_efficiency_v01622.cjs",
+    "tests/test_material_rewards_v01616.cjs",
+    "tests/test_incoming_defense_v01622.cjs",
+    "tests/test_healing_v01619.cjs",
+    "tests/test_noelle_healing_v01621.cjs",
+    "tests/test_xianyun_balance_v01622.cjs",
+    "tests/test_shield_balance_v01619.cjs",
+    "tests/test_shield_meter_v01619.cjs",
+    "tests/test_food_balance_v01620.cjs",
+    "tests/test_inn_recovery_pricing_v01615.cjs",
+    "tests/test_reaction_fixes_v01619.cjs",
+    "tests/test_control_reactions_v0168.cjs",
+    "tools/test_admin_balance_runtime_v01623.cjs"
+  ],
+  "scope": "Read-only selected regressions; not complete battle balance or farming-time proof.",
+  "generatedEngineCaveat": "Server MJS tests must be repeated after root final build; source CJS tests load source scripts directly."
+}

@@ -1,0 +1,5 @@
+PASS pending trade respects cancel
+PASS pending trade respects offer
+PASS pending trade respects unlock
+PASS simultaneous confirmations transfer once and keep DONE state
+PASS concurrent listings respect the eight-item limit without extra deductions

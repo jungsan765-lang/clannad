@@ -1,0 +1,25 @@
+{
+  "scope": "Read-only mechanics audit. Includes expected-bug presence observations, not product bug-free certification.",
+  "files": [
+    {
+      "path": "README_KO.md",
+      "sha256": "b6cb294450e5b76874d611375bc72bec569303cea1a8ca0935b83f742c779f2c",
+      "bytes": 12121
+    },
+    {
+      "path": "mechanics.json",
+      "sha256": "308c19add971ce6c71bfb7c0165985d276bb30029cf6ba2e9e688ca26212d815",
+      "bytes": 64431
+    },
+    {
+      "path": "audit_mechanics.cjs",
+      "sha256": "e4e89f4cab2b1000513a9b1f7179d6a4288ba90356c3d55f857565bccfc79d54",
+      "bytes": 12106
+    },
+    {
+      "path": "audit.log",
+      "sha256": "a2d15a738343b6cf5fd072d8d23cd9bc82c2ab0b329e3832ed73fbb641d76913",
+      "bytes": 37
+    }
+  ]
+}

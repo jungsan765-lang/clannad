@@ -1,0 +1,214 @@
+{
+  "startedAt": "2026-10-10T10:25:59.212610+00:00",
+  "cwd": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+  "node": "v24.19.0",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "selectedTests": [
+    "tests/test_incoming_defense_v01622.cjs",
+    "tests/test_healing_v01619.cjs",
+    "tests/test_noelle_healing_v01621.cjs",
+    "tests/test_shield_balance_v01619.cjs",
+    "tests/test_food_balance_v01620.cjs",
+    "tests/test_inn_recovery_pricing_v01615.cjs",
+    "tests/test_reaction_fixes_v01619.cjs",
+    "tools/test_admin_balance_runtime_v01623.cjs"
+  ],
+  "perTestTimeoutSeconds": 600,
+  "scope": "Read-only selected regressions; not complete battle balance or farming-time proof.",
+  "generatedEngineCaveat": "0.16.25 source CJS tests load source scripts directly; generated/server tests require the parent final build. Product/tests edits are excluded from this QA scope.",
+  "endedAt": "2026-10-10T10:27:30.193582+00:00",
+  "programs": 8,
+  "passed": 8,
+  "failed": 0,
+  "inputDrift": {
+    "tests/test_character_balance_v01625.cjs": {
+      "before": "ba4fb8172931fc4b3896b045753d8313280cd47665efa06521592eb9b5a24b06",
+      "after": "3a2da29b8c954510617bb30682eb67167aae2321f94cbae91345b86fad9dea0f"
+    },
+    "tools/audit_balance_engines_v01625.cjs": {
+      "before": "4a9ab5613754c256415834062e06fc6436eeb0d475f1a0293a5a8b4ef4a8e5be",
+      "after": "f036de398b7afb35aca8f78bda01d117439b9dcf39dd838a23c70a43d3444248"
+    }
+  },
+  "results": [
+    {
+      "test": "tests/test_incoming_defense_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_incoming_defense_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T10:25:59.218967+00:00",
+      "endedAt": "2026-10-10T10:26:06.318340+00:00",
+      "seconds": 6.81,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "00578059251f57211d69f617448e59611d64271e1dc6dc0812a3ad6ac63ccbb6",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "775e9a37816a9836e3c2e88972a1dd715dab59ba32d2e7dea26c5f82f473b9ea",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_incoming_defense_v01622.stdout.log",
+      "stderrLog": "test_incoming_defense_v01622.stderr.log"
+    },
+    {
+      "test": "tests/test_healing_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_healing_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T10:25:59.219184+00:00",
+      "endedAt": "2026-10-10T10:26:22.387522+00:00",
+      "seconds": 22.869,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_character_balance_v01625.cjs": {
+          "before": "ba4fb8172931fc4b3896b045753d8313280cd47665efa06521592eb9b5a24b06",
+          "after": "3a2da29b8c954510617bb30682eb67167aae2321f94cbae91345b86fad9dea0f"
+        },
+        "tools/audit_balance_engines_v01625.cjs": {
+          "before": "4a9ab5613754c256415834062e06fc6436eeb0d475f1a0293a5a8b4ef4a8e5be",
+          "after": "f036de398b7afb35aca8f78bda01d117439b9dcf39dd838a23c70a43d3444248"
+        }
+      },
+      "testSha256": "82c8882b627748a37673af563414628a2013d9f1d19244f24b7f4ee0fdea4cd9",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "d78fd750c086aaec0928cbf9c9a549fd9a469728d0ce8b8c7f4b1d736499fc16",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_healing_v01619.stdout.log",
+      "stderrLog": "test_healing_v01619.stderr.log"
+    },
+    {
+      "test": "tests/test_noelle_healing_v01621.cjs",
+      "command": [
+        "node",
+        "tests/test_noelle_healing_v01621.cjs"
+      ],
+      "startedAt": "2026-10-10T10:25:59.219601+00:00",
+      "endedAt": "2026-10-10T10:26:18.300278+00:00",
+      "seconds": 18.782,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "0bb42e60110c466f1a0af6f15a6b15473427fae082260d84d7d97d3c9b3859ed",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "428de569bc15dd86170d8fe5ae88378ecf8cda51a231cd97d224e889e1ecaff0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_noelle_healing_v01621.stdout.log",
+      "stderrLog": "test_noelle_healing_v01621.stderr.log"
+    },
+    {
+      "test": "tests/test_shield_balance_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_balance_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T10:26:06.319242+00:00",
+      "endedAt": "2026-10-10T10:26:22.300465+00:00",
+      "seconds": 15.795,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_character_balance_v01625.cjs": {
+          "before": "ba4fb8172931fc4b3896b045753d8313280cd47665efa06521592eb9b5a24b06",
+          "after": "3a2da29b8c954510617bb30682eb67167aae2321f94cbae91345b86fad9dea0f"
+        },
+        "tools/audit_balance_engines_v01625.cjs": {
+          "before": "4a9ab5613754c256415834062e06fc6436eeb0d475f1a0293a5a8b4ef4a8e5be",
+          "after": "f036de398b7afb35aca8f78bda01d117439b9dcf39dd838a23c70a43d3444248"
+        }
+      },
+      "testSha256": "f7a944e4d51b522cb924ea2d02b081888b8d1c4a287fd20a73c9b18beca5a1e6",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "5b262ab5216db7d85304650fe28c3ac0a7c315696091a83f2f8ec7d17bb03852",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_shield_balance_v01619.stdout.log",
+      "stderrLog": "test_shield_balance_v01619.stderr.log"
+    },
+    {
+      "test": "tests/test_food_balance_v01620.cjs",
+      "command": [
+        "node",
+        "tests/test_food_balance_v01620.cjs"
+      ],
+      "startedAt": "2026-10-10T10:26:18.301178+00:00",
+      "endedAt": "2026-10-10T10:26:46.220039+00:00",
+      "seconds": 27.754,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_character_balance_v01625.cjs": {
+          "before": "ba4fb8172931fc4b3896b045753d8313280cd47665efa06521592eb9b5a24b06",
+          "after": "3a2da29b8c954510617bb30682eb67167aae2321f94cbae91345b86fad9dea0f"
+        },
+        "tools/audit_balance_engines_v01625.cjs": {
+          "before": "4a9ab5613754c256415834062e06fc6436eeb0d475f1a0293a5a8b4ef4a8e5be",
+          "after": "f036de398b7afb35aca8f78bda01d117439b9dcf39dd838a23c70a43d3444248"
+        }
+      },
+      "testSha256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_food_balance_v01620.stdout.log",
+      "stderrLog": "test_food_balance_v01620.stderr.log"
+    },
+    {
+      "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+      "command": [
+        "node",
+        "tests/test_inn_recovery_pricing_v01615.cjs"
+      ],
+      "startedAt": "2026-10-10T10:26:22.301024+00:00",
+      "endedAt": "2026-10-10T10:26:43.316561+00:00",
+      "seconds": 20.827,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "60f175020b68ac97d929e17d53741e19b1c97bf3317fa7b72134b04063b40332",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_inn_recovery_pricing_v01615.stdout.log",
+      "stderrLog": "test_inn_recovery_pricing_v01615.stderr.log"
+    },
+    {
+      "test": "tests/test_reaction_fixes_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_reaction_fixes_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T10:26:22.388175+00:00",
+      "endedAt": "2026-10-10T10:27:30.113932+00:00",
+      "seconds": 67.563,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_reaction_fixes_v01619.stdout.log",
+      "stderrLog": "test_reaction_fixes_v01619.stderr.log"
+    },
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "command": [
+        "node",
+        "tools/test_admin_balance_runtime_v01623.cjs"
+      ],
+      "startedAt": "2026-10-10T10:26:43.317041+00:00",
+      "endedAt": "2026-10-10T10:26:58.799483+00:00",
+      "seconds": 15.318,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "098e3cc2f2c377773e92c18f0ff873ea660deada62ac696defd45326019bd5f2",
+      "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+      "stdoutSha256": "a6aedfc02d0cf92f314186779d6fd531dfdfd74f6c72cea69227852e809757bc",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_runtime_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_runtime_v01623.stderr.log"
+    }
+  ]
+}

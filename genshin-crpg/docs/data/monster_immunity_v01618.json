@@ -1,0 +1,82 @@
+{
+  "version": "0.16.18",
+  "filesModified": [
+    "source/runtime_combat.js",
+    "source/runtime_rules.js",
+    "source/runtime_andrius.js"
+  ],
+  "filesAdded": [
+    "tests/test_element_immunity_v01618.cjs"
+  ],
+  "changes": [
+    "Slime source IDs share the existing nativeElementFor mapping. All seven elemental variants and corresponding large forms are immune only to their own damage element.",
+    "Elemental-body immunity is enforced on final applyDamage packets, including reaction, DOT, field, object and summon damage. Slime damage and aura dispatch retain native reaction generation: Spread and Aggravate still occur while the additive own-element damage is zero.",
+    "Three existing Abyss Mage shield source IDs block own-element damage; Cryo shield also blocks Hydro. Active-shield preflight prevents an immune packet from reducing a stacked barrier or overflowing into body HP.",
+    "Mage shield protection does not become body immunity: Hydro application and subsequent Frozen reaction remain possible, and the exposed body takes its own element after the barrier breaks.",
+    "Existing saved shields use their original source/value without migration. Zero authored shield multipliers no longer silently become one.",
+    "The Andrius pre-hit immunity exit is bypassed only for native slimes. All existing boss immunity and control rules remain in their prior chain."
+  ],
+  "verification": {
+    "nativeAndControlledCases": {
+      "command": "ELEMENT_IMMUNITY_REPORT=/tmp/crpg_v01618/immunity_tests.json node tests/test_element_immunity_v01618.cjs",
+      "passed": 41,
+      "total": 41,
+      "report": "/tmp/crpg_v01618/immunity_tests.json"
+    },
+    "existingAndriusRegression": {
+      "command": "node tests/test_andrius.cjs (write redirected to /tmp)",
+      "passed": 15,
+      "total": 15,
+      "report": "/tmp/crpg_v01618/immunity_andrius_tests.json"
+    },
+    "syntax": [
+      "node --check source/runtime_combat.js",
+      "node --check source/runtime_rules.js",
+      "node --check source/runtime_andrius.js"
+    ],
+    "whitespace": "git diff --check passed",
+    "nativeSlimeCoverage": {
+      "actualSpecies": 13,
+      "dormantLargeDendroDefinition": 1,
+      "notes": "The large Dendro slime has no native encounter member; source-rule verification is static only."
+    },
+    "nativeReactions": [
+      "RX_OVERLOADED",
+      "RX_SUPERCONDUCT",
+      "RX_ELECTROCHARGED",
+      "RX_SWIRL",
+      "RX_BLOOM",
+      "RX_QUICKEN",
+      "RX_SPREAD",
+      "RX_AGGRAVATE",
+      "RX_BURGEON",
+      "RX_HYPERBLOOM",
+      "RX_MELT_PYRO",
+      "RX_VAPORIZE_HYDRO",
+      "RX_FROZEN",
+      "RX_CRYSTALLIZE",
+      "RX_BURNING"
+    ],
+    "fixtureScope": "Enemy actors and stats are native authored/generated spawns. Companion recruitment/party assignment uses native admin/party operations. AI held at opening and RNG 60/0.5 isolate packet behavior; this is not a balance/time measurement. Explicit large packets and one stacked test shield isolate overflow math. Native legal cards verify direct damage, reaction generation, fields and a summon."
+  },
+  "coordination": {
+    "controlFixture": "Control owner replaced the existing C05 Cryo-slime expectation with a Cryo-afflicted non-immune native archer. Self-turn/contact/restore/guard expectations are preserved; this agent did not edit that file."
+  },
+  "limitations": [
+    "No ordinary-enemy elemental resistance, large Cryo/Geo slime armor, Cryo Cicin shield or currently unsupported Electro Mage shield design was added.",
+    "No HP/ATK, encounter groups, rewards, UI, DB, or persistent shield values changed.",
+    "Body immunity now participates in pre-existing immunity-aware control checks; no extra control-immunity rule was introduced.",
+    "The full release validation and publishing remain the root agent responsibility."
+  ],
+  "canonSources": [
+    "https://library.keqingmains.com/enemy-data/elementals/slime",
+    "https://library.keqingmains.com/enemy-data/elementals/large-slime",
+    "https://library.keqingmains.com/enemy-data/abyss-order/abyss-mage",
+    "https://library.keqingmains.com/misc/dendro/"
+  ],
+  "followUpTutorialHttpRegression": {
+    "summary": "/tmp/crpg_v01618/tutorial_online_immunity_summary.json",
+    "testModified": "tests/test_tutorial_online_v01523.mjs",
+    "verified": "Current native+HTTP guided combat4inputs victory; basic-only28inputs victory versus baseline9. Existing20cap retained; all four actual lesson completions now asserted."
+  }
+}

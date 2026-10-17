@@ -35,24 +35,35 @@ P.startBattle=function(...args){
  const id=this.partyFormation(),f=FORMATIONS[id],roles=this.formationRoles(),synergy=roles.filter(r=>r===f.synergy.role).length>=f.synergy.count;
  b.formationV1={id,synergy};
  for(const a of b.actors.filter(x=>x.side==='ALLY')){
+  const beforeSpeed=this.combatStat(a,'spd');
   this.addCombatStatus(a,'FORMATION',null,{mods:merge(f.mods,synergy&&f.synergy.mods),taken:f.taken||1,reactionOut:synergy&&f.synergy.reactionOut||1,supportOut:synergy&&f.synergy.supportOut||1,formation:id});
   const role=roleOf(this,a.source),R=role&&ROLES[role];
   if(R&&(R.mods||R.taken||R.reactionOut||R.supportOut))this.addCombatStatus(a,'ROLE',null,{mods:merge(R.mods),taken:R.taken||1,reactionOut:R.reactionOut||1,supportOut:R.supportOut||1,role});
+  // Formation statuses are installed after initiative was rolled. Preserve that
+  // roll and any food/gear modifiers already included in it; add only this delta.
+  const turn=b.opening?.state==='PENDING'&&b.order.find(x=>x.id===a.id);
+  if(turn)turn.score+=this.combatStat(a,'spd')-beforeSpeed;
  }
  // Enemies and bosses keep pace with the formation bonus. The Abyss and the first tutorial fights keep their numbers
  // (field bosses and their forms get the same offset in runtime_boss_tiers.js).
  if(!b.abyss)for(const e of b.actors.filter(x=>x.side==='ENEMY'&&!x.fb&&!x.fbSummon&&(x.level||1)>=3)){e.maxHp=Math.round(e.maxHp*ENEMY_HP);e.hp=Math.round(e.hp*ENEMY_HP);e.atk=Math.round(e.atk*ENEMY_ATK);for(const s of e.shields||[])if(Number.isFinite(s.value))s.value=Math.round(s.value*ENEMY_HP);}
+ if(b.opening?.state==='PENDING'){
+  b.order.sort((a,c)=>Number(c.first)-Number(a.first)||c.score-a.score||a.id.localeCompare(c.id));
+  const i=b.order.findIndex(x=>x.id==='PLAYER_CUSTOM');if(i>0)b.order=[b.order[i],...b.order.slice(0,i),...b.order.slice(i+1)];
+  b.opening.initialOrder=cp(b.order);
+  return {...out,order:this.combatOrderView()};
+ }
  return out;
 };
 const product=(actor,key)=>(actor?.statuses||[]).reduce((m,s)=>m*(Number.isFinite(s[key])?s[key]:1),1);
 P.applyDamage=function(a,t,n,d={}){
  if(this.s.runtime&&t?.side==='ALLY')n*=product(t,'taken');
- if(this.s.runtime&&a?.side==='ALLY'&&t?.side!=='ALLY'&&(d.reaction||/^REACTION/.test(d.sourceKind||'')))n*=product(a,'reactionOut');
+ if(this.s.runtime&&a?.side==='ALLY'&&t?.side!=='ALLY'&&/^REACTION/.test(d.sourceKind||''))n*=product(a,'reactionOut');
  return old.applyDamage.call(this,a,t,n,d);
 };
-P.heal=function(a,amount,source=''){
- const b=this.s.runtime;if(b&&a?.side==='ALLY'&&source){const healer=b.actors.find(x=>x.side==='ALLY'&&x.name===source);if(healer)amount*=product(healer,'supportOut');}
- return old.heal.call(this,a,amount,source);
+P.heal=function(a,amount,source='',sourceActorId=''){
+ const b=this.s.runtime;if(b&&a?.side==='ALLY'&&(source||sourceActorId)){const healer=b.actors.find(x=>x.side==='ALLY'&&(sourceActorId?x.id===sourceActorId:x.name===source));if(healer)amount*=product(healer,'supportOut');}
+ return old.heal.call(this,a,amount,source,sourceActorId);
 };
 P.shield=function(a,value,source,rounds,extra={}){
  const b=this.s.runtime;if(b&&a?.side==='ALLY'&&typeof source==='string'){const caster=b.actors.find(x=>x.side==='ALLY'&&source.startsWith(x.source+'_'));if(caster)value*=product(caster,'supportOut');}

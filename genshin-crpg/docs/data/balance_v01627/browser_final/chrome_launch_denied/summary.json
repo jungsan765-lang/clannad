@@ -1,0 +1,49 @@
+{
+  "scope": "Four separate actual Chromium source/shipped graphical gates; each native SQLite/DO backend run sequentially and evidence isolated",
+  "build": {
+    "appVersion": "0.16.27",
+    "packVersion": "2026-09-24-c3d5eef26ac2-9f53be852293",
+    "engineVersion": "engine3-ccab181d79528168042dabf16c33478eb9cd5a9f3123ac37c881ae13e044890b"
+  },
+  "sourceProofSHA256": "b323a2fb07396d436a8c128a35b06c9f9a2df014f452ee04761b6257aeeab691",
+  "rawAuthoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "total": 4,
+  "passed": 0,
+  "rows": [
+    {
+      "case": "source_sqlite",
+      "exitCode": 1,
+      "timedOut": false,
+      "elapsedSeconds": 6.691,
+      "successfulResultRows": null,
+      "receipt": "chrome_launch_denied/source_sqlite/receipt.json"
+    },
+    {
+      "case": "source_do",
+      "exitCode": 1,
+      "timedOut": false,
+      "elapsedSeconds": 6.653,
+      "successfulResultRows": null,
+      "receipt": "chrome_launch_denied/source_do/receipt.json"
+    },
+    {
+      "case": "dist_sqlite",
+      "exitCode": 1,
+      "timedOut": false,
+      "elapsedSeconds": 6.746,
+      "successfulResultRows": null,
+      "receipt": "chrome_launch_denied/dist_sqlite/receipt.json"
+    },
+    {
+      "case": "dist_do",
+      "exitCode": 1,
+      "timedOut": false,
+      "elapsedSeconds": 6.687,
+      "successfulResultRows": null,
+      "receipt": "chrome_launch_denied/dist_do/receipt.json"
+    }
+  ],
+  "failed": 4,
+  "classification": "ENVIRONMENT_CHROMIUM_LAUNCH_DENIED",
+  "uiAssertionsExecuted": false
+}

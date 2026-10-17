@@ -1,0 +1,37 @@
+PASS Dvalin: geared 4/4/3/3 loses, prepared level 28 party wins, five seeds each
+PASS FB_ANEMO_HYPOSTASIS: a prepared party at the boss level can win
+PASS FB_ELECTRO_HYPOSTASIS: a prepared party at the boss level can win
+PASS FB_CRYO_REGISVINE: a prepared party at the boss level can win
+PASS FB_CRYO_HYPOSTASIS: a prepared party at the boss level can win
+FAIL FB_GEO_HYPOSTASIS: a prepared party at the boss level can win
+AssertionError [ERR_ASSERTION]: the final victory actually interrupts revival
+    at geoCounterplay (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:51:2)
+    at /workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:76:737
+    at check (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:6:44)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:76:42)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+PASS FB_PYRO_REGISVINE: a prepared party at the boss level can win
+PASS FB_OCEANID: a prepared party at the boss level can win
+PASS FB_PRIMO_GEOVISHAP: a prepared party at the boss level can win
+PASS FB_RUIN_SERPENT: a prepared party at the boss level can win
+PASS Liyue ESCORT: native level 6 solo fails; regional-level equipped party survives
+FAIL Liyue DEFEND: native level 6 solo fails; regional-level equipped party survives
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+false !== true
+
+    at /workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:77:1018
+    at check (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:6:44)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:77:39)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47

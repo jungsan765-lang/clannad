@@ -1,0 +1,53 @@
+{
+  "flat300": {
+    "variant": "AFTER_JFLAT300",
+    "fingerprint": "67f29c1ed195bfdb9f2c7003c716eb0ea4e2ef2685f29814128f91813f6e6a14",
+    "candidate": {
+      "name": "AFTER_JFLAT300",
+      "currentRevision": true,
+      "jeanQFlat": 300
+    },
+    "substitutions": [
+      {
+        "file": "runtime_combat.js",
+        "from": "healAll('atk',.05,450);",
+        "to": "healAll('atk',.05,300);"
+      },
+      {
+        "file": "runtime_rules.js",
+        "from": "this.combatStat(a,'atk')*.05+450,a.name);",
+        "to": "this.combatStat(a,'atk')*.05+300,a.name);"
+      }
+    ],
+    "auditInstrumentation": "Base heal VM-only callback observes amount after native talent/rhythm/formation/gear before bond and missing HP cap; no numeric formula mutation."
+  },
+  "flat200": {
+    "variant": "AFTER_JFLAT200",
+    "fingerprint": "67f29c1ed195bfdb9f2c7003c716eb0ea4e2ef2685f29814128f91813f6e6a14",
+    "candidate": {
+      "name": "AFTER_JFLAT200",
+      "currentRevision": true,
+      "jeanQFlat": 200
+    },
+    "substitutions": [
+      {
+        "file": "runtime_combat.js",
+        "from": "healAll('atk',.05,450);",
+        "to": "healAll('atk',.05,200);"
+      },
+      {
+        "file": "runtime_rules.js",
+        "from": "this.combatStat(a,'atk')*.05+450,a.name);",
+        "to": "this.combatStat(a,'atk')*.05+200,a.name);"
+      }
+    ],
+    "auditInstrumentation": "Base heal VM-only callback observes amount after native talent/rhythm/formation/gear before bond and missing HP cap; no numeric formula mutation."
+  },
+  "flat450_match": {
+    "variant": "AFTER_JFLAT450_MATCH",
+    "fingerprint": "d5faf6759c19e87565c846a645726d14fb73c56177bab8fff7bbf9cab941900b",
+    "candidate": null,
+    "substitutions": [],
+    "auditInstrumentation": "Base heal VM-only callback observes amount after native talent/rhythm/formation/gear before bond and missing HP cap; no numeric formula mutation."
+  }
+}

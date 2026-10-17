@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_shield_balance_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_shield_balance_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T10:03:45.016099+00:00",
+  "endedAt": "2026-10-10T10:03:59.751668+00:00",
+  "seconds": 14.568,
+  "exitCode": 1,
+  "passed": false,
+  "inputDrift": {},
+  "testSha256": "9b4f89114f8ca5e1b0e4d0710f1dbc2a74bfcf3f1ffd8cf9a2dbc97b93ded37f",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "2ee2a32ae3a5c5cbe9dcc66b56c68aba6c58702783cb594dd25f83672c7e0300",
+  "stderrSha256": "1706617e7b8f030675ae06a4de4e031ae0cde243f2c683f8d1f64a7ff6c287f1",
+  "stdoutLog": "test_shield_balance_v01619.stdout.log",
+  "stderrLog": "test_shield_balance_v01619.stderr.log"
+}

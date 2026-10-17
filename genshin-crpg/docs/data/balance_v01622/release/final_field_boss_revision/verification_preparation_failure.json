@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-10T06:06:49.808200+00:00",
+  "program": "verify_evidence.py",
+  "error": "NameError: name 'shard_tests' is not defined",
+  "reason": "Local proof summarizer parsed a second runtime TESTS sharding assignment after first182 declaration. Verifier corrected to take first safe AST declaration, as native runner does. No product, QA or runtime assertion edited.",
+  "productsChanged": false,
+  "qaChanged": false
+}

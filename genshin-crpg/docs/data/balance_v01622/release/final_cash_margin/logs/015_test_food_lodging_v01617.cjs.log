@@ -1,0 +1,9 @@
+PASS all 45 recovery recipes charge the fixed quoted fee once per craft and leave raw DB rows intact
+PASS raw or stale recipe input cannot bypass the canonical fee and low/high-level cooking pays equally
+PASS Mora shortage and ingredient shortage roll back the entire public crafting action
+PASS new paid crafting receipts replay before and after reload without a second debit or output
+PASS a historical zero-fee crafting receipt retains its settled price when saved and retried
+PASS recovery strength, alternating-meal restriction and inn quote retain their existing level behavior
+PASS unchanged buff and processing fees and shifted recipe adapters remain canonical
+PASS Barbara cooking retains one 10 percent special lot and the same fixed fee
+PASS the existing cooking card shows exact unit Mora and restricts batches to affordable crafts

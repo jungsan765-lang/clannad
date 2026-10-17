@@ -1,0 +1,495 @@
+{
+  "version": "0.16.26",
+  "fingerprint": "fa9306fd052910fd532d07edd0159f1373299bfe6952654895bcb4c54ae7f504",
+  "scope": "Current native healing and shield contracts; archived 0.16.24 character-policy overlay and genuine native unmarked save preservation. The historical overlay is not a full-version balance simulation.",
+  "checks": [
+    {
+      "name": "qiqi_E_new_saved_field_uses_hybrid_and_direct_bonus",
+      "pass": true,
+      "evidence": {
+        "legacy": false,
+        "field": {
+          "kind": "HERALD_OF_FROST",
+          "actor": "LIYUE_QIQI",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 2,
+          "sourceCardId": "LIYUE_QIQI_E",
+          "liyue": true,
+          "healRatio": 0.13,
+          "healFlat": 350,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13:F1",
+          "used": {
+            "END:2": true
+          }
+        },
+        "heal": {
+          "source": "PLAYER_CUSTOM",
+          "id": "PLAYER_CUSTOM",
+          "requested": 573.883,
+          "before": 467,
+          "after": 1098,
+          "applied": 631
+        }
+      }
+    },
+    {
+      "name": "qiqi_E_legacy_saved_field_keeps_55pct",
+      "pass": true,
+      "evidence": {
+        "legacy": true,
+        "field": {
+          "kind": "HERALD_OF_FROST",
+          "actor": "LIYUE_QIQI",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 2,
+          "sourceCardId": "LIYUE_QIQI_E",
+          "liyue": true,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13:F1",
+          "used": {
+            "END:2": true
+          }
+        },
+        "heal": {
+          "source": "PLAYER_CUSTOM",
+          "id": "PLAYER_CUSTOM",
+          "requested": 577.0050000000001,
+          "before": 467,
+          "after": 1102,
+          "applied": 635
+        }
+      }
+    },
+    {
+      "name": "qiqi_Q_new_hybrid_saved_mark_and_once_per_round",
+      "pass": true,
+      "evidence": {
+        "legacy": false,
+        "heal": {
+          "source": "PLAYER_CUSTOM",
+          "id": "PLAYER_CUSTOM",
+          "requested": 386.48152,
+          "before": 467,
+          "after": 892,
+          "applied": 425
+        }
+      }
+    },
+    {
+      "name": "qiqi_Q_legacy_45pct_saved_mark_and_once_per_round",
+      "pass": true,
+      "evidence": {
+        "legacy": true,
+        "heal": {
+          "source": "PLAYER_CUSTOM",
+          "id": "PLAYER_CUSTOM",
+          "requested": 411.66684000000004,
+          "before": 467,
+          "after": 920,
+          "applied": 453
+        }
+      }
+    },
+    {
+      "name": "xianyun_Q_immediate_party_heal_and_saved_single_target",
+      "pass": true,
+      "evidence": {
+        "immediate": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "id": "PLAYER_CUSTOM",
+            "requested": 885.7084,
+            "before": 467,
+            "after": 2323,
+            "applied": 1856
+          },
+          {
+            "source": "LIYUE_XIANGLING",
+            "id": "LIYUE_XIANGLING",
+            "requested": 885.7084,
+            "before": 2036,
+            "after": 3892,
+            "applied": 1856
+          },
+          {
+            "source": "MOND_FISCHL",
+            "id": "MOND_FISCHL",
+            "requested": 885.7084,
+            "before": 2050,
+            "after": 3906,
+            "applied": 1856
+          },
+          {
+            "source": "LIYUE_XIANYUN",
+            "id": "LIYUE_XIANYUN",
+            "requested": 885.7084,
+            "before": 3437,
+            "after": 5293,
+            "applied": 1856
+          }
+        ],
+        "followup": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "id": "PLAYER_CUSTOM",
+            "requested": 495.2224,
+            "before": 467,
+            "after": 1012,
+            "applied": 545
+          }
+        ]
+      }
+    },
+    {
+      "name": "xianyun_legacy_saved_star_keeps_party_25pct",
+      "pass": true,
+      "evidence": {
+        "heals": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "id": "PLAYER_CUSTOM",
+            "requested": 297.57,
+            "before": 467,
+            "after": 794,
+            "applied": 327
+          },
+          {
+            "source": "LIYUE_XIANGLING",
+            "id": "LIYUE_XIANGLING",
+            "requested": 297.57,
+            "before": 2036,
+            "after": 2363,
+            "applied": 327
+          },
+          {
+            "source": "MOND_FISCHL",
+            "id": "MOND_FISCHL",
+            "requested": 297.57,
+            "before": 2050,
+            "after": 2377,
+            "applied": 327
+          },
+          {
+            "source": "LIYUE_XIANYUN",
+            "id": "LIYUE_XIANYUN",
+            "requested": 297.57,
+            "before": 3437,
+            "after": 3764,
+            "applied": 327
+          }
+        ]
+      }
+    },
+    {
+      "name": "yaoyao_E_new_saved_field_uses_15_per_mille_plus_180",
+      "pass": true,
+      "evidence": {
+        "legacy": false,
+        "field": {
+          "kind": "YUEGUI_THROWING",
+          "actor": "LIYUE_YAOYAO",
+          "side": "ALLY",
+          "rounds": 99,
+          "createdRound": 2,
+          "sourceCardId": "LIYUE_YAOYAO_E",
+          "liyue": true,
+          "name": "월계",
+          "asset": "summon_yuegui.webp",
+          "summonTurns": 2,
+          "summonTicks": 1,
+          "healRatio": 0.015,
+          "healFlat": 180,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13:F1",
+          "used": {
+            "END:2": true
+          }
+        },
+        "heal": {
+          "source": "PLAYER_CUSTOM",
+          "id": "PLAYER_CUSTOM",
+          "requested": 255.315,
+          "before": 467,
+          "after": 748,
+          "applied": 281
+        }
+      }
+    },
+    {
+      "name": "yaoyao_E_legacy_saved_field_keeps_5pct",
+      "pass": true,
+      "evidence": {
+        "legacy": true,
+        "field": {
+          "kind": "YUEGUI_THROWING",
+          "actor": "LIYUE_YAOYAO",
+          "side": "ALLY",
+          "rounds": 99,
+          "createdRound": 2,
+          "sourceCardId": "LIYUE_YAOYAO_E",
+          "liyue": true,
+          "name": "월계",
+          "asset": "summon_yuegui.webp",
+          "summonTurns": 2,
+          "summonTicks": 1,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13:F1",
+          "used": {
+            "END:2": true
+          }
+        },
+        "heal": {
+          "source": "PLAYER_CUSTOM",
+          "id": "PLAYER_CUSTOM",
+          "requested": 251.05,
+          "before": 467,
+          "after": 743,
+          "applied": 276
+        }
+      }
+    },
+    {
+      "name": "yaoyao_Q_party_hybrid_and_sage_metadata",
+      "pass": true,
+      "evidence": {
+        "heals": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "id": "PLAYER_CUSTOM",
+            "requested": 505.525,
+            "before": 467,
+            "after": 1526,
+            "applied": 1059
+          },
+          {
+            "source": "LIYUE_XIANGLING",
+            "id": "LIYUE_XIANGLING",
+            "requested": 505.525,
+            "before": 2036,
+            "after": 3095,
+            "applied": 1059
+          },
+          {
+            "source": "MOND_FISCHL",
+            "id": "MOND_FISCHL",
+            "requested": 505.525,
+            "before": 2050,
+            "after": 3109,
+            "applied": 1059
+          },
+          {
+            "source": "LIYUE_YAOYAO",
+            "id": "LIYUE_YAOYAO",
+            "requested": 505.525,
+            "before": 2008,
+            "after": 3067,
+            "applied": 1059
+          }
+        ],
+        "field": {
+          "kind": "YUEGUI_THROWING",
+          "actor": "LIYUE_YAOYAO",
+          "side": "ALLY",
+          "rounds": 99,
+          "createdRound": 2,
+          "sourceCardId": "LIYUE_YAOYAO_Q",
+          "liyue": true,
+          "name": "월계",
+          "asset": "summon_yuegui.webp",
+          "summonTurns": 2,
+          "summonTicks": 0,
+          "healRatio": 0.015,
+          "healFlat": 180,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B13:F1",
+          "sage": true
+        }
+      }
+    },
+    {
+      "name": "diona_new_single_hybrid_saved_field",
+      "pass": true,
+      "evidence": {
+        "legacy": false,
+        "heals": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "id": "PLAYER_CUSTOM",
+            "requested": 1299.02,
+            "before": 467,
+            "after": 1896,
+            "applied": 1429
+          }
+        ]
+      }
+    },
+    {
+      "name": "diona_legacy_party_8pct_saved_field",
+      "pass": true,
+      "evidence": {
+        "legacy": true,
+        "heals": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "id": "PLAYER_CUSTOM",
+            "requested": 396.08,
+            "before": 467,
+            "after": 903,
+            "applied": 436
+          },
+          {
+            "source": "LIYUE_XIANGLING",
+            "id": "LIYUE_XIANGLING",
+            "requested": 396.08,
+            "before": 2036,
+            "after": 2472,
+            "applied": 436
+          },
+          {
+            "source": "MOND_FISCHL",
+            "id": "MOND_FISCHL",
+            "requested": 396.08,
+            "before": 2050,
+            "after": 2486,
+            "applied": 436
+          },
+          {
+            "source": "MOND_DIONA",
+            "id": "MOND_DIONA",
+            "requested": 396.08,
+            "before": 1980,
+            "after": 2416,
+            "applied": 436
+          }
+        ]
+      }
+    },
+    {
+      "name": "native_card_numeric_metadata_and_DB_rows_are_preserved",
+      "pass": true,
+      "evidence": [
+        {
+          "id": "LIYUE_QIQI_E",
+          "coefficient": "피해 ATK×0.45 / 회복 (ATK×0.13+350)×2라운드",
+          "effect": "한병의 귀차를 2라운드 소환한다. 매 라운드 종료 시 적 1명에게 얼음 피해를 주고 HP 비율이 가장 낮은 아군 1명을 치치 ATK×0.13+350만큼 회복한다. 그 라운드에 치치가 직접 피해를 줬다면 회복량이 25% 증가한다.",
+          "script": "SUMMON:HERALD_OF_FROST:2R;ROUND_END:DMG:ATK*0.45:CRYO:ENEMY_1;HEAL:ATK*0.13+350:LOWEST_HP_ALLY;IF_QIQI_DEALT_DIRECT_DAMAGE_THIS_ROUND:HEAL*1.25"
+        },
+        {
+          "id": "LIYUE_QIQI_Q",
+          "coefficient": "초기 ATK×0.8 / 회복 ATK×0.10+295",
+          "effect": "적 최대 4명에게 얼음 피해와 [도액 부적]을 2라운드 부여한다. 각 아군은 라운드당 1회, 부적이 붙은 적에게 직접 피해를 줬을 때 치치 ATK×0.10+295만큼 자신을 회복한다.",
+          "script": "DMG_AOE:ATK*0.8:CRYO:MAX4;APPLY_MARK:FORTUNE_PRESERVING_TALISMAN:2R:MAX4;EACH_ALLY_ON_FIRST_ATTACK_PER_ROUND_AGAINST_MARKED:HEAL_SELF:ATK*0.10+295"
+        },
+        {
+          "id": "LIYUE_XIANYUN_Q",
+          "coefficient": "즉시 회복 ATK×0.03+850 / 지속 회복 ATK×0.08+400×2라운드 / 추가타 ATK×0.45",
+          "effect": "아군 전체를 한운 ATK×0.03+850만큼 회복하고 2라운드 동안 대나무별을 소환한다. 매 라운드 첫 아군 공격은 앞열 보호를 무시하며, 적중 후 바람 추가타와 HP 비율이 가장 낮은 아군 1명에게 한운 ATK×0.08+400의 회복이 발생한다.",
+          "script": "HEAL_ALL:ATK*0.03+850;SUMMON:BAMBOO_STAR:2R;EACH_ROUND_FIRST_ALLY_ATTACK:IGNORE_FRONT_GUARD_INTERCEPT;AFTER_HIT:FOLLOWUP_DMG:ATK*0.45:ANEMO:SAME_TARGET;HEAL_LOWEST_HP_ALLY:ATK*0.08+400"
+        },
+        {
+          "id": "LIYUE_YAOYAO_E",
+          "coefficient": "피해 ATK×0.35 / 회복 (MAX_HP×0.015+180)×2라운드",
+          "effect": "월계·투척형을 2라운드 소환한다. 라운드 종료 시 HP 70% 이하 아군이 있으면 HP 비율이 가장 낮은 아군 1명을 요요 MAX_HP×0.015+180만큼 회복하고 주변 적에게 풀 피해를 준다. 모두 70% 초과면 적 최대 2명에게 공격용 무를 던진다.",
+          "script": "SUMMON:YUEGUI_THROWING:2R;ROUND_END:IF_ANY_ALLY_HP_PCT<=70:HEAL_LOWEST_HP_ALLY:MAX_HP*0.015+180;DMG_NEARBY:ATK*0.35:DENDRO;ELSE:DMG_AOE:ATK*0.35:DENDRO:MAX2"
+        },
+        {
+          "id": "LIYUE_YAOYAO_Q",
+          "coefficient": "피해 ATK×0.8 / 회복 MAX_HP×0.025+380",
+          "effect": "적 최대 4명에게 풀 피해를 주고 아군 전체를 요요 MAX_HP×0.025+380만큼 회복한다. 현재 월계가 있으면 2라운드 [선인의 슬기] 상태로 강화되어 매 라운드 HP 비율이 가장 낮은 아군 1명을 요요 MAX_HP×0.015+180만큼 치료하며 공격한다. 월계가 없다면 하나를 소환한다.",
+          "script": "DMG_AOE:ATK*0.8:DENDRO:MAX4;HEAL_ALL:MAX_HP*0.025+380;IF_YUEGUI_ACTIVE:UPGRADE:YUEGUI=SAGE_WISDOM:2R:ROUND_END_DO_BOTH_HEAL_AND_ATTACK;ELSE:SUMMON:YUEGUI_THROWING:2R;ROUND_END_HEAL_LOWEST_HP_ALLY:MAX_HP*0.015+180"
+        },
+        {
+          "id": "LIYUE_ZHONGLI_E",
+          "coefficient": "보호막 MAX_HP×0.05 / 석주 ATK×0.35×2라운드",
+          "effect": "아군 전체에게 종려 MAX_HP×0.05의 2라운드 옥홀 방패를 부여하고 석주를 2라운드 설치한다. 옥홀 방패가 있는 아군은 강제 이동·넉백을 무시한다. 라운드 종료마다 석주가 적 최대 3명에게 바위 피해를 준다.",
+          "script": "SHIELD_ALL:MAX_HP*0.05:2R;WHILE_SHIELDED:IGNORE_FORCED_MOVE_KNOCKBACK;CREATE_FIELD:STONE_STELE:2R;ROUND_END:DMG_AOE:ATK*0.35:GEO:MAX3"
+        },
+        {
+          "id": "LIYUE_LANYAN_E",
+          "coefficient": "보호막 ATK×1.3 / 고리 ATK×0.8 / 동일 원소 흡수 250%",
+          "effect": "아군 1명에게 2라운드 현조 보호막을 부여하고 적에게 제비 고리를 던진다. 보호막은 바람 피해에 250%의 흡수 효율을 갖는다. 대상 적에게 불/물/얼음/번개가 부착돼 있으면 해당 원소로 전환되어 그 원소 피해에 250%의 흡수 효율을 가지며, 고리에도 해당 원소가 함께 부착된다.",
+          "script": "SHIELD:ATK*1.3:ALLY_1:2R;DMG:ATK*0.8:ANEMO:ENEMY_1;IF_TARGET_HAS_AURA_IN(PYRO/HYDRO/CRYO/ELECTRO):CONVERT_SHIELD_TO_MATCHED_ELEMENT;SHIELD_MATCHED_ELEMENT_ABSORPTION*2.50;RING_ADDS_MATCHED_ELEMENT_AURA"
+        },
+        {
+          "id": "MOND_DIONA_Q",
+          "coefficient": "초기 ATK×0.7 / 지속 ATK×0.45 / 회복 MAX_HP×0.02+1200",
+          "effect": "서리 술안개 영역을 2라운드 생성한다. 생성 시 적 최대 3명에게 얼음 피해를 준다. 라운드 종료마다 적 최대 3명에게 지속 얼음 피해를 주고 HP 비율이 가장 낮은 아군 1명을 디오나 MAX_HP×0.02+1200만큼 회복한다.",
+          "script": "CREATE_FIELD:FROST_MIST:2R;ON_CREATE_DMG:ATK*0.7:CRYO:MAX3;ROUND_END_DMG:ATK*0.45:CRYO:MAX3;ROUND_END_HEAL_LOWEST_HP:MAX_HP*0.02+1200"
+        }
+      ]
+    },
+    {
+      "name": "signed_Liyue_definition_tampering_still_rejected",
+      "pass": true,
+      "evidence": {
+        "tamperedDisplayedAndAuthoredRejected": true
+      }
+    },
+    {
+      "name": "Zhongli_current_5pct_display_does_not_double_scale_E_execution",
+      "pass": true,
+      "evidence": {
+        "revision": 1,
+        "shield": [
+          740,
+          740,
+          740,
+          740
+        ],
+        "display": "보호막 MAX_HP×0.05 / 석주 ATK×0.35×2라운드",
+        "nativeHp": 10600,
+        "baseHpRatio": 0.05
+      }
+    },
+    {
+      "name": "Zhongli_archived_native_13pct_unmarked_save_and_recast_preserved",
+      "pass": true,
+      "evidence": {
+        "revision": null,
+        "baseHpRatio": 0.13,
+        "shield": [
+          1925,
+          1925,
+          1925,
+          1925
+        ],
+        "source": "byte-verified archived native character policy",
+        "savedPoolsAndRecast": true
+      }
+    }
+  ],
+  "legacyPolicy": {
+    "archive": "docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624",
+    "verifiedModules": {
+      "source/runtime_combat.js": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473",
+      "source/runtime_liyue_cards.js": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94",
+      "source/runtime_constellations_v01411.js": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b",
+      "source/runtime_balance_admin_v01623.js": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811",
+      "source/runtime_growth_v01522.js": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81",
+      "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+      "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817",
+      "source/runtime_abyss.js": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb",
+      "source/runtime_formations.js": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c"
+    },
+    "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+    "scope": "Archived native 0.16.24 character policy; current unchanged supporting inputs and semantically unchanged QA DB."
+  }
+}

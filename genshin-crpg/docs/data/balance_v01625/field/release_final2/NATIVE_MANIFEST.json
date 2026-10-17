@@ -1,0 +1,144 @@
+{
+  "mainConditions": 162,
+  "additionalFinalConditions": 12,
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "outputs": [
+    {
+      "name": "FB_ANEMO_HYPOSTASIS",
+      "conditions": 18,
+      "path": "native/FB_ANEMO_HYPOSTASIS.json.gz",
+      "rawBytes": 8394172,
+      "rawSHA256": "e19f81ee3ad796234046bd56fda9f352f736ab89a812983fbc556d0effabc7f5",
+      "compressedBytes": 398864,
+      "compressedSHA256": "e6e3bb031c1fc7d20d97d5c534435e50fa770c0c86f506c557b6f0541d0098b3",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_CRYO_HYPOSTASIS",
+      "conditions": 18,
+      "path": "native/FB_CRYO_HYPOSTASIS.json.gz",
+      "rawBytes": 7018380,
+      "rawSHA256": "1f5f8f030dd1e5111bf212d30253cdeca02884e8ee47ea191c38043429b46005",
+      "compressedBytes": 300284,
+      "compressedSHA256": "0c8ab528672dcf1fccb7b0b8b0abd240dcf19c1456fce67230317babc7c1869b",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_OCEANID",
+      "conditions": 18,
+      "path": "native/FB_OCEANID.json.gz",
+      "rawBytes": 3606182,
+      "rawSHA256": "2b671f0cb7dfd8527e9107531b0474f2f4fedbfcf64c66a340601a2f6c435189",
+      "compressedBytes": 199795,
+      "compressedSHA256": "624d9b041e3ae3f942e12456ea142c3e70098da1c0b018712a85ad244408ae07",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_GEO_HYPOSTASIS",
+      "conditions": 18,
+      "path": "native/FB_GEO_HYPOSTASIS.json.gz",
+      "rawBytes": 9842252,
+      "rawSHA256": "ed74cf524b5a3baaf27dd1e89f6d9a1d429bb1090fabbf1ebd1015329caea716",
+      "compressedBytes": 428812,
+      "compressedSHA256": "b04a479e74f10dd4095ab293fa7426f03c372ca7e489a5b5811dc229944dfd12",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_PRIMO_GEOVISHAP",
+      "conditions": 18,
+      "path": "native/FB_PRIMO_GEOVISHAP.json.gz",
+      "rawBytes": 4305542,
+      "rawSHA256": "36ab57c5264948e701f229e2242a37c876b1c8a15c076a2d9ad7d15911488c01",
+      "compressedBytes": 220559,
+      "compressedSHA256": "5421f23ddaf46db364090a58642f77b94c8ef1e745df2f1d05dd3bee562f9424",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_RUIN_SERPENT",
+      "conditions": 18,
+      "path": "native/FB_RUIN_SERPENT.json.gz",
+      "rawBytes": 8690030,
+      "rawSHA256": "6af91028811ab001500ebba3b7133a01da4df78f67759f0f53a5dc45a5939501",
+      "compressedBytes": 344864,
+      "compressedSHA256": "a02abf8746b6446478793666686fa0d99432b1b5c0a81cc7906de1e1a2b15b84",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_ELECTRO_HYPOSTASIS",
+      "conditions": 18,
+      "path": "native/FB_ELECTRO_HYPOSTASIS.json.gz",
+      "rawBytes": 7169080,
+      "rawSHA256": "801018715637112bfc9a34734d646c0c530e8fc2c95c226819ab6c4415905f6c",
+      "compressedBytes": 335472,
+      "compressedSHA256": "9c1cada25446c61009a2cbd8959b450941b55d560913afb32f00cbc53b922372",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_CRYO_REGISVINE",
+      "conditions": 18,
+      "path": "native/FB_CRYO_REGISVINE.json.gz",
+      "rawBytes": 4715411,
+      "rawSHA256": "1b409d15d697b3bc35a72400b0fa61d5f2f88d10a2ea99e6d539193414c558d1",
+      "compressedBytes": 226309,
+      "compressedSHA256": "38755e49d59a50354298fdb13ab29480626887e617b17283f6eaa4e99cf31f90",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "FB_PYRO_REGISVINE",
+      "conditions": 18,
+      "path": "native/FB_PYRO_REGISVINE.json.gz",
+      "rawBytes": 4486290,
+      "rawSHA256": "d8d03d13d62235069d2e13443e4d1771dd2acb6b3136b20038b93f96a9529302",
+      "compressedBytes": 232296,
+      "compressedSHA256": "f36721f59418565a6fd8748b0f9b8fb36fac324df7b1d34eb668acf995bcbcc8",
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "name": "anemo_ganyu",
+      "conditions": 6,
+      "notInMain162": true,
+      "path": "anemo_ganyu/native.json.gz",
+      "rawBytes": 1283778,
+      "rawSHA256": "27062969281fc9b92dbde8fd1122a0ba30367a52272f20dc588188fa920bbd8f",
+      "compressedBytes": 74021,
+      "compressedSHA256": "0c36694e9efafb942dc3798abee663aa6d6be70ec137d5142e4e6ca053044c36"
+    },
+    {
+      "name": "primo_prepared",
+      "conditions": 6,
+      "notInMain162": true,
+      "path": "primo_prepared/native.json.gz",
+      "rawBytes": 2198277,
+      "rawSHA256": "30e854d57adc6f8dd876f0f3c69cbe51e6e4cf980acf5803827b5412b7f2762b",
+      "compressedBytes": 102139,
+      "compressedSHA256": "212a869c9a7d794761e7530faf7a7bd21d676289e681debb0f45973fe237c9a0"
+    }
+  ]
+}

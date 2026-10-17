@@ -1,0 +1,15 @@
+PASS C04: rejected C4 petrify cannot extend the existing lock or its guard
+PASS C04: native AI C4 + cooldown reduction never takes three consecutive foe turns
+PASS C05: actual Dahlia turn-start contact freezes only that turn, including after restore
+PASS C05: repeated own-start control attempts preserve two complete free turns
+PASS C06: actual Baizhu C4 applies +30% once to reaction/DOT packets, never primary damage
+PASS C06: superconduct primary attack and reaction use separate constellation contexts
+PASS C06: enclosing E-only damage and talent bonuses do not leak to its reaction packet
+PASS C06: melt/amplify and quicken/additive retain native math with reaction-only buffs
+PASS C07: actual E/Q initial and refresh Oz all get 2 attacks (C0) or 3 (C6)
+PASS C10: all six native raid bosses keep final accepted packets at one after every modifier
+PASS C10: immune/zero/miss packets do not count; shields and HP1 preserve existing raid rules
+PASS Bennett C6: local equipped sword/claymore/polearm are infused; bow/catalyst are excluded after restore
+PASS Bennett C6: guest weapon snapshots and restored guests never use the host weapon
+PASS C11: installed Bennett card text/script match current native behavior without mutating recovered DB
+{"ok":true,"total":14,"passed":14}

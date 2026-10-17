@@ -1,0 +1,113 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "menuDuringReadingSave": true,
+      "menuPreservedOnAcknowledgement": true
+    },
+    {
+      "uninterruptedStoryInputs": 5,
+      "checkpoints": 2,
+      "readDurations": [
+        156,
+        160,
+        108,
+        150,
+        131
+      ],
+      "presentationMilliseconds": [
+        45.70000000298023,
+        66,
+        38,
+        51.900000005960464,
+        74.19999998807907
+      ]
+    },
+    {
+      "reloadReadingOnce": true,
+      "decisionWithReadingPrefix": true
+    },
+    {
+      "storyNodes": [
+        "PRO_M01_깨어남_007"
+      ]
+    },
+    {
+      "menuRequests": 0,
+      "repeatedMenuCycles": 150
+    },
+    {
+      "lostReadingResponseReloadExactlyOnce": true
+    },
+    {
+      "legacyRejectedPrefixRestoredOnce": true
+    },
+    {
+      "singleResponseRequests": 0,
+      "singleResponseProgress": "ISK_M03_A_066"
+    },
+    {
+      "sceneSteps": 44,
+      "automaticSceneCheckpoints": 1
+    },
+    {
+      "lostResponseExactlyOnce": true
+    },
+    {
+      "relationshipLocked": true,
+      "requirementRed": true,
+      "legacyPendingRecovered": true,
+      "precommitFailureRecovered": true
+    },
+    {
+      "lifeElapsedOnAcknowledgement": 2846,
+      "visibleBeforeAcknowledgement": true,
+      "activityTotalMilliseconds": 7273
+    },
+    {
+      "equipmentFeedback": "장착 중…",
+      "centered": true,
+      "singleNotice": true
+    },
+    {
+      "worldWorkOverlapsSaving": true
+    },
+    {
+      "playbackHP": {
+        "outcome": "검증 · 체력 피해 13 / 보호막 0 → 0 / 체력 560 → 547",
+        "player": "HP  547 / 710"
+      }
+    },
+    {
+      "combatActors": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "hp": "체력  469 / 710"
+        },
+        {
+          "id": "MON_HILI_FIGHTER#1",
+          "hp": "체력  244 / 244"
+        },
+        {
+          "id": "MON_HILI_FIGHTER#2",
+          "hp": "체력  244 / 244"
+        },
+        {
+          "id": "MON_HILI_FIGHTER#3",
+          "hp": "체력  244 / 244"
+        },
+        {
+          "id": "MON_HILI_SHOOTER#1",
+          "hp": "체력  244 / 244"
+        },
+        {
+          "id": "MON_HILI_SHOOTER#2",
+          "hp": "체력  244 / 244"
+        }
+      ]
+    },
+    {
+      "reconnectForfeit": true
+    }
+  ]
+}

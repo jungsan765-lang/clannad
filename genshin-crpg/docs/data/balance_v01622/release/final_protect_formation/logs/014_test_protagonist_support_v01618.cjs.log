@@ -1,0 +1,9 @@
+PASS support coefficients retain personal stats, four-person enemy difficulty, cooldowns and 60% ceiling
+PASS one live mark strengthens existing attacks, replaces itself and expires without stacking
+PASS protagonist death immediately removes exposure; no healing resurrection or saved support remains
+PASS joint strike preserves personal coefficient, attacks once per companion and consumes no companion turns or cooldowns
+PASS dead, incapacitated and preparing companions do not join; a solo protagonist cannot use Q
+PASS invalid legacy basic-attack metadata keeps the personal .65 joint fallback
+PASS existing injured saves and profiles reload without healing, repeat stat migration or altered equipment
+PASS an already saved old exposure keeps its original percentage and cooldown through reload
+PASS a native shield counter that kills the E caster cannot add a new orphaned exposure

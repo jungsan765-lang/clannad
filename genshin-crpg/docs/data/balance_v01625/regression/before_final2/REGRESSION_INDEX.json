@@ -1,0 +1,82 @@
+{
+  "createdAt": "2026-10-10T10:16:29.075247+00:00",
+  "selectedPrograms": 8,
+  "provisional": {
+    "passed": 5,
+    "failed": 3,
+    "errorsRetained": true
+  },
+  "finalFrozen": {
+    "passed": 7,
+    "failed": 1,
+    "productModules": [
+      {
+        "path": "source/runtime_combat.js",
+        "sha256": "b8b30487a9cf88018fa7253135b69bf097ee37bb57e0c4cea4d4f376cf2387e9",
+        "finalRunBeforeAfterCurrentMatch": true
+      },
+      {
+        "path": "source/runtime_liyue_cards.js",
+        "sha256": "2d5a05ae22f2276d5de033ae3334373391daf6b077293b05679bb7762fa095c7",
+        "finalRunBeforeAfterCurrentMatch": true
+      },
+      {
+        "path": "source/runtime_constellations_v01411.js",
+        "sha256": "cd8297ea56598788b531102d1cc07cab956e6ce716ea1d69dbeb25031a87a19a",
+        "finalRunBeforeAfterCurrentMatch": true
+      },
+      {
+        "path": "source/runtime_exclusive_weapons.js",
+        "sha256": "fb3a5580a1feefe0990f3520de15b70b711b7c69b4a3e6e732490c5f330c8649",
+        "finalRunBeforeAfterCurrentMatch": true
+      },
+      {
+        "path": "source/runtime_skill_rhythm.js",
+        "sha256": "f7c92f32f6ae9206b71a7cba4df47665b471c6ea11adfb56cdbb08f243036485",
+        "finalRunBeforeAfterCurrentMatch": true
+      },
+      {
+        "path": "source/runtime_balance_admin_v01623.js",
+        "sha256": "49df090970f8cacaf5614c4a0731100120b8cb763f8cca33e895f4b65b591f7b",
+        "finalRunBeforeAfterCurrentMatch": true
+      }
+    ],
+    "remainingFailure": "Baizhu/Jade fixture assumes Jade pool is strictly larger; new Zhongli budget flips the actual pool order."
+  },
+  "scopeDifference": {
+    "jade": 740,
+    "baizhu": 758,
+    "packet": 759,
+    "absorbed": 758,
+    "hpDamage": 1,
+    "healed": 455,
+    "hpBefore": 2336,
+    "hpAfter": 2790,
+    "hpAccountingVerified": true,
+    "testAssertionRetained": true
+  },
+  "approvedTestsChanged": [
+    "tests/test_healing_v01619.cjs",
+    "tests/test_shield_balance_v01619.cjs",
+    "tools/test_admin_balance_runtime_v01623.cjs"
+  ],
+  "productEditsByRegressionAgent": false,
+  "limits": "Existing contract regression and isolated fixture facts; no whole-combat balance claim. Final CJS suite does not load generated engine, which was rebuilt by parent during execution.",
+  "updatedAt": "2026-10-10T10:20:23.480626+00:00",
+  "latestSelected": {
+    "programs": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "retainedProgramExecutions": 17,
+  "retainedFailedExecutions": 4,
+  "nativeC3FixtureFollowup": {
+    "run": "final_native_c3_fixture_corrected",
+    "programs": 1,
+    "passed": 1,
+    "failed": 0,
+    "checks": 11,
+    "productsRemainFrozen": true,
+    "scope": "Existing Baizhu comparison case declares native Zhongli C3 (+3 E talent); every assertion retained. Initial C0 facts retained separately."
+  }
+}

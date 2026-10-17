@@ -1,0 +1,1798 @@
+{
+  "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "scope": "Declared shield-strength packet boundary fixtures; source native applyDamage and serialization retained. Not native combat win samples.",
+  "checks": [
+    {
+      "name": "two ally pools are spent simultaneously and do not add protection",
+      "passed": true,
+      "evidence": {
+        "hpLost": 100,
+        "shieldRemaining": [],
+        "logs": [
+          {
+            "actor": "츄츄 싸움꾼",
+            "target": "동일 조건 비교",
+            "damage": 100,
+            "absorbed": 400,
+            "shieldBefore": 700,
+            "shieldAfter": 0,
+            "brokenShields": [
+              "FIXTURE_A",
+              "FIXTURE_B"
+            ],
+            "element": "물리",
+            "presentationActorsBefore": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "name": "동일 조건 비교",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4673,
+                "maxHp": 4673,
+                "atk": 848.4,
+                "def": 421,
+                "spd": 64,
+                "crit": 5,
+                "critDmg": 50,
+                "hit": 81,
+                "eva": 7,
+                "resist": 8,
+                "range": "근접",
+                "aura": null,
+                "statuses": [],
+                "shields": [
+                  {
+                    "source": "FIXTURE_A",
+                    "value": 300,
+                    "initialValue": 300
+                  },
+                  {
+                    "source": "FIXTURE_B",
+                    "value": 400,
+                    "initialValue": 400
+                  }
+                ],
+                "cooldowns": {},
+                "turns": 1,
+                "guard": false,
+                "guest": false,
+                "protagonist": {
+                  "version": 1,
+                  "route": "ROUTE_TRAVELER",
+                  "skillIds": [
+                    "PLAYER_TRAVELER_ANEMO_E",
+                    "PLAYER_TRAVELER_ANEMO_Q"
+                  ]
+                }
+              },
+              {
+                "id": "LIYUE_ZHONGLI",
+                "source": "LIYUE_ZHONGLI",
+                "name": "종려",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 10600,
+                "maxHp": 10600,
+                "atk": 1265.16,
+                "def": 1073.28,
+                "spd": 59,
+                "crit": 19,
+                "critDmg": 65,
+                "hit": 91,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]",
+                  "[선인]",
+                  "[바위의 집정관]"
+                ]
+              },
+              {
+                "id": "MOND_DIONA",
+                "source": "MOND_DIONA",
+                "name": "디오나",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4951,
+                "maxHp": 5199,
+                "atk": 665,
+                "def": 571.1999999999999,
+                "spd": 60,
+                "crit": 12,
+                "critDmg": 55,
+                "hit": 93,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[얼음]"
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "name": "노엘",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 6204,
+                "maxHp": 6204,
+                "atk": 819,
+                "def": 828.8,
+                "spd": 57,
+                "crit": 10,
+                "critDmg": 55,
+                "hit": 91,
+                "eva": 7,
+                "resist": 26,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#1",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#2",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#1",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#2",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              }
+            ],
+            "presentationActorsAfter": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "hp": 4573,
+                "shields": []
+              }
+            ],
+            "targetId": "PLAYER_CUSTOM",
+            "actorId": "MON_HILI_FIGHTER#1",
+            "round": 1,
+            "actionSequence": 0,
+            "hpBefore": 4673,
+            "hpAfter": 4573,
+            "maxHp": 4673
+          }
+        ]
+      }
+    },
+    {
+      "name": "same pools still stack sequentially on enemy",
+      "passed": true,
+      "evidence": {
+        "hpLost": 0,
+        "shieldRemaining": [
+          {
+            "source": "FIXTURE_A",
+            "value": 200
+          }
+        ],
+        "logs": [
+          {
+            "actor": "동일 조건 비교",
+            "target": "츄츄 싸움꾼",
+            "damage": 0,
+            "absorbed": 500,
+            "shieldBefore": 700,
+            "shieldAfter": 200,
+            "brokenShields": [
+              "FIXTURE_B"
+            ],
+            "element": "물리",
+            "presentationActorsBefore": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "name": "동일 조건 비교",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4673,
+                "maxHp": 4673,
+                "atk": 848.4,
+                "def": 421,
+                "spd": 64,
+                "crit": 5,
+                "critDmg": 50,
+                "hit": 81,
+                "eva": 7,
+                "resist": 8,
+                "range": "근접",
+                "aura": null,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 1,
+                "guard": false,
+                "guest": false,
+                "protagonist": {
+                  "version": 1,
+                  "route": "ROUTE_TRAVELER",
+                  "skillIds": [
+                    "PLAYER_TRAVELER_ANEMO_E",
+                    "PLAYER_TRAVELER_ANEMO_Q"
+                  ]
+                }
+              },
+              {
+                "id": "LIYUE_ZHONGLI",
+                "source": "LIYUE_ZHONGLI",
+                "name": "종려",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 10600,
+                "maxHp": 10600,
+                "atk": 1265.16,
+                "def": 1073.28,
+                "spd": 59,
+                "crit": 19,
+                "critDmg": 65,
+                "hit": 91,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]",
+                  "[선인]",
+                  "[바위의 집정관]"
+                ]
+              },
+              {
+                "id": "MOND_DIONA",
+                "source": "MOND_DIONA",
+                "name": "디오나",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4951,
+                "maxHp": 5199,
+                "atk": 665,
+                "def": 571.1999999999999,
+                "spd": 60,
+                "crit": 12,
+                "critDmg": 55,
+                "hit": 93,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[얼음]"
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "name": "노엘",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 6204,
+                "maxHp": 6204,
+                "atk": 819,
+                "def": 828.8,
+                "spd": 57,
+                "crit": 10,
+                "critDmg": 55,
+                "hit": 91,
+                "eva": 7,
+                "resist": 26,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#1",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [
+                  {
+                    "source": "FIXTURE_A",
+                    "value": 300,
+                    "initialValue": 300
+                  },
+                  {
+                    "source": "FIXTURE_B",
+                    "value": 400,
+                    "initialValue": 400
+                  }
+                ],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#2",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#1",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#2",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              }
+            ],
+            "presentationActorsAfter": [
+              {
+                "id": "MON_HILI_FIGHTER#1",
+                "shields": [
+                  {
+                    "source": "FIXTURE_A",
+                    "value": 200,
+                    "initialValue": 300
+                  }
+                ]
+              }
+            ],
+            "targetId": "MON_HILI_FIGHTER#1",
+            "actorId": "PLAYER_CUSTOM",
+            "round": 1,
+            "actionSequence": 0,
+            "hpBefore": 213,
+            "hpAfter": 213,
+            "maxHp": 213
+          }
+        ]
+      }
+    },
+    {
+      "name": "element-specific strength blocks actual HP but every ally shield takes original packet",
+      "passed": true,
+      "evidence": {
+        "hpLost": 0,
+        "shieldRemaining": [
+          {
+            "source": "RX_CRYSTALLIZE",
+            "value": 100
+          }
+        ],
+        "logs": [
+          {
+            "actor": "츄츄 싸움꾼",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 500,
+            "shieldBefore": 600,
+            "shieldAfter": 100,
+            "brokenShields": [
+              "FIXTURE_JADE"
+            ],
+            "element": "불",
+            "presentationActorsBefore": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "name": "동일 조건 비교",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4673,
+                "maxHp": 4673,
+                "atk": 848.4,
+                "def": 421,
+                "spd": 64,
+                "crit": 5,
+                "critDmg": 50,
+                "hit": 81,
+                "eva": 7,
+                "resist": 8,
+                "range": "근접",
+                "aura": null,
+                "statuses": [],
+                "shields": [
+                  {
+                    "source": "FIXTURE_JADE",
+                    "value": 300,
+                    "initialValue": 300
+                  },
+                  {
+                    "source": "RX_CRYSTALLIZE",
+                    "value": 300,
+                    "initialValue": 300,
+                    "damageMultipliers": {
+                      "불": 0.4
+                    }
+                  }
+                ],
+                "cooldowns": {},
+                "turns": 1,
+                "guard": false,
+                "guest": false,
+                "protagonist": {
+                  "version": 1,
+                  "route": "ROUTE_TRAVELER",
+                  "skillIds": [
+                    "PLAYER_TRAVELER_ANEMO_E",
+                    "PLAYER_TRAVELER_ANEMO_Q"
+                  ]
+                }
+              },
+              {
+                "id": "LIYUE_ZHONGLI",
+                "source": "LIYUE_ZHONGLI",
+                "name": "종려",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 10600,
+                "maxHp": 10600,
+                "atk": 1265.16,
+                "def": 1073.28,
+                "spd": 59,
+                "crit": 19,
+                "critDmg": 65,
+                "hit": 91,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]",
+                  "[선인]",
+                  "[바위의 집정관]"
+                ]
+              },
+              {
+                "id": "MOND_DIONA",
+                "source": "MOND_DIONA",
+                "name": "디오나",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4951,
+                "maxHp": 5199,
+                "atk": 665,
+                "def": 571.1999999999999,
+                "spd": 60,
+                "crit": 12,
+                "critDmg": 55,
+                "hit": 93,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[얼음]"
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "name": "노엘",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 6204,
+                "maxHp": 6204,
+                "atk": 819,
+                "def": 828.8,
+                "spd": 57,
+                "crit": 10,
+                "critDmg": 55,
+                "hit": 91,
+                "eva": 7,
+                "resist": 26,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#1",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#2",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#1",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#2",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              }
+            ],
+            "presentationActorsAfter": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "shields": [
+                  {
+                    "source": "RX_CRYSTALLIZE",
+                    "value": 100,
+                    "initialValue": 300,
+                    "damageMultipliers": {
+                      "불": 0.4
+                    }
+                  }
+                ]
+              }
+            ],
+            "targetId": "PLAYER_CUSTOM",
+            "actorId": "MON_HILI_FIGHTER#1",
+            "round": 1,
+            "actionSequence": 0,
+            "hpBefore": 4673,
+            "hpAfter": 4673,
+            "maxHp": 4673
+          }
+        ]
+      }
+    },
+    {
+      "name": "partial elemental shield is strongest by effective blocked HP rather than raw pool",
+      "passed": true,
+      "evidence": {
+        "hpLost": 100,
+        "shieldRemaining": [],
+        "logs": [
+          {
+            "actor": "츄츄 싸움꾼",
+            "target": "동일 조건 비교",
+            "damage": 100,
+            "absorbed": 400,
+            "shieldBefore": 460,
+            "shieldAfter": 0,
+            "brokenShields": [
+              "FIXTURE_A",
+              "RX_CRYSTALLIZE"
+            ],
+            "element": "불",
+            "presentationActorsBefore": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "name": "동일 조건 비교",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4673,
+                "maxHp": 4673,
+                "atk": 848.4,
+                "def": 421,
+                "spd": 64,
+                "crit": 5,
+                "critDmg": 50,
+                "hit": 81,
+                "eva": 7,
+                "resist": 8,
+                "range": "근접",
+                "aura": null,
+                "statuses": [],
+                "shields": [
+                  {
+                    "source": "FIXTURE_A",
+                    "value": 300,
+                    "initialValue": 300
+                  },
+                  {
+                    "source": "RX_CRYSTALLIZE",
+                    "value": 160,
+                    "initialValue": 160,
+                    "damageMultipliers": {
+                      "불": 0.4
+                    }
+                  }
+                ],
+                "cooldowns": {},
+                "turns": 1,
+                "guard": false,
+                "guest": false,
+                "protagonist": {
+                  "version": 1,
+                  "route": "ROUTE_TRAVELER",
+                  "skillIds": [
+                    "PLAYER_TRAVELER_ANEMO_E",
+                    "PLAYER_TRAVELER_ANEMO_Q"
+                  ]
+                }
+              },
+              {
+                "id": "LIYUE_ZHONGLI",
+                "source": "LIYUE_ZHONGLI",
+                "name": "종려",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 10600,
+                "maxHp": 10600,
+                "atk": 1265.16,
+                "def": 1073.28,
+                "spd": 59,
+                "crit": 19,
+                "critDmg": 65,
+                "hit": 91,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]",
+                  "[선인]",
+                  "[바위의 집정관]"
+                ]
+              },
+              {
+                "id": "MOND_DIONA",
+                "source": "MOND_DIONA",
+                "name": "디오나",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4951,
+                "maxHp": 5199,
+                "atk": 665,
+                "def": 571.1999999999999,
+                "spd": 60,
+                "crit": 12,
+                "critDmg": 55,
+                "hit": 93,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[얼음]"
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "name": "노엘",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 6204,
+                "maxHp": 6204,
+                "atk": 819,
+                "def": 828.8,
+                "spd": 57,
+                "crit": 10,
+                "critDmg": 55,
+                "hit": 91,
+                "eva": 7,
+                "resist": 26,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#1",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#2",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#1",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#2",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              }
+            ],
+            "presentationActorsAfter": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "hp": 4573,
+                "shields": []
+              }
+            ],
+            "targetId": "PLAYER_CUSTOM",
+            "actorId": "MON_HILI_FIGHTER#1",
+            "round": 1,
+            "actionSequence": 0,
+            "hpBefore": 4673,
+            "hpAfter": 4573,
+            "maxHp": 4673
+          }
+        ]
+      }
+    },
+    {
+      "name": "immune elemental barrier prevents consumption of every coexisting shield",
+      "passed": true,
+      "evidence": {
+        "hpLost": 0,
+        "shieldRemaining": [
+          {
+            "source": "FIXTURE_A",
+            "value": 300
+          },
+          {
+            "source": "FIXTURE_IMMUNE",
+            "value": 160
+          }
+        ],
+        "logs": [
+          {
+            "actor": "츄츄 싸움꾼",
+            "target": "동일 조건 비교",
+            "damage": 0,
+            "absorbed": 0,
+            "shieldBefore": 460,
+            "shieldAfter": 460,
+            "immune": true,
+            "reason": "보호막 원소 면역",
+            "element": "불",
+            "presentationActorsBefore": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "name": "동일 조건 비교",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4673,
+                "maxHp": 4673,
+                "atk": 848.4,
+                "def": 421,
+                "spd": 64,
+                "crit": 5,
+                "critDmg": 50,
+                "hit": 81,
+                "eva": 7,
+                "resist": 8,
+                "range": "근접",
+                "aura": null,
+                "statuses": [],
+                "shields": [
+                  {
+                    "source": "FIXTURE_A",
+                    "value": 300,
+                    "initialValue": 300
+                  },
+                  {
+                    "source": "FIXTURE_IMMUNE",
+                    "value": 160,
+                    "initialValue": 160,
+                    "damageMultipliers": {
+                      "불": 0
+                    }
+                  }
+                ],
+                "cooldowns": {},
+                "turns": 1,
+                "guard": false,
+                "guest": false,
+                "protagonist": {
+                  "version": 1,
+                  "route": "ROUTE_TRAVELER",
+                  "skillIds": [
+                    "PLAYER_TRAVELER_ANEMO_E",
+                    "PLAYER_TRAVELER_ANEMO_Q"
+                  ]
+                }
+              },
+              {
+                "id": "LIYUE_ZHONGLI",
+                "source": "LIYUE_ZHONGLI",
+                "name": "종려",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 10600,
+                "maxHp": 10600,
+                "atk": 1265.16,
+                "def": 1073.28,
+                "spd": 59,
+                "crit": 19,
+                "critDmg": 65,
+                "hit": 91,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]",
+                  "[선인]",
+                  "[바위의 집정관]"
+                ]
+              },
+              {
+                "id": "MOND_DIONA",
+                "source": "MOND_DIONA",
+                "name": "디오나",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 4951,
+                "maxHp": 5199,
+                "atk": 665,
+                "def": 571.1999999999999,
+                "spd": 60,
+                "crit": 12,
+                "critDmg": 55,
+                "hit": 93,
+                "eva": 7,
+                "resist": 24,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[얼음]"
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "name": "노엘",
+                "side": "ALLY",
+                "level": 25,
+                "hp": 6204,
+                "maxHp": 6204,
+                "atk": 819,
+                "def": 828.8,
+                "spd": 57,
+                "crit": 10,
+                "critDmg": 55,
+                "hit": 91,
+                "eva": 7,
+                "resist": 26,
+                "range": "중거리",
+                "aura": null,
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "guest": false,
+                "tags": [
+                  "[광계]",
+                  "[바위]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#1",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_FIGHTER#2",
+                "source": "MON_HILI_FIGHTER",
+                "name": "츄츄 싸움꾼",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 64,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 4,
+                "resist": 5,
+                "range": "근접",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#1",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              },
+              {
+                "id": "MON_HILI_SHOOTER#2",
+                "source": "MON_HILI_SHOOTER",
+                "name": "츄츄 궁수",
+                "side": "ENEMY",
+                "level": 1,
+                "hp": 213,
+                "maxHp": 213,
+                "atk": 24,
+                "def": 20,
+                "spd": 70,
+                "crit": 8,
+                "critDmg": 55,
+                "hit": 80,
+                "eva": 5,
+                "resist": 5,
+                "range": "원거리",
+                "grade": "일반",
+                "element": "물리",
+                "aura": null,
+                "nativeAura": null,
+                "airborne": false,
+                "statuses": [],
+                "shields": [],
+                "cooldowns": {},
+                "turns": 0,
+                "tags": [
+                  "[물리]"
+                ]
+              }
+            ],
+            "targetId": "PLAYER_CUSTOM",
+            "actorId": "MON_HILI_FIGHTER#1",
+            "round": 1,
+            "actionSequence": 0,
+            "hpBefore": 4673,
+            "hpAfter": 4673,
+            "maxHp": 4673
+          }
+        ]
+      }
+    },
+    {
+      "name": "zero damage does not consume shield or HP",
+      "passed": true,
+      "evidence": {
+        "hp": 4673,
+        "shield": 300
+      }
+    },
+    {
+      "name": "native save preserves concurrent residual amounts then uses one strongest pool",
+      "passed": true,
+      "evidence": {
+        "hpLost": 100
+      }
+    }
+  ],
+  "total": 7,
+  "failed": 0
+}

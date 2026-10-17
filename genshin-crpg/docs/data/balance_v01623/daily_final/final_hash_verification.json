@@ -1,0 +1,37 @@
+{
+  "checkedAtUtc": "2026-10-10T08:02:09.881059+00:00",
+  "sourceSnapshotFiles": 235,
+  "sourceProductFiles": 235,
+  "snapshotDrift": [],
+  "productDrift": [],
+  "nativeLoadedInputs": 123,
+  "loadedDeltaFromOld8": [
+    {
+      "path": "source/index.html",
+      "before": "a75e6f516654442a2dd038cdb8f4d8aa0792ff5d92472a9cba38edae79fe98e3",
+      "after": "91509d6f145191483fff4a5c3c474f60de12fff6e696f87d2a3d599532365cc8"
+    },
+    {
+      "path": "source/runtime_balance_admin_v01623.js",
+      "before": null,
+      "after": "4adbb1b8725932df7cc7be4bd9f4a11a8fa060f3b1bcb8f07a30392781d5a5de"
+    },
+    {
+      "path": "source/runtime_field_bosses.js",
+      "before": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b",
+      "after": "b3cba3078c6f440102ce2e1be2e42b97f46bb3993bc1bc0d1f2a8aa597bbb99d"
+    },
+    {
+      "path": "source/runtime_liyue_combat.js",
+      "before": "ad0485097504d1c5104065e7d483e59874dfb4c2bdf51b54ff5c0a8a537f5004",
+      "after": "444a369277d88f9fa2f5f2cf04698050554ffdcdd2ba3a4a7dc905b83061790f"
+    }
+  ],
+  "criticalBaselineSame": {
+    "source/runtime_growth_v01522.js": true,
+    "content/db.json": true,
+    "tools/audit_protagonist_v01618.cjs": true
+  },
+  "executorSHA": "038ed43c994d65073092a8df268a6da7592c3161727161184b2c133433cf24ff",
+  "extractorSHA": "c363bab44b33022bcbdf3cf98e001b4eb64c1ce97ea9858118529123c4bd15da"
+}

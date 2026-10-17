@@ -1,0 +1,93 @@
+{
+  "case": "dist_sqlite",
+  "command": [
+    "npm",
+    "run",
+    "test:browser"
+  ],
+  "env": {
+    "CRPG_TEST_DIST": "1",
+    "CRPG_TEST_BACKEND": null,
+    "CRPG_CHROMIUM_EXECUTABLE": "/root/.cache/ms-playwright/chromium_headless_shell-1161/chrome-linux/headless_shell"
+  },
+  "scope": "Actual Chromium graphical flow against real isolated Worker + sqlite; existing test file unchanged. No live account or server used.",
+  "exitCode": 0,
+  "timedOut": false,
+  "launchError": null,
+  "elapsedSeconds": 113.04,
+  "startedAtEpochSeconds": 1791659276.9012473,
+  "finishedAtEpochSeconds": 1791659389.9415605,
+  "nativeSourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "nativeSourceProofSHA256": "b323a2fb07396d436a8c128a35b06c9f9a2df014f452ee04761b6257aeeab691",
+  "build": {
+    "appVersion": "0.16.27",
+    "packVersion": "2026-09-24-c3d5eef26ac2-9f53be852293",
+    "engineVersion": "engine3-ccab181d79528168042dabf16c33478eb9cd5a9f3123ac37c881ae13e044890b"
+  },
+  "serverEngineSHA256": "23e11439e85faf84f4858023814af4d110ac77faf2d1760efc4d057a6fe8c905",
+  "rawAuthoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "sourceBuildAndDbUnchanged": true,
+  "browserExecutableExists": true,
+  "testSHA256": "d6419c92d25e05a8f2be704b04833bace2a74a50083c0287ac3f91b8ba35605d",
+  "stdoutSHA256": "5978c8cae1d2411b15e60d2aa980e99bc10a71a16d3bbe3fcc0b9987acdf49a6",
+  "successfulResultRows": 17,
+  "resultFiles": [
+    {
+      "path": "dist_sqlite/online-flow/single-response.png",
+      "sha256": "32323ace55a39c825d3195fce69433eb2e52fd075b0d368c2239ecec47f72f05",
+      "bytes": 621519
+    },
+    {
+      "path": "dist_sqlite/online-flow/story.png",
+      "sha256": "f266aa3a8636656a17ee9f3de44098bccb7f183f7a406505b5e3f854e20e023b",
+      "bytes": 116498
+    },
+    {
+      "path": "dist_sqlite/online-flow/life-pending.png",
+      "sha256": "b9e74c8e3d045a5874bfcbb3a3d34c57b7b2f7092de01a562636789539c7c246",
+      "bytes": 956154
+    },
+    {
+      "path": "dist_sqlite/online-flow/combat.png",
+      "sha256": "61ca49450342dd6ff368823486c200662cffa68833a468a73b31b6b29ce1c446",
+      "bytes": 278321
+    },
+    {
+      "path": "dist_sqlite/online-flow/combat-pending.png",
+      "sha256": "f44a16d38ac8cada455156a033859114a582353eaeba3f2813051003b407b5b1",
+      "bytes": 309937
+    },
+    {
+      "path": "dist_sqlite/online-flow/results.json",
+      "sha256": "ced639df0c21029c602526356ff47bf43746ab08b8b2db9d615f394104d22b91",
+      "bytes": 2053
+    },
+    {
+      "path": "dist_sqlite/online-flow/relationship-locked.png",
+      "sha256": "a279c65385137d5aa55d82681d76862f16c983eef05672c08b8201d6f2b1e5df",
+      "bytes": 503578
+    },
+    {
+      "path": "dist_sqlite/online-flow/equipment-pending.png",
+      "sha256": "325450a5a226da6f3cd309fb90825337949a3988079132bef77b13f76fe4c428",
+      "bytes": 231911
+    },
+    {
+      "path": "dist_sqlite/online-flow/life.png",
+      "sha256": "9844eb004c8b2b25e2379b054904d9c924791465016468cdefe2540dc885de4f",
+      "bytes": 959825
+    },
+    {
+      "path": "dist_sqlite/online-flow/life-scene-picked.png",
+      "sha256": "f3196eb62cb8d510078240687e7d9c02e863079eb510a2b46656edd06e020ee2",
+      "bytes": 1757639
+    }
+  ],
+  "excludedForeignOutputs": [],
+  "nodeModulesOrProductOrTestEdits": 0,
+  "classification": "ACTUAL_GRAPHICAL_UI_GATE_PASS",
+  "uiAssertionsExecuted": true,
+  "actualSuccessStdoutAndResultsEqual": true,
+  "resultJSONSHA256": "ced639df0c21029c602526356ff47bf43746ab08b8b2db9d615f394104d22b91",
+  "preservedDuplicateScratchDirectory": "/workspace/scratch/a62414469990/browser-duplicate-headless-v01627/dist_sqlite"
+}

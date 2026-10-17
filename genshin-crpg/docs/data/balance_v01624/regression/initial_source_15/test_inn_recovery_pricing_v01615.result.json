@@ -1,0 +1,28 @@
+{
+  "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+  "command": [
+    "node",
+    "tests/test_inn_recovery_pricing_v01615.cjs"
+  ],
+  "startedAt": "2026-10-10T09:11:13.615661+00:00",
+  "endedAt": "2026-10-10T09:11:33.777392+00:00",
+  "seconds": 20.015,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_boss_difficulty_scope_v01624.cjs": {
+      "before": "b219475def808141cc23ae112351dccde252954221ad5cdcc768663a7c7e07b7",
+      "after": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63"
+    },
+    "tests/test_field_boss_strategy_v01623.cjs": {
+      "before": "ac1bf2342e3a157110667d5dfc28820d9b8cfd0ffc241b9e806b84c3132b8992",
+      "after": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b"
+    }
+  },
+  "testSha256": "60f175020b68ac97d929e17d53741e19b1c97bf3317fa7b72134b04063b40332",
+  "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "stdoutSha256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_inn_recovery_pricing_v01615.stdout.log",
+  "stderrLog": "test_inn_recovery_pricing_v01615.stderr.log"
+}

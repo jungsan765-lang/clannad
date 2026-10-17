@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "scope": "정확한 native baseline 복제와 최종 pivot35 복제 사이의 입력 차이; UI/build 포함 배포패치 아님",
+  "changes": [
+    {
+      "path": "source/runtime_combat.js",
+      "baselineSha256": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa",
+      "finalSha256": "d9ca3895454ffcbb7a6d94783683bdbbf6d439594658dc8f17dda4ea19c9c6ee"
+    },
+    {
+      "path": "source/runtime_rules.js",
+      "baselineSha256": "a94d27081898b5fa60e19caef212b06ee8cd5127d140d58f0aff2710e0fd7f9e",
+      "finalSha256": "54c928b5f24614c5c085f559d0de7cc1533be713a4d1e356b62edbf5aa9090bf"
+    },
+    {
+      "path": "source/runtime_liyue_cards.js",
+      "baselineSha256": "ea3b02ba00024837a52415fc4b3c81eb6db9d9c99ddd486b1ab88f97265e55a5",
+      "finalSha256": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94"
+    },
+    {
+      "path": "source/runtime_growth_v01522.js",
+      "baselineSha256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "finalSha256": "1e00e0e4fbe20e9217a1a28b55e2658e7d078d1408e2d6bf36cefff52ace2014"
+    }
+  ]
+}

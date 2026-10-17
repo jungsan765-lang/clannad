@@ -1,0 +1,135 @@
+[
+  {
+    "schema": 1,
+    "fingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+    "root": "/workspace/scratch/a62414469990/leyline-final-v01627/input_root",
+    "runStartedAt": "2026-10-10T18:26:14.064Z",
+    "sourceBefore": {
+      "runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+      "runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+      "runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+    },
+    "rawFileDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+    "offset": 0,
+    "count": 8,
+    "expectedCases": 24,
+    "assumptions": {
+      "preparation": "Ownership, Lv60/legal ascension, talent6, C0, ordinary crafted weapons/reinforced leather/healing brooch +6, funding1000000 and region/story access granted. No artifacts/exclusive/boss gear/food. The brooch is Sumeru-crafted; this is a Lv60 prepared-account sample, not a pre-Sumeru beginner access proof.",
+      "start": "At the current native blossom map; initial trip to the blossom and acquisition/strengthening time excluded. One initial full heal. No combat HP reset.",
+      "actions": "Native public PLACE_ENTER -> BOSS_ROUTE tier5 -> COMBAT_BEGIN/COMBAT and actual balanced companion AI. Traveler Q, hold E, basic. Native MOVE return encounters and actually quoted/paid inn recovery until the same full-HP inn endpoint.",
+      "clock": "Native current action clock/hour, not elapsed-model clock. Claim remains once per real hour per kind across regions. No clock jump, quota reset, enemy kill, hit/RNG override.",
+      "time": "Displayed 2x model from H.observe/H.recover: presentation ms/1000 +3s per combat input +6s receipt/reentry +4s entry +4s per move +10s inn transaction, defeat penalty where native. Initial trip, network/human hesitation, acquisition and wait for hourly claim excluded.",
+      "reward": "Tier5 WEALTH 40000 Mora; REVELATION180 hero books=180000 XP to distribute account-wide, direct400 XP per participating actor; EXP domain comparison is per-actor reward. Travel encounter reward is separately counted."
+    },
+    "errors": [],
+    "sourceAfter": {
+      "runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+      "runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+      "runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+    },
+    "counts": {
+      "cases": 8,
+      "states": {
+        "WIN_FULL_INN": 8
+      },
+      "errors": 0
+    }
+  },
+  {
+    "schema": 1,
+    "fingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+    "root": "/workspace/scratch/a62414469990/leyline-final-v01627/input_root",
+    "runStartedAt": "2026-10-10T18:27:31.069Z",
+    "sourceBefore": {
+      "runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+      "runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+      "runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+    },
+    "rawFileDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+    "offset": 8,
+    "count": 8,
+    "expectedCases": 24,
+    "assumptions": {
+      "preparation": "Ownership, Lv60/legal ascension, talent6, C0, ordinary crafted weapons/reinforced leather/healing brooch +6, funding1000000 and region/story access granted. No artifacts/exclusive/boss gear/food. The brooch is Sumeru-crafted; this is a Lv60 prepared-account sample, not a pre-Sumeru beginner access proof.",
+      "start": "At the current native blossom map; initial trip to the blossom and acquisition/strengthening time excluded. One initial full heal. No combat HP reset.",
+      "actions": "Native public PLACE_ENTER -> BOSS_ROUTE tier5 -> COMBAT_BEGIN/COMBAT and actual balanced companion AI. Traveler Q, hold E, basic. Native MOVE return encounters and actually quoted/paid inn recovery until the same full-HP inn endpoint.",
+      "clock": "Native current action clock/hour, not elapsed-model clock. Claim remains once per real hour per kind across regions. No clock jump, quota reset, enemy kill, hit/RNG override.",
+      "time": "Displayed 2x model from H.observe/H.recover: presentation ms/1000 +3s per combat input +6s receipt/reentry +4s entry +4s per move +10s inn transaction, defeat penalty where native. Initial trip, network/human hesitation, acquisition and wait for hourly claim excluded.",
+      "reward": "Tier5 WEALTH 40000 Mora; REVELATION180 hero books=180000 XP to distribute account-wide, direct400 XP per participating actor; EXP domain comparison is per-actor reward. Travel encounter reward is separately counted."
+    },
+    "errors": [],
+    "sourceAfter": {
+      "runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+      "runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+      "runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+    },
+    "counts": {
+      "cases": 8,
+      "states": {
+        "WIN_FULL_INN": 8
+      },
+      "errors": 0
+    }
+  },
+  {
+    "schema": 1,
+    "fingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+    "root": "/workspace/scratch/a62414469990/leyline-final-v01627/input_root",
+    "runStartedAt": "2026-10-10T18:28:44.538Z",
+    "sourceBefore": {
+      "runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+      "runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+      "runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+    },
+    "rawFileDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+    "offset": 16,
+    "count": 8,
+    "expectedCases": 24,
+    "assumptions": {
+      "preparation": "Ownership, Lv60/legal ascension, talent6, C0, ordinary crafted weapons/reinforced leather/healing brooch +6, funding1000000 and region/story access granted. No artifacts/exclusive/boss gear/food. The brooch is Sumeru-crafted; this is a Lv60 prepared-account sample, not a pre-Sumeru beginner access proof.",
+      "start": "At the current native blossom map; initial trip to the blossom and acquisition/strengthening time excluded. One initial full heal. No combat HP reset.",
+      "actions": "Native public PLACE_ENTER -> BOSS_ROUTE tier5 -> COMBAT_BEGIN/COMBAT and actual balanced companion AI. Traveler Q, hold E, basic. Native MOVE return encounters and actually quoted/paid inn recovery until the same full-HP inn endpoint.",
+      "clock": "Native current action clock/hour, not elapsed-model clock. Claim remains once per real hour per kind across regions. No clock jump, quota reset, enemy kill, hit/RNG override.",
+      "time": "Displayed 2x model from H.observe/H.recover: presentation ms/1000 +3s per combat input +6s receipt/reentry +4s entry +4s per move +10s inn transaction, defeat penalty where native. Initial trip, network/human hesitation, acquisition and wait for hourly claim excluded.",
+      "reward": "Tier5 WEALTH 40000 Mora; REVELATION180 hero books=180000 XP to distribute account-wide, direct400 XP per participating actor; EXP domain comparison is per-actor reward. Travel encounter reward is separately counted."
+    },
+    "errors": [],
+    "sourceAfter": {
+      "runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+      "runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+      "runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+    },
+    "counts": {
+      "cases": 8,
+      "states": {
+        "WIN_FULL_INN": 5,
+        "LOSS": 3
+      },
+      "errors": 0
+    }
+  }
+]

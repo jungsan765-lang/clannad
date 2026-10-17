@@ -1,0 +1,33 @@
+{
+  "source": "Archived native 0.16.19 versus portable runner replay on explicitly restored 0.16.19 snapshot",
+  "conditions": 26,
+  "seed": 717,
+  "comparedFields": [
+    "initialHp",
+    "rawRequirements",
+    "failed",
+    "reason",
+    "seconds",
+    "upperBoundSeconds",
+    "purchases",
+    "crafts",
+    "harvests",
+    "meal",
+    "hpBeforeCook",
+    "hpBeforeMeal",
+    "finalHp",
+    "finalHpAfterReturn",
+    "finalMora",
+    "rngEnd",
+    "worldDaysAdvanced",
+    "inputIngredientNpcOpportunityMora"
+  ],
+  "nativeMatch": true,
+  "differences": [],
+  "baselineSourcesMatchAfterReplay": true,
+  "baselineDBSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "runnerSha256": "c65f1bbd711d4bb2a705288792247c7388213f2775f0a1edabddbbd6e05c4080",
+  "baselineCurrentSourceIdentityMatchesArchivedLoaded": true,
+  "archivedDataSHA256": "180363dd2971584b57ce3bca1dcaad24f927a1bb5fe5d1fe78236f5e1dc696af",
+  "replayDataSHA256": "4ef53337cd7ed7694a6e5f18a402bd1716ba8ecc1eea1e14c8d5d63da9af90a7"
+}

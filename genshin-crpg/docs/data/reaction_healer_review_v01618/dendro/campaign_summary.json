@@ -1,0 +1,4908 @@
+{
+  "files": [
+    "/tmp/crpg_reaction_plan/dendro/campaign_baseline_20.json",
+    "/tmp/crpg_reaction_plan/dendro/campaign_rule_candidate_20.json",
+    "/tmp/crpg_reaction_plan/dendro/campaign_baseline_40.json",
+    "/tmp/crpg_reaction_plan/dendro/campaign_rule_candidate_40.json",
+    "/tmp/crpg_reaction_plan/dendro/campaign_baseline_60.json",
+    "/tmp/crpg_reaction_plan/dendro/campaign_rule_candidate_60.json"
+  ],
+  "assumptions": {
+    "readOnly": true,
+    "nativeActions": true,
+    "comparison": "same initial party, level, legal phase, craft+6 weapons/armor/healer brooch, talents floor(65%cap), same baseline/candidate, C0/no artifacts, actual DOMAIN_START; 4 consecutive main fights with XP/HP/PRNG/recovery/road encounters carried; in-memory candidate only three rules.",
+    "confound": "Current native healing, Traveler Anemo and party AI unchanged; samples do not prove universal reaction balance. Separate acquisition/real human time absent."
+  },
+  "totalConditions": 60,
+  "totalDomainBattles": 188,
+  "wins": 170,
+  "losses": 18,
+  "errors": [],
+  "byLevelMode": [
+    {
+      "level": 20,
+      "mode": "baseline",
+      "conditions": 10,
+      "completedFour": 1,
+      "wins": 5,
+      "losses": 9,
+      "domainRounds": 94,
+      "seconds": 2394.34,
+      "lodgingMora": 1240,
+      "mainReactionCounts": {
+        "RX_SWIRL": 127,
+        "RX_VAPORIZE_PYRO": 18,
+        "RX_FROZEN": 5,
+        "RX_BLOOM": 47,
+        "RX_BURNING": 73,
+        "RX_VAPORIZE_HYDRO": 4,
+        "RX_MELT_CRYO": 4,
+        "RX_ELECTROCHARGED": 113,
+        "RX_HYPERBLOOM": 16,
+        "RX_QUICKEN": 18,
+        "RX_AGGRAVATE": 74,
+        "RX_SPREAD": 26,
+        "RX_BURGEON": 2
+      }
+    },
+    {
+      "level": 20,
+      "mode": "rule_candidate",
+      "conditions": 10,
+      "completedFour": 1,
+      "wins": 5,
+      "losses": 9,
+      "domainRounds": 94,
+      "seconds": 2392.12,
+      "lodgingMora": 1240,
+      "mainReactionCounts": {
+        "RX_SWIRL": 127,
+        "RX_VAPORIZE_PYRO": 18,
+        "RX_FROZEN": 5,
+        "RX_BLOOM": 47,
+        "RX_BURNING": 73,
+        "RX_VAPORIZE_HYDRO": 4,
+        "RX_MELT_CRYO": 4,
+        "RX_ELECTROCHARGED": 113,
+        "RX_HYPERBLOOM": 16,
+        "RX_QUICKEN": 18,
+        "RX_AGGRAVATE": 74,
+        "RX_SPREAD": 26,
+        "RX_BURGEON": 2
+      }
+    },
+    {
+      "level": 40,
+      "mode": "baseline",
+      "conditions": 10,
+      "completedFour": 10,
+      "wins": 40,
+      "losses": 0,
+      "domainRounds": 128,
+      "seconds": 2580.9500000000003,
+      "lodgingMora": 501,
+      "mainReactionCounts": {
+        "RX_BURNING": 126,
+        "RX_MELT_CRYO": 20,
+        "RX_SWIRL": 66,
+        "RX_MELT_PYRO": 8,
+        "RX_CRYSTALLIZE": 37,
+        "RX_BLOOM": 48,
+        "RX_ELECTROCHARGED": 10,
+        "RX_QUICKEN": 45,
+        "RX_AGGRAVATE": 20,
+        "RX_SPREAD": 17,
+        "RX_VAPORIZE_HYDRO": 11
+      }
+    },
+    {
+      "level": 40,
+      "mode": "rule_candidate",
+      "conditions": 10,
+      "completedFour": 10,
+      "wins": 40,
+      "losses": 0,
+      "domainRounds": 131,
+      "seconds": 2709.84,
+      "lodgingMora": 644,
+      "mainReactionCounts": {
+        "RX_BURNING": 129,
+        "RX_MELT_CRYO": 21,
+        "RX_SWIRL": 68,
+        "RX_MELT_PYRO": 8,
+        "RX_CRYSTALLIZE": 38,
+        "RX_BLOOM": 48,
+        "RX_ELECTROCHARGED": 10,
+        "RX_QUICKEN": 45,
+        "RX_AGGRAVATE": 20,
+        "RX_SPREAD": 17,
+        "RX_VAPORIZE_HYDRO": 13
+      }
+    },
+    {
+      "level": 60,
+      "mode": "baseline",
+      "conditions": 10,
+      "completedFour": 10,
+      "wins": 40,
+      "losses": 0,
+      "domainRounds": 203,
+      "seconds": 4162.54,
+      "lodgingMora": 238,
+      "mainReactionCounts": {
+        "RX_BURNING": 418,
+        "RX_SWIRL": 119,
+        "RX_MELT_CRYO": 21,
+        "RX_BLOOM": 52,
+        "RX_ELECTROCHARGED": 12,
+        "RX_QUICKEN": 39,
+        "RX_AGGRAVATE": 118,
+        "RX_SPREAD": 72,
+        "RX_VAPORIZE_HYDRO": 24
+      }
+    },
+    {
+      "level": 60,
+      "mode": "rule_candidate",
+      "conditions": 10,
+      "completedFour": 10,
+      "wins": 40,
+      "losses": 0,
+      "domainRounds": 211,
+      "seconds": 4375.08,
+      "lodgingMora": 294,
+      "mainReactionCounts": {
+        "RX_BURNING": 422,
+        "RX_SWIRL": 125,
+        "RX_MELT_CRYO": 20,
+        "RX_BLOOM": 55,
+        "RX_ELECTROCHARGED": 13,
+        "RX_QUICKEN": 40,
+        "RX_AGGRAVATE": 140,
+        "RX_SPREAD": 81,
+        "RX_HYPERBLOOM": 3,
+        "RX_VAPORIZE_HYDRO": 23
+      }
+    }
+  ],
+  "paired": [
+    {
+      "level": 20,
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 200.13,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 9,
+          "RX_VAPORIZE_PYRO": 4,
+          "RX_FROZEN": 3,
+          "RX_BLOOM": 2,
+          "RX_BURNING": 20,
+          "RX_VAPORIZE_HYDRO": 1,
+          "RX_MELT_CRYO": 2
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 199.01999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 9,
+          "RX_VAPORIZE_PYRO": 4,
+          "RX_FROZEN": 3,
+          "RX_BLOOM": 2,
+          "RX_BURNING": 20,
+          "RX_VAPORIZE_HYDRO": 1,
+          "RX_MELT_CRYO": 2
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      }
+    },
+    {
+      "level": 20,
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 194.57999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 11,
+          "RX_VAPORIZE_PYRO": 4,
+          "RX_FROZEN": 2,
+          "RX_VAPORIZE_HYDRO": 1,
+          "RX_BLOOM": 1,
+          "RX_BURNING": 19,
+          "RX_MELT_CRYO": 2
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 194.57999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 11,
+          "RX_VAPORIZE_PYRO": 4,
+          "RX_FROZEN": 2,
+          "RX_VAPORIZE_HYDRO": 1,
+          "RX_BLOOM": 1,
+          "RX_BURNING": 19,
+          "RX_MELT_CRYO": 2
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      }
+    },
+    {
+      "level": 20,
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 9,
+        "seconds": 173.03,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 12,
+          "RX_BLOOM": 5
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 9,
+        "seconds": 173.03,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 12,
+          "RX_BLOOM": 5
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 20,
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 10,
+        "seconds": 171.26999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 14,
+          "RX_BLOOM": 5
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 10,
+        "seconds": 171.26999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 14,
+          "RX_BLOOM": 5
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 20,
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 168.26999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 10,
+          "RX_ELECTROCHARGED": 12,
+          "RX_BLOOM": 5,
+          "RX_HYPERBLOOM": 2,
+          "RX_QUICKEN": 3,
+          "RX_AGGRAVATE": 4,
+          "RX_SPREAD": 2
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 168.26999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 10,
+          "RX_ELECTROCHARGED": 12,
+          "RX_BLOOM": 5,
+          "RX_HYPERBLOOM": 2,
+          "RX_QUICKEN": 3,
+          "RX_AGGRAVATE": 4,
+          "RX_SPREAD": 2
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 20,
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 6,
+        "seconds": 168.26999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 11,
+          "RX_ELECTROCHARGED": 14,
+          "RX_BLOOM": 4,
+          "RX_QUICKEN": 2,
+          "RX_HYPERBLOOM": 1,
+          "RX_AGGRAVATE": 6,
+          "RX_SPREAD": 4
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 6,
+        "seconds": 168.26999999999998,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 11,
+          "RX_ELECTROCHARGED": 14,
+          "RX_BLOOM": 4,
+          "RX_QUICKEN": 2,
+          "RX_HYPERBLOOM": 1,
+          "RX_AGGRAVATE": 6,
+          "RX_SPREAD": 4
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 20,
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 189.36,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 8,
+          "RX_BLOOM": 3,
+          "RX_BURGEON": 1,
+          "RX_BURNING": 15,
+          "RX_VAPORIZE_HYDRO": 1,
+          "RX_VAPORIZE_PYRO": 6
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 7,
+        "seconds": 188.25,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 8,
+          "RX_BLOOM": 3,
+          "RX_BURGEON": 1,
+          "RX_BURNING": 15,
+          "RX_VAPORIZE_HYDRO": 1,
+          "RX_VAPORIZE_PYRO": 6
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 20,
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "baseline": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 6,
+        "seconds": 184.6,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 6,
+          "RX_VAPORIZE_PYRO": 4,
+          "RX_BLOOM": 2,
+          "RX_BURNING": 19,
+          "RX_BURGEON": 1,
+          "RX_VAPORIZE_HYDRO": 1
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 0,
+        "losses": 1,
+        "rounds": 6,
+        "seconds": 184.6,
+        "lodgingMora": 0,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 6,
+          "RX_VAPORIZE_PYRO": 4,
+          "RX_BLOOM": 2,
+          "RX_BURNING": 19,
+          "RX_BURGEON": 1,
+          "RX_VAPORIZE_HYDRO": 1
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 20,
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 1,
+        "losses": 1,
+        "rounds": 11,
+        "seconds": 303.19,
+        "lodgingMora": 241,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 19,
+          "RX_ELECTROCHARGED": 27,
+          "RX_BLOOM": 4,
+          "RX_HYPERBLOOM": 4,
+          "RX_QUICKEN": 4,
+          "RX_AGGRAVATE": 17,
+          "RX_SPREAD": 3
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 1,
+        "losses": 1,
+        "rounds": 11,
+        "seconds": 303.19,
+        "lodgingMora": 241,
+        "stopReason": "DEFEAT",
+        "mainCounts": {
+          "RX_SWIRL": 19,
+          "RX_ELECTROCHARGED": 27,
+          "RX_BLOOM": 4,
+          "RX_HYPERBLOOM": 4,
+          "RX_QUICKEN": 4,
+          "RX_AGGRAVATE": 17,
+          "RX_SPREAD": 3
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 20,
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 641.64,
+        "lodgingMora": 999,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_SWIRL": 27,
+          "RX_ELECTROCHARGED": 60,
+          "RX_BLOOM": 16,
+          "RX_QUICKEN": 9,
+          "RX_AGGRAVATE": 47,
+          "RX_HYPERBLOOM": 9,
+          "RX_SPREAD": 17
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 641.64,
+        "lodgingMora": 999,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_SWIRL": 27,
+          "RX_ELECTROCHARGED": 60,
+          "RX_BLOOM": 16,
+          "RX_QUICKEN": 9,
+          "RX_AGGRAVATE": 47,
+          "RX_HYPERBLOOM": 9,
+          "RX_SPREAD": 17
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 40,
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 14,
+        "seconds": 276.6,
+        "lodgingMora": 31,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 24,
+          "RX_MELT_CRYO": 10,
+          "RX_SWIRL": 5,
+          "RX_MELT_PYRO": 4,
+          "RX_CRYSTALLIZE": 4
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 14,
+        "seconds": 361.88,
+        "lodgingMora": 143,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 25,
+          "RX_MELT_CRYO": 10,
+          "RX_SWIRL": 6,
+          "RX_MELT_PYRO": 4,
+          "RX_CRYSTALLIZE": 4
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 40,
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 14,
+        "seconds": 359,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 22,
+          "RX_MELT_CRYO": 10,
+          "RX_CRYSTALLIZE": 5,
+          "RX_SWIRL": 5,
+          "RX_MELT_PYRO": 4
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 279.92999999999995,
+        "lodgingMora": 31,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 24,
+          "RX_MELT_CRYO": 11,
+          "RX_CRYSTALLIZE": 4,
+          "RX_SWIRL": 6,
+          "RX_MELT_PYRO": 4
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 40,
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 20,
+        "seconds": 323.2,
+        "lodgingMora": 37,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BLOOM": 23,
+          "RX_CRYSTALLIZE": 8
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 20,
+        "seconds": 323.2,
+        "lodgingMora": 37,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BLOOM": 23,
+          "RX_CRYSTALLIZE": 8
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 40,
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 19,
+        "seconds": 318.56000000000006,
+        "lodgingMora": 38,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BLOOM": 24,
+          "RX_CRYSTALLIZE": 6,
+          "RX_SWIRL": 2
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 19,
+        "seconds": 318.56000000000006,
+        "lodgingMora": 38,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BLOOM": 24,
+          "RX_CRYSTALLIZE": 6,
+          "RX_SWIRL": 2
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 40,
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 9,
+        "seconds": 190.22000000000003,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 4,
+          "RX_QUICKEN": 12,
+          "RX_SWIRL": 7,
+          "RX_AGGRAVATE": 6,
+          "RX_SPREAD": 6,
+          "RX_BLOOM": 1,
+          "RX_CRYSTALLIZE": 1
+        },
+        "missingIntended": [
+          "RX_HYPERBLOOM"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 9,
+        "seconds": 190.22000000000003,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 4,
+          "RX_QUICKEN": 12,
+          "RX_SWIRL": 7,
+          "RX_AGGRAVATE": 6,
+          "RX_SPREAD": 6,
+          "RX_BLOOM": 1,
+          "RX_CRYSTALLIZE": 1
+        },
+        "missingIntended": [
+          "RX_HYPERBLOOM"
+        ]
+      }
+    },
+    {
+      "level": 40,
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 8,
+        "seconds": 207.99,
+        "lodgingMora": 35,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 6,
+          "RX_QUICKEN": 12,
+          "RX_CRYSTALLIZE": 3,
+          "RX_SPREAD": 9,
+          "RX_SWIRL": 9,
+          "RX_AGGRAVATE": 4
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_HYPERBLOOM"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 8,
+        "seconds": 207.99,
+        "lodgingMora": 35,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 6,
+          "RX_QUICKEN": 12,
+          "RX_CRYSTALLIZE": 3,
+          "RX_SPREAD": 9,
+          "RX_SWIRL": 9,
+          "RX_AGGRAVATE": 4
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_HYPERBLOOM"
+        ]
+      }
+    },
+    {
+      "level": 40,
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 13,
+        "seconds": 254.39,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 40,
+          "RX_SWIRL": 12,
+          "RX_CRYSTALLIZE": 3,
+          "RX_VAPORIZE_HYDRO": 5
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 380.4,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 40,
+          "RX_SWIRL": 12,
+          "RX_CRYSTALLIZE": 5,
+          "RX_VAPORIZE_HYDRO": 7
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      }
+    },
+    {
+      "level": 40,
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 292.73,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 40,
+          "RX_CRYSTALLIZE": 3,
+          "RX_SWIRL": 12,
+          "RX_VAPORIZE_HYDRO": 6
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 289.4,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 40,
+          "RX_CRYSTALLIZE": 3,
+          "RX_SWIRL": 12,
+          "RX_VAPORIZE_HYDRO": 6
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      }
+    },
+    {
+      "level": 40,
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 8,
+        "seconds": 176.91000000000003,
+        "lodgingMora": 244,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 8,
+          "RX_AGGRAVATE": 4,
+          "RX_SPREAD": 1,
+          "RX_SWIRL": 7,
+          "RX_CRYSTALLIZE": 2
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 8,
+        "seconds": 176.91000000000003,
+        "lodgingMora": 244,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 8,
+          "RX_AGGRAVATE": 4,
+          "RX_SPREAD": 1,
+          "RX_SWIRL": 7,
+          "RX_CRYSTALLIZE": 2
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 40,
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 8,
+        "seconds": 181.35000000000002,
+        "lodgingMora": 116,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 13,
+          "RX_AGGRAVATE": 6,
+          "RX_SPREAD": 1,
+          "RX_SWIRL": 7,
+          "RX_CRYSTALLIZE": 2
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 8,
+        "seconds": 181.35000000000002,
+        "lodgingMora": 116,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 13,
+          "RX_AGGRAVATE": 6,
+          "RX_SPREAD": 1,
+          "RX_SWIRL": 7,
+          "RX_CRYSTALLIZE": 2
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 60,
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 542.71,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 101,
+          "RX_SWIRL": 20,
+          "RX_MELT_CRYO": 11
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 541.74,
+        "lodgingMora": 67,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 102,
+          "RX_SWIRL": 19,
+          "RX_MELT_CRYO": 10
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      }
+    },
+    {
+      "level": 60,
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 544.9399999999999,
+        "lodgingMora": 99,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 101,
+          "RX_SWIRL": 19,
+          "RX_MELT_CRYO": 10
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 25,
+        "seconds": 573.47,
+        "lodgingMora": 29,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 102,
+          "RX_SWIRL": 20,
+          "RX_MELT_CRYO": 10
+        },
+        "missingIntended": [
+          "RX_MELT_PYRO"
+        ]
+      }
+    },
+    {
+      "level": 60,
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 28,
+        "seconds": 434.55,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_SWIRL": 3,
+          "RX_BLOOM": 22
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 28,
+        "seconds": 434.55,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_SWIRL": 3,
+          "RX_BLOOM": 22
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 60,
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 25,
+        "seconds": 404.59000000000003,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_SWIRL": 7,
+          "RX_BLOOM": 21
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 25,
+        "seconds": 404.59000000000003,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_SWIRL": 7,
+          "RX_BLOOM": 21
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 60,
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 321.12,
+        "lodgingMora": 32,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 7,
+          "RX_QUICKEN": 10,
+          "RX_SWIRL": 9,
+          "RX_AGGRAVATE": 25,
+          "RX_SPREAD": 20,
+          "RX_BLOOM": 4
+        },
+        "missingIntended": [
+          "RX_HYPERBLOOM"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 19,
+        "seconds": 393.40999999999997,
+        "lodgingMora": 29,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 6,
+          "RX_QUICKEN": 12,
+          "RX_SWIRL": 11,
+          "RX_AGGRAVATE": 26,
+          "RX_SPREAD": 24,
+          "RX_BLOOM": 7,
+          "RX_HYPERBLOOM": 2
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 60,
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 321.45,
+        "lodgingMora": 29,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 5,
+          "RX_QUICKEN": 12,
+          "RX_SPREAD": 22,
+          "RX_SWIRL": 12,
+          "RX_AGGRAVATE": 28,
+          "RX_BLOOM": 5
+        },
+        "missingIntended": [
+          "RX_HYPERBLOOM"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 18,
+        "seconds": 370.28000000000003,
+        "lodgingMora": 35,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_ELECTROCHARGED": 7,
+          "RX_QUICKEN": 12,
+          "RX_SPREAD": 24,
+          "RX_SWIRL": 13,
+          "RX_AGGRAVATE": 29,
+          "RX_BLOOM": 5,
+          "RX_HYPERBLOOM": 1
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 60,
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 563.3399999999999,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 107,
+          "RX_SWIRL": 17,
+          "RX_VAPORIZE_HYDRO": 12
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 555.58,
+        "lodgingMora": 38,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 111,
+          "RX_SWIRL": 19,
+          "RX_VAPORIZE_HYDRO": 11
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      }
+    },
+    {
+      "level": 60,
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 542.44,
+        "lodgingMora": 78,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 109,
+          "RX_SWIRL": 16,
+          "RX_VAPORIZE_HYDRO": 12
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 24,
+        "seconds": 530.23,
+        "lodgingMora": 60,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_BURNING": 107,
+          "RX_SWIRL": 17,
+          "RX_VAPORIZE_HYDRO": 12
+        },
+        "missingIntended": [
+          "RX_BLOOM",
+          "RX_BURGEON"
+        ]
+      }
+    },
+    {
+      "level": 60,
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 12,
+        "seconds": 230.96,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 8,
+          "RX_AGGRAVATE": 33,
+          "RX_SWIRL": 8,
+          "RX_SPREAD": 15
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 12,
+        "seconds": 271.04,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 8,
+          "RX_AGGRAVATE": 42,
+          "RX_SWIRL": 8,
+          "RX_SPREAD": 17
+        },
+        "missingIntended": []
+      }
+    },
+    {
+      "level": 60,
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "baseline": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 12,
+        "seconds": 256.44,
+        "lodgingMora": 0,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 9,
+          "RX_SWIRL": 8,
+          "RX_AGGRAVATE": 32,
+          "RX_SPREAD": 15
+        },
+        "missingIntended": []
+      },
+      "candidate": {
+        "wins": 4,
+        "losses": 0,
+        "rounds": 12,
+        "seconds": 300.19,
+        "lodgingMora": 36,
+        "stopReason": "RUNS_COMPLETED",
+        "mainCounts": {
+          "RX_QUICKEN": 8,
+          "RX_SWIRL": 8,
+          "RX_AGGRAVATE": 43,
+          "RX_SPREAD": 16
+        },
+        "missingIntended": []
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 200.13,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 9,
+        "RX_VAPORIZE_PYRO": 4,
+        "RX_FROZEN": 3,
+        "RX_BLOOM": 2,
+        "RX_BURNING": 20,
+        "RX_VAPORIZE_HYDRO": 1,
+        "RX_MELT_CRYO": 2
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 8,
+        "healTotal": 2574,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 194.57999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 11,
+        "RX_VAPORIZE_PYRO": 4,
+        "RX_FROZEN": 2,
+        "RX_VAPORIZE_HYDRO": 1,
+        "RX_BLOOM": 1,
+        "RX_BURNING": 19,
+        "RX_MELT_CRYO": 2
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 7,
+        "healTotal": 2608,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 9,
+      "seconds": 173.03,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 12,
+        "RX_BLOOM": 5
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 7435,
+        "travelerECasts": 1,
+        "barbaraECasts": 2,
+        "barbaraQCasts": 2,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 10,
+      "seconds": 171.26999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 14,
+        "RX_BLOOM": 5
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 27,
+        "healTotal": 9525,
+        "travelerECasts": 1,
+        "barbaraECasts": 2,
+        "barbaraQCasts": 2,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 168.26999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 10,
+        "RX_ELECTROCHARGED": 12,
+        "RX_BLOOM": 5,
+        "RX_HYPERBLOOM": 2,
+        "RX_QUICKEN": 3,
+        "RX_AGGRAVATE": 4,
+        "RX_SPREAD": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 7,
+        "healingPackets": 9,
+        "healTotal": 3162,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 6,
+      "seconds": 168.26999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 11,
+        "RX_ELECTROCHARGED": 14,
+        "RX_BLOOM": 4,
+        "RX_QUICKEN": 2,
+        "RX_HYPERBLOOM": 1,
+        "RX_AGGRAVATE": 6,
+        "RX_SPREAD": 4
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 6,
+        "healingPackets": 9,
+        "healTotal": 3303,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 189.36,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 8,
+        "RX_BLOOM": 3,
+        "RX_BURGEON": 1,
+        "RX_BURNING": 15,
+        "RX_VAPORIZE_HYDRO": 1,
+        "RX_VAPORIZE_PYRO": 6
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 18,
+        "healTotal": 4930,
+        "travelerECasts": 1,
+        "barbaraECasts": 2,
+        "barbaraQCasts": 1,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 6,
+      "seconds": 184.6,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 6,
+        "RX_VAPORIZE_PYRO": 4,
+        "RX_BLOOM": 2,
+        "RX_BURNING": 19,
+        "RX_BURGEON": 1,
+        "RX_VAPORIZE_HYDRO": 1
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 18,
+        "healTotal": 4846,
+        "travelerECasts": 0,
+        "barbaraECasts": 1,
+        "barbaraQCasts": 1,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 1,
+      "losses": 1,
+      "rounds": 11,
+      "seconds": 303.19,
+      "lodgingMora": 241,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 19,
+        "RX_ELECTROCHARGED": 27,
+        "RX_BLOOM": 4,
+        "RX_HYPERBLOOM": 4,
+        "RX_QUICKEN": 4,
+        "RX_AGGRAVATE": 17,
+        "RX_SPREAD": 3
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 9,
+        "healingPackets": 9,
+        "healTotal": 2950,
+        "travelerECasts": 3,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 641.64,
+      "lodgingMora": 999,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_SWIRL": 27,
+        "RX_ELECTROCHARGED": 60,
+        "RX_BLOOM": 16,
+        "RX_QUICKEN": 9,
+        "RX_AGGRAVATE": 47,
+        "RX_HYPERBLOOM": 9,
+        "RX_SPREAD": 17
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 23,
+        "healingPackets": 34,
+        "healTotal": 11927,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_MOND_CITY",
+        "place": "EVT_SCHEDULE_MRC_MOND_INN",
+        "stock": "STK_INN_MOND",
+        "allFullHp": true,
+        "prng": 1455816778,
+        "worldDay": 3,
+        "worldTime": "05:20"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 14,
+      "seconds": 276.6,
+      "lodgingMora": 31,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 24,
+        "RX_MELT_CRYO": 10,
+        "RX_SWIRL": 5,
+        "RX_MELT_PYRO": 4,
+        "RX_CRYSTALLIZE": 4
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 23,
+        "healTotal": 22174,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3194380126,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 14,
+      "seconds": 359,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 22,
+        "RX_MELT_CRYO": 10,
+        "RX_CRYSTALLIZE": 5,
+        "RX_SWIRL": 5,
+        "RX_MELT_PYRO": 4
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 23,
+        "healTotal": 21478,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 4060393979,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 20,
+      "seconds": 323.2,
+      "lodgingMora": 37,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BLOOM": 23,
+        "RX_CRYSTALLIZE": 8
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 76,
+        "healTotal": 36887,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 19
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3560606516,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 19,
+      "seconds": 318.56000000000006,
+      "lodgingMora": 38,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BLOOM": 24,
+        "RX_CRYSTALLIZE": 6,
+        "RX_SWIRL": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 76,
+        "healTotal": 32590,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 20
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3276116411,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 9,
+      "seconds": 190.22000000000003,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 4,
+        "RX_QUICKEN": 12,
+        "RX_SWIRL": 7,
+        "RX_AGGRAVATE": 6,
+        "RX_SPREAD": 6,
+        "RX_BLOOM": 1,
+        "RX_CRYSTALLIZE": 1
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 23,
+        "healTotal": 16068,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 4037037695,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 207.99,
+      "lodgingMora": 35,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 6,
+        "RX_QUICKEN": 12,
+        "RX_CRYSTALLIZE": 3,
+        "RX_SPREAD": 9,
+        "RX_SWIRL": 9,
+        "RX_AGGRAVATE": 4
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 24,
+        "healTotal": 19335,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2722037719,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 13,
+      "seconds": 254.39,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 40,
+        "RX_SWIRL": 12,
+        "RX_CRYSTALLIZE": 3,
+        "RX_VAPORIZE_HYDRO": 5
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 60,
+        "healTotal": 22551,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3807125409,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 292.73,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 40,
+        "RX_CRYSTALLIZE": 3,
+        "RX_SWIRL": 12,
+        "RX_VAPORIZE_HYDRO": 6
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 63,
+        "healTotal": 23767,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 4168965331,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 176.91000000000003,
+      "lodgingMora": 244,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 8,
+        "RX_AGGRAVATE": 4,
+        "RX_SPREAD": 1,
+        "RX_SWIRL": 7,
+        "RX_CRYSTALLIZE": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 5,
+        "healTotal": 5228,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2034229697,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 181.35000000000002,
+      "lodgingMora": 116,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 13,
+        "RX_AGGRAVATE": 6,
+        "RX_SPREAD": 1,
+        "RX_SWIRL": 7,
+        "RX_CRYSTALLIZE": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 13,
+        "healTotal": 15304,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2270470375,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 542.71,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 101,
+        "RX_SWIRL": 20,
+        "RX_MELT_CRYO": 11
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 44715,
+        "travelerECasts": 8,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2173333543,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 544.9399999999999,
+      "lodgingMora": 99,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 101,
+        "RX_SWIRL": 19,
+        "RX_MELT_CRYO": 10
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 49415,
+        "travelerECasts": 7,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3489177432,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 28,
+      "seconds": 434.55,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_SWIRL": 3,
+        "RX_BLOOM": 22
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 88,
+        "healTotal": 52307,
+        "travelerECasts": 8,
+        "barbaraECasts": 8,
+        "barbaraQCasts": 7,
+        "endLiveCores": 5
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3711341841,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 25,
+      "seconds": 404.59000000000003,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_SWIRL": 7,
+        "RX_BLOOM": 21
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 91,
+        "healTotal": 51772,
+        "travelerECasts": 7,
+        "barbaraECasts": 7,
+        "barbaraQCasts": 5,
+        "endLiveCores": 6
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2885112919,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 321.12,
+      "lodgingMora": 32,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 7,
+        "RX_QUICKEN": 10,
+        "RX_SWIRL": 9,
+        "RX_AGGRAVATE": 25,
+        "RX_SPREAD": 20,
+        "RX_BLOOM": 4
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 28,
+        "healTotal": 26428,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 4
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2920796468,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 321.45,
+      "lodgingMora": 29,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 5,
+        "RX_QUICKEN": 12,
+        "RX_SPREAD": 22,
+        "RX_SWIRL": 12,
+        "RX_AGGRAVATE": 28,
+        "RX_BLOOM": 5
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 28,
+        "healTotal": 38118,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 5
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2610694915,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 563.3399999999999,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 107,
+        "RX_SWIRL": 17,
+        "RX_VAPORIZE_HYDRO": 12
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 72,
+        "healTotal": 49493,
+        "travelerECasts": 8,
+        "barbaraECasts": 7,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2863248753,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 542.44,
+      "lodgingMora": 78,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 109,
+        "RX_SWIRL": 16,
+        "RX_VAPORIZE_HYDRO": 12
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 72,
+        "healTotal": 50959,
+        "travelerECasts": 8,
+        "barbaraECasts": 8,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2281239135,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 12,
+      "seconds": 230.96,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 8,
+        "RX_AGGRAVATE": 33,
+        "RX_SWIRL": 8,
+        "RX_SPREAD": 15
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 21,
+        "healTotal": 17146,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3731896296,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 12,
+      "seconds": 256.44,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 9,
+        "RX_SWIRL": 8,
+        "RX_AGGRAVATE": 32,
+        "RX_SPREAD": 15
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 20,
+        "healTotal": 18791,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2987093456,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 199.01999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 9,
+        "RX_VAPORIZE_PYRO": 4,
+        "RX_FROZEN": 3,
+        "RX_BLOOM": 2,
+        "RX_BURNING": 20,
+        "RX_VAPORIZE_HYDRO": 1,
+        "RX_MELT_CRYO": 2
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 8,
+        "healTotal": 2574,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 194.57999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 11,
+        "RX_VAPORIZE_PYRO": 4,
+        "RX_FROZEN": 2,
+        "RX_VAPORIZE_HYDRO": 1,
+        "RX_BLOOM": 1,
+        "RX_BURNING": 19,
+        "RX_MELT_CRYO": 2
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 7,
+        "healTotal": 2608,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 9,
+      "seconds": 173.03,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 12,
+        "RX_BLOOM": 5
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 7435,
+        "travelerECasts": 1,
+        "barbaraECasts": 2,
+        "barbaraQCasts": 2,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 10,
+      "seconds": 171.26999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 14,
+        "RX_BLOOM": 5
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 27,
+        "healTotal": 9525,
+        "travelerECasts": 1,
+        "barbaraECasts": 2,
+        "barbaraQCasts": 2,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 168.26999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 10,
+        "RX_ELECTROCHARGED": 12,
+        "RX_BLOOM": 5,
+        "RX_HYPERBLOOM": 2,
+        "RX_QUICKEN": 3,
+        "RX_AGGRAVATE": 4,
+        "RX_SPREAD": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 7,
+        "healingPackets": 9,
+        "healTotal": 3162,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 6,
+      "seconds": 168.26999999999998,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 11,
+        "RX_ELECTROCHARGED": 14,
+        "RX_BLOOM": 4,
+        "RX_QUICKEN": 2,
+        "RX_HYPERBLOOM": 1,
+        "RX_AGGRAVATE": 6,
+        "RX_SPREAD": 4
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 6,
+        "healingPackets": 9,
+        "healTotal": 3303,
+        "travelerECasts": 1,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 7,
+      "seconds": 188.25,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 8,
+        "RX_BLOOM": 3,
+        "RX_BURGEON": 1,
+        "RX_BURNING": 15,
+        "RX_VAPORIZE_HYDRO": 1,
+        "RX_VAPORIZE_PYRO": 6
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 18,
+        "healTotal": 4930,
+        "travelerECasts": 1,
+        "barbaraECasts": 2,
+        "barbaraQCasts": 1,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 0,
+      "losses": 1,
+      "rounds": 6,
+      "seconds": 184.6,
+      "lodgingMora": 0,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 6,
+        "RX_VAPORIZE_PYRO": 4,
+        "RX_BLOOM": 2,
+        "RX_BURNING": 19,
+        "RX_BURGEON": 1,
+        "RX_VAPORIZE_HYDRO": 1
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 18,
+        "healTotal": 4846,
+        "travelerECasts": 0,
+        "barbaraECasts": 1,
+        "barbaraQCasts": 1,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 1,
+      "losses": 1,
+      "rounds": 11,
+      "seconds": 303.19,
+      "lodgingMora": 241,
+      "stopReason": "DEFEAT",
+      "mainCounts": {
+        "RX_SWIRL": 19,
+        "RX_ELECTROCHARGED": 27,
+        "RX_BLOOM": 4,
+        "RX_HYPERBLOOM": 4,
+        "RX_QUICKEN": 4,
+        "RX_AGGRAVATE": 17,
+        "RX_SPREAD": 3
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 9,
+        "healingPackets": 9,
+        "healTotal": 2950,
+        "travelerECasts": 3,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": null,
+      "endpointSkippedReason": "DEFEAT"
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 20,
+      "domain": "FORSAKEN_RIFT:20",
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 641.64,
+      "lodgingMora": 999,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_SWIRL": 27,
+        "RX_ELECTROCHARGED": 60,
+        "RX_BLOOM": 16,
+        "RX_QUICKEN": 9,
+        "RX_AGGRAVATE": 47,
+        "RX_HYPERBLOOM": 9,
+        "RX_SPREAD": 17
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 23,
+        "healingPackets": 34,
+        "healTotal": 11927,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_MOND_CITY",
+        "place": "EVT_SCHEDULE_MRC_MOND_INN",
+        "stock": "STK_INN_MOND",
+        "allFullHp": true,
+        "prng": 1455816778,
+        "worldDay": 3,
+        "worldTime": "05:20"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 14,
+      "seconds": 361.88,
+      "lodgingMora": 143,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 25,
+        "RX_MELT_CRYO": 10,
+        "RX_SWIRL": 6,
+        "RX_MELT_PYRO": 4,
+        "RX_CRYSTALLIZE": 4
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 22326,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3078097910,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 279.92999999999995,
+      "lodgingMora": 31,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 24,
+        "RX_MELT_CRYO": 11,
+        "RX_CRYSTALLIZE": 4,
+        "RX_SWIRL": 6,
+        "RX_MELT_PYRO": 4
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 20769,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3751095512,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 20,
+      "seconds": 323.2,
+      "lodgingMora": 37,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BLOOM": 23,
+        "RX_CRYSTALLIZE": 8
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 76,
+        "healTotal": 36887,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 19
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3560606516,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 19,
+      "seconds": 318.56000000000006,
+      "lodgingMora": 38,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BLOOM": 24,
+        "RX_CRYSTALLIZE": 6,
+        "RX_SWIRL": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 76,
+        "healTotal": 32590,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 18
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3276116411,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 9,
+      "seconds": 190.22000000000003,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 4,
+        "RX_QUICKEN": 12,
+        "RX_SWIRL": 7,
+        "RX_AGGRAVATE": 6,
+        "RX_SPREAD": 6,
+        "RX_BLOOM": 1,
+        "RX_CRYSTALLIZE": 1
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 23,
+        "healTotal": 16068,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 4037037695,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 207.99,
+      "lodgingMora": 35,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 6,
+        "RX_QUICKEN": 12,
+        "RX_CRYSTALLIZE": 3,
+        "RX_SPREAD": 9,
+        "RX_SWIRL": 9,
+        "RX_AGGRAVATE": 4
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 24,
+        "healTotal": 19335,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2722037719,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 380.4,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 40,
+        "RX_SWIRL": 12,
+        "RX_CRYSTALLIZE": 5,
+        "RX_VAPORIZE_HYDRO": 7
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 68,
+        "healTotal": 24611,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2319982249,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 289.4,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 40,
+        "RX_CRYSTALLIZE": 3,
+        "RX_SWIRL": 12,
+        "RX_VAPORIZE_HYDRO": 6
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 63,
+        "healTotal": 23767,
+        "travelerECasts": 4,
+        "barbaraECasts": 4,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 4168965331,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 176.91000000000003,
+      "lodgingMora": 244,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 8,
+        "RX_AGGRAVATE": 4,
+        "RX_SPREAD": 1,
+        "RX_SWIRL": 7,
+        "RX_CRYSTALLIZE": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 5,
+        "healTotal": 5228,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2034229697,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 181.35000000000002,
+      "lodgingMora": 116,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 13,
+        "RX_AGGRAVATE": 6,
+        "RX_SPREAD": 1,
+        "RX_SWIRL": 7,
+        "RX_CRYSTALLIZE": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 13,
+        "healTotal": 15304,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2270470375,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burning",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 541.74,
+      "lodgingMora": 67,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 102,
+        "RX_SWIRL": 19,
+        "RX_MELT_CRYO": 10
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 45006,
+        "travelerECasts": 7,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2467789336,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burning",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XIANGLING",
+        "MOND_KAEYA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 25,
+      "seconds": 573.47,
+      "lodgingMora": 29,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 102,
+        "RX_SWIRL": 20,
+        "RX_MELT_CRYO": 10
+      },
+      "missingIntended": [
+        "RX_MELT_PYRO"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 24,
+        "healTotal": 50053,
+        "travelerECasts": 8,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2384336005,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "bloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 28,
+      "seconds": 434.55,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_SWIRL": 3,
+        "RX_BLOOM": 22
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 88,
+        "healTotal": 52307,
+        "travelerECasts": 8,
+        "barbaraECasts": 8,
+        "barbaraQCasts": 7,
+        "endLiveCores": 5
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3711341841,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "bloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_BARBARA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 25,
+      "seconds": 404.59000000000003,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_SWIRL": 7,
+        "RX_BLOOM": 21
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 91,
+        "healTotal": 51772,
+        "travelerECasts": 7,
+        "barbaraECasts": 7,
+        "barbaraQCasts": 5,
+        "endLiveCores": 6
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2885112919,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 19,
+      "seconds": 393.40999999999997,
+      "lodgingMora": 29,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 6,
+        "RX_QUICKEN": 12,
+        "RX_SWIRL": 11,
+        "RX_AGGRAVATE": 26,
+        "RX_SPREAD": 24,
+        "RX_BLOOM": 7,
+        "RX_HYPERBLOOM": 2
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 20,
+        "healingPackets": 28,
+        "healTotal": 29854,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 5
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 205684054,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 18,
+      "seconds": 370.28000000000003,
+      "lodgingMora": 35,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 7,
+        "RX_QUICKEN": 12,
+        "RX_SPREAD": 24,
+        "RX_SWIRL": 13,
+        "RX_AGGRAVATE": 29,
+        "RX_BLOOM": 5,
+        "RX_HYPERBLOOM": 1
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 17,
+        "healingPackets": 28,
+        "healTotal": 36276,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 4
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2994516732,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 555.58,
+      "lodgingMora": 38,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 111,
+        "RX_SWIRL": 19,
+        "RX_VAPORIZE_HYDRO": 11
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 72,
+        "healTotal": 50713,
+        "travelerECasts": 8,
+        "barbaraECasts": 7,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 1958488202,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_BARBARA",
+        "LIYUE_XIANGLING"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 24,
+      "seconds": 530.23,
+      "lodgingMora": 60,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_BURNING": 107,
+        "RX_SWIRL": 17,
+        "RX_VAPORIZE_HYDRO": 12
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 72,
+        "healTotal": 51938,
+        "travelerECasts": 8,
+        "barbaraECasts": 7,
+        "barbaraQCasts": 4,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 4136400110,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "quicken",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 12,
+      "seconds": 271.04,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 8,
+        "RX_AGGRAVATE": 42,
+        "RX_SWIRL": 8,
+        "RX_SPREAD": 17
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 23,
+        "healTotal": 20041,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 1438540394,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "rule_candidate",
+      "variant": false,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "quicken",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "MOND_LISA",
+        "MOND_FISCHL"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 12,
+      "seconds": 300.19,
+      "lodgingMora": 36,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_QUICKEN": 8,
+        "RX_SWIRL": 8,
+        "RX_AGGRAVATE": 43,
+        "RX_SPREAD": 16
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 16,
+        "healingPackets": 24,
+        "healTotal": 21955,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 1601540805,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom_lisa",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 233.32999999999998,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 8,
+        "RX_QUICKEN": 12,
+        "RX_AGGRAVATE": 7,
+        "RX_SPREAD": 8,
+        "RX_SWIRL": 5,
+        "RX_CRYSTALLIZE": 2
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 22,
+        "healTotal": 16446,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 196708029,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom_lisa",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 9,
+      "seconds": 192.57,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 8,
+        "RX_QUICKEN": 11,
+        "RX_AGGRAVATE": 6,
+        "RX_SWIRL": 9,
+        "RX_SPREAD": 5,
+        "RX_CRYSTALLIZE": 2,
+        "RX_BLOOM": 1
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 20,
+        "healTotal": 16042,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 1458721405,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon_diluc",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 176.92,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 4,
+        "RX_BURNING": 16,
+        "RX_SWIRL": 7,
+        "RX_CRYSTALLIZE": 1
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 17,
+        "healTotal": 15724,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3431841507,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon_diluc",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 10,
+      "seconds": 207.03000000000003,
+      "lodgingMora": 86,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 6,
+        "RX_BURNING": 21,
+        "RX_CRYSTALLIZE": 4,
+        "RX_SWIRL": 4,
+        "RX_BLOOM": 1,
+        "RX_VAPORIZE_PYRO": 1
+      },
+      "missingIntended": [
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 22,
+        "healTotal": 18305,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2252191797,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom_lisa",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 344.26,
+      "lodgingMora": 27,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 8,
+        "RX_QUICKEN": 12,
+        "RX_SPREAD": 21,
+        "RX_SWIRL": 10,
+        "RX_AGGRAVATE": 30,
+        "RX_BLOOM": 7
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 34949,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 7
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2302989695,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom_lisa",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 16,
+      "seconds": 323.33,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 7,
+        "RX_QUICKEN": 11,
+        "RX_SPREAD": 20,
+        "RX_AGGRAVATE": 31,
+        "RX_SWIRL": 11,
+        "RX_BLOOM": 4
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 31961,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 4
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2609876970,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon_diluc",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 18,
+      "seconds": 281.94,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 13,
+        "RX_BURNING": 37,
+        "RX_SWIRL": 8,
+        "RX_BLOOM": 8,
+        "RX_BURGEON": 3
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 19467,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 5
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2954362136,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon_diluc",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 17,
+      "seconds": 291.24,
+      "lodgingMora": 40,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 11,
+        "RX_BURNING": 27,
+        "RX_SWIRL": 6,
+        "RX_BLOOM": 9,
+        "RX_BURGEON": 5
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 20071,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 4
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2180469741,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    }
+  ],
+  "variantConditions": [
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom_lisa",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 233.32999999999998,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 8,
+        "RX_QUICKEN": 12,
+        "RX_AGGRAVATE": 7,
+        "RX_SPREAD": 8,
+        "RX_SWIRL": 5,
+        "RX_CRYSTALLIZE": 2
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 22,
+        "healTotal": 16446,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 196708029,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "hyperbloom_lisa",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 9,
+      "seconds": 192.57,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 8,
+        "RX_QUICKEN": 11,
+        "RX_AGGRAVATE": 6,
+        "RX_SWIRL": 9,
+        "RX_SPREAD": 5,
+        "RX_CRYSTALLIZE": 2,
+        "RX_BLOOM": 1
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 20,
+        "healTotal": 16042,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 1458721405,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon_diluc",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 8,
+      "seconds": 176.92,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 4,
+        "RX_BURNING": 16,
+        "RX_SWIRL": 7,
+        "RX_CRYSTALLIZE": 1
+      },
+      "missingIntended": [
+        "RX_BLOOM",
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 17,
+        "healTotal": 15724,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 0
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 3431841507,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 40,
+      "domain": "TAISHAN_MANSION:40",
+      "name": "burgeon_diluc",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 10,
+      "seconds": 207.03000000000003,
+      "lodgingMora": 86,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 6,
+        "RX_BURNING": 21,
+        "RX_CRYSTALLIZE": 4,
+        "RX_SWIRL": 4,
+        "RX_BLOOM": 1,
+        "RX_VAPORIZE_PYRO": 1
+      },
+      "missingIntended": [
+        "RX_BURGEON"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 22,
+        "healTotal": 18305,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 1
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2252191797,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom_lisa",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 15,
+      "seconds": 344.26,
+      "lodgingMora": 27,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 8,
+        "RX_QUICKEN": 12,
+        "RX_SPREAD": 21,
+        "RX_SWIRL": 10,
+        "RX_AGGRAVATE": 30,
+        "RX_BLOOM": 7
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 34949,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 7
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2302989695,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "hyperbloom_lisa",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_LISA"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 16,
+      "seconds": 323.33,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_ELECTROCHARGED": 7,
+        "RX_QUICKEN": 11,
+        "RX_SPREAD": 20,
+        "RX_AGGRAVATE": 31,
+        "RX_SWIRL": 11,
+        "RX_BLOOM": 4
+      },
+      "missingIntended": [
+        "RX_HYPERBLOOM"
+      ],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 31961,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 4
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2609876970,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon_diluc",
+      "seed": 717,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 18,
+      "seconds": 281.94,
+      "lodgingMora": 0,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 13,
+        "RX_BURNING": 37,
+        "RX_SWIRL": 8,
+        "RX_BLOOM": 8,
+        "RX_BURGEON": 3
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 19467,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 5
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2954362136,
+        "worldDay": 1,
+        "worldTime": "13:45"
+      },
+      "endpointSkippedReason": null
+    },
+    {
+      "mode": "baseline",
+      "variant": true,
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "name": "burgeon_diluc",
+      "seed": 4242,
+      "team": [
+        "LIYUE_YAOYAO",
+        "LIYUE_XINGQIU",
+        "MOND_DILUC"
+      ],
+      "wins": 4,
+      "losses": 0,
+      "rounds": 17,
+      "seconds": 291.24,
+      "lodgingMora": 40,
+      "stopReason": "RUNS_COMPLETED",
+      "mainCounts": {
+        "RX_VAPORIZE_HYDRO": 11,
+        "RX_BURNING": 27,
+        "RX_SWIRL": 6,
+        "RX_BLOOM": 9,
+        "RX_BURGEON": 5
+      },
+      "missingIntended": [],
+      "diagnostics": {
+        "movementEvents": 0,
+        "healingPackets": 28,
+        "healTotal": 20071,
+        "travelerECasts": 4,
+        "barbaraECasts": 0,
+        "barbaraQCasts": 0,
+        "endLiveCores": 4
+      },
+      "endpoint": {
+        "map": "MAP_LIYUE_HARBOR",
+        "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+        "stock": "STK_INN_LIYUE",
+        "allFullHp": true,
+        "prng": 2180469741,
+        "worldDay": 1,
+        "worldTime": "21:45"
+      },
+      "endpointSkippedReason": null
+    }
+  ],
+  "totalIncludingVariants": {
+    "conditions": 68,
+    "mainBattles": 220,
+    "wins": 202,
+    "losses": 18,
+    "allActualMainAndTravelBattles": 241
+  },
+  "nativeGzip": {
+    "path": "/tmp/crpg_reaction_plan/dendro/campaign_native.json.gz",
+    "bytes": 2732429,
+    "sha256": "2491800cd58fa869bc91554b1a95ce25c51eb06a3f8830ac95725f9a583d8472"
+  }
+}

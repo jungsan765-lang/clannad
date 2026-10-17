@@ -1,0 +1,352 @@
+{
+  "schema": 1,
+  "dbSha256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "rawFiles": [
+    {
+      "file": "raw/baseline_growth_entry.json.gz",
+      "uncompressedSha256": "61d01ad734ad39de646de167b20ff850e3fe4db79179bedd0b413c89c84074af",
+      "sha256": "e1ec0b175542b27c11208367c901092660c6770451987558b7385b1c54a6fd07",
+      "counts": {
+        "conditions": 76,
+        "wins": 72,
+        "losses": 4,
+        "errors": 0
+      },
+      "sourceFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/paired_baseline_talent_exp.json.gz",
+      "uncompressedSha256": "362b6aa5f261bae6be646aaad38fa9f9ec131eaf0feaac6b7843bdd3a3c7aef1",
+      "sha256": "bed63c337a82967b8fba81ea0323287033cc19c535fd3f48e25f91bfb66bd5e0",
+      "counts": {
+        "conditions": 48,
+        "wins": 48,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/paired_baseline_asc.json.gz",
+      "uncompressedSha256": "e842d27fe67725076a333c927ee4ac02b1663c0a625c5a17c3d62848cd51380a",
+      "sha256": "f872a62ea2e524d10e24e18b3ab8b1adc00aad4ceca7dfe8bf8605faeacf347f",
+      "counts": {
+        "conditions": 64,
+        "wins": 63,
+        "losses": 1,
+        "errors": 0
+      },
+      "sourceFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/baseline_late_campaigns.json.gz",
+      "uncompressedSha256": "42c94f2a0da3a245d74905cf64abb6b78c8ddeaf75b1b4e31da0d9ae16216f56",
+      "sha256": "cf3965baa0931a2912a823a8fa62e0376c95c6653b474e67fd5cc0f04efab41e",
+      "counts": {
+        "conditions": 18,
+        "battles": 105,
+        "wins": 104,
+        "losses": 1,
+        "errors": 0
+      },
+      "sourceFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product1_growth_entry.json.gz",
+      "uncompressedSha256": "2bb492e573fbe1281479fe4404a474074cb75da7772891eaf92d26007d429cf5",
+      "sha256": "15d9fe21131a5527d9a9d29bf645383ef1ff81bbb5ac39e4ce005b71f733d51d",
+      "counts": {
+        "conditions": 76,
+        "wins": 71,
+        "losses": 5,
+        "errors": 0
+      },
+      "sourceFingerprint": "80e3ff67df4d87af59687d5f4cfad4f9476600b3ec89fdc481cd8f278900cc95",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product1_talent_exp.json.gz",
+      "uncompressedSha256": "289ac15703c46076122f9b9b6e244541857a83af68add40587401da0cb91115d",
+      "sha256": "7315cb65f85da29333efe48ae500f9d1e981bdecffd58312c1a19b989cc630da",
+      "counts": {
+        "conditions": 48,
+        "wins": 48,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "80e3ff67df4d87af59687d5f4cfad4f9476600b3ec89fdc481cd8f278900cc95",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product1_asc_all.json.gz",
+      "uncompressedSha256": "76551d501a3cfaf1c7adf181693fabd569785a6c89042121909304e52ce29a1a",
+      "sha256": "03fa06fc3c7b307eed1d87e90c75464e1623da3f4c31fba8493c676a52c4fd04",
+      "counts": {
+        "conditions": 64,
+        "wins": 59,
+        "losses": 5,
+        "errors": 0
+      },
+      "sourceFingerprint": "80e3ff67df4d87af59687d5f4cfad4f9476600b3ec89fdc481cd8f278900cc95",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_asc_stage_efficiency60.json.gz",
+      "uncompressedSha256": "e1443e2688d91445a186624420fb9d27f07debbe193b916ff18c5b1655c6a9c5",
+      "sha256": "b88c08626a1a5dfe126bef963d4a3daa83c93578e9fa705d6ed60a4aafe668df",
+      "counts": {
+        "conditions": 144,
+        "wins": 127,
+        "losses": 17,
+        "errors": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_field_native.json.gz",
+      "uncompressedSha256": "c94ef2d51c8707d3dd06d9c74e981b5f3786366c555768b25d11593eb1069c11",
+      "sha256": "e7a4cc6d1947e6fd0dc8189bbd4f425c7d6a1b60b3f2aff76871a31440722538",
+      "counts": {
+        "conditions": 50,
+        "battles": 50,
+        "wins": 48,
+        "losses": 2,
+        "errors": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_material_campaigns.json.gz",
+      "uncompressedSha256": "536fd726eafb5b79ff0efc628e59cbc4662606a1d82f1b1c9ddb75adbc594de4",
+      "sha256": "df5623db9d7d67deb10d8b7f87086210b1456c93093493957da5262c43038fac",
+      "counts": {
+        "conditions": 24,
+        "battles": 144,
+        "wins": 144,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_material_mora.json.gz",
+      "uncompressedSha256": "8d2709fcc2d5b3f9910c1e00883f91ceca6f92ad9218886e1bdff46c933b27b5",
+      "sha256": "162e8153d6392cadc08537ca7188fecf825fcef459a55ee82a7b4f6a328158d4",
+      "counts": {
+        "conditions": 3,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_food_plus6_all.json.gz",
+      "uncompressedSha256": "e2890112964e35ac2b133867f56f2a135822da167bc8219db0a5f674d23f4d42",
+      "sha256": "c3acf1ebc0ac483c48a55cf13614fe2c2c1d3771139f22b98dc1cff1392760b9",
+      "counts": {
+        "conditions": 24,
+        "battles": 144,
+        "wins": 144,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_food_actor50_all.json.gz",
+      "uncompressedSha256": "5ffc6d182799639c5f12196d1f36ca5084a28062132dda1fabb1ef533b1cb0f6",
+      "sha256": "c3d88b64b75817e41f002cc62dd230cb9f50d6a812a5030a110aa734fe530dcd",
+      "counts": {
+        "conditions": 24,
+        "battles": 144,
+        "wins": 144,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_food_actor55_plus10.json.gz",
+      "uncompressedSha256": "80bfce98a81a817c3f741ec0c1003de113083b866778817367fe06d2935b4831",
+      "sha256": "c0d4967c0b2e88b0e34e3355f50fb552e19faf6883dcd8c05d343b55d352dc27",
+      "counts": {
+        "conditions": 12,
+        "battles": 64,
+        "wins": 61,
+        "losses": 3,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_food_plus10.json.gz",
+      "uncompressedSha256": "3b29862d0a4828eda2048d8bde5aee9a4a679a48be6a175ae49305e344b8161a",
+      "sha256": "665b29f18012bf69b9d089064f6a29f15ee8d570b9cbaae5e1b30ad050ebb94c",
+      "counts": {
+        "conditions": 24,
+        "battles": 144,
+        "wins": 144,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_food_bundles_retail.json.gz",
+      "uncompressedSha256": "1b1111b0962e3fc1327535f91c36e6e3cd9d98500e4cec2e3554b23777d7ca29",
+      "sha256": "245b62928a479799b6356773bf4143e5be7e9211541f34b6854051d072ec0778",
+      "counts": {
+        "routes": 6,
+        "failedRoutes": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_food_bundles.json.gz",
+      "uncompressedSha256": "dffe80c74047e473c0b19eade746c79ead0fb8554cb768bf2ced2849d2d66fc6",
+      "sha256": "1efc48052946f943c3c9837b255f62c448261b3cb20d5b4c538838380fe275e9",
+      "counts": {
+        "routes": 6,
+        "failedRoutes": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_food_bundles_consolidated.json.gz",
+      "uncompressedSha256": "38f8a8fcbfc0bb61e2a476342b06b93cc36c7462862bb0293625206ed178f382",
+      "sha256": "13d337a86d5bd7a0525a202c1fe70c8a33f7e3f2c6b2ae766fa3a197dcda1023",
+      "counts": {
+        "routes": 6,
+        "failedRoutes": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_food_bundles_actor50.json.gz",
+      "uncompressedSha256": "87a126c2d522ec3c220e2419a47f8f060bd60f96307f6c44fbd4e2450f9ca6bf",
+      "sha256": "2d80a35cccb625123a1741324f127f50ba3f84cba124511ec45884e0a6e2cdcb",
+      "counts": {
+        "routes": 3,
+        "failedRoutes": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_food_supply.json.gz",
+      "uncompressedSha256": "c988f4d93bf5d5fae2893b03b449523097d249b23b9896da74150c73e836623b",
+      "sha256": "c01d712964bcb1389e507c2095268db419708d30e3536f8216b7b3dc10c38f43",
+      "counts": {
+        "resourceSamples": 160,
+        "routes": 6,
+        "failedRoutes": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_food_easy_supply.json.gz",
+      "uncompressedSha256": "c8a8573894cc72882535337873ccd220d94af21e436e560b6bc970224649ff61",
+      "sha256": "8ef6ac80acaacc681be7d1859810979054213f7045a3b20d87514d0882562017",
+      "counts": {
+        "routes": 6,
+        "failedRoutes": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/food_cost_current.json.gz",
+      "uncompressedSha256": "ee11b5c50091fbe784aa7987fdc63986a1e6b9f31e93e0b96f0cdc818933504f",
+      "sha256": "e19bdfc2d3dd4156bc9b21c965e4876d57693223c90d1a08e3a347b69a7db425",
+      "counts": {
+        "conditions": 6,
+        "rows": 36,
+        "menuExecutions": 36,
+        "blockedMenus": 0,
+        "exceptions": 0,
+        "foodRecipes": 45,
+        "nativeCraftActions": 76,
+        "nativeMealBatchActions": 66
+      },
+      "sourceFingerprint": null,
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/product2_leyline_native.json.gz",
+      "uncompressedSha256": "06e18d4bbf55a8af1883cc124711f4b389288d56951dadaaf31fea8dc1fe6d2a",
+      "sha256": "ba3dc46dc05a5add4f473ca495da8916e816255acf0c6103ed267bdd7a328fff",
+      "counts": {
+        "conditions": 40,
+        "wins": 40,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_food_actor55_all.json.gz",
+      "uncompressedSha256": "3d1f17bb2243b5c65f38346b071801b5d951b4543181ce36d6cd1b515de54846",
+      "sha256": "f7286c1a7fd5e26e1d548d6e6d3301fcc812ecdbe4f4dbb15fae886892e2e6bd",
+      "counts": {
+        "conditions": 24,
+        "battles": 124,
+        "wins": 121,
+        "losses": 3,
+        "errors": 0
+      },
+      "sourceFingerprint": "ebcf0a2419fc8404db63b7e23beb3fa8a457f8d1bde18f4571d2bdf4d3a41f98",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_food_bundles_actor55.json.gz",
+      "uncompressedSha256": "53133c219215ee3c939008791d903923dd4601f0d25e286d443c32f482b6ebcb",
+      "sha256": "9cfae585e2aaaa61e5815ba6b54da67842c8b64d601609cd54d4e8d903897fd7",
+      "counts": {
+        "routes": 6,
+        "failedRoutes": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    },
+    {
+      "file": "raw/final_talent90_settlement.json.gz",
+      "uncompressedSha256": "0d3619a8b55964051336a2df19222107d52c4c0e2a5af74b6cc24a10b9f9918b",
+      "sha256": "f2cfe8c2b41f26ae6f0b3e7dfaa20f802c4100b263fe1791ef371fe65b6ba8c4",
+      "counts": {
+        "conditions": 1,
+        "wins": 1,
+        "losses": 0,
+        "errors": 0
+      },
+      "sourceFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "status": "native diagnostic, exact assumptions in raw evidence"
+    }
+  ],
+  "notes": [
+    "Native evidence is not one combined unique matrix: comparable seeds across tests are repeated conditions. Do not add all raw battle counts as independent samples.",
+    "Candidate prototype-overridden samples intentionally excluded here.",
+    "Old reward80 raw settlement is preserved and final90 result is a separate native check plus exact quantity reprojection."
+  ]
+}

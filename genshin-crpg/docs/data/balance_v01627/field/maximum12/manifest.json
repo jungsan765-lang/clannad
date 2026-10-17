@@ -1,0 +1,29 @@
+{
+  "conditions": 18,
+  "countedRawFile": "raw_18_rows.json.gz",
+  "excludedPreparationErrors": 6,
+  "files": {
+    "rear_manual_9_rows.json.gz": "b08227c52a1ead961e538b54459057935af1d74dbf2075799cf91da905628ba0",
+    "summary.json": "9c7a71487ca1a0871905b4345d17ed567053b5606780b5a09d2f181a020532b8",
+    "README_KO.md": "e956f591bb43b2b96cb493bacca0f2e5ca5c6cbb7e8c42fc4f718729b617dd8b",
+    "runner.cjs": "ecb93daecec26e64108baad640d3c88381928f52f44fec999500813acc93d480",
+    "raw_18_rows.json.gz": "3a2f379beae6f9ef51f3559b7327b7b76f4dace37ad20f45ebb4f9f992f04858",
+    "rear_summary.json": "49eb8a116a8d9c50ce4d1d12160e9eb40b9413a17af3a02d2a322be5364bc62c",
+    "invalid_setup_attempt.json.gz": "81345a64742ffdfdc34c84011158a8d44771e7e307ac25f7c4721cbf6ad532a3"
+  },
+  "sourceUnmodified": true,
+  "rearCounterplay": {
+    "conditions": 9,
+    "wins": 2,
+    "defeats": 7,
+    "errors": 0,
+    "inputLimits": 0,
+    "files": [
+      "rear_manual_9_rows.json.gz",
+      "rear_summary.json"
+    ],
+    "sameEquipmentTalentsAndConstellationsCompared": true,
+    "publicOrderOnlyChange": true
+  },
+  "combinedMaximumEnhancementConditions": 27
+}

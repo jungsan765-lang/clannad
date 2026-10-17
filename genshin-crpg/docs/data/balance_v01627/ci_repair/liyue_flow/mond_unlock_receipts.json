@@ -1,0 +1,23 @@
+{
+  "scope": "Actual current full195 Mondstadt test final saves; separate from the Liyue synthetic post-Mondstadt FLOW bootstrap. Genuine0.16.26/current public initial-node unlock separately recorded in anemo_boundary.json.",
+  "rows": [
+    {
+      "sourcePath": "reports/mond-v01344/final-TRV_MALE.json",
+      "sha256": "c21ff0a970fb1bc653390ead93a73f4e810e76bf2b14488b45f4a9e334515782",
+      "archive": "mond_final_TRV_MALE.json.gz",
+      "archiveSha256": "dcce0da1dc9cc9f6aa46f64ecc1138abe10032d75991685cb55ff718ba0b637c",
+      "flag": true,
+      "mondChapter2Complete": true,
+      "cursor": "TRV_M02_N422"
+    },
+    {
+      "sourcePath": "reports/mond-v01344/final-TRV_FEMALE.json",
+      "sha256": "98c9213e900172e615e4997894227b28fa371532364dbc4b07c0a21ce5ba4936",
+      "archive": "mond_final_TRV_FEMALE.json.gz",
+      "archiveSha256": "2763a223a3e48e820c9a7a78120cb2467a0bcb2ccaa5b9bd5534076d412a8422",
+      "flag": true,
+      "mondChapter2Complete": true,
+      "cursor": "TRV_M02_N422"
+    }
+  ]
+}

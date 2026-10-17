@@ -1,0 +1,2498 @@
+{
+  "version": "0.16.25",
+  "scope": "Character-only new-battle revision, Zhongli/Jean/Baizhu effect and description contracts, existing constellation/admin multiplier behavior, genuine 0.16.24 PENDING/WAIT save and resumed-action preservation. Not natural acquisition or whole-combat balance proof.",
+  "fixturePolicy": "Owned Traveler and declared three companions, legal equal levels/phase/base talents, no equipment/artifacts unless explicitly declared for late public-entry saves, constellation level declared per case. Coefficient boundary probes call existing executeCard directly without turn scheduling; they do not force a victory or modify enemy stats, damage formulas or RNG. Genuine saved-fight probes use public daily admission and public player actions.",
+  "checks": [
+    {
+      "id": "verified_v01624_before_overlay_and_same_actual_db",
+      "passed": true,
+      "evidence": {
+        "files": {
+          "source/runtime_combat.js": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473",
+          "source/runtime_liyue_cards.js": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94",
+          "source/runtime_constellations_v01411.js": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b",
+          "source/runtime_balance_admin_v01623.js": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811",
+          "source/runtime_growth_v01522.js": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81",
+          "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+          "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+        },
+        "mode": "verified declared-source overlay and unchanged current modules, with the same existing production relationship install bootstrap",
+        "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+        "currentFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+        "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "recordedQADbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "matchesRecordedQA": true,
+        "requiresRecordedQA": true,
+        "caveat": "Default compares old/new against the same actual authored DB. Strict recorded QA additionally verifies the complete old engine fingerprint. No DB replacement."
+      }
+    },
+    {
+      "id": "genuine_v01624_late_Azhdaha_Baizhu_save_and_next_action_preserved:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "level": 60,
+        "companions": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "LIYUE_BAIZHU"
+        ],
+        "equipment": "ordinary crafted +6; no artifacts/exclusive/own-boss gear",
+        "oldMarker": null,
+        "round": 1,
+        "prng": 226502406,
+        "nativeOldHeals": [],
+        "resumedHeals": [],
+        "completeStateAndNextActionCompared": true
+      }
+    },
+    {
+      "id": "genuine_v01624_late_Azhdaha_Baizhu_save_and_next_action_preserved:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "level": 60,
+        "companions": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "LIYUE_BAIZHU"
+        ],
+        "equipment": "ordinary crafted +6; no artifacts/exclusive/own-boss gear",
+        "oldMarker": null,
+        "round": 1,
+        "prng": 226502406,
+        "nativeOldHeals": [],
+        "resumedHeals": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 0,
+            "hpDelta": 0
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 0,
+            "hpDelta": 0
+          },
+          {
+            "target": "MOND_DILUC",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 1640,
+            "hpDelta": 1640
+          },
+          {
+            "target": "LIYUE_BAIZHU",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 0,
+            "hpDelta": 0
+          }
+        ],
+        "completeStateAndNextActionCompared": true
+      }
+    },
+    {
+      "id": "genuine_v01624_late_Azhdaha_Baizhu_save_and_next_action_preserved:WAIT_AFTER_NATIVE_BAIZHU_E",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_AFTER_NATIVE_BAIZHU_E",
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "level": 60,
+        "companions": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "LIYUE_BAIZHU"
+        ],
+        "equipment": "ordinary crafted +6; no artifacts/exclusive/own-boss gear",
+        "oldMarker": null,
+        "round": 2,
+        "prng": 136009017,
+        "nativeOldHeals": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 0,
+            "hpDelta": 0
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 0,
+            "hpDelta": 0
+          },
+          {
+            "target": "MOND_DILUC",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 1640,
+            "hpDelta": 1640
+          },
+          {
+            "target": "LIYUE_BAIZHU",
+            "raw": 2423.2000000000003,
+            "source": "백출",
+            "actual": 0,
+            "hpDelta": 0
+          }
+        ],
+        "resumedHeals": [],
+        "completeStateAndNextActionCompared": true
+      }
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:0:PENDING",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "boundary": "PENDING",
+        "oldMarker": null,
+        "prng": 3064118623,
+        "shields": [],
+        "fields": [],
+        "nextActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:0:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "boundary": "WAIT_PLAYER",
+        "oldMarker": null,
+        "prng": 4282659476,
+        "shields": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 191,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "LIYUE_ZHONGLI",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1658,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              },
+              {
+                "source": "RX_CRYSTALLIZE",
+                "value": 571,
+                "initialValue": 571,
+                "rounds": 3,
+                "createdRound": 1,
+                "element": "불",
+                "damageMultipliers": {
+                  "불": 0.4
+                }
+              }
+            ]
+          },
+          {
+            "source": "MOND_JEAN",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 734,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "MOND_AMBER",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 671,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "kind": "DANDELION",
+            "actor": "MOND_JEAN",
+            "side": "ALLY",
+            "rounds": 2,
+            "createdRound": 1,
+            "healRatio": 0.03,
+            "healFlat": 60,
+            "sourceCardId": "MOND_JEAN_Q",
+            "healTargetCount": 1,
+            "healTicks": 1,
+            "healMaxTicks": 2,
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F1",
+            "healRound": 1
+          },
+          {
+            "kind": "STONE_STELE",
+            "actor": "LIYUE_ZHONGLI",
+            "side": "ALLY",
+            "rounds": 2,
+            "createdRound": 1,
+            "sourceCardId": "LIYUE_ZHONGLI_E",
+            "liyue": true,
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F2",
+            "used": {
+              "END:1": true
+            }
+          },
+          {
+            "kind": "BUNNY",
+            "actor": "MOND_AMBER",
+            "side": "ALLY",
+            "rounds": 1,
+            "createdRound": 2,
+            "name": "토끼 백작",
+            "hp": 1131,
+            "maxHp": 1131,
+            "def": 431.2,
+            "tauntChance": 30,
+            "explodeAt": 3,
+            "asset": "summon_baron_bunny.webp",
+            "position": {
+              "x": 2,
+              "y": 3
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F3",
+            "sourceCardId": "MOND_AMBER_E"
+          }
+        ],
+        "nextActionCompared": true
+      }
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:2:PENDING",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "boundary": "PENDING",
+        "oldMarker": null,
+        "prng": 3064118623,
+        "shields": [],
+        "fields": [],
+        "nextActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:2:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "boundary": "WAIT_PLAYER",
+        "oldMarker": null,
+        "prng": 4282659476,
+        "shields": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 191,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "LIYUE_ZHONGLI",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1658,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              },
+              {
+                "source": "RX_CRYSTALLIZE",
+                "value": 571,
+                "initialValue": 571,
+                "rounds": 3,
+                "createdRound": 1,
+                "element": "불",
+                "damageMultipliers": {
+                  "불": 0.4
+                }
+              }
+            ]
+          },
+          {
+            "source": "MOND_JEAN",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 734,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "MOND_AMBER",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 671,
+                "initialValue": 1658,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "kind": "DANDELION",
+            "actor": "MOND_JEAN",
+            "side": "ALLY",
+            "rounds": 2,
+            "createdRound": 1,
+            "healRatio": 0.03,
+            "healFlat": 60,
+            "sourceCardId": "MOND_JEAN_Q",
+            "healTargetCount": 1,
+            "healTicks": 1,
+            "healMaxTicks": 2,
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F1",
+            "healRound": 1
+          },
+          {
+            "kind": "STONE_STELE",
+            "actor": "LIYUE_ZHONGLI",
+            "side": "ALLY",
+            "rounds": 2,
+            "createdRound": 1,
+            "sourceCardId": "LIYUE_ZHONGLI_E",
+            "liyue": true,
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F2",
+            "used": {
+              "END:1": true
+            }
+          },
+          {
+            "kind": "BUNNY",
+            "actor": "MOND_AMBER",
+            "side": "ALLY",
+            "rounds": 1,
+            "createdRound": 2,
+            "name": "토끼 백작",
+            "hp": 1131,
+            "maxHp": 1131,
+            "def": 431.2,
+            "tauntChance": 30,
+            "explodeAt": 3,
+            "asset": "summon_baron_bunny.webp",
+            "position": {
+              "x": 2,
+              "y": 3
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F3",
+            "sourceCardId": "MOND_AMBER_E"
+          }
+        ],
+        "nextActionCompared": true
+      }
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:6:PENDING",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "boundary": "PENDING",
+        "oldMarker": null,
+        "prng": 3064118623,
+        "shields": [],
+        "fields": [],
+        "nextActionCompared": false
+      }
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:6:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "boundary": "WAIT_PLAYER",
+        "oldMarker": null,
+        "prng": 4282659476,
+        "shields": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1174,
+                "initialValue": 2128,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "LIYUE_ZHONGLI",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 2128,
+                "initialValue": 2128,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              },
+              {
+                "source": "RX_CRYSTALLIZE",
+                "value": 571,
+                "initialValue": 571,
+                "rounds": 3,
+                "createdRound": 1,
+                "element": "불",
+                "damageMultipliers": {
+                  "불": 0.4
+                }
+              }
+            ]
+          },
+          {
+            "source": "MOND_JEAN",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1528,
+                "initialValue": 2128,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "MOND_AMBER",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1486,
+                "initialValue": 2128,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "kind": "DANDELION",
+            "actor": "MOND_JEAN",
+            "side": "ALLY",
+            "rounds": 3,
+            "createdRound": 1,
+            "healRatio": 0.03,
+            "healFlat": 60,
+            "sourceCardId": "MOND_JEAN_Q",
+            "healTargetCount": 1,
+            "healTicks": 1,
+            "healMaxTicks": 2,
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F1",
+            "healRound": 1
+          },
+          {
+            "kind": "STONE_STELE",
+            "actor": "LIYUE_ZHONGLI",
+            "side": "ALLY",
+            "rounds": 2,
+            "createdRound": 1,
+            "sourceCardId": "LIYUE_ZHONGLI_E",
+            "liyue": true,
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F2",
+            "used": {
+              "END:1": true
+            }
+          },
+          {
+            "kind": "BUNNY",
+            "actor": "MOND_AMBER",
+            "side": "ALLY",
+            "rounds": 1,
+            "createdRound": 2,
+            "name": "토끼 백작",
+            "hp": 1131,
+            "maxHp": 1131,
+            "def": 431.2,
+            "tauntChance": 30,
+            "explodeAt": 3,
+            "asset": "summon_baron_bunny.webp",
+            "position": {
+              "x": 2,
+              "y": 3
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B1:F3",
+            "sourceCardId": "MOND_AMBER_E"
+          }
+        ],
+        "nextActionCompared": true
+      }
+    },
+    {
+      "id": "new_and_legacy_character_budget_and_healing_contract",
+      "passed": true,
+      "evidence": {
+        "revision": 1,
+        "current": {
+          "zhongliShieldMultiplier": 0.25,
+          "zhongliQHpRatio": 0.18,
+          "zhongliSelfTaken": [
+            1,
+            0.5,
+            0.7,
+            0.85,
+            0.95,
+            1
+          ]
+        },
+        "legacy": {
+          "zhongliShieldMultiplier": 0.65,
+          "zhongliQHpRatio": 0.25,
+          "zhongliSelfTaken": [
+            0,
+            0,
+            0.5,
+            0.7,
+            0.9,
+            1
+          ]
+        },
+        "healing": {
+          "jeanQRatio": 0.035,
+          "jeanQFlat": 300,
+          "jeanFieldRatio": 0.02,
+          "jeanFieldFlat": 40,
+          "jeanFieldTicks": 2,
+          "barbaraQRatio": 0.04,
+          "barbaraQFlat": 250,
+          "barbaraERatio": 0.012,
+          "barbaraEFlat": 60,
+          "dionaFieldRatio": 0.02,
+          "dionaFieldFlat": 1200
+        },
+        "legacyHealing": {
+          "jeanQRatio": 0.05,
+          "jeanQFlat": 450,
+          "jeanFieldRatio": 0.03,
+          "jeanFieldFlat": 60,
+          "jeanFieldTicks": 2,
+          "barbaraQRatio": 0.04,
+          "barbaraQFlat": 250,
+          "barbaraERatio": 0.012,
+          "barbaraEFlat": 60,
+          "dionaFieldRatio": 0.02,
+          "dionaFieldFlat": 1200
+        },
+        "baizhuERatio": 0.03,
+        "legacyBaizhuERatio": 0.08
+      }
+    },
+    {
+      "id": "actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:0",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "probe": "direct native effect boundary before save; not public turn scheduling",
+        "oldField": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "healRatio": 0.03,
+          "healFlat": 60,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 1,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F2",
+          "healRound": 1
+        },
+        "events": [
+          {
+            "target": "MOND_AMBER",
+            "raw": 247.4928,
+            "source": "진",
+            "actual": 247,
+            "hpDelta": 247
+          }
+        ],
+        "shields": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 13273,
+                "initialValue": 13273,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "LIYUE_ZHONGLI",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 13273,
+                "initialValue": 13273,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "MOND_JEAN",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 13273,
+                "initialValue": 13273,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "MOND_AMBER",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 13273,
+                "initialValue": 13273,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:2",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "probe": "direct native effect boundary before save; not public turn scheduling",
+        "oldField": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "healRatio": 0.03,
+          "healFlat": 60,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 1,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1",
+          "healRound": 1
+        },
+        "events": [
+          {
+            "target": "MOND_AMBER",
+            "raw": 247.4928,
+            "source": "진",
+            "actual": 247,
+            "hpDelta": 247
+          }
+        ],
+        "shields": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 6381,
+                "initialValue": 6381,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true,
+                "consOwner": "LIYUE_ZHONGLI"
+              }
+            ]
+          },
+          {
+            "source": "LIYUE_ZHONGLI",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 6381,
+                "initialValue": 6381,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true,
+                "consOwner": "LIYUE_ZHONGLI"
+              }
+            ]
+          },
+          {
+            "source": "MOND_JEAN",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 6381,
+                "initialValue": 6381,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true,
+                "consOwner": "LIYUE_ZHONGLI"
+              }
+            ]
+          },
+          {
+            "source": "MOND_AMBER",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 6381,
+                "initialValue": 6381,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true,
+                "consOwner": "LIYUE_ZHONGLI"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:6",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "probe": "direct native effect boundary before save; not public turn scheduling",
+        "oldField": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 3,
+          "createdRound": 1,
+          "healRatio": 0.03,
+          "healFlat": 60,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 1,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F2",
+          "healRound": 1
+        },
+        "events": [
+          {
+            "target": "MOND_AMBER",
+            "raw": 247.4928,
+            "source": "진",
+            "actual": 247,
+            "hpDelta": 247
+          }
+        ],
+        "shields": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 16719,
+                "initialValue": 16719,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "LIYUE_ZHONGLI",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 16719,
+                "initialValue": 16719,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "MOND_JEAN",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 16719,
+                "initialValue": 16719,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          },
+          {
+            "source": "MOND_AMBER",
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 16719,
+                "initialValue": 16719,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_revision_pending_started_save_and_native_guard_replay:0",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "revision": 1,
+        "prng": 4282659476,
+        "stillActive": true
+      }
+    },
+    {
+      "id": "new_revision_pending_started_save_and_native_guard_replay:2",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "revision": 1,
+        "prng": 4282659476,
+        "stillActive": true
+      }
+    },
+    {
+      "id": "new_revision_pending_started_save_and_native_guard_replay:6",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "revision": 1,
+        "prng": 4282659476,
+        "stillActive": true
+      }
+    },
+    {
+      "id": "new_character_revision_validation",
+      "passed": true,
+      "evidence": {
+        "accepted": 1,
+        "rejected": [
+          0,
+          2,
+          "1",
+          null
+        ],
+        "oldUnmarkedCoveredSeparately": true
+      }
+    },
+    {
+      "id": "description_script_effect_and_constellation_node_match:OUTSIDE_BATTLE",
+      "passed": true,
+      "evidence": {
+        "mode": "OUTSIDE_BATTLE",
+        "rows": [
+          {
+            "id": "LIYUE_ZHONGLI_E",
+            "coefficient": "보호막 MAX_HP×0.05 / 석주 ATK×0.35×2라운드",
+            "description": "아군 전체에게 종려 MAX_HP×0.05의 2라운드 옥홀 방패를 부여하고 석주를 2라운드 설치한다. 옥홀 방패가 있는 아군은 강제 이동·넉백을 무시한다. 라운드 종료마다 석주가 적 최대 3명에게 바위 피해를 준다.",
+            "script": "SHIELD_ALL:MAX_HP*0.05:2R;WHILE_SHIELDED:IGNORE_FORCED_MOVE_KNOCKBACK;CREATE_FIELD:STONE_STELE:2R;ROUND_END:DMG_AOE:ATK*0.35:GEO:MAX3"
+          },
+          {
+            "id": "LIYUE_ZHONGLI_Q",
+            "coefficient": "ATK×0.8+MAX_HP×0.18",
+            "description": "적 최대 4명에게 바위 피해를 주고 일반 적을 1라운드 석화시켜 행동할 수 없게 한다. 보스는 다음 행동의 행동 점수가 30% 감소하고 가하는 피해가 10% 감소한다.",
+            "script": "DMG_AOE:ATK*0.8+MAX_HP*0.18:GEO:MAX4;IF_TARGET_NOT_BOSS:APPLY_CONTROL:PETRIFY:1R;IF_BOSS:NEXT_ACTION_SCORE*0.70;NEXT_ACTION_DAMAGE*0.90"
+          },
+          {
+            "id": "LIYUE_ZHONGLI_PASSIVE_ARCHON",
+            "coefficient": "1~4라운드 외부 피해 ×0.5 / 0.7 / 0.85 / 0.95",
+            "description": "종려 자신이 받는 외부 피해가 1라운드에는 50%, 2라운드에는 30%, 3라운드에는 15%, 4라운드에는 5% 줄어든다. 5라운드부터는 이 감소가 적용되지 않는다. 보호막 흡수 전에 적용하며 자신의 HP 소모에는 적용하지 않는다.",
+            "script": "ROUND1:EXTERNAL_DAMAGE_TAKEN*0.50;ROUND2:EXTERNAL_DAMAGE_TAKEN*0.70;ROUND3:*0.85;ROUND4:*0.95;ROUND5PLUS:NO_REDUCTION;APPLY_BEFORE_SHIELD;EXCLUDE_SELF_HP_COST_AND_SELF_DAMAGE"
+          },
+          {
+            "id": "MOND_JEAN_Q",
+            "coefficient": "회복 ATK×0.035+300 / 피해 ATK×0.7",
+            "description": "발동 즉시 아군 전체를 ATK×0.035+300만큼 회복하고 주변 적 최대 4명을 밀치며 바람 피해를 준다. 2라운드 민들레 영역은 라운드 종료마다 HP 비율이 가장 낮은 아군 1명을 ATK×0.02+40만큼 회복한다(최대 2회).",
+            "script": "HEAL_ALL:ATK*0.035+300;PUSH_AND_DMG:ATK*0.7:ANEMO:MAX4;CREATE_FIELD:DANDELION:2R;ROUND_END_HEAL_LOWEST_HP:ATK*0.02+40:MAX_TICKS2"
+          },
+          {
+            "id": "LIYUE_BAIZHU_E",
+            "coefficient": "피해 ATK×0.4×최대 3회 / 전원 회복 MAX_HP×0.03",
+            "description": "유사를 보내 적에게 최대 3회 풀 피해를 준다. 적이 1명일 때에는 최대 2회 적중한다. 돌아오면 아군 전체를 백출 MAX_HP×0.03만큼 회복한다.",
+            "script": "SPIRIT_ATTACK:UP_TO3_HITS:PREFER_DISTINCT;IF_ONLY1_ENEMY:MAX2_HITS;DMG_PER_HIT:ATK*0.4:DENDRO;ON_RETURN:HEAL_ALL:MAX_HP*0.03"
+          }
+        ],
+        "c2": "천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 5%, 2라운드)를 씌운다."
+      }
+    },
+    {
+      "id": "description_script_effect_and_constellation_node_match:NEW",
+      "passed": true,
+      "evidence": {
+        "mode": "NEW",
+        "rows": [
+          {
+            "id": "LIYUE_ZHONGLI_E",
+            "coefficient": "보호막 MAX_HP×0.05 / 석주 ATK×0.35×2라운드",
+            "description": "아군 전체에게 종려 MAX_HP×0.05의 2라운드 옥홀 방패를 부여하고 석주를 2라운드 설치한다. 옥홀 방패가 있는 아군은 강제 이동·넉백을 무시한다. 라운드 종료마다 석주가 적 최대 3명에게 바위 피해를 준다.",
+            "script": "SHIELD_ALL:MAX_HP*0.05:2R;WHILE_SHIELDED:IGNORE_FORCED_MOVE_KNOCKBACK;CREATE_FIELD:STONE_STELE:2R;ROUND_END:DMG_AOE:ATK*0.35:GEO:MAX3"
+          },
+          {
+            "id": "LIYUE_ZHONGLI_Q",
+            "coefficient": "ATK×0.8+MAX_HP×0.18",
+            "description": "적 최대 4명에게 바위 피해를 주고 일반 적을 1라운드 석화시켜 행동할 수 없게 한다. 보스는 다음 행동의 행동 점수가 30% 감소하고 가하는 피해가 10% 감소한다.",
+            "script": "DMG_AOE:ATK*0.8+MAX_HP*0.18:GEO:MAX4;IF_TARGET_NOT_BOSS:APPLY_CONTROL:PETRIFY:1R;IF_BOSS:NEXT_ACTION_SCORE*0.70;NEXT_ACTION_DAMAGE*0.90"
+          },
+          {
+            "id": "LIYUE_ZHONGLI_PASSIVE_ARCHON",
+            "coefficient": "1~4라운드 외부 피해 ×0.5 / 0.7 / 0.85 / 0.95",
+            "description": "종려 자신이 받는 외부 피해가 1라운드에는 50%, 2라운드에는 30%, 3라운드에는 15%, 4라운드에는 5% 줄어든다. 5라운드부터는 이 감소가 적용되지 않는다. 보호막 흡수 전에 적용하며 자신의 HP 소모에는 적용하지 않는다.",
+            "script": "ROUND1:EXTERNAL_DAMAGE_TAKEN*0.50;ROUND2:EXTERNAL_DAMAGE_TAKEN*0.70;ROUND3:*0.85;ROUND4:*0.95;ROUND5PLUS:NO_REDUCTION;APPLY_BEFORE_SHIELD;EXCLUDE_SELF_HP_COST_AND_SELF_DAMAGE"
+          },
+          {
+            "id": "MOND_JEAN_Q",
+            "coefficient": "회복 ATK×0.035+300 / 피해 ATK×0.7",
+            "description": "발동 즉시 아군 전체를 ATK×0.035+300만큼 회복하고 주변 적 최대 4명을 밀치며 바람 피해를 준다. 2라운드 민들레 영역은 라운드 종료마다 HP 비율이 가장 낮은 아군 1명을 ATK×0.02+40만큼 회복한다(최대 2회).",
+            "script": "HEAL_ALL:ATK*0.035+300;PUSH_AND_DMG:ATK*0.7:ANEMO:MAX4;CREATE_FIELD:DANDELION:2R;ROUND_END_HEAL_LOWEST_HP:ATK*0.02+40:MAX_TICKS2"
+          },
+          {
+            "id": "LIYUE_BAIZHU_E",
+            "coefficient": "피해 ATK×0.4×최대 3회 / 전원 회복 MAX_HP×0.03",
+            "description": "유사를 보내 적에게 최대 3회 풀 피해를 준다. 적이 1명일 때에는 최대 2회 적중한다. 돌아오면 아군 전체를 백출 MAX_HP×0.03만큼 회복한다.",
+            "script": "SPIRIT_ATTACK:UP_TO3_HITS:PREFER_DISTINCT;IF_ONLY1_ENEMY:MAX2_HITS;DMG_PER_HIT:ATK*0.4:DENDRO;ON_RETURN:HEAL_ALL:MAX_HP*0.03"
+          }
+        ],
+        "c2": "천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 5%, 2라운드)를 씌운다."
+      }
+    },
+    {
+      "id": "description_script_effect_and_constellation_node_match:OLD_SAVED",
+      "passed": true,
+      "evidence": {
+        "mode": "OLD_SAVED",
+        "rows": [
+          {
+            "id": "LIYUE_ZHONGLI_E",
+            "coefficient": "보호막 MAX_HP×0.13 / 석주 ATK×0.35×2라운드",
+            "description": "아군 전체에게 종려 MAX_HP×0.13의 2라운드 옥홀 방패를 부여하고 석주를 2라운드 설치한다. 옥홀 방패가 있는 아군은 강제 이동·넉백을 무시한다. 라운드 종료마다 석주가 적 최대 3명에게 바위 피해를 준다.",
+            "script": "SHIELD_ALL:MAX_HP*0.13:2R;WHILE_SHIELDED:IGNORE_FORCED_MOVE_KNOCKBACK;CREATE_FIELD:STONE_STELE:2R;ROUND_END:DMG_AOE:ATK*0.35:GEO:MAX3"
+          },
+          {
+            "id": "LIYUE_ZHONGLI_Q",
+            "coefficient": "ATK×0.8+MAX_HP×0.25",
+            "description": "적 최대 4명에게 바위 피해를 주고 일반 적을 1라운드 석화시켜 행동할 수 없게 한다. 보스는 다음 행동의 행동 점수가 30% 감소하고 가하는 피해가 10% 감소한다.",
+            "script": "DMG_AOE:ATK*0.8+MAX_HP*0.25:GEO:MAX4;IF_TARGET_NOT_BOSS:APPLY_CONTROL:PETRIFY:1R;IF_BOSS:NEXT_ACTION_SCORE*0.70;NEXT_ACTION_DAMAGE*0.90"
+          },
+          {
+            "id": "LIYUE_ZHONGLI_PASSIVE_ARCHON",
+            "coefficient": "1R 무적 / 2R 피해감소 50% / 3R 30% / 4R 10%",
+            "description": "전투 시작 후 1라운드에는 외부에서 받는 피해가 0이 된다. 2라운드에는 받는 피해 50% 감소, 3라운드 30% 감소, 4라운드 10% 감소를 적용하며 5라운드부터 종료된다. 피해감소는 보호막보다 먼저 적용한다. 스킬 자체의 HP 소모나 자해에는 적용하지 않는다.",
+            "script": "ROUND1:EXTERNAL_DAMAGE_TAKEN=0;ROUND2:EXTERNAL_DAMAGE_TAKEN*0.50;ROUND3:*0.70;ROUND4:*0.90;ROUND5PLUS:NO_REDUCTION;APPLY_BEFORE_SHIELD;EXCLUDE_SELF_HP_COST_AND_SELF_DAMAGE"
+          },
+          {
+            "id": "MOND_JEAN_Q",
+            "coefficient": "회복 ATK×0.05+450 / 피해 ATK×0.7",
+            "description": "발동 즉시 아군 전체를 ATK×0.05+450만큼 회복하고 주변 적 최대 4명을 밀치며 바람 피해를 준다. 2라운드 민들레 영역은 라운드 종료마다 HP 비율이 가장 낮은 아군 1명을 ATK×0.03+60만큼 회복한다(최대 2회).",
+            "script": "HEAL_ALL:ATK*0.05+450;PUSH_AND_DMG:ATK*0.7:ANEMO:MAX4;CREATE_FIELD:DANDELION:2R;ROUND_END_HEAL_LOWEST_HP:ATK*0.03+60:MAX_TICKS2"
+          },
+          {
+            "id": "LIYUE_BAIZHU_E",
+            "coefficient": "피해 ATK×0.4×최대3 / 회복 MAX_HP×0.08",
+            "description": "사역령이 서로 다른 적을 우선해 최대 3회 공격한 뒤 백출에게 돌아온다. 공격 횟수와 무관하게 귀환 시 아군 전체를 회복한다. 적이 1명뿐이면 같은 적을 최대 2회까지만 공격한다.",
+            "script": "SPIRIT_ATTACK:UP_TO3_HITS:PREFER_DISTINCT;IF_ONLY1_ENEMY:MAX2_HITS;DMG_PER_HIT:ATK*0.4:DENDRO;ON_RETURN:HEAL_ALL:MAX_HP*0.08"
+          }
+        ],
+        "c2": "천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 13%, 2라운드)를 씌운다."
+      }
+    },
+    {
+      "id": "zhongli_E_party_shield_native_coefficient:0",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "maxHp": 49088,
+        "baseHpRatio": 0.05,
+        "talentMultiplier": 2.08,
+        "expected": 5105,
+        "shields": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "MOND_JEAN",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "MOND_AMBER",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "zhongli_E_party_shield_native_coefficient:2",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "maxHp": 49088,
+        "baseHpRatio": 0.05,
+        "talentMultiplier": 2.08,
+        "expected": 5105,
+        "shields": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "MOND_JEAN",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "MOND_AMBER",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 5105,
+              "initialValue": 5105,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "zhongli_E_party_shield_native_coefficient:6",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "maxHp": 49088,
+        "baseHpRatio": 0.05,
+        "talentMultiplier": 2.62,
+        "expected": 6431,
+        "shields": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 6431,
+              "initialValue": 6431,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 6431,
+              "initialValue": 6431,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "MOND_JEAN",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 6431,
+              "initialValue": 6431,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          },
+          {
+            "target": "MOND_AMBER",
+            "shield": {
+              "source": "LIYUE_ZHONGLI_E",
+              "value": 6431,
+              "initialValue": 6431,
+              "rounds": 2,
+              "createdRound": 1,
+              "ignoreForcedMove": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "zhongli_Q_HP_addend_and_C2_shield_native_contract:0",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "maxHp": 49088,
+        "packets": [
+          {
+            "k": 0.8,
+            "rawAdd": 8835.84
+          }
+        ],
+        "shields": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "c2Present": false
+      }
+    },
+    {
+      "id": "zhongli_Q_HP_addend_and_C2_shield_native_contract:2",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "maxHp": 49088,
+        "packets": [
+          {
+            "k": 0.8,
+            "rawAdd": 8835.84
+          }
+        ],
+        "shields": [
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          },
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          },
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          },
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          }
+        ],
+        "c2Present": true
+      }
+    },
+    {
+      "id": "zhongli_Q_HP_addend_and_C2_shield_native_contract:6",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "maxHp": 49088,
+        "packets": [
+          {
+            "k": 0.8,
+            "rawAdd": 8835.84
+          }
+        ],
+        "shields": [
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          },
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          },
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          },
+          {
+            "source": "LIYUE_ZHONGLI_E",
+            "value": 2454,
+            "initialValue": 2454,
+            "rounds": 2,
+            "createdRound": 1,
+            "ignoreForcedMove": true,
+            "consOwner": "LIYUE_ZHONGLI"
+          }
+        ],
+        "c2Present": true
+      }
+    },
+    {
+      "id": "jean_Q_party_heal_native_budget_and_recipient_count:0",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "raw": 518.7416000000001,
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          },
+          {
+            "target": "MOND_JEAN",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          },
+          {
+            "target": "MOND_AMBER",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          }
+        ],
+        "field": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "healRatio": 0.02,
+          "healFlat": 40,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 0,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1"
+        },
+        "cooldown": 5
+      }
+    },
+    {
+      "id": "jean_Q_party_heal_native_budget_and_recipient_count:2",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "raw": 518.7416000000001,
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          },
+          {
+            "target": "MOND_JEAN",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          },
+          {
+            "target": "MOND_AMBER",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 1618,
+            "hpDelta": 1618
+          }
+        ],
+        "field": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "healRatio": 0.02,
+          "healFlat": 40,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 0,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1"
+        },
+        "cooldown": 5
+      }
+    },
+    {
+      "id": "jean_Q_party_heal_native_budget_and_recipient_count:6",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "raw": 518.7416000000001,
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 2039,
+            "hpDelta": 2039
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 2039,
+            "hpDelta": 2039
+          },
+          {
+            "target": "MOND_JEAN",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 2039,
+            "hpDelta": 2039
+          },
+          {
+            "target": "MOND_AMBER",
+            "raw": 518.7416000000001,
+            "source": "진",
+            "actual": 2039,
+            "hpDelta": 2039
+          }
+        ],
+        "field": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 3,
+          "createdRound": 1,
+          "healRatio": 0.02,
+          "healFlat": 40,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 0,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1"
+        },
+        "cooldown": 5
+      }
+    },
+    {
+      "id": "jean_stored_field_save_lowest_target_two_END_only:0",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "field": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "healRatio": 0.02,
+          "healFlat": 40,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 2,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1",
+          "healRound": 2
+        },
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 164.9952,
+            "source": "진",
+            "actual": 165,
+            "hpDelta": 165
+          },
+          {
+            "target": "MOND_AMBER",
+            "raw": 164.9952,
+            "source": "진",
+            "actual": 165,
+            "hpDelta": 165
+          }
+        ]
+      }
+    },
+    {
+      "id": "jean_stored_field_save_lowest_target_two_END_only:6",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "field": {
+          "kind": "DANDELION",
+          "actor": "MOND_JEAN",
+          "side": "ALLY",
+          "rounds": 3,
+          "createdRound": 1,
+          "healRatio": 0.02,
+          "healFlat": 40,
+          "sourceCardId": "MOND_JEAN_Q",
+          "healTargetCount": 1,
+          "healTicks": 2,
+          "healMaxTicks": 2,
+          "position": {
+            "x": 2,
+            "y": 2
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1",
+          "healRound": 2
+        },
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 164.9952,
+            "source": "진",
+            "actual": 165,
+            "hpDelta": 165
+          },
+          {
+            "target": "MOND_AMBER",
+            "raw": 164.9952,
+            "source": "진",
+            "actual": 165,
+            "hpDelta": 165
+          }
+        ]
+      }
+    },
+    {
+      "id": "Jean_C2_attack_speed_and_C6_field_reduction_preserved",
+      "passed": true,
+      "evidence": {
+        "before": 1,
+        "after": 0.65,
+        "damageRatio": 0.65,
+        "c2Buffs": true,
+        "c6FieldReduction": 35
+      }
+    },
+    {
+      "id": "Zhongli_C6_actual_absorbed_damage_heal_and_cap_preserved",
+      "passed": true,
+      "evidence": {
+        "before": 6431,
+        "after": 3216,
+        "heal": {
+          "target": "MOND_AMBER",
+          "raw": 1286,
+          "source": "종려",
+          "actual": 1286,
+          "hpDelta": 1286
+        },
+        "consFx": [
+          {
+            "t": "shieldHeal",
+            "source": "LIYUE_ZHONGLI_E",
+            "pct": 40,
+            "cap": 8,
+            "n": 6,
+            "ck": "LIYUE_ZHONGLI",
+            "uid": "LIYUE_ZHONGLI:6:0"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zhongli_first_round_external_damage_is_reduced_not_immune_and_self_cost_unchanged",
+      "passed": true,
+      "evidence": {
+        "old": {
+          "external": [
+            0,
+            500,
+            700,
+            900,
+            1000
+          ],
+          "selfCost": 1000
+        },
+        "current": {
+          "external": [
+            500,
+            700,
+            850,
+            950,
+            1000
+          ],
+          "selfCost": 1000
+        },
+        "base": 1000
+      }
+    },
+    {
+      "id": "admin_shield_multiplier_applies_once_to_E_and_C2:0",
+      "passed": true,
+      "evidence": {
+        "cons": 0,
+        "e": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "base": 5105,
+            "edited": 10210
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "base": 5105,
+            "edited": 10210
+          },
+          {
+            "target": "MOND_JEAN",
+            "base": 5105,
+            "edited": 10210
+          },
+          {
+            "target": "MOND_AMBER",
+            "base": 5105,
+            "edited": 10210
+          }
+        ],
+        "c2": null,
+        "cardMultiplier": 2
+      }
+    },
+    {
+      "id": "admin_shield_multiplier_applies_once_to_E_and_C2:2",
+      "passed": true,
+      "evidence": {
+        "cons": 2,
+        "e": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "base": 5105,
+            "edited": 10210
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "base": 5105,
+            "edited": 10210
+          },
+          {
+            "target": "MOND_JEAN",
+            "base": 5105,
+            "edited": 10210
+          },
+          {
+            "target": "MOND_AMBER",
+            "base": 5105,
+            "edited": 10210
+          }
+        ],
+        "c2": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "base": 2454,
+            "edited": 4909
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "base": 2454,
+            "edited": 4909
+          },
+          {
+            "target": "MOND_JEAN",
+            "base": 2454,
+            "edited": 4909
+          },
+          {
+            "target": "MOND_AMBER",
+            "base": 2454,
+            "edited": 4909
+          }
+        ],
+        "cardMultiplier": 2
+      }
+    },
+    {
+      "id": "admin_shield_multiplier_applies_once_to_E_and_C2:6",
+      "passed": true,
+      "evidence": {
+        "cons": 6,
+        "e": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "base": 6431,
+            "edited": 12861
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "base": 6431,
+            "edited": 12861
+          },
+          {
+            "target": "MOND_JEAN",
+            "base": 6431,
+            "edited": 12861
+          },
+          {
+            "target": "MOND_AMBER",
+            "base": 6431,
+            "edited": 12861
+          }
+        ],
+        "c2": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "base": 2454,
+            "edited": 4909
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "base": 2454,
+            "edited": 4909
+          },
+          {
+            "target": "MOND_JEAN",
+            "base": 2454,
+            "edited": 4909
+          },
+          {
+            "target": "MOND_AMBER",
+            "base": 2454,
+            "edited": 4909
+          }
+        ],
+        "cardMultiplier": 2
+      }
+    },
+    {
+      "id": "admin_Zhongli_Q_damage_multiplier_scales_HP_addend_once",
+      "passed": true,
+      "evidence": {
+        "base": {
+          "damage": 19087,
+          "prng": 1301536127
+        },
+        "edited": {
+          "damage": 38174,
+          "prng": 1301536127
+        },
+        "multiplier": 2
+      }
+    },
+    {
+      "id": "admin_Jean_healing_multiplier_applies_once_instant_and_stored_field",
+      "passed": true,
+      "evidence": {
+        "base": {
+          "immediate": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 1618,
+              "hpDelta": 1618
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 1618,
+              "hpDelta": 1618
+            },
+            {
+              "target": "MOND_JEAN",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 1618,
+              "hpDelta": 1618
+            },
+            {
+              "target": "MOND_AMBER",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 1618,
+              "hpDelta": 1618
+            }
+          ],
+          "field": {
+            "kind": "DANDELION",
+            "actor": "MOND_JEAN",
+            "side": "ALLY",
+            "rounds": 2,
+            "createdRound": 1,
+            "healRatio": 0.02,
+            "healFlat": 40,
+            "sourceCardId": "MOND_JEAN_Q",
+            "healTargetCount": 1,
+            "healTicks": 1,
+            "healMaxTicks": 2,
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1",
+            "healRound": 1
+          },
+          "pulse": [
+            {
+              "target": "MOND_AMBER",
+              "raw": 164.9952,
+              "source": "진",
+              "actual": 165,
+              "hpDelta": 165
+            }
+          ],
+          "prng": 1301536127
+        },
+        "edited": {
+          "immediate": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 3237,
+              "hpDelta": 3237
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 3237,
+              "hpDelta": 3237
+            },
+            {
+              "target": "MOND_JEAN",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 3237,
+              "hpDelta": 3237
+            },
+            {
+              "target": "MOND_AMBER",
+              "raw": 518.7416000000001,
+              "source": "진",
+              "actual": 3237,
+              "hpDelta": 3237
+            }
+          ],
+          "field": {
+            "kind": "DANDELION",
+            "actor": "MOND_JEAN",
+            "side": "ALLY",
+            "rounds": 2,
+            "createdRound": 1,
+            "healRatio": 0.04,
+            "healFlat": 80,
+            "sourceCardId": "MOND_JEAN_Q",
+            "healTargetCount": 1,
+            "healTicks": 1,
+            "healMaxTicks": 2,
+            "position": {
+              "x": 2,
+              "y": 2
+            },
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B1:F1",
+            "healRound": 1
+          },
+          "pulse": [
+            {
+              "target": "MOND_AMBER",
+              "raw": 329.9904,
+              "source": "진",
+              "actual": 330,
+              "hpDelta": 330
+            }
+          ],
+          "prng": 1301536127
+        },
+        "multiplier": 2
+      }
+    },
+    {
+      "id": "Baizhu_E_new_MAX_HP_three_percent_native_four_recipients:10",
+      "passed": true,
+      "evidence": {
+        "level": 10,
+        "maxHp": 1796,
+        "rawHpRatio": 0.03,
+        "raw": 53.879999999999995,
+        "talentMultiplier": 1,
+        "rhythmMultiplier": 1.3,
+        "supportOut": 1,
+        "expected": 70,
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 53.879999999999995,
+            "source": "백출",
+            "actual": 70,
+            "hpDelta": 70
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 53.879999999999995,
+            "source": "백출",
+            "actual": 70,
+            "hpDelta": 70
+          },
+          {
+            "target": "MOND_DILUC",
+            "raw": 53.879999999999995,
+            "source": "백출",
+            "actual": 70,
+            "hpDelta": 70
+          },
+          {
+            "target": "LIYUE_BAIZHU",
+            "raw": 53.879999999999995,
+            "source": "백출",
+            "actual": 70,
+            "hpDelta": 70
+          }
+        ]
+      }
+    },
+    {
+      "id": "Baizhu_E_new_MAX_HP_three_percent_native_four_recipients:30",
+      "passed": true,
+      "evidence": {
+        "level": 30,
+        "maxHp": 7353,
+        "rawHpRatio": 0.03,
+        "raw": 220.59,
+        "talentMultiplier": 1.27,
+        "rhythmMultiplier": 1.3,
+        "supportOut": 1,
+        "expected": 364,
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 220.59,
+            "source": "백출",
+            "actual": 364,
+            "hpDelta": 364
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 220.59,
+            "source": "백출",
+            "actual": 364,
+            "hpDelta": 364
+          },
+          {
+            "target": "MOND_DILUC",
+            "raw": 220.59,
+            "source": "백출",
+            "actual": 364,
+            "hpDelta": 364
+          },
+          {
+            "target": "LIYUE_BAIZHU",
+            "raw": 220.59,
+            "source": "백출",
+            "actual": 364,
+            "hpDelta": 364
+          }
+        ]
+      }
+    },
+    {
+      "id": "Baizhu_E_new_MAX_HP_three_percent_native_four_recipients:60",
+      "passed": true,
+      "evidence": {
+        "level": 60,
+        "maxHp": 29370,
+        "rawHpRatio": 0.03,
+        "raw": 881.1,
+        "talentMultiplier": 2.08,
+        "rhythmMultiplier": 1.3,
+        "supportOut": 1,
+        "expected": 2382,
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 881.1,
+            "source": "백출",
+            "actual": 2382,
+            "hpDelta": 2382
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 881.1,
+            "source": "백출",
+            "actual": 2382,
+            "hpDelta": 2382
+          },
+          {
+            "target": "MOND_DILUC",
+            "raw": 881.1,
+            "source": "백출",
+            "actual": 2382,
+            "hpDelta": 2382
+          },
+          {
+            "target": "LIYUE_BAIZHU",
+            "raw": 881.1,
+            "source": "백출",
+            "actual": 2382,
+            "hpDelta": 2382
+          }
+        ]
+      }
+    },
+    {
+      "id": "Baizhu_E_unmarked_v01624_native_eight_percent_effect_and_save_preserved",
+      "passed": true,
+      "evidence": {
+        "oldMarker": null,
+        "maxHp": 29370,
+        "rawHpRatio": 0.08,
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 2349.6,
+            "source": "백출",
+            "actual": 6353,
+            "hpDelta": 6353
+          },
+          {
+            "target": "LIYUE_ZHONGLI",
+            "raw": 2349.6,
+            "source": "백출",
+            "actual": 6353,
+            "hpDelta": 6353
+          },
+          {
+            "target": "MOND_DILUC",
+            "raw": 2349.6,
+            "source": "백출",
+            "actual": 6353,
+            "hpDelta": 6353
+          },
+          {
+            "target": "LIYUE_BAIZHU",
+            "raw": 2349.6,
+            "source": "백출",
+            "actual": 6353,
+            "hpDelta": 6353
+          }
+        ],
+        "cooldown": 3,
+        "probe": "direct native old E after loading a genuine old engine battle; not public turn scheduling"
+      }
+    },
+    {
+      "id": "admin_Baizhu_E_healing_multiplier_applies_once:NEW",
+      "passed": true,
+      "evidence": {
+        "mode": "NEW",
+        "multiplier": 2,
+        "base": {
+          "ratio": 0.03,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 2382,
+              "hpDelta": 2382
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 2382,
+              "hpDelta": 2382
+            },
+            {
+              "target": "MOND_DILUC",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 2382,
+              "hpDelta": 2382
+            },
+            {
+              "target": "LIYUE_BAIZHU",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 2382,
+              "hpDelta": 2382
+            }
+          ],
+          "prng": 1927756569
+        },
+        "edited": {
+          "ratio": 0.03,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 4765,
+              "hpDelta": 4765
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 4765,
+              "hpDelta": 4765
+            },
+            {
+              "target": "MOND_DILUC",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 4765,
+              "hpDelta": 4765
+            },
+            {
+              "target": "LIYUE_BAIZHU",
+              "raw": 881.1,
+              "source": "백출",
+              "actual": 4765,
+              "hpDelta": 4765
+            }
+          ],
+          "prng": 1927756569
+        }
+      }
+    },
+    {
+      "id": "admin_Baizhu_E_healing_multiplier_applies_once:OLD_SAVED",
+      "passed": true,
+      "evidence": {
+        "mode": "OLD_SAVED",
+        "multiplier": 2,
+        "base": {
+          "ratio": 0.08,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 6353,
+              "hpDelta": 6353
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 6353,
+              "hpDelta": 6353
+            },
+            {
+              "target": "MOND_DILUC",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 6353,
+              "hpDelta": 6353
+            },
+            {
+              "target": "LIYUE_BAIZHU",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 6353,
+              "hpDelta": 6353
+            }
+          ],
+          "prng": 1927756569
+        },
+        "edited": {
+          "ratio": 0.08,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 12707,
+              "hpDelta": 12707
+            },
+            {
+              "target": "LIYUE_ZHONGLI",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 12707,
+              "hpDelta": 12707
+            },
+            {
+              "target": "MOND_DILUC",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 12707,
+              "hpDelta": 12707
+            },
+            {
+              "target": "LIYUE_BAIZHU",
+              "raw": 2349.6,
+              "source": "백출",
+              "actual": 12707,
+              "hpDelta": 12707
+            }
+          ],
+          "prng": 1927756569
+        }
+      }
+    },
+    {
+      "id": "Barbara_Diona_Noelle_base_effects_remain_native_unchanged",
+      "passed": true,
+      "evidence": {
+        "heals": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "raw": 1046.6399999999999,
+            "source": "바바라",
+            "actual": 3266,
+            "hpDelta": 3266
+          },
+          {
+            "target": "MOND_BARBARA",
+            "raw": 1046.6399999999999,
+            "source": "바바라",
+            "actual": 3266,
+            "hpDelta": 3266
+          },
+          {
+            "target": "MOND_DIONA",
+            "raw": 1046.6399999999999,
+            "source": "바바라",
+            "actual": 3266,
+            "hpDelta": 3266
+          },
+          {
+            "target": "MOND_NOELLE",
+            "raw": 1046.6399999999999,
+            "source": "바바라",
+            "actual": 3266,
+            "hpDelta": 3266
+          }
+        ],
+        "shields": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "shields": []
+          },
+          {
+            "source": "MOND_BARBARA",
+            "shields": []
+          },
+          {
+            "source": "MOND_DIONA",
+            "shields": []
+          },
+          {
+            "source": "MOND_NOELLE",
+            "shields": [
+              {
+                "source": "MOND_DIONA_E",
+                "value": 7708,
+                "initialValue": 7708,
+                "rounds": 2,
+                "createdRound": 1,
+                "evaBonus": 5
+              },
+              {
+                "source": "MOND_NOELLE_E",
+                "value": 4739,
+                "initialValue": 4739,
+                "rounds": 2,
+                "createdRound": 1
+              }
+            ]
+          }
+        ],
+        "cooldowns": [
+          {
+            "source": "PLAYER_CUSTOM",
+            "cooldowns": {}
+          },
+          {
+            "source": "MOND_BARBARA",
+            "cooldowns": {
+              "MOND_BARBARA_Q": 6
+            }
+          },
+          {
+            "source": "MOND_DIONA",
+            "cooldowns": {
+              "MOND_DIONA_E": 2
+            }
+          },
+          {
+            "source": "MOND_NOELLE",
+            "cooldowns": {
+              "MOND_NOELLE_E": 4
+            }
+          }
+        ],
+        "baseCardEffectsUnchanged": true,
+        "reactionShields": {
+          "before": [
+            {
+              "source": "PLAYER_CUSTOM",
+              "shields": []
+            },
+            {
+              "source": "MOND_BARBARA",
+              "shields": []
+            },
+            {
+              "source": "MOND_DIONA",
+              "shields": []
+            },
+            {
+              "source": "MOND_NOELLE",
+              "shields": [
+                {
+                  "source": "RX_CRYSTALLIZE",
+                  "value": 6211,
+                  "initialValue": 6211,
+                  "rounds": 3,
+                  "createdRound": 1,
+                  "element": "얼음",
+                  "damageMultipliers": {
+                    "얼음": 0.4
+                  }
+                }
+              ]
+            }
+          ],
+          "after": [
+            {
+              "source": "PLAYER_CUSTOM",
+              "shields": []
+            },
+            {
+              "source": "MOND_BARBARA",
+              "shields": []
+            },
+            {
+              "source": "MOND_DIONA",
+              "shields": []
+            },
+            {
+              "source": "MOND_NOELLE",
+              "shields": [
+                {
+                  "source": "RX_CRYSTALLIZE",
+                  "value": 3882,
+                  "initialValue": 3882,
+                  "rounds": 3,
+                  "createdRound": 1,
+                  "element": "얼음",
+                  "damageMultipliers": {
+                    "얼음": 0.4
+                  }
+                }
+              ]
+            }
+          ],
+          "caveat": "New owner/rhythm fix removes the old incidental Noelle-E support multiplier from crystallize; reaction shields are not asserted identical."
+        }
+      }
+    },
+    {
+      "id": "raw_shared_db_and_actual_file_are_unchanged",
+      "passed": true,
+      "evidence": {
+        "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "unchanged": true
+      }
+    }
+  ],
+  "baseline": {
+    "files": {
+      "source/runtime_combat.js": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473",
+      "source/runtime_liyue_cards.js": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94",
+      "source/runtime_constellations_v01411.js": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b",
+      "source/runtime_balance_admin_v01623.js": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811",
+      "source/runtime_growth_v01522.js": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81",
+      "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+      "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+    },
+    "mode": "verified declared-source overlay and unchanged current modules, with the same existing production relationship install bootstrap",
+    "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+    "currentFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+    "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "recordedQADbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "matchesRecordedQA": true,
+    "requiresRecordedQA": true,
+    "caveat": "Default compares old/new against the same actual authored DB. Strict recorded QA additionally verifies the complete old engine fingerprint. No DB replacement."
+  },
+  "total": 48,
+  "passed": 48,
+  "failed": 0
+}

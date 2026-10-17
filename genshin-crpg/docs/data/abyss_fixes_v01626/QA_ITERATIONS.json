@@ -1,0 +1,114 @@
+{
+  "note": "The first four failures were emitted to tool output before file redirection was added. Excerpts are copied from those tool results, not represented as full original process logs. They were test expectation mistakes; the product was not changed to satisfy them. Formation initiative correction was separately authorized after run4 and is tested in run5.",
+  "iterations": [
+    {
+      "run": 1,
+      "tool_session_id": 9886,
+      "exit": 1,
+      "kind": "QA assertion/accessor error",
+      "observed_excerpt": "SyntaxError: \"undefined\" is not valid JSON\n    at cp (...)\n    at test_abyss_fixes_v01626.cjs:69:383",
+      "cause": "Public action receipts wrap payload in result; test read newReceipt.order instead of newReceipt.result.order. The test also held a pre-transaction runtime reference.",
+      "correction": "Read receipt.result payload and actual current.s.runtime after COMBAT_BEGIN.",
+      "product_changed_for_failure": false
+    },
+    {
+      "run": 2,
+      "tool_session_id": 10381,
+      "exit": 1,
+      "kind": "QA assertion error",
+      "observed_excerpt": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ '1:PLAYER_CUSTOM'\n- 'PLAYER_CUSTOM'",
+      "cause": "turnStarted is a round-prefixed token, not actor ID.",
+      "correction": "Assert 1:PLAYER_CUSTOM.",
+      "product_changed_for_failure": false
+    },
+    {
+      "run": 3,
+      "tool_session_id": 8207,
+      "exit": 1,
+      "kind": "QA assertion error",
+      "observed_excerpt": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n  assert(q.score<loaded.combatStat(enemy,'spd'))",
+      "cause": "At floor4, template28+die7=35 can exceed finalSPD34; this does not imply migrated order.",
+      "correction": "Assert exact saved-state preservation and retained template die interval [0,9].",
+      "product_changed_for_failure": false
+    },
+    {
+      "run": 4,
+      "tool_session_id": 44921,
+      "exit": 1,
+      "kind": "QA assertion error",
+      "observed_excerpt": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n2 !== 0",
+      "cause": "Fixture starts with two Sweet Madame; giving one then consuming one leaves two.",
+      "correction": "Assert actual pre-use quantity minus one instead of zero.",
+      "product_changed_for_failure": false
+    },
+    {
+      "run": 5,
+      "tool_session_id": 90952,
+      "exit": 1,
+      "kind": "Previously existing product defect discovered by broadened contract",
+      "full_log": "contracts_run_5.log",
+      "cause": "Ordinary growth enemies were relevelled after first initiative; admin delta was applied from already-relevelled speed, leaving score89 at finalSPD90. Legacy had the same89.",
+      "correction": "Root authorized runtime_growth_v01522.js actual-roll SPD capture and pending-only delta repair, including SWIFT and ley-line startup changes. Root also authorized final admin result.order snapshot and intentional player-first synchronization.",
+      "product_changed_for_failure": true
+    },
+    {
+      "run": 6,
+      "tool_session_id": 90643,
+      "exit": 0,
+      "summary": {
+        "checks": 26,
+        "passed": 26,
+        "errors": 0
+      },
+      "kind": "Intermediate smoke excluded from final evidence",
+      "full_log": "contracts_run_6.log",
+      "excluded_from_final": true,
+      "cause": "Source/test amendments were in progress after process load.",
+      "correction": "Freeze all four sources and rerun final expanded contracts."
+    },
+    {
+      "run": 7,
+      "tool_session_id": 99275,
+      "exit": 1,
+      "kind": "QA nonexistent-stage error",
+      "full_log": "contracts_run_7.log",
+      "cause": "The existing Valley of Remembrance entry offers Lv5/10/15, so the test attempted a nonexistent Lv20 entry.",
+      "correction": "Use actual advertised Lv10 ascension stage; stage structure is unchanged.",
+      "product_changed_for_failure": false
+    },
+    {
+      "run": 8,
+      "tool_session_id": 93863,
+      "exit": 1,
+      "kind": "QA missing public place admission",
+      "full_log": "contracts_run_8.log",
+      "cause": "The test called public BOSS_ROUTE without first entering its boss location, so the existing place policy correctly rejected the request.",
+      "correction": "Follow actual public PLACE_ENTER {place:BOSS:<route>,mode:BOSS}, then BOSS_ROUTE.",
+      "product_changed_for_failure": false
+    },
+    {
+      "run": 9,
+      "tool_session_id": 29850,
+      "exit": 0,
+      "kind": "Final four-source full controlled contracts",
+      "full_log": "contracts_run_9.log",
+      "result": "contracts/contracts.json",
+      "summary": {
+        "checks": 35,
+        "passed": 35,
+        "errors": 0
+      },
+      "product_changed_during_run": false,
+      "test_changed_during_run": false,
+      "included_in_final": true
+    }
+  ],
+  "additional_probes": [
+    {
+      "file": "new_origins_probe.log",
+      "scope": "Seven newly added startup contracts only; script used a check-name filter and actual source4. Not counted as the final full suite.",
+      "passed": 7,
+      "errors": 0
+    }
+  ]
+}

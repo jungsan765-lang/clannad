@@ -1,0 +1,10 @@
+{
+  "path": ".github/workflows/crpg-sync-dist.yml",
+  "originalSHA256": "ee67a4b0ed447daf9a948afad0e20a623819de5bbb55a9395cd2153e751b2697",
+  "isolatedCopies": {
+    "1": "ee67a4b0ed447daf9a948afad0e20a623819de5bbb55a9395cd2153e751b2697",
+    "2": "ee67a4b0ed447daf9a948afad0e20a623819de5bbb55a9395cd2153e751b2697",
+    "3": "ee67a4b0ed447daf9a948afad0e20a623819de5bbb55a9395cd2153e751b2697"
+  },
+  "reason": "The test intentionally reads the repository parent workflow directory. Restored verbatim after the isolated project-only copies omitted that parent input. No product or test changes."
+}

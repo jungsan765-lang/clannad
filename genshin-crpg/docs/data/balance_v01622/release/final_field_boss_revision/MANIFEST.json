@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 1,
+  "sealedAt": "2026-10-10T06:08:34.176210+00:00",
+  "scope": "Final0.16.22 field-boss revision3 evidence. Original11=10PASS1legacy-policy-scopeFAIL; approved whole-programrecheck26PASS gives effective11PASS; actual3engine218and54. Priorsealed candidates unchanged.",
+  "files": [
+    {
+      "path": "ECONOMY_READONLY_REVIEW_KO.md",
+      "bytes": 3146,
+      "sha256": "138e990af76e17dc4f53cee9fa256e63bb87d97bb203bcc9ca62f602b9c16a5c"
+    },
+    {
+      "path": "README_KO.md",
+      "bytes": 6462,
+      "sha256": "3f3721afd65dc75dae252b376e6566ab51f3a1e98563d4b20bef6d8d7f6ac379"
+    },
+    {
+      "path": "before_product_manifest.json",
+      "bytes": 38558,
+      "sha256": "5f5df1ad6015f4203a08988e07e0cfd4e5c8533d04488070b2a8f8b0bc213add"
+    },
+    {
+      "path": "before_revision3/manifest.json",
+      "bytes": 1366,
+      "sha256": "7027e050e4278b2200440909ceb032f9f6cd1b1095840364b008d3e7cff6c561"
+    },
+    {
+      "path": "before_revision3/source/runtime_field_bosses.js",
+      "bytes": 58758,
+      "sha256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563"
+    },
+    {
+      "path": "before_revision3/tools/test_boss_boundaries_v01619.cjs",
+      "bytes": 10628,
+      "sha256": "1b2710d4174c99c60ca01b95479340e57506e4bb480aa0babffa939ee957f8fc"
+    },
+    {
+      "path": "before_revision3/tools/test_field_boss_immunity_v01618.cjs",
+      "bytes": 13775,
+      "sha256": "cff92470bdde761021825c3c4033832b42097bdbea18e5bb0731b609b718d0ea"
+    },
+    {
+      "path": "before_revision3/tools/test_field_bosses.cjs",
+      "bytes": 15051,
+      "sha256": "52982f00a9dc1ec543b73afbc835cba5acb2f07ff06fdbe995142521d5461c96"
+    },
+    {
+      "path": "before_revision3/tools/verify_release.py",
+      "bytes": 11446,
+      "sha256": "ccbfa7037cee22c83dc393525a29d81727e07973a5d7dd6b4c340592baae5873"
+    },
+    {
+      "path": "build/browser.log.gz",
+      "bytes": 110,
+      "sha256": "e7fa82c21f6ecbab5163ac46d69fba392913baed378a6939394dd8054ea43518"
+    },
+    {
+      "path": "build/browser_report.json",
+      "bytes": 608,
+      "sha256": "52694ebed3baf3f026f36033a5e3225287205b599f459900a1fc66fa45b35eab"
+    },
+    {
+      "path": "build/engine_identity.log.gz",
+      "bytes": 96,
+      "sha256": "5ded8e542756e2343501005119221a142588c997f91d37281eff8908fb597af8"
+    },
+    {
+      "path": "build/parity_raw.json",
+      "bytes": 204693,
+      "sha256": "15ecd983cf6d3c8d41eb8138623bd52e574092a35c4a195d6f8a56077c266814"
+    },
+    {
+      "path": "build/parity_raw.json.gz",
+      "bytes": 28194,
+      "sha256": "79f5d7ee51d8e761b53e378e8f716ff070cc87d9646302c2816fb11955bb0ab3"
+    },
+    {
+      "path": "build/results.json",
+      "bytes": 2285,
+      "sha256": "9c86f3890e1e6c55db9ad20c8798d8d3c7636ef8e70d688d7f67b3cd0974f12e"
+    },
+    {
+      "path": "build/server.log.gz",
+      "bytes": 94,
+      "sha256": "c1b1eac02c36ff48f62196c0928d1eb637c60f743227150a583fcb83a49c92a9"
+    },
+    {
+      "path": "build/three_engine_parity.log.gz",
+      "bytes": 313,
+      "sha256": "ca0641af3a94766c3ae8d7618e200b8ea63a12de638c85e48f91af50c6a9ec4d"
+    },
+    {
+      "path": "build.stdout",
+      "bytes": 2928,
+      "sha256": "06be82da53d35b417413732fe1e494ce893f77f7e5391008322ae151e6f4630c"
+    },
+    {
+      "path": "checkpoint.json",
+      "bytes": 1521,
+      "sha256": "a6b1ffcce90c69e81a57039021103d63aa0b615a7cc82ab9108701ae58f70d41"
+    },
+    {
+      "path": "economy_readonly_review.json",
+      "bytes": 5237,
+      "sha256": "78e1ea9d316bac58bef4098bafe6a5bad3a59277c02f7d48b688dcc25c708812"
+    },
+    {
+      "path": "field_boss_revision3.diff",
+      "bytes": 14685,
+      "sha256": "92bb668565230d8a85d60e5cd480a90abc5b44ffd62a195076a1f16aaab54aae"
+    },
+    {
+      "path": "final_revision3/tools/test_boss_boundaries_v01619.cjs",
+      "bytes": 10671,
+      "sha256": "4512acb719ac75ef97fbc25c67133b39b4e319b414b61110e2361d10930536e0"
+    },
+    {
+      "path": "final_revision3/tools/test_field_boss_immunity_v01618.cjs",
+      "bytes": 13818,
+      "sha256": "e2014322a5afb05acd43a491003b0dbde71ba55a30f889d12110c3dfc8e39119"
+    },
+    {
+      "path": "final_revision3/tools/test_field_boss_strategy_v01622.cjs",
+      "bytes": 12343,
+      "sha256": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322"
+    },
+    {
+      "path": "final_revision3/tools/test_field_bosses.cjs",
+      "bytes": 15111,
+      "sha256": "26355ba3b05b0c9a9229b01f97aeb8616ca64cdd6743173cb9573a3ce537e1a2"
+    },
+    {
+      "path": "final_revision3/tools/verify_release.py",
+      "bytes": 11495,
+      "sha256": "ad27759f5799f5471d506a14da1dd5cc8932a8f69bd8cc4dc8a502500b08c137"
+    },
+    {
+      "path": "final_verification.json",
+      "bytes": 10585,
+      "sha256": "8fe51e911586cdbf6091643617f7f8094d93cabae3dd56282d319e5026061dc1"
+    },
+    {
+      "path": "finalized_plan.json",
+      "bytes": 3929,
+      "sha256": "2a014f412093a033861ed67cd50df2537d79cf1f9f313e1d8460826c68af1638"
+    },
+    {
+      "path": "input_manifest.json",
+      "bytes": 75034,
+      "sha256": "d4983d3de7fedc4c73aacdd5a52851bc787180fe2cd49d9b1f5420bfb101dec5"
+    },
+    {
+      "path": "input_manifest_after.json",
+      "bytes": 74630,
+      "sha256": "0838d130039659fe2c940b1ce000462a77634c0fb5ddb25bcd6dfc5a9977e985"
+    },
+    {
+      "path": "input_manifest_after_original.json",
+      "bytes": 74630,
+      "sha256": "1237dd07aa90e552652342a47c0f61fe75af19e9500514d0958b0c75687445d4"
+    },
+    {
+      "path": "journal.jsonl",
+      "bytes": 4751,
+      "sha256": "eb91c6dcdf88fb1341f4dce393ee9f1023cd510eb1d6b3d2595cad7a0208f97a"
+    },
+    {
+      "path": "logs/001_test_field_bosses.cjs.log.gz",
+      "bytes": 712,
+      "sha256": "54e35cb991ed666553e015bb74084299350a90969370e8e4183dd5dbd33ac925"
+    },
+    {
+      "path": "logs/002_test_boss_boundaries_v01619.cjs.log.gz",
+      "bytes": 616,
+      "sha256": "8e7ae997371ad0e124f26c6b715483ddf67cc1c1ffa23348850110958d5ccc4d"
+    },
+    {
+      "path": "logs/003_test_field_boss_immunity_v01618.cjs.log.gz",
+      "bytes": 607,
+      "sha256": "d9f39613eeb1b37f83a2efd172424412458005b41efe6d5e67e9bdff73300fee"
+    },
+    {
+      "path": "logs/004_test_save_revision.cjs.log.gz",
+      "bytes": 585,
+      "sha256": "411812156119df37dfe5d6207aaa14ac8ae38662e34d4ddb1fdf6ffd50a7c031"
+    },
+    {
+      "path": "logs/005_test_balance_saves_v0166.cjs.log.gz",
+      "bytes": 429,
+      "sha256": "506a68b3bb1e5e56b7f11d2968e7e1822046e6799a31a90ddd9bcd441c263763"
+    },
+    {
+      "path": "logs/006_test_defeat_settlement_v0166.cjs.log.gz",
+      "bytes": 422,
+      "sha256": "2322a887e0c8a5fc4a8a37595fc841d4bc2c11ec4cc60fd9e23760b9ca5baf43"
+    },
+    {
+      "path": "logs/007_test_combat_boundaries_v0168.cjs.log.gz",
+      "bytes": 985,
+      "sha256": "21970a9cf5f86c490b8ac10bed231c81b330afdd96fe5612f544532c7b2afafa"
+    },
+    {
+      "path": "logs/008_test_element_immunity_v01618.cjs.log.gz",
+      "bytes": 722,
+      "sha256": "ddc54639edde54e9ee6cac2c0ed4983c07ba7ad9fbfb4bbedc35a25f86a4d9e6"
+    },
+    {
+      "path": "logs/009_test_monster_control_fixes_v01618.cjs.log.gz",
+      "bytes": 713,
+      "sha256": "a9d05a55b5fa82a1261e31b01a1f8dd7d90d6ea1c049e7f5d5bca763aad38232"
+    },
+    {
+      "path": "logs/010_test_version.cjs.log.gz",
+      "bytes": 702,
+      "sha256": "8402018a84a336d0552bba8bc713692b2a41490b2a0e9803e49a82060b690426"
+    },
+    {
+      "path": "logs/011_test_field_boss_strategy_v01622.cjs.log.gz",
+      "bytes": 481,
+      "sha256": "77e829adb796e5ef4b69f478962883a46ec530f19c00fa0dc04c9a19bb198b13"
+    },
+    {
+      "path": "original_run_verification.json",
+      "bytes": 1483,
+      "sha256": "aa0dbee4e1fdc6bffa473e297e82e2fce82a12f4472ded77da185a1440528230"
+    },
+    {
+      "path": "per_gate/001.json",
+      "bytes": 440,
+      "sha256": "5bbf9717b7391d2ca079154a6d117eb3ccd9f4cef074b72f31dd5c9d4c8b1246"
+    },
+    {
+      "path": "per_gate/002.json",
+      "bytes": 460,
+      "sha256": "a2198024c0f9c63265ad2940ad3e5eb9b9f41987737a0d5a5676527bb85a2845"
+    },
+    {
+      "path": "per_gate/003.json",
+      "bytes": 468,
+      "sha256": "f09e6e223b1852bec63df74bb798ce1c7b9298d275f10f4971e28f030385c6b6"
+    },
+    {
+      "path": "per_gate/004.json",
+      "bytes": 442,
+      "sha256": "2a650accc8b35aeb4bde52aa0b82ab7cb63c434980f24470ab2915d79593a5ec"
+    },
+    {
+      "path": "per_gate/005.json",
+      "bytes": 453,
+      "sha256": "46b098f626118a3e44b87c048cac6277cc979cf0d80073a452a561f8314f325c"
+    },
+    {
+      "path": "per_gate/006.json",
+      "bytes": 460,
+      "sha256": "af128d5eb726dcb68e2604a635051490056bbe5aa383e1f6c69680660cff97f4"
+    },
+    {
+      "path": "per_gate/007.json",
+      "bytes": 504,
+      "sha256": "615a17cc532830e62b0efc14db43a064f982fa5d34d2aa9ebf61927dd1753388"
+    },
+    {
+      "path": "per_gate/008.json",
+      "bytes": 462,
+      "sha256": "18023e81e56759d165167a6896f44e4958d30a61bb25e7d60f7e29595b850197"
+    },
+    {
+      "path": "per_gate/009.json",
+      "bytes": 471,
+      "sha256": "ffbef893ac3782e33aa92363b475faba305fd45331de9309db377f8c0f48826b"
+    },
+    {
+      "path": "per_gate/010.json",
+      "bytes": 430,
+      "sha256": "437deac27c66b6893d6314df79ee5442a8687131d22f3fbbf7da951a7d6b454c"
+    },
+    {
+      "path": "per_gate/011.json",
+      "bytes": 469,
+      "sha256": "ddb7b4daa0f65e00764041f832ee706d9fc075de9d566b29b6fbacc9ac57e1bb"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 980,
+      "sha256": "b9fe26519f3b9fec8b176b44812c2f247863b4f5ea056f6f63a74914b572f305"
+    },
+    {
+      "path": "prebuild_product_manifest.json",
+      "bytes": 38537,
+      "sha256": "152f8342a1d5888d4b35a6024226a77c0f9c9f97d8d42c35f993031711de2752"
+    },
+    {
+      "path": "prepared_plan.json",
+      "bytes": 1622,
+      "sha256": "faede881abdb91abcb1d67bfdf1b6ba1c7b8a4967d8b6d18f0de55de601012b6"
+    },
+    {
+      "path": "product_delta_from_sealed_cashmargin.json",
+      "bytes": 1134,
+      "sha256": "b5f5bc8c7072d17f9ff227a6bfb2125d1f72b6281c097f213a23d78a3eada62e"
+    },
+    {
+      "path": "qa_correction/after_test_combat_boundaries_v0168.cjs",
+      "bytes": 13495,
+      "sha256": "bdb86ffc15ebf97cf28fc33d5ab8d63d1ac801f9899294707d736b6504d2a687"
+    },
+    {
+      "path": "qa_correction/approval_and_delta.json",
+      "bytes": 956,
+      "sha256": "0f3526d11868847053bf1ae012a767779690e18bd4eb8e614ab141ccb22ddfb9"
+    },
+    {
+      "path": "qa_correction/before_test_combat_boundaries_v0168.cjs",
+      "bytes": 13456,
+      "sha256": "0b02a111b8483d391669a99b379c9e4929f9f4307a359271cf5e0ac08492fe6a"
+    },
+    {
+      "path": "qa_correction/exact.diff",
+      "bytes": 956,
+      "sha256": "a10c9f8bbdbef1734549b1823ea2c69c7e2b842720cfba5b871f58a19f40a8e2"
+    },
+    {
+      "path": "qa_correction/recheck/input_after.json",
+      "bytes": 74578,
+      "sha256": "d472f8ee206a854af2152f4f048a6cb1a9d5572432cca3f73ca94b1743665612"
+    },
+    {
+      "path": "qa_correction/recheck/input_before.json",
+      "bytes": 74578,
+      "sha256": "d472f8ee206a854af2152f4f048a6cb1a9d5572432cca3f73ca94b1743665612"
+    },
+    {
+      "path": "qa_correction/recheck/run.log.gz",
+      "bytes": 635,
+      "sha256": "1918d0188f0f917d51657b9e33cf11ed66de736be15f7e056a7ec8b484bcd0c3"
+    },
+    {
+      "path": "qa_correction/recheck/run_result.json",
+      "bytes": 561,
+      "sha256": "6678d2e7150299f46638519ae0c89b93a832eb5bbd3e89355b2e976ee243f9c7"
+    },
+    {
+      "path": "qa_correction/run.stdout",
+      "bytes": 515,
+      "sha256": "0a7bbc4a01dea09914d4760672b8fc103924109ed3453018b4d466f83e30bd1e"
+    },
+    {
+      "path": "qa_correction/run_recheck.py",
+      "bytes": 2564,
+      "sha256": "8c801d01032b7d54b5669e8fdf97cc46fcb54262487701a4687c6370bbbf74ec"
+    },
+    {
+      "path": "qa_delta_from_sealed_cashmargin.json",
+      "bytes": 1789,
+      "sha256": "6a3584ad21fa40eaeca37313c1832b108f6c7025ecabf26cc2f1505edd900c99"
+    },
+    {
+      "path": "reports/boss_boundaries.json",
+      "bytes": 6580,
+      "sha256": "3e744f15ab121de1bcbb20c75f1a27b4b9a9d26ae9ad2e7e9f3b04cfaf05ed97"
+    },
+    {
+      "path": "reports/field_boss_immunity.json",
+      "bytes": 12145,
+      "sha256": "725dba16e6cf656aaa3f945d8c9b720ed55560159afa02f4dfa342b16f5255cb"
+    },
+    {
+      "path": "reports/field_boss_strategy.json",
+      "bytes": 27664,
+      "sha256": "e4394e933a4405ee3111a91f24c2e590b7a47ef4883088ca2b8b9c45941106dc"
+    },
+    {
+      "path": "reports/field_bosses.json",
+      "bytes": 3455,
+      "sha256": "27fbf76d5106ecbe4bb1f5931d718b95dff04702d4a3a11e959baaca11d8482a"
+    },
+    {
+      "path": "resource_journal.jsonl",
+      "bytes": 2414,
+      "sha256": "2250dbbfc4bef8ab2f8d2c8434b6c6e12662638601878027b520adf4712229a4"
+    },
+    {
+      "path": "results.json",
+      "bytes": 5403,
+      "sha256": "2e7bd56d589a818090ff709f9cc295c7603d7d25724ee03dc4767f82eac7a14c"
+    },
+    {
+      "path": "run.stdout",
+      "bytes": 7392,
+      "sha256": "3c69d93a87a529a27456d7ddfe507eee9fc8b11180e4e132f3d5bd990101c04a"
+    },
+    {
+      "path": "run_build.py",
+      "bytes": 2659,
+      "sha256": "2f974dc85d73215017589e57dad9bc12135587f59fb72b6a98306182e380518c"
+    },
+    {
+      "path": "run_strategy_parity.py",
+      "bytes": 3145,
+      "sha256": "78cfec2ef3afeb02f0c6ddaba8f06ccce86759fc3518232193b3a97b050e27d6"
+    },
+    {
+      "path": "run_targeted.py",
+      "bytes": 13269,
+      "sha256": "ce0b6d33c76bb29b0a2ae37f8ef155135e2e3b123422a8b2260f341fb2729dae"
+    },
+    {
+      "path": "run_three_engine_strategy.cjs",
+      "bytes": 5884,
+      "sha256": "ff129488f61eabc1dc5aeecf8f00f382d63c397aeb06e4f49450fdc330482a31"
+    },
+    {
+      "path": "seal_manifest.py",
+      "bytes": 1719,
+      "sha256": "9897a8e836c957afa700f062511d920cbbf225315014c64a9699d635ddf3de1c"
+    },
+    {
+      "path": "strategy_parity.stdout",
+      "bytes": 468,
+      "sha256": "0a30eb465034103445b308eb29b303f52b81272ce52307e6fcd52d7aa0a7f277"
+    },
+    {
+      "path": "strategy_three_engines/browser.json",
+      "bytes": 27672,
+      "sha256": "e290f174a440b1d46f949ec3e2bd18cc289e5278c22b99895b071a65530d52f1"
+    },
+    {
+      "path": "strategy_three_engines/browser.json.gz",
+      "bytes": 2656,
+      "sha256": "0a78a61df8edd86c816e1a71be20406cd9e57f6b72acae25316a57a2cc2657f6"
+    },
+    {
+      "path": "strategy_three_engines/input_after.json",
+      "bytes": 135216,
+      "sha256": "9a1c79f50087a21a26f50ad5388bca3341144243380986a14b68d1cbf08e5550"
+    },
+    {
+      "path": "strategy_three_engines/input_before.json",
+      "bytes": 135216,
+      "sha256": "9a1c79f50087a21a26f50ad5388bca3341144243380986a14b68d1cbf08e5550"
+    },
+    {
+      "path": "strategy_three_engines/results.json",
+      "bytes": 8227,
+      "sha256": "122ebc8f20bf615482c5febcf3d29518429ed32450083fcbed4ca6377733b458"
+    },
+    {
+      "path": "strategy_three_engines/run.log.gz",
+      "bytes": 632,
+      "sha256": "7e9bd74d8ea01f9f7a0bd596748081dccf187105bcb8ecd192669e1d373639fe"
+    },
+    {
+      "path": "strategy_three_engines/run_result.json",
+      "bytes": 506,
+      "sha256": "20598dc144783b41253907451dc1121c951de18cd4a088c160732d4f4ec1a0b6"
+    },
+    {
+      "path": "strategy_three_engines/server.json",
+      "bytes": 27672,
+      "sha256": "e1f75c3840bb1608cd365096c46b1cb638283247bd62beb3660674795c95d2fd"
+    },
+    {
+      "path": "strategy_three_engines/server.json.gz",
+      "bytes": 2658,
+      "sha256": "3faa3a0a4054e8949313cef2c707eb8a6ddff76932f7afd6cc81a06c1ae3cbbd"
+    },
+    {
+      "path": "strategy_three_engines/source.json",
+      "bytes": 27664,
+      "sha256": "e4394e933a4405ee3111a91f24c2e590b7a47ef4883088ca2b8b9c45941106dc"
+    },
+    {
+      "path": "strategy_three_engines/source.json.gz",
+      "bytes": 2652,
+      "sha256": "68951c7f8953b36ab405ddf5d463979fafcefcbbe421c1d81193c78e27a0a4c4"
+    },
+    {
+      "path": "strategy_three_engines/summary.json",
+      "bytes": 8890,
+      "sha256": "d1d2694ce03245428da0cb01cc7252033de3fa8d1afb4fd3295685ef41bb8833"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1497,
+      "sha256": "df2f78fd7a160f3ef36b41f9fcda8dbd5bd75275f4ee309f5c2214a2eea295f4"
+    },
+    {
+      "path": "supplemental_dependency_manifest.json",
+      "bytes": 35955,
+      "sha256": "a2cf55b2d8be7771b360bdeda53b2676c9e2e0a7381b2e349a04c7e7de2ca545"
+    },
+    {
+      "path": "test_boss_boundaries_v01619.cjs.diff",
+      "bytes": 7626,
+      "sha256": "7ae9b535a1700d9e05e6a418e90a5e486f313de2cd6163e38fb8fe2faf9ec75d"
+    },
+    {
+      "path": "test_field_boss_immunity_v01618.cjs.diff",
+      "bytes": 3946,
+      "sha256": "0a5ae3b020939351fcc880a7d0fa0fea2ba11c0b4992650703bd109804062537"
+    },
+    {
+      "path": "test_field_bosses.cjs.diff",
+      "bytes": 3865,
+      "sha256": "1c7299e4f5b7f2afffb79fe2a362925956a8d2732978e892c1d5eee58b5bfd51"
+    },
+    {
+      "path": "verification_preparation_failure.json",
+      "bytes": 429,
+      "sha256": "ae01d873b8c14f3635aa9c0c2623f2f135333661adacde50887ebb76a50562b0"
+    },
+    {
+      "path": "verify_evidence.py",
+      "bytes": 10525,
+      "sha256": "20024e9c8b70152c6423e807229985f3cdbc4e22530e66d450f999cbdd7e2fa6"
+    },
+    {
+      "path": "verify_release.py.diff",
+      "bytes": 415,
+      "sha256": "7b45fb556e84ed4933ad18067e20d88c6f7dddc9f82cebd77a0c9ccb1ae59655"
+    },
+    {
+      "path": "workers.json",
+      "bytes": 18,
+      "sha256": "69169b6b59aa9a8e6ce6a6e613f2cc30b828d39f3c6e9ba55470b521895f65fb"
+    }
+  ],
+  "excludedLocalFiles": [
+    "__pycache__/verify_evidence.cpython-312.pyc",
+    "active/002.json",
+    "active/003.json",
+    "active/004.json",
+    "active/005.json",
+    "active/007.json",
+    "active/008.json",
+    "active/009.json",
+    "active/011.json",
+    "build/browser.log",
+    "build/server.log",
+    "logs/002_test_boss_boundaries_v01619.cjs.log",
+    "logs/003_test_field_boss_immunity_v01618.cjs.log",
+    "logs/004_test_save_revision.cjs.log",
+    "logs/005_test_balance_saves_v0166.cjs.log",
+    "logs/007_test_combat_boundaries_v0168.cjs.log",
+    "logs/008_test_element_immunity_v01618.cjs.log",
+    "logs/009_test_monster_control_fixes_v01618.cjs.log",
+    "logs/011_test_field_boss_strategy_v01622.cjs.log"
+  ],
+  "exclusionReason": "Self manifest, local interpreter caches, raw active/partial logs are not publishable sealed proof; authoritative gzip/per_gate/contract reports are included."
+}

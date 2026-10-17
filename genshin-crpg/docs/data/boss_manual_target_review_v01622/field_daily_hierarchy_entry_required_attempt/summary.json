@@ -1,0 +1,57 @@
+{
+  "fingerprint": "2a143c669f2e73ee1921e255ae795a9088957da75acafa076de2f0264faf11bc",
+  "conditions": 2,
+  "wins": 0,
+  "defeats": 0,
+  "limits": 0,
+  "entryBlocked": 2,
+  "errors": [],
+  "inputs": 122,
+  "drift": [],
+  "rows": [
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "level": 30,
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_BARBARA"
+      ],
+      "state": "ENTRY_BLOCKED",
+      "reason": "장소 화면에서 먼저 들어가기를 선택해 주세요.",
+      "admissionBefore": {},
+      "fieldQuotaBefore": {
+        "window": 41473,
+        "wins": 0,
+        "limit": 3,
+        "left": 3,
+        "resetAt": "00:00",
+        "minutesLeft": 481,
+        "reason": ""
+      }
+    },
+    {
+      "boss": "FB_CRYO_HYPOSTASIS",
+      "level": 30,
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "ENTRY_BLOCKED",
+      "reason": "장소 화면에서 먼저 들어가기를 선택해 주세요.",
+      "admissionBefore": {},
+      "fieldQuotaBefore": {
+        "window": 41473,
+        "wins": 0,
+        "limit": 3,
+        "left": 3,
+        "resetAt": "00:00",
+        "minutesLeft": 481,
+        "reason": ""
+      }
+    }
+  ]
+}

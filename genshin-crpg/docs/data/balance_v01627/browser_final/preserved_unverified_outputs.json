@@ -1,0 +1,46 @@
+{
+  "scope": "Unverified prior and failed-launch screenshot/result outputs are preserved outside the publication tree; closed duplicate headless output is likewise preserved. None count as actual current GUI proof.",
+  "moves": [
+    {
+      "from": "docs/data/balance_v01627/browser_final/_prior_online_flow",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/_prior_online_flow"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/_archived_workdirs/source_sqlite",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/_archived_workdirs/source_sqlite"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/_archived_workdirs/source_do",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/_archived_workdirs/source_do"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/_archived_workdirs/dist_sqlite",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/_archived_workdirs/dist_sqlite"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/_archived_workdirs/dist_do",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/_archived_workdirs/dist_do"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/headless_shell/_prior_online_flow",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/headless_shell/_prior_online_flow"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/headless_shell/_archived_workdirs/source_sqlite",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/headless_shell/_archived_workdirs/source_sqlite"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/chrome_launch_denied/source_sqlite/online-flow",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/chrome_launch_denied/source_sqlite/online-flow"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/chrome_launch_denied/source_do/online-flow",
+      "preserved": "/workspace/scratch/a62414469990/browser-unverified-v01627/chrome_launch_denied/source_do/online-flow"
+    },
+    {
+      "from": "docs/data/balance_v01627/browser_final/headless_shell/source_sqlite",
+      "preserved": "/workspace/scratch/a62414469990/browser-duplicate-headless-v01627/source_sqlite",
+      "canonical": "docs/data/balance_v01627/browser_final/source_sqlite"
+    }
+  ]
+}

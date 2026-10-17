@@ -1,0 +1,13 @@
+--- before/tests/test_combat_boundaries_v0168.cjs
++++ after/tests/test_combat_boundaries_v0168.cjs
+@@ -164,8 +164,8 @@
+   loaded.tickFields('END');assert.equal(loaded.applyDamage(loaded.combatActor(),saved,999999,{element:'불',sourceKind:'REACTION_DOT'}),0);
+   assert.equal(saved.hp,1);assert.equal(saved.fb.revival.guarded,true);
+  });
+- check('guarded revival countdown and one-time revival remain intact: '+source,()=>{
+-  const {r,b,boss,me}=guardedBoss(source);boss.statuses=[];b.fields=[];
++ check('legacy2 guarded revival countdown and one-time revival remain intact: '+source,()=>{
++  const {r,b,boss,me}=guardedBoss(source);b.fieldBoss.behaviorRevision=2;boss.statuses=[];b.fields=[];
+   r.roundEnd();assert.equal(boss.hp,1);assert.equal(boss.fb.revival.rounds,2);
+   r.roundEnd();assert.equal(boss.hp,1);assert.equal(boss.fb.revival.rounds,1);
+   r.roundEnd();assert.equal(boss.hp,Math.round(boss.maxHp*.4));assert.equal(boss.fb.revival,null);

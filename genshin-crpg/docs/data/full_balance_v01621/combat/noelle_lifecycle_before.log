@@ -1,0 +1,77 @@
+FAIL C0 50% proc and C1/C6 certainty share one Breastplate heal per round
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+8 !== 4
+
+    at assertSingle (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:13:68)
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:16:224
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:15:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+FAIL C1/C6 require Breastplate: absent/other/broken shield does not consume eligibility
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+4 !== 0
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:19:162
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:18:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+FAIL native round end resets shared gate; E/Q recasts in the same round do not
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+8 !== 4
+
+    at assertSingle (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:13:68)
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:22:163
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:21:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+PASS Q expiry returns C1/C6 to native 50% Breastplate proc
+FAIL misses and E/Q damage cannot proc; living allies heal while KO stays zero
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+6 !== 3
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:28:398
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:27:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+FAIL killing normal hit, successive hits and restored in-flight state keep one proc
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+8 !== 4
+
+    at assertSingle (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:13:68)
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:31:172
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:30:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+PASS same-round normal damage hits share one proc and summon/follow-up damage cannot use it

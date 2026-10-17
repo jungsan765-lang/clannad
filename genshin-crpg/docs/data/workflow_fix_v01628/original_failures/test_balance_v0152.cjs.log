@@ -1,0 +1,24 @@
+PASS 타르탈리아 (Liyue act 3, Lv.50): a fixed Lv.50 boss; a Lv.50 party wins after a long fight with real damage
+PASS 타르탈리아 of the 이세계 route (Lv.50 subdue fight): no longer falls in one round
+PASS 야타용왕 (Lv.60): a Lv.60 party wins most fights and has to work for it
+PASS repeat challenges: level gates remain; prepared 4★ C6 and 5★ C0 parties win through public protagonist skills
+PASS daily rematches: invested public shield/ranged counterplay wins; fresh Dvalin has no wind-route shortcut
+FAIL genuine 0.16.26 Dvalin rematch still supplies and executes its original public wind-route counterplay
+AssertionError [ERR_ASSERTION]: immutable 0.16.26 native source: source/runtime.js
++ actual - expected
+
++ '723e3935ce63023f1dd5d1fe83b1d2cc5fcd42bb5cff98f8b5a956a70f9a59d2'
+- 'da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7'
+
+    at loadBefore (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_enemy_balance_v01627.cjs:48:32)
+    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:102:15
+    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:10:44)
+    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0152.cjs:101:1)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+PASS stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers
+{"total":7,"passed":6}

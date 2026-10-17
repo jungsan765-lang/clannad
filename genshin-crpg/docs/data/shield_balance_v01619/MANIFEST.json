@@ -1,0 +1,118 @@
+{
+  "schema": "shield-balance-v01619-2",
+  "createdAt": "2026-10-09T17:35:07.222733+00:00",
+  "baselinePublishedSHA": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "stage": "Final joint product snapshot, completed native/independent evidence preserved; entire release regression reported separately by root",
+  "finalRuntimeFingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "artifacts": [
+    {
+      "path": "README_KO.md",
+      "bytes": 7587,
+      "sha256": "d9a67e135a29903e37e8bc5845a5f204acdb4cce5197bd57dbc70e3f6e130906"
+    },
+    {
+      "path": "after_parallel_sources_observed.json",
+      "bytes": 518,
+      "sha256": "8904bc4a785f83d1ae53962251275526eb7a811c25d5a7807ffc560ce43ed60a"
+    },
+    {
+      "path": "after_sequential_native.json.gz",
+      "bytes": 1063811,
+      "sha256": "c0b1f449c480fbc5aca8079c0baeb6fc2ac516fc7baacd6b6dfe86f6dd99c794"
+    },
+    {
+      "path": "baseline_native.json.gz",
+      "bytes": 1162765,
+      "sha256": "b6fa55c8f650217313f5cdb0b60b2515a658681918ded7beb9afba70c4798dae"
+    },
+    {
+      "path": "before_parallel_candidate.json.gz",
+      "bytes": 1063811,
+      "sha256": "c0b1f449c480fbc5aca8079c0baeb6fc2ac516fc7baacd6b6dfe86f6dd99c794"
+    },
+    {
+      "path": "cases.json",
+      "bytes": 15450,
+      "sha256": "5081333acbbe8a4018a1b339c897fd8b86bcea5561e950e5cbaf9c221de56a3e"
+    },
+    {
+      "path": "final.log",
+      "bytes": 8660,
+      "sha256": "503f992d402361e101e2d9091c6567f85ae186da19435edaea2849cdee1512bb"
+    },
+    {
+      "path": "final_loaded_sources.json",
+      "bytes": 12664,
+      "sha256": "bface39783b7bb541e67ed6a20edf4b7de9265f8dfbb0aff0b375622395289fc"
+    },
+    {
+      "path": "final_native.json.gz",
+      "bytes": 1065605,
+      "sha256": "3332163ad27dce36b24c272034b4201e72a88df917ed9f95cceddea046dc3778"
+    },
+    {
+      "path": "final_summary.json",
+      "bytes": 407122,
+      "sha256": "813ee43a773db610fbc442486fb301a164b1214e3a4dd3f0e5178a363d567b9c"
+    },
+    {
+      "path": "final_validation.json",
+      "bytes": 33490,
+      "sha256": "76829bb342eed5277f3b7d06a7e3d6418cc618ab2b80167bd1e2bd4547807a59"
+    },
+    {
+      "path": "lanyan_probe.json",
+      "bytes": 18816,
+      "sha256": "ed020c7d0b712165cb0afc29d0af0510b1a224a65e4e2b83a88099b63521aa3c"
+    },
+    {
+      "path": "mechanics_final_test.json",
+      "bytes": 4620,
+      "sha256": "4791a47f9b14ef21f01a19d60512505244d82854c34f19cc8aeb5fff8b1b3022"
+    },
+    {
+      "path": "meter_test.json",
+      "bytes": 1409,
+      "sha256": "d47e15010ccb136c85e097886f95655e7c56ac901dde75244499c34a21a19265"
+    },
+    {
+      "path": "pilot_cases.json",
+      "bytes": 1365,
+      "sha256": "060995b351fabc39277f4a9533b4c1b89c93b900955293a862909c5a334a5d1d"
+    },
+    {
+      "path": "playback_test.json",
+      "bytes": 1613,
+      "sha256": "1b50226a0de93987b163238fb79ea978d637f7f23580d2d3aaf71360df69d16d"
+    },
+    {
+      "path": "published_product_baseline_manifest.json",
+      "bytes": 54356,
+      "sha256": "622c9675b9332b814627a671be58e26b61c2ad0c5d4db1e4e2d89b456ddbfa92"
+    },
+    {
+      "path": "shield_only_pilot.json.gz",
+      "bytes": 224299,
+      "sha256": "237b2ee81068afdfe9c9f6dc0f768e892ba2b0c7b4c10cb0659a171fd9cfc06f"
+    },
+    {
+      "path": "summary_parallel_with_levelups.json",
+      "bytes": 407122,
+      "sha256": "1cb6ad22872ce8e18323d3392c11248f8faf02cefd286a73ccf2c2d07a8d77c4"
+    },
+    {
+      "path": "summary_sequential.json",
+      "bytes": 363329,
+      "sha256": "a054979e5c05ee6ed63ee49fbce1722222167a145b6c7e06777a46981c9efa92"
+    }
+  ],
+  "totals": {
+    "entries": 20,
+    "bytesExcludingManifest": 5918412
+  },
+  "interpretation": {
+    "fingerprint": "Runtime118 script names/bytes and local raw DB bytes; distinct from Git SHA. Published remote raw DB is retained with semantic parity.",
+    "manifestValidation": "Current sha256 fields verify current files. MANIFEST_PRE_FINAL is historical and does not require an edited current README to retain its old bytes.",
+    "fullReleaseRegression": "Only completed first8 new programs are included here. Do not count missing inputs, interrupted work, or pending165 as passed."
+  }
+}

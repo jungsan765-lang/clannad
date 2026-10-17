@@ -1,0 +1,1228 @@
+{
+  "version": "0.16.18",
+  "total": 41,
+  "passed": 41,
+  "nativeSlimeIds": [
+    "MON_SLIME_PYRO",
+    "MON_SLIME_LARGE_PYRO",
+    "MON_SLIME_HYDRO",
+    "MON_SLIME_LARGE_HYDRO",
+    "MON_SLIME_ELECTRO",
+    "MON_SLIME_LARGE_ELECTRO",
+    "MON_SLIME_CRYO",
+    "MON_SLIME_LARGE_CRYO",
+    "MON_SLIME_ANEMO",
+    "MON_SLIME_LARGE_ANEMO",
+    "MON_SLIME_GEO",
+    "MON_SLIME_LARGE_GEO",
+    "MON_SLIME_DENDRO"
+  ],
+  "checks": [
+    {
+      "name": "MON_SLIME_PYRO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_SLIME_SMALL",
+        "ownCard": "MOND_BENNETT_E",
+        "otherCard": "LIYUE_XINGQIU_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "행추",
+            "target": "화염 슬라임",
+            "damage": 321,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": "RX_VAPORIZE_HYDRO",
+            "card": "LIYUE_XINGQIU_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_PYRO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_CAPE_OATH_1",
+        "ownCard": "MOND_BENNETT_E",
+        "otherCard": "LIYUE_XINGQIU_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "행추",
+            "target": "거대 화염 슬라임",
+            "damage": 300,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": "RX_VAPORIZE_HYDRO",
+            "card": "LIYUE_XINGQIU_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_HYDRO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_TRV_FALCON_WAVE",
+        "ownCard": "LIYUE_XINGQIU_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "물 슬라임",
+            "damage": 80,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_VAPORIZE_PYRO",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_HYDRO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_SWORD_CEMETERY_3",
+        "ownCard": "LIYUE_XINGQIU_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "거대 물 슬라임",
+            "damage": 74,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_VAPORIZE_PYRO",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_ELECTRO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_MOND_PLAINS_2",
+        "ownCard": "MOND_LISA_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "번개 슬라임",
+            "damage": 53,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_OVERLOADED",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "베넷",
+            "target": "번개 슬라임",
+            "damage": 74,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_OVERLOADED",
+            "sourceKind": "REACTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_ELECTRO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_DOMAIN4_MIDSUMMER_COURTYARD_15",
+        "ownCard": "MOND_LISA_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "거대 번개 슬라임",
+            "damage": 48,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_OVERLOADED",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "베넷",
+            "target": "거대 번개 슬라임",
+            "damage": 74,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_OVERLOADED",
+            "sourceKind": "REACTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_CRYO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_DRAGON_CRYO",
+        "ownCard": "MOND_KAEYA_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "얼음 슬라임",
+            "damage": 106,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_CRYO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_DRAGON_MITA",
+        "ownCard": "MOND_KAEYA_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "거대 얼음 슬라임",
+            "damage": 99,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_ANEMO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_SLIME_SMALL",
+        "ownCard": "MOND_SUCROSE_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 155,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "바람 슬라임",
+            "damage": 53,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_SWIRL",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "베넷",
+            "target": "바람 슬라임",
+            "damage": 26,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "베넷",
+            "target": "바람 슬라임",
+            "damage": 26,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "베넷",
+            "target": "바람 슬라임",
+            "damage": 26,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "베넷",
+            "target": "바람 슬라임",
+            "damage": 26,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_ANEMO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_STORMBEARER_MOUNTAINS_1",
+        "ownCard": "MOND_SUCROSE_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 62,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "거대 바람 슬라임",
+            "damage": 50,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_SWIRL",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "베넷",
+            "target": "거대 바람 슬라임",
+            "damage": 26,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          },
+          {
+            "actor": "베넷",
+            "target": "거대 바람 슬라임",
+            "damage": 26,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_GEO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_LAIR_WEST_RUINS_2",
+        "ownCard": "LIYUE_NINGGUANG_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "바위 슬라임",
+            "damage": 53,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": null,
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_GEO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_LAIR_WEST_RUINS_2",
+        "ownCard": "LIYUE_NINGGUANG_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "거대 바위 슬라임",
+            "damage": 50,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": null,
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_DENDRO legal own-element attack does zero damage; another element still lands",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_MOND_FOREST_1",
+        "ownCard": "LIYUE_BAIZHU_E",
+        "otherCard": "MOND_BENNETT_E",
+        "ownElementDamage": 0,
+        "incidentalOtherElementDamage": 0,
+        "otherPackets": [
+          {
+            "actor": "베넷",
+            "target": "풀 슬라임",
+            "damage": 53,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_BURNING",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_DENDRO dormant source definition gets the same elemental-body rule",
+      "ok": true,
+      "evidence": {
+        "staticOnly": true
+      }
+    },
+    {
+      "name": "MON_SLIME_PYRO RX_OVERLOADED occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_SLIME_SMALL",
+        "card": "MOND_LISA_E",
+        "reaction": "RX_OVERLOADED",
+        "blocked": [
+          {
+            "actor": "리사",
+            "target": "화염 슬라임",
+            "element": "불",
+            "reaction": "RX_OVERLOADED",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "리사",
+            "target": "화염 슬라임",
+            "element": "불",
+            "reaction": "RX_OVERLOADED",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_PYRO RX_OVERLOADED occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_CAPE_OATH_1",
+        "card": "MOND_LISA_E",
+        "reaction": "RX_OVERLOADED",
+        "blocked": [
+          {
+            "actor": "리사",
+            "target": "거대 화염 슬라임",
+            "element": "불",
+            "reaction": "RX_OVERLOADED",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_CRYO RX_SUPERCONDUCT occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_DRAGON_CRYO",
+        "card": "MOND_LISA_E",
+        "reaction": "RX_SUPERCONDUCT",
+        "blocked": [
+          {
+            "actor": "리사",
+            "target": "얼음 슬라임",
+            "element": "얼음",
+            "reaction": "RX_SUPERCONDUCT",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "리사",
+            "target": "얼음 슬라임",
+            "element": "얼음",
+            "reaction": "RX_SUPERCONDUCT",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_CRYO RX_SUPERCONDUCT occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_DRAGON_MITA",
+        "card": "MOND_LISA_E",
+        "reaction": "RX_SUPERCONDUCT",
+        "blocked": [
+          {
+            "actor": "리사",
+            "target": "거대 얼음 슬라임",
+            "element": "얼음",
+            "reaction": "RX_SUPERCONDUCT",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_ELECTRO RX_ELECTROCHARGED occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_MOND_PLAINS_2",
+        "card": "LIYUE_XINGQIU_E",
+        "reaction": "RX_ELECTROCHARGED",
+        "blocked": [
+          {
+            "actor": "행추",
+            "target": "번개 슬라임",
+            "element": "번개",
+            "reaction": "RX_ELECTROCHARGED",
+            "sourceKind": "REACTION_DOT",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_ELECTRO RX_ELECTROCHARGED occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_DOMAIN4_MIDSUMMER_COURTYARD_15",
+        "card": "LIYUE_XINGQIU_E",
+        "reaction": "RX_ELECTROCHARGED",
+        "blocked": [
+          {
+            "actor": "행추",
+            "target": "거대 번개 슬라임",
+            "element": "번개",
+            "reaction": "RX_ELECTROCHARGED",
+            "sourceKind": "REACTION_DOT",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_HYDRO RX_SWIRL occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_TRV_FALCON_WAVE",
+        "card": "MOND_SUCROSE_E",
+        "reaction": "RX_SWIRL",
+        "blocked": [
+          {
+            "actor": "설탕",
+            "target": "물 슬라임",
+            "element": "물",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_LARGE_HYDRO RX_SWIRL occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_SWORD_CEMETERY_3",
+        "card": "MOND_SUCROSE_E",
+        "reaction": "RX_SWIRL",
+        "blocked": [
+          {
+            "actor": "설탕",
+            "target": "거대 물 슬라임",
+            "element": "물",
+            "reaction": "RX_SWIRL",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_DENDRO RX_BLOOM occurs but immune-element reaction/DOT/core damage is zero",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_MOND_FOREST_1",
+        "card": "LIYUE_XINGQIU_E",
+        "reaction": "RX_BLOOM",
+        "blocked": [
+          {
+            "actor": "행추",
+            "target": "풀 슬라임",
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "행추",
+            "target": "풀 슬라임",
+            "element": "풀",
+            "reaction": "RX_BLOOM",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_ABYSS_MAGE_PYRO legal immune hit preserves shield and HP; vulnerable hit breaks it",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_ABYSS_MAGE",
+        "shieldBefore": 276,
+        "shieldAfter": 0,
+        "packets": [
+          {
+            "actor": "베넷",
+            "target": "화염의 심연 메이지",
+            "damage": 0,
+            "absorbed": 0,
+            "shieldBefore": 276,
+            "shieldAfter": 276,
+            "immune": true,
+            "reason": "보호막 원소 면역",
+            "element": "불",
+            "critical": false,
+            "reaction": null,
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "행추",
+            "target": "화염의 심연 메이지",
+            "damage": 162,
+            "absorbed": 276,
+            "shieldBefore": 276,
+            "shieldAfter": 0,
+            "brokenShields": [
+              "ECARD_ABYSS_PYRO_SHIELD"
+            ],
+            "element": "물",
+            "critical": false,
+            "reaction": "RX_VAPORIZE_HYDRO",
+            "card": "LIYUE_XINGQIU_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_ABYSS_MAGE_PYRO immune direct/reaction/DOT/field/summon packets cannot overflow; broken barrier permits own element",
+      "ok": true,
+      "evidence": {
+        "sourceKinds": 6,
+        "restored": true,
+        "exposedOwnDamage": 50
+      }
+    },
+    {
+      "name": "MON_ABYSS_MAGE_HYDRO legal immune hit preserves shield and HP; vulnerable hit breaks it",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_SWORD_CEMETERY_4",
+        "shieldBefore": 276,
+        "shieldAfter": 75,
+        "packets": [
+          {
+            "actor": "행추",
+            "target": "물의 심연 메이지",
+            "damage": 0,
+            "absorbed": 0,
+            "shieldBefore": 276,
+            "shieldAfter": 276,
+            "immune": true,
+            "reason": "보호막 원소 면역",
+            "element": "물",
+            "critical": false,
+            "reaction": null,
+            "card": "LIYUE_XINGQIU_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "케이아",
+            "target": "물의 심연 메이지",
+            "damage": 0,
+            "absorbed": 201,
+            "shieldBefore": 276,
+            "shieldAfter": 75,
+            "element": "얼음",
+            "critical": false,
+            "reaction": "RX_FROZEN",
+            "card": "MOND_KAEYA_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_ABYSS_MAGE_HYDRO immune direct/reaction/DOT/field/summon packets cannot overflow; broken barrier permits own element",
+      "ok": true,
+      "evidence": {
+        "sourceKinds": 6,
+        "restored": true,
+        "exposedOwnDamage": 150
+      }
+    },
+    {
+      "name": "MON_ABYSS_MAGE_CRYO legal immune hit preserves shield and HP; vulnerable hit breaks it",
+      "ok": true,
+      "evidence": {
+        "group": "EG_MOND_LOCAL_CRPG_STARGLOW_CAVERN_3",
+        "shieldBefore": 276,
+        "shieldAfter": 78,
+        "packets": [
+          {
+            "actor": "케이아",
+            "target": "얼음의 심연 메이지",
+            "damage": 0,
+            "absorbed": 0,
+            "shieldBefore": 276,
+            "shieldAfter": 276,
+            "immune": true,
+            "reason": "보호막 원소 면역",
+            "element": "얼음",
+            "critical": false,
+            "reaction": null,
+            "card": "MOND_KAEYA_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "베넷",
+            "target": "얼음의 심연 메이지",
+            "damage": 0,
+            "absorbed": 198,
+            "shieldBefore": 276,
+            "shieldAfter": 78,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_ABYSS_MAGE_CRYO immune direct/reaction/DOT/field/summon packets cannot overflow; broken barrier permits own element",
+      "ok": true,
+      "evidence": {
+        "sourceKinds": 6,
+        "restored": true,
+        "exposedOwnDamage": 134
+      }
+    },
+    {
+      "name": "cryo mage Hydro protection blocks damage while native aura/reaction remains possible",
+      "ok": true,
+      "evidence": {
+        "hp": 789,
+        "shield": 276,
+        "reactions": [
+          {
+            "actor": "케이아",
+            "target": "얼음의 심연 메이지",
+            "damage": 0,
+            "absorbed": 0,
+            "shieldBefore": 276,
+            "shieldAfter": 276,
+            "immune": true,
+            "reason": "보호막 원소 면역",
+            "element": "얼음",
+            "critical": false,
+            "reaction": "RX_FROZEN",
+            "card": "MOND_KAEYA_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "케이아",
+            "target": "얼음의 심연 메이지",
+            "reaction": "RX_FROZEN",
+            "reactionName": "빙결",
+            "text": "빙결 반응"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_DENDRO RX_SPREAD is generated by legal cards despite zero immune additive damage",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_SPREAD",
+        "packets": [
+          {
+            "actor": "백출",
+            "target": "풀 슬라임",
+            "element": "풀",
+            "critical": false,
+            "reaction": "RX_SPREAD",
+            "card": "LIYUE_BAIZHU_E",
+            "sourceKind": null,
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "백출",
+            "target": "풀 슬라임",
+            "element": "풀",
+            "critical": false,
+            "reaction": null,
+            "card": "LIYUE_BAIZHU_E",
+            "sourceKind": null,
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_ELECTRO RX_AGGRAVATE is generated by legal cards despite zero immune additive damage",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_AGGRAVATE",
+        "packets": [
+          {
+            "actor": "리사",
+            "target": "번개 슬라임",
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "MOND_LISA_E",
+            "sourceKind": null,
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "native Dendro core RX_BURGEON cannot damage the Dendro slime",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_BURGEON",
+        "packets": [
+          {
+            "actor": "베넷",
+            "target": "풀 슬라임",
+            "damage": 53,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_BURGEON",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "베넷",
+            "target": "풀 슬라임",
+            "element": "풀",
+            "reaction": "RX_BURGEON",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "베넷",
+            "target": "풀 슬라임",
+            "element": "풀",
+            "reaction": "RX_BURGEON",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "native Dendro core RX_HYPERBLOOM cannot damage the Dendro slime",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_HYPERBLOOM",
+        "packets": [
+          {
+            "actor": "리사",
+            "target": "풀 슬라임",
+            "damage": 124,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_HYPERBLOOM",
+            "card": "MOND_LISA_Q",
+            "sourceKind": null
+          },
+          {
+            "actor": "리사",
+            "target": "풀 슬라임",
+            "element": "풀",
+            "reaction": "RX_HYPERBLOOM",
+            "sourceKind": "REACTION",
+            "immune": true,
+            "damage": 0,
+            "absorbed": 0
+          },
+          {
+            "actor": "리사",
+            "target": "풀 슬라임",
+            "damage": 124,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_QUICKEN",
+            "card": "MOND_LISA_Q",
+            "sourceKind": null
+          },
+          {
+            "actor": "리사",
+            "target": "풀 슬라임",
+            "damage": 88,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "번개",
+            "critical": false,
+            "reaction": "RX_AGGRAVATE",
+            "card": "MOND_LISA_Q",
+            "sourceKind": "FIELD"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_CRYO non-immune RX_MELT_PYRO retains its native effect",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_MELT_PYRO",
+        "packets": [
+          {
+            "actor": "베넷",
+            "target": "얼음 슬라임",
+            "damage": 106,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_MELT_PYRO",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_PYRO non-immune RX_VAPORIZE_HYDRO retains its native effect",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_VAPORIZE_HYDRO",
+        "packets": [
+          {
+            "actor": "행추",
+            "target": "화염 슬라임",
+            "damage": 321,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": "RX_VAPORIZE_HYDRO",
+            "card": "LIYUE_XINGQIU_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_HYDRO non-immune RX_FROZEN retains its native effect",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_FROZEN",
+        "packets": [
+          {
+            "actor": "케이아",
+            "target": "물 슬라임",
+            "damage": 144,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "얼음",
+            "critical": false,
+            "reaction": "RX_FROZEN",
+            "card": "MOND_KAEYA_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_PYRO non-immune RX_CRYSTALLIZE retains its native effect",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_CRYSTALLIZE",
+        "packets": [
+          {
+            "actor": "응광",
+            "target": "화염 슬라임",
+            "damage": 141,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "바위",
+            "critical": false,
+            "reaction": "RX_CRYSTALLIZE",
+            "card": "LIYUE_NINGGUANG_E",
+            "sourceKind": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "MON_SLIME_DENDRO non-immune RX_BURNING retains its native effect",
+      "ok": true,
+      "evidence": {
+        "reaction": "RX_BURNING",
+        "packets": [
+          {
+            "actor": "베넷",
+            "target": "풀 슬라임",
+            "damage": 53,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "critical": false,
+            "reaction": "RX_BURNING",
+            "card": "MOND_BENNETT_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "베넷",
+            "target": "풀 슬라임",
+            "damage": 9,
+            "absorbed": 0,
+            "shieldBefore": 0,
+            "shieldAfter": 0,
+            "element": "불",
+            "reaction": "RX_BURNING",
+            "sourceKind": "REACTION_DOT"
+          }
+        ]
+      }
+    },
+    {
+      "name": "legal persistent field and summon attacks respect slime and mage immunity",
+      "ok": true,
+      "evidence": [
+        {
+          "id": "MON_SLIME_CRYO",
+          "card": "MOND_KAEYA_Q",
+          "timing": "START",
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "얼음 슬라임",
+              "element": "얼음",
+              "critical": false,
+              "reaction": null,
+              "card": "MOND_KAEYA_Q",
+              "sourceKind": "FIELD",
+              "immune": true,
+              "damage": 0,
+              "absorbed": 0
+            }
+          ]
+        },
+        {
+          "id": "MON_SLIME_ELECTRO",
+          "card": "MOND_LISA_Q",
+          "timing": "END",
+          "packets": [
+            {
+              "actor": "리사",
+              "target": "번개 슬라임",
+              "element": "번개",
+              "critical": false,
+              "reaction": null,
+              "card": "MOND_LISA_Q",
+              "sourceKind": "FIELD",
+              "immune": true,
+              "damage": 0,
+              "absorbed": 0
+            }
+          ]
+        },
+        {
+          "id": "MON_SLIME_PYRO",
+          "card": "LIYUE_XIANGLING_E",
+          "timing": "END",
+          "packets": [
+            {
+              "actor": "향릉",
+              "target": "화염 슬라임",
+              "element": "불",
+              "reaction": "RX_SWIRL",
+              "sourceKind": "REACTION",
+              "immune": true,
+              "damage": 0,
+              "absorbed": 0
+            },
+            {
+              "actor": "향릉",
+              "target": "화염 슬라임",
+              "element": "불",
+              "reaction": "RX_SWIRL",
+              "sourceKind": "REACTION",
+              "immune": true,
+              "damage": 0,
+              "absorbed": 0
+            }
+          ]
+        },
+        {
+          "id": "MON_ABYSS_MAGE_HYDRO",
+          "card": "MOND_MONA_E",
+          "timing": "END",
+          "packets": [
+            {
+              "actor": "모나",
+              "target": "물의 심연 메이지",
+              "damage": 0,
+              "absorbed": 0,
+              "shieldBefore": 276,
+              "shieldAfter": 276,
+              "immune": true,
+              "reason": "보호막 원소 면역",
+              "element": "물",
+              "critical": false,
+              "reaction": null,
+              "card": "MOND_MONA_E",
+              "sourceKind": "FIELD"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "existing boss immunity chain and ordinary enemy damage are preserved",
+      "ok": true,
+      "evidence": {
+        "ordinaryDamage": 53
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "index": 164,
+  "test": "tests/test_release_isolation_v01513.py",
+  "ok": false,
+  "returnCode": 1,
+  "timedOut": false,
+  "exception": null,
+  "seconds": 0.867,
+  "startedAt": "2026-10-10T03:16:28.436651+00:00",
+  "endedAt": "2026-10-10T03:16:29.303382+00:00",
+  "log": "logs/164_test_release_isolation_v01513.py.log.gz",
+  "logBytes": 742,
+  "logSha256": "ebb908f01105d1570b5e328f0a62c860fb6d2bc72758b2c148cd6363e432dbe3",
+  "failureClassification": "editorial_raw_input_gap_requires_authored_db"
+}
