@@ -48,7 +48,7 @@ commissionCard=function(parent,q,guild=false){if(q.row[0]!==CRPGWorldContent.let
  const c=el('section','card commission-card'),stage=game.letterStage();c.append(el('small','eyebrow','진행 중 · 성문 우편물'),el('h3','',q.row[1]),el('p','','편지 수집 → 주소 정리 → 캐서린에게 전달'));if(stage){c.append(el('p','',stage.label+(stage.duration?' · '+stage.duration/1000+'초':'')),actionButton(stage.label,'WORLD_WORK_START',{kind:'COMMISSION',quest:q.row[0]},true));if(stage.requiresPlace&&!game.atGuild()){const k=game.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');if(k)c.append(actionButton('캐서린에게 찾아가기','PLACE_ENTER',{place:k.id}));}}rewardPreview(c,q.reward);parent.append(c);
 };
 const journeyBattlePrepare=battlePrepare;
-battlePrepare=function(p){journeyBattlePrepare(p);if(!game.s.battlePreparation)return;p.append(actionButton('지금은 물러나서 더 준비하기','PREP_LEAVE'));/* Boss advice is intentionally omitted; technical status remains in the boss panel. */};
+battlePrepare=function(p){journeyBattlePrepare(p);if(!game.s.battlePreparation)return;/* 0.16.63: not in the tutorial's first battle, which cannot be left (runtime_reading.js) */{const intro=game.s.tutorialV2?.intro;if(!(intro&&game.s.battlePreparation.group===intro.group&&game.s.battlePreparation.node===intro.node))p.append(actionButton('지금은 물러나서 더 준비하기','PREP_LEAVE'));}/* Boss advice is intentionally omitted; technical status remains in the boss panel. */};
 let worldUITimer=null;
 function updateWorldUI(){
  clearTimeout(worldUITimer);document.getElementById('world-work-status')?.remove();const job=game?.s.worldJob;if(!job)return;

@@ -27,4 +27,22 @@ check('특성 훈련: an unknown kind is refused with the game\'s reason, the th
  const r=city();for(const kind of ['ALL','constructor',3,null])refused(r,'TALENT_UPGRADE',{owner:'PLAYER_CUSTOM',kind},'올릴 특성을 골라 주세요.');
  for(const kind of ['na','e','q',undefined]){const why=r.actionReason('TALENT_UPGRADE',{owner:'PLAYER_CUSTOM',kind});assert.notEqual(why,'올릴 특성을 골라 주세요.');assert(!/undefined|iterable|Cannot read/.test(why),why);}
 });
-console.log(JSON.stringify({ok:!process.exitCode,total:4,passed}));
+// 0.16.63 오류 찾기 2차 (runtime_reading.js 끝, app_journey.js)
+const assert2=assert;
+check('2차: requests the screens never send are refused in the game\'s words',()=>{
+ const r=city();
+ refused(r,'MOVE',{},'갈 곳을 골라 주세요.');refused(r,'MOVE',{edge:'constructor'},'갈 곳을 골라 주세요.');
+ refused(r,'TOOL_PREPARE',{items:[null],element:'PYRO'},'준비할 도구를 골라 주세요.');
+ for(const boss of ['constructor',['BOSS_ANDRIUS'],7])refused(r,'MOND_MATERIAL_CHALLENGE',{boss},'몬드의 일일 보스는 안드리우스와 드발린입니다.');
+ for(const kind of ['constructor','__proto__',['AZHDAHA']])refused(r,'LIYUE_ARTIFACT_CHALLENGE',{kind},'반복 도전할 보스를 골라 주세요.');
+ assert2.notEqual(r.actionReason('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'}),'몬드의 일일 보스는 안드리우스와 드발린입니다.','a real boss is not turned away by the guard');
+ const edge=r.rows('47_MAP_EDGE_DB').find(e=>e[1]==='MAP_MOND_CITY');if(edge)assert2.notEqual(r.actionReason('MOVE',{edge:edge[0]}),'갈 곳을 골라 주세요.');
+});
+check('2차: the tutorial\'s first battle preparation says it cannot be left, and the screen does not offer it',()=>{
+ const r=fresh('ROUTE_TRAVELER');r.s.tutorialV2.intro={id:'MOND_AMBER',group:'EG_MOND_SLIME_SMALL',node:'PRO_TRVM01_평원_028'};r.s.battlePreparation={group:'EG_MOND_SLIME_SMALL',node:'PRO_TRVM01_평원_028'};
+ assert2.equal(r.actionReason('PREP_LEAVE',{}),'첫 전투는 물러날 수 없습니다. 준비를 마치고 시작해 주세요.');
+ r.s.battlePreparation={group:'EG_OTHER',node:'X'};assert2.notEqual(r.actionReason('PREP_LEAVE',{}),'첫 전투는 물러날 수 없습니다. 준비를 마치고 시작해 주세요.');
+ const ui=require('node:fs').readFileSync(require('node:path').join(__dirname,'../source/app_journey.js'),'utf8');
+ assert2(/const intro=game\.s\.tutorialV2\?\.intro;if\(!\(intro&&game\.s\.battlePreparation\.group===intro\.group&&game\.s\.battlePreparation\.node===intro\.node\)\)p\.append\(actionButton\('지금은 물러나서 더 준비하기','PREP_LEAVE'\)\)/.test(ui));
+});
+console.log(JSON.stringify({ok:!process.exitCode,total:6,passed}));

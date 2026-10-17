@@ -338,3 +338,25 @@ if(old.geoExchangeEntry)P.geoExchangeEntry=function(...a){return withPrimo(old.g
 api.oculusPrimogems={version:1,find:{...FIND},offer:{...OFFER}};
 P.oculusPrimogemsV01659=true;
 })(globalThis);
+// 0.16.63 오류 찾기 2차 (user, 2026-10-18: 「오류나 버그 있는지도 잘 체크해보고」): requests the screens never send, and one they do.
+//  - 지금은 물러나서 더 준비하기 in the very first battle's preparation (the tutorial's, with Amber) said yes and then failed with
+//    「첫 전투의 준비 또는 재도전 기록이 없습니다.」 — the tutorial needs that preparation, so the button says why instead.
+//  - a move without a way, tools that are not item names, a daily boss or a Liyue farm named 「constructor」 or given as a list:
+//    refused with the game's words before they reach a table (they came back as 「47_MAP_EDGE_DB: undefined」 and the like).
+(function(root){
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.requestGuardsV01663)return;
+const old={actionReason:P.actionReason,apply:P.apply},fail=(c,m)=>{throw new api.RuleError(c,m);};
+const own=(o,k)=>typeof k==='string'&&!!o&&Object.prototype.hasOwnProperty.call(o,k);
+function guard(rt,type,a){
+ a=a&&typeof a==='object'?a:{};
+ if(type==='PREP_LEAVE'){const t=rt.s?.tutorialV2,p=rt.s?.battlePreparation;if(t?.intro&&p&&p.group===t.intro.group&&p.node===t.intro.node)return '첫 전투는 물러날 수 없습니다. 준비를 마치고 시작해 주세요.';}
+ if(type==='MOVE'&&!(typeof a.edge==='string'&&rt.tables['47_MAP_EDGE_DB']?.has(a.edge)))return '갈 곳을 골라 주세요.';
+ if(type==='TOOL_PREPARE'&&a.items!==undefined&&!(Array.isArray(a.items)&&a.items.every(x=>typeof x==='string')))return '준비할 도구를 골라 주세요.';
+ if(type==='MOND_MATERIAL_CHALLENGE'&&!own(api.enhancementConfig?.bosses,a.boss))return '몬드의 일일 보스는 안드리우스와 드발린입니다.';
+ if(type==='LIYUE_ARTIFACT_CHALLENGE'&&!(typeof a.kind==='string'&&/^[A-Z][A-Z_]*$/.test(a.kind)))return '반복 도전할 보스를 골라 주세요.';
+ return '';
+}
+P.actionReason=function(type,a={},...rest){return guard(this,type,a)||old.actionReason.call(this,type,a,...rest);};
+P.apply=function(a,...rest){const why=guard(this,a?.type,a?.params??a);if(why)fail('ACTION_LOCK',why);return old.apply.call(this,a,...rest);};
+P.requestGuardsV01663=true;
+})(globalThis);
