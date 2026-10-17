@@ -648,7 +648,7 @@ if(typeof combat==='function'){const prior=combat;combat=function(p,...args){
 };}
 function tickHost(){
  const t=hostTurn();for(const n of document.querySelectorAll('.cp-host-count')){if(!t){n.textContent='';continue;}const s=Math.max(0,Math.ceil((t.deadline-(O.now?O.now():Date.now()))/1000));n.textContent=s+'초';n.classList.toggle('hurry',s<=5);}
- if(t&&(O.now?O.now():Date.now())>t.deadline+700)hostAuto();
+ if(t&&(O.now?O.now():Date.now())>t.deadline+700&&!window.CRPGFieldBossMinigames?.running)hostAuto();
 }
 // ---------- the clock: countdowns, the auto turn, a slow poll while in a room ----------
 function schedule(){
@@ -660,7 +660,7 @@ function tick(){
   const v=C.battle,t=v?.turn;
   if(v){for(const n of document.querySelectorAll('.cp-count')){const s=left(t);n.textContent=s===null?'':s+'초';n.classList.toggle('hurry',s!==null&&s<=5);}
    // Room members other than the waiting guest wait a little longer, so that one request usually goes alone.
-   if(t&&!t.host&&left(t)===0){const late=Date.now()-C.battleAt-(t.deadline-(v.now||0));if(late>(t.mine?400:1500))auto();}}
+   if(t&&!t.host&&left(t)===0){const late=Date.now()-C.battleAt-(t.deadline-(v.now||0));if(late>(t.mine?400:1500)&&!window.CRPGFieldBossMinigames?.running)auto();/* 0.16.61: never while a boss minigame is being played */}}
   tickHost();
   if(online()&&C.enabled===true&&(room()||C.node)&&Date.now()>C.poll){C.poll=Date.now()+(C.battle?6000:9000);load();}
   schedule();

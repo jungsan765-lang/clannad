@@ -9,7 +9,12 @@ const isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
 const base=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').replace(/\/$/,'')||(!isLocal?'https://genshin-crpg-online.jungsan765.workers.dev':'');
 const C=window.CRPGChat={enabled:null,open:false,lines:[],last:0,unread:0,muted:new Set(),node:null,ctrl:null,fails:0,poll:null,probing:false,max:140,handlers:[],
  // 0.16: the 「다인」 tab holds the co-op room's talk (app_coop_v0153.js) while one is in a room.
- channel:'world',coopUnread:0};
+ channel:'world',coopUnread:0,
+ // 0.16.61 (user: 「대화창이 사람이 많아지면 문제가 발생할 수 있으니 여럿으로 나눈다거나?」): the world talk is in one of five channels
+ // (server: 채널 1 fills to 60 before the next opens). C.world is this window's channel; the choice is kept on this device.
+ world:'world',channels:[]};
+let chosen=false;try{const w=localStorage.getItem('crpg-chat-world');if(/^world(-[2-5])?$/.test(w||'')){C.world=w;chosen=true;}}catch{}
+const q=extra=>'?channel='+encodeURIComponent(C.world)+(extra||'');
 const coop=()=>window.CRPGCoop?.inRoom?.()?window.CRPGCoop:null;
 const onCoop=()=>C.channel==='coop'&&!!coop();
 try{for(const x of JSON.parse(localStorage.getItem('crpg-chat-muted')||'[]'))C.muted.add(String(x));}catch{}
@@ -24,6 +29,8 @@ function ingest(list,quiet){
 function handle(ev){
  if(ev?.type==='chat'){ingest([ev.message]);if(!C.open&&!C.muted.has(ev.message.pid)&&ev.message.pid!==C.me)SHELL.toast?.(ev.message.author+': '+ev.message.text);}
  else if(ev?.type==='chat-delete'){const m=C.lines.find(x=>x.id===ev.id);if(m){m.deleted=true;m.text='';draw();}}
+ // 0.16.61: the operator closed (점검) or opened the server (server/gate-v01661.mjs)
+ else if(ev?.type==='server'&&ev.message)SHELL.toast?.(ev.message);
  for(const h of C.handlers)try{h(ev);}catch{}
 }
 C.on=fn=>C.handlers.push(fn);
@@ -40,7 +47,7 @@ C.on(async ev=>{
 let probeId=0,reconnectTimer=0,probeTimer=0,probeAfter=0;
 async function probe(){
  if(C.enabled===false||C.probing||!online()||document.hidden||Date.now()<probeAfter)return;C.probing=true;const id=++probeId,session=O.sessionStamp(),current=()=>id===probeId&&O.sameSession(session);
- try{const out=await O.request('/chat/recent');if(!current())return;C.enabled=true;C.max=out.max||140;C.me=out.me||'';ingest(out.messages,true);connect();}
+ try{const out=await O.request('/chat/recent'+(chosen?q():''));if(!current())return;if(/^world(-[2-5])?$/.test(out.channel||''))C.world=out.channel;if(Array.isArray(out.channels))C.channels=out.channels;C.enabled=true;C.max=out.max||140;C.me=out.me||'';ingest(out.messages,true);connect();}
  catch(e){if(current()){if(e.status===404)C.enabled=false;else{C.enabled=null;probeAfter=Date.now()+30000;clearTimeout(probeTimer);probeTimer=setTimeout(()=>{probeTimer=0;if(current())probe();},30000);}}}
  finally{if(current()){C.probing=false;badge();}}
 }
@@ -49,7 +56,7 @@ function connect(){
  let watchdog=0,stalled=false;
  // The server sends a heartbeat every 25 seconds. A half-open mobile connection must recover too.
  const watch=()=>{clearTimeout(watchdog);watchdog=setTimeout(()=>{stalled=true;ctrl.abort();},60000);};watch();
- fetch(base+'/chat/stream',{headers:{Authorization:'Bearer '+O.token},signal:ctrl.signal,cache:'no-store'}).then(async res=>{
+ fetch(base+'/chat/stream'+q(),{headers:{Authorization:'Bearer '+O.token},signal:ctrl.signal,cache:'no-store'}).then(async res=>{
   if(C.ctrl!==ctrl||!O.sameSession(session)||!online()){ctrl.abort();return;}if(!res.ok||!res.body)throw Error('stream '+res.status);
   const opened=Date.now(),reader=res.body.getReader(),dec=new TextDecoder();let buf='';
   for(;;){const {value,done}=await reader.read();if(C.ctrl!==ctrl||!online()||!O.sameSession(session)){ctrl.abort();return;}if(done)break;watch();
@@ -62,8 +69,12 @@ function connect(){
   reconnectTimer=setTimeout(()=>{reconnectTimer=0;if(!O.sameSession(session)||document.hidden)return;catchUp();connect();},Math.min(30000,1500*Math.pow(2,Math.min(C.fails,4))));
  });
 }
+// the channels and how many are in each (the first time, /chat/recent without a channel already joined the server's pick)
+async function channels(){try{const out=await O.request('/chat/channels');C.channels=out.channels||[];}catch{C.channels=[];}if(C.channels.length&&!C.channels.some(c=>c.id===C.world))C.world='world';if(C.node)draw();}
+async function moveTo(id){if(id===C.world)return;C.world=id;chosen=true;try{localStorage.setItem('crpg-chat-world',id);}catch{}C.ctrl?.abort();C.ctrl=null;clearTimeout(reconnectTimer);reconnectTimer=0;C.lines=[];C.last=0;draw();
+ try{const out=await O.request('/chat/recent'+q());ingest(out.messages,true);}catch(e){SHELL.toast?.(e.message);}connect();channels();}
 let catchUpFlight=null;
-function catchUp(){if(!online()||C.enabled!==true)return Promise.resolve();if(catchUpFlight)return catchUpFlight;const session=O.sessionStamp(),generation=probeId,flight=(async()=>{try{const out=await O.request('/chat/recent'+(C.last?'?after='+C.last:''));if(generation===probeId&&O.sameSession(session))ingest(out.messages);}catch{}})();catchUpFlight=flight;flight.then(()=>{if(catchUpFlight===flight)catchUpFlight=null;});return flight;}
+function catchUp(){if(!online()||C.enabled!==true)return Promise.resolve();if(catchUpFlight)return catchUpFlight;const session=O.sessionStamp(),generation=probeId,flight=(async()=>{try{const out=await O.request('/chat/recent'+q(C.last?'&after='+C.last:''));if(generation===probeId&&O.sameSession(session))ingest(out.messages);}catch{}})();catchUpFlight=flight;flight.then(()=>{if(catchUpFlight===flight)catchUpFlight=null;});return flight;}
 function startPoll(){if(C.poll)return;C.poll=setInterval(()=>{if(!document.hidden)catchUp();},C.open?3000:15000);}
 function stopPoll(){clearInterval(C.poll);C.poll=null;}
 function disconnect(){clearTimeout(probeTimer);probeTimer=0;clearTimeout(reconnectTimer);reconnectTimer=0;C.ctrl?.abort();C.ctrl=null;stopPoll();}
@@ -73,7 +84,7 @@ function resume(){if(document.hidden||!online())return;if(C.enabled===null)probe
 document.addEventListener('visibilitychange',resume);window.addEventListener?.('online',resume);
 // ---------- window ----------
 function toggle(open=!C.open){
- C.open=open;if(open){C.unread=0;if(!C.node)build();C.node.hidden=false;requestAnimationFrame(()=>C.node?.classList.add('open'));draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),60);window.CRPGSound?.play('menu_open');}
+ C.open=open;if(open){C.unread=0;if(!C.node)build();if(online()&&C.enabled===true)channels();C.node.hidden=false;requestAnimationFrame(()=>C.node?.classList.add('open'));draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),60);window.CRPGSound?.play('menu_open');}
  else if(C.node){C.node.classList.remove('open');setTimeout(()=>{if(!C.open&&C.node)C.node.hidden=true;},180);window.CRPGSound?.play('menu_close');}
  if(C.fails>=3){stopPoll();startPoll();}
  badge();
@@ -94,15 +105,20 @@ function build(){
  // 0.14.13: Enter on an empty line closes the window again, as in the game it imitates (Enter opens it).
  input.onkeydown=e=>{if(e.key==='Escape'||e.key==='Enter'&&!e.isComposing&&!input.value.trim()){e.preventDefault();e.stopPropagation();toggle(false);}};
  form.onsubmit=async e=>{e.preventDefault();const text=input.value.trim();if(!text||send.disabled)return;send.disabled=true;
-  try{if(onCoop()){await coop().say(text);input.value='';count.textContent='0/'+input.maxLength;draw();}else{const out=await O.request('/chat/send',{text});ingest([out.message],true);input.value='';count.textContent='0/'+C.max;}}catch(err){SHELL.toast?.(err.message);}finally{send.disabled=false;input.focus();}};
+  try{if(onCoop()){await coop().say(text);input.value='';count.textContent='0/'+input.maxLength;draw();}else{const out=await O.request('/chat/send',{text,channel:C.world});ingest([out.message],true);input.value='';count.textContent='0/'+C.max;}}catch(err){SHELL.toast?.(err.message);}finally{send.disabled=false;input.focus();}};
  form.append(input,count,send);
  const muted=mk('button','chat-muted');muted.type='button';muted.onclick=()=>{C.muted.clear();saveMuted();draw();};
- box.append(head,list,muted,form);document.body.append(box);C.node=box;
+ // 0.16.61: the world channels, one bar of numbers with how many are in each
+ const bar=mk('div','chat-channels');bar.setAttribute('role','tablist');bar.setAttribute('aria-label','채널');
+ box.append(head,bar,list,muted,form);document.body.append(box);C.node=box;
 }
 function saveMuted(){try{localStorage.setItem('crpg-chat-muted',JSON.stringify([...C.muted]));}catch{}}
 function draw(){
  if(!C.node)return;
  if(C.channel==='coop'&&!coop())C.channel='world';
+ const bar=C.node.querySelector('.chat-channels'),at=C.channels.findIndex(c=>c.id===C.world);
+ if(bar){bar.hidden=onCoop()||C.channels.length<2;bar.replaceChildren(...C.channels.map((c,i)=>{const b=mk('button','chat-channel'+(c.id===C.world?' on':''),'');b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-selected',String(c.id===C.world));b.setAttribute('aria-label',c.name+' · '+c.count+'명');b.title=c.name+' · '+c.count+'명';b.append(mk('b','',String(i+1)),mk('small','',c.count+'명'));b.onclick=()=>moveTo(c.id);return b;}));}
+ const worldTab=C.node.querySelector('.chat-tab[data-channel="world"] span');if(worldTab)worldTab.textContent=C.channels.length>1&&at>=0?'채널 '+(at+1):'전체';
  for(const t of C.node.querySelectorAll('.chat-tab')){const on=t.dataset.channel===C.channel;t.classList.toggle('on',on);t.setAttribute('aria-selected',String(on));if(t.dataset.channel==='coop')t.hidden=!coop();const dot=t.querySelector('.chat-tab-dot');if(dot)dot.hidden=!(t.dataset.channel==='coop'&&C.coopUnread>0&&!on);}
  const input=C.node.querySelector('.chat-form input'),count=C.node.querySelector('.chat-count');
  if(onCoop()){if(input){input.maxLength=80;input.placeholder='방 사람들에게 보내기 · Enter';input.setAttribute('aria-label','다인 대화 입력');}if(count)count.textContent=[...(input?.value||'')].length+'/80';drawCoop();return;}

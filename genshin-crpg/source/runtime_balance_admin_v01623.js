@@ -117,5 +117,41 @@ P.storyIndex=function(){
  }
  return index;
 };
+// 0.16.61 (user, 2026-10-18: 「서버를 점검해서 더 많은 인원을 수용할 수 있게 최적화」): the content install (growth, market,
+// world, geography, story …) reads the tables and its own install flags, never the save. Run it once per immutable DB/profile
+// entry on a save-less runtime, then give each runtime built from that entry its own copies of the installed rows (frozen prose
+// rows stay shared, as above), so one account's table edits still never reach another. A runtime that is not in exactly the
+// baseline's pre-install state (same tables, no install flags) takes the full install instead.
+const installGrowth=P.installGrowthContent,CONSTRUCTED=new Set(['db','tables','s','_baseRows','_baseSources','_sharedStaticContent']);
+function installedContent(entry){
+ if(entry.installed!==undefined)return entry.installed;
+ entry.installed=null;
+ try{
+  const r=new api.Runtime({...entry.db},null,false,entry.db,entry),beforeDB={...r.db},beforeTables={...r.tables};
+  if(!Object.keys(r).every(k=>CONSTRUCTED.has(k)))return null;
+  installGrowth.call(r);
+  const out={beforeDB,beforeTables,db:{},tables:{},fields:{},extra:new Set()};
+  for(const[k,v]of Object.entries(r.db))if(beforeDB[k]!==v)out.db[k]=v;
+  for(const[k,v]of Object.entries(r.tables))if(beforeTables[k]!==v)out.tables[k]=v;
+  for(const[k,v]of Object.entries(r))if(!CONSTRUCTED.has(k))out.fields[k]=v;
+  for(const rows of Object.values(out.db))for(const row of rows)if(Array.isArray(row)&&Object.keys(row).length!==row.length)out.extra.add(row);
+  for(const m of Object.values(out.tables))for(const row of m.values())if(Array.isArray(row)&&Object.keys(row).length!==row.length)out.extra.add(row);
+  entry.installed=out;return out;
+ }catch{entry.installed=false;return null;}
+}
+function pristine(r,c){
+ if(!Object.keys(r).every(k=>CONSTRUCTED.has(k)))return false;
+ const db=Object.keys(r.db),tables=Object.keys(r.tables);
+ return db.length===Object.keys(c.beforeDB).length&&db.every(k=>r.db[k]===c.beforeDB[k])&&tables.length===Object.keys(c.beforeTables).length&&tables.every(k=>r.tables[k]===c.beforeTables[k]);
+}
+P.installGrowthContent=function(){
+ const entry=this._sharedStaticContent;
+ if(this._growthInstalled||!entry||entry.installed===null||entry.installed===false)return installGrowth.call(this);
+ const c=installedContent(entry);if(!c||!pristine(this,c))return installGrowth.call(this);
+ const copies=new Map(),own=row=>{if(!Array.isArray(row)||Object.isFrozen(row))return row;let x=copies.get(row);if(!x){x=row.slice();if(c.extra.has(row))Object.assign(x,row);copies.set(row,x);}return x;};
+ const db={};for(const[k,rows]of Object.entries(c.db))db[k]=rows.map(own);this.db={...this.db,...db};
+ for(const[k,m]of Object.entries(c.tables)){const t=new Map();for(const[id,row]of m)t.set(id,own(row));this.tables[k]=t;}
+ Object.assign(this,c.fields);
+};
 api.adminBalance={schema:1,emptyConfig:EMPTY,validateConfig,createRuntime,catalog,profileOf};
 })(typeof globalThis==='object'?globalThis:this);

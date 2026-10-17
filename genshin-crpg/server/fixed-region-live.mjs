@@ -13,6 +13,7 @@ import {installLetterSchema,letterMethods,letterRoute} from './letters-v0151.mjs
 import {installRaidSchema,raidMethods,raidRoute} from './raid-v0152.mjs';
 import {installCoopSchema,coopMethods,coopRoute} from './coop-v0153.mjs';
 import {AdminBalanceStore} from './admin-balance.mjs';
+import {ServerGate} from './gate-v01661.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,now=()=>Date.now();
 const STREAM_MAX=500,STREAM_PER_ACCOUNT=8,STREAM_BUFFER_BYTES=128*1024,STREAM_STALL_MS=30000,EPHEMERAL_SWEEP_MS=60000;
@@ -27,7 +28,9 @@ async function body(req,maxBytes=MAX_BODY){let n=0,chunks=[];for await(const x o
 const uname=v=>String(v||'').normalize('NFKC').trim().toLowerCase();
 // 0.14.7 social features. Chat and trade are switched on per server (CRPG_FEATURES), so the production
 // database gains no new tables until they are approved there.
-const CHAT_MAX=140,CHAT_KEEP=400,CHAT_CHANNELS=new Set(['world']),TRADE_PENDING=5;
+// 0.16.61 (user: 「대화창이 사람이 많아지면 문제가 발생할 수 있으니 여럿으로 나눈다거나?」): five world channels. A newcomer fills 채널 1 up to
+// CHAT_SOFT people before the next one opens, so a quiet server still talks in one place; a line goes to its channel only.
+const CHAT_MAX=140,CHAT_KEEP=400,CHAT_WORLD=['world','world-2','world-3','world-4','world-5'],CHAT_CHANNELS=new Set(CHAT_WORLD),CHAT_SOFT=60,TRADE_PENDING=5;
 const pidOf=id=>createHash('sha256').update('crpg-chat:'+id).digest('hex').slice(0,12);
 const cleanText=v=>[...String(v??'')].map(ch=>{const c=ch.codePointAt(0);return c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff?' ':ch;}).join('').replace(/\s+/g,' ').trim();
 // 0.15.3: names other adventurers see follow each journey's protagonist (see syncName). Rows written earlier with the login
@@ -116,11 +119,11 @@ export class LiveRegionStore{
  // ---------- chat ----------
  push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;s.send(text);}}
  broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
- subscribe(a,res,session={}){
+ subscribe(a,res,session={},channel='world'){
   if([...this.subscribers].filter(s=>s.account===a.id).length>=STREAM_PER_ACCOUNT)throw err(429,'이 계정의 실시간 연결이 많습니다. 다른 게임 창을 닫고 다시 시도해 주세요.','STREAM_ACCOUNT_LIMIT');
   if(this.subscribers.size>=STREAM_MAX)throw err(503,'채팅 연결이 많습니다. 잠시 뒤 다시 시도해 주세요.');
   // Only the session hash is retained. Heartbeats recheck revoked/expired sessions even if a client ignores logout.
-  const s={res,account:a.id,sessionHash:session.th||null,expiresAt:session.expiresAt||0,queue:[],queuedBytes:0,blocked:false,timer:null,closed:false};
+  const s={res,account:a.id,channel:CHAT_CHANNELS.has(channel)?channel:'world',sessionHash:session.th||null,expiresAt:session.expiresAt||0,queue:[],queuedBytes:0,blocked:false,timer:null,closed:false};
   const leave=(destroy=false)=>{
    if(s.closed)return;s.closed=true;this.subscribers.delete(s);clearTimeout(s.timer);s.queue.length=0;s.queuedBytes=0;
    res.off('drain',drain);res.off('close',onClose);res.off('error',onError);
@@ -144,9 +147,17 @@ export class LiveRegionStore{
  // 0.14.15: Spiral Abyss medals and last season's frame travel with every line.
  chatView(row){const staff=this.admins.has(row.account_id)||row.account_id===SYSTEM_ACCOUNT,h=row.account_id===SYSTEM_ACCOUNT?null:this.honours(row.account_id);return {id:row.id,channel:row.channel,author:row.author,pid:pidOf(row.account_id),text:row.deleted?'':row.text,deleted:row.deleted===1,at:row.created_at,staff,medals:h?.count||0,top:h?.top||0,frame:h?.frame||0};}
  chatRecent(a,after,channel){
-  this.need('chat');const ch=CHAT_CHANNELS.has(channel)?channel:'world',from=Number(after);
-  const rows=Number.isSafeInteger(from)&&from>0?this.prepare('SELECT * FROM chat WHERE channel=? AND id>? ORDER BY id LIMIT 60').all(ch,from):this.prepare('SELECT * FROM (SELECT * FROM chat WHERE channel=? ORDER BY id DESC LIMIT 40) ORDER BY id').all(ch);
-  return {channel:ch,messages:rows.map(r=>this.chatView(r)),max:CHAT_MAX,me:pidOf(a.id)};
+  // no channel asked (a device that never chose one): the server's pick, and the counts so the window can draw its bar
+  this.need('chat');const info=channel?null:this.chatChannels(),ch=info?info.pick:CHAT_CHANNELS.has(channel)?channel:'world',from=Number(after);
+  // an operator's notice is written once (in 채널 1) and read in every channel
+  const rows=Number.isSafeInteger(from)&&from>0?this.prepare('SELECT * FROM chat WHERE (channel=? OR (channel=? AND account_id=?)) AND id>? ORDER BY id LIMIT 60').all(ch,'world',SYSTEM_ACCOUNT,from):this.prepare('SELECT * FROM (SELECT * FROM chat WHERE channel=? OR (channel=? AND account_id=?) ORDER BY id DESC LIMIT 40) ORDER BY id').all(ch,'world',SYSTEM_ACCOUNT);
+  return {channel:ch,...(info?{channels:info.channels}:{}),messages:rows.map(r=>this.chatView(r)),max:CHAT_MAX,me:pidOf(a.id)};
+ }
+ // 0.16.61: who is in each world channel now, and the one a newcomer joins (the first below CHAT_SOFT, else the quietest).
+ chatChannels(){
+  this.need('chat');const people=new Map(CHAT_WORLD.map(c=>[c,new Set()]));for(const s of this.subscribers)people.get(s.channel||'world')?.add(s.account);
+  const channels=CHAT_WORLD.map((id,i)=>({id,name:'채널 '+(i+1),count:people.get(id).size}));
+  const pick=(channels.find(c=>c.count<CHAT_SOFT)||channels.slice().sort((x,y)=>x.count-y.count)[0]).id;return {channels,pick,soft:CHAT_SOFT};
  }
  chatSend(a,b){
   this.need('chat');const ch=CHAT_CHANNELS.has(b?.channel)?b.channel:'world',text=cleanText(b?.text);
@@ -155,7 +166,7 @@ export class LiveRegionStore{
   const author=this.syncName(a)||'새 모험가';
   const t=now(),info=this.prepare('INSERT INTO chat(channel,account_id,author,text,created_at) VALUES(?,?,?,?,?)').run(ch,a.id,author,text,t),id=Number(info.lastInsertRowid);
   if(id%50===0)this.prepare('DELETE FROM chat WHERE channel=? AND id<=?').run(ch,id-CHAT_KEEP);
-  const message=this.chatView({id,channel:ch,account_id:a.id,author,text,created_at:t,deleted:0});this.broadcast({type:'chat',message});return {message};
+  const message=this.chatView({id,channel:ch,account_id:a.id,author,text,created_at:t,deleted:0});this.broadcast({type:'chat',message},s=>(s.channel||'world')===ch);return {message};
  }
  chatDelete(a,b){
   this.need('chat');if(!this.admins.has(a.id))throw err(403,'운영자 전용 기능입니다.');const id=Number(b?.id);if(!Number.isSafeInteger(id))throw err(400,'메시지를 확인해 주세요.');
@@ -277,11 +288,12 @@ export class LiveRegionStore{
    try{const m=this.meta(a.id);if(!m||m.revision==null)throw err(409,'먼저 여정을 시작해 주세요.');const receipt=this.prepare('SELECT * FROM receipts WHERE account_id=? AND request_id=?').get(a.id,b.requestId),entry=this.cached(a.id,m.revision),before=entry?.parts||this.loadParts(a.id);
     if(receipt){if(receipt.intent_hash!==digest)throw err(409,'같은 행동 식별자를 다른 행동에 사용할 수 없습니다.','REQUEST_ID_REUSED');this.db.exec('COMMIT');return {payload:{...this.output(a,m,before,JSON.parse(receipt.result).result),replayed:true,receiptRevision:receipt.revision},timing:{totalMs:Math.round((performance.now()-started)*10)/10,persistMs:0}};}
     this.balance.expectAction(b.expectedBalanceRevision,before);
+    const inOthersFight=!!this.coopHostInOthersFight?.(a.id);if(inOthersFight&&['MOVE','PLACE_ENTER','JOURNEY_RESUME'].includes(b.type))throw Object.assign(err(409,'함께 싸우는 동안에는 움직일 수 없습니다. 그 전투가 끝난 뒤 움직여 주세요.','COOP_BUSY'),{outcome:'REJECTED'});
     // 0.15.4: the cached runtime works on a copy of its state, so a refused action puts the copy back instead of throwing
     // the cache away (building a runtime from the save costs about a quarter of a second; user: 「장비 장착할때 렉이」).
     const warm=entry?.r||null,pristine=warm?warm.s:null;if(warm){warm.s=structuredClone(pristine);refused={warm,pristine};}
     const row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at},env={ADMIN_ACCOUNT_IDS:[...this.admins].join(','),RAID_EVENT:this.raidActive?.()||null};
-    const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm,this.coopContextFor?.(a.id)||null,this.runtimeFactory.bind(this));compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
+    const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm,this.coopContextFor?.(a.id,{self:true})||null,this.runtimeFactory.bind(this));if(inOthersFight&&r.s.runtime&&!before.has('["runtime","id"]'))throw Object.assign(err(409,'함께 싸우는 동안에는 새 전투를 시작할 수 없습니다. 그 전투가 끝난 뒤 다시 해 주세요.','COOP_BUSY'),{outcome:'REJECTED'});compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
     const d=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()},payload=b.responseMode==='state-parts-v1'?{...this.envelope(a,next,result,after),baseRevision:m.revision,statePatch:publicWirePatch(before,after,d)}:this.output(a,next,after,result);
     persistence=true;const ps=performance.now(),del=this.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
     for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);this.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),next.updated_at);this.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);this.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,b.requestId,next.revision,m.revision,digest,JSON.stringify({result}),next.updated_at);this.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,a.id);this.rank(a,next.ranked,r.s);const raided=this.raidRecord?.(a,r,next),shared=this.coopRecord?.(a,r,before.get('["runtime"]')==='{}');this.db.exec('COMMIT');this.touch(a.id,{revision:next.revision,parts:after,r});if(raided)this.broadcast({type:'raid',event:raided.event,hits:raided.hits},()=>true);try{this.coopAfter?.(a,r,shared);}catch{}
@@ -296,29 +308,32 @@ export class LiveRegionStore{
 Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods,raidMethods,coopMethods);
 
 export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop',adminConsole=null}){
+ // 0.16.61: the server's gate (server/gate-v01661.mjs): the operator's open/closed, a full server, a busy server.
+ const gate=store.gate||(store.gate=new ServerGate(store));if(!store.gateClose){store.gateClose=true;const close=store.close.bind(store);store.close=(...a)=>{gate.close();return close(...a);};}
  return async(req,res)=>{const origin=req.headers.origin||'',host=req.headers.host||'',sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);if(origin&&origin!==allowedOrigin&&!sameOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,sameOrigin?origin:allowedOrigin);
   if(req.method==='OPTIONS'){res.writeHead(204,{...c,'access-control-allow-methods':'GET,POST,OPTIONS','access-control-allow-headers':'Content-Type,Authorization','access-control-max-age':'86400'});return res.end();}
   const path=new URL(req.url,'http://fixed-region-live.local').pathname;
   try{
    if(path==='/health'&&req.method==='GET')return send(res,200,{ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,storage:'sqlite-node-accounts',configured:true,synthetic:false,staging:true,capabilities:store.capabilities()},c);
    if(path==='/ranking'&&req.method==='GET')return send(res,200,store.ranking(),c);
-   if((path==='/register'||path==='/login')&&req.method==='POST'){const b=await body(req),out=path==='/register'?await store.register(b,ip(req)):await store.login(b,ip(req));return send(res,200,out,c);}
+   if((path==='/register'||path==='/login')&&req.method==='POST'){const b=await body(req);if(path==='/register')gate.admitRegister();else gate.admitLogin(store.account(String(b?.username||'').normalize('NFKC').trim().toLowerCase())?.id);const out=path==='/register'?await store.register(b,ip(req)):await store.login(b,ip(req));gate.touch(out?.account?.id);return send(res,200,out,c);}
    // 0.14.12 operator console: its own login (server/admin-api.mjs), never a game session.
    if(path.startsWith('/admin/')){if(!adminConsole)throw err(404,'지원하지 않는 요청입니다.');return send(res,200,await adminConsole.handle({path,method:req.method,url:new URL(req.url,'http://fixed-region-live.local'),authorization:req.headers.authorization,readBody:()=>body(req,path.startsWith('/admin/balance/')?512*1024:MAX_BODY),ip:ip(req)}),c);}
-   const raw=(req.headers.authorization||'').replace(/^Bearer /,''),auth=await store.auth(raw),a=auth.a;
+   const raw=(req.headers.authorization||'').replace(/^Bearer /,''),auth=await store.auth(raw),a=auth.a;gate.touch(a.id);if(req.method==='POST'&&path!=='/logout')gate.admitPlay(a.id);
    if(path==='/me'&&req.method==='GET')return send(res,200,store.me(a),c);
    if(path==='/balance'&&req.method==='GET'){const value=new URL(req.url,'http://fixed-region-live.local').searchParams.get('revision'),revision=value===null?undefined:Number(value);return send(res,200,store.balance.profile(revision),c);}
    if(path==='/logout'&&req.method==='POST')return send(res,200,store.logout(auth.th),c);
    if(path==='/account/delete'&&req.method==='POST')return send(res,200,await store.remove(a,await body(req)),c);
    if(path==='/game/new'&&req.method==='POST')return send(res,200,await store.newGame(a,await body(req)),c);
    if(path==='/game/action'&&req.method==='POST'){const out=await store.action(a,await body(req));return send(res,200,out.payload,timing(out.timing||{},c),out.encoded);}
-   if(path==='/chat/recent'&&req.method==='GET'){const q=new URL(req.url,'http://fixed-region-live.local').searchParams;return send(res,200,store.chatRecent(a,q.get('after'),q.get('channel')||'world'),c);}
+   if(path==='/chat/recent'&&req.method==='GET'){const q=new URL(req.url,'http://fixed-region-live.local').searchParams;return send(res,200,store.chatRecent(a,q.get('after'),q.get('channel')),c);}
+   if(path==='/chat/channels'&&req.method==='GET')return send(res,200,store.chatChannels(),c);
    if(path==='/chat/send'&&req.method==='POST')return send(res,200,store.chatSend(a,await body(req)),c);
    if(path==='/chat/delete'&&req.method==='POST')return send(res,200,store.chatDelete(a,await body(req)),c);
    if(path==='/chat/stream'&&req.method==='GET'){
     // Server-sent events over an authorised fetch: new chat lines for everyone, trade news only for its two players.
     if(!store.features.has('chat')&&!store.features.has('trade')&&!store.features.has('coop'))throw err(404,'지원하지 않는 요청입니다.');
-    const leave=store.subscribe(a,res,auth);res.writeHead(200,{...c,'content-type':'text/event-stream; charset=utf-8','cache-control':'no-store','x-accel-buffering':'no'});store.push(': connected\n\n',s=>s.res===res);req.on('close',()=>leave());return;
+    const leave=store.subscribe(a,res,auth,new URL(req.url,'http://fixed-region-live.local').searchParams.get('channel')||'world');res.writeHead(200,{...c,'content-type':'text/event-stream; charset=utf-8','cache-control':'no-store','x-accel-buffering':'no'});store.push(': connected\n\n',s=>s.res===res);req.on('close',()=>leave());return;
    }
    if(path==='/trade/list'&&req.method==='GET')return send(res,200,store.tradeList(a),c);
    if(path==='/trade/offer'&&req.method==='POST')return send(res,200,store.tradeOffer(a,await body(req)),c);

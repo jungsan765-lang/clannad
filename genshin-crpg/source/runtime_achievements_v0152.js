@@ -13,7 +13,7 @@ const fmt=n=>Number(n).toLocaleString('ko-KR');
 const jong=s=>{const c=String(s).charCodeAt(String(s).length-1)-0xAC00;return c>=0&&c<=11171&&c%28!==0;};
 const wa=s=>s+(jong(s)?'과':'와'),ga=s=>s+(jong(s)?'이':'가'),eul=s=>s+(jong(s)?'을':'를');
 const CATS=[['ADVENTURE','모험가의 길'],['MOND','몬드의 바람'],['LIYUE','리월의 바위'],['COMPANION','함께하는 동료'],['BOND','깊어지는 인연'],['CONSTELLATION','운명의 자리'],['WISH','소원의 별'],
- ['BATTLE','전투의 기록'],['BOSS','강적 토벌'],['MUTATION','변이 보스'],['ABYSS','나선비경'],['EVENT','지역 사건'],['RAID','공동 토벌전'],['QUEST','의뢰와 이야기'],['GEAR','무기와 장비'],
+ ['BATTLE','전투의 기록'],['BOSS','강적 토벌'],['MINIGAME','보스 미니게임'],['MUTATION','변이 보스'],['ABYSS','나선비경'],['EVENT','지역 사건'],['RAID','공동 토벌전'],['QUEST','의뢰와 이야기'],['GEAR','무기와 장비'],
  ['LIFE','요리와 생활'],['SOCIAL','모험가 교류'],['TREASURE','보물 사냥']];
 const LIFE={GATHER:'채집',MINE:'채광',FISH:'낚시',HUNT:'사냥'};
 const old=Object.fromEntries(['apply','actionReason','validateSave','wishGrant'].map(k=>[k,P[k]]));
@@ -71,6 +71,11 @@ function build(rt){
  for(const [id,d] of Object.entries(api.fieldBosses?.bosses||{})){add('FB_'+id,'BOSS',d.name+' 토벌',eul(d.name)+' 처음으로 토벌',1,f=>f.fieldWins[id]||0,1);add('FB10_'+id,'BOSS',d.name+'의 천적',eul(d.name)+' 10번 토벌',10,f=>f.fieldWins[id]||0,2);}
  const DAILY=[['BOSS_ANDRIUS','안드리우스'],['BOSS_DVALIN','드발린'],['LIYUE_TARTAGLIA_FARM','타르탈리아'],['LIYUE_AZHDAHA_FARM','야타용왕']];
  for(const [key,n] of DAILY){add('DAILY_'+key,'BOSS',n+' 토벌','일일 보스 '+n+'에게 이기기',1,f=>f.dailyWins[key]||0,1);add('DAILY10_'+key,'BOSS','다시 만난 '+n,'일일 보스 '+n+'에게 10번 이기기',10,f=>f.dailyWins[key]||0,2);}
+ // 0.16.61 (user: 「업적을 더 추가해도 되고 이버넹 미니게임같은것도 추가됐으니까」): the boss minigames — how many played, how many kinds,
+ // and dodges ended without a hit (the count the battle kept, not what the screen sent)
+ series('MINI_PLAY','MINIGAME',[[1,'공략의 첫걸음',1],[10,'손에 익은 공략',1],[30,'공략의 달인',2],[100,'보스가 두렵지 않다',3]],n=>'보스 미니게임 '+n+'번 마치기',f=>f.miniPlayed);
+ series('MINI_KINDS','MINIGAME',[[3,'여러 가지 공략',1],[6,'공략 수집가',2],[9,'모든 공략을 해 보다',3]],n=>'서로 다른 보스 미니게임 '+n+'가지 해 보기',f=>f.miniKinds);
+ series('MINI_FLAWLESS','MINIGAME',[[1,'한 발도 안 맞다',1],[10,'바람처럼 빠져나가다',2],[30,'그림자도 닿지 않는 몸',3]],n=>'피하기 미니게임을 한 발도 안 맞고 '+n+'번 마치기',f=>f.miniFlawless);
  // 변이 보스
  series('MUT','MUTATION',[[1,'변이를 꺾다',1],[5,'변이 사냥꾼',1],[15,'변이 전문가',2],[50,'변이의 천적',3]],n=>'변이 도전에서 '+n+'번 이기기',f=>f.mutTotal);
  for(const [key,b] of Object.entries(api.mutationsV0152?.bosses||{}))add('MUT_'+key,'MUTATION','변이한 '+b.name,'변이 도전에서 '+eul(b.name)+' 이기기',1,f=>f.mutWins[key]||0,2);
@@ -132,6 +137,7 @@ P.achievementFacts=function(){
  f.hearts1=0;f.hearts5=0;f.affections=0;for(const r of Object.values(s.relations||{})){const score=num(r?.BOND_SCORE??num(r?.heart)*20);if(score>=20)f.hearts1++;if(score>=100)f.hearts5++;f.affections+=Object.values(r?.events||{}).filter(v=>v==='COMPLETE').length;}
  try{const route=g.STORY_ROUTE_ID;f.legends=[...this.storyIndex().legends.values()].filter(d=>d.ROUTE_SCOPE===route&&this.storyDone(d.id)).length;}catch{f.legends=0;}
  const cons=s.constellations||{};f.consCount=Object.entries(cons).filter(([k,v])=>k!=='PLAYER_CUSTOM'&&num(v)>0).length;f.consMax=Math.max(0,...Object.entries(cons).filter(([k])=>k!=='PLAYER_CUSTOM').map(([,v])=>num(v)));f.consHero=num(cons.PLAYER_CUSTOM);
+ {const m=this.achievementStats(false).minigames;f.miniPlayed=Object.values(m?.played||{}).reduce((n,x)=>n+num(x),0);f.miniKinds=Object.values(m?.played||{}).filter(x=>num(x)>0).length;f.miniFlawless=num(m?.flawless);}
  const st=this.achievementStats(false);f.wishes=num(s.wish?.EVENT?.total)+num(s.wish?.STANDARD?.total);f.wish5=st.wish5;f.wish4=st.wish4;
  f.wins=0;f.losses=0;f.randomWins=0;f.dailyWins={};
  for(const r of Object.values(s.combatReceipts||{})){if(!r)continue;if(r.victory){f.wins++;const o=String(r.origin||'');if(o==='RANDOM')f.randomWins++;if(o.startsWith('MATERIAL_CHALLENGE:')){const k=o.slice(19);f.dailyWins[k]=(f.dailyWins[k]||0)+1;}}else if(r.result==='DEFEAT')f.losses++;}
@@ -182,7 +188,11 @@ P.apply=function(a){
  // Counters for what the save keeps no history of. The record is made before the action (its first tally reads the
  // opened chests, which would count this chest twice).
  const t=a?.type,counted=['CRAFT','LIFE_FINISH','MEAL_BATCH','CHEST_OPEN','REGION_EVENT'].includes(t);if(counted)this.achievementStats();
+ // 0.16.61: a boss minigame leaves a line marked fbMini in the battle's log, with what the battle counted (「N발 맞음」)
+ const fight=t==='COMBAT'&&a?.mini?this.s.runtime:null,at=fight?.log?.length||0;
  const out=old.apply.call(this,a);
+ if(fight)try{const rows=(fight.log||[]).slice(at).filter(l=>l&&l.fbMini);if(rows.length){const st=this.achievementStats(),m=st.minigames??={version:1,played:{},flawless:0};
+  for(const l of rows){m.played[l.fbMini]=num(m.played[l.fbMini])+1;if(/_DODGE$/.test(l.fbMini)&&/(^|[^0-9])0발 맞음/.test(String(l.text||'')))m.flawless++;}}}catch{}
  try{
   if(!counted)return out;const st=this.achievementStats();st.puzzles??={};
   const solved=t==='CHEST_OPEN'?(api.chestRules?.chests||[]).find(c=>c.id===out?.chest)?.game:t==='REGION_EVENT'?out?.game:null;if(solved)st.puzzles[solved]=num(st.puzzles[solved])+1;
@@ -197,6 +207,8 @@ if(old.wishGrant)P.wishGrant=function(r){const st=this.achievementStats(),out=ol
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s,bad=()=>fail('ACHIEVEMENT_SAVE','업적 기록이 올바르지 않습니다.');
  const a=out.achievements;if(a!==undefined){if(!a||a.version!==1||!a.claimed||typeof a.claimed!=='object')bad();const ids=new Set(this.achievementDefs().map(d=>d.id));for(const [k,v] of Object.entries(a.claimed))if(!ids.has(k)||v!==1)bad();}
+ // 0.16.61: the minigame tally
+ {const m=out.stats?.minigames;if(m!==undefined){const ok=n=>Number.isInteger(n)&&n>=0,KINDS=new Set(['ANEMO_DODGE','ANEMO_ORBS','FROST_FRUIT','CRYO_CHASE','DVALIN_SNIPE','ANDRIUS_DODGE','SERPENT_SNIPE','TARTAGLIA_DODGE','AZHDAHA_DODGE']);if(!m||m.version!==1||!m.played||typeof m.played!=='object'||Array.isArray(m.played)||!ok(m.flawless)||Object.entries(m.played).some(([k,n])=>!KINDS.has(k)||!ok(n)))bad();}}
  const st=out.stats;if(st!==undefined){const ok=n=>Number.isInteger(n)&&n>=0;if(!st||st.version!==1||![st.cooked,st.crafted,st.meals,st.wish5,st.wish4].every(ok)||!st.life||!st.social||Object.values(st.life).some(n=>!ok(n))||Object.values(st.social).some(n=>!ok(n))||(st.puzzles!==undefined&&(!st.puzzles||typeof st.puzzles!=='object'||Object.entries(st.puzzles).some(([g,n])=>!api.chestRules?.games?.[g]||!ok(n)))))bad();}
  return out;
 };

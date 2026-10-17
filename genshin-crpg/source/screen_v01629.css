@@ -1882,3 +1882,11 @@ html.stage-pc body.teyvat .shell-loc-left .domain-stage small{display:none}
  /* 비경 카드 (잊혀진 협곡 Lv.25, 「도전」 on its own row): the left column was 2px too short */
  html.stage-pc body.teyvat .shell-loc-left .domain-gate-body{row-gap:4px}
 }
+/* 0.16.61 대화 채널: one bar of numbered channels under the chat's head, each with how many are in it (segments, not round pills) */
+body .chat-window>.chat-channels{display:flex;align-items:stretch;gap:0;margin:6px 10px 0;border:1px solid rgba(211,188,142,.35);border-radius:6px;overflow:hidden}
+body .chat-window>.chat-channels[hidden]{display:none}
+body .chat-window>.chat-channels>button.chat-channel{flex:1 1 0;min-width:0;min-height:30px;margin:0;padding:2px 4px;border:0;border-radius:0;border-left:1px solid rgba(211,188,142,.25);background:transparent;color:#d3bc8e;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;line-height:1.1;cursor:pointer;box-shadow:none}
+body .chat-window>.chat-channels>button.chat-channel:first-child{border-left:0}
+body .chat-window>.chat-channels>button.chat-channel>b{font-size:.8rem}
+body .chat-window>.chat-channels>button.chat-channel>small{font-size:.62rem;opacity:.8}
+body .chat-window>.chat-channels>button.chat-channel.on{background:#ece5d8;color:#3b4255}

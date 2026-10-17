@@ -86,13 +86,18 @@ export const coopMethods={
  // The fight someone fights in with their one character (not their own fight): {owner, f}.
  coopFightWith(room,pid){for(const [owner,f] of this.coopFightsOf(room))if(f.owner.pid!==pid&&f.joined.has(pid))return {owner,f};return null;},
  // In a fight other than the one of `ownerId` (their own, or one they stepped into).
+ // 0.16.61 (co-op audit): the host who stepped into a guest's fight stays there like a guest does: no walking off or starting a
+ // fight of their own until it ends (that fighter fell to the AI and its reward was lost).
+ coopHostInOthersFight(accountId){if(!this.coopOn?.())return false;const room=this.coopRoomOf(accountId);if(!room||room.closed||room.host.id!==accountId)return false;const pid=pidOf(accountId);for(const [owner,f] of this.coopFightsOf(room)){if(owner!==accountId&&f.joined.has(pid))return true;}return false;},
  coopBusyElsewhere(room,pid,ownerId){for(const [owner,f] of this.coopFightsOf(room)){if(owner===ownerId)continue;if(f.owner.pid===pid||f.joined.has(pid))return true;}return false;},
  // The room as the game rules see it, on every action on a save whose fight the room shares (fixed-region-live.mjs and
  // coopOwnerAction): who may fight in it now — whoever stepped into it, and (the host's fights) the guests who follow the
  // host. A guest's own journey stays solo except for the fight they met in the host's world.
- coopContextFor(accountId){
+ // 0.16.61 (co-op audit): only the host's own action keeps the host present ({self:true}, fixed-region-live.mjs). A guest's
+ // command, an auto turn or a chest on the host's save also reads this context; it kept an absent host's room open for good.
+ coopContextFor(accountId,{self=false}={}){
   if(!this.coopOn())return null;const room=this.coopRoomOf(accountId);if(!room||room.closed)return null;
-  const isHost=room.host.id===accountId;if(isHost)room.hostSeen=now();
+  const isHost=room.host.id===accountId;if(isHost&&self)room.hostSeen=now();
   const fight=this.coopFightsOf(room).get(accountId)||null;if(!isHost&&!fight)return null;
   const members=[];
   const meta=this.balance?this.meta(accountId):null,entry=meta?this.cached(accountId,meta.revision):null,balanceRevision=this.balance?this.balance.revisionForParts(entry?.parts||this.loadParts(accountId)):0;
@@ -416,7 +421,8 @@ export const coopMethods={
   const visibility=b?.visibility==='INVITE'?'INVITE':'PUBLIC',cur=this.coopRoomOf(a.id);
   if(cur){if(cur.host.id!==a.id)throw err(409,'이미 다른 방에 들어가 있습니다. 먼저 그 방에서 나와 주세요.');cur.visibility=visibility;cur.updated=now();this.coopPush(cur);return {room:this.coopView(cur,a.id)};}
   const r=this.coopJourney(a.id),why=r.coopLevelReason();if(why)throw err(403,why,'LEVEL');
-  const savedRoom=r.s.runtime?.coop?.room;
+  // 0.16.61 (co-op audit): a guest's fight met in someone else's world (s.coopAway) carries that room's ID — never their own.
+  const savedRoom=r.s.coopAway?null:r.s.runtime?.coop?.room;
   // A running battle is already persisted with this ID. Giving its host a different room would strand every guest's
   // turn behind COOP_ROOM. Restore only the room's identity; the saved fighters, difficulty and rewards stay intact.
   const id=ROOM.test(String(savedRoom||''))?savedRoom:'R'+randomBytes(6).toString('hex'),t=now();
@@ -552,7 +558,10 @@ export const coopMethods={
   if(!to||to===from)throw err(400,'갈 곳을 골라 주세요.');
   const step=this.coopNear(r,from).find(x=>x.map===to);if(!step)throw err(409,'지금 있는 곳에서 바로 갈 수 없는 곳입니다.','COOP_WAY');
   if(this.coopBusyElsewhere(room,m.pid,null))throw err(409,'함께 싸우는 동안에는 움직일 수 없습니다.','COOP_BUSY');
-  const res=await this.coopOwnerAction(room,a.id,'COOP_ROAM',{room:room.id},null,{accountId:a.id,member:m},{away:{room:room.id,from,to,host:room.host.name}});
+  // 0.16.61 (co-op audit): the way above is checked from where the guest stands now, so one step at a time — a second step sent
+  // before the first lands would be checked from the old place and could jump past it.
+  if(m.moving)throw err(409,'이동하는 중입니다.','COOP_BUSY');m.moving=true;let res;
+  try{res=await this.coopOwnerAction(room,a.id,'COOP_ROAM',{room:room.id},null,{accountId:a.id,member:m},{away:{room:room.id,from,to,host:room.host.name}});}finally{m.moving=false;}
   m.at={map:to,at:now()};m.follow=false;room.updated=now();this.coopPush(room,r);
   const out=res.result?.result||{};
   return {at:{map:to,name:step.name},encounter:out.encounter||null,battle:out.battle||null,room:this.coopView(room,a.id,r)};

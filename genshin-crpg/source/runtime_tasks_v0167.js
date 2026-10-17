@@ -228,8 +228,8 @@ P.finishBattle=function(victory){
  }return out;
 };
 P.installTaskCommissions=function(){
- if(this._taskCommissionsInstalled||!CHAINS.length)return;const rows=this.db['22_QUEST_DB'].map(r=>r.slice());
- for(const t of CHAINS){if(rows.some(r=>r[0]===t.id))continue;const map=t.map||t.filter?.maps?.[0]||'MAP_MOND_CITY',region=t.region||this.tables['32_MAP_DB']?.get(map)?.[1]||(map.startsWith('MAP_L')?'리월':'몬드');
+ if(this._taskCommissionsInstalled||!CHAINS.length)return;const rows=this.db['22_QUEST_DB'].map(r=>r.slice()),known=new Set(rows.map(r=>r[0]));
+ for(const t of CHAINS){if(known.has(t.id))continue;known.add(t.id);const map=t.map||t.filter?.maps?.[0]||'MAP_MOND_CITY',region=t.region||this.tables['32_MAP_DB']?.get(map)?.[1]||(map.startsWith('MAP_L')?'리월':'몬드');
   const display=this.taskPresentation(t),d={schema:1,kind:'exploration',map_id:map,conditions:{min_level:t.minLevel||1,unclaimed:true},start:'INVESTIGATE',text:display.description,choices:[],claim_node:'READY_TO_CLAIM',revisit:'보고를 마친 의뢰입니다.',authorship:'CRPG_TASK_V0168'};
   rows.push([t.id,display.name,region,region==='리월'?'NPC_LIYUE_KATHERYNE':'NPC_MOND_KATHERYNE','',display.description,'',null,'','수락 이후 실제 활동만 집계',JSON.stringify(d),JSON.stringify(t.reward||{}), 'READY','CRPG_TASK_V0168']);}
  this.db={...this.db,'22_QUEST_DB':rows};this.tables['22_QUEST_DB']=new Map(rows.slice(1).filter(r=>r?.[0]).map(r=>[r[0],r]));this._taskCommissionsInstalled=true;

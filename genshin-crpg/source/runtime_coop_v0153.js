@@ -23,7 +23,9 @@
 (function(root){'use strict';
 const api=root.CRPGRuntime,P=api?.Runtime?.prototype;if(!P||P.coopV0153)return;P.coopV0153=true;
 const fail=(c,m)=>{throw new api.RuleError(c,m);},copy=x=>JSON.parse(JSON.stringify(x));
-const PLAYER='PLAYER_CUSTOM',VERSION=1,MAX_GUESTS=3,MIN_LEVEL=5,TURN_MS=20000,MAX_ALLIES=4;
+// 0.16.61 (co-op audit): a turn with a boss minigame waiting gets that game's length and 8 more seconds (서리 열매 치기 alone
+// is 14 seconds after a 3-second count), up to MINI_EXTRA_MS; 20 seconds left the AI playing the guest's turn mid-game.
+const PLAYER='PLAYER_CUSTOM',VERSION=1,MAX_GUESTS=3,MIN_LEVEL=5,TURN_MS=20000,MINI_EXTRA_MS=25000,MAX_ALLIES=4;
 const PID=/^[a-f0-9]{12}$/,ROOM=/^R[a-f0-9]{8,16}$/,COOP_ID=/^COOP_\d{1,2}$/;
 const TACTICS=['균형','공격우선','생존우선','지원우선','연계우선'],LEY_KINDS={REVELATION:'계시의 꽃',WEALTH:'부의 꽃'};
 const STAT_KEYS=['maxHp','atk','def','spd','crit','critDmg','hit','eva','resist'];
@@ -210,7 +212,7 @@ P.coopDepart=function(a){
 P.coopHold=function(a){
  const b=this.s.runtime;if(!b||!a?.coop){if(a?.coop)this.coopDepart(a);return false;}
  this.coopEnsure(b);if(!b.coop||!this.coopPresent(a.coop.owner)){this.coopDepart(a);return false;}
- const t=b.coop.turn;if(!(t&&t.actor===a.id&&t.round===b.round)){const now=this.coopNow();b.coop.turn={actor:a.id,owner:a.coop.owner,round:b.round,at:now,deadline:now+TURN_MS};}
+ const t=b.coop.turn;if(!(t&&t.actor===a.id&&t.round===b.round)){const now=this.coopNow();let extra=0;try{const minis=(this.fbMiniCards?.(a)||[]).filter(c=>c&&c.mini&&!c.reason);if(minis.length)extra=Math.min(MINI_EXTRA_MS,1000*(8+Math.max(...minis.map(c=>Number(c.mini.seconds)||10))));}catch{}b.coop.turn={actor:a.id,owner:a.coop.owner,round:b.round,at:now,deadline:now+TURN_MS+extra};}
  return true;
 };
 // The start of every round after the first: who left, who came back, who joins.
@@ -448,7 +450,7 @@ P.validateSave=function(s){
   if(b.coop!==undefined){const k=b.coop;
    if(!k||typeof k!=='object'||k.version!==VERSION||!ROOM.test(String(k.room))||!Array.isArray(k.benched)||k.benched.length>MAX_ALLIES||(k.seq!==undefined&&!(Number.isSafeInteger(k.seq)&&k.seq>=0&&k.seq<=99)))bad();
    if(k.turn!==null&&k.turn!==undefined){const t=k.turn,a=actors.find(x=>x.id===t?.actor);
-    if(!t||typeof t!=='object'||!a?.coop||a.control!=='GUEST'||t.owner!==a.coop.owner||!Number.isSafeInteger(t.round)||t.round<1||!Number.isSafeInteger(t.at)||t.at<0||!Number.isSafeInteger(t.deadline)||t.deadline<t.at||t.deadline-t.at>TURN_MS)bad();}
+    if(!t||typeof t!=='object'||!a?.coop||a.control!=='GUEST'||t.owner!==a.coop.owner||!Number.isSafeInteger(t.round)||t.round<1||!Number.isSafeInteger(t.at)||t.at<0||!Number.isSafeInteger(t.deadline)||t.deadline<t.at||t.deadline-t.at>TURN_MS+MINI_EXTRA_MS)bad();}
    for(const x of k.benched)if(!x||typeof x!=='object'||x.side!=='ALLY'||x.coop||!Number.isFinite(x.hp)||!Number.isFinite(x.maxHp)||x.hp<0||x.hp>x.maxHp||actors.some(y=>y.id===x.id))bad();
   }
   if(guests.length>6||guests.filter(a=>a.coop&&!a.coop.left).length>MAX_GUESTS||actors.filter(a=>a?.side==='ALLY').length>MAX_ALLIES)bad('함께 싸우는 인원이 너무 많습니다.');

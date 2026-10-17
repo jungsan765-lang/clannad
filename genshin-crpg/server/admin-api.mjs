@@ -69,6 +69,7 @@ export class AdminConsole{
   if(!s||s.seen+IDLE_MS<t||s.created+MAX_MS<t){this.sessions.delete(th);throw err(401,'운영자 로그인이 만료되었습니다. 다시 로그인해 주세요.','ADMIN_AUTH');}
   s.seen=t;return {th,s};
  }
+ serverGate(){if(!this.store.gate)throw err(503,'서버 문이 아직 준비되지 않았습니다.');return this.store.gate.view();}
  serverInfo(){return {version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,features:[...this.store.features]};}
  // ---------- reads ----------
  accountRow(id){const a=this.db.prepare('SELECT * FROM accounts WHERE id=?').get(String(id||''));if(!a||a.id===SYSTEM_ACCOUNT)throw err(404,'계정을 찾을 수 없습니다.');return a;}
@@ -332,6 +333,8 @@ export class AdminConsole{
    if(path==='/admin/chat')return this.chat();
    if(path==='/admin/trades')return this.trades();
    if(path==='/admin/raid')return this.store.raidAdminList();
+   // 0.16.61 서버 문: open/closed, the most players at once, who is online now and how busy the server is (server/gate-v01661.mjs).
+   if(path==='/admin/server')return this.serverGate();
   }
   if(method==='POST'){
    if(path==='/admin/logout'){this.sessions.delete(th);this.audit(actor,ip,null,'logout-console',{});return {ok:true};}
@@ -352,6 +355,7 @@ export class AdminConsole{
    if(path==='/admin/notice')return this.notice(b,actor,ip);
    if(path==='/admin/chat-delete')return this.chatDelete(b,actor,ip);
    if(path==='/admin/raid')return this.raid(b,actor,ip);
+   if(path==='/admin/server'){const before=this.serverGate(),out=this.store.gate.set(b,actor);this.audit(actor,ip,null,'server-gate',{open:[before.open,out.open],maxOnline:[before.maxOnline,out.maxOnline],message:out.message});return out;}
   }
   throw err(404,'지원하지 않는 운영자 요청입니다.');
  }

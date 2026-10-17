@@ -395,10 +395,21 @@ async function drawAudit(main){
   h('div',{class:'adm-pager'},A.auditPage>0?button('최근 쪽',()=>{A.auditPage--;show('audit');},'ghost'):null,out.entries.length===100?button('이전 기록',()=>{A.auditPage++;show('audit');},'ghost'):null))));
 }
 // ---------- 서버 상태 ----------
+// 0.16.61 (user: 「서버 닫거나 여는걸 운영자에 추가해준다거나」, 「서버 인원이 너무 많아서 병목이 생기면 알아서 막아준다거나」): the server's gate
+// (server/gate-v01661.mjs) — open or closed with a message, the most players at once, and how busy the server is right now.
+function gateCard(g,redraw){
+ const stat=(label,value)=>h('div',{class:'adm-stat'},h('strong',{text:value}),h('span',{text:label}));
+ const message=h('input',{type:'text',maxlength:'120',placeholder:'예: 오전 9시까지 점검합니다',value:g.message||''}),max=h('input',{type:'number',min:'1',max:'5000',step:'1',value:String(g.maxOnline)});
+ const save=open=>run(()=>api('/admin/server',{open,message:message.value,maxOnline:Number(max.value)}),out=>out.open?'서버를 열었습니다.':'서버를 닫았습니다. 운영자 계정만 들어올 수 있습니다.').then(out=>{if(out)redraw();});
+ return card('서버 문',h('div',{class:'adm-stats'},stat('지금 상태',g.open?'열림':'닫힘 (점검)'),stat('지금 접속 (5분 안)',fmt(g.online)+' / '+fmt(g.maxOnline)),stat('붐빔',g.busy?'붐빔 · 새 접속을 잠시 막는 중':'보통'),stat('처리 지연 (2초 평균)',(g.eventLoopDelayMs??0)+'ms'),stat('실시간 연결',fmt(g.streams)),stat('메모리',fmt(g.rssMiB)+'MB')),
+  h('div',{class:'adm-form-row adm-gate'},field('점검 안내 (닫았을 때 보임)',message),field('최대 동시 접속',max),h('div',{class:'adm-actions'},g.open?button('서버 닫기 (점검)',()=>{if(confirm('서버를 닫을까요? 운영자 계정 말고는 로그인과 진행이 막힙니다.'))save(false);},'danger'):button('서버 열기',()=>save(true),'primary'),button('안내·인원만 저장',()=>save(g.open)))),
+  h('p',{class:'adm-empty',text:'접속 인원이 최대에 닿거나 서버가 4초 넘게 밀리면(평균 처리 지연 100ms 넘음) 새 로그인·가입만 잠시 막고, 이미 접속한 모험가는 그대로 플레이합니다.'}));
+}
 async function drawServer(main){
  const o=await read('/admin/overview');if(!o){main.replaceChildren();return;}
+ const g=await read('/admin/server');
  const stat=(label,value)=>h('div',{class:'adm-stat'},h('strong',{text:value}),h('span',{text:label}));
- main.replaceChildren(h('div',{class:'adm-page'},card('한눈에',h('div',{class:'adm-stats'},stat('가입한 모험가',fmt(o.accounts)),stat('여정',fmt(o.journeys)),stat('24시간 안에 플레이',fmt(o.activeDay)),stat('7일 안에 플레이',fmt(o.activeWeek)),stat('로그인 중',fmt(o.sessions)),stat('이용 제한',fmt(o.banned)),stat('랭킹 제외',fmt(o.unranked)),stat('저장소',(o.dbBytes/1048576).toFixed(1)+' MB'))),
+ main.replaceChildren(h('div',{class:'adm-page'},...(g?[gateCard(g,()=>drawServer(main))]:[]),card('한눈에',h('div',{class:'adm-stats'},stat('가입한 모험가',fmt(o.accounts)),stat('여정',fmt(o.journeys)),stat('24시간 안에 플레이',fmt(o.activeDay)),stat('7일 안에 플레이',fmt(o.activeWeek)),stat('로그인 중',fmt(o.sessions)),stat('이용 제한',fmt(o.banned)),stat('랭킹 제외',fmt(o.unranked)),stat('저장소',(o.dbBytes/1048576).toFixed(1)+' MB'))),
   card('서버',dl([['게임 버전',o.server.version],['엔진',o.server.engineVersion],['서버 빌드',o.server.serverBuild],['켜진 기능',o.server.features.join(', ')||'없음'],['운영자 로그인',o.consoleSessions+'곳'],['잠금',o.lockedUntil&&o.lockedUntil>Date.now()?when(o.lockedUntil)+'까지':'없음'],['서버 주소',BASE]]))));
 }
 
