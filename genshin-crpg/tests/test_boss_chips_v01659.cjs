@@ -89,4 +89,23 @@ check('chips say what they do with the fight\'s numbers: no authoring notes, a b
  const fat=src('source/app_fatigue_v01648.js');assert.match(fat,/const n=Number\(a\?\.fatigue\?\?live\?\.fatigue\)\|\|0;/);
  assert.match(src('source/presentation.js'),/const recipient=b\.actors\.find\(t=>t\.id===entry\.targetId\)\|\|/);
 });
+check('with the protagonist down, the companions break 무상의 뇌전\'s prisms and the revival gives them two more rounds',()=>{
+ for(const id of ['FB_ELECTRO_HYPOSTASIS','FB_GEO_HYPOSTASIS']){
+  const r=fight(id),b=S(r),x=b.actors.find(a=>a.fb),me=b.actors.find(a=>a.control==='PLAYER'),mate=b.actors.find(a=>a.side==='ALLY'&&a.control!=='PLAYER');
+  // standing: the revival keeps its three rounds, and only the protagonist breaks a prism
+  x.hp=0;r.fbStartRevival(x);const up=x.fb.revival.rounds;const guard=b.actors.find(a=>a.fbSummon&&a.fbSummon.owner===x.id&&a.hp>0);assert(guard,id+' guards');
+  if(id==='FB_ELECTRO_HYPOSTASIS')assert.match(r.fieldBossBarrierReason(mate,guard,'불'),/주인공이 직접/);
+  // down: two more rounds, said in the line, and the companions may break the prisms
+  const r2=fight(id),b2=S(r2),x2=b2.actors.find(a=>a.fb);b2.actors.find(a=>a.control==='PLAYER').hp=0;x2.hp=0;const at=b2.log.length;r2.fbStartRevival(x2);
+  assert.equal(x2.fb.revival.rounds,up+2,id);assert(b2.log.slice(at).some(l=>l.card==='FB_REVIVE'&&/다음 5라운드 안에.*주인공이 쓰러져 2라운드 더/.test(l.text)),id+' says it');
+  const g2=b2.actors.find(a=>a.fbSummon&&a.fbSummon.owner===x2.id&&a.hp>0),m2=b2.actors.find(a=>a.side==='ALLY'&&a.control!=='PLAYER');
+  if(id==='FB_ELECTRO_HYPOSTASIS'){assert.equal(r2.fieldBossBarrierReason(m2,g2,'불'),'');assert.match(r2.fieldBossBarrierReason(m2,g2,'번개'),/흡수/);}
+  void me;}
+});
+check('the late field bosses hit harder in a new fight (무상의 바위 ×0.75, 원암 ×0.55, 유적의 뱀 ×1), 폭염 나무 softer (×0.41)',()=>{
+ for(const [id,atk] of [['FB_GEO_HYPOSTASIS',.75],['FB_PRIMO_GEOVISHAP',.55],['FB_RUIN_SERPENT',1],['FB_PYRO_REGISVINE',.41],['FB_ANEMO_HYPOSTASIS',.45]]){
+  const r=H.setup(env,{level:FB.levels[id],route:'ROUTE_ISEKAI',team:['MOND_AMBER','MOND_NOELLE','MOND_BARBARA'],seed:717,map:FB.bosses[id].map,enhance:3,talent:4});
+  r.action('PLACE_ENTER',{place:'BOSS:'+FB.route(id),mode:'BOSS'});r.action('BOSS_ROUTE',{route:FB.route(id),entry:'DIRECT'});assert.equal(S(r).bossLength.atk,atk,id);}
+ assert.match(src('source/runtime_reading.js'),/후반 레벨대로 갈수록 5성이 필요하게끔/);
+});
 console.log(JSON.stringify({passed,ok:!process.exitCode}));

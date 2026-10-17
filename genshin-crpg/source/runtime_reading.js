@@ -189,7 +189,10 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.bossLengthVersion)return
 // 0.16.57 (user: 「무상의 뇌전같은 다른 무상 애들은 왜 핵 닫히는게 없노?」): 무상의 뇌전·바위 now keep their core shut while they wind up
 // (runtime_field_bosses.js fieldBossCore), so their fights spend about a third of their rounds unable to hurt them: HP ×2 instead of ×3
 // keeps them as long as before. 무상의 얼음 keeps ×3 — its 20% ice wall became the shell over the core, which shortened it enough.
-const LENGTH={hp:3,atk:.45},BY_BOSS={FB_ELECTRO_HYPOSTASIS:{hp:2,atk:.55},FB_GEO_HYPOSTASIS:{hp:2},FB_RUIN_SERPENT:{hp:4,atk:.75},FB_PRIMO_GEOVISHAP:{hp:4},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
+// 0.16.59 (user, 2026-10-18: 「후반 레벨대로 갈수록 5성이 필요하게끔 할거야 … 4성 풀돌이나 5성 두개는 가지고 있게 될거야」): the late field
+// bosses (무상의 바위 45, 원암 48, 유적의 뱀 56) hit harder — a same-level 4★ party without constellations no longer wins, 4★ C6 and
+// 5★ do — and 폭염 나무 (38, mid) a little softer, so a 4★ party wins it with real damage instead of losing two fights in three.
+const LENGTH={hp:3,atk:.45},BY_BOSS={FB_ELECTRO_HYPOSTASIS:{hp:2,atk:.55},FB_GEO_HYPOSTASIS:{hp:2,atk:.75},FB_RUIN_SERPENT:{hp:4,atk:1},FB_PRIMO_GEOVISHAP:{hp:4,atk:.55},FB_PYRO_REGISVINE:{atk:.41},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
 const old=Object.fromEntries(['startBattle','validateSave','fbSummon','fbStartRevival','fbRevivalExpired','shield','addHazard','prepareAndriusRound','enemyIntel'].map(k=>[k,P[k]]));
 // Only the boss's own repeat fight (the field boss's route, the daily challenge), the same scope as its challenge profile.
 const isBossFight=b=>!!b&&!b.coopStory&&!b.storyConfig&&!b.abyss&&!b.raid&&(!!b.fieldBoss||String(b.origin||'').startsWith('MATERIAL_CHALLENGE:'));

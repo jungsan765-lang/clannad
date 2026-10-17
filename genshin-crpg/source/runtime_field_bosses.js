@@ -546,6 +546,9 @@ P.fbChargeBursts=function(n){const b=this.s.runtime,party=b.actors.filter(x=>x.s
  for(let i=0;i<n;i++){let best=null;for(const x of party)for(const [id,cd] of Object.entries(x.cooldowns||{}))if(/_Q$/.test(id)&&cd>0&&(!best||cd>best.cd))best={x,id,cd};if(!best)break;best.x.cooldowns[best.id]--;done.push(best.x.name);}
  const names=[...new Set(done)];b.log.push({text:'바람 원소 '+n+'개 · 원소폭발 충전'+(names.length?' · '+names.join('·')+' 재사용 −'+done.length+'차례':' (이미 모두 준비됨)'),round:b.round,fieldBoss:true});};
 P.fbCoreShut=function(t){const b=this.s.runtime,f=t?.fb;return !!(ctl(b)&&f?.kind==='ANEMO'&&t.hp>0&&!f.revival&&!f.coreOpen&&!(f.exposedUntil>=b.round));};
+// 0.16.59 (field-boss re-measure: with the protagonist down nobody could break a prism, and 무상의 뇌전 revived until the party fell):
+// the revival prisms are the protagonist's to break while the protagonist stands; once the protagonist is down, the companions break them.
+const heroUp=b=>!!b?.actors?.some(x=>x.side==='ALLY'&&x.control==='PLAYER'&&x.hp>0);
 P.fieldBossBarrierReason=function(a,t,element,range){
  const b=this.s.runtime;
  if(ctl(b)&&a?.side==='ALLY'&&fruitOf(t)&&!(ko(element)==='불'&&!fruitOf(t).melted))return '두꺼운 얼음 보호막이다 · 서리 열매를 쳐서 맞히거나 불로 녹여야 한다.';
@@ -553,7 +556,7 @@ P.fieldBossBarrierReason=function(a,t,element,range){
  if(ctl(b)&&a?.side==='ALLY'&&t){
   if(this.fbCoreShut(t))return '핵이 닫혀 있다 · 무상의 바람이 공격을 마친 뒤나 핵이 드러났을 때만 피해가 들어간다.';
   const owner=t.fbSummon?.kind==='FB_SUMMON_PRISM'&&b.actors.find(x=>x.id===t.fbSummon.owner);
-  if(owner?.fb?.revival){if(!this._fbPlayerLed)return '부활을 지키는 프리즘은 주인공이 직접 노려야 부술 수 있다 · 주인공의 공격이나 함께하는 일격으로.';return ko(element)==='번개'?'번개는 프리즘에 흡수된다 · 다른 원소나 물리 공격으로.':'';}
+  if(owner?.fb?.revival){if(!this._fbPlayerLed&&heroUp(b))return '부활을 지키는 프리즘은 주인공이 직접 노려야 부술 수 있다 · 주인공의 공격이나 함께하는 일격으로.';return ko(element)==='번개'?'번개는 프리즘에 흡수된다 · 다른 원소나 물리 공격으로.':'';}
  }
  return ctlOld.fieldBossBarrierReason.call(this,a,t,element,range);
 };
@@ -564,7 +567,7 @@ P.aiTurn=function(a,targets,...rest){
  const b=this.s.runtime;
  if(a?.side==='ALLY'&&ctl(b)&&Array.isArray(targets)&&!a.charging){
   // Companions leave the revival prisms to the protagonist, and wait out a shut core instead of striking it.
-  const left=targets.filter(t=>!(t.fbSummon?.kind==='FB_SUMMON_PRISM'&&b.actors.find(x=>x.id===t.fbSummon.owner)?.fb?.revival)&&!this.fbCoreShut(t)&&!ctlOld.fbUntouchable.call(this,t)&&!(orbsCtl(b)&&orbsOf(t))&&!fruitWait(t));
+  const left=targets.filter(t=>!(heroUp(b)&&t.fbSummon?.kind==='FB_SUMMON_PRISM'&&b.actors.find(x=>x.id===t.fbSummon.owner)?.fb?.revival)&&!this.fbCoreShut(t)&&!ctlOld.fbUntouchable.call(this,t)&&!(orbsCtl(b)&&orbsOf(t))&&!fruitWait(t));
   if(!left.length&&targets.some(t=>t.side==='ENEMY')){a.guard=true;b.log.push({actor:a.name,actorId:a.id,guard:true,reason:orbsCtl(b)&&orbsOf(fbBoss(b))?'무적인 무상의 바람이 바람 원소를 모으는 동안 방어 태세':fruitWait(fbBoss(b))?'주인공이 서리 열매를 치는 동안 방어 태세':this.fbCoreShut(fbBoss(b))?'핵이 닫혀 방어 태세':'주인공이 프리즘을 노리는 동안 방어 태세',round:b.round});return;}
   if(left.length)targets=left;
  }
@@ -816,6 +819,13 @@ const reviveOld=Object.fromEntries(['fbSummon','fieldBossBarrierReason','protago
 // a guard raised inside one card (or AI turn) remembers that card (this._actId, set at the end of runtime_reading.js)
 P.fbSummon=function(b,boss,id,extra={}){const a=reviveOld.fbSummon.call(this,b,boss,id,extra);if(a?.fbSummon&&b?.bossPass===1&&this._actId)a.fbSummon.bornAct=this._actId;return a;};
 P.fieldBossBarrierReason=function(a,t,...rest){const own=reviveOld.fieldBossBarrierReason.call(this,a,t,...rest);if(own)return own;const b=this.s.runtime,s=t?.fbSummon;if(a?.side==='ALLY'&&s?.bornAct&&s.bornAct===this._actId&&b?.actors.find(x=>x.id===s.owner)?.fb?.revival)return '막 생겨났다 · '+t.name+'은(는) 다음 차례부터 부술 수 있다.';return own;};
+// With the protagonist down when 무상의 뇌전 · 무상의 바위 fall, the companions alone break the prisms or pillars: they get two more
+// rounds (the revival still has to be stopped — no skipping it). Without them a 4★ party looped through 26 revivals in 245 rounds.
+const revivalStart=P.fbStartRevival;
+P.fbStartRevival=function(t,...rest){const b=this.s.runtime,at=b?.log.length||0,out=revivalStart.call(this,t,...rest),r=t?.fb?.revival;
+ if(pass(b)&&r?.guarded&&['ELECTRO','GEO_HYPO'].includes(t.fb.kind)&&!heroUp(b)&&!r.heroDown){r.rounds+=2;r.heroDown=true;
+  const line=b.log.slice(at).find(x=>x.card==='FB_REVIVE');if(line&&typeof line.text==='string')line.text=line.text.replace('다음 3라운드 안에','다음 5라운드 안에')+' · 주인공이 쓰러져 2라운드 더';}
+ return out;};
 const fallen=(r,b)=>new Set((b?.actors||[]).filter(x=>x.fb&&x.fb.revival).map(x=>x.id));
 P.protagonistJointMembers=function(...args){const b=this.s.runtime;if(b?.fieldBoss)this._jointStart={round:b.round,seq:b.actionSequence||0,fallen:fallen(this,b)};return reviveOld.protagonistJointMembers.apply(this,args);};
 P.protagonistMemberReason=function(m,...args){const own=reviveOld.protagonistMemberReason.call(this,m,...args);if(own)return own;const b=this.s.runtime,j=this._jointStart;
