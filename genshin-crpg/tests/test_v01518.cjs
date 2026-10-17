@@ -24,7 +24,7 @@ check('whose turn: a banner with the fighter\'s face over the commands, and a ta
 
 check('targets: a press anywhere on a card that can be targeted chooses it',()=>{
  const row=fnBody(exp,'battleActorRow');
- assert(row.includes("c.classList.add('targetable');c.addEventListener('click',e=>{if(busy||window.ActorPlayback?.active||e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});"),'the card itself, its own buttons keep their jobs; selection stays locked during playback');
+ assert(row.includes("c.classList.add('targetable');c.addEventListener('click',e=>{if(busy||window.ActorPlayback?.active||e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;selectedTargetPicked=true;render();});"),/* 0.16.59: a press remembers the pick for this turn */'the card itself, its own buttons keep their jobs; selection stays locked during playback');
  assert(!row.includes("'선택됨'"),'0.15.20: the card is the only way, its small 선택/선택됨 button is gone');
  assert(/\.combatant-row\.targetable\{cursor:pointer\}/.test(css)&&/@media \(hover:hover\)\{[^}]*targetable/.test(css),'a pointer, and a ring only where the pointer hovers');
  return {};
