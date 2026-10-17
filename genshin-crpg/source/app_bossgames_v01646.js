@@ -12,7 +12,7 @@ const SND=n=>{try{window.CRPGSound?.play?.(n);}catch{}};
 const touchDevice=()=>matchMedia('(hover:none)').matches||navigator.maxTouchPoints>0;
 const KIND={
  SERPENT_SNIPE:{title:'약점 저격',chips:m=>[touchDevice()?'약점을 눌러 쏘기':'약점을 클릭해 쏘기','탄 '+m.shots+'발','모래가 솟는 동안은 숨음','약점 '+m.points+'곳 · 둘이면 갑주가 열림'],color:'#f2d36b',move:false},
- FROST_FRUIT:{title:'서리 열매 치기',chips:m=>[touchDevice()?'화면 어디든 끌어서 움직이기':'WASD · 방향키로 움직이기','빛나는 열매를 밟아 줍기',touchDevice()?'오른쪽 「던지기」로 던지기':'클릭 · 스페이스로 던지기','조준선이 파랄 때 던지면 틈으로 들어감','발밑이 빛나면 비키기','보호막에 '+m.need+'번 · 던지기 '+m.shots+'번'],color:'#a8e4ff',move:true,fire:true},
+ FROST_FRUIT:{title:'서리 열매 치기',chips:m=>[touchDevice()?'화면 어디든 끌어서 움직이기':'WASD · 방향키로 움직이기','빛나는 열매를 밟아 줍기',touchDevice()?'오른쪽 「던지기」로 던지기':'클릭 · 스페이스로 던지기','얼음 조각이 멈출 때가 기회','조준선 파랑 = 들어감 · 금색 = 완벽(던지기 그대로)','발밑이 빛나면 비키기','보호막에 '+m.need+'번 · 던지기 '+m.shots+'번'],color:'#a8e4ff',move:true,fire:true},
  ANEMO_ORBS:{title:'바람 원소 모으기',chips:m=>[touchDevice()?'화면 어디든 끌어서 이동':'WASD · 방향키로 이동','바람 원소 '+m.orbs+'개 모으기 · 보스는 무적','기류를 타면 빠름 · 흐름대로 밀림','탄환·본체에 닿으면 파티 전원 피해','못 주운 원소는 보스가 흡수'],color:'#74e0c6',move:true},
  ANEMO_DODGE:{title:'바람 탄막 피하기',chips:m=>[touchDevice()?'화면 어디든 끌어서 이동':'WASD · 방향키로 이동','탄환에 맞으면 파티 전원 피해','바람 원소 '+m.orbs+'개 · 원소폭발 충전'],color:'#74e0c6',move:true},
  // 0.16.54: 타르탈리아's attack follows his phase (m.phase 1 물 화살비 · 2 뇌전 창 · 3 극악기·진멸; none: a fight saved before).
@@ -87,7 +87,29 @@ const glow=(ctx,x,y,r,color,a=1)=>{const g=ctx.createRadialGradient(x,y,0,x,y,r)
 const dot=(ctx,x,y,r,fill,stroke)=>{ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();}};
 const heart=(ctx,x,y,blink)=>{if(blink)return;ctx.save();ctx.translate(x,y);ctx.fillStyle='#fff6d8';ctx.shadowColor='#ffe08a';ctx.shadowBlur=10;ctx.beginPath();ctx.moveTo(0,-8);ctx.lineTo(7,0);ctx.lineTo(0,8);ctx.lineTo(-7,0);ctx.closePath();ctx.fill();ctx.restore();};
 const ARENA={x:24,y:24,w:W-48,h:H-48};
-const arena=(ctx,color)=>{ctx.fillStyle='#071015';ctx.fillRect(0,0,W,H);ctx.strokeStyle=color;ctx.lineWidth=3;ctx.strokeRect(ARENA.x,ARENA.y,ARENA.w,ARENA.h);};
+// 0.16.58 (user: 「뭔가... 원이나 사각형 이런거로만 이루어져있는거같아서 개짜치는데... 에셋 없나....」): the game's own pictures — the boss's
+// scene, darkened, behind the box (its core where the game's core is), the hero's face for the player (the small dot in the middle is
+// what gets hit), the official element icon for a wind element.
+const IMG={},pic=src=>{if(!src||typeof Image==='undefined')return null;let i=IMG[src];if(!i){i=IMG[src]=new Image();i.decoding='async';i.src=src;}return i.complete&&i.naturalWidth?i:null;};
+const SCENE={ANEMO:['assets/enemy_fb_anemo_hypostasis.webp',.5,.43],CRYO:['assets/enemy_fb_cryo_hypostasis.webp',.497,.433],SERPENT:['assets/enemy_fb_ruin_serpent.webp',.5,.5],DVALIN:['assets/bg_mondstadt_stormterror_lair_01.webp',.5,.5],ANDRIUS:['assets/bg_mond_wolf_challenge_crpg_edit_01.webp',.5,.5],TARTAGLIA:['assets/bg_place_golden_house.webp',.5,.5],AZHDAHA:['assets/bg_arena_azhdaha_preview.webp',.5,.5]};
+const scene=(ctx,key,dark=.62,at)=>{ctx.fillStyle='#071015';ctx.fillRect(0,0,W,H);const sp=SCENE[key],img=sp&&pic(sp[0]);if(!img)return;
+ const k=Math.max(W/img.naturalWidth,H/img.naturalHeight),w=img.naturalWidth*k,h=img.naturalHeight*k,x=Math.max(W-w,Math.min(0,(at?.x??W/2)-sp[1]*w)),y=Math.max(H-h,Math.min(0,(at?.y??H/2)-sp[2]*h));
+ ctx.drawImage(img,x,y,w,h);ctx.fillStyle='rgba(5,12,16,'+dark+')';ctx.fillRect(0,0,W,H);const v=ctx.createRadialGradient(W/2,H/2,H*.32,W/2,H/2,W*.7);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);};
+const arena=(ctx,color,key,dark,at)=>{scene(ctx,key,dark,at);ctx.strokeStyle=color;ctx.lineWidth=3;ctx.strokeRect(ARENA.x,ARENA.y,ARENA.w,ARENA.h);};
+const heroFace=()=>{try{return (typeof playerFaceSrc==='function'&&playerFaceSrc())||'assets/icons/faces/isekai.webp';}catch{return 'assets/icons/faces/isekai.webp';}};
+const hero=(ctx,x,y,blink,r=12,ring='#ffe08a')=>{if(blink)return;const img=pic(heroFace());if(!img){heart(ctx,x,y,false);return;}
+ ctx.save();ctx.shadowColor=ring;ctx.shadowBlur=12;ctx.fillStyle='#0b1418';ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill();ctx.shadowBlur=0;ctx.clip();ctx.drawImage(img,x-r,y-r,2*r,2*r);ctx.restore();
+ ctx.strokeStyle=ring;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.stroke();ctx.fillStyle='#fff6d8';ctx.beginPath();ctx.arc(x,y,2.2,0,TAU);ctx.fill();};
+// 0.16.58 (user: 「어떤게 바람원소인지, 어떤게 서리열매인지 그런것도 모르겠고」, 「유저들이 이건 뭐지? 라고 생각만 안들면 될거같아」): what one picks
+// up carries its name all the time; what one aims at or keeps away from is named on the start screen and the first seconds.
+const tag=(ctx,x,y,text,a=1,color='#ffffff',size=12)=>{if(a<=0)return;ctx.save();ctx.globalAlpha=Math.min(1,a);ctx.font='bold '+size+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.lineWidth=4;ctx.strokeStyle='rgba(6,14,18,.88)';ctx.strokeText(text,x,y);ctx.fillStyle=color;ctx.fillText(text,x,y);ctx.restore();};
+const early=(t,phase)=>phase==='INTRO'||phase==='COUNT'?1:Math.max(0,Math.min(1,4-t));
+// a wind element: a swirl of three arcs (nothing like the round shots), with a ring for the time it has left when it fades
+const windOrb=(ctx,x,y,t,s=1,bright=false,left=1)=>{glow(ctx,x,y,28*s,bright?'rgba(190,255,236,.95)':'rgba(116,224,198,.85)');ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ if(left<1){ctx.strokeStyle='rgba(214,255,244,.6)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,17,-Math.PI/2,-Math.PI/2+TAU*Math.max(0,left));ctx.stroke();}
+ const icon=pic('assets/icons/ui/UI_Buff_Element_Wind.webp');ctx.rotate(t*1.6);if(icon){ctx.shadowColor='#bff7e8';ctx.shadowBlur=10;ctx.drawImage(icon,-14,-14,28,28);ctx.shadowBlur=0;ctx.restore();return;}
+ ctx.rotate(t*2.4);ctx.strokeStyle='#effffa';ctx.lineWidth=2.8;ctx.lineCap='round';for(let k=0;k<3;k++){ctx.rotate(TAU/3);ctx.beginPath();ctx.arc(5,0,8,-.7,1.9);ctx.stroke();}
+ ctx.fillStyle=bright?'#ffffff':'#d6fff4';ctx.beginPath();ctx.arc(0,0,4,0,TAU);ctx.fill();ctx.restore();};
 
 // A shockwave ring grows from its centre; its gap is the way through.
 const angGap=(a,b)=>{let d=Math.abs(a-b)%TAU;return d>Math.PI?TAU-d:d;};
@@ -115,11 +137,11 @@ function dodge(m,r,patterns,opts){
    for(let i=orbs.length-1;i>=0;i--){const o=orbs[i];o.life+=dt;if(Math.hypot(P.x-o.x,P.y-o.y)<17){taken++;orbs.splice(i,1);SND('puzzle_step');}else if(o.life>2.6)orbs.splice(i,1);}
   },
   over:()=>false,
-  draw(ctx,t,phase){ctx.save();if(shake)ctx.translate((Math.random()-.5)*8,(Math.random()-.5)*8);arena(ctx,opts.color);opts.backdrop?.(ctx,t);
+  draw(ctx,t,phase){ctx.save();if(shake)ctx.translate((Math.random()-.5)*8,(Math.random()-.5)*8);arena(ctx,opts.color,opts.scene,.6);opts.backdrop?.(ctx,t);
    for(const w of warn){const a=.25+.35*Math.abs(Math.sin(w.life*18));ctx.fillStyle=w.color||'rgba(255,90,90,'+a+')';ctx.globalAlpha=a;if(w.rect)ctx.fillRect(w.x-w.w/2,w.y-w.h/2,w.w,w.h);else{ctx.beginPath();ctx.arc(w.x,w.y,w.r,0,TAU);ctx.fill();}ctx.globalAlpha=1;}
-   for(const o of orbs){const pulse=1+Math.sin(o.life*8)*.15;glow(ctx,o.x,o.y,22*pulse,'rgba(116,224,198,.9)');dot(ctx,o.x,o.y,7*pulse,'#d6fff4');}
+   for(const o of orbs){windOrb(ctx,o.x,o.y,o.life,1+Math.sin(o.life*8)*.08,false,1-o.life/2.6);tag(ctx,o.x,o.y+30,'바람 원소',1,'#d6fff4');}
    for(const b of bullets){if(b.delay&&b.life<b.delay)continue;if(b.ring){drawRing(ctx,b);continue;}if(b.rect){ctx.fillStyle=b.color||'#cfefff';ctx.shadowColor=b.color||'#cfefff';ctx.shadowBlur=12;ctx.fillRect(b.x-b.w/2,b.y-b.h/2,b.w,b.h);ctx.shadowBlur=0;}else{glow(ctx,b.x,b.y,b.r*2.2,b.glow||'rgba(116,224,198,.55)');dot(ctx,b.x,b.y,b.r,b.color||'#e9fffa');}}
-   heart(ctx,P.x,P.y,inv&&Math.floor(inv*14)%2===0);ctx.restore();},
+   hero(ctx,P.x,P.y,inv&&Math.floor(inv*14)%2===0);ctx.restore();},
   hud:()=>'맞음 '+Math.min(hits,m.maxHits)+'/'+m.maxHits+(opts.orbs?' · 바람 원소 '+taken+'/'+m.orbs:''),
   summary:()=>(hits?Math.min(hits,m.maxHits)+'발 맞음':'완벽 회피')+(opts.orbs?' · 바람 원소 '+taken:''),
   result:()=>({hits:Math.min(hits,m.maxHits),...(opts.orbs?{orbs:taken}:{})})};
@@ -128,10 +150,10 @@ function dodge(m,r,patterns,opts){
 const cube=t=>({x:W/2+Math.sin(t*.9)*180,y:52});
 const ANEMO_PATTERNS=[
  (A,t)=>{const c=cube(t),n=14+Math.floor(A.r()*4),o=A.r()*TAU,s=150+A.r()*30;for(let i=0;i<n;i++){const a=o+i*TAU/n;A.add({x:c.x,y:c.y,vx:Math.cos(a)*s,vy:Math.sin(a)*s});}return .95;},
- (A,t)=>{const side=A.r()<.5?-1:1,gap=ARENA.y+40+A.r()*(ARENA.h-120);for(let y=ARENA.y+12;y<ARENA.y+ARENA.h;y+=26)if(Math.abs(y-gap)>40)A.add({x:side<0?-10:W+10,y,vx:-side*230,vy:0,r:7});return 1.05;},
+ (A,t)=>{const side=A.r()<.5?-1:1,reach=Math.min(170,235*.7*Math.abs((side<0?A.P.x+10:W+10-A.P.x)/230)),gap=Math.max(ARENA.y+40,Math.min(ARENA.y+ARENA.h-40,A.P.y+(A.r()-.5)*2*reach));for(let y=ARENA.y+12;y<ARENA.y+ARENA.h;y+=26)if(Math.abs(y-gap)>40)A.add({x:side<0?-10:W+10,y,vx:-side*230,vy:0,r:7});return 1.05;},
  (A,t)=>{const c=cube(t),o=A.r()*TAU,dir=A.r()<.5?-1:1;for(let i=0;i<22;i++){const a=o+dir*i*.42;A.add({x:c.x,y:c.y,vx:Math.cos(a)*165,vy:Math.sin(a)*165,delay:i*.05,r:5});}return 1.25;},
  (A,t)=>{const c=cube(t);for(let k=0;k<3;k++){const a=Math.atan2(A.P.y-c.y,A.P.x-c.x)+(k-1)*.22;A.add({x:c.x,y:c.y,vx:Math.cos(a)*240,vy:Math.sin(a)*240,r:7,delay:k*.12,color:'#fff',glow:'rgba(255,255,255,.5)'});}return .8;},
- (A,t)=>{const gap=ARENA.x+60+A.r()*(ARENA.w-120);for(let x=ARENA.x+14;x<ARENA.x+ARENA.w;x+=28)if(Math.abs(x-gap)>44)A.add({x,y:-10,vx:0,vy:200,r:7});return 1.05;}];
+ (A,t)=>{const reach=Math.min(200,235*.7*(A.P.y+10)/200),gap=Math.max(ARENA.x+50,Math.min(ARENA.x+ARENA.w-50,A.P.x+(A.r()-.5)*2*reach));for(let x=ARENA.x+14;x<ARENA.x+ARENA.w;x+=28)if(Math.abs(x-gap)>44)A.add({x,y:-10,vx:0,vy:200,r:7});return 1.05;}];
 const anemoBackdrop=(ctx,t)=>{const c=cube(t);ctx.save();ctx.translate(c.x,c.y);ctx.rotate(t*1.4);glow(ctx,0,0,46,'rgba(116,224,198,.5)');ctx.strokeStyle='#bff7e8';ctx.lineWidth=2;ctx.strokeRect(-16,-16,32,32);ctx.rotate(.8);ctx.strokeRect(-11,-11,22,22);ctx.restore();};
 // 안드리우스: the wolf runs down a lane that glows first, and ice claws fall where their shadow shows (원작: 2페이즈 질주·얼음 발톱).
 const ANDRIUS_PATTERNS=[
@@ -154,14 +176,15 @@ const TARTAGLIA_BY_PHASE={1:[TARTAGLIA_PATTERNS[0],TARTAGLIA_RAIN,TARTAGLIA_PATT
 const childeBackdrop=(ctx,t)=>{const c=childe(t);glow(ctx,c.x,c.y,40,'rgba(127,212,255,.6)');ctx.fillStyle='#dff6ff';ctx.beginPath();ctx.moveTo(c.x,c.y-14);ctx.lineTo(c.x+9,c.y+10);ctx.lineTo(c.x-9,c.y+10);ctx.closePath();ctx.fill();};
 // 야타용왕: the stamp sends rings across the ground with one gap, and meteors fall where their shadow shows (원작: 충격파·운석).
 const AZHDAHA_PATTERNS=[
- (A,t)=>{const cx=W/2+(A.r()-.5)*200,cy=H/2+(A.r()-.5)*120;A.warn.push({x:cx,y:cy,r:30,life:0,ttl:.5,color:'rgba(240,196,106,.6)'});for(let k=0;k<2;k++)A.add({ring:true,cx,cy,r0:10,R:0,speed:230,thick:12,gap:A.r()*TAU,gapW:.9,delay:.5+k*.55,ttl:6,color:'#f0c46a'});return 1.6;},
+ (A,t)=>{const cx=W/2+(A.r()-.5)*200,cy=H/2+(A.r()-.5)*120;A.warn.push({x:cx,y:cy,r:30,life:0,ttl:.5,color:'rgba(240,196,106,.6)'});let gap=Math.atan2(A.P.y-cy,A.P.x-cx)+(A.r()-.5)*2.2;for(let k=0;k<2;k++){A.add({ring:true,cx,cy,r0:10,R:0,speed:230,thick:12,gap,gapW:.9,delay:.5+k*.55,ttl:6,color:'#f0c46a'});gap+=(A.r()<.5?-1:1)*(.5+A.r()*.5);}return 1.6;},
  (A,t)=>{const n=3+Math.floor(A.r()*2);for(let i=0;i<n;i++){const x=i===0?A.P.x:ARENA.x+40+A.r()*(ARENA.w-80),y=i===0?A.P.y:ARENA.y+40+A.r()*(ARENA.h-80);A.warn.push({x,y,r:40,life:0,ttl:.9,color:'rgba(80,50,20,.75)'});A.add({x,y,vx:0,vy:0,r:36,delay:.9,ttl:1.2,color:'#ffd27a',glow:'rgba(255,140,60,.7)'});}return 1.1;},
- (A,t)=>{const cx=ARENA.x+(A.r()<.5?40:ARENA.w-40),cy=ARENA.y+ARENA.h-30;for(let k=0;k<3;k++)A.add({ring:true,cx,cy,r0:10,R:0,speed:260,thick:10,gap:A.r()*TAU,gapW:.8,delay:k*.45,ttl:6,color:'#f0c46a'});return 1.5;}];
+ (A,t)=>{const left=A.r()<.5,cx=ARENA.x+(left?40:ARENA.w-40),cy=ARENA.y+ARENA.h-30,lo=left?-Math.PI/2+.18:-Math.PI+.18,hi=left?-.18:-Math.PI/2-.18,fit=a=>Math.max(lo,Math.min(hi,a));
+  A.warn.push({x:cx,y:cy,r:34,life:0,ttl:.5,color:'rgba(240,196,106,.6)'});let gap=fit(Math.atan2(A.P.y-cy,A.P.x-cx)+(A.r()-.5)*1.2);for(let k=0;k<3;k++){A.add({ring:true,cx,cy,r0:10,R:0,speed:260,thick:10,gap,gapW:.8,delay:.5+k*.45,ttl:6,color:'#f0c46a'});gap=fit(gap+(A.r()<.5?-1:1)*(.3+A.r()*.4));}return 1.9;}];
 const azhdahaBackdrop=(ctx,t)=>{ctx.strokeStyle='rgba(240,196,106,.08)';ctx.lineWidth=2;for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(ARENA.x,ARENA.y+40+i*70);ctx.lineTo(ARENA.x+ARENA.w,ARENA.y+60+i*70);ctx.stroke();}};
 const GAMES={
- TARTAGLIA_DODGE:(m,r)=>dodge(m,r,TARTAGLIA_BY_PHASE[m.phase]||TARTAGLIA_PATTERNS,{orbs:false,color:m.phase===2?'#c99bff':'#7fd4ff',backdrop:childeBackdrop}),
- AZHDAHA_DODGE:(m,r)=>dodge(m,r,AZHDAHA_PATTERNS,{orbs:false,color:'#f0c46a',backdrop:azhdahaBackdrop}),
- ANEMO_DODGE:(m,r)=>dodge(m,r,ANEMO_PATTERNS,{orbs:true,color:'#74e0c6',backdrop:anemoBackdrop}),
+ TARTAGLIA_DODGE:(m,r)=>dodge(m,r,TARTAGLIA_BY_PHASE[m.phase]||TARTAGLIA_PATTERNS,{orbs:false,color:m.phase===2?'#c99bff':'#7fd4ff',backdrop:childeBackdrop,scene:'TARTAGLIA'}),
+ AZHDAHA_DODGE:(m,r)=>dodge(m,r,AZHDAHA_PATTERNS,{orbs:false,color:'#f0c46a',backdrop:azhdahaBackdrop,scene:'AZHDAHA'}),
+ ANEMO_DODGE:(m,r)=>dodge(m,r,ANEMO_PATTERNS,{orbs:true,color:'#74e0c6',backdrop:anemoBackdrop,scene:'ANEMO'}),
  // 0.16.54 유적의 뱀 · 약점 저격 (user: 「공략이랑 비슷한 느낌을 주되, 아이디어는 참신한 것으로」, 「미니게임은 난이도가 꽤 되어야」).
  // 원작: during its barrage and shockwave four weak points glow yellow on its body segments; breaking all four lays it down.
  // Here the serpent winds through the box, four of its segments glow, and it dips into the sand now and then (no hit lands then).
@@ -179,12 +202,13 @@ const GAMES={
      marks.push({...tap,life:0,miss:!hit&&hit!==0,sand:!!dive});if(hit!==null){broken.add(hit);hits++;flash=.2;SND('puzzle_light');}else SND('error');}
     for(let i=marks.length-1;i>=0;i--){marks[i].life+=dt;if(marks[i].life>.6)marks.splice(i,1);}},
    over:()=>hits>=points||shots<=0,
-   draw(ctx,t){const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2a2116');g.addColorStop(1,'#15110b');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+   draw(ctx,t,phase){scene(ctx,'SERPENT',.62);ctx.fillStyle='rgba(42,33,22,.35)';ctx.fillRect(0,0,W,H);
     for(let i=0;i<26;i++){ctx.fillStyle='rgba(210,180,120,.07)';ctx.fillRect((i*83+t*22)%W,(i*47)%H,3,2);}
     const a=dive?.25:1;ctx.globalAlpha=a;
     for(let i=N-1;i>=0;i--){const p=segs[i],rad=i===0?17:13-i*.25;ctx.fillStyle=i===0?'#8a8f8c':'#6e736f';ctx.strokeStyle='#3d403e';ctx.lineWidth=2;ctx.beginPath();ctx.arc(p.x,p.y,rad,0,TAU);ctx.fill();ctx.stroke();
      if(weak.has(i)&&!broken.has(i)){glow(ctx,p.x,p.y,24+Math.sin(t*9)*3,'rgba(242,211,107,.85)');ctx.fillStyle='#ffe58a';ctx.beginPath();ctx.arc(p.x,p.y,6,0,TAU);ctx.fill();}
      if(broken.has(i)){ctx.strokeStyle='#2a1c10';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(p.x-6,p.y-6);ctx.lineTo(p.x+6,p.y+6);ctx.moveTo(p.x+6,p.y-6);ctx.lineTo(p.x-6,p.y+6);ctx.stroke();}}
+    if(!dive)for(const i of weak)if(!broken.has(i))tag(ctx,segs[i].x,segs[i].y-24,'약점',early(t,phase),'#ffe58a');
     const h=segs[0];ctx.fillStyle='#ffd27a';ctx.beginPath();ctx.arc(h.x+5,h.y-4,3,0,TAU);ctx.fill();ctx.globalAlpha=1;
     if(dive){ctx.fillStyle='rgba(210,180,120,.28)';for(const p of segs){ctx.beginPath();ctx.arc(p.x,p.y,22,0,TAU);ctx.fill();}ctx.fillStyle='#f6e7c3';ctx.font='bold 22px sans-serif';ctx.textAlign='center';ctx.fillText('모래 속으로',W/2,34);}
     for(const k of marks){ctx.strokeStyle=k.miss?'rgba(255,140,140,'+(1-k.life*1.6)+')':'rgba(255,255,255,'+(1-k.life*1.6)+')';ctx.lineWidth=3;ctx.beginPath();ctx.arc(k.x,k.y,6+k.life*30,0,TAU);ctx.stroke();}},
@@ -193,65 +217,106 @@ const GAMES={
    result:()=>({hits})};
  },
  // 0.16.57 (user: 「무상의 얼음은... 어케하는건지 잘 모르겟네.. 다 좋은데 미니게임이 뭔가 애매하다잉..? 뭔가 컨트롤 하는 느낌이 잘 안든달까」):
- // the fruits are now picked up and thrown by one's own hand. 원작: the shielded 무상의 얼음 drops Frostfruits; the player carries one to it
- // and hits the shield with it. Here one walks (WASD · 방향키, or the pad), steps on a fruit to pick it up, and throws it (click · 스페이스 ·
- // 던지기) straight at the core. The ice shards circling the core break a fruit that meets them: the aim line turns blue when the way is
- // clear at that moment. Frost spikes rise where one stands — step off the glow or freeze for a moment.
+ // the fruits are picked up and thrown by one's own hand. 원작: the shielded 무상의 얼음 drops Frostfruits; the player carries one to it
+ // and hits the shield with it. One walks (WASD · 방향키, or drags anywhere on a phone), steps on a fruit to pick it up, and throws it
+ // (click · 스페이스 · 던지기) straight at the core; the ice shards circling it break a fruit that meets them. Frost spikes rise where one
+ // stands — step off the glow or freeze for a moment.
+ // 0.16.58 (user: 「무상의 얼음의 문제점은... 어디 한번 넣어보시지! 같은 느낌」, 「뭔가 성공시키는 맛이 있어야되는데 그게 없네」, 「돌아가는게
+ // 너무 빨라서 그런가? … 그렇다고 너무 느려져도 재미 없을 것 같달까」, 「어떤게 서리열매인지 그런것도 모르겠고」): the shards keep a beat
+ // instead of a blur — they spin, brake to a halt for a moment (the time to line up a throw), glint, and set off again, often the other
+ // way — so a throw can be read and timed. A fruit right through the middle of a gap is 「완벽!」 and costs no throw. Every hit knocks a
+ // layer of ice off the shield in a burst of shards; the last one shatters it (「보호막 붕괴!」, a beat of slow motion). A blocked fruit
+ // bursts on the shard with 「막힘」. The fruits look like fruit and carry their name.
  FROST_FRUIT(m,r){
-  const C={x:W/2,y:H/2+6},SH=38,RING=76,KEEP=RING+18,need=Math.max(1,m.need|0),P={x:W/2,y:H-58},ground=[],flying=[],spikes=[],cracks=[];
-  let throws=Math.max(1,m.shots|0),stock=Math.max(throws,m.fruits|0||6),carry=false,hits=0,frozen=0,flash=0,spikeAt=1.1,dropAt=0,lastFire=0,shake=0;
-  const shards=[0,1,2,3].map(i=>({a:i*TAU/4+r()*.3,w:.92}));let spin=(r()<.5?-1:1)*1.7;const FLY=430;
+  const C={x:W/2,y:H/2+6},SH=38,RING=76,KEEP=RING+18,need=Math.max(1,m.need|0),P={x:W/2,y:H-58},ground=[],flying=[],spikes=[],bits=[],pops=[],rings=[];
+  const SHOTS=Math.max(1,m.shots|0);let throws=SHOTS,stock=Math.max(throws,m.fruits|0||6),carry=false,hits=0,frozen=0,flash=0,spikeAt=1.3,dropAt=0,lastFire=0,shake=0,slow=0,streak=0,broke=0,windup=0,lastT=0;
+  const shards=[0,1,2,3].map(i=>({a:i*TAU/4+r()*.3,w:1,glint:0})),FLY=430,SPEED=1.5,PERFECT=.2;
+  // the beat, planned a few steps ahead so the aim line can read it: SPIN (1.0–1.5 s) → STOP (.6 s still) → WARN (.3 s, the shards
+  // glint) → SPIN again, the other way three times in five. The shards speed up and brake smoothly.
+  const plan=[];const extend=()=>{while(plan.length<6){const last=plan[plan.length-1];
+   plan.push(!last?{mode:'SPIN',dur:1.1+r()*.4,dir:r()<.5?-1:1}:last.mode==='SPIN'?{mode:'STOP',dur:.6,dir:last.dir}:last.mode==='STOP'?{mode:'WARN',dur:.3,dir:last.dir}:{mode:'SPIN',dur:1+r()*.5,dir:r()<.6?-last.dir:last.dir});}};
+  extend();const beat={i:0,left:plan[0].dur,omega:plan[0].dir*SPEED};
+  const advance=(s,dt,t)=>{s.left-=dt;while(s.left<=0&&s.i<plan.length-1){s.i++;s.left+=plan[s.i].dur;}const seg=plan[s.i],goal=seg.mode==='SPIN'?seg.dir*SPEED*(t>7?1.2:1):0,acc=seg.mode==='SPIN'?7:9;
+   s.omega+=Math.max(-acc*dt,Math.min(acc*dt,goal-s.omega));return s.omega;};
+  const mode=()=>plan[beat.i].mode;
+  // how far a fruit at angle a passes from the nearest shard edge (below 0 = into a shard), now or after `ahead` seconds of the beat
+  const clearance=(a,ahead=0)=>{let shift=0;if(ahead>0){const s={...beat},n=Math.max(1,Math.ceil(ahead*60)),h=ahead/n;for(let k=0;k<n;k++)shift+=advance(s,h,lastT+k*h)*h;}
+   return Math.min(...shards.map(q=>angGap(a,q.a+shift)-q.w/2));};
+  const blocked=(a,ahead=0)=>clearance(a,ahead)<0;
   const ell=(a,rad)=>({x:C.x+Math.cos(a)*rad*1.45,y:C.y+Math.sin(a)*rad*.86}),norm=(x,y)=>Math.hypot((x-C.x)/1.45,(y-C.y)/.86);
-  const blocked=(ang,ahead=0)=>shards.some(q=>angGap(ang,q.a+spin*(ahead>0&&lastT>6?1.3:1)*ahead)<q.w/2);let lastT=0;
-  // where the shards will be when a fruit thrown from here reaches them: the aim line shows that, not the shards of this instant
   const flight=()=>Math.max(0,(norm(P.x,P.y)-RING-6)/FLY);
-  // fruits drop on the ground away from the core and from the player, two at most at a time
   const drop=()=>{if(stock<=0||ground.length>=2)return;let p,k=0;do{p=ell(r()*TAU,118+r()*72);}while((Math.hypot(p.x-P.x,p.y-P.y)<90||ground.some(g=>Math.hypot(g.x-p.x,g.y-p.y)<80))&&++k<40);
-   p.x=Math.max(ARENA.x+24,Math.min(ARENA.x+ARENA.w-24,p.x));p.y=Math.max(ARENA.y+24,Math.min(ARENA.y+ARENA.h-24,p.y));ground.push({...p,life:0});stock--;};
+   p.x=Math.max(ARENA.x+24,Math.min(ARENA.x+ARENA.w-24,p.x));p.y=Math.max(ARENA.y+54,Math.min(ARENA.y+ARENA.h-30,p.y));ground.push({...p,life:0});stock--;};
   drop();drop();
   const angTo=()=>Math.atan2((P.y-C.y)/.86,(P.x-C.x)/1.45);
-  const fire=()=>{if(!carry||frozen||throws<=0)return;carry=false;throws--;const a=angTo();flying.push({a,rad:norm(P.x,P.y),checked:false});SND('click');if(!ground.length)dropAt=.5;};
+  // sparks and words fly with the screen's own random (the result never depends on them)
+  const burst=(x,y,n,color,speed,size=3)=>{for(let i=0;i<n;i++){const a=Math.random()*TAU,v=speed*(.4+Math.random()*.8);bits.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-speed*.3,life:0,ttl:.55+Math.random()*.4,color,size:size*(.6+Math.random()*.8)});}};
+  const pop=(x,y,text,color,size)=>pops.push({x,y,text,color,size,life:0});
+  const fire=()=>{if(!carry||frozen||throws<=0)return;carry=false;throws--;windup=.14;flying.push({a:angTo(),rad:norm(P.x,P.y),checked:false,trail:[]});SND('click');if(!ground.length)dropAt=.5;};
+  // the fruit: round and pale blue with a facet, a green stalk and leaf, and frost glints — nothing else in the box looks like it
+  const fruit=(ctx,x,y,s=1)=>{glow(ctx,x,y,20*s,'rgba(150,220,255,.55)');ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+   ctx.fillStyle='#dff4ff';ctx.beginPath();ctx.arc(0,1,9,0,TAU);ctx.fill();ctx.fillStyle='#9fd9ff';ctx.beginPath();ctx.moveTo(-7,3);ctx.lineTo(0,-2);ctx.lineTo(7,3);ctx.lineTo(0,9);ctx.closePath();ctx.fill();
+   ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(-3,-2,2.6,0,TAU);ctx.fill();ctx.strokeStyle='#7fd88a';ctx.lineWidth=2.4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(0,-8);ctx.lineTo(0,-12);ctx.stroke();
+   ctx.fillStyle='#7fd88a';ctx.beginPath();ctx.ellipse(5,-12,5,2.4,-.5,0,TAU);ctx.fill();
+   ctx.strokeStyle='#ffffff';ctx.lineWidth=1.4;for(const [cx,cy]of [[-12,-4],[12,3],[-7,12]]){ctx.beginPath();ctx.moveTo(cx-3,cy);ctx.lineTo(cx+3,cy);ctx.moveTo(cx,cy-3);ctx.lineTo(cx,cy+3);ctx.stroke();}ctx.restore();};
   return{
-   update(dt,t,inp){
-    lastT=t;frozen=Math.max(0,frozen-dt);flash=Math.max(0,flash-dt);shake=Math.max(0,shake-dt);const fast=t>6?1.3:1;for(const q of shards)q.a+=spin*fast*dt;
-    // walking (not while frozen); the core's cold keeps one out of the shard ring
+   update(dtReal,t,inp){
+    // a beat of slow motion after a perfect hit and when the shield breaks
+    slow=Math.max(0,slow-dtReal);shake=Math.max(0,shake-dtReal);const dt=dtReal*(slow>0?.3:1);
+    lastT=t;frozen=Math.max(0,frozen-dt);flash=Math.max(0,flash-dt);windup=Math.max(0,windup-dt);
+    const w=advance(beat,dt,t);while(beat.i>0){plan.shift();beat.i--;}extend();for(const q of shards){q.a+=w*dt;q.glint=mode()==='WARN'?1:Math.max(0,q.glint-dt*3);}
+    if(broke)broke+=dt;
     let dx=(inp.keys.has('R')?1:0)-(inp.keys.has('L')?1:0)+inp.pad[0],dy=(inp.keys.has('D')?1:0)-(inp.keys.has('U')?1:0)+inp.pad[1];
-    if(!frozen&&(dx||dy)){const n=Math.hypot(dx,dy);P.x+=dx/n*215*dt;P.y+=dy/n*215*dt;}
+    if(!frozen&&!broke&&(dx||dy)){const n=Math.hypot(dx,dy);P.x+=dx/n*215*dt;P.y+=dy/n*215*dt;}
     P.x=Math.max(ARENA.x+10,Math.min(ARENA.x+ARENA.w-10,P.x));P.y=Math.max(ARENA.y+10,Math.min(ARENA.y+ARENA.h-10,P.y));
     const d=norm(P.x,P.y);if(d<KEEP){const a=angTo(),q=ell(a,KEEP);P.x=q.x;P.y=q.y;}
-    // picking up and throwing (a click, a tap, 스페이스 or 던지기)
-    if(!carry&&!frozen)for(let i=ground.length-1;i>=0;i--)if(Math.hypot(ground[i].x-P.x,ground[i].y-P.y)<20){ground.splice(i,1);carry=true;SND('puzzle_step');dropAt=1.1;break;}
-    if((inp.fire||inp.taps.length)&&t-lastFire>.15){lastFire=t;fire();}inp.fire=0;
+    if(!carry&&!frozen&&!broke)for(let i=ground.length-1;i>=0;i--)if(Math.hypot(ground[i].x-P.x,ground[i].y-P.y)<22){ground.splice(i,1);carry=true;SND('puzzle_step');dropAt=1.1;break;}
+    if((inp.fire||inp.taps.length)&&t-lastFire>.15&&!broke){lastFire=t;fire();}inp.fire=0;
     for(const g of ground)g.life+=dt;if(dropAt>0){dropAt-=dt;if(dropAt<=0)drop();}if(ground.length<1&&!carry&&dropAt<=0)drop();
-    for(let i=flying.length-1;i>=0;i--){const q=flying[i];q.rad-=FLY*dt;const p=ell(q.a,q.rad);q.x=p.x;q.y=p.y;
-     if(!q.checked&&q.rad<=RING+6){q.checked=true;if(blocked(q.a)){flying.splice(i,1);cracks.push({x:p.x,y:p.y,life:0,miss:true});SND('error');continue;}}
-     if(q.rad<=SH){flying.splice(i,1);hits++;flash=.3;shake=.15;cracks.push({x:p.x,y:p.y,life:0,miss:false});SND('puzzle_light');}}
-    // frost spikes: a glow where one stands, rising .8 s later (two at a time after six seconds)
-    spikeAt-=dt;if(spikeAt<=0){spikeAt=(t>6?1.0:1.3)+r()*.3;spikes.push({x:P.x,y:P.y,life:0,up:false});if(t>6){const a=r()*TAU;spikes.push({x:Math.max(ARENA.x+30,Math.min(ARENA.x+ARENA.w-30,P.x+Math.cos(a)*70)),y:Math.max(ARENA.y+30,Math.min(ARENA.y+ARENA.h-30,P.y+Math.sin(a)*50)),life:0,up:false});}}
-    for(let i=spikes.length-1;i>=0;i--){const s=spikes[i];s.life+=dt;if(!s.up&&s.life>=.8){s.up=true;if(!frozen&&Math.hypot(P.x-s.x,P.y-s.y)<34){frozen=1;shake=.2;SND('error');}}if(s.life>1.2)spikes.splice(i,1);}
-    for(let i=cracks.length-1;i>=0;i--){cracks[i].life+=dt;if(cracks[i].life>.6)cracks.splice(i,1);}
+    for(let i=flying.length-1;i>=0;i--){const q=flying[i];q.rad-=FLY*dt;const p=ell(q.a,q.rad);q.trail.push({x:p.x,y:p.y});if(q.trail.length>7)q.trail.shift();q.x=p.x;q.y=p.y;
+     if(!q.checked&&q.rad<=RING+6){q.checked=true;const c=clearance(q.a);q.perfect=c>=PERFECT;
+      if(c<0){flying.splice(i,1);streak=0;burst(p.x,p.y,12,'#bfe9ff',190,3.2);pop(p.x,p.y-16,'막힘','#ff9c9c',20);for(const s of shards)if(angGap(q.a,s.a)<s.w/2+.05)s.glint=1;shake=.14;SND('guard');continue;}}
+     if(q.rad<=SH){flying.splice(i,1);hits++;const done=hits>=need;streak=q.perfect?streak+1:0;flash=.35;rings.push({r:SH+(need-hits)*7,life:0});
+      if(q.perfect&&!done&&throws<SHOTS)throws++;
+      burst(p.x,p.y,q.perfect?22:14,'#e6f8ff',q.perfect?300:230,q.perfect?4:3.4);if(q.perfect)burst(p.x,p.y,12,'#ffd77a',260,3);
+      if(!done)pop(C.x,C.y-SH-34,q.perfect?(streak>1?'완벽! ×'+streak:'완벽!'):'명중!',q.perfect?'#ffe08a':'#ffffff',q.perfect?32:26);
+      shake=q.perfect?.35:.22;if(q.perfect)slow=.18;SND(q.perfect?'constellation_node':'ice');
+      if(done){broke=.001;slow=.5;shake=.6;flash=.6;burst(C.x,C.y,46,'#e6f8ff',380,4.2);burst(C.x,C.y,20,'#a8e4ff',240,5);pop(C.x,C.y-4,'보호막 붕괴!','#ffffff',42);SND('ice');SND('quest_complete');}}}
+    spikeAt-=dt;if(spikeAt<=0&&!broke){spikeAt=(t>6?1.0:1.3)+r()*.3;spikes.push({x:P.x,y:P.y,life:0,up:false});if(t>6){const a=r()*TAU;spikes.push({x:Math.max(ARENA.x+30,Math.min(ARENA.x+ARENA.w-30,P.x+Math.cos(a)*70)),y:Math.max(ARENA.y+30,Math.min(ARENA.y+ARENA.h-30,P.y+Math.sin(a)*50)),life:0,up:false});}}
+    for(let i=spikes.length-1;i>=0;i--){const s=spikes[i];s.life+=dt;if(!s.up&&s.life>=.8){s.up=true;if(!frozen&&Math.hypot(P.x-s.x,P.y-s.y)<34){frozen=1;shake=.2;burst(P.x,P.y,10,'#bfe9ff',160);SND('freeze');}}if(s.life>1.2)spikes.splice(i,1);}
+    for(let i=bits.length-1;i>=0;i--){const b=bits[i];b.life+=dt;b.vy+=420*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;if(b.life>b.ttl)bits.splice(i,1);}
+    for(let i=pops.length-1;i>=0;i--){pops[i].life+=dt;if(pops[i].life>.9)pops.splice(i,1);}
+    for(let i=rings.length-1;i>=0;i--){rings[i].life+=dt;if(rings[i].life>.5)rings.splice(i,1);}
    },
-   over:()=>hits>=need||(throws<=0&&!flying.length)||(!carry&&!flying.length&&!ground.length&&stock<=0),
-   draw(ctx,t,phase){ctx.save();if(shake)ctx.translate((Math.random()-.5)*6,(Math.random()-.5)*6);arena(ctx,'#a8e4ff');for(let i=0;i<26;i++){ctx.fillStyle='rgba(168,228,255,.06)';ctx.fillRect((i*97+t*14)%W,(i*53)%H,2,2);}
-    // spikes on the ground: a filling glow, then white spikes
-    for(const s of spikes){if(!s.up){const k=s.life/.8;ctx.strokeStyle='rgba(168,228,255,.8)';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(s.x,s.y,34,22,0,0,TAU);ctx.stroke();ctx.fillStyle='rgba(168,228,255,'+(.12+k*.3)+')';ctx.beginPath();ctx.ellipse(s.x,s.y,34*k,22*k,0,0,TAU);ctx.fill();}
+   over:()=>broke>.9||!broke&&((throws<=0&&!flying.length)||(!carry&&!flying.length&&!ground.length&&stock<=0)),
+   draw(ctx,t,phase){ctx.save();if(shake)ctx.translate((Math.random()-.5)*16*shake,(Math.random()-.5)*16*shake);arena(ctx,'#a8e4ff','CRYO',.7,C);for(let i=0;i<26;i++){ctx.fillStyle='rgba(168,228,255,.1)';ctx.fillRect((i*97+t*14)%W,(i*53)%H,2,2);}
+    for(const s of spikes){if(!s.up){const k=s.life/.8;ctx.strokeStyle='rgba(168,228,255,.85)';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(s.x,s.y,34,22,0,0,TAU);ctx.stroke();ctx.fillStyle='rgba(168,228,255,'+(.12+k*.3)+')';ctx.beginPath();ctx.ellipse(s.x,s.y,34*k,22*k,0,0,TAU);ctx.fill();}
      else{const a=1-(s.life-.8)/.4;ctx.fillStyle='rgba(235,250,255,'+Math.max(0,a)+')';for(let k=0;k<5;k++){const x=s.x-20+k*10;ctx.beginPath();ctx.moveTo(x-5,s.y+8);ctx.lineTo(x,s.y-22-(k%2)*8);ctx.lineTo(x+5,s.y+8);ctx.fill();}}}
-    // the core in its shell, cracked by each hit, and the circling shards
+    // the shard ring, still for a calm moment and glinting before it sets off again; then the shield in layers (one knocked off
+    // by each hit) around the brightening core
     ctx.save();ctx.translate(C.x,C.y);ctx.scale(1.45,.86);ctx.strokeStyle='rgba(168,228,255,.14)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(0,0,RING,0,TAU);ctx.stroke();
-    for(const q of shards){ctx.strokeStyle='#e6f7ff';ctx.shadowColor='#a8e4ff';ctx.shadowBlur=12;ctx.lineWidth=10;ctx.beginPath();ctx.arc(0,0,RING,q.a-q.w/2,q.a+q.w/2);ctx.stroke();ctx.shadowBlur=0;}
-    ctx.fillStyle='rgba(168,228,255,'+(.38-hits/need*.22)+')';ctx.beginPath();ctx.arc(0,0,SH,0,TAU);ctx.fill();ctx.strokeStyle=flash?'#fff':'#cdefff';ctx.lineWidth=3;ctx.stroke();ctx.restore();
-    ctx.save();ctx.translate(C.x,C.y);ctx.rotate(t*.8);ctx.strokeStyle='#bfe9ff';ctx.lineWidth=2;ctx.strokeRect(-13,-13,26,26);ctx.restore();
-    for(let k=0;k<hits;k++){ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=2;ctx.beginPath();const a=k*2.1+.5;ctx.moveTo(C.x,C.y);ctx.lineTo(C.x+Math.cos(a)*SH*1.45,C.y+Math.sin(a)*SH*.86);ctx.stroke();}
-    // fruits on the ground
-    for(const g of ground){const b=Math.sin(g.life*5)*2;glow(ctx,g.x,g.y+b,22,'rgba(150,220,255,.6)');dot(ctx,g.x,g.y+b,9,'#e9f8ff');dot(ctx,g.x-3,g.y+b-3,3.5,'#7ccfff');}
-    // the aim line while a fruit is held: blue where the way is clear now, red where a shard is in the way
-    if(carry&&phase==='PLAY'){const a=angTo(),clear=!blocked(a,flight()),edge=ell(a,SH);ctx.save();ctx.setLineDash([8,7]);ctx.strokeStyle=clear?'rgba(120,220,255,.95)':'rgba(255,120,120,.9)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(P.x,P.y);ctx.lineTo(edge.x,edge.y);ctx.stroke();ctx.restore();}
-    for(const q of flying){glow(ctx,q.x,q.y,18,'rgba(200,240,255,.85)');dot(ctx,q.x,q.y,8,'#ffffff');}
-    for(const c of cracks)glow(ctx,c.x,c.y,16+c.life*50,c.miss?'rgba(255,150,150,.8)':'rgba(255,255,255,.9)',1-c.life*1.6);
-    // the player, the fruit in hand above
-    ctx.fillStyle='rgba(0,0,0,.35)';ctx.beginPath();ctx.ellipse(P.x,P.y+12,13,5,0,0,TAU);ctx.fill();glow(ctx,P.x,P.y,26,frozen?'rgba(168,228,255,.6)':'rgba(255,224,138,.35)');ctx.save();ctx.translate(P.x,P.y);ctx.scale(1.7,1.7);heart(ctx,0,0,false);ctx.restore();if(carry){glow(ctx,P.x,P.y-24,15,'rgba(150,220,255,.75)');dot(ctx,P.x,P.y-24,7,'#e9f8ff');}
+    if(!broke){for(const q of shards){ctx.strokeStyle=q.glint>0?'rgba(255,255,255,'+(.7+q.glint*.3)+')':'#e6f7ff';ctx.shadowColor=q.glint>0?'#ffffff':'#a8e4ff';ctx.shadowBlur=12+q.glint*14;ctx.lineWidth=10+q.glint*2;ctx.beginPath();ctx.arc(0,0,RING,q.a-q.w/2,q.a+q.w/2);ctx.stroke();ctx.shadowBlur=0;}
+     for(let k=0,n=Math.max(0,need-hits);k<n;k++){ctx.strokeStyle='rgba(205,239,255,'+(.6-k*.14)+')';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,SH+k*7,0,TAU);ctx.stroke();}
+     ctx.fillStyle='rgba(168,228,255,'+(.34-hits/need*.2)+')';ctx.beginPath();ctx.arc(0,0,SH,0,TAU);ctx.fill();ctx.strokeStyle=flash?'#fff':'#cdefff';ctx.lineWidth=3;ctx.stroke();}
+    for(const g of rings){ctx.strokeStyle='rgba(255,255,255,'+Math.max(0,1-g.life*2)+')';ctx.lineWidth=4;ctx.beginPath();ctx.arc(0,0,g.r+g.life*90,0,TAU);ctx.stroke();}
+    ctx.restore();
+    ctx.save();ctx.translate(C.x,C.y);ctx.rotate(t*(.8+hits*1.2));glow(ctx,0,0,30+hits*10,'rgba(168,228,255,'+(.25+hits*.15)+')');ctx.strokeStyle=broke?'#ffffff':'#bfe9ff';ctx.lineWidth=2;ctx.strokeRect(-13,-13,26,26);ctx.restore();
+    if(!broke)for(let k=0;k<hits;k++){ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=2;ctx.beginPath();const a=k*2.1+.5;ctx.moveTo(C.x,C.y);ctx.lineTo(C.x+Math.cos(a)*(SH+6)*1.45,C.y+Math.sin(a)*(SH+6)*.86);ctx.stroke();}
+    for(const g of ground){const b=Math.sin(g.life*5)*2;fruit(ctx,g.x,g.y+b,1.15);tag(ctx,g.x,g.y+b+29,'서리 열매',1,'#e6f8ff');}
+    {const ea=early(t,phase);if(ea&&!broke){const q=shards[0],p=ell(q.a,RING+24);tag(ctx,p.x,p.y,'얼음 조각 · 막힘',ea,'#cdefff');tag(ctx,C.x,C.y-23,'얼음 보호막',ea,'#e6f8ff',11);}}
+    // the aim line while a fruit is held: red where a shard will be in the way when it arrives, blue where it gets through,
+    // gold when it goes right through the middle
+    if(carry&&phase==='PLAY'&&!broke){const a=angTo(),c=clearance(a,flight()),edge=ell(a,SH);ctx.save();ctx.setLineDash([8,7]);ctx.strokeStyle=c<0?'rgba(255,120,120,.9)':c>=PERFECT?'rgba(255,215,120,.95)':'rgba(120,220,255,.95)';ctx.lineWidth=c>=PERFECT?4:3;ctx.beginPath();ctx.moveTo(P.x,P.y);ctx.lineTo(edge.x,edge.y);ctx.stroke();ctx.restore();}
+    for(const q of flying){q.trail.forEach((p,i)=>glow(ctx,p.x,p.y,5+i*1.6,'rgba(200,240,255,'+(.08+i*.06)+')'));fruit(ctx,q.x,q.y,.9);}
+    for(const b of bits){ctx.globalAlpha=Math.max(0,1-b.life/b.ttl);ctx.fillStyle=b.color;ctx.save();ctx.translate(b.x,b.y);ctx.rotate(b.life*9);ctx.fillRect(-b.size/2,-b.size/2,b.size,b.size*1.6);ctx.restore();ctx.globalAlpha=1;}
+    // the player, with the fruit held up (and the swing of a throw)
+    ctx.fillStyle='rgba(0,0,0,.35)';ctx.beginPath();ctx.ellipse(P.x,P.y+12,13,5,0,0,TAU);ctx.fill();glow(ctx,P.x,P.y,26,frozen?'rgba(168,228,255,.6)':'rgba(255,224,138,.35)');hero(ctx,P.x,P.y,false,13,frozen?'#a8e4ff':'#ffe08a');if(carry)fruit(ctx,P.x,P.y-28,.85);
+    if(windup){ctx.strokeStyle='rgba(255,255,255,'+Math.min(1,windup*6)+')';ctx.lineWidth=3;ctx.beginPath();ctx.arc(P.x,P.y-6,22,-2.6,-.6);ctx.stroke();}
+    for(const p of pops){const k=p.life/.9,grow=k<.12?1+(.12-k)*4:1;ctx.globalAlpha=Math.max(0,1-k*k);ctx.fillStyle=p.color;ctx.font='900 '+Math.round(p.size*grow)+'px sans-serif';ctx.textAlign='center';ctx.lineWidth=5;ctx.strokeStyle='rgba(8,19,26,.85)';ctx.strokeText(p.text,p.x,p.y-k*26);ctx.fillText(p.text,p.x,p.y-k*26);ctx.globalAlpha=1;}
+    if(broke&&flash>.25){ctx.fillStyle='rgba(255,255,255,'+(flash-.25)*1.6+')';ctx.fillRect(0,0,W,H);}
     if(frozen){ctx.fillStyle='rgba(168,228,255,'+(.15+frozen*.2)+')';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='bold 26px sans-serif';ctx.textAlign='center';ctx.fillText('얼어붙었다',W/2,46);}
-    else if(phase==='PLAY'&&t<2.5){ctx.fillStyle='rgba(255,255,255,'+(1-t/2.5)+')';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.fillText(carry?'핵 쪽으로 던지기':'빛나는 서리 열매를 주우세요',W/2,46);}
+    else if(phase==='PLAY'&&!broke){const md=mode(),hint=md==='STOP'?'멈췄다! 지금이야':md==='WARN'?'곧 다시 돈다':t<3?(carry?'조준선이 파랄 때 던지기':'서리 열매를 주우세요'):'';
+     if(hint){ctx.fillStyle=md==='STOP'?'rgba(255,224,138,.95)':'rgba(255,255,255,.85)';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.fillText(hint,W/2,46);}}
     ctx.restore();},
    hud:()=>'보호막 '+hits+'/'+need+' · 남은 던지기 '+throws+(carry?' · 열매 들고 있음':''),
    summary:()=>hits>=need?'얼음 보호막이 깨졌다':hits?'서리 열매 '+hits+'번 맞힘':'모두 막혔다',
@@ -299,23 +364,23 @@ const GAMES={
     if(!inv&&(Math.hypot(P.x-C.x,P.y-C.y)<26||bullets.some(b=>!(b.delay&&b.life<b.delay)&&Math.hypot(P.x-b.x,P.y-b.y)<b.r+5)))hit();
    },
    over:()=>!orbs.length,
-   draw(ctx,t,phase){ctx.save();if(shake)ctx.translate((Math.random()-.5)*8,(Math.random()-.5)*8);arena(ctx,'#74e0c6');
+   draw(ctx,t,phase){ctx.save();if(shake)ctx.translate((Math.random()-.5)*8,(Math.random()-.5)*8);arena(ctx,'#74e0c6','ANEMO',.62,C);
     // the currents: faint bands with streaks running the way they flow
     for(const q of streams){ctx.fillStyle='rgba(116,224,198,.07)';ctx.fillRect(q.x,q.y,q.w,q.h);ctx.strokeStyle='rgba(190,255,236,.35)';ctx.lineWidth=2;const along=q.fx?q.w:q.h,dir=Math.sign(q.fx||q.fy);
-     for(let i=0;i<9;i++){const u=((i/9+dir*t*.45)%1+1)%1,len=26;ctx.beginPath();if(q.fx){const x=q.x+u*along,y=q.y+8+((i*13)%(q.h-16));ctx.moveTo(x,y);ctx.lineTo(x+dir*len,y);}else{const y=q.y+u*along,x=q.x+8+((i*13)%(q.w-16));ctx.moveTo(x,y);ctx.lineTo(x,y+dir*len);}ctx.stroke();}}
+     for(let i=0;i<9;i++){const u=((i/9+dir*t*.45)%1+1)%1,len=26;ctx.beginPath();if(q.fx){const x=q.x+u*along,y=q.y+8+((i*13)%(q.h-16));ctx.moveTo(x,y);ctx.lineTo(x+dir*len,y);}else{const y=q.y+u*along,x=q.x+8+((i*13)%(q.w-16));ctx.moveTo(x,y);ctx.lineTo(x,y+dir*len);}ctx.stroke();}tag(ctx,q.x+q.w/2,q.y+q.h/2,'바람길 · 빠름',early(t,phase)*.9,'#bff7e8');}
     // when time runs out the cube draws in what is left
     const left=phase==='END'?1:0;drawIn=Math.min(1,drawIn+(left?.04:0));
-    for(const o of orbs){const pulse=1+Math.sin(o.life*8)*.15,x=o.x+(C.x-o.x)*drawIn,y=o.y+(C.y-o.y)*drawIn;glow(ctx,x,y,(o.drift?26:22)*pulse,o.drift?'rgba(190,255,236,.95)':'rgba(116,224,198,.9)');dot(ctx,x,y,7*pulse,'#d6fff4',o.drift?'#ffffff':null);}
+    for(const o of orbs){const x=o.x+(C.x-o.x)*drawIn,y=o.y+(C.y-o.y)*drawIn;windOrb(ctx,x,y,o.life,(o.drift?1.12:1)+Math.sin(o.life*8)*.08,!!o.drift);if(!drawIn)tag(ctx,x,y+31,'바람 원소',1,'#d6fff4');}
     for(const g of gone)glow(ctx,g.x,g.y,18+g.life*60,'rgba(255,240,180,.8)',1-g.life*2);
     for(const b of bullets){if(b.delay&&b.life<b.delay)continue;glow(ctx,b.x,b.y,b.r*2.2,b.glow||'rgba(116,224,198,.55)');dot(ctx,b.x,b.y,b.r,b.color||'#e9fffa');}
     ctx.save();ctx.translate(C.x,C.y);ctx.rotate(t*1.6);glow(ctx,0,0,54,'rgba(116,224,198,.55)');ctx.strokeStyle='#bff7e8';ctx.lineWidth=2;ctx.strokeRect(-18,-18,36,36);ctx.rotate(.8);ctx.strokeRect(-12,-12,24,24);ctx.restore();
     ctx.fillStyle='rgba(214,255,244,.75)';ctx.font='bold 13px sans-serif';ctx.textAlign='center';ctx.fillText('무적',C.x,C.y+40);
-    heart(ctx,P.x,P.y,inv&&Math.floor(inv*14)%2===0);ctx.restore();},
+    hero(ctx,P.x,P.y,inv&&Math.floor(inv*14)%2===0);ctx.restore();},
    hud:()=>'바람 원소 '+taken+'/'+n+' · 맞음 '+Math.min(hits,m.maxHits)+'/'+m.maxHits,
    summary:()=>taken>=n?'바람 원소를 모두 빼앗았다':'바람 원소 '+taken+'개 · '+(n-taken)+'개는 흡수됨',
    result:()=>({orbs:taken,hits:Math.min(hits,m.maxHits)})};
  },
- ANDRIUS_DODGE:(m,r)=>dodge(m,r,ANDRIUS_PATTERNS,{orbs:false,color:'#9fd8ef',backdrop:andriusBackdrop}),
+ ANDRIUS_DODGE:(m,r)=>dodge(m,r,ANDRIUS_PATTERNS,{orbs:false,color:'#9fd8ef',backdrop:andriusBackdrop,scene:'ANDRIUS'}),
  // 무상의 얼음: the cold core runs from the pointer and blinks away; the frost spikes beside it freeze the hand (원작: 도망치는 냉기 핵).
  CRYO_CHASE(m,r){
   const C={x:W/2,y:H/2,vx:120,vy:80,blink:0,next:1.7},spikes=[],marks=[];let hits=0,frozen=0,miss=0,spikeAt=.6,flash=0;const max=Math.max(1,Math.min(m.need||3,3));
@@ -334,9 +399,10 @@ const GAMES={
      if(!C.blink&&Math.hypot(C.x-tap.x,C.y-tap.y)<26){hits++;flash=.2;SND('puzzle_light');jump();}else miss=.25;}
    },
    over:()=>hits>=max,
-   draw(ctx,t){ctx.fillStyle='#08131a';ctx.fillRect(0,0,W,H);for(let i=0;i<18;i++){ctx.fillStyle='rgba(168,228,255,.06)';ctx.fillRect((i*97+t*20)%W,(i*53)%H,2,2);}
+   draw(ctx,t,phase){scene(ctx,'CRYO',.68);for(let i=0;i<18;i++){ctx.fillStyle='rgba(168,228,255,.06)';ctx.fillRect((i*97+t*20)%W,(i*53)%H,2,2);}
     for(const s of spikes){const a=Math.min(1,s.life*3);ctx.save();ctx.translate(s.x,s.y);ctx.globalAlpha=a;ctx.fillStyle='#cdefff';ctx.beginPath();for(let k=0;k<6;k++){const ang=k*TAU/6;ctx.lineTo(Math.cos(ang)*20,Math.sin(ang)*20);ctx.lineTo(Math.cos(ang+TAU/12)*7,Math.sin(ang+TAU/12)*7);}ctx.closePath();ctx.fill();ctx.restore();ctx.globalAlpha=1;}
-    if(C.blink)glow(ctx,C.x,C.y,40*(C.blink/.3),'rgba(168,228,255,.8)');else{glow(ctx,C.x,C.y,44,'rgba(120,200,255,.6)');ctx.save();ctx.translate(C.x,C.y);ctx.rotate(t*3);ctx.fillStyle=flash?'#fff':'#bfe9ff';ctx.beginPath();ctx.moveTo(0,-17);ctx.lineTo(12,0);ctx.lineTo(0,17);ctx.lineTo(-12,0);ctx.closePath();ctx.fill();ctx.restore();}
+    if(C.blink)glow(ctx,C.x,C.y,40*(C.blink/.3),'rgba(168,228,255,.8)');else{glow(ctx,C.x,C.y,44,'rgba(120,200,255,.6)');ctx.save();ctx.translate(C.x,C.y);ctx.rotate(t*3);ctx.fillStyle=flash?'#fff':'#bfe9ff';ctx.beginPath();ctx.moveTo(0,-17);ctx.lineTo(12,0);ctx.lineTo(0,17);ctx.lineTo(-12,0);ctx.closePath();ctx.fill();ctx.restore();tag(ctx,C.x,C.y-32,'냉기 핵',early(t,phase),'#e6f8ff');}
+    if(spikes[0])tag(ctx,spikes[0].x,spikes[0].y-28,'얼음 가시',early(t,phase),'#cdefff');
     for(const k of marks){ctx.strokeStyle='rgba(255,255,255,'+(1-k.life*2)+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(k.x,k.y,10+k.life*30,0,TAU);ctx.stroke();}
     if(frozen){ctx.fillStyle='rgba(168,228,255,'+(.18+frozen*.2)+')';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='bold 28px sans-serif';ctx.textAlign='center';ctx.fillText('얼어붙었다',W/2,40);}},
    hud:()=>'적중 '+hits+'/'+max,summary:()=>hits?'핵 적중 '+hits+'번':'놓쳤다',result:()=>({hits})};
@@ -350,11 +416,11 @@ const GAMES={
     for(const tap of inp.taps){if(left<=0)break;left--;let hit=null;if(!storm)for(const c of crystals)if(c.alive&&Math.hypot(body.x+c.ox-tap.x,body.y+c.oy-tap.y)<18){hit=c;break;}
      shots.push({...tap,life:0,miss:!hit,storm:!!storm});if(hit){hit.alive=false;hit.pop=.4;hits++;SND('puzzle_light');}else SND('error');}},
    over:()=>left<=0||crystals.every(c=>!c.alive),
-   draw(ctx,t){const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#14233a');g.addColorStop(1,'#0a121c');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+   draw(ctx,t,phase){scene(ctx,'DVALIN',.5);
     if(storm){ctx.strokeStyle='rgba(200,230,255,.35)';ctx.lineWidth=2;for(let i=0;i<14;i++){const y=(i*31+t*400)%H;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y-60);ctx.stroke();}}
     const b=body,flap=Math.sin(t*6)*18;ctx.save();ctx.translate(b.x,b.y);ctx.fillStyle='#2f6c7a';ctx.beginPath();ctx.moveTo(-20,-6);ctx.quadraticCurveTo(-150,-90-flap,-230,-10);ctx.quadraticCurveTo(-120,-10,-30,18);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(20,-6);ctx.quadraticCurveTo(150,-90-flap,230,-10);ctx.quadraticCurveTo(120,-10,30,18);ctx.closePath();ctx.fill();
      ctx.fillStyle='#3f8fa0';ctx.beginPath();ctx.ellipse(0,0,120,30,0,0,TAU);ctx.fill();ctx.beginPath();ctx.ellipse(132,-18,26,15,-.3,0,TAU);ctx.fill();ctx.fillStyle='#d8f6ff';ctx.beginPath();ctx.arc(142,-22,3,0,TAU);ctx.fill();ctx.restore();
-    for(const c of crystals){const x=b.x+c.ox,y=b.y+c.oy;if(c.alive){glow(ctx,x,y,28+Math.sin(t*7)*4,'rgba(197,140,255,.8)');ctx.fillStyle='#e0b3ff';ctx.beginPath();ctx.moveTo(x,y-13);ctx.lineTo(x+9,y);ctx.lineTo(x,y+13);ctx.lineTo(x-9,y);ctx.closePath();ctx.fill();}else if(c.pop)glow(ctx,x,y,50*(1-c.pop/.4)+10,'rgba(255,220,255,.9)',c.pop/.4);}
+    for(const c of crystals){const x=b.x+c.ox,y=b.y+c.oy;if(c.alive){glow(ctx,x,y,28+Math.sin(t*7)*4,'rgba(197,140,255,.8)');ctx.fillStyle='#e0b3ff';ctx.beginPath();ctx.moveTo(x,y-13);ctx.lineTo(x+9,y);ctx.lineTo(x,y+13);ctx.lineTo(x-9,y);ctx.closePath();ctx.fill();tag(ctx,x,y-24,'부식 결정',early(t,phase),'#f0d6ff');}else if(c.pop)glow(ctx,x,y,50*(1-c.pop/.4)+10,'rgba(255,220,255,.9)',c.pop/.4);}
     for(const s of shots){ctx.strokeStyle=s.miss?'rgba(255,140,140,'+(1-s.life/.6)+')':'rgba(255,255,255,'+(1-s.life/.6)+')';ctx.lineWidth=3;ctx.beginPath();ctx.arc(s.x,s.y,6+s.life*30,0,TAU);ctx.stroke();if(s.storm){ctx.fillStyle='#ffb0b0';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.fillText('빗나감',s.x,s.y-18);}}},
    hud:()=>'결정 '+hits+'/'+m.crystals+' · 남은 탄 '+left,summary:()=>hits?'결정 '+hits+'개 명중':'모두 빗나감',result:()=>({hits})};
  }};

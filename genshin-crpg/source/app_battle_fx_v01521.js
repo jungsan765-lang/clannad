@@ -93,18 +93,28 @@ function turnTo(frame,effects){
  if(!frame||frame.kind!=='action')return;
  // 0.15.25 (user: 「토끼백작 … 공격을 연속 세번 하노? 세 번 공격하게 되면 위에 X3 적혀있어야」): a summon's own action (토끼 백작's
  // blast at the start of a round) takes its place in the order list and lights up there; it has no fighter card to badge.
- if(String(frame.actorId||'').startsWith('SUMMON:')){const order=document.querySelector('.combat-panel .battle-order');if(order){followRound(order,frame.round);for(const li of order.querySelectorAll('li[data-actor-id]'))li.classList.toggle('current',li.dataset.actorId===frame.actorId);window.CRPGShell?.orderNow?.();}return;}
- if(frame.periodic||frame.sourceKind==='STATUS_APPLY')return;
+ if(String(frame.actorId||'').startsWith('SUMMON:')){const order=document.querySelector('.combat-panel .battle-order');if(order){followRound(order,frame.round);turnActor=frame.actorId;for(const li of order.querySelectorAll('li[data-actor-id]'))li.classList.toggle('current',li.dataset.actorId===frame.actorId);
+  // 0.16.58: a 토끼 백작 struck down bursts at once; its 「다음 라운드 · 폭발」 entry says what it does now.
+  const next=order.querySelector('li.next[data-actor-id="'+CSS.escape(frame.actorId)+'"]');if(next){next.classList.remove('next');const what=next.querySelector('.order-what');if(what)what.textContent=frame.cardName||'폭발';}
+  window.CRPGShell?.orderNow?.();}return;}
+ if(!turnFrame(frame))return;
  const row=effects?.actorNode?.(frame.actorId);if(!row?.classList?.contains('combatant-row'))return;
  const shell=window.CRPGShell;if(typeof shell?.turnBadge==='function')shell.turnBadge(row);
  const order=document.querySelector('.combat-panel .battle-order');
- if(order){followRound(order,frame.round);for(const li of order.querySelectorAll('li[data-actor-id]'))li.classList.toggle('current',li.dataset.actorId===frame.actorId);shell?.orderNow?.();}
+ turnActor=frame.actorId;if(order){followRound(order,frame.round);for(const li of order.querySelectorAll('li[data-actor-id]'))li.classList.toggle('current',li.dataset.actorId===frame.actorId);shell?.orderNow?.();}
 }
 // 0.15.21 (user: 「위에 적혀있는 순서가 공격 순서 아니야? 왜 누구는 그냥 넘어가는거야? 위에 적혀있는게 공격 순서였으면 좋겠다」):
 // the order is drawn anew every round, but the list on screen stayed the round the playback began in, so once the round
 // changed the mark jumped around it as if someone were skipped. When an action of a later round begins, the list becomes
 // that round's order: the battle's own order for the round it now stands in, otherwise the fighters as they act.
 let playFrames=[];
+// 0.16.58 (user: 「토끼백작이 너무 빨리 나오잖아 전체적으로 전투 순서부분에서 드러나는걸 좀 다 체크해봐 스킬별로 전부 다」): only a fighter's own
+// action takes the turn — the order's 현재, the big turn badge and the count beside the name. A field's tick, a reaction, a
+// follow-up (행추 · 북두 · 야란 · 한운 · 소 · 타르탈리아), a bubble (모나), a passive heal (진 · 치치 · 요요), a status landing on a foe and
+// a companion's blow in the hero's joint attack happen inside someone else's turn. The hero's minigame (BOSS_ARENA) is a turn.
+// A turn that only heals (바바라's 원소폭발) logs no card; it shows where the fighter's turn count went up (its turn began).
+const turnFrame=f=>!!f&&f.kind==='action'&&!f.periodic&&!String(f.actorId||'').startsWith('SUMMON:')&&(!Array.isArray(f.events)?f.sourceKind!=='STATUS_APPLY':f.events.some(e=>(!e.sourceKind||e.sourceKind==='BOSS_ARENA')&&(['damage','miss','immune','skill','guard'].includes(e.kind)||e.kind==='heal'&&(!!e.cardId||(e.presentationActorsAfter||[]).some(x=>x.id===f.actorId&&Object.hasOwn(x,'turns'))))));
+let turnActor=null;
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.play==='function'){const priorPlay=GameEffects.play;GameEffects.play=function(events,...rest){playFrames=Array.isArray(events)?events.filter(e=>e&&e.kind==='action'):[];return priorPlay.call(this,events,...rest);};}
 const summonActor=id=>String(id||'').startsWith('SUMMON:');
 function roundOrder(round){
@@ -113,11 +123,12 @@ function roundOrder(round){
  // Summons that act before anyone in the round (토끼 백작's blast) lead it.
  const lead=[];for(const f of frames){if(!summonActor(f.actorId))break;if(!lead.includes(f.actorId))lead.push(f.actorId);}
  if(b.round===round&&Array.isArray(b.order))return [...lead,...b.order.map(x=>x.id)];
- const ids=[];for(const f of frames)if(f.sourceKind!=='STATUS_APPLY'&&(!f.periodic||summonActor(f.actorId))&&!ids.includes(f.actorId))ids.push(f.actorId);
+ const ids=[];for(const f of frames)if((turnFrame(f)||summonActor(f.actorId))&&!ids.includes(f.actorId))ids.push(f.actorId);
  return ids;
 }
 // How many times each fighter acts in the round as played (a second action shows as ×2 beside the name).
-function roundTimes(round){const n={};for(const f of playFrames)if(f.round===round&&f.actorId&&f.sourceKind!=='STATUS_APPLY'&&(!f.periodic||summonActor(f.actorId)))n[f.actorId]=(n[f.actorId]||0)+1;return n;}
+// 0.16.58: counted by actions (a turn's beats share one action number), so a blow split over beats is not ×2.
+function roundTimes(round){const seen={};for(const f of playFrames)if(f.round===round&&f.actorId&&(turnFrame(f)||summonActor(f.actorId)))(seen[f.actorId]??=new Set()).add(summonActor(f.actorId)||!Number.isInteger(f.action)?f:f.action);const n={};for(const [id,set] of Object.entries(seen))n[id]=set.size;return n;}
 function summonEntry(b,id,frame){
  const li=document.createElement('li');li.className='summon '+(String(frame?.actorSide||'ALLY')==='ENEMY'?'enemy':'ally');li.dataset.actorId=id;
  const field=(b.fields||[]).find(f=>'SUMMON:'+f.kind+':'+f.actor===id),asset=field?.asset||({BUNNY:'summon_baron_bunny.webp'})[field?.kind||String(id).split(':')[1]];
@@ -132,7 +143,7 @@ function followRound(order,round){
  const items=[];
  for(const id of ids){
   if(summonActor(id)){const li=summonEntry(b,id,playFrames.find(f=>f.round===round&&f.actorId===id));const num=document.createElement('small');num.textContent=String(items.length+1);li.prepend(num);items.push(li);continue;}
-  const a=b.actors.find(x=>x.id===id);if(!a)continue;const li=document.createElement('li');li.className=(a.side==='ALLY'?'ally':'enemy')+(a.hp<=0?' down':'');li.dataset.actorId=a.id;
+  const a=b.actors.find(x=>x.id===id);if(!a)continue;const shown=window.ActorPlayback?.currentActor?.(a.id),hp=shown&&Number.isFinite(shown.hp)?shown.hp:a.hp;const li=document.createElement('li');li.className=(a.side==='ALLY'?'ally':'enemy')+(hp<=0?' down':'');li.dataset.actorId=a.id;
   const num=document.createElement('small');num.textContent=String(items.length+1);const name=document.createElement('span');name.textContent=typeof combatDisplayName==='function'?combatDisplayName(b,a):a.name;li.append(num);if(typeof battleOrderFace==='function')battleOrderFace(li,a);li.append(name);
   if(typeof battleOrderTimes==='function')battleOrderTimes(li,a);
   if((times[id]||0)>1&&!li.querySelector('.order-times')){const tag=document.createElement('small');tag.className='order-times';tag.textContent='×'+times[id];tag.title='이번 라운드에 '+times[id]+'번 행동';li.append(tag);}
@@ -140,6 +151,8 @@ function followRound(order,round){
  order.replaceChildren(...items);order.dataset.round=String(round);
  order.classList.remove('new-round');void order.offsetWidth;order.classList.add('new-round');
 }
+if(typeof GameEffects!=='undefined'&&typeof GameEffects.showAction==='function'){const priorShow=GameEffects.showAction;GameEffects.showAction=function(frame,...rest){const out=priorShow.call(this,frame,...rest);
+ try{if(frame?.kind==='action'&&turnActor&&!turnFrame(frame)&&!summonActor(frame.actorId))for(const li of document.querySelectorAll('.battle-order li[data-actor-id]'))li.classList.toggle('current',li.dataset.actorId===turnActor);}catch(e){console.warn('battle fx',e);}return out;};}
 if(typeof CombatFX!=='undefined'&&typeof CombatFX.windup==='function'){const priorWindup=CombatFX.windup;CombatFX.windup=function(frame,effects){try{turnTo(frame,effects);}catch(e){console.warn('battle fx',e);}return priorWindup.call(this,frame,effects);};}
 
 // ---- the cards ------------------------------------------------------------------------------------------------
