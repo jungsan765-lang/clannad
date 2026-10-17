@@ -29,12 +29,15 @@ const CLOCK_SHIFT=Date.parse('2026-10-07T12:00:00+09:00')-Date.now();
 const fixture=onlineFixture();await fixture.start();const INITIAL=fixture.read().state;// the new account as it starts (0.16.32 early views)
 const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[// 0.16.40: a computer's page is 1600×900
  // 0.16.41: a phone or a tablet shows the 1280×720 page (a phone reduces it to fit), looked at with touch.
- {name:'pc',width:1600,height:900},{name:'phone',width:1280,height:720},
+ // 0.16.60: a phone's page is 1280×640 (index.html), the tablet keeps 1280×720 (FIT_EXTRA).
+ {name:'pc',width:1600,height:900},{name:'phone',width:1280,height:640},
  // On demand (FIT_EXTRA=1): the 1280×720 page with a mouse, and the old small phone page (the install guide still uses it).
  ...(process.env.FIT_EXTRA?[{name:'tablet',width:1280,height:720},{name:'phone760',width:760,height:352}]:[])].filter(s=>!process.env.FIT_SIZE||process.env.FIT_SIZE===s.name);
 // A player well into the game: every companion, a full party, Mora, in Mondstadt.
-function playerState(){
- const r=new R(DB,JSON.parse(fixture.read().state));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});r.serverAdmin=true;
+// 0.16.60: from the account as it is now, or from a given one (the new account: the 5★ frame views come after views that leave
+// the account where its party cannot be set)
+function playerState(base){
+ const r=new R(DB,JSON.parse(base||fixture.read().state));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});r.serverAdmin=true;
  r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_CITY'});
  r.action('OPERATOR_DEBUG',{op:'recruit',char:'ALL'});r.action('OPERATOR_DEBUG',{op:'level',value:40});r.action('OPERATOR_DEBUG',{op:'mora',value:250000});
  for(const [slot,char] of [[2,'LIYUE_GANYU'],[3,'MOND_MONA'],[4,'LIYUE_BAIZHU']])try{r.action('PARTY',{slot,char});}catch(e){if(process.env.FIT_DEBUG)console.error('party',slot,char,e.message);}
@@ -84,6 +87,15 @@ const SCAN=()=>{
    const over=Math.max(r.bottom-b.bottom,r.right-b.right,b.top-r.top,b.left-r.left);
    if(over>1.5){out.push('cut '+name(e)+' «'+text(e)+'» by '+name(a)+' '+Math.round(over)+'px');break;}}
   if(out.length>before)cutOnes.push(e);}
+ // 0.16.60 (user: 「넘치는 곳 꼼꼼하게 잘 찾아봐야돼 이전에도 그거때문에 일부러 화면을 전체적으로 고치려다가 포기했잖아」): words or controls
+ // drawn over other words or controls — a level's condition ran into the next tab, a menu's last row into the bar under it, and no
+ // box hid them, so nothing above caught it. A piece placed on top on purpose (a badge, a count: positioned) and what a window covers
+ // (another layer) are not counted.
+ {const placed=e=>{for(let a=e,n=0;a&&a!==document.body&&n<3;a=a.parentElement,n++){const p=getComputedStyle(a).position;if(p==='absolute'||p==='fixed')return true;}return false;};
+  const layer=e=>{for(let a=e.parentElement;a&&a!==document.body;a=a.parentElement){if(a.matches('dialog,[popover],.fb-mini,.ch-overlay,.shell-scenery,.handbook'))return a;const p=getComputedStyle(a).position;if(p==='fixed'||p==='sticky')return a;}return document.body;};
+  const flow=reading.filter(e=>!cutOnes.includes(e)&&e.tagName!=='IMG'&&!placed(e)),rects=flow.map(e=>e.getBoundingClientRect()),layers=flow.map(layer);
+  for(let i=0;i<flow.length;i++)for(let j=i+1;j<flow.length;j++){const a=flow[i],b=flow[j];if(layers[i]!==layers[j]||a.contains(b)||b.contains(a))continue;const r=rects[i],q=rects[j];
+   const w=Math.min(r.right,q.right)-Math.max(r.left,q.left),h=Math.min(r.bottom,q.bottom)-Math.max(r.top,q.top);if(w>3&&h>3)out.push('overlap '+name(a)+' «'+text(a)+'» / '+name(b)+' «'+text(b)+'»');}}
  // 0.16.32 (user: 「개판인데? UI좀 잘 좀 보라고」 — a title squeezed to one letter a line, pages of two rows over empty room):
  // words squeezed into a column a letter or two wide, and a paged box whose page leaves more than a third of its room empty.
  for(const e of reading){if(cutOnes.includes(e))continue;const t=[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();if(t.length<4)continue;
@@ -181,7 +193,9 @@ try{
   for(const tab of await labels('.gear-member:not([hidden]) .gear-tab'))await view('character-'+tab,`(async()=>{await __go('STATUS');__tap('.gear-member:not([hidden]) .gear-tab',${JSON.stringify(tab)});})()`);
   // 0.16.55 (user: 「캐릭터 5성 돌파는 좀 더 멋있게 하자. 붉은색같은걸로 해서」 → 「지금 황금 테두리 씌워져있는거」): a 5★'s 운명의 자리 frame in crimson
   // (C6/C3/C1/C5 on the 5★s, a 4★ at C6 in gold beside them) on the party screen and the character screen.
-  if(!process.env.CI)for(const at of ['PARTY','STATUS'])await view('cons-frame-'+at.toLowerCase(),`(async()=>{await __go('${at}');const party=game.s.party.filter(p=>p.active&&p.source&&p.source!=='PLAYER_CUSTOM').map(p=>p.source),five=party.filter(id=>game.premiumRarity?.(id)>=5),four=party.filter(id=>!(game.premiumRarity?.(id)>=5));if(!five.length)throw Error('no 5★ in the party');const lv=[6,3,1,5];game.s.constellations={...(game.s.constellations||{})};five.forEach((id,k)=>game.s.constellations[id]=lv[k%4]);four.forEach(id=>game.s.constellations[id]=6);render();await new Promise(r=>setTimeout(r,300));if('${at}'==='STATUS'){const nm=game.premiumCharName?.(five[0])||'';[...document.querySelectorAll('.gear-cols .shell-roster-item')].find(b=>b.textContent.trim()===nm)?.click();await new Promise(r=>setTimeout(r,300));}if(!document.querySelector('.cons-frame[data-cons-tier=five]'))throw Error('no crimson frame');})()`);
+  // 0.16.60: the views before this one (on the computer, then on the phone) can leave the party without its 5★: the usual account again
+  if(!process.env.CI&&(!ONLY.length||ONLY.some(o=>o.startsWith('cons-frame')))){fixture.seed(playerState(INITIAL).s);await page.evaluate(()=>CRPGOnline.sync());await idle();}
+  if(!process.env.CI)for(const at of ['PARTY','STATUS'])await view('cons-frame-'+at.toLowerCase(),`(async()=>{await __go('${at}');/* 0.16.60: an earlier view (party-picker) may have swapped the party's 5★ out: put an owned one back for this look */const slot=game.s.party.find(p=>p.active&&p.source&&p.source!=='PLAYER_CUSTOM');if(slot&&!game.s.party.some(p=>p.active&&game.premiumRarity?.(p.source)>=5)){const own=game.rows('07_CHAR_DB').map(r=>r[0]).find(id=>game.premiumRarity?.(id)>=5&&game.premiumOwns?.(id)&&!game.s.party.some(p=>p.source===id));if(own)slot.source=own;}const party=game.s.party.filter(p=>p.active&&p.source&&p.source!=='PLAYER_CUSTOM').map(p=>p.source),five=party.filter(id=>game.premiumRarity?.(id)>=5),four=party.filter(id=>!(game.premiumRarity?.(id)>=5));if(!five.length)throw Error('no 5★ in the party · '+JSON.stringify(game.s.party.map(p=>[p.source,p.active,game.premiumRarity?.(p.source),game.premiumOwns?.(p.source)])));const lv=[6,3,1,5];game.s.constellations={...(game.s.constellations||{})};five.forEach((id,k)=>game.s.constellations[id]=lv[k%4]);four.forEach(id=>game.s.constellations[id]=6);render();await new Promise(r=>setTimeout(r,300));if('${at}'==='STATUS'){const nm=game.premiumCharName?.(five[0])||'';[...document.querySelectorAll('.gear-cols .shell-roster-item')].find(b=>b.textContent.trim()===nm)?.click();await new Promise(r=>setTimeout(r,300));}if(!document.querySelector('.cons-frame[data-cons-tier=five]'))throw Error('no crimson frame');})()`);
   // 0.16.31: the forge's enhance tab (who wears each piece in red) and its window with the one 「강화」 button.
   const forgeAt='(async()=>{if(game.s.placeVisit)await act(\'PLACE_LEAVE\',{});await __go(\'LOCATION\');const w=game.placeEntries().find(e=>/대장간/.test((e.name||\'\')+(e.facility||\'\')));if(w)await act(\'PLACE_ENTER\',{place:w.id});await new Promise(r=>setTimeout(r,250));[...document.querySelectorAll(\'.shell-worktabs button\')].find(b=>/강화/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,250));';
   await view('forge-enhance',forgeAt+'})()');

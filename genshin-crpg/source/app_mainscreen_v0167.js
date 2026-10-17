@@ -75,12 +75,16 @@ function pieces(node,room,out,wrap,lead){
    for(let i=0;i<tiles.length;i+=cols)out.push({nodes:tiles.slice(i,i+cols),wrap:[...wrap,k],lead});continue;}
   // 0.16.32 (user: 「자리는 많은데 굳이 … 버튼으로 두개씩만 보여주는건데?」): a list (not a card) is cut into its rows even when it is shorter
   // than a page, so the rows that fit fill the room left on this page instead of the whole list moving to the next.
-  const tall=k.getBoundingClientRect().height>room;
+  // 0.16.60: with its margins and the gap before it (a list 257px tall in 259px of room took 277px and pushed the page numbers out)
+  const kc=getComputedStyle(k),tall=k.getBoundingClientRect().height+(parseFloat(kc.marginTop)||0)+(parseFloat(kc.marginBottom)||0)+(parseFloat(getComputedStyle(node).rowGap)||0)>room;
   if(row.length===1&&(tall||eager&&k.children.length>1&&!k.matches(CARD))&&breakable(k,tall)&&!(k.tagName==='DETAILS'&&!k.open)){
    // 0.16.42 (user: 「이어져있지도 않고」 — a field commission's scene stood alone on its page): a card split across pages
    // carries its title on every page, also when a small label line comes before the title.
    const kids3=[...k.children].slice(0,3),head=isHead(k.firstElementChild)?k.firstElementChild:k.matches(CARD)?kids3.find(c=>/^H[2-4]$/.test(c.tagName))||null:null;
-   for(const p of pieces(k,room-(head?head.getBoundingClientRect().height:0),[],[...wrap,k],head?[...lead,head]:lead))if(!(p.nodes.length===1&&p.nodes[0]===head))out.push(p);
+   // 0.16.60 (the 1280×640 phone page: 지역 정보's list of foes went whole onto a page and pushed the page numbers out): the room
+   // inside a card is also short of the card's own padding and border, so a part that fills it is cut into its rows.
+   const ks=getComputedStyle(k),box=['paddingTop','paddingBottom','borderTopWidth','borderBottomWidth'].reduce((n,p)=>n+(parseFloat(ks[p])||0),0);
+   for(const p of pieces(k,room-(head?head.getBoundingClientRect().height:0)-box,[],[...wrap,k],head?[...lead,head]:lead))if(!(p.nodes.length===1&&p.nodes[0]===head))out.push(p);
    continue;}
   out.push({nodes:row,wrap,lead});
  }

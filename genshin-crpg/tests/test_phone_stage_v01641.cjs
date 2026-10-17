@@ -9,13 +9,13 @@ const css=src('screen_v01629.css');
 
 check('a phone draws the 1280×720 page with the computer\'s screens; only a computer chooses a zoom',()=>{
  const html=src('index.html');
- assert(html.includes('var SW=desk?1600:1280,SH=desk?900:720;'));
+ assert(html.includes('var SW=desk?1600:1280,SH=desk?900:phone?640:720;'),'0.16.60: a phone 1280×640, a tablet 1280×720');
  assert(html.includes("q.set('stage','pc');if(phone)q.set('display','app');"));
  assert(html.includes("if(desk)window.CRPGFrameZooms="));
  // the battle's fitting runs on every screen and no longer asks whether the phone is held sideways (inside the frame the
  // phone itself answers)
  const bl=src('app_battle_layout_v01522.js');assert(!bl.includes("(orientation:landscape) and (max-height:500px)"));assert(bl.includes('roomForParty(allies,floor);roomForEnemies(enemies,floor);'));
- const fit=src('tests/test_screen_fit_v01629.mjs');assert(fit.includes("{name:'pc',width:1600,height:900},{name:'phone',width:1280,height:720}"));
+ const fit=src('tests/test_screen_fit_v01629.mjs');assert(fit.includes("{name:'pc',width:1600,height:900},{name:'phone',width:1280,height:640}"));
 });
 
 check('a fighter\'s effects take two lines at most: what fits, then +N; the lines list them all',()=>{
@@ -47,7 +47,7 @@ check('no bar under the map with nothing chosen; the check catches anything show
 
 check('an update reloads the page the player opened, and a frame from an older release is redrawn once',()=>{
  const v=src('app_version.js');assert(v.includes('page=window.top.location')&&v.includes('page.replace(target.href);'));
- const html=src('index.html');assert(html.includes('window.CRPGFrameRev=2;'));assert(html.includes("window.parent.CRPGFrameRev!==2&&!sessionStorage.getItem('crpg-frame-heal')"));
+ const html=src('index.html');assert(html.includes('window.CRPGFrameRev=3;'));assert(html.includes("window.parent.CRPGFrameRev!==3&&!sessionStorage.getItem('crpg-frame-heal-3')"));
 });
 
 check('a place where stories are heard shows its building\'s name; Liyue\'s oculus is harder to catch',()=>{

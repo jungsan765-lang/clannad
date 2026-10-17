@@ -1842,3 +1842,43 @@ html.stage-pc body.teyvat .shell-loc-left .domain-gate-body{flex-wrap:wrap;row-g
 /* 0.16.59: a shut level's condition (「몬드 본편 2장」) ran into the next level's tab; the tab stays dim and the condition shows in the
    line above when that level is picked (domain-gate-lock), as the narrow column already does. */
 html.stage-pc body.teyvat .shell-loc-left .domain-stage small{display:none}
+/* 0.16.60 (user: 「지금 폰으로 하려니까 좀 너무 불편하다 … 화면좀 키워봐」, 「넘치는 곳 꼼꼼하게 잘 찾아봐야돼」): a phone's page is 1280×640
+   (index.html), 80px shorter than the tablet's. What did not fit in that height, found with the screen check at 1280×640, is
+   made to fit here; the computer (1600×900) and the tablet (1280×720) are not touched. */
+@media (max-height:680px){
+ /* 편성: the four cards were 75px taller than their column */
+ html.stage-pc body.teyvat .party-cols .formation-slot .party-portrait{height:96px!important}
+ html.stage-pc body.teyvat .party-cols .formation-slot{padding-top:6px;padding-bottom:6px;gap:5px}
+ html.stage-pc body.teyvat :where(#root) .party-cols .formation-slot .member-select{margin:4px 0!important;padding-top:6px!important}
+ html.stage-pc body.teyvat .party-cols .formation-slot .member-select>strong{margin:4px 0!important}
+ /* 캐릭터 → 운명의 자리: the line under the chosen star (where stars come from) was cut by up to 27px */
+ html.stage-pc body.teyvat .gear-pane-cons .cons-chart{height:88px}
+ html.stage-pc body.teyvat :where(#root) .gear-pane-cons .cons-chart>button.cons-node{width:36px;height:36px;top:clamp(19px,var(--y),calc(100% - 19px))}
+ /* 가방: the item card's last button (「상점에 올리기」) was 26px below the card: the gaps between its lines are smaller */
+ html.stage-pc body.teyvat section.card.bag-detail>.item-effect{margin-top:2px}
+ html.stage-pc body.teyvat :where(#root) section.card.bag-detail>button.fit-more{margin:2px 0}
+ html.stage-pc body.teyvat section.card.bag-detail>.item-use-targets{margin:3px 0}
+ html.stage-pc body.teyvat :where(#root) section.card.bag-detail>button.primary{margin:3px 0;min-height:32px}
+ html.stage-pc body.teyvat section.card.bag-detail>.choice-note{margin:2px 0}
+ html.stage-pc body.teyvat :where(#root) section.card.bag-detail>button.trade-bag-add{margin:3px 0 0}
+ /* 전투 결과 (비경 · 보스): 「다시 도전」·「메인 화면으로」 were 80px below the window — the banner and the space between parts are smaller */
+ html.stage-pc body.teyvat :where(#root) section.panel.shell-result{padding-top:10px;padding-bottom:12px;gap:8px}
+ html.stage-pc body.teyvat :where(#root) section.panel.shell-result>.shell-result-banner{padding:4px 0 8px}
+ html.stage-pc body.teyvat :where(#root) section.panel.shell-result>.shell-result-banner>h1{font-size:2rem;line-height:1.15}
+ html.stage-pc body.teyvat :where(#root) .shell-result-body>.reward-preview{margin-top:6px}
+ html.stage-pc body.teyvat :where(#root) .shell-result-body>.fatigue-strip{margin-top:6px}
+ html.stage-pc body.teyvat :where(#root) .shell-result-body>.quick-meal{margin-top:6px}
+ html.stage-pc body.teyvat :where(#root) .shell-result-body>.actions.result-retry:empty{margin:0}
+ /* 메뉴: four rows of tiles and the two rows of buttons under them overlapped by a row's label */
+ html.stage-pc body.teyvat .pm-grid{gap:8px;grid-template-columns:repeat(4,minmax(0,1fr))}
+ html.stage-pc body.teyvat .pm-tile{min-height:92px;padding:8px 8px;gap:6px}
+ /* 임무 → 진행 중: two of its sections were 3px too tall for one page, so each page held one over an empty half */
+ html.stage-pc body.teyvat .shell-col-main section.journal-section>div:first-child{margin-bottom:8px}
+ html.stage-pc body.teyvat .shell-col-main section.journal-section>p{margin:6px 0}
+ /* 리월 세부 지역: 27 places took three pages, the last holding one place in an empty window */
+ html.stage-pc body.teyvat .liyue-area-browser .liyue-area-group>h3{margin:6px 0 4px}
+ html.stage-pc body.teyvat .liyue-area-browser .liyue-browse-grid{padding:4px 8px}
+ html.stage-pc body.teyvat :where(#root,#modal) .liyue-area-browser button.liyue-browse-place{padding:4px 10px;min-height:0}
+ /* 비경 카드 (잊혀진 협곡 Lv.25, 「도전」 on its own row): the left column was 2px too short */
+ html.stage-pc body.teyvat .shell-loc-left .domain-gate-body{row-gap:4px}
+}

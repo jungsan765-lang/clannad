@@ -41,7 +41,7 @@ check('hidden oculi: no banner or card gives them away; they glint only inside �
 // 0.16.29 replaced the window-following frame with a fixed one (user: 「화면을 완전히 고정시켜버려」).
 check('PC frame: one fixed page size (1600x900 on a computer, 1280x720 on a tablet or an installed phone), 화면 배율 only zooms',()=>{
  const html=src('index.html'),shell=src('app_shell.js');
- assert(html.includes('var SW=desk?1600:1280,SH=desk?900:720;'),'the page sizes');
+ assert(html.includes('var SW=desk?1600:1280,SH=desk?900:phone?640:720;'),'the page sizes');
  assert(html.includes("if(desk)window.CRPGFrameZooms="),'only a computer chooses a zoom');
  assert(html.includes("ZOOM={'75':.6,'100':.8,'125':1,'150':1.2}")&&html.includes("ZOOM[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||auto()")&&html.includes("JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale"),'reads the zoom setting');
  assert(html.includes('window.CRPGFrameFit='),'the setting refits at once');

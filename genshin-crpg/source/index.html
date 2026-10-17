@@ -13,7 +13,7 @@
    so nothing in it ever moves, wraps or changes size with the window:
     - a computer: 1600×900 (0.16.40; 설정 → 화면 배율 75/100/125/150%, 125% = its own size). A smaller window gets scroll bars around the game,
       like KanColle; a larger one shows it in the middle. The browser's own zoom (Ctrl +/−) still works.
-    - an installed phone (or ?display=app): 1280×720 like a tablet (0.16.41; 760×352 before), reduced once to fit the screen
+    - an installed phone (or ?display=app): 1280×640 (0.16.60; 1280×720 like a tablet in 0.16.41, 760×352 before), reduced once to fit the screen
       inside its safe area. The keyboard never shrinks it: the game only slides up so the box being typed in stays above it.
     - a tablet: 1280×720, enlarged or reduced once to fill the screen.
    Inside the frame the page sees an ordinary window of that size, so media queries, units, dialogs and clicks work as on
@@ -32,7 +32,7 @@
    try{var top=window.top,own=window.matchMedia.bind(window),theirs=top.matchMedia.bind(top);window.matchMedia=function(s){return /display-mode|orientation/.test(String(s))?theirs(s):own(s);};}catch(e){}
    // 0.16.41: a frame drawn by an older release (an update that reloaded only this page kept the phone at 760×352) is
    // reloaded once, so it frames this release at its own size.
-   try{if(window.parent.CRPGFrameHost&&window.parent.CRPGFrameRev!==2&&!sessionStorage.getItem('crpg-frame-heal')){sessionStorage.setItem('crpg-frame-heal','1');window.parent.location.reload();}}catch(e){}
+   try{if(window.parent.CRPGFrameHost&&window.parent.CRPGFrameRev!==3&&!sessionStorage.getItem('crpg-frame-heal-3')){sessionStorage.setItem('crpg-frame-heal-3','1');window.parent.location.reload();}}catch(e){}
    return;
   }
   if(q.get('frame')==='0'||navigator.webdriver)return;
@@ -45,10 +45,13 @@
   // 25% larger (every letter and button grew with it, like a phone). A tablet keeps 1280×720.
   // 0.16.41 (user: 「휴대폰도 크기에 맞춰서 가두던가... 칸코레도 그렇게 하고 있잖아」): a phone shows the tablet's 1280×720 page
   // reduced to fit, like KanColle — the same screens as a computer, no separate small-screen layout to cut cards.
-  var SW=desk?1600:1280,SH=desk?900:720;
+  // 0.16.60 (user: 「지금 폰으로 하려니까 좀 너무 불편하다 … 화면좀 키워봐」, 「너무 크게 키울 필요 없어」): a phone held sideways is about
+  // 2.1:1, so the 16:9 page left bars at both sides and was drawn small. A phone's page keeps the width and is 1280×640 (2:1):
+  // the same screens about 12% larger. A tablet keeps 1280×720.
+  var SW=desk?1600:1280,SH=desk?900:phone?640:720;
   q.set('frame','inner');q.set('stage','pc');if(phone)q.set('display','app');
   var src=location.pathname+'?'+q.toString()+location.hash;
-  window.CRPGFrameRev=2;// 0.16.41: phones framed at 1280×720 (read by the page inside)
+  window.CRPGFrameRev=3;// 0.16.60: phones framed at 1280×640 (0.16.41: 1280×720; read by the page inside)
   window.CRPGFrameHost=function(){
    var d=document,f=d.getElementById('crpg-frame'),safe=d.getElementById('crpg-safe');if(!f)return;
    f.src=src;f.style.width=SW+'px';f.style.height=SH+'px';
