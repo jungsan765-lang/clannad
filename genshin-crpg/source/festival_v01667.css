@@ -223,6 +223,7 @@ body .fe-paid-cell .fe-ic{width:40px;height:40px}
 /* the minigame window */
 .fg-overlay{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:14px;background:rgba(4,6,12,.86);opacity:0;transition:opacity .15s;color:#f6eddc;word-break:keep-all}
 .fg-overlay.open{opacity:1}
+.fg-overlay:focus{outline:none}
 .fg-box{width:min(1180px,100%);height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:8px}
 .fg-top{display:flex;align-items:center;gap:14px;padding:6px 6px}
 .fg-title{font:700 1.4rem 'Gowun Batang',serif;margin-right:auto}

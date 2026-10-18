@@ -77,6 +77,8 @@ function shell(job,opts,title){
  const stage=mk('div','fg-stage'),canvas=mk('canvas','fg-canvas'),bar=mk('div','fg-bar'),panel=mk('div','fg-panel');panel.hidden=true;
  const dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=W*dpr;canvas.height=H*dpr;const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
  stage.append(canvas,panel);box.append(top,stage,bar);wrap.append(box);(opts.parent||document.body).append(wrap);requestAnimationFrame(()=>wrap.classList.add('open'));
+ // the keys go to this window (Esc leaves the game, not the festival window behind it)
+ wrap.tabIndex=-1;try{wrap.focus({preventScroll:true});}catch{}
  const ui={wrap,canvas,ctx,bar,panel,alive:true,score:n=>{score.textContent=fmt(n);},time:t=>{time.textContent=t;},
   pos(e){const r=canvas.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*W,y:(e.clientY-r.top)/r.height*H};},
   destroy(){ui.alive=false;for(const f of ui.offs)try{f();}catch{}wrap.remove();},offs:[],
@@ -157,7 +159,7 @@ function snowball(job,opts){
   if(hidden){ctx.fillStyle='rgba(40,60,90,.75)';ctx.font='700 16px sans-serif';ctx.fillText('숨는 중',W/2,H-24);}
   else if(t0&&!ui.ended&&t>=sim.stun&&t-lastThrow>=R.cooldown){ctx.fillStyle='rgba(40,60,90,.55)';ctx.font='600 13px sans-serif';ctx.fillText('던질 수 있음',W/2,H-20);}
   if(said&&t-said.at<1800)bubble(ctx,said.x,said.y,said.who,said.text,clamp((1800-(t-said.at))/300,0,1),260);
-  if(t0&&t>=R.ms&&!ui.ended){ui.send(inputs.slice(),o=>'맞힌 사람 '+(o.detail?.hits??0)+'명 · 점수 '+fmt(o.score),o=>[['최고 연속',(o.detail?.bestCombo||0)+'번'],['선물 상자',(o.detail?.gifts||0)+'개'],['눈꽃 피버',(o.detail?.fevers||0)+'번'],['진 단장',(o.detail?.jeans||0)+'번 맞힘']]);hide(false);}
+  if(t0&&t>=R.ms&&!ui.ended){ui.send(inputs.slice(),o=>'맞힌 사람 '+(o.detail?.hits??0)+'명 · 점수 '+fmt(o.score),o=>[['최고 연속',(o.detail?.bestCombo||0)+'번'],['보물상자',(o.detail?.gifts||0)+'개'],['눈꽃 피버',(o.detail?.fevers||0)+'번'],['진 단장',(o.detail?.jeans||0)+'번 맞힘']]);hide(false);}
   raf=requestAnimationFrame(frame);
  }
  ui.offs.push(()=>cancelAnimationFrame(raf));frame();countdown(ui,()=>{t0=performance.now();});
