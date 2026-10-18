@@ -400,3 +400,111 @@ if(old.storyChapterEntries)P.storyChapterEntries=function(...a){return (old.stor
 // Amber hint beside it (app_tasks_v0167.js) point at 의뢰 접수 연습 instead.
 P.beginnerV01664=true;
 })(globalThis);
+// 0.16.66 운영자 이벤트 (user, 2026-10-18: 「중반 재료 벽을 오히려 이벤트같은곳에서 뿌려주면 되겠지. 한번 운영자 이벤트 아이디어좀 생각해서
+// 만들어봐」; battles, travel and cooking stay as they are — the events give more reason to go out). The operator opens an event for
+// some days (server/op-events-v01666.mjs); the account server hands the open ones to the engine with each action (env.OP_EVENTS →
+// r.opServerEvents; the browser shows them from /events through root.CRPGOpEventsList). Four kinds:
+//  - LEY_DOUBLE 지맥 보상 2배: a ley line blossom pays twice, three times a Korean day.
+//  - DOMAIN_SUPPLY 비경 보급: the day's doubled material domain wins go from three to six.
+//  - BOSS_DOUBLE 강적 토벌 보상 2배: a field boss or daily boss win pays its items and Mora twice, three times a day.
+//  - FESTIVAL 축제 교환: wins, gathering, region events and commissions give 「축제 증표」, traded for growth materials (each with a limit).
+// The save keeps s.opEvent {v:1, day, uses:{LEY_DOUBLE,BOSS_DOUBLE}, fest:{id,tokens,earned,bought}}; the tokens of an event end with it.
+(function(root){
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.opEventsV01666)return;
+const old=Object.fromEntries(['finishBattle','apply','actionReason','validateSave','growthDomainRewards'].map(k=>[k,P[k]]));
+const fail=(c,m)=>{throw new api.RuleError(c,m);},int=n=>Number.isSafeInteger(n)&&n>=0,own=(o,k)=>typeof k==='string'&&Object.prototype.hasOwnProperty.call(o,k);
+const DAY=86400000,KST=9*3600000,dayOf=t=>Math.floor((Number(t)+KST)/DAY);
+const KINDS={
+ LEY_DOUBLE:{name:'지맥 보상 2배',text:'지맥의 꽃 보상을 하루 3번까지 두 배로 받습니다.',daily:3},
+ DOMAIN_SUPPLY:{name:'비경 보급',text:'돌파·특성 비경의 재료 2배가 하루 3판에서 6판으로 늘어납니다.',daily:6},
+ BOSS_DOUBLE:{name:'강적 토벌 보상 2배',text:'필드 보스·일일 보스를 이기면 보상을 하루 3번까지 두 배로 받습니다.',daily:3},
+ FESTIVAL:{name:'축제 교환',text:'전투에서 이기고, 채집하고, 지역 사건과 의뢰를 마치면 「축제 증표」를 받습니다. 교환소에서 성장 재료로 바꿉니다.'}
+};
+const TOKENS={win:2,life:1,event:5,commission:5};
+const ELEMENTS=['PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO','NEUTRAL'],BOOKS=['FREEDOM','RESISTANCE','BALLAD','PROSPERITY','DILIGENCE','GOLD'];
+const SHOP=[
+ {key:'GEM_2',pick:'element',cost:20,limit:10,item:c=>'GROWTH_GEM_'+c+'_2'},
+ {key:'GEM_3',pick:'element',cost:60,limit:4,item:c=>'GROWTH_GEM_'+c+'_3'},
+ {key:'BOOK_2',pick:'book',cost:20,limit:10,item:c=>'GROWTH_BOOK_'+c+'_2'},
+ {key:'BOOK_3',pick:'book',cost:60,limit:4,item:c=>'GROWTH_BOOK_'+c+'_3'},
+ {key:'BOSS',pick:'boss',cost:80,limit:2,item:c=>c},
+ {key:'HERO',cost:15,limit:20,item:()=>'MAT_CHAR_EXP_HERO'},
+ {key:'MORA',cost:10,limit:20,mora:5000}
+];
+const SHOP_BY=new Map(SHOP.map(x=>[x.key,x]));
+const nowOf=rt=>Number(rt.actionStartedAt??Date.now());
+P.opEvents=function(){
+ const list=Array.isArray(this.opServerEvents)?this.opServerEvents:Array.isArray(root.CRPGOpEventsList)?root.CRPGOpEventsList:[],t=nowOf(this);
+ return list.filter(e=>e&&own(KINDS,e.kind)&&typeof e.id==='string'&&Number(e.startsAt)<=t&&t<Number(e.endsAt)).map(e=>({id:e.id,kind:e.kind,startsAt:Number(e.startsAt),endsAt:Number(e.endsAt),...KINDS[e.kind]}));
+};
+P.opEvent=function(kind){return this.opEvents().find(e=>e.kind===kind)||null;};
+// today's record (a new Korean day starts the counts again)
+function rec(rt){const s=rt.s,day=dayOf(nowOf(rt));let o=s.opEvent;if(!o||o.v!==1)o=s.opEvent={v:1,day,uses:{}};if(o.day!==day){o.day=day;o.uses={};}return o;}
+P.opEventUsesLeft=function(kind){const e=this.opEvent(kind);if(!e||!e.daily)return 0;const o=this.s?.opEvent,day=dayOf(nowOf(this)),used=o?.v===1&&o.day===day?Number(o.uses?.[kind])||0:0;return Math.max(0,e.daily-used);};
+const take=(rt,kind)=>{const o=rec(rt);o.uses[kind]=(Number(o.uses[kind])||0)+1;return o.uses[kind];};
+// ---- 축제 교환 ----
+function fest(rt,create){const e=rt.opEvent('FESTIVAL');if(!e)return null;const o=create?rec(rt):rt.s?.opEvent;if(!o)return {id:e.id,tokens:0,earned:0,bought:{}};if(!o.fest||o.fest.id!==e.id){if(!create)return {id:e.id,tokens:0,earned:0,bought:{}};o.fest={id:e.id,tokens:0,earned:0,bought:{}};}return o.fest;}
+function earn(rt,n){if(!(n>0))return 0;const f=fest(rt,true);if(!f)return 0;f.tokens+=n;f.earned+=n;return n;}
+P.festivalShop=function(){
+ const f=fest(this,false);if(!f)return null;const items=this.tables['14_ITEM_DB'];
+ const choices={element:ELEMENTS.filter(e=>items.has('GROWTH_GEM_'+e+'_2')),book:BOOKS.filter(k=>items.has('GROWTH_BOOK_'+k+'_2')),boss:[...items.keys()].filter(id=>/^MAT_FB_/.test(id))};
+ return {event:f.id,tokens:f.tokens,earned:f.earned,earn:{...TOKENS},items:SHOP.map(x=>({key:x.key,pick:x.pick||null,choices:x.pick?choices[x.pick]:null,cost:x.cost,limit:x.limit,bought:Number(f.bought[x.key])||0,mora:x.mora||0,item:x.pick?null:x.item?.()||null}))};
+};
+function exchangeReason(rt,a){
+ if(rt.s?.runtime)return '전투를 마친 뒤 교환해 주세요.';const e=rt.opEvent('FESTIVAL');if(!e)return '열린 축제 교환이 없습니다.';if(a?.event!==e.id)return '이벤트가 바뀌었습니다. 다시 열어 주세요.';
+ const x=typeof a?.item==='string'&&SHOP_BY.get(a.item);if(!x)return '교환할 물건을 골라 주세요.';const shop=rt.festivalShop(),row=shop.items.find(i=>i.key===x.key);
+ if(x.pick&&!(typeof a.choice==='string'&&row.choices.includes(a.choice)))return '받을 종류를 골라 주세요.';
+ const n=a.n===undefined?1:a.n;if(!Number.isSafeInteger(n)||n<1)return '교환할 수량을 골라 주세요.';if(row.bought+n>x.limit)return '이번 이벤트에서 더 바꿀 수 없습니다.';if(shop.tokens<x.cost*n)return '축제 증표가 모자랍니다.';
+ return '';
+}
+P.actionReason=function(type,a={},...rest){if(type==='EVENT_EXCHANGE')return exchangeReason(this,a);return old.actionReason.call(this,type,a,...rest);};
+// ---- 비경 보급: the doubled material wins of the day go to six ----
+P.growthDomainRewards=function(d,element,...rest){
+ const out=old.growthDomainRewards.call(this,d,element,...rest);if(!out||out.bonus||!d||d.kind==='EXP'||!this.opEvent('DOMAIN_SUPPLY'))return out;
+ const day=rest[0]??dayOf(nowOf(this)),wins=this.s?.domainDaily?.day===day?Number(this.s.domainDaily.wins)||0:0;if(wins<3||wins>=6)return out;
+ const items={};for(const [id,n] of Object.entries(out.items||{}))items[id]=n*2;return {...out,items,bonus:true,opEvent:'DOMAIN_SUPPLY'};
+};
+// ---- results: 2배 and tokens ----
+const NOT_DOUBLED=id=>/^MAT_CHAR_EXP_/.test(id);// books from the level cap (spillXp) are not a reward of the fight
+P.finishBattle=function(victory,...rest){
+ const b=this.s?.runtime,out=old.finishBattle.call(this,victory,...rest);if(!out||typeof out!=='object'||!b||!victory||b.storyConfig?.noRewards)return out;
+ const tags=[];let changed=false;
+ if(out.leyLine?.claimed&&this.opEvent('LEY_DOUBLE')&&this.opEventUsesLeft('LEY_DOUBLE')>0){
+  const books=out.leyLine.books||{};out.loot=out.loot&&typeof out.loot==='object'?out.loot:{};for(const [id,n] of Object.entries(books)){this.giveItem(id,n);out.loot[id]=(out.loot[id]||0)+n;}
+  const mora=Number(out.leyLine.mora)||0;if(mora){this.s.global.MORA+=mora;out.mora=(Number(out.mora)||0)+mora;}
+  const used=take(this,'LEY_DOUBLE');tags.push({kind:'LEY_DOUBLE',name:KINDS.LEY_DOUBLE.name,used,limit:KINDS.LEY_DOUBLE.daily});changed=true;}
+ const boss=!!(b.fieldBoss||b.twinBoss||b.rematch||String(b.origin||'').startsWith('MATERIAL_CHALLENGE:'));
+ if(boss&&this.opEvent('BOSS_DOUBLE')&&this.opEventUsesLeft('BOSS_DOUBLE')>0){
+  const spill=out.xpBooks||{},extra={};for(const [id,n] of Object.entries(out.loot||{})){const real=n-(Number(spill[id])||0);if(real>0&&!NOT_DOUBLED(id)&&this.tables['14_ITEM_DB'].has(id))extra[id]=real;}
+  const mora=Number(out.mora)||0;if(Object.keys(extra).length||mora>0){for(const [id,n] of Object.entries(extra)){this.giveItem(id,n);out.loot[id]+=n;}if(mora){this.s.global.MORA+=mora;out.mora=mora*2;}
+   const used=take(this,'BOSS_DOUBLE');tags.push({kind:'BOSS_DOUBLE',name:KINDS.BOSS_DOUBLE.name,used,limit:KINDS.BOSS_DOUBLE.daily});changed=true;}}
+ if(out.domain?.bonus&&this.opEvent('DOMAIN_SUPPLY')){const wins=Number(this.s.domainDaily?.wins)||0;if(wins>3&&wins<=6){tags.push({kind:'DOMAIN_SUPPLY',name:KINDS.DOMAIN_SUPPLY.name,used:wins,limit:6});changed=true;}}
+ const got=earn(this,TOKENS.win);if(got){out.festivalTokens=(Number(out.festivalTokens)||0)+got;changed=true;}
+ if(changed){if(tags.length)out.opEvents=tags;const key=out.battleId||out.id||b.id;if(key&&this.s.combatReceipts?.[key])this.s.combatReceipts[key]=JSON.parse(JSON.stringify(out));this.s.global.LAST_BATTLE_RESULT_JSON=JSON.stringify(out);}
+ return out;
+};
+// ---- tokens for gathering, region events and commissions (counted from the save before and after the action) ----
+function counts(rt){const s=rt.s;if(!s)return null;let life=0,commissions=0;try{const st=rt.achievementStats?.(false);for(const n of Object.values(st?.life||{}))life+=Number(n)||0;}catch{}
+ for(const [id,q] of Object.entries(s.quests||{}))if(q?.claimed){let c=false;try{c=rt.isCommission?.(id);}catch{}if(c)commissions++;}
+ return {life,events:Number(s.regionEvents?.count)||0,commissions};}
+P.apply=function(a,...rest){
+ if(a?.type==='EVENT_EXCHANGE'){const why=exchangeReason(this,a);if(why)fail('EVENT_EXCHANGE',why);
+  const x=SHOP_BY.get(a.item),n=a.n===undefined?1:a.n,f=fest(this,true),got={};f.tokens-=x.cost*n;f.bought[x.key]=(Number(f.bought[x.key])||0)+n;
+  if(x.mora){this.s.global.MORA+=x.mora*n;}else{const id=x.item(a.choice);this.giveItem(id,n);got[id]=n;}
+  return {type:'EVENT_EXCHANGE',event:f.id,item:x.key,choice:a.choice||null,n,items:got,mora:x.mora?x.mora*n:0,tokens:f.tokens};}
+ const fe=this.s?.runtime?null:this.opEvent('FESTIVAL'),before=fe?counts(this):null,out=old.apply.call(this,a,...rest);
+ if(fe&&before&&this.s&&!this.s.runtime){const after=counts(this),n=Math.max(0,after.life-before.life)*TOKENS.life+Math.max(0,after.events-before.events)*TOKENS.event+Math.max(0,after.commissions-before.commissions)*TOKENS.commission;
+  const got=earn(this,n);if(got&&out&&typeof out==='object')out.festivalTokens=(Number(out.festivalTokens)||0)+got;}
+ return out;
+};
+P.validateSave=function(s,...rest){
+ const out=old.validateSave.call(this,s,...rest)||s,o=out?.opEvent;
+ if(o!==undefined){const bad=!o||typeof o!=='object'||Array.isArray(o)||o.v!==1||!Number.isSafeInteger(o.day)||!o.uses||typeof o.uses!=='object'||Array.isArray(o.uses)
+  ||Object.entries(o.uses).some(([k,n])=>!own(KINDS,k)||!int(n)||n>(KINDS[k].daily||0))
+  ||(o.fest!==undefined&&(!o.fest||typeof o.fest.id!=='string'||!int(o.fest.tokens)||!int(o.fest.earned)||o.fest.tokens>o.fest.earned||!o.fest.bought||typeof o.fest.bought!=='object'||Object.entries(o.fest.bought).some(([k,n])=>!SHOP_BY.has(k)||!int(n)||n>SHOP_BY.get(k).limit)));
+  if(bad)fail('OP_EVENT_SAVE','이벤트 기록이 올바르지 않습니다.');}
+ return out;
+};
+api.opEventsV01666={version:1,kinds:JSON.parse(JSON.stringify(KINDS)),tokens:{...TOKENS},shop:SHOP.map(x=>({key:x.key,pick:x.pick||null,cost:x.cost,limit:x.limit,mora:x.mora||0}))};
+P.opEventsV01666=true;
+})(globalThis);

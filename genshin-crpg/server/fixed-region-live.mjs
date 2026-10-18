@@ -11,6 +11,7 @@ import {AdminConsole,installAdminSchema,banOf,banMessage,SYSTEM_ACCOUNT} from '.
 import {installSocialSchema,migrateRankingSeasons,socialMethods,socialRoute} from './social-v01415.mjs';
 import {installLetterSchema,letterMethods,letterRoute} from './letters-v0151.mjs';
 import {installRaidSchema,raidMethods,raidRoute} from './raid-v0152.mjs';
+import {installOpEventSchema,opEventMethods,opEventRoute} from './op-events-v01666.mjs';
 import {installCoopSchema,coopMethods,coopRoute} from './coop-v0153.mjs';
 import {AdminBalanceStore} from './admin-balance.mjs';
 import {ServerGate} from './gate-v01661.mjs';
@@ -95,7 +96,7 @@ export class LiveRegionStore{
   this.db.exec(pragmas+ddl);installAdminSchema(this.db);this.balance=new AdminBalanceStore(this);migrateRankingSeasons(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
-  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);installCoopSchema(this.db,this.features);migrateHeroNames(this.db);
+  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);installOpEventSchema(this.db);installCoopSchema(this.db,this.features);migrateHeroNames(this.db);
   this.heartbeat=setInterval(()=>{this.pruneStreams();this.push(': ping\n\n');},25000);this.heartbeat.unref?.();
   this.pruneEphemeral();this.maintenance=setInterval(()=>{try{this.pruneEphemeral();}catch{console.error('CRPG ephemeral cleanup failed; retrying next minute.');}},EPHEMERAL_SWEEP_MS);this.maintenance.unref?.();
  }
@@ -307,7 +308,7 @@ export class LiveRegionStore{
     // 0.15.4: the cached runtime works on a copy of its state, so a refused action puts the copy back instead of throwing
     // the cache away (building a runtime from the save costs about a quarter of a second; user: 「장비 장착할때 렉이」).
     const warm=entry?.r||null,pristine=warm?warm.s:null;if(warm){warm.s=structuredClone(pristine);refused={warm,pristine};}
-    const row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at},env={ADMIN_ACCOUNT_IDS:[...this.admins].join(','),RAID_EVENT:this.raidActive?.()||null};
+    const row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at},env={ADMIN_ACCOUNT_IDS:[...this.admins].join(','),RAID_EVENT:this.raidActive?.()||null,OP_EVENTS:this.opEventsActive?.()||[]};
     const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm,this.coopContextFor?.(a.id,{self:true})||null,this.runtimeFactory.bind(this));if(inOthersFight&&r.s.runtime&&!before.has('["runtime","id"]'))throw Object.assign(err(409,'함께 싸우는 동안에는 새 전투를 시작할 수 없습니다. 그 전투가 끝난 뒤 다시 해 주세요.','COOP_BUSY'),{outcome:'REJECTED'});compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
     const d=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()},payload=b.responseMode==='state-parts-v1'?{...this.envelope(a,next,result,after),baseRevision:m.revision,statePatch:publicWirePatch(before,after,d)}:this.output(a,next,after,result);
     persistence=true;const ps=performance.now(),del=this.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
@@ -320,7 +321,7 @@ export class LiveRegionStore{
  ranking(){const S=globalThis.CRPGRuntime?.abyssSeason,cur=this.seasonNow(),prev=S?.previous(cur),top=season=>this.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').all(season).map((r,i)=>({rank:i+1,...r}));return {season:cur,label:S?.label(cur)||cur,endsAt:S?.end(cur)||null,entries:top(cur),previous:prev?{season:prev,label:S.label(prev),entries:top(prev)}:null};}
 }
 
-Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods,raidMethods,coopMethods);
+Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods,raidMethods,coopMethods,opEventMethods);
 
 export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop',adminConsole=null}){
  // 0.16.61: the server's gate (server/gate-v01661.mjs): the operator's open/closed, a full server, a busy server.
@@ -359,6 +360,8 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    const letters=await letterRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(letters!==undefined)return send(res,200,letters,c);
    // 0.15.2 공동 토벌전 (server/raid-v0152.mjs).
    const raid=await raidRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(raid!==undefined)return send(res,200,raid,c);
+   // 0.16.66: the operator's open events (op-events-v01666.mjs)
+   const opEvents=await opEventRoute(store,a,path,req);if(opEvents!==undefined)return send(res,200,opEvents,c);
    // 0.15.3 다인 모드 (server/coop-v0153.mjs).
    const coop=await coopRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(coop!==undefined)return send(res,200,coop,c);
    return send(res,404,{error:'지원하지 않는 요청입니다.'},c);

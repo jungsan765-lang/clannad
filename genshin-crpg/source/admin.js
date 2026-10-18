@@ -11,7 +11,7 @@ const A={token:'',admin:'',server:null,catalog:null,tab:'accounts',account:null,
 try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(s&&/^[a-f0-9]{64}$/.test(s.token||'')){A.token=s.token;A.admin=String(s.admin||'');}}catch{}
 const CUR={MORA:['모라','UI_ItemIcon_202'],PRIMOGEM:['원석','UI_ItemIcon_201'],STARGLITTER:['스타라이트','UI_ItemIcon_221'],STARDUST:['스타더스트','UI_ItemIcon_222'],INTERTWINED_FATE:['뒤얽힌 인연','UI_ItemIcon_223'],ACQUAINT_FATE:['만남의 인연','UI_ItemIcon_224']};
 const OPS={login:'운영자 로그인','login-fail':'운영자 로그인 실패','logout-console':'운영자 로그아웃',save:'여정 변경',rollback:'되돌리기',password:'비밀번호 변경',logout:'강제 로그아웃',ban:'이용 제한',unban:'제한 해제',profile:'이름·아이디 변경','rank-on':'랭킹 포함','rank-off':'랭킹 제외','reset-journey':'여정 초기화','delete-account':'계정 삭제',bulk:'전체 지급',notice:'공지','chat-delete':'채팅 가리기'};
-const TABS=[['accounts','모험가 계정'],['balance','밸런스'],['bulk','전체 지급'],['chat','채팅·공지'],['raid','공동 토벌전'],['trades','교환 기록'],['audit','운영 기록'],['server','서버 상태']];
+const TABS=[['accounts','모험가 계정'],['balance','밸런스'],['bulk','전체 지급'],['chat','채팅·공지'],['raid','공동 토벌전'],['events','이벤트'],['trades','교환 기록'],['audit','운영 기록'],['server','서버 상태']];
 const SUBS=[['summary','요약'],['wallet','재화·아이템'],['gear','장비'],['chars','캐릭터'],['world','위치·진행'],['account','계정 관리'],['log','기록']];
 const TALENT={na:'일반 공격',e:'원소전투 스킬',q:'원소폭발'};
 const PHASE={FREE:'자유행동',STORY:'이야기 진행 중',STORY_LOCKED:'이야기 진행 중 (메뉴 잠김)',COMBAT:'전투 중',CUTIN:'전투 연출 중',PREPARATION:'전투 준비 중',COMBAT_OPENING:'전투 시작 전',RECOVERY:'패배 뒤 회복 대기',DOWNED:'쓰러짐 (회복 필요)',LIFE:'생활 작업 중'};
@@ -126,7 +126,7 @@ function drawShell(){
 function show(tab){
  A.tab=tab;for(const b of document.querySelectorAll('.adm-tab'))b.classList.toggle('active',b.dataset.tab===tab);
  const main=document.getElementById('adm-main');if(!main)return;main.replaceChildren(h('p',{class:'adm-empty',text:'불러오는 중…'}));
- ({accounts:drawAccounts,balance:drawBalance,bulk:drawBulk,chat:drawChat,raid:drawRaid,trades:drawTrades,audit:drawAudit,server:drawServer})[tab](main);
+ ({accounts:drawAccounts,balance:drawBalance,bulk:drawBulk,chat:drawChat,raid:drawRaid,events:drawEvents,trades:drawTrades,audit:drawAudit,server:drawServer})[tab](main);
 }
 
 // ---------- accounts ----------
@@ -365,6 +365,21 @@ async function drawRaid(main){
  const rows=out.events.map(e=>h('tr',{},h('td',{class:'nowrap',text:'#'+e.num}),h('td',{text:e.name}),h('td',{class:'nowrap',text:when(e.startsAt)+' ~ '+when(e.endsAt)}),h('td',{},badge(...(STATE[e.state]||[e.state,'']))),h('td',{class:'nowrap',text:num(e.hits)+' / '+num(e.target)}),h('td',{text:String(e.players)}),h('td',{text:e.openedBy||'-'})));
  const list=card('최근 토벌전',h('div',{class:'adm-scroll'},h('table',{class:'adm-table'},h('thead',{},h('tr',{},['번호','보스','기간','상태','맞힌 횟수','참여','연 사람'].map(t=>h('th',{text:t})))),h('tbody',{},rows.length?rows:h('tr',{},h('td',{colspan:'7',class:'adm-empty',text:'아직 연 토벌전이 없습니다.'}))))));
  main.replaceChildren(h('div',{class:'adm-page'},status,active?null:open,list));
+}
+// ---------- 0.16.66 이벤트 (server/op-events-v01666.mjs) ----------
+// Each kind is a card with its rule; 열기 opens it now for the days written (one of a kind at a time), 지금 닫기 ends it early.
+async function drawEvents(main){
+ const out=await read('/admin/events');if(!out){main.replaceChildren();return;}
+ const STATE={OPEN:['열림','ok'],SCHEDULED:['예정','info'],ENDED:['끝남',''],CLOSED:['닫음','warn']};
+ const notice=h('input',{type:'checkbox',checked:true});
+ const kinds=out.kinds.map(k=>{const active=out.active.find(e=>e.kind===k.id),row=out.events.find(e=>e.kind===k.id&&e.state==='OPEN');
+  const days=h('input',{type:'number',min:'1',max:'30',value:String(out.defaults.days),class:'adm-text small'});
+  const action=active&&row?button('지금 닫기',async()=>{if(!confirm(k.name+' 이벤트를 지금 닫을까요?'))return;if(await run(()=>api('/admin/events',{op:'close',num:row.num}),'이벤트를 닫았습니다.'))show('events');},'warn')
+   :h('div',{class:'adm-form-row'},h('label',{},h('span',{text:'기간(일) '}),days),button('열기',async()=>{const b={op:'open',kind:k.id,days:Number(days.value),notice:notice.checked};if(!confirm(k.name+' 이벤트를 '+b.days+'일 동안 열까요?'))return;if(await run(()=>api('/admin/events',b),'이벤트를 열었습니다.'))show('events');},'primary'));
+  return card(k.name+(active?' · 열림':''),h('p',{text:k.text}),active?h('p',{class:'adm-hint',text:when(active.startsAt)+' ~ '+when(active.endsAt)}):null,action);});
+ const rows=out.events.map(e=>h('tr',{},h('td',{class:'nowrap',text:'#'+e.num}),h('td',{text:e.name}),h('td',{class:'nowrap',text:when(e.startsAt)+' ~ '+when(e.endsAt)}),h('td',{},badge(...(STATE[e.state]||[e.state,'']))),h('td',{text:e.openedBy||'-'})));
+ const list=card('최근 이벤트',h('div',{class:'adm-scroll'},h('table',{class:'adm-table'},h('thead',{},h('tr',{},['번호','이벤트','기간','상태','연 사람'].map(t=>h('th',{text:t})))),h('tbody',{},rows.length?rows:h('tr',{},h('td',{colspan:'5',class:'adm-empty',text:'아직 연 이벤트가 없습니다.'}))))));
+ main.replaceChildren(h('div',{class:'adm-page'},card('이벤트 열기',h('p',{class:'adm-hint',text:'열면 바로 시작하고, 정한 날이 지나면 저절로 끝납니다. 종류가 다르면 함께 열 수 있습니다. 「하루」는 한국 시간 0시에 바뀝니다.'}),h('label',{},notice,h('span',{text:' 열 때 채팅에 공지'}))),...kinds,list));
 }
 // ---------- 교환 기록 ----------
 async function drawTrades(main){

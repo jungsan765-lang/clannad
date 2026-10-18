@@ -1921,3 +1921,42 @@ body .guild-hint-words{display:flex;flex-direction:column;gap:2px;min-width:0}
 body .guild-hint-words>small{font-size:.7rem;color:#f3cf82}
 body .guild-hint-words>strong{font-size:.86rem;line-height:1.35;font-weight:600}
 @keyframes guildHint{0%{opacity:0;margin-left:-6px}6%{opacity:1;margin-left:0}88%{opacity:1}100%{opacity:0}}
+/* 0.16.66 운영자 이벤트 (app_opevents_v01666.js): the 할 일 card, the window with the rules and the 교환소, the reward screen's line */
+body.teyvat :where(#root) .op-events-card{display:flex;flex-direction:column;gap:4px;padding:6px 8px;border-color:rgba(243,207,130,.45)}
+body.teyvat :where(#root) .op-events-card .oe-head{display:flex;align-items:center;gap:6px}
+body.teyvat :where(#root) .op-events-card .oe-head>strong{color:#f3cf82}
+body.teyvat :where(#root) .op-events-card .oe-head>small{opacity:.75;font-size:.7rem}
+body.teyvat :where(#root) .op-events-card button.oe-open{margin:0 0 0 auto;min-height:24px;padding:1px 10px;font-size:.7rem}
+body .oe-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+body .oe-list .oe-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:.74rem;line-height:1.35}
+body .oe-list .oe-row .oe-name{color:#ece5d8}
+body .oe-list .oe-row .oe-today{color:#f3cf82;text-align:right}
+body .oe-list .oe-row .oe-left{opacity:.7;font-size:.66rem}
+body .op-events-result .oe-list .oe-row{display:block;font-size:.85rem;color:#f3cf82}
+body.teyvat dialog#modal[open]:has(.oe-window){width:min(1040px,calc(100vw - 24px));max-width:min(1040px,calc(100vw - 24px))}
+body .oe-window{display:flex;flex-direction:column;gap:10px;width:100%}
+body .oe-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+body .oe-rule{display:flex;flex-direction:column;gap:2px;padding:6px 10px;border:1px solid rgba(211,188,142,.3);border-radius:8px;background:rgba(255,255,255,.03)}
+body .oe-rule>b{color:#f3cf82;font-size:.9rem}
+body .oe-rule>span{font-size:.78rem;line-height:1.35}
+body .oe-rule>small{font-size:.7rem;opacity:.8}
+body .oe-shop{display:flex;flex-direction:column;gap:8px}
+body .oe-shop-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+body .oe-shop-top .oe-tokens{font-size:1.05rem;color:#f3cf82}
+body .oe-earn{display:flex;gap:0;border:1px solid rgba(211,188,142,.35);border-radius:6px;overflow:hidden}
+body .oe-earn-chip{padding:2px 10px;font-size:.7rem;border-left:1px solid rgba(211,188,142,.25)}
+body .oe-earn-chip:first-child{border-left:0}
+body .oe-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+body .oe-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px;border:1px solid rgba(211,188,142,.3);border-radius:8px;background:rgba(255,255,255,.035);text-align:center}
+body .oe-item.done{opacity:.55}
+body .oe-icon{width:44px;height:44px;object-fit:contain}
+body .oe-icon.fallback{display:grid;place-items:center;color:#f3cf82}
+body .oe-item-name{font-size:.8rem;line-height:1.3}
+body .oe-cost{font-size:.7rem;opacity:.85}
+body .oe-choices{display:flex;flex-wrap:wrap;justify-content:center;gap:3px}
+body .oe-window button.oe-choice{min-height:22px;margin:0;padding:1px 6px;border-radius:4px;font-size:.66rem;display:inline-flex;align-items:center;gap:2px}
+body .oe-window button.oe-choice .oe-icon{width:22px;height:22px}
+body .oe-window button.oe-choice.on{background:#ece5d8;color:#3b4255}
+body .oe-window button.oe-go{min-height:26px;margin:2px 0 0;padding:1px 14px;font-size:.74rem}
+body .oe-empty{opacity:.8}
+@media (max-height:680px){html.stage-pc body .oe-window{gap:6px}html.stage-pc body .oe-item{padding:5px;gap:2px}html.stage-pc body .oe-icon{width:34px;height:34px}html.stage-pc body .oe-rule{padding:4px 8px}}

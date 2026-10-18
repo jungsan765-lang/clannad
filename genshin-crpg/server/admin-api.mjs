@@ -316,6 +316,19 @@ export class AdminConsole{
   if(op==='close'){const out=this.store.raidAdminClose(b);this.audit(actor,ip,null,'raid-close',{event:out.event.id});return out;}
   throw err(400,'토벌전 작업을 골라 주세요.');
  }
+ // 0.16.66 운영자 이벤트 (server/op-events-v01666.mjs): opened and closed here like 공동 토벌전; opening posts a chat notice when the
+ // server runs chat.
+ opEvents(b,actor,ip){
+  const op=String(b?.op||'');
+  if(op==='open'){
+   const out=this.store.opEventsAdminOpen(b,actor),e=out.event,days=Math.round((e.endsAt-e.startsAt)/86400000);
+   this.audit(actor,ip,null,'event-open',{event:e.id,kind:e.kind,days});
+   if(b?.notice!==false&&this.store.features?.has('chat')){try{this.notice({text:'이벤트가 열렸습니다 · '+e.name+' · '+days+'일 동안 · '+e.text},actor,ip);}catch{}}
+   return out;
+  }
+  if(op==='close'){const out=this.store.opEventsAdminClose(b);this.audit(actor,ip,null,'event-close',{event:out.event.id,kind:out.event.kind});return out;}
+  throw err(400,'이벤트 작업을 골라 주세요.');
+ }
  chatDelete(b,actor,ip){this.store.need('chat');const id=Number(b?.id);if(!Number.isSafeInteger(id))throw err(400,'메시지를 확인해 주세요.');this.db.prepare('UPDATE chat SET deleted=1 WHERE id=?').run(id);this.store.broadcast({type:'chat-delete',id});this.audit(actor,ip,null,'chat-delete',{id});return {deleted:true};}
  // ---------- routes ----------
  async handle({path,method,url,authorization,readBody,ip}){
@@ -333,6 +346,7 @@ export class AdminConsole{
    if(path==='/admin/chat')return this.chat();
    if(path==='/admin/trades')return this.trades();
    if(path==='/admin/raid')return this.store.raidAdminList();
+   if(path==='/admin/events')return this.store.opEventsAdminList();
    // 0.16.61 서버 문: open/closed, the most players at once, who is online now and how busy the server is (server/gate-v01661.mjs).
    if(path==='/admin/server')return this.serverGate();
   }
@@ -355,6 +369,7 @@ export class AdminConsole{
    if(path==='/admin/notice')return this.notice(b,actor,ip);
    if(path==='/admin/chat-delete')return this.chatDelete(b,actor,ip);
    if(path==='/admin/raid')return this.raid(b,actor,ip);
+   if(path==='/admin/events')return this.opEvents(b,actor,ip);
    if(path==='/admin/server'){const before=this.serverGate(),out=this.store.gate.set(b,actor);this.audit(actor,ip,null,'server-gate',{open:[before.open,out.open],maxOnline:[before.maxOnline,out.maxOnline],message:out.message});return out;}
   }
   throw err(404,'지원하지 않는 운영자 요청입니다.');

@@ -241,6 +241,9 @@ try{
   await view('map-window',`(async()=>{await __go('LOCATION');[...document.querySelectorAll('.hud-tools button')].find(b=>/^지도/.test(b.title||b.getAttribute('aria-label')||''))?.click();})()`);
   await view('menu',`(async()=>{await __go('LOCATION');document.querySelector('.hud-menu-button')?.click();})()`);
   await view('mail',`(async()=>{await __go('LOCATION');[...document.querySelectorAll('.hud-tools button')].find(b=>/우편/.test(b.title||b.getAttribute('aria-label')||''))?.click();})()`);
+  // 0.16.66: the event window with every kind open (the shop at its widest: four kinds, all exchange cards with their choices)
+  await view('events-window',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('LOCATION');const t=Date.now();window.CRPGOpEventsList=['LEY_DOUBLE','DOMAIN_SUPPLY','BOSS_DOUBLE','FESTIVAL'].map((kind,i)=>({id:'EVT_'+(1000001+i),kind,startsAt:t-1000,endsAt:t+5*86400000}));window.CRPGOpEvents?.openWindow?.();await new Promise(r=>setTimeout(r,300));})()`);
+  await page.evaluate(()=>{window.CRPGOpEventsList=[];document.querySelectorAll('dialog[open]').forEach(d=>d.close());});
   // 0.16.36 (TODO 7): a pinned material — its chip on the map's head and a gold ring on every place it is found.
   await view('map-tracked',`(async()=>{await __go('LOCATION');for(const id of game.tables['14_ITEM_DB'].keys()){localStorage.setItem('crpg-track-v1',JSON.stringify({item:id,need:99}));if((window.CRPGTrack?.places?.()||[]).length>=2)break;}render();await new Promise(r=>setTimeout(r,300));})()`);
   await page.evaluate(()=>{try{localStorage.removeItem('crpg-track-v1');render();}catch{}});
