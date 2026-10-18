@@ -55,6 +55,20 @@ function board(parent){
  sec.append(list);
  parent.append(sec);return sec;
 }
+// 0.16.64 (user: 「최대한 케서린 임무를 유도하는 방향으로」): once a session Amber says where to go, beside the button, for a few
+// seconds — a bubble that lets every tap through (free play never forces a trip).
+let guildHintShown=false;
+function guildHint(button){
+ if(guildHintShown)return;
+ // the left column lays its pages out after drawing, so the button may still be hidden at first: look again for a few seconds
+ const attempt=n=>{if(guildHintShown||!button.isConnected)return;const r=button.getBoundingClientRect();
+  if(button.closest('[hidden]')||!r.width||document.querySelector('#modal[open],#tutorial-spotlight')){if(n<12)setTimeout(()=>attempt(n+1),500);return;}
+  guildHintShown=true;
+  const bubble=mk('div','guild-hint'),face=mk('span','guild-hint-face'),words=mk('div','guild-hint-words');const face_src=(typeof MANIFEST!=='undefined'?MANIFEST:{}).uiAssets?.avatars?.MOND_AMBER?.path;if(face_src)face.style.backgroundImage='url("'+face_src+'")';
+  words.append(mk('small','','엠버'),mk('strong','','모험가 길드에 가 보자! 캐서린이 처음 의뢰를 알려 줄 거야.'));bubble.append(face,words);bubble.setAttribute('role','status');
+  bubble.style.left=Math.round(r.right+12)+'px';bubble.style.top=Math.round(r.top+r.height/2)+'px';document.body.append(bubble);setTimeout(()=>bubble.remove(),7000);
+ };setTimeout(()=>attempt(0),400);
+}
 // The day's four on the main screen's 「할 일」: one line each.
 function mini(parent){
  const v=view();if(!v)return;const sec=mk('section','card task-mini'),head=mk('div','task-mini-head');
@@ -69,7 +83,7 @@ function mini(parent){
  const list=mk('ul','task-mini-list');for(const x of [...v.daily,v.bonus]){const li=mk('li','task-mini-row '+(x.claimed?'claimed':x.lock?'locked':x.done?'ready':'progress'));const [label,cls]=KIND[x.icon]||['',''];li.title=x.name;li.append(mk('span','task-kind '+cls,label),mk('span','task-mini-name',x.name),mk('b','task-count',x.claimed?'받음':x.lock?x.lock:x.progress+'/'+x.goal));
   if(x.done&&!x.claimed){const b=claimButton(x);if(!x.here)b.textContent='보고';li.append(b);}
   // 0.16.62 (초보 점검: the whole guild waits on this one report, and nothing outside the guild pointed there): the locked row takes you to Catherine.
-  else if(x.lock==='의뢰 접수 연습을 보고한 뒤'&&!game.s.runtime){const desk=(game.placeEntries?.()||[]).find(e=>['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(e.entity)),b=button(desk?'캐서린':'길 안내',()=>{if(desk)return act('PLACE_ENTER',{place:desk.id});if(typeof NavigationUI!=='undefined')NavigationUI.choose('MAP_MOND_CITY');window.CRPGShell?.openMap?.();window.CRPGShell?.toast?.('길 안내 · 몬드성의 캐서린');});b.className='task-mini-go';li.classList.add('task-go');b.title='모험가 길드의 캐서린에게 의뢰 접수 연습을 보고하면 오늘의 임무와 의뢰가 열립니다.';li.append(b);}
+  else if(x.lock==='의뢰 접수 연습을 보고한 뒤'&&!game.s.runtime){const desk=(game.placeEntries?.()||[]).find(e=>['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(e.entity)),b=button(desk?'캐서린':'길 안내',()=>{if(desk)return act('PLACE_ENTER',{place:desk.id});if(typeof NavigationUI!=='undefined')NavigationUI.choose('MAP_MOND_CITY');window.CRPGShell?.openMap?.();window.CRPGShell?.toast?.('길 안내 · 몬드성의 캐서린');});b.className='task-mini-go';li.classList.add('task-go');guildHint(b);b.title='모험가 길드의 캐서린에게 의뢰 접수 연습을 보고하면 오늘의 임무와 의뢰가 열립니다.';li.append(b);}
   list.append(li);}
  const later=hiddenCount(v,'daily');if(later>0){const li=mk('li','task-mini-row locked task-later');li.append(mk('span','task-kind k-later','다음'),mk('span','task-mini-name','임무 '+later+'개 더 · 앞 임무 보상을 받으면 열림'));list.append(li);}
  sec.append(list);parent.append(sec);

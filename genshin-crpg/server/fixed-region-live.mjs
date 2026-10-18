@@ -17,6 +17,7 @@ import {ServerGate} from './gate-v01661.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,now=()=>Date.now();
 const STREAM_MAX=500,STREAM_PER_ACCOUNT=8,STREAM_BUFFER_BYTES=128*1024,STREAM_STALL_MS=30000,EPHEMERAL_SWEEP_MS=60000;
+const RECEIPT_DAYS=30,RECEIPT_KEEP_REVISIONS=5,RECEIPT_SWEEP_MS=5*60000;
 const RID=/^[a-zA-Z0-9_-]{10,80}$/,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'};
 const err=(status,message,code)=>Object.assign(new Error(message),{status,code});
 const view=(a,admins)=>({id:a.id,username:a.username,displayName:a.display_name,admin:admins.has(a.id)});
@@ -84,6 +85,8 @@ export class LiveRegionStore{
    'CREATE TABLE IF NOT EXISTS metadata(account_id TEXT PRIMARY KEY,revision INTEGER,ranked INTEGER NOT NULL,last_request_id TEXT NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS parts(account_id TEXT NOT NULL,path TEXT NOT NULL,value TEXT NOT NULL,PRIMARY KEY(account_id,path),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS receipts(account_id TEXT NOT NULL,request_id TEXT NOT NULL,revision INTEGER NOT NULL,base_revision INTEGER NOT NULL,intent_hash TEXT NOT NULL,result TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,request_id),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
+   // 0.16.64: the 30-day receipt sweep (pruneReceipts) reads receipts by age
+   'CREATE INDEX IF NOT EXISTS receipts_created_idx ON receipts(created_at)',
    'CREATE TABLE IF NOT EXISTS backups(account_id TEXT NOT NULL,revision INTEGER NOT NULL,undo TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,revision),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL,season TEXT NOT NULL,display_name TEXT NOT NULL,floor INTEGER NOT NULL,rounds INTEGER NOT NULL,attempts INTEGER NOT NULL,achieved_at INTEGER NOT NULL,PRIMARY KEY(account_id,season),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT',
    // 0.15.2: new accounts per connection (only a peppered hash of the address is kept, for a week).
@@ -113,6 +116,18 @@ export class LiveRegionStore{
   // Keep the newest row per account: the admin account list uses it for the last-login date. Older expired
   // sessions no longer authenticate; delete at most 1,000 per sweep without touching receipts or audit history.
   this.prepare('DELETE FROM sessions WHERE token_hash IN (SELECT s.token_hash FROM sessions s WHERE s.expires_at<=? AND s.token_hash<>(SELECT n.token_hash FROM sessions n WHERE n.account_id=s.account_id ORDER BY n.expires_at DESC,n.token_hash DESC LIMIT 1) ORDER BY s.expires_at LIMIT 1000)').run(t);
+  this.pruneReceipts(t);
+ }
+ // 0.16.64 (user, 2026-10-18: 「30일 지난 기록을 지우는 방향으로 가자. 계정이 지워지는게 아니잖아?」): a played action leaves a receipt
+ // (about 3.4KB) so a resent request is answered once and an operator can look back or roll back. After 30 days nobody resends it:
+ // older receipts go, except each account's last RECEIPT_KEEP_REVISIONS (rollback keeps 3 backups). Saves, accounts, mail, trades
+ // and the operator log are untouched. At most 5,000 rows every 5 minutes, so the server never stalls on it; co-op command
+ // receipts of the same age go the same way.
+ pruneReceipts(t=now()){
+  if(t-(this.receiptSweepAt||0)<RECEIPT_SWEEP_MS||this.db.isTransaction)return 0;this.receiptSweepAt=t;const cutoff=t-RECEIPT_DAYS*86400000;
+  let removed=Number(this.prepare('DELETE FROM receipts WHERE rowid IN (SELECT r.rowid FROM receipts r JOIN metadata m ON m.account_id=r.account_id WHERE r.created_at<? AND r.revision<=m.revision-? ORDER BY r.created_at LIMIT 5000)').run(cutoff,RECEIPT_KEEP_REVISIONS).changes)||0;
+  try{removed+=Number(this.prepare('DELETE FROM coop_commands WHERE (account_id,request_id) IN (SELECT account_id,request_id FROM coop_commands WHERE created_at<? LIMIT 5000)').run(cutoff).changes)||0;}catch{}
+  return removed;
  }
  need(feature){if(!this.features.has(feature))throw err(404,'지원하지 않는 요청입니다.');}
  capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1','mail-v1']:[]),'raid-v1',...(this.features.has('coop')?['coop-v1']:[])];}

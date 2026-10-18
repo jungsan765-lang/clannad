@@ -1911,3 +1911,13 @@ body .story-place>strong::before,body .story-place>strong::after{content:'';widt
 body.teyvat :where(#root) .task-mini-row.locked.task-go{opacity:1}
 body.teyvat :where(#root) .task-mini-row.task-go>:not(button){opacity:.62}
 body.teyvat :where(#root) .task-mini-row button.task-mini-go{flex:none;min-height:22px;margin:0;padding:0 8px;font-size:.62rem}
+/* 0.16.64 이야기의 권장 레벨: a small gold chip by the chapter's name, red while the protagonist is below it */
+body .story-level{display:inline-flex;align-items:center;align-self:flex-start;margin:4px 0;padding:1px 8px;border:1px solid rgba(211,188,142,.55);border-radius:4px;font-size:.72rem;line-height:1.5;color:#d3bc8e;background:rgba(20,24,36,.4);white-space:nowrap}
+body .story-level.low{color:#ff9b8a;border-color:rgba(255,120,100,.6);background:rgba(80,20,20,.35)}
+/* 0.16.64 할 일: Amber's short hint beside the 「캐서린」 / 「길 안내」 button (app_tasks_v0167.js guildHint) — it lets every tap through */
+body .guild-hint{position:fixed;z-index:60;pointer-events:none;transform:translateY(-50%);display:flex;align-items:center;gap:10px;max-width:340px;padding:8px 12px 8px 8px;border:1px solid rgba(243,207,130,.55);border-radius:14px;background:linear-gradient(180deg,rgba(28,34,50,.96),rgba(17,21,33,.96));box-shadow:0 10px 28px rgba(0,0,0,.55);color:#fff;animation:guildHint 7s ease both}
+body .guild-hint-face{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid #f3cf82;background:#2a3348 center/cover no-repeat}
+body .guild-hint-words{display:flex;flex-direction:column;gap:2px;min-width:0}
+body .guild-hint-words>small{font-size:.7rem;color:#f3cf82}
+body .guild-hint-words>strong{font-size:.86rem;line-height:1.35;font-weight:600}
+@keyframes guildHint{0%{opacity:0;margin-left:-6px}6%{opacity:1;margin-left:0}88%{opacity:1}100%{opacity:0}}

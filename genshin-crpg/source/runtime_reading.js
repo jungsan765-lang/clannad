@@ -360,3 +360,42 @@ P.actionReason=function(type,a={},...rest){return guard(this,type,a)||old.action
 P.apply=function(a,...rest){const why=guard(this,a?.type,a?.params??a);if(why)fail('ACTION_LOCK',why);return old.apply.call(this,a,...rest);};
 P.requestGuardsV01663=true;
 })(globalThis);
+// 0.16.64 (user, 2026-10-18, reading the 초보 구간 표): 「일단 권장레벨 표시만 하자」, 「경험치 책으로 돌려주고, 5레벨까지는 사냥 경험치로
+// 충분하니까 최대한 케서린 임무를 유도하는 방향으로 하자」.
+(function(root){
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.beginnerV01664)return;
+const old=Object.fromEntries(['finishBattle','validateSave','mainStoryEntries','storyChapterEntries'].map(k=>[k,P[k]]));
+const fail=(c,m)=>{throw new api.RuleError(c,m);},int=n=>Number.isSafeInteger(n)&&n>=0;
+// ---- 넘친 경험치 → 경험치 책 (runtime_growth_v01522.js addXp calls this with what the level cap would have thrown away) ----
+// The books' own values (영웅의 경험 1,000 · 모험가의 경험 250 · 방랑자의 경험 50), largest first; under 50 waits for the next time.
+const SPILL_BOOKS=[['MAT_CHAR_EXP_HERO',1000],['MAT_CHAR_EXP_ADVENTURER',250],['MAT_CHAR_EXP_WANDERER',50]];
+P.spillXp=function(xp){
+ if(!this.s||!int(xp)||!xp)return {};let left=(Number(this.s.xpSpill)||0)+xp;const got={};
+ for(const [id,value] of SPILL_BOOKS){const n=Math.floor(left/value);if(n>0&&this.tables['14_ITEM_DB']?.has(id)){this.giveItem(id,n);got[id]=n;left-=n*value;}}
+ this.s.xpSpill=left;if(Object.keys(got).length){const t=(this._xpSpillGot??={});for(const [id,n] of Object.entries(got))t[id]=(t[id]||0)+n;}return got;
+};
+// A won fight's result lists the books among its loot.
+P.finishBattle=function(win,...rest){
+ this._xpSpillGot=null;const b=this.s?.runtime,out=old.finishBattle.call(this,win,...rest),got=this._xpSpillGot;this._xpSpillGot=null;
+ if(got&&out&&typeof out==='object'){out.loot=out.loot&&typeof out.loot==='object'?out.loot:{};for(const [id,n] of Object.entries(got))out.loot[id]=(out.loot[id]||0)+n;out.xpBooks={...got};
+  if(b?.id&&this.s.combatReceipts?.[b.id])this.s.combatReceipts[b.id]=JSON.parse(JSON.stringify(out));if(b)this.s.global.LAST_BATTLE_RESULT_JSON=JSON.stringify(out);}
+ return out;
+};
+P.validateSave=function(s,...rest){const out=old.validateSave.call(this,s,...rest)||s;if(out?.xpSpill!==undefined&&!(int(out.xpSpill)&&out.xpSpill<50))fail('XP_SPILL_SAVE','넘친 경험치 기록이 올바르지 않습니다.');return out;};
+// ---- 권장 레벨: the fixed levels of the places a main chapter's scenes are set in (리월 본편 1장 · 권장 Lv. 32~42) ----
+const levelsByIndex=new WeakMap();
+P.storyRecommendedLevel=function(quest){
+ let index=null;try{index=this.storyIndex();}catch{return null;}if(!index?.nodes)return null;
+ let byQuest=levelsByIndex.get(index);if(!byQuest){byQuest=new Map();levelsByIndex.set(index,byQuest);}
+ if(!byQuest.has(quest)){let min=Infinity,max=-Infinity;const seen=new Set();
+  for(const n of index.nodes.values()){if(n?.[1]!==quest||!n[8]||seen.has(n[8]))continue;seen.add(n[8]);const m=this.tables['32_MAP_DB']?.get(n[8]),a=Number(m?.[6]),z=Number(m?.[7]);if(a>0&&a===z){min=Math.min(min,a);max=Math.max(max,a);}}
+  byQuest.set(quest,Number.isFinite(min)?{min,max,text:'권장 Lv. '+(min===max?min:min+'~'+max)}:null);}
+ const r=byQuest.get(quest);return r?{...r}:null;
+};
+const withLevel=rt=>e=>{const quest=e?.quest||e?.id;const r=quest?rt.storyRecommendedLevel(quest):null;return r?{...e,recommended:r}:e;};
+P.mainStoryEntries=function(...a){return (old.mainStoryEntries.apply(this,a)||[]).map(withLevel(this));};
+if(old.storyChapterEntries)P.storyChapterEntries=function(...a){return (old.storyChapterEntries.apply(this,a)||[]).map(withLevel(this));};
+// ---- 캐서린에게: free play never forces a trip (test_growth_v01522, test_tutorial_v01523); the 할 일 row's button and a short
+// Amber hint beside it (app_tasks_v0167.js) point at 의뢰 접수 연습 instead.
+P.beginnerV01664=true;
+})(globalThis);

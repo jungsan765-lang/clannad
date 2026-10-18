@@ -24,8 +24,8 @@ function mainObjective(parent){
  }else{
   const offers=game.mainStoryEntries?.()||[],chapters=game.storyChapterEntries?.()||[];let count=0;
   if(g.STORY_NEXT_PREPARED){box.append(actionButton('메인 이야기 계속','STORY_RESUME',{},true));count++;}
-  for(const c of offers.filter(x=>x.available)){box.append(actionButton(c.title||c.label||c.name||'메인 임무 시작','MAIN_STORY_ACCEPT',{quest:c.quest||c.id},true));if(c.reason)box.append(el('p','choice-note',c.reason));count++;}
-  if(!g.STORY_NEXT_PREPARED)for(const c of chapters){box.append(actionButton(c.title,'STORY_CHAPTER',{node:c.id},true));count++;}
+  for(const c of offers.filter(x=>x.available)){box.append(actionButton(c.title||c.label||c.name||'메인 임무 시작','MAIN_STORY_ACCEPT',{quest:c.quest||c.id},true));if(c.recommended&&typeof storyLevelChip==='function')box.append(storyLevelChip(c.recommended));if(c.reason)box.append(el('p','choice-note',c.reason));count++;}
+  if(!g.STORY_NEXT_PREPARED)for(const c of chapters){box.append(actionButton(c.title,'STORY_CHAPTER',{node:c.id},true));if(c.recommended&&typeof storyLevelChip==='function')box.append(storyLevelChip(c.recommended));count++;}
   if(!count&&offers.length){const pending=offers[0];box.append(el('h3','',pending.title||pending.label||'다음 메인 임무'),el('p','',pending.reason||'이야기 화면에서 다음 진행 조건을 확인하세요.'));if(pending.map&&pending.map!==g.CURRENT_MAP_ID)travelGuide(box,pending.map);else if(pending.quest==='Q_ISK_MOND_02'&&g.CURRENT_MAP_ID!=='MAP_MOND_CITY')travelGuide(box,'MAP_MOND_CITY');count++;}
   if(!count)box.append(el('p','',g.STORY_WAIT_REASON||'현재 공개된 본편 구간을 마쳤습니다. 의뢰와 개인 임무를 확인해 주세요.'));
  }

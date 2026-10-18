@@ -316,7 +316,9 @@ P.recalculate=function(){this.installGrowthContent();old.recalculate.call(this);
 P.character=function(id){const a=old.character.call(this,id),p=this.growthPhase(id),five=this.rarityOf?.(id)===5;a.maxHp=Math.round(a.maxHp*(1+(five?.24:.16)*p));a.atk*=1+(five?.28:.20)*p;a.def*=1+(five?.28:.20)*p;const weapon=this.s.inventory.find(x=>x.equipped&&x.owner===id&&x.category==='WEAPON');a.baseAttack=Math.round(Number(this.row('07_CHAR_DB',id)[8])*adCurve(a.level)*(1+(five?.28:.20)*p))+(weapon?this.enhancementStatsAt(weapon,weapon.enhance||0).ATK||0:0);return a;};
 P.addXp=function(owner,xp){
  if(!Number.isSafeInteger(xp)||xp<0)fail('XP_VALUE','경험치는 0 이상의 정수여야 합니다.');const g=this.growth(owner),beforeHp=owner===PLAYER?this.s.global.PLAYER_HP_CURRENT:this.s.chars[owner].hp,beforeMax=owner===PLAYER?this.s.global.PLAYER_HP_MAX:this.character(owner).maxHp;let level=g.level,cur=g.max?0:g.xp+xp;
- while(level<g.cap&&cur>=xpNext(level)){cur-=xpNext(level);level++;}if(level===g.cap)cur=0;
+ while(level<g.cap&&cur>=xpNext(level)){cur-=xpNext(level);level++;}
+ // 0.16.64 (user, 2026-10-18: 「경험치 책으로 돌려주고」): what the level cap used to throw away goes back as experience books.
+ const spill=g.max?xp:level===g.cap?cur:0;if(level===g.cap)cur=0;if(spill>0)this.spillXp?.(spill);
  // Growth raises living HP only by the added maximum. Existing wounds and KO
  // persist; XP and ascension never substitute for food, healing or lodging.
  if(owner===PLAYER){Object.assign(this.s.global,{PLAYER_LEVEL_STATE:level,PLAYER_XP_STATE:cur});this.recalculate();if(level>g.level)this.s.global.PLAYER_HP_CURRENT=beforeHp>0?Math.min(this.s.global.PLAYER_HP_MAX,beforeHp+Math.max(0,this.s.global.PLAYER_HP_MAX-beforeMax)):0;}
