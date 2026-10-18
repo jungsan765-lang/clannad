@@ -102,7 +102,10 @@ const countdown=(ui,start)=>{let n=3;const p=ui.panel;p.hidden=false;p.className
 const SNOW_FACES=['MOND_AMBER','MOND_BENNETT','MOND_KAEYA','MOND_NOELLE','MOND_RAZOR','MOND_FISCHL','MOND_SUCROSE','MOND_DIONA'];
 function snowball(job,opts){
  const S=K.snow,R=S.rules,plan=S.plan(job.seed,job.day),ui=shell(job,opts,opts.name||'눈싸움'),ctx=ui.ctx;
- const laneX=i=>W*(.14+i*.18),FORT=176,inputs=[{t:0,a:'s'}];let t0=0,hidden=false,lastThrow=-1e9,raf=0,wall=0;
+ // 0.16.68: from day 3 a near row of five more places in front (S.lanes(day) = 10); the far row moves up a little to make room
+ const ROWS=S.rows?S.rows(job.day):1,LANES=S.lanes?S.lanes(job.day):R.lanes,FAR=ROWS>1?150:176,NEAR=246,near=i=>i>=R.lanes;
+ const laneX=i=>near(i)?W*(.10+(i-R.lanes)*.2):W*(.14+i*.18),laneFort=i=>near(i)?NEAR:FAR,FORT=FAR,inputs=[{t:0,a:'s'}];
+ const KEYS=['1','2','3','4','5','6','7','8','9','0'];let t0=0,hidden=false,lastThrow=-1e9,raf=0,wall=0;
  const bg=ASSET('bg_place_snow_covered_path.webp'),jeanFace=faceSrc('MOND_JEAN'),faces=plan.map((p,j)=>faceSrc(SNOW_FACES[(j*3+p.lane)%SNOW_FACES.length]));
  const calls={jean:talkSet('SNOW_JEAN'),gift:talkSet('SNOW_GIFT'),fever:talkSet('SNOW_FEVER')};let said=null,counts={jean:0,gift:0,fever:0};const seenLog=new Set();
  const now=()=>performance.now()-t0,playing=()=>t0&&!ui.ended;
@@ -110,17 +113,17 @@ function snowball(job,opts){
  const shoot=lane=>{if(!playing()||hidden)return;const t=Math.min(R.ms,Math.round(now())),sim=S.play(job.seed,job.day,inputs,t);if(t<sim.stun||t-lastThrow<R.cooldown)return;lastThrow=t;inputs.push({t,a:'t',lane});SND('menu_open');};
  const hideBtn=btn('숨기',()=>{},'fg-hide');hideBtn.title='누르고 있는 동안 눈 벽 뒤에 숨습니다 (스페이스)';
  ui.on(hideBtn,'pointerdown',e=>{e.preventDefault();hide(true);});for(const ev of ['pointerup','pointercancel','pointerleave'])ui.on(hideBtn,ev,()=>hide(false));
- const lanesRow=mk('div','fg-lanes');for(let i=0;i<R.lanes;i++)lanesRow.append(btn(String(i+1),()=>shoot(i),'fg-lane'));
+ const lanesRow=mk('div','fg-lanes'+(ROWS>1?' two':''));for(let i=0;i<LANES;i++)lanesRow.append(btn(KEYS[i],()=>shoot(i),'fg-lane'));
  const legend=mk('div','fg-legend');legend.append(mk('span','fg-key friend','동료 +100'),mk('span','fg-key gift','보물상자 +250'),mk('span','fg-key jean','진 단장 −150'),mk('span','fg-key fever','5연속 = 피버 ×2'));
  ui.bar.append(legend,lanesRow,hideBtn);
- ui.on(ui.canvas,'pointerdown',e=>{const p=ui.pos(e);if(p.y>320)return;let best=-1,d=1e9;for(let i=0;i<R.lanes;i++){const dx=Math.abs(p.x-laneX(i));if(dx<d){d=dx;best=i;}}if(d<62)shoot(best);});
- ui.on(document,'keydown',e=>{if(!ui.alive)return;if(e.key===' '||e.key==='s'||e.key==='S'||e.key==='ArrowDown'){e.preventDefault();hide(true);}else if(/^[1-5]$/.test(e.key))shoot(Number(e.key)-1);},true);
+ ui.on(ui.canvas,'pointerdown',e=>{const p=ui.pos(e);if(p.y>330)return;let best=-1,d=1e9;for(let i=0;i<LANES;i++){const dd=ROWS>1?Math.hypot(p.x-laneX(i),(p.y-(laneFort(i)-8))*1.2):Math.abs(p.x-laneX(i));if(dd<d){d=dd;best=i;}}if(d<62)shoot(best);});
+ ui.on(document,'keydown',e=>{if(!ui.alive)return;if(e.key===' '||e.key==='s'||e.key==='S'||e.key==='ArrowDown'){e.preventDefault();hide(true);}else{const n=KEYS.indexOf(e.key);if(n>=0&&n<LANES)shoot(n);}},true);
  ui.on(document,'keyup',e=>{if(e.key===' '||e.key==='s'||e.key==='S'||e.key==='ArrowDown')hide(false);},true);
  function tag(x,y,text,color){ctx.save();ctx.font='700 11px sans-serif';const w=ctx.measureText(text).width+12;ctx.fillStyle=color;ctx.beginPath();ctx.roundRect?ctx.roundRect(x-w/2,y-9,w,18,6):ctx.rect(x-w/2,y-9,w,18);ctx.fill();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,x,y);ctx.restore();}
  // the friends' calls: a line from the talk for the first gifts, each 진 단장 hit and each fever
  function listen(sim){for(const e of sim.log){const id=e.k+':'+e.t+':'+(e.lane??'');if(seenLog.has(id))continue;seenLog.add(id);
-  if(e.k==='jean'){const l=calls.jean[counts.jean++%Math.max(1,calls.jean.length)];if(l)said={...l,at:e.t,x:laneX(e.lane),y:FORT-56};SND('hit');}
-  else if(e.k==='gift'){if(counts.gift++<2){const l=calls.gift[(counts.gift-1)%Math.max(1,calls.gift.length)];if(l)said={...l,at:e.t,x:laneX(e.lane),y:FORT-56};}SND('reward');}
+  if(e.k==='jean'){const l=calls.jean[counts.jean++%Math.max(1,calls.jean.length)];if(l)said={...l,at:e.t,x:laneX(e.lane),y:laneFort(e.lane)-56};SND('hit');}
+  else if(e.k==='gift'){if(counts.gift++<2){const l=calls.gift[(counts.gift-1)%Math.max(1,calls.gift.length)];if(l)said={...l,at:e.t,x:laneX(e.lane),y:laneFort(e.lane)-56};}SND('reward');}
   else if(e.k==='fever'){const l=calls.fever[counts.fever++%Math.max(1,calls.fever.length)];if(l)said={...l,at:e.t,x:W/2,y:120};SND('reward');}}}
  function frame(){
   if(!ui.alive)return;const t=t0?Math.min(R.ms,now()):0,sim=t0?S.play(job.seed,job.day,inputs,t):{score:0,combo:0,stun:-1,fever:-1,flying:[],hitBy:plan.map(()=>null),log:[]};
@@ -131,28 +134,30 @@ function snowball(job,opts){
   // falling snow (thicker in the fever) and lights on the forts
   for(let i=0;i<(fever?110:60);i++){const depth=1+i%3,x=(i*97+t*.012*depth+Math.sin(t/900+i)*8)%W,y=(i*53+t*.035*depth*(fever?1.8:1))%H,r=.8+depth*.7;ctx.fillStyle='rgba(255,255,255,'+(.35+depth*.2)+')';ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fill();}
   // who is up behind the forts
-  plan.forEach((p,j)=>{const hit=sim.hitBy[j],gone=Math.min(p.down,hit??Infinity);if(t<p.up||t>gone+260)return;
-   const rise=t<p.up+160?(t-p.up)/160:t>gone?1-(t-gone)/260:1,x=laneX(p.lane),y=FORT+18-46*clamp(rise,0,1);
-   if(p.kind==='gift'){const c=pic(CHEST);if(c)ctx.drawImage(c,x-32,y-22,64,64);}else card(ctx,p.kind==='jean'?jeanFace:faces[j],x,y+48,54,68,p.kind==='jean'?'#f0c84a':hit!==null&&t>=hit?'#9fd3ff':'#e9c46a');
-   if(rise>.8&&(hit===null||t<hit)){if(p.kind==='gift')tag(x,y-42,'보물상자 +250','#b1442f');else if(p.kind==='jean')tag(x,y-46,'단장님! 맞히면 안 돼','#9a6b12');}
+  const pop=(p,j)=>{const hit=sim.hitBy[j],gone=Math.min(p.down,hit??Infinity);if(t<p.up||t>gone+260)return;
+   const sc=near(p.lane)?1.18:1,rise=t<p.up+160?(t-p.up)/160:t>gone?1-(t-gone)/260:1,x=laneX(p.lane),y=laneFort(p.lane)+18-46*sc*clamp(rise,0,1);
+   if(p.kind==='gift'){const c=pic(CHEST);if(c)ctx.drawImage(c,x-32*sc,y-22*sc,64*sc,64*sc);}else card(ctx,p.kind==='jean'?jeanFace:faces[j],x,y+48*sc,54*sc,68*sc,p.kind==='jean'?'#f0c84a':hit!==null&&t>=hit?'#9fd3ff':'#e9c46a');
+   if(rise>.8&&(hit===null||t<hit)){if(p.kind==='gift')tag(x,y-42*sc,'보물상자 +250','#b1442f');else if(p.kind==='jean')tag(x,y-46*sc,'단장님! 맞히면 안 돼','#9a6b12');}
    if(hit!==null&&t>=hit&&t<hit+260){ctx.fillStyle='rgba(255,255,255,.85)';for(let k=0;k<9;k++){const a=k/9*TAU,r=10+(t-hit)*.12;ctx.beginPath();ctx.arc(x+Math.cos(a)*r,y+Math.sin(a)*r,4,0,TAU);ctx.fill();}}
-   if(p.throwAt!==undefined&&(hit===null||hit>p.throwAt)&&t>=p.throwAt-520&&t<p.throwAt){ctx.save();ctx.translate(x+26,y-40);ctx.rotate(Math.PI/4);ctx.fillStyle='#e8452f';ctx.shadowColor='rgba(232,69,47,.7)';ctx.shadowBlur=12;ctx.fillRect(-11,-11,22,22);ctx.restore();ctx.fillStyle='#fff';ctx.font='800 17px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('!',x+26,y-39);}
-  });
-  bank(ctx,laneX,R.lanes,FORT);
+   if(p.throwAt!==undefined&&(hit===null||hit>p.throwAt)&&t>=p.throwAt-600&&t<p.throwAt){const mx=x+26*sc,my=y-40*sc;ctx.save();ctx.translate(mx,my);ctx.rotate(Math.PI/4);ctx.fillStyle='#e8452f';ctx.shadowColor='rgba(232,69,47,.7)';ctx.shadowBlur=12;ctx.fillRect(-11,-11,22,22);ctx.restore();ctx.fillStyle='#fff';ctx.font='800 17px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('!',mx,my+1);}
+  };
+  plan.forEach((p,j)=>{if(!near(p.lane))pop(p,j);});
+  bank(ctx,laneX,R.lanes,FAR);
+  if(ROWS>1){plan.forEach((p,j)=>{if(near(p.lane))pop(p,j);});bank(ctx,i=>laneX(i+R.lanes),R.lanes,NEAR);}
   // their throws coming in
   plan.forEach((p,j)=>{if(p.throwAt===undefined)return;const hit=sim.hitBy[j];if(hit!==null&&hit<=p.throwAt)return;const u=(t-p.throwAt)/R.incoming;if(u<0||u>1)return;
-   const x=laneX(p.lane)+(W/2-laneX(p.lane))*u,y=FORT+(H-70-FORT)*u-Math.sin(u*Math.PI)*60,r=6+28*u*u;sphere(ctx,x,y,r);});
+   const fy=laneFort(p.lane),x=laneX(p.lane)+(W/2-laneX(p.lane))*u,y=fy+(H-70-fy)*u-Math.sin(u*Math.PI)*60,r=6+28*u*u;sphere(ctx,x,y,r);});
   // ours flying out
-  for(const f of sim.flying){const u=(t-f.from)/(f.at-f.from),x=W/2+(laneX(f.lane)-W/2)*u,y=H-40+(FORT-(H-40))*u-Math.sin(u*Math.PI)*80,r=14-8*u;if(fever){ctx.save();ctx.shadowColor='rgba(90,170,255,.9)';ctx.shadowBlur=14;sphere(ctx,x,y,r,'#ffffff','#9fd0ff');ctx.restore();}else sphere(ctx,x,y,r);}
+  for(const f of sim.flying){const u=(t-f.from)/(f.at-f.from),fy=laneFort(f.lane),x=W/2+(laneX(f.lane)-W/2)*u,y=H-40+(fy-(H-40))*u-Math.sin(u*Math.PI)*80,r=14-8*u;if(fever){ctx.save();ctx.shadowColor='rgba(90,170,255,.9)';ctx.shadowBlur=14;sphere(ctx,x,y,r,'#ffffff','#9fd0ff');ctx.restore();}else sphere(ctx,x,y,r);}
   // numbers
   ctx.textAlign='center';ctx.textBaseline='middle';
   for(const e of sim.log){const age=t-e.t;if(age<0||age>700)continue;const a=1-age/700;
-   if(e.k==='hit'||e.k==='gift'){ctx.fillStyle=e.k==='gift'?'rgba(200,50,40,'+a+')':e.fever?'rgba(20,120,220,'+a+')':'rgba(30,90,170,'+a+')';ctx.font='800 '+(e.fever||e.k==='gift'?26:22)+'px sans-serif';ctx.fillText('+'+e.n,laneX(e.lane),FORT-50-age*.04);if(e.combo>1){ctx.font='700 14px sans-serif';ctx.fillText(e.combo+'연속',laneX(e.lane),FORT-28-age*.04);}}
-   if(e.k==='jean'){ctx.fillStyle='rgba(170,110,10,'+a+')';ctx.font='800 22px sans-serif';ctx.fillText('−'+R.jean,laneX(e.lane),FORT-50-age*.04);}
+   if(e.k==='hit'||e.k==='gift'){ctx.fillStyle=e.k==='gift'?'rgba(200,50,40,'+a+')':e.fever?'rgba(20,120,220,'+a+')':'rgba(30,90,170,'+a+')';ctx.font='800 '+(e.fever||e.k==='gift'?26:22)+'px sans-serif';ctx.fillText('+'+e.n,laneX(e.lane),laneFort(e.lane)-50-age*.04);if(e.combo>1){ctx.font='700 14px sans-serif';ctx.fillText(e.combo+'연속',laneX(e.lane),laneFort(e.lane)-28-age*.04);}}
+   if(e.k==='jean'){ctx.fillStyle='rgba(170,110,10,'+a+')';ctx.font='800 22px sans-serif';ctx.fillText('−'+R.jean,laneX(e.lane),laneFort(e.lane)-50-age*.04);}
    if(e.k==='block'){ctx.fillStyle='rgba(60,120,80,'+a+')';ctx.font='700 16px sans-serif';ctx.fillText('피했다!',W/2,H-130);}}
   // the fever: a banner and how long is left
-  if(fever){const left=(sim.fever-t)/R.fever;ctx.fillStyle='rgba(40,120,220,.85)';ctx.fillRect(W/2-120,58,240,30);ctx.fillStyle='#fff';ctx.font='800 18px sans-serif';ctx.fillText('눈꽃 피버 ×2',W/2,73);ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillRect(W/2-120,88,240*left,4);}
-  else if(t0&&sim.combo>=2){ctx.fillStyle='rgba(30,70,140,.75)';ctx.font='700 14px sans-serif';ctx.fillText(sim.combo+'연속 · 피버까지 '+(R.feverAt-sim.combo%R.feverAt),W/2,72);}
+  if(fever){const left=(sim.fever-t)/R.fever;ctx.fillStyle='rgba(40,120,220,.85)';ctx.fillRect(W/2-120,10,240,30);ctx.fillStyle='#fff';ctx.font='800 18px sans-serif';ctx.fillText('눈꽃 피버 ×2',W/2,25);ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillRect(W/2-120,40,240*left,4);}
+  else if(t0&&sim.combo>=2){ctx.fillStyle='rgba(30,70,140,.75)';ctx.font='700 14px sans-serif';ctx.fillText(sim.combo+'연속 · 피버까지 '+(R.feverAt-sim.combo%R.feverAt),W/2,24);}
   // our wall
   wall+=((hidden?1:0)-wall)*.35;const wy=H-34-wall*92;drift(ctx,W/2,wy+70,W*1.25,150,9);
   if(t<sim.stun){ctx.fillStyle='rgba(255,255,255,'+(.75*(sim.stun-t)/R.stun)+')';ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(200,60,40,.9)';ctx.font='800 26px sans-serif';ctx.fillText('맞았다! -'+R.hurt,W/2,H/2);}

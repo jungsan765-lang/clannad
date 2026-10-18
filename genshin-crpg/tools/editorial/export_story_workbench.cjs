@@ -10,6 +10,8 @@ const content=require(root+'/tools/editorial/compile_main_story_k.cjs').compile(
 // Chapter names from the manuscript README table (| `file` | `CHAIN` | what happens |).
 const readme=fs.readFileSync(path.join(root,'tools/editorial/main_story_k/README.md'),'utf8'),about={};
 // 0.16.68: the stage each chapter is at (tools/editorial/story_status.json), shown in the workbench as a badge
+// the workbench edits already put into the manuscripts (tools/editorial/workbench_folded.json): shown as 「반영됨」, not over the text
+const FOLDED=(()=>{try{const s=JSON.parse(fs.readFileSync(path.join(root,'tools/editorial/workbench_folded.json'),'utf8'));delete s['//'];return s;}catch{return {};}})();
 const STATUS=(()=>{try{const s=JSON.parse(fs.readFileSync(path.join(root,'tools/editorial/story_status.json'),'utf8'));delete s['//'];return s;}catch{return {};}})();
 for(const line of readme.split('\n')){const m=line.match(/^\|\s*`([^`]+)`[^|]*\|\s*((?:`[^`]+`\s*)+)\|\s*(.+?)\s*\|\s*$/);if(!m)continue;for(const c of m[2].match(/`([^`]+)`/g).map(x=>x.slice(1,-1)))about[c]={file:m[1],what:m[3].replace(/`/g,'')};}
 const fileOf={};for(const f of fs.readdirSync(path.join(root,'tools/editorial/main_story_k')).filter(f=>f.endsWith('.md')&&f!=='README.md')){const t=fs.readFileSync(path.join(root,'tools/editorial/main_story_k',f),'utf8');for(const m of t.matchAll(/^# chain (\S+)/gm))fileOf[m[1]]=f;}
@@ -90,6 +92,9 @@ for(const chain of content.chains){
    const item={id:row[4],t:type==='NARRATION'?'narr':type==='DIALOGUE'?'line':type==='COMBAT_GATE'?'combat':type==='CARD_JOIN'?'join':type==='STORY_PAUSE'?'pause':type==='CHAPTER_END'?'end':type==='FIELD_GATE'?'field':type==='MENU_GATE'?'menu':type==='EVENT'?'event':type.toLowerCase(),who:player?'주인공':who,text:row[9]||'',cond:cond(row),does:deeds(row),kept:!/^PRO_/.test(row[4])};
    if(item.t==='meta'&&!item.text){id=row[13];continue;}
    list.push(item);
+   // 0.16.68: a chapter ends at its pause (「준비가 되면 이야기를 이어 가자」); what follows is the next chapter, exported on its own
+   // (before this, 몬드 2장 carried 3–5장 inside it: user, 「2장 너무 길다」)
+   if(item.t==='pause'||item.t==='end')return;
    id=row[13];
   }
  }
@@ -112,11 +117,11 @@ for(const c of require(root+'/tools/editorial/compile_festival_story.cjs').compi
  const label=k=>{let m;if((m=k.match(/^HOST_[A-Z]+_(\d|END)$/)))return '축제 창 맞이 · '+(m[1]==='END'?'끝난 뒤':m[1]+'일째');
   if((m=k.match(/^TASK_([A-Z]+)_(\d)_(\d)$/)))return TASKS[m[1]]+' · '+m[2]+'일째 '+(m[3]==='0'?'①':'②');
   if((m=k.match(/^YUT_(\w+)$/)))return '윷놀이 상대 '+charName(m[1])+' ('+YUT_EVENTS+' 순서)';
-  return {SONG_ORDER:'송편 주문 ({소} = 깨·콩·밤)',SONG_PRETTY:'송편 · 예쁘게 빚었을 때',SONG_OK:'송편 · 보통일 때',SONG_BURST:'송편 · 터졌을 때',SNOW_JEAN:'눈싸움 · 진 단장을 맞혔을 때',SNOW_GIFT:'눈싸움 · 선물 상자',SNOW_FEVER:'눈싸움 · 눈꽃 피버'}[k]||k;};
+  return {SONG_ORDER:'송편 주문 ({소} = 깨·콩·밤)',SONG_PRETTY:'송편 · 예쁘게 빚었을 때',SONG_OK:'송편 · 보통일 때',SONG_BURST:'송편 · 터졌을 때',SNOW_JEAN:'눈싸움 · 진 단장을 맞혔을 때',SNOW_GIFT:'눈싸움 · 보물상자',SNOW_FEVER:'눈싸움 · 눈꽃 피버'}[k]||k;};
  const owner=k=>/^(HOST|TASK)_([A-Z]+)/.exec(k)?.[2]||(k.startsWith('YUT_')?'SEOLLAL':k.startsWith('SONG_')?'CHUSEOK':'XMAS');
  for(const fest of ['SEOLLAL','CHUSEOK','XMAS']){const items=[];for(const [k,list] of Object.entries(talk)){if(owner(k)!==fest)continue;items.push({t:'scene',name:label(k)},...list.map(x=>({...x})));}
   if(items.length)chains.push({id:'EVT_'+fest+'_TALK',route:'ROUTE_BOTH',file:'festival_k/talk.md',title:'축제 대사',about:FEST_NAMES[fest]+' · 축제 창의 맞이, 이동 과제를 마칠 때, 미니게임에서 나오는 짧은 말 · 갈래와 상관없이 나옴',items});}}
-const out={version:1,made:new Date().toISOString().slice(0,10),chains};
+const out={version:1,made:new Date().toISOString().slice(0,10),folded:FOLDED,chains};
 const file=process.argv[2]||path.join(root,'reports/story_workbench.json');
 fs.writeFileSync(file,JSON.stringify(out));
 console.log(JSON.stringify({chains:chains.length,bytes:fs.statSync(file).size,lines:chains.reduce((n,c)=>n+JSON.stringify(c.items).split('"t":').length-1,0)}));

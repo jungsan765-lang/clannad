@@ -662,13 +662,17 @@ P.combatStat=function(a,key){
 // 눈싸움: behind your snow wall, stand up to throw at whoever pops up from the five forts, and duck when one winds up to throw back.
 // (user: 「이벤트 퀄리티좀 높여봐. 좀 재밌게」) Three kinds pop up: a friend (100, more in a row), a gift box (250, never throws) and
 // 진 단장 (do not hit her: −150, and the run of hits ends). Five hits in a row light 「눈꽃 피버」: for five seconds every hit counts twice.
-const SNOW={ms:45000,lanes:5,flight:380,incoming:450,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:150,fever:5000,feverAt:5};
+const SNOW={ms:45000,lanes:5,flight:380,incoming:700,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:150,fever:5000,feverAt:5};
+// 0.16.68 (user: 「사람 나오는 줄을 두 줄로 하고, 나올 경우의 수도 두배가 되는 대신 느리게. 또는 1일째나 2일째에는 한 줄로 하고 3일째부터 두
+// 줄로」, 「적 공격속도를 좀 낮춰봐」): from day 3 a near row of five more places (lanes 5–9); on those days friends stay up longer, come a little
+// less often and throw less. Their snowballs take 0.7 s to land (0.45 s before). Day 7: 12 throws in 45 s (19 before), 3.3 s between them (2.2 s).
+const snowRows=day=>day>=3?2:1,snowLanes=day=>SNOW.lanes*snowRows(day);
 function snowPlan(seed,day){
  // 0.16.68 (user: 「눈싸움 7일째 난이도가;; 너무 빨라서 그냥 다처맞아」): the days grow harder more gently. Day 7 had a 「!」 up 60% of
  // the time and friends up 1.29 s; now about 37% and 1.57 s (the old day 3–4). Day 1 is about the same.
- const r=rng(seed),pops=[];let t=1500;const gap=[900-30*day,1600-45*day],up=[1400-25*day,2200-40*day],pThrow=.35+.03*day,pGift=.1,pJean=.07+.01*day;
+ const two=snowRows(day)>1,lanes=snowLanes(day),r=rng(seed),pops=[];let t=1500;const gap=[900-30*day,1600-45*day].map(x=>x*(two?1.15:1)),up=[1400-25*day,2200-40*day].map(x=>x*(two?1.35:1)),pThrow=two?.30+.02*day:.35+.03*day,pGift=.1,pJean=.07+.01*day;
  while(t<SNOW.ms-1500){
-  const busy=new Set(pops.filter(p=>p.down>t).map(p=>p.lane));const free=[...Array(SNOW.lanes).keys()].filter(l=>!busy.has(l));
+  const busy=new Set(pops.filter(p=>p.down>t).map(p=>p.lane));const free=[...Array(lanes).keys()].filter(l=>!busy.has(l));
   if(free.length){const lane=free[Math.floor(r()*free.length)],dur=Math.round(up[0]+r()*(up[1]-up[0])),roll=r(),kind=roll<pGift?'gift':roll<pGift+pJean?'jean':'friend',p={lane,up:t,down:t+dur,kind};
    if(kind==='friend'&&r()<pThrow&&dur>900){p.throwAt=t+400+Math.round(r()*(dur-700));}pops.push(p);}
   t+=Math.round(gap[0]+r()*(gap[1]-gap[0]));
@@ -786,7 +790,7 @@ function songPlay(seed,day,input){
 }
 const GAMES={SNOWBALL:{ms:SNOW.ms},YUT:{ms:20000},SONGPYEON:{ms:8000}};
 function gameResult(job,input){
- if(job.game==='SNOWBALL'){if(!Array.isArray(input)||input.length>900)return null;let prev=-1;for(const x of input){if(!x||!Number.isFinite(x.t)||x.t<prev||x.t<0||x.t>SNOW.ms||!['h','s','t'].includes(x.a)||(x.a==='t'&&!(Number.isInteger(x.lane)&&x.lane>=0&&x.lane<SNOW.lanes)))return null;prev=x.t;}return snowPlay(job.seed,job.day,input);}
+ if(job.game==='SNOWBALL'){if(!Array.isArray(input)||input.length>900)return null;let prev=-1;for(const x of input){if(!x||!Number.isFinite(x.t)||x.t<prev||x.t<0||x.t>SNOW.ms||!['h','s','t'].includes(x.a)||(x.a==='t'&&!(Number.isInteger(x.lane)&&x.lane>=0&&x.lane<snowLanes(job.day))))return null;prev=x.t;}return snowPlay(job.seed,job.day,input);}
  if(job.game==='YUT'){if(!Array.isArray(input)||input.length>600||input.some(x=>!Array.isArray(x)||x.length!==2||!x.every(Number.isInteger)))return null;return yutScore(job.seed,job.day,input);}
  if(job.game==='SONGPYEON')return songPlay(job.seed,job.day,input);
  return null;
@@ -902,7 +906,15 @@ P.validateSave=function(s,...rest){
 };
 api.festivalV01667={version:1,festivals:copy(Object.fromEntries(Object.entries(FESTIVALS).map(([k,f])=>[k,{name:f.name,sub:f.sub,region:f.region,game:f.game,gameName:f.gameName,task:f.task,taskName:f.taskName,story:f.story,four:f.four}]))),
  milestones:copy(MILESTONES),points:copy(POINTS),primo:copy(PRIMO),storyReward:copy(STORY_REWARD),storyDays:STORY_DAYS.slice(),
- snow:{rules:{...SNOW},plan:snowPlan,play:snowPlay},yut:{names:{...YUT_NAMES},foes:YUT_FOES.slice(),routes:copy(ROUTES),create:yutCreate,legal:yutLegal,roll:yutRoll,settle:yutSettle,play:yutPlay,score:yutScore,dest:yutDest,station,bot:yutBotPick},
+ snow:{rules:{...SNOW},plan:snowPlan,play:snowPlay,rows:snowRows,lanes:snowLanes},yut:{names:{...YUT_NAMES},foes:YUT_FOES.slice(),routes:copy(ROUTES),create:yutCreate,legal:yutLegal,roll:yutRoll,settle:yutSettle,play:yutPlay,score:yutScore,dest:yutDest,station,bot:yutBotPick},
  song:{rules:{...SONG,fillings:SONG.fillings.slice()},plan:songPlan,orders:songOrders,play:songPlay,tri}};
 P.festivalV01667=true;
+})(globalThis);
+/* 0.16.68 이야기 분위기 (user's workbench note, 2026-10-19: 「여기서 천천히 설명을 진행하면서 분위기를 조성 … 화면 전체를 어둡게 하거나
+ * 테두리에 효과같은걸 얹어가면서」): the look a manuscript gives its lines (`@mood 어둠`, tools/editorial/compile_main_story_k.cjs), read by
+ * the story screen (app_story_mood_v01668.js). It changes nothing in the story itself. */
+(function(root){
+'use strict';
+const P=root.CRPGRuntime.Runtime.prototype;if(P.storyMood)return;
+P.storyMood=function(id){if(!id)return '';try{return this.storyIndex()?.storyMoods?.[String(id)]||'';}catch{return '';}};
 })(globalThis);

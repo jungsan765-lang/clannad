@@ -33,6 +33,8 @@ P.storyIndex=function(){
   const origGroups=groups();
   const ctx={ROUTE,table,all,get,refs,groups,isCondMember,origNext,origGroups};contexts.set(key,ctx);return ctx;
  };
+ // 0.16.68 @mood: the look of each line (node id → mood), read by the story screen through Runtime#storyMood
+ const moods={};
  for(const chain of M.chains){
   const ROUTE=routeOf(chain.id),table=tableOf(chain.entry,ROUTE);
   const {all,get,refs,groups,isCondMember,origNext,origGroups}=contextOf(ROUTE,table);
@@ -88,6 +90,7 @@ P.storyIndex=function(){
     let first=null,open=[];
     const link=id=>{for(const f of open)f(id);open=[];if(first===null)first=id;};
     for(const it of items){
+     if(it.mood&&it.id)moods[it.id]=it.mood;if(it.k==='choice')for(const o of it.options)if(o.mood&&(o.keep||o.id))moods[o.keep||o.id]=o.mood;
      if(it.k==='keep'){
       const r=get(it.id);if(it.as)r[5]=it.as;if(it.text!=null&&r[5]!=='CHOICE')r[9]=it.text;if(r[8])map=r[8];
       link(it.id);
@@ -132,7 +135,7 @@ P.storyIndex=function(){
    report.installed.push({chain:chain.id,table,kept:keeps.size,added:newIds.length,frozen:frozen.size});
   }catch(e){report.failed.push({chain:chain.id,error:e.message});console.error('[main story K] '+chain.id+': '+e.message);}
  }
- Object.defineProperty(ix,'mainStoryK',{value:report});return ix;
+ Object.defineProperty(ix,'mainStoryK',{value:report});Object.defineProperty(ix,'storyMoods',{value:moods});return ix;
 };
 api.mainStoryEdition={version:M.version,chains:M.chains.map(c=>c.id)};
 })(globalThis);

@@ -247,6 +247,8 @@ body .fe-paid-cell .fe-ic{width:40px;height:40px}
 .fg-hide{min-width:150px;min-height:52px;font-size:1.1rem;touch-action:none}
 .fg-hide.on{background:#bfe6ff;color:#0f1a2a}
 .fg-lanes{display:flex;gap:6px}
+.fg-lanes.two{display:grid;grid-template-columns:repeat(5,auto);gap:4px}
+.fg-lanes.two .fg-lane{min-width:40px;min-height:26px;padding:2px 8px;font-size:.92rem}
 .fg-lane{min-width:52px;min-height:52px;font-size:1.1rem}
 .fg-throw,.fg-press{min-width:180px;min-height:52px;font-size:1.15rem}
 .fg-chips{display:flex;gap:6px}
