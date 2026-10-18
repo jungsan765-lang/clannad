@@ -27,7 +27,7 @@ check('the screen corrects the old spellings marked for it, with the same map as
 
 check('no wrong spelling in the game\'s data, code, story manuscripts or this release\'s notes',()=>{
  const files=[];const walk=(d,re)=>{for(const f of fs.readdirSync(path.join(root,d),{withFileTypes:true})){const p=d+'/'+f.name;if(f.isDirectory())walk(p,re);else if(re.test(f.name))files.push(p);}};
- walk('source',/\.(js|html|css|webmanifest)$/);walk('tools/editorial/main_story_k',/\.md$/);walk('tools/editorial/personal_k',/\.md$/);files.push('content/db.json');
+ walk('source',/\.(js|html|css|webmanifest)$/);walk('tools/editorial/main_story_k',/\.md$/);walk('tools/editorial/personal_k',/\.md$/);walk('tools/editorial/festival_k',/\.md$/);files.push('content/db.json');
  const texts=files.filter(f=>f!=='source/app_glossary_v01647.js').map(f=>[f,rd(f)]);
  const notes=JSON.parse(rd('content/release-notes.json'));texts.push(['content/release-notes.json (this release)',JSON.stringify({changes:notes.changes,notes:notes.notes})]);
  const shown=new Set(Object.keys(G.display)),found=[];

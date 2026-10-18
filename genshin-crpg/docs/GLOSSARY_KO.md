@@ -33,19 +33,25 @@
 | 모험가 길드 | Adventurers' Guild | 단체 |  | game |  |
 | 보물 사냥단 | Treasure Hoarders | 단체 | 보물사냥단 (화면에서 바로잡음) | yatta | 낱말 퍼즐 답과 적 태그(`[보물사냥단]`)에는 붙인 표기가 남아 있고 화면에서 바로잡는다 |
 | 북국 은행 | Northland Bank | 단체 |  | 0.15.20 | 공식 문장은 띄어 씀. 이야기 원고에 「북국은행」이 섞여 있다(사용자 원고) |
+| 비운 상회 | Feiyun Commerce Guild | 단체 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 행추 소개 「비운 상회」 (2026-10-18 확인) |
 | 심연 교단 | Abyss Order | 단체 |  | yatta |  |
 | 우인단 | Fatui | 단체 | 파투이 | yatta |  |
 | 운한사 | Yun-Han Opera House | 단체 | 운한 극단 | 0.15.20 |  |
 | 천암군 | Millelith | 단체 |  | yatta |  |
+| 칠성 | Liyue Qixing | 단체 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 업적 「칠성 몰래 …」 (2026-10-18 확인) |
 | 페보니우스 기사단 | Knights of Favonius | 단체 | 서풍 기사단, 서풍기사단 | yatta |  |
 | 페보니우스 성당 | Church of Favonius | 단체 | 서풍 교회 | 0.15.20 |  |
 | 군옥각 | Jade Chamber | 장소 |  | yatta |  |
 | 리월항 | Liyue Harbor | 장소 |  | yatta |  |
 | 만민당 | Wanmin Restaurant | 장소 |  | yatta |  |
+| 망서 객잔 | Wangshu Inn | 장소 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 업적 「망서 객잔의 …」 (2026-10-18 확인) |
 | 몬드성 | Mondstadt City | 장소 |  | yatta |  |
+| 옥경대 | Yujing Terrace | 장소 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 임무 이름 (2026-10-18 확인) |
+| 왕생당 | Wangsheng Funeral Parlor | 장소 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 호두 소개·임무 「왕생당 당주 …」 (2026-10-18 확인) |
 | 일곱신상 | Statue of The Seven | 장소 | 일곱 신상 | yatta | 붙여 씀 |
 | 캣테일 | Cat's Tail | 장소 | 고양이 꼬리 | yatta | 주점 이름 |
 | 타타우파 협곡 | Dadaupa Gorge | 장소 | 다다우파 | 0.15.20 |  |
+| 누룽지 | Guoba | 인물 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 향릉 원소전투 「누룽지 출격」 (2026-10-18 확인) |
 | 모락스 | Morax | 인물 |  | game |  |
 | 바르바토스 | Barbatos | 인물 |  | game |  |
 | 설탕 | Sucrose | 인물 | 수크로스 | yatta |  |
@@ -57,6 +63,8 @@
 | 부의 꽃 | Blossom of Wealth | 콘텐츠 |  | game |  |
 | 비경 | Domain | 콘텐츠 |  | yatta |  |
 | 지맥의 꽃 | Ley Line Blossom | 콘텐츠 |  | game |  |
+| 축월절 | Moonchaser Festival | 콘텐츠 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 임무 이름 「축월절」 (2026-10-18 확인) |
+| 해등절 | Lantern Rite | 콘텐츠 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 업적·임무 「해등절 첫째 날」 (2026-10-18 확인) |
 | 기원 | Wish | 시스템 |  | yatta |  |
 | 성유물 | Artifact | 시스템 |  | yatta |  |
 | 원소폭발 | Elemental Burst | 시스템 |  | yatta | 붙여 씀. 적 기술 이름의 「원소 폭발」(화염 원소 폭발 등)은 창작 기술명이라 다르다 |

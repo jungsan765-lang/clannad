@@ -329,6 +329,12 @@ export class AdminConsole{
   if(op==='close'){const out=this.store.opEventsAdminClose(b);this.audit(actor,ip,null,'event-close',{event:out.event.id,kind:out.event.kind});return out;}
   throw err(400,'이벤트 작업을 골라 주세요.');
  }
+ // 0.16.67 정기 축제 (server/festivals-v01667.mjs): a year's days moved or switched off, and a test opening (every day open at once).
+ festivals(b,actor,ip){
+  const out=this.store.festivalAdmin(b,actor);
+  this.audit(actor,ip,null,'festival-'+String(b?.op||''),{festival:b?.festival||null,year:b?.year??null,first:b?.first??null,last:b?.last??null,days:b?.days??null,num:b?.num??null});
+  return out;
+ }
  chatDelete(b,actor,ip){this.store.need('chat');const id=Number(b?.id);if(!Number.isSafeInteger(id))throw err(400,'메시지를 확인해 주세요.');this.db.prepare('UPDATE chat SET deleted=1 WHERE id=?').run(id);this.store.broadcast({type:'chat-delete',id});this.audit(actor,ip,null,'chat-delete',{id});return {deleted:true};}
  // ---------- routes ----------
  async handle({path,method,url,authorization,readBody,ip}){
@@ -347,6 +353,7 @@ export class AdminConsole{
    if(path==='/admin/trades')return this.trades();
    if(path==='/admin/raid')return this.store.raidAdminList();
    if(path==='/admin/events')return this.store.opEventsAdminList();
+   if(path==='/admin/festivals')return this.store.festivalAdminList();
    // 0.16.61 서버 문: open/closed, the most players at once, who is online now and how busy the server is (server/gate-v01661.mjs).
    if(path==='/admin/server')return this.serverGate();
   }
@@ -370,6 +377,7 @@ export class AdminConsole{
    if(path==='/admin/chat-delete')return this.chatDelete(b,actor,ip);
    if(path==='/admin/raid')return this.raid(b,actor,ip);
    if(path==='/admin/events')return this.opEvents(b,actor,ip);
+   if(path==='/admin/festivals')return this.festivals(b,actor,ip);
    if(path==='/admin/server'){const before=this.serverGate(),out=this.store.gate.set(b,actor);this.audit(actor,ip,null,'server-gate',{open:[before.open,out.open],maxOnline:[before.maxOnline,out.maxOnline],message:out.message});return out;}
   }
   throw err(404,'지원하지 않는 운영자 요청입니다.');

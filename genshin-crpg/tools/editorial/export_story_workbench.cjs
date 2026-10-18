@@ -95,6 +95,12 @@ for(const chain of content.chains){
  const a=about[chain.id]||{};
  chains.push({id:chain.id,route,file:fileOf[chain.id]||a.file||'',about:a.what||'',items});
 }
+// 0.16.67 축제 이야기 (tools/editorial/festival_k/*.md): after the main story, in the same shape; a place change keeps its names.
+const FEST_NAMES={XMAS:'눈꽃 축제',SEOLLAL:'설날',CHUSEOK:'추석'};
+for(const c of require(root+'/tools/editorial/compile_festival_story.cjs').compile()){
+ const named=list=>list.map(it=>it.t==='move'?{...it,from:mapName(it.fromId),to:mapName(it.toId)}:it.t==='choice'?{...it,opts:it.opts.map(o=>({...o,items:named(o.items)}))}:it);
+ chains.push({id:c.id,route:c.route==='TRV'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',file:'festival_k/'+c.file,title:c.title,about:FEST_NAMES[c.festival]+' '+c.part+'편 「'+c.title+'」 · '+mapName(c.map)+'에서 시작 · 축제 창의 「이야기」에서 봅니다',items:named(c.items)});
+}
 const out={version:1,made:new Date().toISOString().slice(0,10),chains};
 const file=process.argv[2]||path.join(root,'reports/story_workbench.json');
 fs.writeFileSync(file,JSON.stringify(out));

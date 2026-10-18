@@ -20,8 +20,10 @@ export const opEventMethods={
   if(!K())return [];
   return this.db.prepare('SELECT * FROM op_events WHERE starts_at<=? AND ends_at>? AND closed_at IS NULL ORDER BY id').all(t,t).map(view).filter(e=>K().kinds[e.kind]);
  },
+ // 0.16.67: with the festivals that open by the calendar (festivals-v01667.mjs) — what the engine gets with an action.
+ liveEvents(t=now()){return [...this.opEventsActive(t),...(this.festivalEvents?.(t)||[])];},
  // What a player's screen shows: the open events and the rules that go with them.
- opEventsStatus(){const k=K();return {now:now(),events:this.opEventsActive(),tokens:k?.tokens||{},shop:k?.shop||[]};},
+ opEventsStatus(){const k=K(),t=now();return {now:t,events:this.liveEvents(t),nextAt:this.festivalNextAt?.(t)??null,tokens:k?.tokens||{},shop:k?.shop||[]};},
  // ---------- the operator ----------
  opEventsAdminList(){
   const k=K(),t=now();if(!k)throw err(404,'지원하지 않는 요청입니다.');
@@ -34,6 +36,7 @@ export const opEventMethods={
   const kind=String(b?.kind||'');if(!Object.hasOwn(k.kinds,kind))throw err(400,'열 이벤트를 골라 주세요.');
   const days=Number(b?.days);if(!Number.isInteger(days)||days<1||days>30)throw err(400,'기간은 1~30일로 정해 주세요.');
   if(this.opEventsActive().some(e=>e.kind===kind))throw err(409,'이미 열린 같은 이벤트가 있습니다. 먼저 닫아 주세요.');
+  if(kind==='FESTIVAL'&&this.liveEvents().some(e=>e.kind==='FESTIVAL'))throw err(409,'정기 축제가 열려 있어 축제 교환이 함께 열려 있습니다.');
   const t=now(),id=Number(this.db.prepare('INSERT INTO op_events(kind,starts_at,ends_at,opened_by) VALUES(?,?,?,?)').run(kind,t,t+days*DAY,String(actor||'')).lastInsertRowid);
   const event=view(this.db.prepare('SELECT * FROM op_events WHERE id=?').get(id));
   this.invalidateAll?.();this.broadcast({type:'op-event',open:true,event:event.id,kind},()=>true);return {event};

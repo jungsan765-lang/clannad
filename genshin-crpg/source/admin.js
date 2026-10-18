@@ -379,7 +379,27 @@ async function drawEvents(main){
   return card(k.name+(active?' · 열림':''),h('p',{text:k.text}),active?h('p',{class:'adm-hint',text:when(active.startsAt)+' ~ '+when(active.endsAt)}):null,action);});
  const rows=out.events.map(e=>h('tr',{},h('td',{class:'nowrap',text:'#'+e.num}),h('td',{text:e.name}),h('td',{class:'nowrap',text:when(e.startsAt)+' ~ '+when(e.endsAt)}),h('td',{},badge(...(STATE[e.state]||[e.state,'']))),h('td',{text:e.openedBy||'-'})));
  const list=card('최근 이벤트',h('div',{class:'adm-scroll'},h('table',{class:'adm-table'},h('thead',{},h('tr',{},['번호','이벤트','기간','상태','연 사람'].map(t=>h('th',{text:t})))),h('tbody',{},rows.length?rows:h('tr',{},h('td',{colspan:'5',class:'adm-empty',text:'아직 연 이벤트가 없습니다.'}))))));
- main.replaceChildren(h('div',{class:'adm-page'},card('이벤트 열기',h('p',{class:'adm-hint',text:'열면 바로 시작하고, 정한 날이 지나면 저절로 끝납니다. 종류가 다르면 함께 열 수 있습니다. 「하루」는 한국 시간 0시에 바뀝니다.'}),h('label',{},notice,h('span',{text:' 열 때 채팅에 공지'}))),...kinds,list));
+ main.replaceChildren(h('div',{class:'adm-page'},card('이벤트 열기',h('p',{class:'adm-hint',text:'열면 바로 시작하고, 정한 날이 지나면 저절로 끝납니다. 종류가 다르면 함께 열 수 있습니다. 「하루」는 한국 시간 0시에 바뀝니다.'}),h('label',{},notice,h('span',{text:' 열 때 채팅에 공지'}))),...kinds,list,...await festivalCards()));
+}
+// 0.16.67 정기 축제 (server/festivals-v01667.mjs): each festival opens by the calendar; here a year's days are moved or switched off,
+// and one can be opened now as a test (every day open at once, a record of its own).
+async function festivalCards(){
+ const out=await read('/admin/festivals');if(!out)return [];
+ const STATE={OPEN:['열림','ok'],SCHEDULED:['예정','info'],ENDED:['끝남',''],OFF:['꺼짐','warn'],UNSET:['날짜 없음','warn'],CLOSED:['닫음','']};
+ const day=t=>t?new Date(t+9*3600000).toISOString().slice(0,10):'-';
+ const cards=out.festivals.map(f=>card('정기 축제 · '+f.name,...f.years.map(w=>{
+  const first=h('input',{type:'text',value:w.first||'',placeholder:'2027-02-01',class:'adm-text small'}),last=h('input',{type:'text',value:w.last||'',placeholder:'2027-02-14',class:'adm-text small'});
+  const send=async(body,done)=>{if(await run(()=>api('/admin/festivals',{festival:f.key,year:w.year,...body}),done))show('events');};
+  return h('div',{class:'adm-form-row'},h('b',{text:w.year+'년'}),badge(...(STATE[w.state]||[w.state,''])),h('span',{class:'adm-hint',text:w.first?w.first+' ~ '+w.last+(w.moved?' (옮김 · 달력은 '+day(w.calendar?.startsAt)+'부터)':' (달력대로)'):'달력에 날짜가 없습니다'}),
+   h('label',{},h('span',{text:'첫날 '}),first),h('label',{},h('span',{text:'마지막 날 '}),last),button('날짜 바꾸기',()=>send({op:'set',first:first.value.trim(),last:last.value.trim()},'날짜를 바꿨습니다.'),'primary'),
+   w.moved?button('달력대로',()=>send({op:'reset'},'달력대로 돌렸습니다.'),'ghost'):null,button(w.off?'다시 켜기':'이 해 끄기',()=>{if(!w.off&&!confirm(w.year+'년 '+f.name+'을(를) 끌까요?'))return;send({op:'off',off:!w.off},w.off?'켰습니다.':'껐습니다.');},w.off?'':'warn'));
+ })));
+ const days=h('input',{type:'number',min:'1',max:'30',value:'3',class:'adm-text small'}),allDays=h('input',{type:'checkbox',checked:true});
+ const open=out.tests.find(t=>t.state==='OPEN');
+ const test=card('시험 축제',h('p',{class:'adm-hint',text:'지금 바로 열어 봅니다. 기록은 진짜 축제와 따로 남습니다. 「모든 날 열기」면 7일 치가 한 번에 열립니다. 한 번에 하나만 열 수 있습니다.'}),
+  open?h('div',{class:'adm-form-row'},h('b',{text:open.name+' · #'+open.num}),h('span',{class:'adm-hint',text:when(open.startsAt)+' ~ '+when(open.endsAt)}),button('시험 닫기',async()=>{if(await run(()=>api('/admin/festivals',{op:'test-close',num:open.num}),'시험 축제를 닫았습니다.'))show('events');},'warn'))
+  :h('div',{class:'adm-form-row'},h('label',{},h('span',{text:'기간(일) '}),days),h('label',{},allDays,h('span',{text:' 모든 날 열기'})),...out.festivals.map(f=>button(f.name+' 열기',async()=>{if(await run(()=>api('/admin/festivals',{op:'test',festival:f.key,days:Number(days.value),allDays:allDays.checked}),'시험 축제를 열었습니다.'))show('events');},'primary'))));
+ return [...cards,test];
 }
 // ---------- 교환 기록 ----------
 async function drawTrades(main){

@@ -244,6 +244,12 @@ try{
   // 0.16.66: the event window with every kind open (the shop at its widest: four kinds, all exchange cards with their choices)
   await view('events-window',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('LOCATION');const t=Date.now();window.CRPGOpEventsList=['LEY_DOUBLE','DOMAIN_SUPPLY','BOSS_DOUBLE','FESTIVAL'].map((kind,i)=>({id:'EVT_'+(1000001+i),kind,startsAt:t-1000,endsAt:t+5*86400000}));window.CRPGOpEvents?.openWindow?.();await new Promise(r=>setTimeout(r,300));})()`);
   await page.evaluate(()=>{window.CRPGOpEventsList=[];document.querySelectorAll('dialog[open]').forEach(d=>d.close());});
+  // 0.16.67 정기 축제: the festival window's tabs (설날, every day open), a part of its story, and 눈꽃 축제's points. CI looks at the two fullest.
+  const festOpen=(fest,tab)=>`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('LOCATION');const t=Date.now();window.CRPGOpEventsList=[{id:'FES_${fest}_T1',kind:'SEASON',festival:'${fest}',startsAt:t-1000,endsAt:t+7*86400000,allDays:true,test:true},{id:'EVT_FES_${fest}_T1',kind:'FESTIVAL',startsAt:t-1000,endsAt:t+7*86400000}];window.CRPGFestival?.close?.();window.CRPGFestival?.open?.('${tab}');await new Promise(r=>setTimeout(r,300));})()`;
+  for(const tab of ['fight','task','story','game','points','shop'])if(!process.env.CI||['fight','task'].includes(tab))await view('festival-'+tab,festOpen('SEOLLAL',tab));
+  if(!process.env.CI){await view('festival-reader',festOpen('SEOLLAL','story').replace(/\}\)\(\)$/,"document.querySelector('.fe-story .fe-go')?.click();await new Promise(r=>setTimeout(r,200));for(let i=0;i<6;i++)document.querySelector('.fe-reader-box')?.click();await new Promise(r=>setTimeout(r,200));})()"));
+   await view('festival-xmas-points',festOpen('XMAS','points'));await view('festival-xmas-game',festOpen('XMAS','game'));}
+  await page.evaluate(()=>{window.CRPGFestival?.close?.();window.CRPGOpEventsList=[];});
   // 0.16.36 (TODO 7): a pinned material — its chip on the map's head and a gold ring on every place it is found.
   await view('map-tracked',`(async()=>{await __go('LOCATION');for(const id of game.tables['14_ITEM_DB'].keys()){localStorage.setItem('crpg-track-v1',JSON.stringify({item:id,need:99}));if((window.CRPGTrack?.places?.()||[]).length>=2)break;}render();await new Promise(r=>setTimeout(r,300));})()`);
   await page.evaluate(()=>{try{localStorage.removeItem('crpg-track-v1');render();}catch{}});

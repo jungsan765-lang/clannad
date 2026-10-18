@@ -23,7 +23,7 @@ try{
  ok((await A('/admin/events',{op:'open',kind:'LEY_DOUBLE',days:31})).status===400,'one to thirty days');
  ok((await A('/admin/events',{op:'open',kind:'nothing',days:3})).status===400,'only the four kinds');
  ok((await A('/admin/events',{op:'open',kind:'LEY_DOUBLE',days:7})).status===200,'two kinds may run together');
- const seen=(await api('/events',{token})).json;ok(seen.events.map(e=>e.kind).sort().join()==='FESTIVAL,LEY_DOUBLE'&&seen.shop.length===7&&seen.tokens.win===2,'players see both, with the exchange list');
+ const seen=(await api('/events',{token})).json;ok(seen.events.map(e=>e.kind).sort().join()==='FESTIVAL,LEY_DOUBLE'&&seen.shop.length===8&&seen.tokens.win===2,'players see both, with the exchange list');
  const audit=JSON.stringify((await A('/admin/audit')).json);ok(audit.includes('event-open'),'the operator log records it');
  // the engine gets the open events with an action: a shop exists in the save's view only while the event runs
  const fest=seen.events.find(e=>e.kind==='FESTIVAL');

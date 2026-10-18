@@ -429,7 +429,9 @@ const SHOP=[
  {key:'BOOK_3',pick:'book',cost:60,limit:4,item:c=>'GROWTH_BOOK_'+c+'_3'},
  {key:'BOSS',pick:'boss',cost:80,limit:2,item:c=>c},
  {key:'HERO',cost:15,limit:20,item:()=>'MAT_CHAR_EXP_HERO'},
- {key:'MORA',cost:10,limit:20,mora:5000}
+ {key:'MORA',cost:10,limit:20,mora:5000},
+ // 0.16.67 (user: 「원석 좀 팍팍 뿌려」)
+ {key:'PRIMO',cost:120,limit:5,primogem:160}
 ];
 const SHOP_BY=new Map(SHOP.map(x=>[x.key,x]));
 const nowOf=rt=>Number(rt.actionStartedAt??Date.now());
@@ -448,7 +450,7 @@ function earn(rt,n){if(!(n>0))return 0;const f=fest(rt,true);if(!f)return 0;f.to
 P.festivalShop=function(){
  const f=fest(this,false);if(!f)return null;const items=this.tables['14_ITEM_DB'];
  const choices={element:ELEMENTS.filter(e=>items.has('GROWTH_GEM_'+e+'_2')),book:BOOKS.filter(k=>items.has('GROWTH_BOOK_'+k+'_2')),boss:[...items.keys()].filter(id=>/^MAT_FB_/.test(id))};
- return {event:f.id,tokens:f.tokens,earned:f.earned,earn:{...TOKENS},items:SHOP.map(x=>({key:x.key,pick:x.pick||null,choices:x.pick?choices[x.pick]:null,cost:x.cost,limit:x.limit,bought:Number(f.bought[x.key])||0,mora:x.mora||0,item:x.pick?null:x.item?.()||null}))};
+ return {event:f.id,tokens:f.tokens,earned:f.earned,earn:{...TOKENS},items:SHOP.map(x=>({key:x.key,pick:x.pick||null,choices:x.pick?choices[x.pick]:null,cost:x.cost,limit:x.limit,bought:Number(f.bought[x.key])||0,mora:x.mora||0,primogem:x.primogem||0,item:x.pick?null:x.item?.()||null}))};
 };
 function exchangeReason(rt,a){
  if(rt.s?.runtime)return '전투를 마친 뒤 교환해 주세요.';const e=rt.opEvent('FESTIVAL');if(!e)return '열린 축제 교환이 없습니다.';if(a?.event!==e.id)return '이벤트가 바뀌었습니다. 다시 열어 주세요.';
@@ -490,8 +492,8 @@ function counts(rt){const s=rt.s;if(!s)return null;let life=0,commissions=0;try{
 P.apply=function(a,...rest){
  if(a?.type==='EVENT_EXCHANGE'){const why=exchangeReason(this,a);if(why)fail('EVENT_EXCHANGE',why);
   const x=SHOP_BY.get(a.item),n=a.n===undefined?1:a.n,f=fest(this,true),got={};f.tokens-=x.cost*n;f.bought[x.key]=(Number(f.bought[x.key])||0)+n;
-  if(x.mora){this.s.global.MORA+=x.mora*n;}else{const id=x.item(a.choice);this.giveItem(id,n);got[id]=n;}
-  return {type:'EVENT_EXCHANGE',event:f.id,item:x.key,choice:a.choice||null,n,items:got,mora:x.mora?x.mora*n:0,tokens:f.tokens};}
+  if(x.mora){this.s.global.MORA+=x.mora*n;}else if(x.primogem){this.s.global.PRIMOGEM=(Number(this.s.global.PRIMOGEM)||0)+x.primogem*n;}else{const id=x.item(a.choice);this.giveItem(id,n);got[id]=n;}
+  return {type:'EVENT_EXCHANGE',event:f.id,item:x.key,choice:a.choice||null,n,items:got,mora:x.mora?x.mora*n:0,primogem:x.primogem?x.primogem*n:0,tokens:f.tokens};}
  const fe=this.s?.runtime?null:this.opEvent('FESTIVAL'),before=fe?counts(this):null,out=old.apply.call(this,a,...rest);
  if(fe&&before&&this.s&&!this.s.runtime){const after=counts(this),n=Math.max(0,after.life-before.life)*TOKENS.life+Math.max(0,after.events-before.events)*TOKENS.event+Math.max(0,after.commissions-before.commissions)*TOKENS.commission;
   const got=earn(this,n);if(got&&out&&typeof out==='object')out.festivalTokens=(Number(out.festivalTokens)||0)+got;}
@@ -505,6 +507,381 @@ P.validateSave=function(s,...rest){
   if(bad)fail('OP_EVENT_SAVE','이벤트 기록이 올바르지 않습니다.');}
  return out;
 };
-api.opEventsV01666={version:1,kinds:JSON.parse(JSON.stringify(KINDS)),tokens:{...TOKENS},shop:SHOP.map(x=>({key:x.key,pick:x.pick||null,cost:x.cost,limit:x.limit,mora:x.mora||0}))};
+api.opEventsV01666={version:1,kinds:JSON.parse(JSON.stringify(KINDS)),tokens:{...TOKENS},shop:SHOP.map(x=>({key:x.key,pick:x.pick||null,cost:x.cost,limit:x.limit,mora:x.mora||0,primogem:x.primogem||0}))};
 P.opEventsV01666=true;
+})(globalThis);
+// 0.16.67 정기 축제 (user, 2026-10-18: 「정기 이벤트 만드는것도 나쁘지 않긴 하겠네. 크리스마스라던가 추석 설날 이럴때」; answers: 마지막 보상은
+// 「4성 한 명 고르기」, 열리는 날은 「날짜에 저절로」; 「설날 추석은 아예 한국식으로다가 축제를 바꿔도 되잖아? 스토리도 조금 추가하고」; 「주인공쪽에서
+// 리월 캐릭터들한테 알려주는 그런걸로 … 여행자쪽은 새로운 세계로 갑작스레 이동해서 이세계인과 같이 스토리가 연결되게」). Three festivals open by
+// the Korean calendar (server/festivals-v01667.mjs; the operator can move or switch one off): 눈꽃 축제 (Christmas, Mond), 설날 and 추석
+// (Liyue). The server hands an open one to the engine with each action in the same list as the operator's events ({kind:'SEASON'}).
+// A festival lasts about two weeks and opens a new day of things for seven days; a missed day can be done later while it runs:
+//  - 매일 도전: one fight a day (enemies at the protagonist's level) with a day's rule, and three stars (40 points each).
+//  - 미니게임: 눈싸움 / 윷놀이 / 송편 빚기, a stage a day. The page plays it and sends what was pressed; the engine plays it again from the
+//    same seed and gives the score (40 / 80 / 120 points by tier).
+//  - 이동 과제: 선물 배달 / 세배 돌기 (go to the place and press) / 차례상 (bring what the day asks for to 왕생당), two a day, 60 points each.
+//  - 축제 이야기 (설날·추석): three parts by route, opened on days 1, 3 and 5 (원석 60 and 100 points each; the words are in
+//    source/app_feststory_v01667.js, made from tools/editorial/festival_k/*.md through the story workbench).
+//  - 점수 보상: reached points pay by themselves; the last one is a 4★ of the festival's region the player picks (a constellation if
+//    already joined), still open seven days after the end.
+// 축제 교환 (opEventsV01666) runs with every festival. The save keeps s.festival for the current festival only.
+(function(root){
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.festivalV01667)return;
+const old=Object.fromEntries(['apply','actionReason','validateSave','finishBattle','startBattle','combatStat','growthEncounterLevel'].map(k=>[k,P[k]]));
+const fail=(c,m)=>{throw new api.RuleError(c,m);},int=n=>Number.isSafeInteger(n)&&n>=0,own=(o,k)=>typeof k==='string'&&Object.prototype.hasOwnProperty.call(o,k),copy=x=>JSON.parse(JSON.stringify(x));
+const DAY=86400000,CLAIM_DAYS=7,DAYS=7;
+const nowOf=rt=>Number(rt.actionStartedAt??Date.now());
+const rng=seed=>{let a=(Number(seed)>>>0)||1;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};};
+const EL={PYRO:'불',HYDRO:'물',ANEMO:'바람',ELECTRO:'번개',CRYO:'얼음',GEO:'바위',DENDRO:'풀'};
+// ---------- the three festivals ----------
+const MOND4=['MOND_AMBER','MOND_KAEYA','MOND_LISA','MOND_BARBARA','MOND_NOELLE','MOND_FISCHL','MOND_BENNETT','MOND_RAZOR','MOND_SUCROSE','MOND_DIONA','MOND_ROSARIA','MOND_MIKA','MOND_DAHLIA'];
+const LIYUE4=['LIYUE_XIANGLING','LIYUE_XINGQIU','LIYUE_CHONGYUN','LIYUE_BEIDOU','LIYUE_NINGGUANG','LIYUE_XINYAN','LIYUE_YANFEI','LIYUE_YUNJIN','LIYUE_YAOYAO','LIYUE_GAMING','LIYUE_LANYAN'];
+// a day's fight: [name, group, rule, the second and third stars]
+//  rule: enemyHp/enemyAtk/enemyDef % up, enemySpd up, allyAtk % up, aura = the element every enemy starts with
+//  stars: ['ROUNDS',n] in n rounds · ['NO_KO'] nobody down · ['ELEMENT','불'] with a companion of the element · ['PARTY',n] n or fewer · ['HP',50] half the HP left
+const XMAS_FIGHTS=[
+ ['눈밭의 슬라임','EG_MOND_SLIME_SMALL',{},[['ROUNDS',6],['NO_KO']]],
+ ['선물 도둑','EG_TREASURE_PATROL',{enemySpd:10},[['ROUNDS',6],['PARTY',3]]],
+ ['눈보라','EG_DRAGON_CRYO',{aura:'얼음',enemyHp:20},[['ELEMENT','불'],['ROUNDS',7]]],
+ ['츄츄족 눈사람','EG_MOND_HILI_PATROL',{allyAtk:25,enemyHp:60},[['ROUNDS',6],['NO_KO']]],
+ ['얼음 방패','EG_DRAGON_MITA',{enemyDef:40},[['ELEMENT','바위'],['ROUNDS',8]]],
+ ['한밤의 순찰','EG_MOND_HILI_ELITE',{enemyAtk:20},[['HP',50],['ROUNDS',7]]],
+ ['겨울밤의 우인단','EG_FATUI_ELITE',{enemyHp:30,enemyAtk:15},[['NO_KO'],['ROUNDS',8]]]
+];
+const SEOLLAL_FIGHTS=[
+ ['복주머니 도둑','EG_TREASURE_PATROL',{},[['ROUNDS',6],['NO_KO']]],
+ ['돌담 츄츄족','EG_LIYUE_HILI_ROCK',{enemyDef:30},[['ELEMENT','바위'],['ROUNDS',7]]],
+ ['새해 첫 바다','EG_LIYUE_VISHAP',{enemySpd:10},[['ROUNDS',6],['PARTY',3]]],
+ ['연날리기 언덕','EG_MOND_HILI_PATROL',{allyAtk:25,enemyHp:60},[['ROUNDS',6],['HP',50]]],
+ ['멈춘 유적','EG_LIYUE_RUIN',{aura:'물',enemyHp:20},[['ELEMENT','번개'],['ROUNDS',7]]],
+ ['세뱃돈을 노리는 자','EG_FATUI_PATROL',{enemyAtk:20},[['NO_KO'],['ROUNDS',7]]],
+ ['정월의 그림자','EG_CHASM_HUSK',{enemyHp:30,enemyAtk:15},[['NO_KO'],['ROUNDS',8]]]
+];
+const CHUSEOK_FIGHTS=[
+ ['밤 따는 날','EG_LIYUE_HILI_ROCK',{},[['ROUNDS',6],['NO_KO']]],
+ ['들판의 도둑','EG_TREASURE_PATROL',{enemySpd:10},[['ROUNDS',6],['PARTY',3]]],
+ ['달빛 물가','EG_LIYUE_VISHAP',{aura:'물',enemyHp:20},[['ELEMENT','얼음'],['ROUNDS',7]]],
+ ['풍년의 들','EG_MOND_SLIME_SMALL',{allyAtk:25,enemyHp:80},[['ROUNDS',5],['HP',50]]],
+ ['단단한 손님','EG_LIYUE_RUIN',{enemyDef:40},[['ELEMENT','바위'],['ROUNDS',8]]],
+ ['보름달 밤의 순찰','EG_FATUI_PATROL',{enemyAtk:20},[['HP',50],['ROUNDS',7]]],
+ ['한가위의 그림자','EG_CHASM_HUSK',{enemyHp:30,enemyAtk:15},[['NO_KO'],['ROUNDS',8]]]
+];
+// 이동 과제, two a day: [map, who, words when done, Mora]
+const GIFTS=[
+ [['MAP_MOND_CITY','캐서린','캐서린에게 선물을 전했습니다.',2000],['MAP_MOND_SPRINGVALE','샘물 마을 사냥꾼','샘물 마을 사냥꾼에게 선물을 전했습니다.',2000]],
+ [['MAP_MOND_PLAINS','정찰 기사','성 밖 정찰 기사에게 선물을 전했습니다.',2000],['MAP_CRPG_CIDER_BANK','낚시꾼','시드르 호숫가 낚시꾼에게 선물을 전했습니다.',2000]],
+ [['MAP_MOND_FOREST','숲의 나무꾼','속삭임의 숲 나무꾼에게 선물을 전했습니다.',3000],['MAP_MOND_WINDRISE','음유시인','바람이 시작되는 곳의 음유시인에게 선물을 전했습니다.',3000]],
+ [['MAP_MOND_DAWN_WINERY','와이너리 일꾼','다운 와이너리 일꾼에게 선물을 전했습니다.',3000],['MAP_CRPG_STARFELL_LAKE','호숫가 여행자','별이 떨어지는 호숫가의 여행자에게 선물을 전했습니다.',3000]],
+ [['MAP_MOND_WOLVENDOM','레이저','울프 영지의 레이저에게 선물을 전했습니다.',4000],['MAP_CRPG_FALCON_COAST','해안의 어부','매의 해안 어부에게 선물을 전했습니다.',4000]],
+ [['MAP_CRPG_DRAGONSPINE_CAMP','알베도','설산 탐사 야영지의 알베도에게 선물을 전했습니다.',5000],['MAP_CRPG_STORMBEARER_MOUNTAINS','산지기','바람맞이 산 산지기에게 선물을 전했습니다.',5000]],
+ [['MAP_CRPG_MOND_QUARRY','광부','몬드 동쪽 광산 광부에게 선물을 전했습니다.',5000],['MAP_MOND_CITY','진','진 단장에게 마지막 선물을 전했습니다.',5000]]
+];
+const SEBAE=[
+ [['MAP_LY_DETAIL_CHIHU','향릉','만민당의 향릉에게 세배했습니다. 세뱃돈을 받았습니다.',3000],['MAP_LY_DETAIL_WHARF','북두','부두의 북두에게 세배했습니다. 세뱃돈을 받았습니다.',3000]],
+ [['MAP_LY_DETAIL_FEIYUN','행추','비운 상회의 행추에게 세배했습니다. 세뱃돈을 받았습니다.',4000],['MAP_LY_DETAIL_NORTH_GATE','호두','왕생당의 호두에게 세배했습니다. 세뱃돈을 받았습니다.',4000]],
+ [['MAP_LY_DETAIL_YUJING','옥경대 비서','옥경대 비서에게 세배했습니다. 세뱃돈을 받았습니다.',4000],['MAP_LY_DETAIL_WANGSHU','망서 객잔 지배인','망서 객잔 지배인에게 세배했습니다. 세뱃돈을 받았습니다.',4000]],
+ [['MAP_LIYUE_QINGCE','요요','경책 산장의 요요에게 세배했습니다. 세뱃돈을 받았습니다.',5000],['MAP_LY_DETAIL_SHIMEN','석문 상인','석문 상인에게 세배했습니다. 세뱃돈을 받았습니다.',5000]],
+ [['MAP_LIYUE_PLAINS','수레꾼','평야 길의 수레꾼에게 세배했습니다. 세뱃돈을 받았습니다.',5000],['MAP_LY_DETAIL_TIANHENG','중운','천형산의 중운에게 세배했습니다. 세뱃돈을 받았습니다.',5000]],
+ [['MAP_LY_DETAIL_MINGYUN','명온 마을 광부','명온 마을 광부에게 세배했습니다. 세뱃돈을 받았습니다.',6000],['MAP_LIYUE_JUEYUN','절운간 순례자','절운간 순례자에게 세배했습니다. 세뱃돈을 받았습니다.',6000]],
+ [['MAP_LY_DETAIL_CHIHU','운근','화유다관의 운근에게 세배했습니다. 세뱃돈을 받았습니다.',8000],['MAP_LIYUE_HARBOR','종려','종려에게 세배했습니다. 세뱃돈은… 다음에 주겠다고 합니다.',0]]
+];
+// 차례상: what a day asks for, brought to 왕생당 (리월항 · 북쪽 진입로)
+const CHARYE_AT='MAP_LY_DETAIL_NORTH_GATE';
+const CHARYE=[
+ [['과일',{ING_APPLE:5},2000],['밥',{ING_RICE:3},2000]],
+ [['생선',{ING_FISH:3},3000],['고기',{ING_RAW_MEAT:3},3000]],
+ [['탕국 재료',{ING_RADISH:3},3000],['나물 대신 버섯',{ING_MUSHROOM:4},3000]],
+ [['꽃',{MAT_LIYUE_QINGXIN:3},4000],['연꽃받침',{ING_LOTUS_HEAD:3},4000]],
+ [['떡 대신 찐빵',{FOOD_RICE_BUNS:1},4000],['달걀',{FOOD_JADEVEIN_TEA_EGGS:1},4000]],
+ [['생선구이',{FOOD_MOND_GRILLED_FISH:1},5000],['고기볶음',{FOOD_STIR_FRIED_FILET:1},5000]],
+ [['전 대신 전병',{FOOD_QINGXIN_FLOWER_CAKE:1},6000],['탕국 대신 무 수프',{FOOD_RADISH_SOUP:1},6000]]
+];
+const FESTIVALS={
+ XMAS:{name:'눈꽃 축제',sub:'크리스마스',region:'MOND',four:MOND4,fights:XMAS_FIGHTS,game:'SNOWBALL',gameName:'눈싸움',task:'GIFT',taskName:'선물 배달',story:0},
+ SEOLLAL:{name:'설날',sub:'새해 첫날',region:'LIYUE',four:LIYUE4,fights:SEOLLAL_FIGHTS,game:'YUT',gameName:'윷놀이',task:'SEBAE',taskName:'세배 돌기',story:3},
+ CHUSEOK:{name:'추석',sub:'한가위',region:'LIYUE',four:LIYUE4,fights:CHUSEOK_FIGHTS,game:'SONGPYEON',gameName:'송편 빚기',task:'CHARYE',taskName:'차례상 차리기',story:3}
+};
+// 원석 generously (user, 2026-10-18: 「이 게임 자체가 원석을 현질로 살 수 있는게 없는데 원석 좀 팍팍 뿌려」): a festival with a story pays about
+// 4,100 원석 in all (2,500 from the points, 160 a part, 20 a new star, minigame star and travel task).
+const STORY_DAYS=[1,3,5],STORY_REWARD={points:100,primogem:160};
+const POINTS={star:40,tier:[0,40,80,120],task:60},PRIMO={star:20,tier:20,task:20};
+// reached points pay by themselves; the last is the 4★ pick
+const MILESTONES=[
+ {at:150,primogem:200},{at:300,primogem:200,mora:30000},{at:500,primogem:200,items:{MAT_CHAR_EXP_HERO:5}},{at:700,primogem:300},{at:900,primogem:300,mora:50000},
+ {at:1100,primogem:300,items:{MAT_CHAR_EXP_HERO:8}},{at:1300,primogem:400},{at:1500,primogem:600},{at:1800,pick:true}
+];
+const PICK=MILESTONES.length-1;
+// ---------- which festival is open (the server's list) ----------
+function listOf(rt){return Array.isArray(rt.opServerEvents)?rt.opServerEvents:Array.isArray(root.CRPGOpEventsList)?root.CRPGOpEventsList:[];}
+// the open one, or one ended at most seven days ago (its pick is still open); a festival day counts from its start (Korean midnight)
+P.festivalNow=function(){
+ const t=nowOf(this);
+ for(const e of listOf(this)){
+  if(!e||e.kind!=='SEASON'||typeof e.id!=='string'||!/^FES_[A-Z0-9_]{1,40}$/.test(e.id)||!own(FESTIVALS,e.festival))continue;
+  const start=Number(e.startsAt),end=Number(e.endsAt);if(!Number.isFinite(start)||!Number.isFinite(end)||t<start||t>=end+CLAIM_DAYS*DAY)continue;
+  const open=t<end,day=e.allDays?DAYS:Math.max(1,Math.min(DAYS,Math.floor((t-start)/DAY)+1));
+  return {id:e.id,key:e.festival,...FESTIVALS[e.festival],startsAt:start,endsAt:end,open,day,test:!!e.test};
+ }
+ return null;
+};
+function rec(rt,f){let o=rt.s.festival;if(!o||o.v!==1||o.id!==f.id)o=rt.s.festival={v:1,id:f.id,key:f.key,points:0,got:[],picked:null,story:[],stars:{},games:{},tasks:{}};return o;}
+const peek=(rt,f)=>{const o=rt.s?.festival;return o?.v===1&&o.id===f.id?o:null;};
+// ---------- the fights ----------
+function fight(f,day){const x=f.fights[day-1];if(!x)return null;const [name,group,rule,more]=x;return {day,name,group,rule,stars:[['WIN'],...more]};}
+const RULE_TEXT=r=>[r.aura?'적이 '+r.aura+' 원소를 두르고 시작':'',r.enemyHp?'적 HP +'+r.enemyHp+'%':'',r.enemyAtk?'적 공격력 +'+r.enemyAtk+'%':'',r.enemyDef?'적 방어력 +'+r.enemyDef+'%':'',r.enemySpd?'적 속도 +'+r.enemySpd:'',r.allyAtk?'아군 공격력 +'+r.allyAtk+'%':''].filter(Boolean);
+const STAR_TEXT=([k,v])=>k==='WIN'?'이기기':k==='ROUNDS'?v+'라운드 안에 이기기':k==='NO_KO'?'아무도 쓰러지지 않고 이기기':k==='ELEMENT'?v+' 원소 동료와 함께 이기기':k==='PARTY'?v+'명 이하로 이기기':k==='HP'?'HP를 절반 넘게 남기고 이기기':k;
+const fightLevel=rt=>Math.max(5,Math.min(60,Number(rt.s.global.PLAYER_LEVEL_STATE)||1));
+function allyElement(rt,a){
+ if(a.source==='PLAYER_CUSTOM'){const k=rt.constellationKey?.('PLAYER_CUSTOM');return k==='TRAVELER_GEO'?'바위':k==='TRAVELER_ANEMO'?'바람':null;}
+ const tag=String(rt.tables['07_CHAR_DB']?.get(a.source)?.[3]||'');return Object.values(EL).find(e=>tag.includes('['+e+']'))||null;
+}
+function starsOf(rt,b,ch){
+ const allies=b.actors.filter(a=>a.side==='ALLY'&&(a.source==='PLAYER_CUSTOM'||rt.tables['07_CHAR_DB']?.has(a.source))),hp=allies.reduce((n,a)=>n+Math.max(0,Number(a.hp)||0),0),max=allies.reduce((n,a)=>n+(Number(a.maxHp)||0),0);
+ return ch.stars.map(([k,v])=>k==='WIN'?true:k==='ROUNDS'?Number(b.round)<=v:k==='NO_KO'?allies.every(a=>a.hp>0):k==='ELEMENT'?allies.some(a=>a.source!=='PLAYER_CUSTOM'&&allyElement(rt,a)===v):k==='PARTY'?allies.length<=v:k==='HP'?max>0&&hp*2>max:false);
+}
+P.growthEncounterLevel=function(origin,...rest){if(String(origin).startsWith('FESTIVAL:')){const n=Number(String(origin).split(':')[3]);if(Number.isInteger(n)&&n>=1&&n<=60)return n;}return old.growthEncounterLevel.call(this,origin,...rest);};
+P.startBattle=function(group,origin='EXPLICIT',...rest){
+ const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime,ch=this._festivalFight;
+ if(ch&&b&&b!==before){
+  b.festival={id:ch.id,day:ch.day,level:ch.level,rule:copy(ch.rule)};const r=ch.rule;
+  for(const a of [...b.actors,...(b.enemyReserve||[])].filter(x=>x.side==='ENEMY')){
+   if(r.enemyHp){const prev=a.maxHp;a.maxHp=a.hp=Math.max(1,Math.round(a.maxHp*(1+r.enemyHp/100)));for(const s of a.shields||[]){s.value=Math.round(s.value*a.maxHp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*a.maxHp/prev);}}
+   if(r.aura)a.aura=r.aura;
+  }
+ }
+ return out;
+};
+P.combatStat=function(a,key){
+ const n=old.combatStat.call(this,a,key),r=this.s?.runtime?.festival?.rule;if(!r||!a)return n;
+ if(a.side==='ENEMY'){if(key==='atk'&&r.enemyAtk)return n*(1+r.enemyAtk/100);if(key==='def'&&r.enemyDef)return n*(1+r.enemyDef/100);if(key==='spd'&&r.enemySpd)return n+r.enemySpd;}
+ else if(a.side==='ALLY'&&key==='atk'&&r.allyAtk)return n*(1+r.allyAtk/100);
+ return n;
+};
+// ---------- the minigames: the same rules here and on the page ----------
+// 눈싸움: behind your snow wall, stand up to throw at whoever pops up from the five forts, and duck when one winds up to throw back.
+const SNOW={ms:45000,lanes:5,flight:380,incoming:450,stun:900,cooldown:300,hit:100,combo:20,hurt:50};
+function snowPlan(seed,day){
+ const r=rng(seed),pops=[];let t=1500;const gap=[900-60*day,1600-90*day],up=[1400-60*day,2200-80*day],pThrow=.35+.06*day;
+ while(t<SNOW.ms-1500){
+  const busy=new Set(pops.filter(p=>p.down>t).map(p=>p.lane));const free=[...Array(SNOW.lanes).keys()].filter(l=>!busy.has(l));
+  if(free.length){const lane=free[Math.floor(r()*free.length)],dur=Math.round(up[0]+r()*(up[1]-up[0])),p={lane,up:t,down:t+dur};
+   if(r()<pThrow&&dur>900){p.throwAt=t+400+Math.round(r()*(dur-700));}pops.push(p);}
+  t+=Math.round(gap[0]+r()*(gap[1]-gap[0]));
+ }
+ return pops;
+}
+// until: only what has happened by then (the page draws the game from this, so what it shows is what the engine counts)
+function snowPlay(seed,day,inputs,until=Infinity){
+ const pops=snowPlan(seed,day),hitBy=new Map(),log=[];let standing=false,stun=-1,last=-1e9,score=0,combo=0,hits=0,hurt=0;
+ const evs=[];for(const [i,x] of inputs.entries())evs.push({t:x.t,k:0,i,x});for(const p of pops)if(p.throwAt!==undefined)evs.push({t:p.throwAt+SNOW.incoming,k:1,p});
+ evs.sort((a,b)=>a.t-b.t||a.k-b.k);const flying=[];
+ const land=t=>{for(let j=flying.length-1;j>=0;j--){const f=flying[j];if(f.at>t)continue;flying.splice(j,1);const p=pops.find(q=>q.lane===f.lane&&q.up<=f.at&&f.at<(hitBy.get(q)??q.down));if(p&&!hitBy.has(p)){hitBy.set(p,f.at);hits++;combo++;const n=SNOW.hit+SNOW.combo*Math.min(5,combo-1);score+=n;log.push({t:f.at,k:'hit',lane:f.lane,n,combo});}else{combo=0;log.push({t:f.at,k:'miss',lane:f.lane});}}};
+ for(const e of evs){
+  if(e.t>until)break;land(e.t);
+  if(e.k===1){const p=e.p;if((hitBy.get(p)??Infinity)<=p.throwAt)continue;if(standing){hurt++;combo=0;score=Math.max(0,score-SNOW.hurt);stun=e.t+SNOW.stun;log.push({t:e.t,k:'hurt',lane:p.lane});}else log.push({t:e.t,k:'block',lane:p.lane});continue;}
+  const x=e.x;if(x.a==='h')standing=false;else if(x.a==='s')standing=true;
+  else if(x.a==='t'){if(!standing||e.t<stun||e.t-last<SNOW.cooldown)continue;last=e.t;flying.push({lane:x.lane,at:e.t+SNOW.flight,from:e.t});log.push({t:e.t,k:'throw',lane:x.lane});}
+ }
+ land(until);
+ const best=pops.length*SNOW.hit*2;return {score,hits,hurt,combo,standing,stun,flying:flying.map(f=>({...f})),hitBy:pops.map(p=>hitBy.get(p)??null),log,pops:pops.length,tiers:[Math.round(best*.2),Math.round(best*.38),Math.round(best*.55)]};
+}
+// 윷놀이: two (later three) pieces each against a Liyue friend. 도 개 걸 윷 모 and 빽도; 윷·모 and a catch throw again; a piece that stops on a
+// corner or the middle takes the short way. Stations: 0 참먹이, 1–19 round the edge (5, 10, 15 the corners), 20–24 from 5 through the
+// middle (22) to 15, 25–28 from 10 through the middle to 참먹이.
+const YUT_OUT=[-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,'END'],YUT_A=[5,20,21,22,23,24,15,16,17,18,19,'END'],YUT_B=[10,25,26,22,27,28,'END'],YUT_C=[22,27,28,'END'];
+const ROUTES={O:YUT_OUT,A:YUT_A,B:YUT_B,C:YUT_C};
+const YUT_NAMES={'-1':'빽도',1:'도',2:'개',3:'걸',4:'윷',5:'모'};
+const YUT_FOES=['LIYUE_XINGQIU','LIYUE_XIANGLING','LIYUE_CHONGYUN','LIYUE_BEIDOU','LIYUE_HUTAO','LIYUE_GAMING','LIYUE_ZHONGLI'];
+function yutThrow(r){let flat=0,marked=false;for(let i=0;i<4;i++){const f=r()<.5;if(f){flat++;if(i===0)marked=true;}}return flat===0?5:flat===4?4:flat===1?(marked?-1:1):flat;}
+const station=p=>p.home?'HOME':ROUTES[p.r][p.i];
+function yutCreate(seed,day){const n=day<=3?2:3;return {seed,day,n,r:rng(seed),turn:0,throws:[],phase:'THROW',pieces:[0,1].map(()=>Array.from({length:n},()=>({r:'O',i:0,home:false}))),log:[],moves:0,winner:null};}
+// where a piece goes with v (null if it cannot move)
+function yutDest(p,v){
+ if(p.home)return null;
+ if(v<0){if(p.r==='O'&&p.i===0)return null;if(p.r==='O')return {r:'O',i:p.i-1,home:false};if(p.i===0)return null;
+  if(p.r==='C')return p.i===1?{r:'B',i:3,home:false}:{r:'C',i:p.i-1,home:false};
+  if(p.i===1)return {r:'O',i:p.r==='A'?5:10,home:false};return {r:p.r,i:p.i-1,home:false};}
+ let r=p.r,i=p.i;const at=ROUTES[r][i];if(at===5&&r==='O'){r='A';i=0;}else if(at===10&&r==='O'){r='B';i=0;}else if(at===22&&r!=='C'){r='C';i=0;}
+ const j=i+v,route=ROUTES[r];if(j>=route.length-1)return {r,i:route.length-1,home:true};return {r,i:j,home:false};
+}
+function yutLegal(g){
+ const side=g.turn,out=[];if(g.phase!=='MOVE')return out;
+ for(let k=0;k<g.throws.length;k++){const v=g.throws[k],seen=new Set();
+  for(let i=0;i<g.n;i++){const p=g.pieces[side][i];if(p.home)continue;const st=station(p),key=st===-1?'S'+i:String(st);if(st!==-1&&seen.has(key))continue;seen.add(key);if(st===-1&&v<0)continue;if(st===-1&&[...seen].some(x=>x.startsWith('S')&&x!=='S'+i))continue;
+   const d=yutDest(p,v);if(d)out.push({k,p:i,v,to:d.home?'HOME':ROUTES[d.r][d.i]});}}
+ return out;
+}
+function yutRoll(g){for(let guard=0;guard<20;guard++){const v=yutThrow(g.r);g.throws.push(v);g.log.push({side:g.turn,throw:v});if(v<4)break;}g.phase='MOVE';yutSettle(g);}
+function yutSettle(g){
+ // throws no piece can use are dropped; with none left the turn passes
+ while(g.phase==='MOVE'&&g.throws.length&&!yutLegal(g).length)g.throws.shift();
+ if(g.phase==='MOVE'&&!g.throws.length){g.turn=1-g.turn;g.phase='THROW';}
+}
+function yutPlay(g,k,pi){
+ const side=g.turn,legal=yutLegal(g).find(m=>m.k===k&&m.p===pi);if(!legal)return false;
+ const v=g.throws.splice(k,1)[0],p=g.pieces[side][pi],st=station(p),group=st===-1?[p]:g.pieces[side].filter(q=>!q.home&&station(q)===st),d=yutDest(p,v);
+ for(const q of group)Object.assign(q,d);g.moves++;
+ let caught=0;if(!d.home){const at=ROUTES[d.r][d.i];for(const q of g.pieces[1-side])if(!q.home&&station(q)===at){Object.assign(q,{r:'O',i:0,home:false});caught++;}}
+ g.log.push({side,move:v,piece:pi,to:d.home?'HOME':ROUTES[d.r][d.i],caught});
+ if(g.pieces[side].every(q=>q.home)){g.winner=side;g.phase='DONE';return true;}
+ if(caught){g.phase='THROW';g.extra=true;return true;}
+ yutSettle(g);return true;
+}
+// the friend's choice: catch, bring a piece home, join own pieces, else the furthest move (early days choose more plainly)
+const progress=(p)=>p.home?99:p.r==='O'?p.i:p.r==='A'?5+p.i*1.2:p.r==='B'?10+p.i*1.6:12+p.i*1.6;
+function yutBotPick(g){
+ const moves=yutLegal(g);if(!moves.length)return null;const side=g.turn,smart=g.day>=4;
+ let best=null,bestScore=-1e9;
+ for(const m of moves){const p=g.pieces[side][m.p],d=yutDest(p,m.v);let s=0;
+  if(m.to==='HOME')s+=80;else{if(g.pieces[1-side].some(q=>!q.home&&station(q)===m.to))s+=100;if(g.pieces[side].some((q,i)=>i!==m.p&&!q.home&&station(q)===m.to))s+=smart?15:5;
+   s+=progress(d)-progress(p);if(smart&&g.pieces[1-side].some(q=>!q.home&&station(q)!==-1&&[1,2,3].some(v=>{const e=yutDest(q,v);return e&&!e.home&&ROUTES[e.r][e.i]===m.to;})))s-=25;}
+  if(m.v<0)s-=10;s-=m.k*.01;if(s>bestScore){bestScore=s;best=m;}}
+ return best;
+}
+function yutScore(seed,day,decisions){
+ const g=yutCreate(seed,day);g.autoRoll=true;let d=0;
+ for(let guard=0;guard<3000&&g.phase!=='DONE';guard++){
+  if(g.phase==='THROW'){yutRoll(g);continue;}
+  if(g.turn===1){const m=yutBotPick(g);if(!m){g.throws=[];yutSettle(g);continue;}yutPlay(g,m.k,m.p);continue;}
+  if(d>=decisions.length)return null;const [k,p]=decisions[d++]||[];if(!yutPlay(g,k,p))return null;
+ }
+ if(g.phase!=='DONE'||d!==decisions.length)return null;
+ // a finished game is ★, a piece home ★★, a win ★★★
+ const home=g.pieces[0].filter(q=>q.home).length,score=g.winner===0?1000+100*g.pieces[1].filter(q=>!q.home).length:100+home*200;
+ return {score,won:g.winner===0,home,tiers:[100,300,1000]};
+}
+// 송편 빚기: for each of eight songpyeon three presses (떼기 · 소 넣기 · 빚기) as the marker crosses the gold mark.
+const SONG={count:8,steps:3,pause:450,start:1200,perfect:100,good:60};
+function songPlan(seed,day){const r=rng(seed),out=[];for(let i=0;i<SONG.count*SONG.steps;i++)out.push({period:Math.round((1600-70*day)*(.85+r()*.3)),zone:+(0.2+r()*0.6).toFixed(3),w:+(0.17-0.011*day).toFixed(4)});return out;}
+const tri=x=>{const f=x-Math.floor(x);return 1-Math.abs(1-2*f);};
+function songPlay(seed,day,presses){
+ const plan=songPlan(seed,day);if(!Array.isArray(presses)||presses.length!==plan.length)return null;let t=SONG.start,score=0;const marks=[];
+ for(let i=0;i<plan.length;i++){const s=plan[i],at=presses[i],limit=t+3*s.period;
+  if(at===null){marks.push(0);t=limit+SONG.pause;continue;}
+  if(!Number.isFinite(at)||at<t||at>limit)return null;
+  const pos=tri((at-t)/s.period),off=Math.abs(pos-s.zone),m=off<=s.w*.45?2:off<=s.w?1:0;marks.push(m);score+=m===2?SONG.perfect:m===1?SONG.good:0;t=at+SONG.pause;}
+ const pretty=[];for(let i=0;i<SONG.count;i++){const sum=marks.slice(i*3,i*3+3).reduce((n,m)=>n+(m===2?100:m===1?60:0),0);pretty.push(sum>=270?2:sum>=150?1:0);}
+ return {score,marks,pretty,end:t,tiers:[900,1500,2000]};
+}
+const GAMES={SNOWBALL:{ms:SNOW.ms},YUT:{ms:20000},SONGPYEON:{ms:8000}};
+function gameResult(job,input){
+ if(job.game==='SNOWBALL'){if(!Array.isArray(input)||input.length>900)return null;let prev=-1;for(const x of input){if(!x||!Number.isFinite(x.t)||x.t<prev||x.t<0||x.t>SNOW.ms||!['h','s','t'].includes(x.a)||(x.a==='t'&&!(Number.isInteger(x.lane)&&x.lane>=0&&x.lane<SNOW.lanes)))return null;prev=x.t;}return snowPlay(job.seed,job.day,input);}
+ if(job.game==='YUT'){if(!Array.isArray(input)||input.length>600||input.some(x=>!Array.isArray(x)||x.length!==2||!x.every(Number.isInteger)))return null;return yutScore(job.seed,job.day,input);}
+ if(job.game==='SONGPYEON')return songPlay(job.seed,job.day,input);
+ return null;
+}
+const tierOf=(res)=>res.score>=res.tiers[2]?3:res.score>=res.tiers[1]?2:res.score>=res.tiers[0]?1:0;
+// ---------- the view ----------
+function taskList(f,day){if(f.task==='GIFT')return GIFTS[day-1].map(([map,who,text,mora])=>({map,who,text,mora}));if(f.task==='SEBAE')return SEBAE[day-1].map(([map,who,text,mora])=>({map,who,text,mora}));
+ return CHARYE[day-1].map(([what,items,mora])=>({map:CHARYE_AT,who:'차례상',what,items,mora,text:'차례상에 '+what+'을(를) 올렸습니다.'}));}
+const mapName=(rt,id)=>{try{return String(rt.tables['32_MAP_DB'].get(id)?.[2]||id);}catch{return id;}};
+P.festivalView=function(){
+ const f=this.festivalNow();if(!f)return null;const o=peek(this,f)||{points:0,got:[],picked:null,story:[],stars:{},games:{},tasks:{}},route=this.s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER'?'TRV':'ISK',map=this.s.global.CURRENT_MAP_ID;
+ const days=[];for(let d=1;d<=DAYS;d++){const ch=fight(f,d),tasks=taskList(f,d);
+  days.push({day:d,open:d<=f.day,fight:{name:ch.name,group:ch.group,rule:RULE_TEXT(ch.rule),stars:ch.stars.map(STAR_TEXT),got:(o.stars[d]||[0,0,0]).map(Boolean),level:fightLevel(this)},
+   game:{tier:Number(o.games[d]?.tier)||0,best:Number(o.games[d]?.best)||0,foe:f.game==='YUT'?YUT_FOES[d-1]:null},
+   tasks:tasks.map((x,i)=>({...x,place:mapName(this,x.map),here:x.map===map,done:!!o.tasks[d]?.[i],has:x.items?Object.entries(x.items).map(([id,n])=>({id,n,have:this.itemCount(id)})):null}))});}
+ return {id:f.id,key:f.key,name:f.name,sub:f.sub,region:f.region,open:f.open,day:f.day,startsAt:f.startsAt,endsAt:f.endsAt,test:f.test,route,
+  game:f.game,gameName:f.gameName,task:f.task,taskName:f.taskName,points:o.points,
+  story:f.story?STORY_DAYS.map((d,i)=>({part:i+1,open:d<=f.day,day:d,done:o.story.includes(i+1),chain:'EVT_'+f.key+'_'+route+'_'+(i+1)})):[],storyReward:{...STORY_REWARD},
+  milestones:MILESTONES.map((m,i)=>({...copy(m),got:o.got.includes(i)})),picked:o.picked,pickable:o.points>=MILESTONES[PICK].at&&!o.picked,
+  four:f.four.filter(id=>this.tables['07_CHAR_DB']?.has(id)).map(id=>({id,owned:!!this.premiumOwns?.(id)})),days,points_:copy(POINTS),primo:copy(PRIMO)};
+};
+// ---------- the actions ----------
+function blocked(rt){
+ const s=rt.s;if(s.runtime||s.battlePreparation)return '진행 중인 전투를 먼저 마쳐 주세요.';
+ if(s.tutorialV2?.intro||s.tutorialV2?.loan)return '튜토리얼을 마친 뒤에 할 수 있습니다.';return '';
+}
+function festReason(rt,type,a){
+ const f=rt.festivalNow();if(!f)return '지금 열린 축제가 없습니다.';if(a?.festival!==f.id)return '축제가 바뀌었습니다. 다시 열어 주세요.';
+ if(type==='FESTIVAL_PICK'){const o=peek(rt,f);if(!o||o.points<MILESTONES[PICK].at)return '축제 점수 '+MILESTONES[PICK].at+'점을 모으면 고를 수 있습니다.';if(o.picked)return '이미 골랐습니다.';
+  if(!(typeof a.char==='string'&&f.four.includes(a.char)&&rt.tables['07_CHAR_DB']?.has(a.char)))return '함께할 동료를 골라 주세요.';return blocked(rt);}
+ if(!f.open)return '축제가 끝났습니다.';const why=blocked(rt);if(why)return why;
+ const day=a.day;if(type!=='FESTIVAL_STORY'&&type!=='FESTIVAL_GAME_FINISH'){if(!Number.isInteger(day)||day<1||day>DAYS)return '날을 골라 주세요.';if(day>f.day)return day+'일째에 열립니다.';}
+ const o=peek(rt,f);
+ if(type==='FESTIVAL_FIGHT'){if(rt.s.global.SCREEN_MODE==='STORY')return '이야기를 마친 뒤에 도전해 주세요.';if(['AWAIT_NEXT','IN_BATTLE','RETRY'].includes(rt.s.bossRouteProgress?.phase))return '진행 중인 보스 루트를 마치거나 이탈해 주세요.';
+  if(rt.s.lifeJob)return '채집·낚시를 마친 뒤에 도전해 주세요.';if(!(rt.s.party||[]).some(p=>p.active))return '편성에 사람이 없습니다.';if((o?.stars[day]||[]).every(Boolean)&&(o?.stars[day]||[]).length===3)return '이미 별 셋을 모두 받았습니다.';return '';}
+ if(type==='FESTIVAL_GAME_START')return '';
+ if(type==='FESTIVAL_GAME_FINISH'){const job=rt.s.festivalGame;if(!job||job.festival!==f.id||job.id!==a.job)return '미니게임을 다시 시작해 주세요.';return '';}
+ if(type==='FESTIVAL_TASK'){const list=taskList(f,day),n=a.n;if(!Number.isInteger(n)||!list[n])return '과제를 골라 주세요.';if(o?.tasks[day]?.[n])return '이미 마친 과제입니다.';const x=list[n];
+  if(rt.s.global.CURRENT_MAP_ID!==x.map)return mapName(rt,x.map)+'에서 할 수 있습니다.';
+  if(x.items)for(const [id,k] of Object.entries(x.items))if(rt.itemCount(id)<k)return (rt.tables['14_ITEM_DB'].get(id)?.[1]||id)+' '+k+'개가 필요합니다.';return '';}
+ if(type==='FESTIVAL_STORY'){const part=a.part;if(!f.story)return '이 축제에는 이야기가 없습니다.';if(!Number.isInteger(part)||part<1||part>f.story)return '이야기를 골라 주세요.';
+  if(STORY_DAYS[part-1]>f.day)return STORY_DAYS[part-1]+'일째에 열립니다.';if(part>1&&!o?.story.includes(part-1))return '앞 이야기를 먼저 봐 주세요.';if(o?.story.includes(part))return '이미 본 이야기입니다. (다시 보기는 보상 없이 볼 수 있습니다)';return '';}
+ return '';
+}
+const TYPES=new Set(['FESTIVAL_FIGHT','FESTIVAL_GAME_START','FESTIVAL_GAME_FINISH','FESTIVAL_TASK','FESTIVAL_STORY','FESTIVAL_PICK']);
+P.actionReason=function(type,a={},...rest){if(TYPES.has(type))return festReason(this,type,a);return old.actionReason.call(this,type,a,...rest);};
+// points, and the milestones they reach (paid at once)
+function addPoints(rt,o,n){
+ o.points+=n;const paid=[];
+ for(let i=0;i<MILESTONES.length;i++){const m=MILESTONES[i];if(i===PICK||o.got.includes(i)||o.points<m.at)continue;o.got.push(i);
+  if(m.primogem)rt.s.global.PRIMOGEM=(Number(rt.s.global.PRIMOGEM)||0)+m.primogem;if(m.mora)rt.s.global.MORA+=m.mora;for(const [id,k] of Object.entries(m.items||{}))rt.giveItem(id,k);paid.push({at:m.at,...copy(m)});}
+ o.got.sort((a,b)=>a-b);return paid;
+}
+const givePrimo=(rt,n)=>{if(n>0)rt.s.global.PRIMOGEM=(Number(rt.s.global.PRIMOGEM)||0)+n;return n;};
+function take(rt,id,n){for(const row of rt.s.inventory){if(n<=0)break;if(row.item!==id||row.equip)continue;const k=Math.min(n,row.quantity);row.quantity-=k;n-=k;}rt.s.inventory=rt.s.inventory.filter(x=>x.equip||x.quantity>0);}
+P.apply=function(a,...rest){
+ if(!a||!TYPES.has(a.type))return old.apply.call(this,a,...rest);
+ const why=festReason(this,a.type,a);if(why)fail(a.type,why);const f=this.festivalNow(),o=rec(this,f);
+ if(a.type==='FESTIVAL_FIGHT'){
+  const ch=fight(f,a.day),level=fightLevel(this);this.s.placeVisit=null;this._festivalFight={id:f.id,day:a.day,level,rule:ch.rule};
+  try{return this.startBattle(ch.group,'FESTIVAL:'+f.key+':'+a.day+':'+level);}finally{this._festivalFight=null;}
+ }
+ if(a.type==='FESTIVAL_GAME_START'){
+  const t=nowOf(this),seed=(Math.floor(this.random()*4294967295)>>>0)||7,id='FG'+t.toString(36)+seed.toString(36);
+  this.s.festivalGame={id,festival:f.id,game:f.game,day:a.day,seed,at:t};
+  return {type:a.type,job:copy(this.s.festivalGame),foe:f.game==='YUT'?YUT_FOES[a.day-1]:null};
+ }
+ if(a.type==='FESTIVAL_GAME_FINISH'){
+  const job=this.s.festivalGame,res=gameResult(job,a.input);this.s.festivalGame=null;
+  if(!res)fail(a.type,'미니게임 기록이 맞지 않습니다. 다시 해 주세요.');
+  const min=job.game==='SNOWBALL'?SNOW.ms*.9:job.game==='SONGPYEON'?Math.max(GAMES.SONGPYEON.ms,res.end*.9):GAMES.YUT.ms;
+  if(nowOf(this)-job.at<min)fail(a.type,'미니게임을 끝까지 해 주세요.');
+  const was=o.games[job.day]||{tier:0,best:0},tier=tierOf(res),gain=Math.max(0,POINTS.tier[tier]-POINTS.tier[was.tier]);
+  o.games[job.day]={tier:Math.max(was.tier,tier),best:Math.max(was.best,res.score)};const primogem=givePrimo(this,Math.max(0,tier-was.tier)*PRIMO.tier),paid=gain?addPoints(this,o,gain):[];
+  return {type:a.type,game:job.game,day:job.day,score:res.score,tier,best:o.games[job.day].best,points:gain,primogem,total:o.points,milestones:paid,detail:{tiers:res.tiers,hits:res.hits,hurt:res.hurt,won:res.won,home:res.home,pretty:res.pretty}};
+ }
+ if(a.type==='FESTIVAL_TASK'){
+  const x=taskList(f,a.day)[a.n];for(const [id,k] of Object.entries(x.items||{}))take(this,id,k);if(x.mora)this.s.global.MORA+=x.mora;
+  (o.tasks[a.day]??=[0,0])[a.n]=1;const primogem=givePrimo(this,PRIMO.task),paid=addPoints(this,o,POINTS.task);
+  return {type:a.type,day:a.day,n:a.n,text:x.text,mora:x.mora,primogem,points:POINTS.task,total:o.points,milestones:paid};
+ }
+ if(a.type==='FESTIVAL_STORY'){
+  o.story.push(a.part);o.story.sort((x,y)=>x-y);this.s.global.PRIMOGEM=(Number(this.s.global.PRIMOGEM)||0)+STORY_REWARD.primogem;const paid=addPoints(this,o,STORY_REWARD.points);
+  return {type:a.type,part:a.part,primogem:STORY_REWARD.primogem,points:STORY_REWARD.points,total:o.points,milestones:paid};
+ }
+ if(a.type==='FESTIVAL_PICK'){
+  const got=this.wishGrant({kind:'char',id:a.char,rarity:4});o.picked=a.char;if(!o.got.includes(PICK)){o.got.push(PICK);o.got.sort((x,y)=>x-y);}
+  return {type:a.type,char:a.char,joined:!!got?.joined,stella:!!got?.stella,glitter:Number(got?.glitter)||0};
+ }
+};
+// a won festival fight: its stars, 40 points each new one
+P.finishBattle=function(victory,...rest){
+ const b=this.s?.runtime,fb=b?.festival?copy(b.festival):null,stars=fb&&victory&&b?(()=>{const f=FESTIVALS[String(b.origin).split(':')[1]];const ch=f&&fight(f,fb.day);return ch?starsOf(this,b,ch):null;})():null;
+ const out=old.finishBattle.call(this,victory,...rest);if(!fb||!out||typeof out!=='object')return out;
+ const f=this.festivalNow();
+ if(f&&f.id===fb.id&&stars){const o=rec(this,f),was=o.stars[fb.day]||[0,0,0],now=was.map((x,i)=>x||stars[i]?1:0),gain=now.filter((x,i)=>x&&!was[i]).length*POINTS.star;o.stars[fb.day]=now;
+  const primogem=givePrimo(this,gain/POINTS.star*PRIMO.star),paid=gain?addPoints(this,o,gain):[];out.festival={day:fb.day,stars:stars.map(x=>x?1:0),got:now,points:gain,primogem,total:o.points,milestones:paid};}
+ else if(fb)out.festival={day:fb.day,stars:null,points:0};
+ const key=out.battleId||out.id||b?.id;if(key&&this.s.combatReceipts?.[key])this.s.combatReceipts[key]=copy(out);this.s.global.LAST_BATTLE_RESULT_JSON=JSON.stringify(out);
+ return out;
+};
+P.validateSave=function(s,...rest){
+ const out=old.validateSave.call(this,s,...rest)||s,o=out?.festival,g=out?.festivalGame;
+ if(o!==undefined&&o!==null){const bad=typeof o!=='object'||Array.isArray(o)||o.v!==1||typeof o.id!=='string'||!/^FES_[A-Z0-9_]{1,40}$/.test(o.id)||!own(FESTIVALS,o.key)||!int(o.points)||o.points>5000
+  ||!Array.isArray(o.got)||o.got.some(i=>!Number.isInteger(i)||i<0||i>=MILESTONES.length)||new Set(o.got).size!==o.got.length||o.got.some(i=>o.points<MILESTONES[i].at)
+  ||(o.picked!==null&&!(typeof o.picked==='string'&&FESTIVALS[o.key].four.includes(o.picked)))||!Array.isArray(o.story)||o.story.some(p=>!Number.isInteger(p)||p<1||p>3)
+  ||[o.stars,o.games,o.tasks].some(m=>!m||typeof m!=='object'||Array.isArray(m)||Object.keys(m).some(d=>!/^[1-7]$/.test(d)))
+  ||Object.values(o.stars).some(x=>!Array.isArray(x)||x.length!==3||x.some(v=>v!==0&&v!==1))||Object.values(o.tasks).some(x=>!Array.isArray(x)||x.length!==2||x.some(v=>v!==0&&v!==1))
+  ||Object.values(o.games).some(x=>!x||!Number.isInteger(x.tier)||x.tier<0||x.tier>3||!int(x.best));
+  if(bad)fail('FESTIVAL_SAVE','축제 기록이 올바르지 않습니다.');}
+ if(g!==undefined&&g!==null){if(typeof g!=='object'||typeof g.id!=='string'||!GAMES[g.game]||!Number.isInteger(g.day)||g.day<1||g.day>DAYS||!int(g.seed)||!Number.isFinite(g.at))fail('FESTIVAL_SAVE','축제 기록이 올바르지 않습니다.');}
+ return out;
+};
+api.festivalV01667={version:1,festivals:copy(Object.fromEntries(Object.entries(FESTIVALS).map(([k,f])=>[k,{name:f.name,sub:f.sub,region:f.region,game:f.game,gameName:f.gameName,task:f.task,taskName:f.taskName,story:f.story,four:f.four}]))),
+ milestones:copy(MILESTONES),points:copy(POINTS),primo:copy(PRIMO),storyReward:copy(STORY_REWARD),storyDays:STORY_DAYS.slice(),
+ snow:{rules:{...SNOW},plan:snowPlan,play:snowPlay},yut:{names:{...YUT_NAMES},foes:YUT_FOES.slice(),routes:copy(ROUTES),create:yutCreate,legal:yutLegal,roll:yutRoll,settle:yutSettle,play:yutPlay,score:yutScore,dest:yutDest,station,bot:yutBotPick},
+ song:{rules:{...SONG},plan:songPlan,play:songPlay,tri}};
+P.festivalV01667=true;
 })(globalThis);

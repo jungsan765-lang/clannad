@@ -17,9 +17,10 @@ const icon=id=>{const p=MAN().itemIcons?.icons?.[id]?.path;if(!p)return mk('span
 const left=ms=>{const h=Math.ceil(ms/3600000);return h>48?Math.ceil(h/24)+'일 남음':Math.max(1,h)+'시간 남음';};
 const ELEMENT={PYRO:'불',HYDRO:'물',ANEMO:'바람',ELECTRO:'번개',CRYO:'얼음',GEO:'바위',DENDRO:'풀',NEUTRAL:'다이아몬드'};
 const BOOK={FREEDOM:'자유',RESISTANCE:'투쟁',BALLAD:'시문',PROSPERITY:'번영',DILIGENCE:'근면',GOLD:'황금'};
-const NAME={GEM_2:'돌파 보석 조각',GEM_3:'돌파 보석 덩이',BOOK_2:'특성 책 「인도」',BOOK_3:'특성 책 「철학」',BOSS:'필드 보스 재료',HERO:'영웅의 경험',MORA:'모라 5,000'};
+const NAME={PRIMO:'원석 160',GEM_2:'돌파 보석 조각',GEM_3:'돌파 보석 덩이',BOOK_2:'특성 책 「인도」',BOOK_3:'특성 책 「철학」',BOSS:'필드 보스 재료',HERO:'영웅의 경험',MORA:'모라 5,000'};
 const EARN=[['win','전투 승리'],['life','채집·채광·사냥·낚시'],['event','지역 사건'],['commission','의뢰 보고']];
-function events(){try{return ready()?game.opEvents():[];}catch{return [];}}
+// 0.16.67: the 축제 교환 that runs with a festival is shown in the festival's window (app_festival_v01667.js), not here
+function events(){try{return ready()?game.opEvents().filter(e=>!String(e.id).startsWith('EVT_FES_')):[];}catch{return [];}}
 function setList(list){window.CRPGOpEventsList=Array.isArray(list)?list:[];}
 function reset(){E.status=null;E.session=null;E.probe=0;setList([]);}
 async function load(){
@@ -42,18 +43,18 @@ function card(){
  c.append(ul);return c;
 }
 // ---------- the window ----------
-function shopBox(){
+function shopBox(redraw=()=>openWindow()){
  const shop=game.festivalShop?.();if(!shop)return null;const box=mk('section','oe-shop');
  const top=mk('div','oe-shop-top');top.append(mk('strong','oe-tokens','축제 증표 '+fmt(shop.tokens)));const earn=mk('div','oe-earn');for(const [k,label] of EARN)earn.append(mk('span','oe-earn-chip',label+' +'+shop.earn[k]));top.append(earn);box.append(top);
  const grid=mk('div','oe-grid');
  for(const it of shop.items){
   const cell=mk('div','oe-item'+(it.bought>=it.limit?' done':'')),choices=it.choices||[];let pick=E.pick[it.key];if(it.pick&&!choices.includes(pick))pick=E.pick[it.key]=choices[0];
   const id=it.pick==='element'?'GROWTH_GEM_'+pick+'_'+it.key.slice(-1):it.pick==='book'?'GROWTH_BOOK_'+pick+'_'+it.key.slice(-1):it.pick==='boss'?pick:it.item;
-  const pic=it.mora?(typeof currencyIcon==='function'?currencyIcon('MORA','oe-icon'):mk('span','oe-icon fallback','◆')):icon(id);
+  const pic=it.mora||it.primogem?(window.currencyIcon?.(it.mora?'MORA':'PRIMOGEM','oe-icon')||mk('span','oe-icon fallback','◆')):icon(id);
   const name=it.pick?itemName(id):NAME[it.key]||itemName(id);cell.append(pic,mk('b','oe-item-name',name),mk('small','oe-cost','증표 '+it.cost+' · '+it.bought+' / '+it.limit));
-  if(it.pick){const row=mk('div','oe-choices');for(const ch of choices){const b=it.pick==='boss'?btn('',()=>{E.pick[it.key]=ch;openWindow();},'oe-choice'+(ch===pick?' on':'')):btn(it.pick==='element'?ELEMENT[ch]||ch:BOOK[ch]||ch,()=>{E.pick[it.key]=ch;openWindow();},'oe-choice'+(ch===pick?' on':''));if(it.pick==='boss'){b.append(icon(ch));b.title=itemName(ch);}b.setAttribute('aria-pressed',String(ch===pick));row.append(b);}cell.append(row);}
+  if(it.pick){const row=mk('div','oe-choices');for(const ch of choices){const b=it.pick==='boss'?btn('',()=>{E.pick[it.key]=ch;redraw();},'oe-choice'+(ch===pick?' on':'')):btn(it.pick==='element'?ELEMENT[ch]||ch:BOOK[ch]||ch,()=>{E.pick[it.key]=ch;redraw();},'oe-choice'+(ch===pick?' on':''));if(it.pick==='boss'){b.append(icon(ch));b.title=itemName(ch);}b.setAttribute('aria-pressed',String(ch===pick));row.append(b);}cell.append(row);}
   const args={event:shop.event,item:it.key,...(it.pick?{choice:pick}:{})},why=game.actionReason('EVENT_EXCHANGE',args);
-  const go=btn('교환',()=>{Promise.resolve(typeof act==='function'?act('EVENT_EXCHANGE',args):null).then(()=>{if(E.open)openWindow();});},'oe-go');go.disabled=!!why;if(why)go.title=why;cell.append(go);grid.append(cell);
+  const go=btn('교환',()=>{Promise.resolve(typeof act==='function'?act('EVENT_EXCHANGE',args):null).then(()=>{if(redraw!==openWindow||E.open)redraw();});},'oe-go');go.disabled=!!why;if(why)go.title=why;cell.append(go);grid.append(cell);
  }
  box.append(grid);return box;
 }
@@ -65,7 +66,7 @@ function openWindow(){
  if(typeof showModal==='function')showModal('이벤트',box);
  const modal=document.getElementById('modal');if(modal&&!modal.oeTracked){modal.oeTracked=true;modal.addEventListener('close',()=>{E.open=false;});}
 }
-E.openWindow=openWindow;
+E.openWindow=openWindow;E.shopBox=shopBox;E.load=()=>{E.probe=0;return load();};
 // ---------- the location screen's 할 일 ----------
 {const prior=drawLocation;drawLocation=function(p,v){prior(p,v);try{if(game.needsRecovery?.())return;const c=card();if(!c)return;const at=p.querySelector(':scope>.task-mini')||p.querySelector(':scope>.main-objective');if(at)at.after(c);else p.append(c);}catch(e){console.error('[op-events]',e);}};}
 // ---------- the reward screen ----------
@@ -78,7 +79,8 @@ window.CRPGChat?.on?.(ev=>{if(ev?.type==='op-event'){E.probe=0;setTimeout(load,2
 if(typeof render==='function'){const prior=render;render=function(){prior();try{
  if(!O?.token){if(E.status||E.session)reset();return;}
  if(E.session&&O.sameSession&&!O.sameSession(E.session))reset();
- const ended=(window.CRPGOpEventsList||[]).some(e=>Date.now()>=Number(e.endsAt));
+ // 0.16.67: also when a festival opens (the server says when the next one does)
+ const ended=(window.CRPGOpEventsList||[]).some(e=>Date.now()>=Number(e.endsAt)&&!(e.kind==='SEASON'&&Date.now()<Number(e.endsAt)+7*86400000))||(E.status?.nextAt&&Date.now()>=E.status.nextAt);
  if((!E.status||ended)&&!E.loading&&Date.now()>=E.probe){E.probe=Date.now()+60000;load();}
 }catch{}};}
 })();
