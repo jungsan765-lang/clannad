@@ -12,6 +12,7 @@ const style=document.createElement('style');style.id='story-mood-v01668';
 style.textContent=
  'body.teyvat.story-mood-dark[data-mode=story] .world-backdrop.shell-lit{filter:brightness(.42) saturate(.5);transition:filter 1.6s ease}'+
  'body.teyvat.story-mood-dark[data-mode=story] .world-backdrop:after{background:linear-gradient(180deg,rgba(4,5,9,.9) 0,rgba(4,5,9,.35) 18%,rgba(4,5,9,.3) 55%,rgba(4,5,9,.92) 100%),radial-gradient(ellipse at 50% 42%,transparent 22%,rgba(2,3,6,.88) 100%);animation:storyMoodBreath 7s ease-in-out infinite}'+
+ 'body.teyvat.story-mood-dark[data-mode=story] .shell-story-figure .portrait-frame img{filter:brightness(.78) saturate(.8) drop-shadow(0 16px 40px rgba(0,0,0,.55))}'+
  '@keyframes storyMoodBreath{0%,100%{opacity:1}50%{opacity:.84}}'+
  '.story strong.story-strong{font-weight:800;color:#fff3d6;letter-spacing:.01em}'+
  '@media (prefers-reduced-motion:reduce){body.story-mood-dark .world-backdrop:after{animation:none}}';

@@ -47,6 +47,10 @@ function deeds(row){
 const NOISE=/^(ROUTE_ID|ACTIVE_STORY_QUEST|PENDING_INTERLUDE|BATTLE_CONTEXT|L0\d_EXPLICIT|FLAG_ISK_L0\d_(STARTED|CONTENT_GATE))/;
 const atoms=c=>String(c||'').split(/\s+AND\s+/).map(s=>s.trim()).filter(a=>a&&!NOISE.test(a));
 const WORDS={'FLAG_ISK_META_KNOWLEDGE=KNOWN':'몬드를 알 때','FLAG_ISK_META_KNOWLEDGE=UNKNOWN':'몬드를 모를 때','FLAG_ISK_MOND_BRANCH=EXPEDITION':'토벌대(A)','FLAG_ISK_MOND_BRANCH=GUILD':'길드(B)','FLAG_ISK_EXPEDITION_FORK=RIDE':'드발린을 쫓음(AA)','FLAG_ISK_EXPEDITION_FORK=RETURN':'다이루크 쪽(AB)','FLAG_TRV_AVATAR=MALE':'아이테르','FLAG_TRV_AVATAR=FEMALE':'루미네'};
+// 0.16.68 스토리 체험 (user: 「스토리 연출도 확인할 수 있게, 스토리 체험하는 작업대도 만들어두자」): the raw condition atoms a story player decides on
+const rawIf=c=>String(c||'').split(/\s+AND\s+|\s*&&\s*/).map(s=>s.trim()).filter(a=>/^(FLAG_|BOND\(|MET\()/.test(a));
+const usedMaps=new Set(),usedRefs=new Set();
+const stage=(x,row,r)=>{if(row[8]){x.map=row[8];usedMaps.add(row[8]);}if(row[6]&&!/^PLAYER_/.test(row[6])){x.ref=row[6];usedRefs.add(row[6]);}const m=r.storyMood?.(row[4]);if(m)x.mood=m;const i=rawIf(row[11]);if(i.length)x.if=i;return x;};
 const condText=a=>WORDS[a]||(a.match(/^BOND\((\w+)\)>=(\d+)/)?charName(a.match(/^BOND\((\w+)\)/)[1])+' 호감도 '+a.match(/>=(\d+)/)[1]+' 이상':a.replace(/^FLAG_(ISK|TRV)_/,'').replace('=',' = '));
 const chains=[];
 for(const chain of content.chains){
@@ -78,10 +82,10 @@ for(const chain of content.chains){
    if(String(id).startsWith('CHOICE_GROUP:')){const g=id.slice(13);if(seen.has(id)){list.push({t:'flow',to:id});return;}seen.add(id);
     const rows=groups.get(g)||[];
     // a choice with one answer is the protagonist speaking (the game shows every line of theirs as a choice)
-    if(rows.length===1){const c=rows[0];list.push({id:c[4],t:'say',who:'주인공',text:c[10]||'',cond:cond(c),does:deeds(c).filter(d=>d.k!=='free'),kept:!/^PRO_/.test(c[4])});id=c[13];continue;}
+    if(rows.length===1){const c=rows[0];list.push(stage({id:c[4],t:'say',who:'주인공',text:c[10]||'',cond:cond(c),does:deeds(c).filter(d=>d.k!=='free'),kept:!/^PRO_/.test(c[4])},c,r));id=c[13];continue;}
     // where the options meet again: the first node every option reaches; the choice's results end there and the story goes on
     let merge=null;if(rows.length>1){const sets=rows.map(c=>reach(c[13]));merge=sets[0].order.find(x=>sets.every(s=>s.got.has(x)))||null;}
-    const opts=rows.map(c=>{const o={id:c[4],label:c[10]||'',cond:cond(c),does:deeds(c).filter(d=>d.k!=='free'),items:[]};const s={map:state.map};visit(c[13],o.items,s,merge);return o;});
+    const opts=rows.map(c=>{const o=stage({id:c[4],label:c[10]||'',cond:cond(c),does:deeds(c).filter(d=>d.k!=='free'),items:[]},c,r);const s={map:state.map};visit(c[13],o.items,s,merge);return o;});
     list.push({t:'choice',group:g,opts});
     if(!merge)return;id=merge;continue;}
    if(seen.has(id)){list.push({t:'flow',to:id});return;}seen.add(id);
@@ -91,6 +95,7 @@ for(const chain of content.chains){
    const type=row[5],who=type==='DIALOGUE'?(row[7]||''):'',player=/^PLAYER_/.test(row[6]||'');
    const item={id:row[4],t:type==='NARRATION'?'narr':type==='DIALOGUE'?'line':type==='COMBAT_GATE'?'combat':type==='CARD_JOIN'?'join':type==='STORY_PAUSE'?'pause':type==='CHAPTER_END'?'end':type==='FIELD_GATE'?'field':type==='MENU_GATE'?'menu':type==='EVENT'?'event':type.toLowerCase(),who:player?'주인공':who,text:row[9]||'',cond:cond(row),does:deeds(row),kept:!/^PRO_/.test(row[4])};
    if(item.t==='meta'&&!item.text){id=row[13];continue;}
+   stage(item,row,r);if(item.t==='move'&&item.toId)usedMaps.add(item.toId);
    list.push(item);
    // 0.16.68: a chapter ends at its pause (「준비가 되면 이야기를 이어 가자」); what follows is the next chapter, exported on its own
    // (before this, 몬드 2장 carried 3–5장 inside it: user, 「2장 너무 길다」)
@@ -121,7 +126,19 @@ for(const c of require(root+'/tools/editorial/compile_festival_story.cjs').compi
  const owner=k=>/^(HOST|TASK)_([A-Z]+)/.exec(k)?.[2]||(k.startsWith('YUT_')?'SEOLLAL':k.startsWith('SONG_')?'CHUSEOK':'XMAS');
  for(const fest of ['SEOLLAL','CHUSEOK','XMAS']){const items=[];for(const [k,list] of Object.entries(talk)){if(owner(k)!==fest)continue;items.push({t:'scene',name:label(k)},...list.map(x=>({...x})));}
   if(items.length)chains.push({id:'EVT_'+fest+'_TALK',route:'ROUTE_BOTH',file:'festival_k/talk.md',title:'축제 대사',about:FEST_NAMES[fest]+' · 축제 창의 맞이, 이동 과제를 마칠 때, 미니게임에서 나오는 짧은 말 · 갈래와 상관없이 나옴',items});}}
-const out={version:1,made:new Date().toISOString().slice(0,10),folded:FOLDED,chains};
+// the pictures (paths of the published game's assets) and the big branches a player picks between
+const manifest=(()=>{try{return JSON.parse(fs.readFileSync(path.join(root,'dist/asset-manifest.json'),'utf8'));}catch{return null;}})();
+for(const c of chains){if(c.map)usedMaps.add(c.map);(function w(items){for(const it of items||[]){if(it.t==='move'&&it.toId)usedMaps.add(it.toId);for(const o of it.opts||[])w(o.items);}})(c.items);}
+const pictures={maps:{},faces:{},places:{}};
+if(manifest){
+ for(const id of usedMaps){const m=manifest.maps?.[id];if(m?.url)pictures.maps[id]=m.url;pictures.places[id]=mapName(id);}
+ for(const ref of usedRefs){const p=[...(T['04_CHAR_DB']?.values()||[])].find(x=>x[0]===ref);const a=p&&any.assetFor(p[0],1);const url=a&&manifest.assets?.[a[0]]?.url;if(url)pictures.faces[ref]=url;}
+ // by name too, for the festival stories (their lines carry names only): every character with a picture
+ pictures.names={};for(const p of T['04_CHAR_DB']?.values()||[]){if(!p[2]||pictures.names[p[2]])continue;const a=any.assetFor(p[0],1),url=a&&manifest.assets?.[a[0]]?.url;if(url){pictures.faces[p[0]]=url;pictures.names[p[2]]=p[0];}}
+ pictures.faces.PLAYER_ISEKAI='assets/icons/faces/isekai.webp';pictures.faces.PLAYER_TRAVELER='assets/icons/faces/traveler_aether.webp';
+}
+const branches=[];for(const [k,label] of Object.entries(WORDS)){const [flag,v]=k.split('=');let b=branches.find(x=>x.flag===flag);if(!b)branches.push(b={flag,options:[]});b.options.push({v,label});}
+const out={version:1,made:new Date().toISOString().slice(0,10),folded:FOLDED,pictures,branches,chains};
 const file=process.argv[2]||path.join(root,'reports/story_workbench.json');
 fs.writeFileSync(file,JSON.stringify(out));
 console.log(JSON.stringify({chains:chains.length,bytes:fs.statSync(file).size,lines:chains.reduce((n,c)=>n+JSON.stringify(c.items).split('"t":').length-1,0)}));
