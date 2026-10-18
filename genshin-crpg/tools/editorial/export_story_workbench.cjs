@@ -9,6 +9,8 @@ const {fs,fresh}=require(root+'/tests/helpers_v011.cjs');
 const content=require(root+'/tools/editorial/compile_main_story_k.cjs').compile();
 // Chapter names from the manuscript README table (| `file` | `CHAIN` | what happens |).
 const readme=fs.readFileSync(path.join(root,'tools/editorial/main_story_k/README.md'),'utf8'),about={};
+// 0.16.68: the stage each chapter is at (tools/editorial/story_status.json), shown in the workbench as a badge
+const STATUS=(()=>{try{const s=JSON.parse(fs.readFileSync(path.join(root,'tools/editorial/story_status.json'),'utf8'));delete s['//'];return s;}catch{return {};}})();
 for(const line of readme.split('\n')){const m=line.match(/^\|\s*`([^`]+)`[^|]*\|\s*((?:`[^`]+`\s*)+)\|\s*(.+?)\s*\|\s*$/);if(!m)continue;for(const c of m[2].match(/`([^`]+)`/g).map(x=>x.slice(1,-1)))about[c]={file:m[1],what:m[3].replace(/`/g,'')};}
 const fileOf={};for(const f of fs.readdirSync(path.join(root,'tools/editorial/main_story_k')).filter(f=>f.endsWith('.md')&&f!=='README.md')){const t=fs.readFileSync(path.join(root,'tools/editorial/main_story_k',f),'utf8');for(const m of t.matchAll(/^# chain (\S+)/gm))fileOf[m[1]]=f;}
 const ROUTES={ROUTE_ISEKAI:fresh('MAP_MOND_CITY','ROUTE_ISEKAI'),ROUTE_TRAVELER:fresh('MAP_MOND_CITY','ROUTE_TRAVELER')};
@@ -93,7 +95,7 @@ for(const chain of content.chains){
  }
  const items=[];visit(chain.entry,items,{map:null});
  const a=about[chain.id]||{};
- chains.push({id:chain.id,route,file:fileOf[chain.id]||a.file||'',about:a.what||'',items});
+ chains.push({id:chain.id,route,file:fileOf[chain.id]||a.file||'',about:a.what||'',...(STATUS[chain.id]?{status:STATUS[chain.id]}:{}),items});
 }
 // 0.16.67 축제 이야기 (tools/editorial/festival_k/*.md): after the main story, in the same shape; a place change keeps its names.
 const FEST_NAMES={XMAS:'눈꽃 축제',SEOLLAL:'설날',CHUSEOK:'추석'};
