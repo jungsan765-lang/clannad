@@ -215,7 +215,7 @@ const GAME_ART={YUT:d=>[d.game.foe].filter(Boolean),SNOWBALL:()=>['MOND_AMBER','
 const GAME_HOW={
  SNOWBALL:['눈 벽에서 일어나 있으면 던질 수 있음','튀어나온 사람을 눌러 눈덩이 던지기','머리 위에 「!」가 뜨면 숨기','45초 · 연속으로 맞히면 점수가 더 큼'],
  YUT:['윷 던지기 → 갈 말 누르기','도 1 · 개 2 · 걸 3 · 윷 4 · 모 5 · 빽도 뒤로 1','윷·모가 나오거나 상대 말을 잡으면 한 번 더','모서리·가운데에 멈추면 지름길'],
- SONGPYEON:['송편 하나에 세 번: 떼기 · 소 넣기 · 빚기','움직이는 표시가 금빛 칸에 올 때 누르기','가운데일수록 「완벽」','송편 여덟 개']
+ SONGPYEON:['송편 하나에 세 번: 떼기 · 소 넣기 · 빚기','움직이는 표시가 금빛 칸에 올 때 누르기','소는 손님이 주문한 것으로','가운데일수록 「완벽」']
 };
 function gameTab(body,v){
  const sel=Math.min(v.day,Math.max(1,F.gameDay||v.days.find(d=>d.open&&!d.game.tier)?.day||v.day));F.gameDay=sel;

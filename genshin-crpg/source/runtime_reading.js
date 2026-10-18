@@ -792,7 +792,7 @@ function gameResult(job,input){
 const tierOf=(res)=>res.score>=res.tiers[2]?3:res.score>=res.tiers[1]?2:res.score>=res.tiers[0]?1:0;
 // ---------- the view ----------
 function taskList(f,day){if(f.task==='GIFT')return GIFTS[day-1].map(([map,who,text,mora])=>({map,who,text,mora}));if(f.task==='SEBAE')return SEBAE[day-1].map(([map,who,text,mora])=>({map,who,text,mora}));
- return CHARYE[day-1].map(([what,items,mora])=>({map:CHARYE_AT,who:'차례상',what,items,mora,text:'차례상에 '+what+'을(를) 올렸습니다.'}));}
+ return CHARYE[day-1].map(([what,items,mora])=>({map:CHARYE_AT,who:'차례상',what,items,mora,text:'차례상에 '+what+(/[가-힣]$/.test(what)&&(what.charCodeAt(what.length-1)-0xac00)%28?'을':'를')+' 올렸습니다.'}));}
 const mapName=(rt,id)=>{try{return String(rt.tables['32_MAP_DB'].get(id)?.[2]||id);}catch{return id;}};
 P.festivalView=function(){
  const f=this.festivalNow();if(!f)return null;const o=peek(this,f)||{points:0,got:[],picked:null,story:[],stars:{},games:{},tasks:{}},route=this.s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER'?'TRV':'ISK',map=this.s.global.CURRENT_MAP_ID;

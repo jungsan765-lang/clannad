@@ -255,65 +255,171 @@ function yut(job,opts){
 }
 // ---------- 송편 빚기 ----------
 const STEPS=['떼기','소 넣기','빚기'];
+// 0.16.68 (user: 「송편 미니게임이 완성도가 낮아보여 사람이 봤을때. 좀 더 보완해봐」, 「'콩를' 이런거 조심하고」): a table on the night pier. The
+// one who ordered stands at the table as a card and says what they think of it; the dough, the three fillings (깨 · 콩 · 밤) and a bamboo
+// steamer on pine needles (솔잎) are on the table, and every press is a move of the hands: a piece is pinched off the dough, pressed into a
+// cup, filled from the bowl, folded into a half moon and set in the steamer. The rules (the gauge, the marks) are the engine's own.
+const SONG_FACES={'향릉':'LIYUE_XIANGLING','행추':'LIYUE_XINGQIU','중운':'LIYUE_CHONGYUN','호두':'LIYUE_HUTAO','페이몬':'ENTITY_PAIMON','종려':'LIYUE_ZHONGLI','가명':'LIYUE_GAMING','북두':'LIYUE_BEIDOU'};
+const songFace=who=>{const id=SONG_FACES[who];if(!id)return null;if(id!=='ENTITY_PAIMON')return faceSrc(id);try{return typeof portraitFor==='function'?portraitFor('ENTITY_PAIMON'):null;}catch{return null;}};
+// the particle after the filling's name: 콩으로 · 깨로 · 밤을 (never 「콩로」 or 「콩를」)
+const josaAfter=(w,p)=>{const s=String(w),c=s.charCodeAt(s.length-1),t=c>=0xac00&&c<=0xd7a3?(c-0xac00)%28:0;if(p==='로'||p==='으로')return t&&t!==8?'으로':'로';
+ const pair={을:['을','를'],를:['을','를'],이:['이','가'],가:['이','가'],은:['은','는'],는:['은','는'],과:['과','와'],와:['과','와']}[p];return pair?pair[t?0:1]:p;};
+const fillWords=(text,word)=>String(text).replace(/\{소\}(으로|로|을|를|이|가|은|는|과|와)?/g,(m,p)=>word+(p?josaAfter(word,p):''));
 function songpyeon(job,opts){
  const S=K.song,R=S.rules,plan=S.plan(job.seed,job.day),orders=S.orders(job.seed),ui=shell(job,opts,opts.name||'송편 빚기'),ctx=ui.ctx,presses=[],fill=Array(R.count).fill(null),marks=[];
  const FILL=R.fillings,orderLines=talkSet('SONG_ORDER'),react={2:talkSet('SONG_PRETTY'),1:talkSet('SONG_OK'),0:talkSet('SONG_BURST')};
- const orderOf=i=>{const l=orderLines[i%Math.max(1,orderLines.length)];return l?{who:l.who,text:l.text.replace(/\{소\}/g,FILL[orders[i]])}:{who:'',text:FILL[orders[i]]+' 송편!'};};
- let t0=0,k=0,start=R.start,raf=0,pop=null,score=0,said=null;const now=()=>performance.now()-t0;
- const done=i=>{const ms=marks.slice(i*3,i*3+3),sum=ms.reduce((n,m)=>n+(m===2?100:m===1?60:0),0),q=sum>=270?2:sum>=150?1:0;if(ms.length===3&&ms.every(m=>m===2))score+=R.pretty;const l=react[q][(i+q)%Math.max(1,react[q].length)];if(l)said={...l,at:now()};};
+ const first=orderLines.length?job.seed%orderLines.length:0;
+ const orderOf=i=>{const l=orderLines[(first+i)%Math.max(1,orderLines.length)];return l?{who:l.who,text:fillWords(l.text,FILL[orders[i]])}:{who:'',text:FILL[orders[i]]+' 송편!'};};
+ let t0=0,k=0,start=R.start,raf=0,pop=null,score=0,said=null,shownI=-1,shownAt=0;const now=()=>performance.now()-t0;
+ // what the hands did, for the drawing: each press (or time-out) and the finished songpyeon on their way to the steamer
+ const acts=[],flights=[];
+ const qOf=i=>{const sum=marks.slice(i*3,i*3+3).reduce((n,m)=>n+(m===2?100:m===1?60:0),0);return sum>=270?2:sum>=150?1:0;};
+ const done=i=>{const q=qOf(i),ms=marks.slice(i*3,i*3+3);if(ms.length===3&&ms.every(m=>m===2))score+=R.pretty;
+  const who=orderOf(i).who,set=react[q],l=set.find(x=>x.who===who)||set[(i+q)%Math.max(1,set.length)];if(l)said={...l,at:now(),i};flights.push({i,q,at:now()});};
  const press=f=>{if(!t0||ui.ended||k>=plan.length)return;const t=now();if(t<start)return;const s=plan[k],step=k%3,limit=start+3*s.period,at=Math.max(start,Math.round(t));
-  if(step===1&&!(Number.isInteger(f)&&f>=0&&f<FILL.length))return;// 소 넣기 is the filling's button
+  if(step===1&&!(Number.isInteger(f)&&f>=0&&f<FILL.length))return;// 소 넣기 is the filling's bowl
   if(at>limit){timeout();return;}const pos=S.tri((at-start)/s.period),off=Math.abs(pos-s.zone);let m=off<=s.w*.45?2:off<=s.w?1:0;
   if(step===1){fill[Math.floor(k/3)]=f;if(f!==orders[Math.floor(k/3)])m=0;}
-  presses.push(at);marks.push(m);score+=m===2?R.perfect:m===1?R.good:0;pop={m,at:t,wrong:step===1&&f!==orders[Math.floor(k/3)]};start=at+R.pause;k++;SND(m?'menu_open':'hit');if(k%3===0)done(k/3-1);};
- const timeout=()=>{const s=plan[k],limit=start+3*s.period;presses.push(null);marks.push(0);pop={m:0,at:now()};start=limit+R.pause;k++;if(k%3===0)done(k/3-1);};
- const go=btn('누르기',()=>press(),'primary fg-press'),bowls=mk('div','fg-bowls');FILL.forEach((n,i)=>bowls.append(btn(n+' ('+(i+1)+')',()=>press(i),'fg-bowl')));
- ui.bar.append(mk('span','fg-hint',touch()?'금빛 칸에서 누르기 · 소 넣기는 주문한 소를 누르기':'금빛 칸에서 스페이스 · 소 넣기는 주문한 소(1·2·3)'),bowls,go);
- ui.on(ui.canvas,'pointerdown',e=>{e.preventDefault();if(k%3!==1)press();});
- ui.on(document,'keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();if(k%3!==1)press();}else if(/^[1-3]$/.test(e.key)){e.preventDefault();if(k%3===1)press(Number(e.key)-1);}},true);
+  presses.push(at);marks.push(m);score+=m===2?R.perfect:m===1?R.good:0;pop={m,at:t,wrong:step===1&&f!==orders[Math.floor(k/3)]};acts[k]={at:t,m,f:step===1?f:null};start=at+R.pause;k++;SND(m?'menu_open':'hit');if(k%3===0)done(k/3-1);};
+ const timeout=()=>{const s=plan[k],limit=start+3*s.period;presses.push(null);marks.push(0);pop={m:0,at:now(),late:true};acts[k]={at:now(),m:0,miss:true,f:null};start=limit+R.pause;k++;if(k%3===0)done(k/3-1);};
+ const go=btn('누르기',()=>press(),'primary fg-press'),bowls=mk('div','fg-bowls');FILL.forEach((n,i)=>bowls.append(btn((i+1)+' '+n,()=>press(i),'fg-bowl')));
+ ui.bar.append(mk('span','fg-hint',touch()?'금빛 칸에서 누르기 · 소 넣기는 주문한 소의 그릇':'금빛 칸에서 스페이스 · 소 넣기는 주문한 소(1·2·3)'),bowls,go);
  const bg=ASSET('bg_place_liyue_harbor_pier.webp');
- const FILL_COLOR=['#3a2a1e','#b9a06a','#8a5a32'];
- // songpyeon come in three doughs (white, pink, 쑥 green), one per order in turn
- const DOUGH=[['#fffaf0','#e8dcc6'],['#ffe3e6','#e7b9c0'],['#e3efcf','#b9cc98']];
- // a small celadon bowl with the filling heaped in it
- function bowl(x,y,f){ctx.save();const heap=ctx.createRadialGradient(x-6,y-10,2,x,y-6,20);heap.addColorStop(0,'rgba(255,255,255,.5)');heap.addColorStop(.25,FILL_COLOR[f]);heap.addColorStop(1,FILL_COLOR[f]);ctx.fillStyle=heap;ctx.beginPath();ctx.ellipse(x,y-6,20,11,0,Math.PI,0);ctx.fill();
-  const b=ctx.createLinearGradient(0,y-6,0,y+14);b.addColorStop(0,'#b9d6c4');b.addColorStop(1,'#6f9580');ctx.fillStyle=b;ctx.beginPath();ctx.moveTo(x-26,y-6);ctx.quadraticCurveTo(x,y+30,x+26,y-6);ctx.closePath();ctx.fill();ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(x,y-6,26,6,0,0,TAU);ctx.stroke();ctx.restore();}
- function cake(x,y,stage,q,r=34,filling=null,dough=0){// a songpyeon by its step: dough, with filling, folded half moon (cracked when poorly made)
-  const [lt,dk]=DOUGH[dough%3];ctx.save();ctx.translate(x,y);
-  ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(0,r*.55,r*.95,r*.22,0,0,TAU);ctx.fill();
-  const g=ctx.createRadialGradient(-r*.3,-r*.4,r*.1,0,0,r*1.1);g.addColorStop(0,lt);g.addColorStop(1,dk);ctx.fillStyle=g;
-  if(stage<2){ctx.beginPath();ctx.ellipse(0,0,r,r*.82,0,0,TAU);ctx.fill();if(stage===1&&filling!==null){const f=ctx.createRadialGradient(0,-4,1,0,-2,r*.4);f.addColorStop(0,'#fff8');f.addColorStop(.3,FILL_COLOR[filling]);f.addColorStop(1,FILL_COLOR[filling]);ctx.fillStyle=f;ctx.beginPath();ctx.ellipse(0,-2,r*.38,r*.27,0,0,TAU);ctx.fill();}}
-  else{ctx.beginPath();ctx.moveTo(-r,r*.25);ctx.quadraticCurveTo(0,-r*1.05,r,r*.25);ctx.quadraticCurveTo(0,r*.55,-r,r*.25);ctx.closePath();ctx.fill();
-   ctx.strokeStyle='rgba(150,120,90,.35)';ctx.lineWidth=1.4;for(let i=-3;i<=3;i++){ctx.beginPath();ctx.moveTo(i*r*.24,-r*.42+Math.abs(i)*r*.1);ctx.quadraticCurveTo(i*r*.24+2,-r*.3+Math.abs(i)*r*.1,i*r*.24+1,-r*.18+Math.abs(i)*r*.1);ctx.stroke();}
-   ctx.fillStyle='rgba(255,255,255,.55)';ctx.beginPath();ctx.ellipse(-r*.35,-r*.25,r*.22,r*.08,-.5,0,TAU);ctx.fill();
-   if(q===0){ctx.strokeStyle='#6b4a2b';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(-r*.2,-r*.2);ctx.lineTo(0,0);ctx.lineTo(r*.15,-r*.25);ctx.stroke();ctx.fillStyle=FILL_COLOR[filling??0];ctx.beginPath();ctx.ellipse(-r*.02,-r*.08,r*.1,r*.06,0,0,TAU);ctx.fill();}
-   if(q===2){ctx.fillStyle='rgba(255,236,170,.9)';for(const [sx,sy] of [[-r*.7,-r*.7],[r*.75,-r*.55],[r*.1,-r*.95]]){ctx.beginPath();ctx.moveTo(sx,sy-4);ctx.lineTo(sx+1.5,sy-1.5);ctx.lineTo(sx+4,sy);ctx.lineTo(sx+1.5,sy+1.5);ctx.lineTo(sx,sy+4);ctx.lineTo(sx-1.5,sy+1.5);ctx.lineTo(sx-4,sy);ctx.lineTo(sx-1.5,sy-1.5);ctx.closePath();ctx.fill();}}}
+ // ---------- the table ----------
+ const TABLE=244,CARD={x:92,w:96,h:124},LUMP={x:210,y:272},BOARD={x:332,y:302},GAUGE={x:200,y:170,w:276};
+ const BOWLS=[0,1,2].map(i=>({x:62+i*60,y:350}));
+ const STEAM={x:550,y:318,rx:74,ry:46},SLOT=i=>({x:STEAM.x-48+(i%4)*32,y:STEAM.y-11+Math.floor(i/4)*25});
+ ui.on(ui.canvas,'pointerdown',e=>{e.preventDefault();if(k%3!==1){press();return;}const p=ui.pos(e);let best=-1,d=1e9;BOWLS.forEach((b,i)=>{const x=Math.hypot(p.x-b.x,(p.y-b.y)*1.4);if(x<d){d=x;best=i;}});if(d<40)press(best);});
+ ui.on(document,'keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();if(k%3!==1)press();}else if(/^[1-3]$/.test(e.key)){e.preventDefault();if(k%3===1)press(Number(e.key)-1);}},true);
+ const FILL_COLOR=['#2e2017','#c29e57','#d4973c'];
+ // three doughs (흰 · 분홍 · 쑥), one per songpyeon in turn
+ const DOUGH=[['#fffaf0','#e6d8bf'],['#ffe1e5','#e2b0b9'],['#e2eecb','#acc28a']];
+ let seedN=job.seed%9973||7;const rnd=()=>(seedN=(seedN*16807)%2147483647)/2147483647;
+ const GRAIN=Array.from({length:14},()=>({y:TABLE+8+rnd()*150,a:rnd()*TAU,amp:1+rnd()*3,w:.6+rnd()*1.2}));
+ const SPECKS=Array.from({length:40},()=>[rnd()*2-1,rnd()*2-1,rnd()]);
+ const NEEDLES=Array.from({length:70},()=>[rnd()*2-1,rnd()*2-1,rnd()*TAU]);
+ const PAPER=ctx.createPattern(paper(),'repeat');
+ // a heap of filling, with what it is made of: sesame seeds, beans, chestnut pieces
+ function heap(x,y,rx,ry,f){
+  ctx.save();ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,Math.PI,0);ctx.closePath();const g=ctx.createRadialGradient(x-rx*.3,y-ry*.9,1,x,y-ry*.3,rx*1.1);g.addColorStop(0,'rgba(255,255,255,.35)');g.addColorStop(.3,FILL_COLOR[f]);g.addColorStop(1,FILL_COLOR[f]);ctx.fillStyle=g;ctx.fill();ctx.clip();
+  for(const [u,v,w] of SPECKS){const px=x+u*rx,py=y-Math.abs(v)*ry;
+   if(f===0){ctx.fillStyle=w>.5?'rgba(240,226,190,.85)':'rgba(20,12,6,.8)';ctx.beginPath();ctx.ellipse(px,py,1.4,.8,u*2,0,TAU);ctx.fill();}
+   else if(f===1){ctx.fillStyle=w>.6?'#d8c28c':'#9c8350';ctx.beginPath();ctx.ellipse(px,py,2.6,1.8,u,0,TAU);ctx.fill();ctx.strokeStyle='rgba(80,60,30,.35)';ctx.lineWidth=.6;ctx.stroke();}
+   else if(w>.35){ctx.fillStyle=w>.7?'#eec276':'#7c4a22';ctx.beginPath();ctx.moveTo(px-2.5,py);ctx.lineTo(px,py-2.2);ctx.lineTo(px+2.8,py-.4);ctx.lineTo(px+.6,py+2);ctx.closePath();ctx.fill();}}
   ctx.restore();}
+ // a celadon bowl of filling on the table, its key and name under it
+ function bowlAt(b,f,lit){
+  ctx.save();if(lit){ctx.shadowColor='rgba(255,214,120,.95)';ctx.shadowBlur=18;}ctx.fillStyle='rgba(0,0,0,.28)';ctx.beginPath();ctx.ellipse(b.x,b.y+14,30,8,0,0,TAU);ctx.fill();ctx.restore();
+  heap(b.x,b.y-4,22,13,f);
+  const g=ctx.createLinearGradient(0,b.y-6,0,b.y+16);g.addColorStop(0,'#c7dfcf');g.addColorStop(1,'#6e937f');ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(b.x-28,b.y-4);ctx.quadraticCurveTo(b.x-26,b.y+18,b.x,b.y+18);ctx.quadraticCurveTo(b.x+26,b.y+18,b.x+28,b.y-4);ctx.closePath();ctx.fill();
+  ctx.strokeStyle=lit?'rgba(255,226,150,.95)':'rgba(255,255,255,.55)';ctx.lineWidth=lit?2.5:1.5;ctx.beginPath();ctx.ellipse(b.x,b.y-4,28,6,0,0,TAU);ctx.stroke();
+  ctx.font='700 12px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';const label=(f+1)+' '+FILL[f],w=ctx.measureText(label).width+14;
+  rrect(ctx,b.x-w/2,b.y+24,w,18,6);ctx.fillStyle=lit?'#f3cf82':'rgba(20,14,10,.7)';ctx.fill();ctx.fillStyle=lit?'#2a1d10':'#f6e9cf';ctx.fillText(label,b.x,b.y+33);
+ }
+ // the dough on its cloth (it gets smaller with every piece taken)
+ function lump(cur,glow){
+  const x=LUMP.x,y=LUMP.y,s=1-cur*.045,[lt,dk]=DOUGH[cur%3];
+  ctx.save();ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(x,y+14,38,9,0,0,TAU);ctx.fill();
+  ctx.fillStyle='#f4efe4';ctx.beginPath();ctx.moveTo(x-38,y+12);ctx.quadraticCurveTo(x-30,y+2,x-14,y+6);ctx.quadraticCurveTo(x+8,y,x+36,y+8);ctx.quadraticCurveTo(x+40,y+16,x+30,y+20);ctx.quadraticCurveTo(x,y+24,x-34,y+20);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='rgba(160,150,130,.5)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x-20,y+16);ctx.quadraticCurveTo(x-6,y+12,x+12,y+17);ctx.stroke();
+  if(glow){ctx.shadowColor='rgba(255,226,150,.9)';ctx.shadowBlur=14;}
+  const g=ctx.createRadialGradient(x-8*s,y-14*s,2,x,y-4*s,30*s);g.addColorStop(0,lt);g.addColorStop(1,dk);ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(x-26*s,y+8);ctx.bezierCurveTo(x-28*s,y-14*s,x-6*s,y-22*s,x+4*s,y-18*s);ctx.bezierCurveTo(x+22*s,y-20*s,x+30*s,y-4*s,x+26*s,y+8);ctx.closePath();ctx.fill();
+  ctx.shadowBlur=0;ctx.fillStyle='rgba(255,255,255,.5)';ctx.beginPath();ctx.ellipse(x-9*s,y-11*s,7*s,3*s,-.4,0,TAU);ctx.fill();ctx.restore();
+ }
+ // a piece in the hands: a ball (pinched off), a cup (pressed), a filled cup, a half moon (folded); a poor press shows on it
+ function ball(x,y,r,dough,m){const [lt,dk]=DOUGH[dough%3];ctx.save();ctx.translate(x,y);if(m===0)ctx.rotate(.25);ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(0,r*.8,r*.9,r*.22,0,0,TAU);ctx.fill();
+  const g=ctx.createRadialGradient(-r*.35,-r*.4,r*.1,0,0,r*1.1);g.addColorStop(0,lt);g.addColorStop(1,dk);ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(0,0,m===0?r*1.15:r,m===0?r*.72:r*.9,0,0,TAU);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.55)';ctx.beginPath();ctx.ellipse(-r*.35,-r*.38,r*.25,r*.12,-.5,0,TAU);ctx.fill();ctx.restore();}
+ function cup(x,y,r,dough,f,m){const [lt,dk]=DOUGH[dough%3];ctx.save();ctx.translate(x,y);ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(0,r*.5,r*1.3,r*.25,0,0,TAU);ctx.fill();
+  const g=ctx.createRadialGradient(-r*.4,-r*.3,r*.1,0,0,r*1.4);g.addColorStop(0,lt);g.addColorStop(1,dk);ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(0,0,r*1.28,r*.66,0,0,TAU);ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,.6)';ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(0,-1,r*1.2,r*.6,0,Math.PI*1.05,Math.PI*1.95);ctx.stroke();
+  const h=ctx.createRadialGradient(0,r*.05,1,0,0,r*.9);h.addColorStop(0,'rgba(120,90,60,.35)');h.addColorStop(1,'rgba(120,90,60,0)');ctx.fillStyle=h;ctx.beginPath();ctx.ellipse(0,-r*.02,r*.82,r*.38,0,0,TAU);ctx.fill();
+  ctx.restore();if(f!==null&&f!==undefined){ctx.fillStyle='rgba(60,40,20,.28)';ctx.beginPath();ctx.ellipse(x,y+r*.16,r*.74,r*.2,0,0,TAU);ctx.fill();heap(x,y+r*.16,r*.7,r*.52,f);}if(m===0){ctx.strokeStyle='rgba(120,90,60,.6)';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(x+r*.9,y-r*.2);ctx.lineTo(x+r*1.05,y+r*.1);ctx.stroke();}}
+ function moon(x,y,r,dough,q,f){// the folded songpyeon (cracked with the filling showing when poorly made, sparkling when pretty)
+  const [lt,dk]=DOUGH[dough%3];ctx.save();ctx.translate(x,y);ctx.fillStyle='rgba(0,0,0,.24)';ctx.beginPath();ctx.ellipse(0,r*.5,r*.95,r*.2,0,0,TAU);ctx.fill();
+  const g=ctx.createRadialGradient(-r*.3,-r*.45,r*.1,0,-r*.1,r*1.15);g.addColorStop(0,lt);g.addColorStop(1,dk);ctx.fillStyle=g;
+  ctx.beginPath();ctx.moveTo(-r,r*.3);ctx.bezierCurveTo(-r*.95,-r*.55,-r*.45,-r*.95,0,-r*.95);ctx.bezierCurveTo(r*.45,-r*.95,r*.95,-r*.55,r,r*.3);ctx.quadraticCurveTo(0,r*.6,-r,r*.3);ctx.closePath();ctx.fill();
+  // the pinched seam along the top
+  ctx.strokeStyle='rgba(140,110,80,.45)';ctx.lineWidth=Math.max(1,r*.05);for(let i=-4;i<=4;i++){const a=Math.PI*(.5+i*.1),sx=Math.cos(a)*r*.86,sy=-Math.sin(a)*r*.86+r*.08;ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(sx*.88,sy*.88+r*.08);ctx.stroke();}
+  ctx.fillStyle='rgba(255,255,255,.55)';ctx.beginPath();ctx.ellipse(-r*.38,-r*.42,r*.24,r*.09,-.6,0,TAU);ctx.fill();
+  if(q===0){ctx.fillStyle=FILL_COLOR[f??0];ctx.beginPath();ctx.moveTo(-r*.25,-r*.35);ctx.lineTo(-r*.05,r*.05);ctx.lineTo(r*.2,-r*.28);ctx.lineTo(r*.02,-r*.1);ctx.closePath();ctx.fill();ctx.strokeStyle='#6b4a2b';ctx.lineWidth=Math.max(1.2,r*.06);ctx.beginPath();ctx.moveTo(-r*.28,-r*.38);ctx.lineTo(-r*.05,r*.05);ctx.lineTo(r*.22,-r*.3);ctx.stroke();}
+  if(q===2){ctx.fillStyle='rgba(255,236,170,.95)';for(const [sx,sy,ss] of [[-r*.8,-r*.75,1],[r*.82,-r*.6,.8],[r*.15,-r*1.12,.9]]){const z=r*.12*ss;ctx.beginPath();ctx.moveTo(sx,sy-z);ctx.lineTo(sx+z*.3,sy-z*.3);ctx.lineTo(sx+z,sy);ctx.lineTo(sx+z*.3,sy+z*.3);ctx.lineTo(sx,sy+z);ctx.lineTo(sx-z*.3,sy+z*.3);ctx.lineTo(sx-z,sy);ctx.lineTo(sx-z*.3,sy-z*.3);ctx.closePath();ctx.fill();}}
+  ctx.restore();}
+ // the bamboo steamer, lined with pine needles
+ function steamer(t,full){
+  const {x,y,rx,ry}=STEAM;ctx.save();ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(x,y+20,rx+6,ry*.55,0,0,TAU);ctx.fill();
+  const side=ctx.createLinearGradient(0,y,0,y+22);side.addColorStop(0,'#c9a46a');side.addColorStop(1,'#8a6a3c');ctx.fillStyle=side;ctx.beginPath();ctx.ellipse(x,y+14,rx,ry,0,0,Math.PI);ctx.lineTo(x-rx,y);ctx.ellipse(x,y,rx,ry,0,Math.PI,0,true);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='rgba(90,60,30,.5)';ctx.lineWidth=1;for(let i=1;i<4;i++){ctx.beginPath();ctx.ellipse(x,y+i*4,rx,ry,0,.05,Math.PI-.05);ctx.stroke();}
+  ctx.fillStyle='#e2c58c';ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,TAU);ctx.fill();ctx.fillStyle='#4f6a34';ctx.beginPath();ctx.ellipse(x,y+1,rx-7,ry-5,0,0,TAU);ctx.fill();
+  ctx.save();ctx.beginPath();ctx.ellipse(x,y+1,rx-7,ry-5,0,0,TAU);ctx.clip();for(const [u,v,a] of NEEDLES){const px=x+u*(rx-8),py=y+v*(ry-6);ctx.strokeStyle=a>3?'#7fa356':'#5f8a3c';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px+Math.cos(a)*9,py+Math.sin(a)*4);ctx.stroke();}ctx.restore();
+  ctx.strokeStyle='#a9844e';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(x,y,rx-3,ry-2,0,0,TAU);ctx.stroke();ctx.restore();
+  if(full){ctx.save();ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=5;ctx.lineCap='round';for(let i=0;i<3;i++){const sx=x-30+i*30,ph=(t/1400+i*.37)%1;ctx.globalAlpha=Math.sin(ph*Math.PI)*.9;ctx.beginPath();ctx.moveTo(sx,y-10-ph*40);ctx.bezierCurveTo(sx+10,y-24-ph*40,sx-10,y-38-ph*40,sx+4,y-52-ph*40);ctx.stroke();}ctx.restore();}
+ }
+ // lanterns on a rope across the top left
+ function lanterns(t){
+  ctx.save();ctx.strokeStyle='rgba(60,30,20,.8)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(-10,4);ctx.quadraticCurveTo(110,30,250,2);ctx.stroke();
+  for(const [u,n] of [[.15,0],[.4,1],[.62,2]]){const px=(1-u)*(1-u)*-10+2*(1-u)*u*110+u*u*250,py=(1-u)*(1-u)*4+2*(1-u)*u*30+u*u*2;ctx.save();ctx.translate(px,py);ctx.rotate(Math.sin(t/900+n*1.7)*.07);
+   const glow=ctx.createRadialGradient(0,22,2,0,22,34);glow.addColorStop(0,'rgba(255,150,70,.35)');glow.addColorStop(1,'rgba(255,150,70,0)');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(0,22,34,0,TAU);ctx.fill();
+   ctx.strokeStyle='rgba(60,30,20,.8)';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,8);ctx.stroke();
+   const body=ctx.createRadialGradient(-3,18,2,0,22,16);body.addColorStop(0,'#ff9a5c');body.addColorStop(.5,'#e0452e');body.addColorStop(1,'#8f2016');ctx.fillStyle=body;ctx.beginPath();ctx.ellipse(0,22,11,14,0,0,TAU);ctx.fill();
+   ctx.strokeStyle='rgba(120,30,20,.6)';ctx.lineWidth=1;for(const dx of [-5,0,5]){ctx.beginPath();ctx.ellipse(0,22,Math.abs(dx)+.5,14,0,0,TAU);ctx.stroke();}
+   ctx.fillStyle='#e9c46a';ctx.fillRect(-6,7,12,4);ctx.fillRect(-6,34,12,4);ctx.strokeStyle='#e9c46a';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(0,38);ctx.lineTo(0,48);ctx.stroke();ctx.restore();}
+  ctx.restore();}
+ // the gauge: a strip of 한지 between two wooden rollers; the gold band is 「좋아요」, its bright middle 「완벽」
+ function gauge(t){
+  const {x,y,w}=GAUGE;ctx.save();ctx.fillStyle='rgba(0,0,0,.3)';rrect(ctx,x-2,y-11,w+4,28,4);ctx.fill();ctx.fillStyle=PAPER;ctx.fillRect(x,y-13,w,26);ctx.strokeStyle='rgba(120,80,40,.45)';ctx.lineWidth=1;ctx.strokeRect(x,y-13,w,26);
+  for(const ex of [x-8,x+w-4]){const g=ctx.createLinearGradient(ex,0,ex+12,0);g.addColorStop(0,'#5a3519');g.addColorStop(.5,'#b07a45');g.addColorStop(1,'#5a3519');ctx.fillStyle=g;rrect(ctx,ex,y-19,12,38,5);ctx.fill();}
+  if(k<plan.length){const s=plan[k];ctx.fillStyle='rgba(232,170,60,.42)';ctx.fillRect(x+(s.zone-s.w)*w,y-13,s.w*2*w,26);ctx.save();ctx.shadowColor='rgba(255,200,90,.9)';ctx.shadowBlur=10;ctx.fillStyle='rgba(255,214,110,.95)';ctx.fillRect(x+(s.zone-s.w*.45)*w,y-13,s.w*.9*w,26);ctx.restore();
+   ctx.fillStyle='rgba(150,60,20,.7)';ctx.fillRect(x+s.zone*w-1,y-13,2,26);
+   const live=t0&&t>=start,pos=live?S.tri((t-start)/s.period):0,mx=x+pos*w;
+   ctx.save();if(live){ctx.shadowColor='rgba(255,255,255,.9)';ctx.shadowBlur=8;}ctx.fillStyle=live?'#2a1d10':'rgba(42,29,16,.35)';ctx.beginPath();ctx.moveTo(mx,y-14);ctx.lineTo(mx-8,y-26);ctx.lineTo(mx+8,y-26);ctx.closePath();ctx.fill();ctx.fillRect(mx-1.5,y-14,3,28);ctx.restore();}
+  ctx.restore();}
+ function chips(step){const names=STEPS,x0=W/2-140;ctx.save();ctx.font='700 13px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  names.forEach((n,i)=>{const x=x0+i*96,on=i===step,past=i<step;rrect(ctx,x,10,88,26,13);ctx.fillStyle=on?'#f3cf82':past?'rgba(243,207,130,.25)':'rgba(10,12,22,.65)';ctx.fill();ctx.strokeStyle=on?'#fff3cf':'rgba(243,207,130,.55)';ctx.lineWidth=1.2;ctx.stroke();ctx.fillStyle=on?'#2a1d10':past?'#f3cf82':'#f6e9cf';ctx.fillText((past?'✓ ':(i+1)+' ')+n,x+44,23);
+   if(i<2){ctx.fillStyle='rgba(243,207,130,.6)';ctx.beginPath();ctx.moveTo(x+90,20);ctx.lineTo(x+95,23);ctx.lineTo(x+90,26);ctx.closePath();ctx.fill();}});ctx.restore();}
+ const arc=(a,b,u,hgt)=>({x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u-Math.sin(Math.PI*u)*hgt});
  function frame(){
   if(!ui.alive)return;const t=t0?now():0;if(t0&&!ui.ended&&k<plan.length&&t>start+3*plan[k].period)timeout();
-  const step=k%3,cur=Math.min(R.count-1,Math.floor(k/3));bowls.hidden=!(k<plan.length&&step===1);go.hidden=!bowls.hidden;
+  const step=k%3,cur=Math.min(R.count-1,Math.floor(k/3)),making=k<plan.length;bowls.hidden=!(making&&step===1);go.hidden=!making||step===1;
   ui.score(score);ui.time(Math.min(R.count,Math.floor(k/3)+1)+' / '+R.count+'개');
-  ctx.clearRect(0,0,W,H);const b=pic(bg);if(b){const s=Math.max(W/b.naturalWidth,H/b.naturalHeight);ctx.drawImage(b,(W-b.naturalWidth*s)/2,(H-b.naturalHeight*s)/2,b.naturalWidth*s,b.naturalHeight*s);}
-  const night=ctx.createLinearGradient(0,0,0,H);night.addColorStop(0,'rgba(10,16,44,.78)');night.addColorStop(1,'rgba(22,16,24,.7)');ctx.fillStyle=night;ctx.fillRect(0,0,W,H);
+  ctx.clearRect(0,0,W,H);const b=pic(bg);if(b)cover(ctx,b,0,0,W,H,.5,.6);else{ctx.fillStyle='#1a2140';ctx.fillRect(0,0,W,H);}
+  const night=ctx.createLinearGradient(0,0,0,H);night.addColorStop(0,'rgba(10,16,44,.72)');night.addColorStop(1,'rgba(22,16,24,.6)');ctx.fillStyle=night;ctx.fillRect(0,0,W,H);
   // the full moon grows brighter with the score
-  const glow=clamp(score/2400,0,1),halo=ctx.createRadialGradient(560,72,30,560,72,90+glow*40);halo.addColorStop(0,'rgba(255,236,170,'+(.35+.35*glow)+')');halo.addColorStop(1,'rgba(255,236,170,0)');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(560,72,90+glow*40,0,TAU);ctx.fill();
-  sphere(ctx,560,72,38,'#fffbe8','#f0d48c');ctx.fillStyle='rgba(200,170,110,.25)';for(const [cx,cy,cr] of [[548,62,7],[572,80,9],[556,90,4],[574,58,4]]){ctx.beginPath();ctx.arc(cx,cy,cr,0,TAU);ctx.fill();}
-  // the tray of songpyeon made so far
-  rrect(ctx,30,20,8*58+10,52,12);ctx.fillStyle='rgba(120,80,40,.55)';ctx.fill();ctx.strokeStyle='rgba(243,207,130,.4)';ctx.stroke();
-  for(let i=0;i<R.count;i++){const m=marks.slice(i*3,i*3+3);const fin=m.length===3,sum=m.reduce((n,x)=>n+(x===2?100:x===1?60:0),0);ctx.globalAlpha=fin?1:.22;cake(64+i*58,46,2,fin?(sum>=270?2:sum>=150?1:0):1,18,fill[i]??orders[i],i);ctx.globalAlpha=1;}
-  // who ordered this one, and what
-  if(k<plan.length){const o=orderOf(cur);bubble(ctx,150,170,o.who,o.text,1,240);bowl(150,206,orders[cur]);ctx.fillStyle='#f6e9cf';ctx.font='700 13px sans-serif';ctx.textAlign='center';ctx.fillText(FILL[orders[cur]]+' 송편',150,236);}
-  // a celadon plate and the one in hand
-  const px=W/2+60,plate=ctx.createRadialGradient(px,200,10,px,200,130);plate.addColorStop(0,'#cfe3d4');plate.addColorStop(.75,'#9fc2ae');plate.addColorStop(1,'#7aa08c');ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(px,210,128,44,0,0,TAU);ctx.fill();ctx.fillStyle=plate;ctx.beginPath();ctx.ellipse(px,200,124,42,0,0,TAU);ctx.fill();ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(px,198,110,34,0,0,TAU);ctx.stroke();
-  if(k<plan.length)cake(px,186,step,1,46,fill[cur],cur);
-  ctx.fillStyle='#f6e9cf';ctx.font='800 20px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';if(k<plan.length)ctx.fillText((cur+1)+'번째 · '+STEPS[step]+(step===1?' — 주문한 소를 누르기':''),W/2+40,104);
-  // the bar
-  const bx=100,bw=440,by=300;rrect(ctx,bx-6,by-18,bw+12,36,10);ctx.fillStyle='rgba(60,36,20,.75)';ctx.fill();ctx.strokeStyle='rgba(243,207,130,.4)';ctx.lineWidth=1.5;ctx.stroke();
-  if(k<plan.length){const s=plan[k];ctx.fillStyle='rgba(255,208,96,.45)';ctx.fillRect(bx+(s.zone-s.w)*bw,by-14,s.w*2*bw,28);ctx.save();ctx.shadowColor='rgba(255,210,100,.9)';ctx.shadowBlur=12;ctx.fillStyle='rgba(255,226,140,.95)';ctx.fillRect(bx+(s.zone-s.w*.45)*bw,by-14,s.w*.9*bw,28);ctx.restore();
-   const live=t0&&t>=start,pos=live?S.tri((t-start)/s.period):0,mx=bx+pos*bw;ctx.fillStyle=live?'#ffffff':'rgba(255,255,255,.35)';ctx.beginPath();ctx.moveTo(mx,by-20);ctx.lineTo(mx-9,by-34);ctx.lineTo(mx+9,by-34);ctx.closePath();ctx.fill();ctx.fillRect(mx-2,by-16,4,32);}
-  if(pop&&t-pop.at<650){const a=1-(t-pop.at)/650;ctx.fillStyle=pop.m===2?'rgba(255,214,102,'+a+')':pop.m===1?'rgba(190,230,255,'+a+')':'rgba(255,150,130,'+a+')';ctx.font='800 26px sans-serif';ctx.fillText(pop.wrong?'주문이랑 달라!':pop.m===2?'완벽!':pop.m===1?'좋아요':'아쉬워요',W/2+40,250-(t-pop.at)*.03);}
-  if(said&&t-said.at<1600)bubble(ctx,W/2+190,200,said.who,said.text,clamp((1600-(t-said.at))/300,0,1),220);
-  if(t0&&k>=plan.length&&!ui.ended&&t>=start-R.pause+600)ui.send({p:presses.slice(),f:fill.slice()},o=>'예쁜 송편 '+(o.detail?.pretty?.filter(x=>x===2).length??0)+'개 · 점수 '+fmt(o.score),o=>[['예쁜 송편',(o.detail?.pretty?.filter(x=>x===2).length||0)+'개'],['보통',(o.detail?.pretty?.filter(x=>x===1).length||0)+'개'],['터진 송편',(o.detail?.pretty?.filter(x=>x===0).length||0)+'개']]);
+  const glow=clamp(score/2400,0,1),mx=568,my=64,halo=ctx.createRadialGradient(mx,my,26,mx,my,80+glow*40);halo.addColorStop(0,'rgba(255,236,170,'+(.3+.35*glow)+')');halo.addColorStop(1,'rgba(255,236,170,0)');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(mx,my,80+glow*40,0,TAU);ctx.fill();
+  sphere(ctx,mx,my,32,'#fffbe8','#efd28a');ctx.fillStyle='rgba(200,170,110,.25)';for(const [cx,cy,cr] of [[-10,-8,6],[10,8,8],[-3,16,4],[12,-12,3.5]]){ctx.beginPath();ctx.arc(mx+cx,my+cy,cr,0,TAU);ctx.fill();}
+  lanterns(t);if(making)chips(step);
+  // the one who ordered (and, once it is made, says what they think), sliding in for each songpyeon
+  const reacting=said&&t-said.at<1500,ci=reacting?said.i:cur;if(ci!==shownI){shownI=ci;shownAt=t;}
+  const slide=ease((t-shownAt)/320),o=orderOf(ci),cx=CARD.x-(1-slide)*150;
+  ctx.save();ctx.globalAlpha=slide;card(ctx,songFace(o.who),cx,TABLE+6,CARD.w,CARD.h);
+  ctx.fillStyle='rgba(10,8,6,.72)';rrect(ctx,cx-CARD.w/2+4,TABLE-24,CARD.w-8,20,5);ctx.fill();ctx.fillStyle='#f3cf82';ctx.font='700 12px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(o.who||'손님',cx,TABLE-14);ctx.restore();
+  if(slide>.6&&(reacting||making))bubble(ctx,cx+6,TABLE-CARD.h-4,'',reacting?said.text:o.text,clamp((slide-.6)/.4,0,1),210);
+  // the table
+  const wood=ctx.createLinearGradient(0,TABLE,0,H);wood.addColorStop(0,'#8c5c34');wood.addColorStop(1,'#4c2c14');ctx.fillStyle=wood;ctx.fillRect(0,TABLE,W,H-TABLE);
+  ctx.strokeStyle='rgba(40,20,8,.28)';for(const g of GRAIN){ctx.lineWidth=g.w;ctx.beginPath();for(let x=0;x<=W;x+=16){const y=g.y+Math.sin(x/70+g.a)*g.amp;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();}
+  ctx.fillStyle='#c48d58';ctx.fillRect(0,TABLE,W,3);ctx.fillStyle='rgba(0,0,0,.25)';ctx.fillRect(0,TABLE+3,W,4);
+  // the wooden board (안반)
+  ctx.save();ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.moveTo(BOARD.x-92,BOARD.y+42);ctx.lineTo(BOARD.x+92,BOARD.y+42);ctx.lineTo(BOARD.x+84,BOARD.y+48);ctx.lineTo(BOARD.x-84,BOARD.y+48);ctx.closePath();ctx.fill();
+  const bd=ctx.createLinearGradient(0,BOARD.y-32,0,BOARD.y+40);bd.addColorStop(0,'#e2b47a');bd.addColorStop(1,'#b6824a');ctx.fillStyle=bd;ctx.beginPath();ctx.moveTo(BOARD.x-72,BOARD.y-32);ctx.lineTo(BOARD.x+72,BOARD.y-32);ctx.lineTo(BOARD.x+88,BOARD.y+40);ctx.lineTo(BOARD.x-88,BOARD.y+40);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='rgba(110,70,30,.6)';ctx.lineWidth=1.5;ctx.stroke();ctx.fillStyle='rgba(255,240,210,.18)';ctx.fillRect(BOARD.x-70,BOARD.y-30,140,3);ctx.restore();
+  lump(Math.min(cur,R.count-1),making&&step===0&&t>=start);
+  FILL.forEach((n,i)=>bowlAt(BOWLS[i],i,making&&step===1&&t>=start));
+  steamer(t,flights.some(f=>t-f.at>750));
+  // the steamer's places: made songpyeon in them, the ones still to make as faint shapes
+  for(let i=0;i<R.count;i++){const p=SLOT(i),fl=flights.find(f=>f.i===i);if(fl&&t-fl.at>750)moon(p.x,p.y,12,i,fl.q,fill[i]);else if(!fl){ctx.save();ctx.globalAlpha=.4;ctx.fillStyle='rgba(20,40,10,.5)';ctx.beginPath();ctx.ellipse(p.x,p.y+5,12,4,0,0,TAU);ctx.fill();ctx.setLineDash([3,3]);ctx.strokeStyle='#f4ecd6';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(p.x,p.y+3,10,Math.PI,0);ctx.closePath();ctx.stroke();ctx.restore();}}
+  // the one in the hands
+  if(making){const a0=acts[cur*3],a1=acts[cur*3+1],at=BOARD;const dough=cur;
+   if(!a0){ctx.save();ctx.globalAlpha=.35;ctx.setLineDash([5,5]);ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(at.x,at.y-4,42,26,0,0,TAU);ctx.stroke();ctx.restore();}
+   else if(!a1){const u=(t-a0.at)/260;if(u<1){const p=arc({x:LUMP.x,y:LUMP.y-6},{x:at.x,y:at.y-8},ease(u),46);ball(p.x,p.y,22+u*14,dough,a0.m);}else{const v=clamp((t-a0.at-260)/200,0,1);if(v<1)ball(at.x,at.y-8+v*4,36,dough,a0.m);else cup(at.x,at.y-4,36,dough,null,a0.m);}}
+   else{const u=(t-a1.at)/300;cup(at.x,at.y-4,36,dough,u>=1?a1.f:null,acts[cur*3].m);if(u<1&&a1.f!==null){const p=arc({x:BOWLS[a1.f].x,y:BOWLS[a1.f].y-10},{x:at.x,y:at.y-4},ease(u),70);heap(p.x,p.y,16,11,a1.f);}}}
+  // a finished one: folded on the board, then set in the steamer
+  for(const f of flights){const d=t-f.at;if(d>750)continue;const s=SLOT(f.i);if(d<250){const v=ease(d/200);ctx.save();ctx.globalAlpha=1-v;cup(BOARD.x,BOARD.y-4,36,f.i,fill[f.i],1);ctx.restore();ctx.save();ctx.globalAlpha=v;moon(BOARD.x,BOARD.y-6,36+v*4,f.i,f.q,fill[f.i]);ctx.restore();}
+   else{const u=ease((d-250)/500),p=arc({x:BOARD.x,y:BOARD.y-6},s,u,70);moon(p.x,p.y,40-u*28,f.i,f.q,fill[f.i]);}}
+  gauge(t);
+  if(pop&&t-pop.at<700){const a=1-(t-pop.at)/700;ctx.save();ctx.globalAlpha=a;ctx.font='800 26px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineWidth=5;ctx.strokeStyle='rgba(20,12,6,.8)';
+   const word=pop.wrong?'주문이랑 달라!':pop.late?'늦었어요':pop.m===2?'완벽!':pop.m===1?'좋아요':'아쉬워요';ctx.strokeText(word,GAUGE.x+GAUGE.w/2,GAUGE.y-46-(t-pop.at)*.025);ctx.fillStyle=pop.m===2?'#ffd666':pop.m===1?'#bfe6ff':'#ff9a86';ctx.fillText(word,GAUGE.x+GAUGE.w/2,GAUGE.y-46-(t-pop.at)*.025);ctx.restore();}
+  const last=flights.length===R.count?flights[R.count-1].at:null;
+  if(t0&&!making&&!ui.ended&&last!==null&&t>=last+900)ui.send({p:presses.slice(),f:fill.slice()},o=>'예쁜 송편 '+(o.detail?.pretty?.filter(x=>x===2).length??0)+'개 · 점수 '+fmt(o.score),o=>[['예쁜 송편',(o.detail?.pretty?.filter(x=>x===2).length||0)+'개'],['보통',(o.detail?.pretty?.filter(x=>x===1).length||0)+'개'],['터진 송편',(o.detail?.pretty?.filter(x=>x===0).length||0)+'개']]);
   raf=requestAnimationFrame(frame);
  }
  ui.offs.push(()=>cancelAnimationFrame(raf));frame();countdown(ui,()=>{t0=performance.now();});
