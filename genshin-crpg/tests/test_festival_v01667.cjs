@@ -141,4 +141,14 @@ check('축제 대사: the host for every day, a short talk for every travel task
  // nothing is said by 「나:」; the player speaks with ??
  for(const list of Object.values(T))for(const l of list)assert.notEqual(l.who,'나');
 });
-console.log(JSON.stringify({ok:!process.exitCode,total:11,passed}));
+check('눈싸움: balls land in the order they arrive (a chest hit twice in a row stays one hit on the first ball), two rows from day 3, 진 단장 −250',()=>{
+ const S=K.snow,R=S.rules;assert.equal(R.jean,250);assert.equal(S.rows(1),1);assert.equal(S.rows(2),1);assert.equal(S.rows(3),2);assert.equal(S.lanes(7),10);
+ assert(S.plan(5,7).some(p=>p.lane>=5)&&S.plan(5,1).every(p=>p.lane<5),'the near row is used from day 3 only');
+ let tried=0;for(let seed=1;seed<3000&&tried<3;seed++){const plan=S.plan(seed,1),lands=plan.filter(p=>p.throwAt!==undefined).map(p=>p.throwAt+R.incoming);
+  const g=plan.find(p=>p.kind==='gift'&&p.down-p.up>1300&&!lands.some(l=>l>p.up-200&&l<p.up+2000));if(!g)continue;tried++;
+  const t1=g.up+150,ins=[{t:g.up-100,a:'s'},{t:t1,a:'t',lane:g.lane},{t:t1+R.cooldown,a:'t',lane:g.lane}],times=new Set();
+  for(let u=t1+R.flight;u<t1+R.cooldown+R.flight+400;u+=20)for(const e of S.play(seed,1,ins,u).log)if(e.k==='gift')times.add(e.t);
+  assert.deepEqual([...times],[t1+R.flight],'the hit stays on the first ball');assert.equal(S.play(seed,1,ins).gifts,1);}
+ assert.equal(tried,3);
+});
+console.log(JSON.stringify({ok:!process.exitCode,total:12,passed}));

@@ -114,7 +114,7 @@ function snowball(job,opts){
  const hideBtn=btn('숨기',()=>{},'fg-hide');hideBtn.title='누르고 있는 동안 눈 벽 뒤에 숨습니다 (스페이스)';
  ui.on(hideBtn,'pointerdown',e=>{e.preventDefault();hide(true);});for(const ev of ['pointerup','pointercancel','pointerleave'])ui.on(hideBtn,ev,()=>hide(false));
  const lanesRow=mk('div','fg-lanes'+(ROWS>1?' two':''));for(let i=0;i<LANES;i++)lanesRow.append(btn(KEYS[i],()=>shoot(i),'fg-lane'));
- const legend=mk('div','fg-legend');legend.append(mk('span','fg-key friend','동료 +100'),mk('span','fg-key gift','보물상자 +250'),mk('span','fg-key jean','진 단장 −150'),mk('span','fg-key fever','5연속 = 피버 ×2'));
+ const legend=mk('div','fg-legend');legend.append(mk('span','fg-key friend','동료 +100'),mk('span','fg-key gift','보물상자 +250'),mk('span','fg-key jean','진 단장 −'+R.jean),mk('span','fg-key fever','5연속 = 피버 ×2'));
  ui.bar.append(legend,lanesRow,hideBtn);
  ui.on(ui.canvas,'pointerdown',e=>{const p=ui.pos(e);if(p.y>330)return;let best=-1,d=1e9;for(let i=0;i<LANES;i++){const dd=ROWS>1?Math.hypot(p.x-laneX(i),(p.y-(laneFort(i)-8))*1.2):Math.abs(p.x-laneX(i));if(dd<d){d=dd;best=i;}}if(d<62)shoot(best);});
  ui.on(document,'keydown',e=>{if(!ui.alive)return;if(e.key===' '||e.key==='s'||e.key==='S'||e.key==='ArrowDown'){e.preventDefault();hide(true);}else{const n=KEYS.indexOf(e.key);if(n>=0&&n<LANES)shoot(n);}},true);

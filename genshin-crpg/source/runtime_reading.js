@@ -662,7 +662,7 @@ P.combatStat=function(a,key){
 // 눈싸움: behind your snow wall, stand up to throw at whoever pops up from the five forts, and duck when one winds up to throw back.
 // (user: 「이벤트 퀄리티좀 높여봐. 좀 재밌게」) Three kinds pop up: a friend (100, more in a row), a gift box (250, never throws) and
 // 진 단장 (do not hit her: −150, and the run of hits ends). Five hits in a row light 「눈꽃 피버」: for five seconds every hit counts twice.
-const SNOW={ms:45000,lanes:5,flight:380,incoming:600,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:150,fever:5000,feverAt:5};
+const SNOW={ms:45000,lanes:5,flight:380,incoming:600,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:250,fever:5000,feverAt:5};
 // 0.16.68 (user: 「사람 나오는 줄을 두 줄로 하고, 나올 경우의 수도 두배가 되는 대신 느리게. 또는 1일째나 2일째에는 한 줄로 하고 3일째부터 두
 // 줄로」, 「적 공격속도를 좀 낮춰봐」): from day 3 a near row of five more places (lanes 5–9); on those days friends stay up longer, come a little
 // less often and throw less. Their snowballs take 0.6 s to land (0.45 s before). After 「이번엔 … 너무 쉬워졌는데? 살짝만 난이도 더 어렵게」 the middle
@@ -685,7 +685,9 @@ function snowPlay(seed,day,inputs,until=Infinity){
  const pops=snowPlan(seed,day),hitBy=new Map(),log=[];let standing=false,stun=-1,last=-1e9,score=0,combo=0,hits=0,hurt=0,gifts=0,jeans=0,bestCombo=0,fevers=0,feverUntil=-1;
  const evs=[];for(const [i,x] of inputs.entries())evs.push({t:x.t,k:0,i,x});for(const p of pops)if(p.throwAt!==undefined)evs.push({t:p.throwAt+SNOW.incoming,k:1,p});
  evs.sort((a,b)=>a.t-b.t||a.k-b.k);const flying=[];
- const land=t=>{for(let j=flying.length-1;j>=0;j--){const f=flying[j];if(f.at>t)continue;flying.splice(j,1);const p=pops.find(q=>q.lane===f.lane&&q.up<=f.at&&f.at<(hitBy.get(q)??q.down));
+ // 0.16.68: the balls land in the order they arrive (the last one thrown went first before, so with nothing in between the hit
+ // moved from the first ball to the second when it landed and the page showed the chest hit twice: user, 「보물상자 연속공격하면 두번 칠 수 있는 버그」)
+ const land=t=>{for(const f of flying.filter(x=>x.at<=t).sort((a,b)=>a.at-b.at)){flying.splice(flying.indexOf(f),1);const p=pops.find(q=>q.lane===f.lane&&q.up<=f.at&&f.at<(hitBy.get(q)??q.down));
   if(!p||hitBy.has(p)){combo=0;log.push({t:f.at,k:'miss',lane:f.lane});continue;}
   hitBy.set(p,f.at);
   if(p.kind==='jean'){jeans++;combo=0;feverUntil=-1;score=Math.max(0,score-SNOW.jean);log.push({t:f.at,k:'jean',lane:f.lane,n:-SNOW.jean});continue;}
