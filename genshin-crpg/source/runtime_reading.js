@@ -664,7 +664,9 @@ P.combatStat=function(a,key){
 // 진 단장 (do not hit her: −150, and the run of hits ends). Five hits in a row light 「눈꽃 피버」: for five seconds every hit counts twice.
 const SNOW={ms:45000,lanes:5,flight:380,incoming:450,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:150,fever:5000,feverAt:5};
 function snowPlan(seed,day){
- const r=rng(seed),pops=[];let t=1500;const gap=[900-60*day,1600-90*day],up=[1400-60*day,2200-80*day],pThrow=.35+.06*day,pGift=.1,pJean=.07+.01*day;
+ // 0.16.68 (user: 「눈싸움 7일째 난이도가;; 너무 빨라서 그냥 다처맞아」): the days grow harder more gently. Day 7 had a 「!」 up 60% of
+ // the time and friends up 1.29 s; now about 37% and 1.57 s (the old day 3–4). Day 1 is about the same.
+ const r=rng(seed),pops=[];let t=1500;const gap=[900-30*day,1600-45*day],up=[1400-25*day,2200-40*day],pThrow=.35+.03*day,pGift=.1,pJean=.07+.01*day;
  while(t<SNOW.ms-1500){
   const busy=new Set(pops.filter(p=>p.down>t).map(p=>p.lane));const free=[...Array(SNOW.lanes).keys()].filter(l=>!busy.has(l));
   if(free.length){const lane=free[Math.floor(r()*free.length)],dur=Math.round(up[0]+r()*(up[1]-up[0])),roll=r(),kind=roll<pGift?'gift':roll<pGift+pJean?'jean':'friend',p={lane,up:t,down:t+dur,kind};
