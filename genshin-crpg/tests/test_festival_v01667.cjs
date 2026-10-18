@@ -64,8 +64,17 @@ check('미니게임: the engine plays the game again from its seed, pays a tier 
  for(let seed=1;seed<=40;seed++){const g=K.yut.create(seed,5),dec=[];for(let guard=0;guard<3000&&g.phase!=='DONE';guard++){if(g.phase==='THROW'){K.yut.roll(g);continue;}if(g.turn===1){const m=K.yut.bot(g);if(!m){g.throws=[];K.yut.settle(g);continue;}K.yut.play(g,m.k,m.p);continue;}const L=K.yut.legal(g),m=L[(seed+dec.length)%L.length];dec.push([m.k,m.p]);K.yut.play(g,m.k,m.p);}
   const s=K.yut.score(seed,5,dec);assert(s,'replays '+seed);assert.equal(s.won,g.winner===0);assert.equal(K.yut.score(seed,5,dec.slice(0,-1)),null,'a cut game is not a game');}
  // 송편 빚기: presses on the gold mark score; one off the bar is refused
- const S=K.song,pl=S.plan(9,1);let t=S.rules.start;const presses=[];for(const st of pl){let at=t;while(Math.abs(S.tri((at-t)/st.period)-st.zone)>st.w*.2)at++;presses.push(at);t=at+S.rules.pause;}
- assert.equal(S.play(9,1,presses).score,2400);const bad=presses.slice();bad[3]=bad[2];assert.equal(S.play(9,1,bad),null);const missed=presses.slice();missed[0]=null;assert(S.play(9,1,missed)===null||true);
+ // 송편 빚기: the order's filling at 소 넣기, presses on the gold mark; every one perfect = 24×100 + 8 pretty ×30
+ const S=K.song,pl=S.plan(9,1),orders=S.orders(9);let t=S.rules.start;const presses=[];for(const st of pl){let at=t;while(Math.abs(S.tri((at-t)/st.period)-st.zone)>st.w*.2)at++;presses.push(at);t=at+S.rules.pause;}
+ assert.equal(S.play(9,1,{p:presses,f:orders}).score,2640);
+ const wrong=orders.slice();wrong[0]=(wrong[0]+1)%3;assert.equal(S.play(9,1,{p:presses,f:wrong}).score,2640-100-30,'the wrong filling spoils that step (and its pretty bonus)');
+ const bad=presses.slice();bad[3]=bad[2];assert.equal(S.play(9,1,{p:bad,f:orders}),null);assert.equal(S.play(9,1,presses),null,'the old shape is refused');
+ // 눈싸움: gift boxes pay more and never throw, 진 단장 costs and ends the run, five in a row light the fever (hits count twice)
+ {const plan=K.snow.plan(77,4);assert(plan.some(q=>q.kind==='gift')&&plan.some(q=>q.kind==='jean'));assert(plan.every(q=>q.kind==='friend'||q.throwAt===undefined));
+  const friendsOnly=[{t:0,a:'s'}];for(const q of plan)if(q.kind!=='jean')friendsOnly.push({t:q.up+60,a:'t',lane:q.lane});friendsOnly.sort((a,b)=>a.t-b.t);
+  const all=[{t:0,a:'s'}];for(const q of plan)all.push({t:q.up+60,a:'t',lane:q.lane});all.sort((a,b)=>a.t-b.t);
+  const good=K.snow.play(77,4,friendsOnly),greedy=K.snow.play(77,4,all);assert(good.fevers>0&&good.gifts>0,'fever and gifts happen');assert(greedy.jeans>0&&greedy.score<good.score,'hitting 진 단장 costs');
+  assert(good.log.some(e=>e.k==='hit'&&e.fever&&e.n>=200),'a fever hit counts twice');}
 });
 check('이동 과제: done where it happens (세배 pays 세뱃돈, 차례상 takes what the day asks for), once',()=>{
  const r=ready('MAP_LY_DETAIL_CHIHU');const id=open(r,'SEOLLAL',{allDays:true});const v=r.festivalView();assert.equal(v.days[0].tasks[0].who,'향릉');assert.equal(v.days[0].tasks[0].here,true);
@@ -122,4 +131,14 @@ check('축제 교환 runs with a festival and now sells 원석 160',()=>{
  r.s.opEvent={v:1,day:0,uses:{},fest:{id:'EVT_'+id,tokens:300,earned:300,bought:{}}};const p=Number(r.s.global.PRIMOGEM)||0;r.action('EVENT_EXCHANGE',{event:'EVT_'+id,item:'PRIMO',n:2});assert.equal(Number(r.s.global.PRIMOGEM)-p,320);
  assert.equal(r.actionReason('EVENT_EXCHANGE',{event:'EVT_'+id,item:'PRIMO',n:4}),'이번 이벤트에서 더 바꿀 수 없습니다.');
 });
-console.log(JSON.stringify({ok:!process.exitCode,total:10,passed}));
+check('축제 대사: the host for every day, a short talk for every travel task, seven lines for every 윷놀이 friend, the orders and the calls',()=>{
+ const win={};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../source/app_feststory_v01667.js'),'utf8'),{window:win});const T=win.CRPGFestivalStory.talk;
+ for(const f of Object.keys(K.festivals)){for(const d of ['1','2','3','4','5','6','7','END'])assert(T['HOST_'+f+'_'+d]?.length,'HOST_'+f+'_'+d);
+  for(let d=1;d<=7;d++)for(const n of [0,1])assert(T['TASK_'+f+'_'+d+'_'+n]?.length,'TASK_'+f+'_'+d+'_'+n);}
+ for(const foe of K.yut.foes)assert.equal(T['YUT_'+foe]?.length,7,'YUT_'+foe);
+ assert(T.SONG_ORDER.length>=8&&T.SONG_ORDER.every(l=>l.text.includes('{소}')),'every order names its filling');
+ for(const k of ['SONG_PRETTY','SONG_OK','SONG_BURST','SNOW_JEAN','SNOW_GIFT','SNOW_FEVER'])assert(T[k]?.length,k);
+ // nothing is said by 「나:」; the player speaks with ??
+ for(const list of Object.values(T))for(const l of list)assert.notEqual(l.who,'나');
+});
+console.log(JSON.stringify({ok:!process.exitCode,total:11,passed}));

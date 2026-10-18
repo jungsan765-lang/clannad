@@ -87,17 +87,32 @@ function build(rows,chain){
  const items=level(0,rows.length,0);if(!chain.map)throw new Error(chain.id+' has no @map before its first line');
  if(!chain.title)throw new Error(chain.id+' has no # title');return items;
 }
+// 0.16.68 축제 대사 (festival_k/talk.md): `# talk <KEY>` and its lines (이름: / 이야기: / ??) — the festival window's host, the travel
+// tasks' short talks, the 윷놀이 friend, the songpyeon orders and the snowball calls (user: 「이벤트 퀄리티좀 높여봐. 좀 재밌게」).
+function parseTalk(file){
+ const lines=fs.readFileSync(file,'utf8').split(/\r?\n/),talk={};let key=null,n=0;
+ const bad=(i,why)=>{throw new Error(path.basename(file)+':'+(i+1)+' '+why);};
+ lines.forEach((raw,i)=>{const t=raw.trim();if(!t||t.startsWith('//'))return;let m;
+  if((m=t.match(/^# talk ([A-Z0-9_]+)$/))){key=m[1];if(talk[key])bad(i,'two talks '+key);talk[key]=[];n=0;return;}
+  if(!key)bad(i,'text before the first # talk');const id=()=>'TALK_'+key+'_'+String(++n).padStart(2,'0');
+  if((m=t.match(/^\?\? (.+)$/))){talk[key].push({id:id(),t:'say',who:'주인공',text:m[1].trim()});return;}
+  if((m=t.match(/^이야기:\s*(.+)$/))){talk[key].push({id:id(),t:'narr',who:'',text:m[1].trim()});return;}
+  if((m=t.match(/^([^:：]{1,16}):\s*(.+)$/))){talk[key].push({id:id(),t:'line',who:m[1].trim(),text:m[2].trim()});return;}
+  bad(i,'unknown line: '+t);});
+ return talk;
+}
+function compileTalk(){const f=path.join(DIR,'talk.md');return fs.existsSync(f)?parseTalk(f):{};}
 function compile(){
- const chains=[];for(const f of fs.readdirSync(DIR).filter(f=>f.endsWith('.md')&&f!=='README.md').sort())chains.push(...parse(path.join(DIR,f)));
+ const chains=[];for(const f of fs.readdirSync(DIR).filter(f=>f.endsWith('.md')&&f!=='README.md'&&f!=='talk.md').sort())chains.push(...parse(path.join(DIR,f)));
  const ids=new Set();for(const c of chains){if(ids.has(c.id))throw new Error('two chains '+c.id);ids.add(c.id);}
  // every festival with a story: part 1 for each route, parts 2–4 shared
  for(const fest of new Set(chains.map(c=>c.festival)))for(const id of ['EVT_'+fest+'_ISK_1','EVT_'+fest+'_TRV_1','EVT_'+fest+'_2','EVT_'+fest+'_3','EVT_'+fest+'_4'])if(!ids.has(id))throw new Error('missing '+id);
  return chains;
 }
-module.exports={compile};
+module.exports={compile,compileTalk};
 if(require.main===module){
- const chains=compile(),lines=c=>JSON.stringify(c.items).split('"id":').length-1;
- const data={version:2,chains:Object.fromEntries(chains.map(c=>[c.id,{festival:c.festival,route:c.route,part:c.part,title:c.title,map:c.map,items:c.items}]))};
+ const chains=compile(),talk=compileTalk(),lines=c=>JSON.stringify(c.items).split('"id":').length-1;
+ const data={version:3,chains:Object.fromEntries(chains.map(c=>[c.id,{festival:c.festival,route:c.route,part:c.part,title:c.title,map:c.map,items:c.items}])),talk};
  const text='/* 0.16.67 축제 이야기 — made by tools/editorial/compile_festival_story.cjs from tools/editorial/festival_k/*.md. Do not edit here:\n * edit the manuscripts (the story workbench), then run the tool. */\nwindow.CRPGFestivalStory='+JSON.stringify(data)+';\n';
  if(process.argv.includes('--check')){const now=fs.existsSync(OUT)?fs.readFileSync(OUT,'utf8'):'';if(now!==text){console.error('source/app_feststory_v01667.js is not up to date: node tools/editorial/compile_festival_story.cjs');process.exit(1);}}
  else fs.writeFileSync(OUT,text);

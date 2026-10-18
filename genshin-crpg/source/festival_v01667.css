@@ -274,3 +274,28 @@ body .fe-paid-cell .fe-ic{width:40px;height:40px}
  .fe-reader-box{min-height:104px}.fe-reader-text{font-size:1rem;line-height:1.6}.fe-reader-choices{bottom:132px}.fe-reader-choice{padding:8px 16px;font-size:.92rem}
  .fg-top{padding:2px 4px}.fg-title{font-size:1.15rem}
 }
+/* 0.16.68 (user: 「이벤트 퀄리티좀 높여봐. 좀 재밌게」): the host beside the tabs, the short talks, and the minigames' new parts */
+.fe-host{margin-left:auto;display:flex;align-items:center;gap:10px;max-width:560px;min-width:0;min-height:0;padding:2px 14px 2px 2px;border-radius:30px 12px 12px 30px;background:rgba(255,255,255,.07);border-color:color-mix(in srgb,var(--fe-a) 40%,transparent);text-align:left}
+.fe-host-face{width:32px;height:32px;flex:none;border-radius:50%;object-fit:cover;object-position:top;background:#2b3245;border:2px solid var(--fe-a)}
+.fe-host-line{font-size:.86rem;line-height:1.35;color:#fff}
+.fe-talk{position:absolute;inset:0;z-index:7;display:flex;align-items:flex-end;justify-content:center;padding:0 0 26px;background:rgba(4,6,12,.45);cursor:pointer}
+.fe-talk-box{position:relative;display:flex;align-items:flex-end;gap:16px;width:min(900px,calc(100% - 40px));min-height:120px;padding:16px 26px 20px;border-radius:14px;background:linear-gradient(180deg,rgba(14,16,28,.94),rgba(10,12,22,.97));border:1px solid rgba(243,207,130,.45);box-shadow:0 12px 40px rgba(0,0,0,.6);color:#f6eddc}
+.fe-talk-face{flex:none;width:96px;height:96px;margin-top:-56px}
+.fe-talk-img{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid #f3cf82;background:#2b3245;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.fe-talk-copy{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fe-talk-who{color:#f3cf82;font-size:1.05rem}
+.fe-talk-box.say .fe-talk-who{color:#bfe4ff}
+.fe-talk-text{margin:0;font:1.12rem/1.65 'Gowun Batang',serif}
+.fe-talk-box.narr .fe-talk-text{opacity:.92}
+.fe-talk-next{position:absolute;right:18px;bottom:10px;font-size:.8rem;opacity:.7;animation:fe-bob 1.2s ease-in-out infinite}
+body > .fe-talk{position:fixed;z-index:2160}
+.fg-legend{display:flex;flex-wrap:wrap;gap:6px;margin-right:auto}
+.fg-key{font-size:.82rem;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
+.fg-key.gift{border-color:#e05a4a;color:#ffc2b8}.fg-key.jean{border-color:#d9a72e;color:#ffe2a0}.fg-key.fever{border-color:#59a8ff;color:#cfe6ff}
+.fg-facts{display:flex;gap:10px}
+.fg-fact{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(243,207,130,.3)}
+.fg-fact small{font-size:.76rem;opacity:.8}.fg-fact b{font-size:1.05rem;color:#f3cf82}
+.fg-bowls{display:flex;gap:8px}
+.fg-bowl{min-width:110px;min-height:52px;font-size:1.05rem}
+.fg-bowl:nth-child(1){border-color:#7b6250}.fg-bowl:nth-child(2){border-color:#d9c28a}.fg-bowl:nth-child(3){border-color:#b07a45}
+@media (max-height:760px){.fe-host-face{width:28px;height:28px}.fe-host-line{font-size:.78rem}.fe-talk-box{min-height:96px;padding:12px 20px 16px}.fe-talk-face,.fe-talk-img{width:76px;height:76px}.fe-talk-text{font-size:1rem}.fg-bowl{min-height:44px;min-width:96px}.fg-key{font-size:.74rem;padding:2px 8px}}

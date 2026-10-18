@@ -104,6 +104,16 @@ for(const c of require(root+'/tools/editorial/compile_festival_story.cjs').compi
  const shared=c.route==='ALL';
  chains.push({id:c.id,route:shared?'ROUTE_BOTH':c.route==='TRV'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',file:'festival_k/'+c.file,title:c.title,about:FEST_NAMES[c.festival]+' '+c.part+'편 「'+c.title+'」 · '+(shared?'두 갈래 공통 · 「이세계인:」 줄은 이세계인 갈래에서, 「여행자:」 줄은 여행자 갈래에서 내 말 · {이세계인} = 이세계인 갈래에선 주인공 이름, 여행자 갈래에선 「이세계인」':(c.route==='ISK'?'이세계인':'여행자')+' 갈래 · '+mapName(c.map)+'에서 시작'),items:named(c.items)});
 }
+// 0.16.68 축제 대사 (festival_k/talk.md): one chapter per festival, a scene per place the words are said
+{const talk=require(root+'/tools/editorial/compile_festival_story.cjs').compileTalk(),TASKS={XMAS:'선물 배달',SEOLLAL:'세배 돌기',CHUSEOK:'차례상'};
+ const YUT_EVENTS='시작 · 윷·모가 나옴 · 내 말을 잡음 · 잡힘 · 빽도 · 이김 · 짐';
+ const label=k=>{let m;if((m=k.match(/^HOST_[A-Z]+_(\d|END)$/)))return '축제 창 맞이 · '+(m[1]==='END'?'끝난 뒤':m[1]+'일째');
+  if((m=k.match(/^TASK_([A-Z]+)_(\d)_(\d)$/)))return TASKS[m[1]]+' · '+m[2]+'일째 '+(m[3]==='0'?'①':'②');
+  if((m=k.match(/^YUT_(\w+)$/)))return '윷놀이 상대 '+charName(m[1])+' ('+YUT_EVENTS+' 순서)';
+  return {SONG_ORDER:'송편 주문 ({소} = 깨·콩·밤)',SONG_PRETTY:'송편 · 예쁘게 빚었을 때',SONG_OK:'송편 · 보통일 때',SONG_BURST:'송편 · 터졌을 때',SNOW_JEAN:'눈싸움 · 진 단장을 맞혔을 때',SNOW_GIFT:'눈싸움 · 선물 상자',SNOW_FEVER:'눈싸움 · 눈꽃 피버'}[k]||k;};
+ const owner=k=>/^(HOST|TASK)_([A-Z]+)/.exec(k)?.[2]||(k.startsWith('YUT_')?'SEOLLAL':k.startsWith('SONG_')?'CHUSEOK':'XMAS');
+ for(const fest of ['SEOLLAL','CHUSEOK','XMAS']){const items=[];for(const [k,list] of Object.entries(talk)){if(owner(k)!==fest)continue;items.push({t:'scene',name:label(k)},...list.map(x=>({...x})));}
+  if(items.length)chains.push({id:'EVT_'+fest+'_TALK',route:'ROUTE_BOTH',file:'festival_k/talk.md',title:'축제 대사',about:FEST_NAMES[fest]+' · 축제 창의 맞이, 이동 과제를 마칠 때, 미니게임에서 나오는 짧은 말 · 갈래와 상관없이 나옴',items});}}
 const out={version:1,made:new Date().toISOString().slice(0,10),chains};
 const file=process.argv[2]||path.join(root,'reports/story_workbench.json');
 fs.writeFileSync(file,JSON.stringify(out));

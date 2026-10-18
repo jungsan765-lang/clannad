@@ -43,6 +43,29 @@ function rewardChips(m,cls='fe-chip'){
  if(m.pick){const c=mk('span',cls+' pick');c.append(mk('b','','4성 동료 고르기'));out.push(c);}
  return out;
 }
+// ---------- 축제 대사 (app_feststory_v01667.js talk, from tools/editorial/festival_k/talk.md) ----------
+const TALK=()=>window.CRPGFestivalStory?.talk||{};
+const named=t=>{const name=String(game?.s?.global?.PLAYER_NAME||'');try{return window.CRPGText?CRPGText.readable(t,{name}):String(t).replaceAll('{PLAYER_NAME}',name);}catch{return String(t);}};
+F.talkLine=(key,i=0)=>{const l=TALK()[key]?.[i];return l?{who:l.t==='say'?String(game?.s?.global?.PLAYER_NAME||'나'):l.who,text:named(l.text),say:l.t==='say',narr:l.t==='narr'}:null;};
+F.talkSet=key=>(TALK()[key]||[]).map((l,i)=>F.talkLine(key,i));
+// a short talk: the face, the name, a line at a time (a press goes on), then done()
+function talk(key,done){
+ const lines=F.talkSet(key);if(!lines.length){done?.();return;}
+ const wrap=mk('div','fe-talk'),box=mk('div','fe-talk-box'),fig=mk('div','fe-talk-face'),who=mk('strong','fe-talk-who'),text=mk('p','fe-talk-text'),next=mk('span','fe-talk-next','▼');
+ box.append(fig,mk('div','fe-talk-copy'));box.lastChild.append(who,text);box.append(next);wrap.append(box);(F.node||document.body).append(wrap);
+ let i=0;const show=()=>{const l=lines[i];who.textContent=l.narr?'':l.who;who.hidden=l.narr;text.textContent=l.text;box.className='fe-talk-box'+(l.narr?' narr':l.say?' say':'');fig.replaceChildren();const id=!l.say&&!l.narr&&NAME_IDS()[l.who];if(id)fig.append(face(id,'fe-talk-img'));fig.hidden=!id;};
+ const step=()=>{i++;if(i>=lines.length){wrap.remove();document.removeEventListener('keydown',keys,true);done?.();return;}show();};
+ const keys=e=>{if(e.key===' '||e.key==='Enter'||e.key==='Escape'){e.preventDefault();e.stopPropagation();step();}};
+ wrap.addEventListener('click',step);document.addEventListener('keydown',keys,true);show();SND('menu_open');
+}
+F.talk=talk;
+// the festival's host beside the tabs: today's line (pressing it goes through the days so far)
+const HOSTS={XMAS:'MOND_AMBER',SEOLLAL:'LIYUE_XIANGLING',CHUSEOK:'LIYUE_HUTAO'};
+function host(v){
+ const days=v.open?Math.min(7,v.day):0,key=n=>'HOST_'+v.key+'_'+(n||'END');let at=F.hostDay&&F.hostKey===v.id&&F.hostDay<=days?F.hostDay:days;
+ const el=btn('',()=>{at=days?at%days+1:0;F.hostDay=at;F.hostKey=v.id;const l=F.talkLine(key(at));if(l)line.textContent=l.text;},'fe-host');el.title=days>1?'누르면 지난 날의 말도 들을 수 있습니다':'';
+ const l=F.talkLine(key(at)),line=mk('span','fe-host-line',l?.text||'');el.append(face(HOSTS[v.key],'fe-host-face'),line);el.hidden=!l;return el;
+}
 function gained(res){
  if(!res)return;const paid=res.milestones||[];const parts=[];
  if(res.points)parts.push('축제 점수 +'+res.points);if(res.primogem)parts.push('원석 +'+res.primogem);if(res.mora)parts.push('모라 +'+fmt(res.mora));
@@ -76,6 +99,7 @@ function draw(){
  const tabs=mk('nav','fe-tabs');tabs.setAttribute('role','tablist');
  for(const [key,label] of tabsOf(v)){const b=btn(label,()=>{F.tab=key;F.msg='';F.pick=null;draw();},'fe-tab'+(F.tab===key?' on':''));b.setAttribute('role','tab');b.setAttribute('aria-selected',String(F.tab===key));const dot=attention(v,key);if(dot)b.append(mk('i','fe-dot'));tabs.append(b);}
  if(!tabsOf(v).some(([k])=>k===F.tab))F.tab='fight';
+ tabs.append(host(v));
  const body=mk('div','fe-body fe-tab-'+F.tab);
  ({story:storyTab,fight:fightTab,game:gameTab,task:taskTab,points:pointsTab,shop:shopTab})[F.tab](body,v);
  const parts=[head,tabs,body];if(F.msg){const m=mk('p','fe-msg',F.msg);m.setAttribute('role','status');parts.push(m);}
@@ -222,7 +246,7 @@ function taskCell(v,d,t,n,compact){
  c.append(mk('small','fe-task-place',t.place));
  if(t.has){const need=mk('div','fe-need');for(const x of t.has){const s=mk('span','fe-need-item'+(x.have>=x.n?' ok':''));s.append(itemIcon(x.id),mk('b','',x.have+'/'+x.n));s.title=itemName(x.id);need.append(s);}c.append(need);}
  if(t.done)c.append(mk('span','fe-chip got','완료'));
- else if(t.here){const args={festival:v.id,day:d.day,n},why=game.actionReason('FESTIVAL_TASK',args);const b=btn(TASK_VERB[v.task],async()=>{const res=await run('FESTIVAL_TASK',args);if(res)gained(res);if(F.node)draw();else if(typeof render==='function')render();},'primary fe-go');if(why){b.disabled=true;b.title=why;}c.append(b);}
+ else if(t.here){const args={festival:v.id,day:d.day,n},why=game.actionReason('FESTIVAL_TASK',args);const b=btn(TASK_VERB[v.task],async()=>{const res=await run('FESTIVAL_TASK',args);const after=()=>{if(res)gained(res);if(F.node)draw();else if(typeof render==='function')render();};if(res)talk('TASK_'+v.key+'_'+d.day+'_'+n,after);else after();},'primary fe-go');if(why){b.disabled=true;b.title=why;}c.append(b);}
  else if(!compact){const chip=mk('span','fe-chip');chip.append(mk('span','','가서 하기 · '),cur('PRIMOGEM'),mk('span','',String(v.primo.task)+(t.mora?' · 모라 '+fmt(t.mora):'')));c.append(chip);}
  return c;
 }

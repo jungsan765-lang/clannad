@@ -660,31 +660,41 @@ P.combatStat=function(a,key){
 };
 // ---------- the minigames: the same rules here and on the page ----------
 // 눈싸움: behind your snow wall, stand up to throw at whoever pops up from the five forts, and duck when one winds up to throw back.
-const SNOW={ms:45000,lanes:5,flight:380,incoming:450,stun:900,cooldown:300,hit:100,combo:20,hurt:50};
+// (user: 「이벤트 퀄리티좀 높여봐. 좀 재밌게」) Three kinds pop up: a friend (100, more in a row), a gift box (250, never throws) and
+// 진 단장 (do not hit her: −150, and the run of hits ends). Five hits in a row light 「눈꽃 피버」: for five seconds every hit counts twice.
+const SNOW={ms:45000,lanes:5,flight:380,incoming:450,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:150,fever:5000,feverAt:5};
 function snowPlan(seed,day){
- const r=rng(seed),pops=[];let t=1500;const gap=[900-60*day,1600-90*day],up=[1400-60*day,2200-80*day],pThrow=.35+.06*day;
+ const r=rng(seed),pops=[];let t=1500;const gap=[900-60*day,1600-90*day],up=[1400-60*day,2200-80*day],pThrow=.35+.06*day,pGift=.1,pJean=.07+.01*day;
  while(t<SNOW.ms-1500){
   const busy=new Set(pops.filter(p=>p.down>t).map(p=>p.lane));const free=[...Array(SNOW.lanes).keys()].filter(l=>!busy.has(l));
-  if(free.length){const lane=free[Math.floor(r()*free.length)],dur=Math.round(up[0]+r()*(up[1]-up[0])),p={lane,up:t,down:t+dur};
-   if(r()<pThrow&&dur>900){p.throwAt=t+400+Math.round(r()*(dur-700));}pops.push(p);}
+  if(free.length){const lane=free[Math.floor(r()*free.length)],dur=Math.round(up[0]+r()*(up[1]-up[0])),roll=r(),kind=roll<pGift?'gift':roll<pGift+pJean?'jean':'friend',p={lane,up:t,down:t+dur,kind};
+   if(kind==='friend'&&r()<pThrow&&dur>900){p.throwAt=t+400+Math.round(r()*(dur-700));}pops.push(p);}
   t+=Math.round(gap[0]+r()*(gap[1]-gap[0]));
  }
  return pops;
 }
 // until: only what has happened by then (the page draws the game from this, so what it shows is what the engine counts)
 function snowPlay(seed,day,inputs,until=Infinity){
- const pops=snowPlan(seed,day),hitBy=new Map(),log=[];let standing=false,stun=-1,last=-1e9,score=0,combo=0,hits=0,hurt=0;
+ const pops=snowPlan(seed,day),hitBy=new Map(),log=[];let standing=false,stun=-1,last=-1e9,score=0,combo=0,hits=0,hurt=0,gifts=0,jeans=0,bestCombo=0,fevers=0,feverUntil=-1;
  const evs=[];for(const [i,x] of inputs.entries())evs.push({t:x.t,k:0,i,x});for(const p of pops)if(p.throwAt!==undefined)evs.push({t:p.throwAt+SNOW.incoming,k:1,p});
  evs.sort((a,b)=>a.t-b.t||a.k-b.k);const flying=[];
- const land=t=>{for(let j=flying.length-1;j>=0;j--){const f=flying[j];if(f.at>t)continue;flying.splice(j,1);const p=pops.find(q=>q.lane===f.lane&&q.up<=f.at&&f.at<(hitBy.get(q)??q.down));if(p&&!hitBy.has(p)){hitBy.set(p,f.at);hits++;combo++;const n=SNOW.hit+SNOW.combo*Math.min(5,combo-1);score+=n;log.push({t:f.at,k:'hit',lane:f.lane,n,combo});}else{combo=0;log.push({t:f.at,k:'miss',lane:f.lane});}}};
+ const land=t=>{for(let j=flying.length-1;j>=0;j--){const f=flying[j];if(f.at>t)continue;flying.splice(j,1);const p=pops.find(q=>q.lane===f.lane&&q.up<=f.at&&f.at<(hitBy.get(q)??q.down));
+  if(!p||hitBy.has(p)){combo=0;log.push({t:f.at,k:'miss',lane:f.lane});continue;}
+  hitBy.set(p,f.at);
+  if(p.kind==='jean'){jeans++;combo=0;feverUntil=-1;score=Math.max(0,score-SNOW.jean);log.push({t:f.at,k:'jean',lane:f.lane,n:-SNOW.jean});continue;}
+  const fever=f.at<feverUntil;hits++;combo++;bestCombo=Math.max(bestCombo,combo);
+  let n=p.kind==='gift'?SNOW.gift:SNOW.hit+SNOW.combo*Math.min(5,combo-1);if(fever)n*=2;if(p.kind==='gift')gifts++;score+=n;
+  log.push({t:f.at,k:p.kind==='gift'?'gift':'hit',lane:f.lane,n,combo,fever});
+  if(!fever&&combo>=SNOW.feverAt&&combo%SNOW.feverAt===0){feverUntil=f.at+SNOW.fever;fevers++;log.push({t:f.at,k:'fever',until:feverUntil});}}};
  for(const e of evs){
   if(e.t>until)break;land(e.t);
-  if(e.k===1){const p=e.p;if((hitBy.get(p)??Infinity)<=p.throwAt)continue;if(standing){hurt++;combo=0;score=Math.max(0,score-SNOW.hurt);stun=e.t+SNOW.stun;log.push({t:e.t,k:'hurt',lane:p.lane});}else log.push({t:e.t,k:'block',lane:p.lane});continue;}
+  if(e.k===1){const p=e.p;if((hitBy.get(p)??Infinity)<=p.throwAt)continue;if(standing){hurt++;combo=0;feverUntil=-1;score=Math.max(0,score-SNOW.hurt);stun=e.t+SNOW.stun;log.push({t:e.t,k:'hurt',lane:p.lane});}else log.push({t:e.t,k:'block',lane:p.lane});continue;}
   const x=e.x;if(x.a==='h')standing=false;else if(x.a==='s')standing=true;
   else if(x.a==='t'){if(!standing||e.t<stun||e.t-last<SNOW.cooldown)continue;last=e.t;flying.push({lane:x.lane,at:e.t+SNOW.flight,from:e.t});log.push({t:e.t,k:'throw',lane:x.lane});}
  }
  land(until);
- const best=pops.length*SNOW.hit*2;return {score,hits,hurt,combo,standing,stun,flying:flying.map(f=>({...f})),hitBy:pops.map(p=>hitBy.get(p)??null),log,pops:pops.length,tiers:[Math.round(best*.2),Math.round(best*.38),Math.round(best*.55)]};
+ const worth=pops.reduce((n,p)=>n+(p.kind==='gift'?SNOW.gift:p.kind==='friend'?SNOW.hit:0),0)*2;
+ return {score,hits,hurt,gifts,jeans,bestCombo,fevers,combo,fever:feverUntil,standing,stun,flying:flying.map(f=>({...f})),hitBy:pops.map(p=>hitBy.get(p)??null),log,pops:pops.length,tiers:[Math.round(worth*.2),Math.round(worth*.38),Math.round(worth*.55)]};
 }
 // 윷놀이: two (later three) pieces each against a Liyue friend. 도 개 걸 윷 모 and 빽도; 윷·모 and a catch throw again; a piece that stops on a
 // corner or the middle takes the short way. Stations: 0 참먹이, 1–19 round the edge (5, 10, 15 the corners), 20–24 from 5 through the
@@ -751,18 +761,26 @@ function yutScore(seed,day,decisions){
  const home=g.pieces[0].filter(q=>q.home).length,score=g.winner===0?1000+100*g.pieces[1].filter(q=>!q.home).length:100+home*200;
  return {score,won:g.winner===0,home,tiers:[100,300,1000]};
 }
-// 송편 빚기: for each of eight songpyeon three presses (떼기 · 소 넣기 · 빚기) as the marker crosses the gold mark.
-const SONG={count:8,steps:3,pause:450,start:1200,perfect:100,good:60};
+// 송편 빚기: for each of eight songpyeon three presses (떼기 · 소 넣기 · 빚기) as the marker crosses the gold mark. Each one is ordered with a
+// filling (깨 · 콩 · 밤): at 소 넣기 the press is the filling's button, and the wrong filling spoils that step. Three perfects make a pretty
+// one (+30).
+const SONG={count:8,steps:3,pause:450,start:1200,perfect:100,good:60,pretty:30,fillings:['깨','콩','밤']};
 function songPlan(seed,day){const r=rng(seed),out=[];for(let i=0;i<SONG.count*SONG.steps;i++)out.push({period:Math.round((1600-70*day)*(.85+r()*.3)),zone:+(0.2+r()*0.6).toFixed(3),w:+(0.17-0.011*day).toFixed(4)});return out;}
+function songOrders(seed){const r=rng((Number(seed)>>>0)^0x5f3759df),out=[];for(let i=0;i<SONG.count;i++)out.push(Math.floor(r()*SONG.fillings.length));return out;}
 const tri=x=>{const f=x-Math.floor(x);return 1-Math.abs(1-2*f);};
-function songPlay(seed,day,presses){
- const plan=songPlan(seed,day);if(!Array.isArray(presses)||presses.length!==plan.length)return null;let t=SONG.start,score=0;const marks=[];
+// input: {p: the 24 press times (null = too late), f: the 8 fillings chosen}
+function songPlay(seed,day,input){
+ const plan=songPlan(seed,day),orders=songOrders(seed),presses=input?.p,fill=input?.f;
+ if(!Array.isArray(presses)||presses.length!==plan.length||!Array.isArray(fill)||fill.length!==SONG.count||fill.some(x=>x!==null&&!(Number.isInteger(x)&&x>=0&&x<SONG.fillings.length)))return null;
+ let t=SONG.start,score=0;const marks=[];
  for(let i=0;i<plan.length;i++){const s=plan[i],at=presses[i],limit=t+3*s.period;
   if(at===null){marks.push(0);t=limit+SONG.pause;continue;}
   if(!Number.isFinite(at)||at<t||at>limit)return null;
-  const pos=tri((at-t)/s.period),off=Math.abs(pos-s.zone),m=off<=s.w*.45?2:off<=s.w?1:0;marks.push(m);score+=m===2?SONG.perfect:m===1?SONG.good:0;t=at+SONG.pause;}
- const pretty=[];for(let i=0;i<SONG.count;i++){const sum=marks.slice(i*3,i*3+3).reduce((n,m)=>n+(m===2?100:m===1?60:0),0);pretty.push(sum>=270?2:sum>=150?1:0);}
- return {score,marks,pretty,end:t,tiers:[900,1500,2000]};
+  const pos=tri((at-t)/s.period),off=Math.abs(pos-s.zone);let m=off<=s.w*.45?2:off<=s.w?1:0;
+  if(i%3===1&&fill[Math.floor(i/3)]!==orders[Math.floor(i/3)])m=0;
+  marks.push(m);score+=m===2?SONG.perfect:m===1?SONG.good:0;t=at+SONG.pause;}
+ const pretty=[];for(let i=0;i<SONG.count;i++){const ms=marks.slice(i*3,i*3+3),sum=ms.reduce((n,m)=>n+(m===2?100:m===1?60:0),0);pretty.push(sum>=270?2:sum>=150?1:0);if(ms.every(m=>m===2))score+=SONG.pretty;}
+ return {score,marks,pretty,orders,end:t,tiers:[900,1500,2000]};
 }
 const GAMES={SNOWBALL:{ms:SNOW.ms},YUT:{ms:20000},SONGPYEON:{ms:8000}};
 function gameResult(job,input){
@@ -841,7 +859,7 @@ P.apply=function(a,...rest){
   if(nowOf(this)-job.at<min)fail(a.type,'미니게임을 끝까지 해 주세요.');
   const was=o.games[job.day]||{tier:0,best:0},tier=tierOf(res),gain=Math.max(0,POINTS.tier[tier]-POINTS.tier[was.tier]);
   o.games[job.day]={tier:Math.max(was.tier,tier),best:Math.max(was.best,res.score)};const primogem=givePrimo(this,Math.max(0,tier-was.tier)*PRIMO.tier),paid=gain?addPoints(this,o,gain):[];
-  return {type:a.type,game:job.game,day:job.day,score:res.score,tier,best:o.games[job.day].best,points:gain,primogem,total:o.points,milestones:paid,detail:{tiers:res.tiers,hits:res.hits,hurt:res.hurt,won:res.won,home:res.home,pretty:res.pretty}};
+  return {type:a.type,game:job.game,day:job.day,score:res.score,tier,best:o.games[job.day].best,points:gain,primogem,total:o.points,milestones:paid,detail:{tiers:res.tiers,hits:res.hits,hurt:res.hurt,gifts:res.gifts,jeans:res.jeans,bestCombo:res.bestCombo,fevers:res.fevers,won:res.won,home:res.home,pretty:res.pretty}};
  }
  if(a.type==='FESTIVAL_TASK'){
   const x=taskList(f,a.day)[a.n];for(const [id,k] of Object.entries(x.items||{}))take(this,id,k);if(x.mora)this.s.global.MORA+=x.mora;
@@ -883,6 +901,6 @@ P.validateSave=function(s,...rest){
 api.festivalV01667={version:1,festivals:copy(Object.fromEntries(Object.entries(FESTIVALS).map(([k,f])=>[k,{name:f.name,sub:f.sub,region:f.region,game:f.game,gameName:f.gameName,task:f.task,taskName:f.taskName,story:f.story,four:f.four}]))),
  milestones:copy(MILESTONES),points:copy(POINTS),primo:copy(PRIMO),storyReward:copy(STORY_REWARD),storyDays:STORY_DAYS.slice(),
  snow:{rules:{...SNOW},plan:snowPlan,play:snowPlay},yut:{names:{...YUT_NAMES},foes:YUT_FOES.slice(),routes:copy(ROUTES),create:yutCreate,legal:yutLegal,roll:yutRoll,settle:yutSettle,play:yutPlay,score:yutScore,dest:yutDest,station,bot:yutBotPick},
- song:{rules:{...SONG},plan:songPlan,play:songPlay,tri}};
+ song:{rules:{...SONG,fillings:SONG.fillings.slice()},plan:songPlan,orders:songOrders,play:songPlay,tri}};
 P.festivalV01667=true;
 })(globalThis);
