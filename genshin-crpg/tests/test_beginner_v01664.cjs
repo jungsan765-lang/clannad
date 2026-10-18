@@ -18,6 +18,8 @@ check('넘친 경험치: what the level cap throws away comes back as books, lar
  const q=free();q.s.global.PLAYER_LEVEL_STATE=9;q.s.global.PLAYER_XP_STATE=0;q.recalculate();const need=q.growth(PLAYER).next;q.addXp(PLAYER,need-1);assert.deepEqual(books(q),{MAT_CHAR_EXP_HERO:0,MAT_CHAR_EXP_ADVENTURER:0,MAT_CHAR_EXP_WANDERER:0});
  q.addXp(PLAYER,1+300);assert.equal(q.growth(PLAYER).level,10);assert.deepEqual(books(q),{MAT_CHAR_EXP_HERO:0,MAT_CHAR_EXP_ADVENTURER:1,MAT_CHAR_EXP_WANDERER:1});assert.equal(q.s.xpSpill,0);
  const s=JSON.parse(JSON.stringify(r.s));assert.equal(new R(db,s).s.xpSpill,8,'the purse reloads');
+ // Lv60 is the last level: nothing comes back there, so fights and 비경 never become a book source (books come from 지맥)
+ const top=free();top.adminApply({op:'level',target:PLAYER,value:60});top.s.ascensions={...(top.s.ascensions||{}),[PLAYER]:6};top.recalculate();assert.equal(top.growth(PLAYER).cap,60);top.addXp(PLAYER,5000);assert.deepEqual(books(top),{MAT_CHAR_EXP_HERO:0,MAT_CHAR_EXP_ADVENTURER:0,MAT_CHAR_EXP_WANDERER:0});
  const bad=JSON.parse(JSON.stringify(r.s));bad.xpSpill=50;assert.throws(()=>new R(db,bad),/넘친 경험치 기록이 올바르지 않습니다/);
 });
 check('넘친 경험치: a won fight at the cap lists the books with its loot',()=>{

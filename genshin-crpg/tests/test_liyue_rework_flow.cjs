@@ -1,5 +1,7 @@
 'use strict';
-const path=require('path');const root=process.env.CRPG_ROOT||path.resolve(__dirname,'..'),qaDir=process.env.CRPG_QA_DIR||root+'/reports/liyue_rework';const {fs,R,db,fresh}=require(root+'/tests/helpers_v011.cjs');const assert=require('assert/strict'),copy=x=>JSON.parse(JSON.stringify(x));
+const path=require('path');const root=process.env.CRPG_ROOT||path.resolve(__dirname,'..'),qaDir=process.env.CRPG_QA_DIR||root+'/reports/liyue_rework';const {fs,R,db,fresh}=require(root+'/tests/helpers_v011.cjs');
+// 0.16.64: experience past a 돌파 cap comes back as books (test_beginner_v01664); this walk counts only the chapters' own book rewards.
+R.prototype.spillXp=function(){return {};};const assert=require('assert/strict'),copy=x=>JSON.parse(JSON.stringify(x));
 fs.mkdirSync(qaDir,{recursive:true});const seeds=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/liyue-minimal-fixtures.json'),'utf8')).fixtures;
 const forks={K1:'ISK_L01_K_1_CHOOSE',K2:'ISK_L01_K_2_CHOOSE',AA1:'ISK_L01_AA_074',AA2:'ISK_L01_AA_127',AB1:'ISK_L01_AB_082',AB2:'ISK_L01_AB_083',B1:'ISK_L01_B_100',B2:'ISK_L01_B_101'};
 const FLOW_TEAM=['MOND_FISCHL','LIYUE_XIANGLING','MOND_BARBARA'];

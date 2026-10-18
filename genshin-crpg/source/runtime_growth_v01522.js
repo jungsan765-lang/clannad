@@ -317,8 +317,9 @@ P.character=function(id){const a=old.character.call(this,id),p=this.growthPhase(
 P.addXp=function(owner,xp){
  if(!Number.isSafeInteger(xp)||xp<0)fail('XP_VALUE','경험치는 0 이상의 정수여야 합니다.');const g=this.growth(owner),beforeHp=owner===PLAYER?this.s.global.PLAYER_HP_CURRENT:this.s.chars[owner].hp,beforeMax=owner===PLAYER?this.s.global.PLAYER_HP_MAX:this.character(owner).maxHp;let level=g.level,cur=g.max?0:g.xp+xp;
  while(level<g.cap&&cur>=xpNext(level)){cur-=xpNext(level);level++;}
- // 0.16.64 (user, 2026-10-18: 「경험치 책으로 돌려주고」): what the level cap used to throw away goes back as experience books.
- const spill=g.max?xp:level===g.cap?cur:0;if(level===g.cap)cur=0;if(spill>0)this.spillXp?.(spill);
+ // 0.16.64 (user, 2026-10-18: 「경험치 책으로 돌려주고」): what a 돌파 cap used to throw away goes back as experience books. Not at
+ // Lv60, the last level: there it stays unused as before, so fights and 비경 never become a book source (books come from 지맥).
+ const spill=g.cap>=60?0:g.max?xp:level===g.cap?cur:0;if(level===g.cap)cur=0;if(spill>0)this.spillXp?.(spill);
  // Growth raises living HP only by the added maximum. Existing wounds and KO
  // persist; XP and ascension never substitute for food, healing or lodging.
  if(owner===PLAYER){Object.assign(this.s.global,{PLAYER_LEVEL_STATE:level,PLAYER_XP_STATE:cur});this.recalculate();if(level>g.level)this.s.global.PLAYER_HP_CURRENT=beforeHp>0?Math.min(this.s.global.PLAYER_HP_MAX,beforeHp+Math.max(0,this.s.global.PLAYER_HP_MAX-beforeMax)):0;}
