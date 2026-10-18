@@ -13,11 +13,11 @@ const refused=(fn,pattern)=>{try{fn();}catch(e){if(pattern)assert.match(e.messag
 const plain=x=>JSON.parse(JSON.stringify(x)); // values made inside the game's VM context have other prototypes
 
 // 0.16.33 added 24 chests of new kinds to each region (tests/test_chests_v01633.cjs); these checks keep to the first 48.
-check('chests: 24 in each region (18 puzzles, 6 hidden) and 3,810 Primogems in all — Mond 1,740, Liyue 2,070 (×3 since 0.16.47)',()=>{
+check('chests: 24 in each region (18 puzzles, 6 hidden) and 3,720 Primogems in all — Mond 1,650, Liyue 2,070 (×3 since 0.16.47; two plain hidden chests since 0.16.65)',()=>{
  const by=r=>rules.chests.filter(x=>x.region===r&&!x.kind);
  for(const r of ['MOND','LIYUE']){assert.equal(by(r).length,24,r);assert.equal(by(r).filter(x=>x.game).length,18,r+' puzzles');assert.equal(by(r).filter(x=>!x.game).length,6,r+' hidden');}
  const sum=r=>by(r).reduce((n,x)=>n+x.reward.primogem,0);
- assert.equal(sum('MOND'),1740);assert.equal(sum('LIYUE'),2070);// 0.16.47: 580 / 690 ×3
+ assert.equal(sum('MOND'),1650);assert.equal(sum('LIYUE'),2070);// 0.16.47: 580 / 690 ×3
  assert(rules.chests.every(x=>x.reward.primogem<=120),'no chest pays more than 120 (40 ×3 since 0.16.47)');
  assert.equal(new Set(rules.chests.filter(x=>!x.kind).map(x=>x.id)).size,48);
  return {mond:sum('MOND'),liyue:sum('LIYUE')};
@@ -38,7 +38,7 @@ check('chests: each opens once with the right answer, at its place; wrong answer
   assert(g.chestOpened(x.id));assert(refused(()=>g.action('CHEST_OPEN',{chest:x.id,answer}),/이미 연/),x.id+' only once');
   opened++;primogems+=x.reward.primogem;
  }
- assert.equal(opened,48);assert.equal(primogems,3810);
+ assert.equal(opened,48);assert.equal(primogems,3720);/* 0.16.65: the two plain hidden chests pay 45, not 90 */
  return {opened,games};
 });
 
@@ -84,11 +84,11 @@ check('offerings: each oculus tier pays a few Primogems (150 in all), and earlie
  assert.equal(Object.values(api.offeringPrimogems).reduce((a,b)=>a+b,0),150);
  const g=world('MAP_MOND_WINDRISE');g.s.global.LAST_COMMITTED_ACTION_SEQ=Math.max(1,g.s.global.LAST_COMMITTED_ACTION_SEQ);
  const e=g.ensureExplorationState();for(const p of c.CRPGWorldContent.oculi.slice(0,4)){e.visitedMaps[p.map]=true;e.oculi[p.id]={map:p.map,day:1,action:g.s.global.SAVE_ID+':1'};g.giveItem('KEY_CRPG_ANEMOCULUS',1);}
- // 0.16.59: an offering pays three times this (runtime_reading.js pays the rest), and the four oculi put in the save above pay
- // 60 each as found oculi do now (tests/test_oculus_primogems_v01659.cjs)
- assert.equal(g.oculusExchangeEntry().reward.primogem,30,'the offering card shows it');
+ // 0.16.65: a found oculus pays nothing; the first offering pays 150 in all (runtime_reading.js pays the rest,
+ // tests/test_oculus_primogems_v01659.cjs)
+ assert.equal(g.oculusExchangeEntry().reward.primogem,150,'the offering card shows it');
  const before=Number(g.s.global.PRIMOGEM)||0,out=g.action('OCULUS_OFFER',{tier:'TIER_1'});
- assert.equal((Number(g.s.global.PRIMOGEM)||0)-before,30+4*60);assert.equal(out.result.primogem,30);
+ assert.equal((Number(g.s.global.PRIMOGEM)||0)-before,150);assert.equal(out.result.primogem,150);
  const R=g.constructor,s=JSON.parse(g.serialize());delete s.offeringPrimogems;s.global.PRIMOGEM=5;
  const loaded=new R(g.db,s,true);assert.equal(loaded.s.global.PRIMOGEM,15,'paid once for the offering made before this version');
  assert.equal(new R(g.db,JSON.parse(loaded.serialize()),true).s.global.PRIMOGEM,15,'and never twice');

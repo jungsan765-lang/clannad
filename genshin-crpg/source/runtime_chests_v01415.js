@@ -35,10 +35,11 @@ const LIYUE_PUZZLES=puzzle('LIYUE',[['MAP_LIYUE_HARBOR','SPOT'],['MAP_LIYUE_PLAI
 // `spot` places the map shimmer on the region atlas (source/terrain_map.js coordinates).
 const hidden=(region,map,how,tier,primogem,extra={})=>({region,map,game:null,tier,how,reward:{primogem,mora:region==='MOND'?2500:4000,items:region==='MOND'?{MAT_CHAR_EXP_HERO:1}:{MAT_CHAR_EXP_HERO:2}},...extra});
 const MOND_HIDDEN=[
- // 0.16.61 (user: 「왜 일반상자가 정교한 상자보다 원석을 더 많이 주는지는 모르겠다」): these two hidden chests pay like a precious one
- // (원석 90 · 모라 2,500 · 영웅의 경험) but were labelled 평범한 — above every 정교한 (60). Their label now matches what they give.
- hidden('MOND','MAP_CRPG_CIDER_BANK','SCENERY','PRECIOUS',30),
- hidden('MOND','MAP_CRPG_WHISPER_HUNT','SCENERY','PRECIOUS',30),
+ // 0.16.61 (user: 「왜 일반상자가 정교한 상자보다 원석을 더 많이 주는지는 모르겠다」) raised the label of these two to 진귀한; 0.16.65 (user:
+ // 「진귀한 보물상자가 저렇게 그냥 누르기만 해도 나오는건 난이도랑 안맞는데」): a chest that is only pressed in the scenery is a 평범한 one, as
+ // in the original, and now pays like one (원석 45 · 모라 1,000 · the region's small items).
+ {...hidden('MOND','MAP_CRPG_CIDER_BANK','SCENERY','COMMON',15),reward:{primogem:15,mora:1000,items:M_ITEMS[1]}},
+ {...hidden('MOND','MAP_CRPG_WHISPER_HUNT','SCENERY','COMMON',15),reward:{primogem:15,mora:1000,items:M_ITEMS[2]}},
  hidden('MOND','MAP_MOND_STARSNATCH_CLIFF','SCENERY_NIGHT','LUXURIOUS',40),
  hidden('MOND','MAP_MOND_WINDRISE','MENU','LUXURIOUS',40),
  hidden('MOND','MAP_CRPG_CAPE_OATH','MAP','LUXURIOUS',40,{spot:['mond',716,566]}),

@@ -34,7 +34,7 @@ check('the main screen\'s tasks say the whole task, and count the ones that open
 
 check('chests and achievements pay three times the 원석',()=>{
  const c=env.api.chestRules||env.c.CRPGRuntime.chestRules,chests=(c?.chests)||[];
- if(chests.length){const sum=reg=>chests.filter(x=>x.region===reg).reduce((n,x)=>n+x.reward.primogem,0);assert.equal(sum('MOND'),3630);assert.equal(sum('LIYUE'),4305);}
+ if(chests.length){const sum=reg=>chests.filter(x=>x.region===reg).reduce((n,x)=>n+x.reward.primogem,0);assert.equal(sum('MOND'),3540);/* 0.16.65 */assert.equal(sum('LIYUE'),4305);}
  assert(src('runtime_chests_v01415.js').includes('const PRIMOGEM_X=3;for(const c of CHESTS)c.reward={...c.reward,primogem:c.reward.primogem*PRIMOGEM_X};'));
  assert.equal(JSON.stringify(env.api.achievementsV0152.reward),JSON.stringify({1:15,2:30,3:60}));
  assert(chests.length===96,'the 96 chests');
