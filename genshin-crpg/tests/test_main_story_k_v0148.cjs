@@ -87,4 +87,9 @@ for(const x of TABLES.flatMap(t=>(ix.byTable[t]||[]).filter(x=>x[19]==='CRPG_V01
  assert.ok(!x[8]||r.rows('32_MAP_DB').some(m=>m[0]===x[8]),'map '+x[8]+' on '+x[4]);
  assert.ok(r.storyCondition(x[11])!==undefined);
 }
+// 0.16.68 (user: 「1장 선택지 조금 줄이고」): an option left out of its choice, where an option kept in the same group sets the same flag,
+// is no longer offered there, and the kept one still sets the flag (later lines read it).
+{const rows=ix.byTable['55_MAIN_STORY_DB']||[],row=id=>rows.find(x=>x[0]==='ROUTE_ISEKAI'&&x[4]===id);
+ for(const [gone,kept] of [['ISK_M01_UT027','ISK_M01_UT026'],['ISK_M01_UT043','ISK_M01_UT042'],['ISK_M01_UT053','ISK_M01_UT052'],['ISK_M01_KT004','ISK_M01_KT003'],['ISK_M01_EX_U_GUILD_C2','ISK_M01_EX_U_GUILD_C1'],['ISK_M01_EX_K_GUILD_C2','ISK_M01_EX_K_GUILD_C1']]){
+  const g=row(gone),k=row(kept);assert.ok(g&&k,gone);assert.equal(g[14],null,gone+' is not offered');assert.ok(k[14],kept+' is offered');assert.equal(String(k[12]).split('=')[0],String(g[12]).split('=')[0],kept+' sets the same flag');}}
 console.log('manuscript edition OK',ix.mainStoryK.installed.length,'chains');

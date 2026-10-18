@@ -60,7 +60,11 @@ P.storyIndex=function(){
    check(chain.items);
    for(const id of gotos)if(!keeps.has(id))throw Error('@goto target must be kept in this chain: '+id);
    for(const e of chain.edits)if(!get(e.id))throw Error('missing edit target '+e.id);
-   for(const id of old){const r=get(id);if(r[12]&&!keeps.has(id)&&!TRANSPARENT.test(id))throw Error('row with effects not kept: '+id);if(table===TABLE_PERSONAL&&STRUCTURAL.has(r[5])&&!keeps.has(id))throw Error('structural row not kept: '+id);}
+   // 0.16.68 (user: 「선택지가 너무 늘어서 … 1장 선택지 조금 줄이고」): an option may be left out of a choice when an option kept in the same
+   // choice group sets the same flags, so the flag is still set whichever way the player goes (the later lines that read it still work).
+   const flagKeys=e=>String(e||'').split(';').map(s=>s.trim().split('=')[0]).filter(Boolean).sort().join(','),
+    coveredChoice=r=>r[5]==='CHOICE'&&!!r[14]&&[...keeps].some(k=>{const q=get(k);return !!q&&q!==r&&q[5]==='CHOICE'&&q[14]===r[14]&&flagKeys(q[12])===flagKeys(r[12]);});
+   for(const id of old){const r=get(id);if(r[12]&&!keeps.has(id)&&!TRANSPARENT.test(id)&&!coveredChoice(r))throw Error('row with effects not kept: '+id);if(table===TABLE_PERSONAL&&STRUCTURAL.has(r[5])&&!keeps.has(id))throw Error('structural row not kept: '+id);}
    // A frozen branch that flows back into this chain's rows must do so through a kept row.
    if(frozen.size){const shared=reach([...frozen].map(id=>origNext.get(id)),new Set(),keeps);for(const id of shared)if(old.has(id)&&!keeps.has(id)&&!TRANSPARENT.test(id))throw Error('row shared with a frozen branch must be kept: '+id);}
    // Choice rows that a later event checks as a receipt (treatment consent, reward acceptance) must stay too.
@@ -122,7 +126,9 @@ P.storyIndex=function(){
    // Old rows that were bypassed still load as save cursors and continue at the next kept node.
    const current=groups();
    const forward=id=>{const seen=new Set();while(id&&!seen.has(id)){seen.add(id);if(id.startsWith('SCREEN:'))return id;if(id.startsWith('CHOICE_GROUP:')){const opts=origGroups.get(id.slice(13))||[];if(opts.some(c=>keeps.has(c[4])))return id;id=opts[0]?.[13];continue;}if(id.startsWith('CONDITION_GROUP:')){const opts=origGroups.get(id.slice(16))||[];if(opts.some(c=>keeps.has(c[4])))return id;id=opts[0]?.[4];continue;}if(keeps.has(id))return id;id=origNext.get(id);}return null;};
-   for(const id of old){if(keeps.has(id)||TRANSPARENT.test(id))continue;const r=get(id);const target=forward(origNext.get(id));if(target)r[13]=target;}
+   for(const id of old){if(keeps.has(id)||TRANSPARENT.test(id))continue;const r=get(id);const target=forward(origNext.get(id));if(target)r[13]=target;
+    // an option left out of its choice (its flag set by the option kept) is no longer offered there
+    if(r[12]&&coveredChoice(r))r[14]=null;}
    report.installed.push({chain:chain.id,table,kept:keeps.size,added:newIds.length,frozen:frozen.size});
   }catch(e){report.failed.push({chain:chain.id,error:e.message});console.error('[main story K] '+chain.id+': '+e.message);}
  }
