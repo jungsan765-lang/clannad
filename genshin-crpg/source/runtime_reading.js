@@ -662,15 +662,16 @@ P.combatStat=function(a,key){
 // 눈싸움: behind your snow wall, stand up to throw at whoever pops up from the five forts, and duck when one winds up to throw back.
 // (user: 「이벤트 퀄리티좀 높여봐. 좀 재밌게」) Three kinds pop up: a friend (100, more in a row), a gift box (250, never throws) and
 // 진 단장 (do not hit her: −150, and the run of hits ends). Five hits in a row light 「눈꽃 피버」: for five seconds every hit counts twice.
-const SNOW={ms:45000,lanes:5,flight:380,incoming:700,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:150,fever:5000,feverAt:5};
+const SNOW={ms:45000,lanes:5,flight:380,incoming:600,stun:900,cooldown:300,hit:100,combo:20,hurt:50,gift:250,jean:150,fever:5000,feverAt:5};
 // 0.16.68 (user: 「사람 나오는 줄을 두 줄로 하고, 나올 경우의 수도 두배가 되는 대신 느리게. 또는 1일째나 2일째에는 한 줄로 하고 3일째부터 두
 // 줄로」, 「적 공격속도를 좀 낮춰봐」): from day 3 a near row of five more places (lanes 5–9); on those days friends stay up longer, come a little
-// less often and throw less. Their snowballs take 0.7 s to land (0.45 s before). Day 7: 12 throws in 45 s (19 before), 3.3 s between them (2.2 s).
+// less often and throw less. Their snowballs take 0.6 s to land (0.45 s before). After 「이번엔 … 너무 쉬워졌는데? 살짝만 난이도 더 어렵게」 the middle
+// of the two tries: day 7 has 16 throws in 45 s (19 at first, 12 at the easiest), 2.7 s between them (2.2 / 3.3).
 const snowRows=day=>day>=3?2:1,snowLanes=day=>SNOW.lanes*snowRows(day);
 function snowPlan(seed,day){
  // 0.16.68 (user: 「눈싸움 7일째 난이도가;; 너무 빨라서 그냥 다처맞아」): the days grow harder more gently. Day 7 had a 「!」 up 60% of
  // the time and friends up 1.29 s; now about 37% and 1.57 s (the old day 3–4). Day 1 is about the same.
- const two=snowRows(day)>1,lanes=snowLanes(day),r=rng(seed),pops=[];let t=1500;const gap=[900-30*day,1600-45*day].map(x=>x*(two?1.15:1)),up=[1400-25*day,2200-40*day].map(x=>x*(two?1.35:1)),pThrow=two?.30+.02*day:.35+.03*day,pGift=.1,pJean=.07+.01*day;
+ const two=snowRows(day)>1,lanes=snowLanes(day),r=rng(seed),pops=[];let t=1500;const gap=[900-30*day,1600-45*day].map(x=>x*(two?1.05:1)),up=[1400-25*day,2200-40*day].map(x=>x*(two?1.2:1)),pThrow=two?.33+.025*day:.35+.03*day,pGift=.1,pJean=.07+.01*day;
  while(t<SNOW.ms-1500){
   const busy=new Set(pops.filter(p=>p.down>t).map(p=>p.lane));const free=[...Array(lanes).keys()].filter(l=>!busy.has(l));
   if(free.length){const lane=free[Math.floor(r()*free.length)],dur=Math.round(up[0]+r()*(up[1]-up[0])),roll=r(),kind=roll<pGift?'gift':roll<pGift+pJean?'jean':'friend',p={lane,up:t,down:t+dur,kind};
