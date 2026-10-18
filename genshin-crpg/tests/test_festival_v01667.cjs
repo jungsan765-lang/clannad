@@ -15,18 +15,18 @@ const win=r=>{for(const a of r.s.runtime.actors.filter(a=>a.side==='ENEMY'))a.hp
 
 check('the three festivals, their points and their rewards (원석 generously, the 4★ pick last)',()=>{
  assert.deepEqual(Object.keys(K.festivals),['XMAS','SEOLLAL','CHUSEOK']);
- assert.equal(K.festivals.XMAS.story,0,'눈꽃 축제 has no story (user: 이야기 없이)');assert.equal(K.festivals.SEOLLAL.story,3);assert.equal(K.festivals.CHUSEOK.region,'LIYUE');
+ assert.equal(K.festivals.XMAS.story,0,'눈꽃 축제 has no story (user: 이야기 없이)');assert.equal(K.festivals.SEOLLAL.story,4);assert.equal(K.festivals.CHUSEOK.region,'LIYUE');
  assert.equal(K.milestones.at(-1).pick,true);assert.equal(K.milestones.at(-1).at,1800);
  const primo=K.milestones.reduce((n,m)=>n+(m.primogem||0),0);assert.equal(primo,2500);assert.equal(K.storyReward.primogem,160);
  // a story festival pays about 4,100 원석 in all
- const all=primo+3*K.storyReward.primogem+21*K.primo.star+21*K.primo.tier+14*K.primo.task;assert(all>=4000,String(all));
+ const all=primo+4*K.storyReward.primogem+21*K.primo.star+21*K.primo.tier+14*K.primo.task;assert(all>=4000,String(all));
  // every 4★ of the pool is a 4★ of the region
  const r=fresh();for(const f of Object.values(K.festivals))for(const id of f.four){assert(r.tables['07_CHAR_DB'].has(id),id);assert.equal(r.rarityOf(id),4,id);assert(id.startsWith(f.region+'_'),id);}
 });
 check('a festival comes from the server list; a day opens each midnight; the pick stays seven days after the end',()=>{
  const r=ready();assert.equal(r.festivalNow(),null,'nothing without the server');
  open(r,'SEOLLAL',{days:3});const v=r.festivalView();assert.equal(v.name,'설날');assert.equal(v.day,3);assert.deepEqual(cp(v.days.map(d=>d.open)),[true,true,true,false,false,false,false]);
- assert.deepEqual(cp(v.story.map(s=>s.open)),[true,true,false]);
+ assert.deepEqual(cp(v.story.map(s=>s.open)),[true,true,false,false]);
  assert.equal(r.actionReason('FESTIVAL_FIGHT',{festival:v.id,day:4}),'4일째에 열립니다.');
  open(r,'SEOLLAL',{allDays:true});assert.equal(r.festivalView().day,7,'a test opening opens every day');
  const t=now();r.opServerEvents=[{id:'FES_XMAS_2026',kind:'SEASON',festival:'XMAS',startsAt:t-20*DAY,endsAt:t-2*DAY}];const e=r.festivalView();assert.equal(e.open,false);assert.equal(r.actionReason('FESTIVAL_TASK',{festival:e.id,day:1,n:0}),'축제가 끝났습니다.');
@@ -75,9 +75,10 @@ check('이동 과제: done where it happens (세배 pays 세뱃돈, 차례상 ta
  const q=ready('MAP_LY_DETAIL_NORTH_GATE');const cid=open(q,'CHUSEOK',{allDays:true});assert.match(q.actionReason('FESTIVAL_TASK',{festival:cid,day:1,n:0}),/사과 5개가 필요합니다/);
  q.giveItem('ING_APPLE',7);q.action('FESTIVAL_TASK',{festival:cid,day:1,n:0});assert.equal(q.itemCount('ING_APPLE'),2,'five went on the table');
 });
-check('축제 이야기: parts open on days 1, 3, 5 in order, by route; 원석 160 and 100 points the first time',()=>{
- const r=ready('MAP_MOND_CITY','ROUTE_TRAVELER');const id=open(r,'CHUSEOK',{days:3});const v=r.festivalView();assert.equal(v.route,'TRV');assert.deepEqual(cp(v.story.map(s=>s.chain)),['EVT_CHUSEOK_TRV_1','EVT_CHUSEOK_TRV_2','EVT_CHUSEOK_TRV_3']);
- assert.equal(r.actionReason('FESTIVAL_STORY',{festival:id,part:2}),'앞 이야기를 먼저 봐 주세요.');assert.equal(r.actionReason('FESTIVAL_STORY',{festival:id,part:3}),'5일째에 열립니다.');
+check('축제 이야기: four parts on days 1, 3, 5, 7 in order — the first one for each route, the rest shared; 원석 160 and 100 points the first time',()=>{
+ const r=ready('MAP_MOND_CITY','ROUTE_TRAVELER');const id=open(r,'CHUSEOK',{days:3});const v=r.festivalView();assert.equal(v.route,'TRV');assert.deepEqual(cp(v.story.map(s=>s.chain)),['EVT_CHUSEOK_TRV_1','EVT_CHUSEOK_2','EVT_CHUSEOK_3','EVT_CHUSEOK_4']);
+ const k=ready('MAP_MOND_CITY','ROUTE_ISEKAI');open(k,'CHUSEOK',{days:3});assert.equal(k.festivalView().story[0].chain,'EVT_CHUSEOK_ISK_1');assert.equal(k.festivalView().story[1].chain,'EVT_CHUSEOK_2');
+ assert.equal(r.actionReason('FESTIVAL_STORY',{festival:id,part:2}),'앞 이야기를 먼저 봐 주세요.');assert.equal(r.actionReason('FESTIVAL_STORY',{festival:id,part:3}),'5일째에 열립니다.');assert.equal(r.actionReason('FESTIVAL_STORY',{festival:id,part:4}),'7일째에 열립니다.');
  const p=Number(r.s.global.PRIMOGEM)||0;const out=r.action('FESTIVAL_STORY',{festival:id,part:1}).result;assert.equal(out.primogem,160);assert.equal(Number(r.s.global.PRIMOGEM)-p,160);assert.equal(r.festivalView().points,100);
  r.action('FESTIVAL_STORY',{festival:id,part:2});assert.equal(Number(r.s.global.PRIMOGEM)-p,160*2+200,'the second part passes 150 points: 원석 200 more');
  assert.match(r.actionReason('FESTIVAL_STORY',{festival:id,part:1}),/이미 본 이야기/);
@@ -104,10 +105,14 @@ check('the record: reloads, a new festival starts its own, a broken one is refus
  open(r,'SEOLLAL',{id:'FES_SEOLLAL_T2',allDays:true});assert.equal(r.festivalView().points,0,'a new opening is a new festival');
  for(const bad of [{points:-1},{got:[8]},{got:[0],points:10},{picked:'MOND_AMBER'},{stars:{1:[1,2,0]}},{tasks:{9:[0,0]}},{key:'NOPE'}]){const s=cp(r.s);Object.assign(s.festival,bad);assert.throws(()=>new R(db,s),/축제 기록이 올바르지 않습니다/,JSON.stringify(bad));}
 });
-check('the story words: both routes of each story festival, three parts, compiled from the manuscripts (the workbench) and up to date',()=>{
+check('the story words: part 1 for each route and three shared parts, compiled from the manuscripts (the workbench) and up to date',()=>{
  const win={};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../source/app_feststory_v01667.js'),'utf8'),{window:win});
- const chains=win.CRPGFestivalStory.chains;for(const f of ['SEOLLAL','CHUSEOK'])for(const route of ['ISK','TRV'])for(const p of [1,2,3]){const c=chains['EVT_'+f+'_'+route+'_'+p];assert(c&&c.title&&c.map&&c.items.length>15,f+route+p);}
- const {compile}=require('../tools/editorial/compile_festival_story.cjs');assert.equal(compile().length,12);
+ const chains=win.CRPGFestivalStory.chains;for(const f of ['SEOLLAL','CHUSEOK'])for(const id of ['_ISK_1','_TRV_1','_2','_3','_4']){const c=chains['EVT_'+f+id];assert(c&&c.title&&c.map&&c.items.length>15,f+id);}
+ const {compile}=require('../tools/editorial/compile_festival_story.cjs');assert.equal(compile().length,10);
+ // the shared parts: both protagonists speak, and a line kept to one route says which; {이세계인} only there
+ for(const f of ['SEOLLAL','CHUSEOK'])for(const n of [2,3,4]){const txt=JSON.stringify(chains['EVT_'+f+'_'+n]);assert(txt.includes('"who":"이세계인"')&&txt.includes('"who":"여행자"'),f+n);}
+ for(const id of ['EVT_SEOLLAL_ISK_1','EVT_SEOLLAL_TRV_1'])assert(!JSON.stringify(chains[id]).includes('{이세계인}'));
+ assert(JSON.stringify(chains.EVT_SEOLLAL_ISK_1).includes('"know":"KNOWN"')&&JSON.stringify(chains.EVT_SEOLLAL_ISK_1).includes('"know":"UNKNOWN"'),'the 이세계인 who knows Genshin knows the traveler; the one who does not, does not');
  const out=require('child_process').spawnSync(process.execPath,[path.join(__dirname,'../tools/editorial/compile_festival_story.cjs'),'--check']);assert.equal(out.status,0,String(out.stderr));
  // the protagonist only speaks through ?? (no 「나:」 line), every map is a map of the game
  const r=fresh();for(const c of Object.values(chains)){assert(r.tables['32_MAP_DB'].has(c.map),c.map);const walk=l=>{for(const it of l){assert.notEqual(it.who,'나');if(it.t==='move')assert(r.tables['32_MAP_DB'].has(it.toId),it.toId);for(const o of it.opts||[])walk(o.items);}};walk(c.items);}

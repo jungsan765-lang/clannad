@@ -520,7 +520,8 @@ P.opEventsV01666=true;
 //  - 미니게임: 눈싸움 / 윷놀이 / 송편 빚기, a stage a day. The page plays it and sends what was pressed; the engine plays it again from the
 //    same seed and gives the score (40 / 80 / 120 points by tier).
 //  - 이동 과제: 선물 배달 / 세배 돌기 (go to the place and press) / 차례상 (bring what the day asks for to 왕생당), two a day, 60 points each.
-//  - 축제 이야기 (설날·추석): three parts by route, opened on days 1, 3 and 5 (원석 60 and 100 points each; the words are in
+//  - 축제 이야기 (설날·추석): four parts opened on days 1, 3, 5 and 7 — the first one for each route (the same meeting seen from both
+//    sides), the other three the same on both (user: 「중간부터는 아예 같은 길로」); 원석 160 and 100 points each; the words are in
 //    source/app_feststory_v01667.js, made from tools/editorial/festival_k/*.md through the story workbench).
 //  - 점수 보상: reached points pay by themselves; the last one is a 4★ of the festival's region the player picks (a constellation if
 //    already joined), still open seven days after the end.
@@ -598,12 +599,12 @@ const CHARYE=[
 ];
 const FESTIVALS={
  XMAS:{name:'눈꽃 축제',sub:'크리스마스',region:'MOND',four:MOND4,fights:XMAS_FIGHTS,game:'SNOWBALL',gameName:'눈싸움',task:'GIFT',taskName:'선물 배달',story:0},
- SEOLLAL:{name:'설날',sub:'새해 첫날',region:'LIYUE',four:LIYUE4,fights:SEOLLAL_FIGHTS,game:'YUT',gameName:'윷놀이',task:'SEBAE',taskName:'세배 돌기',story:3},
- CHUSEOK:{name:'추석',sub:'한가위',region:'LIYUE',four:LIYUE4,fights:CHUSEOK_FIGHTS,game:'SONGPYEON',gameName:'송편 빚기',task:'CHARYE',taskName:'차례상 차리기',story:3}
+ SEOLLAL:{name:'설날',sub:'새해 첫날',region:'LIYUE',four:LIYUE4,fights:SEOLLAL_FIGHTS,game:'YUT',gameName:'윷놀이',task:'SEBAE',taskName:'세배 돌기',story:4},
+ CHUSEOK:{name:'추석',sub:'한가위',region:'LIYUE',four:LIYUE4,fights:CHUSEOK_FIGHTS,game:'SONGPYEON',gameName:'송편 빚기',task:'CHARYE',taskName:'차례상 차리기',story:4}
 };
 // 원석 generously (user, 2026-10-18: 「이 게임 자체가 원석을 현질로 살 수 있는게 없는데 원석 좀 팍팍 뿌려」): a festival with a story pays about
-// 4,100 원석 in all (2,500 from the points, 160 a part, 20 a new star, minigame star and travel task).
-const STORY_DAYS=[1,3,5],STORY_REWARD={points:100,primogem:160};
+// 4,260 원석 in all (2,500 from the points, 160 a part, 20 a new star, minigame star and travel task).
+const STORY_DAYS=[1,3,5,7],STORY_REWARD={points:100,primogem:160};
 const POINTS={star:40,tier:[0,40,80,120],task:60},PRIMO={star:20,tier:20,task:20};
 // reached points pay by themselves; the last is the 4★ pick
 const MILESTONES=[
@@ -783,7 +784,7 @@ P.festivalView=function(){
    tasks:tasks.map((x,i)=>({...x,place:mapName(this,x.map),here:x.map===map,done:!!o.tasks[d]?.[i],has:x.items?Object.entries(x.items).map(([id,n])=>({id,n,have:this.itemCount(id)})):null}))});}
  return {id:f.id,key:f.key,name:f.name,sub:f.sub,region:f.region,open:f.open,day:f.day,startsAt:f.startsAt,endsAt:f.endsAt,test:f.test,route,
   game:f.game,gameName:f.gameName,task:f.task,taskName:f.taskName,points:o.points,
-  story:f.story?STORY_DAYS.map((d,i)=>({part:i+1,open:d<=f.day,day:d,done:o.story.includes(i+1),chain:'EVT_'+f.key+'_'+route+'_'+(i+1)})):[],storyReward:{...STORY_REWARD},
+  story:f.story?STORY_DAYS.map((d,i)=>({part:i+1,open:d<=f.day,day:d,done:o.story.includes(i+1),chain:i===0?'EVT_'+f.key+'_'+route+'_1':'EVT_'+f.key+'_'+(i+1)})):[],storyReward:{...STORY_REWARD},
   milestones:MILESTONES.map((m,i)=>({...copy(m),got:o.got.includes(i)})),picked:o.picked,pickable:o.points>=MILESTONES[PICK].at&&!o.picked,
   four:f.four.filter(id=>this.tables['07_CHAR_DB']?.has(id)).map(id=>({id,owned:!!this.premiumOwns?.(id)})),days,points_:copy(POINTS),primo:copy(PRIMO)};
 };
@@ -871,7 +872,7 @@ P.validateSave=function(s,...rest){
  const out=old.validateSave.call(this,s,...rest)||s,o=out?.festival,g=out?.festivalGame;
  if(o!==undefined&&o!==null){const bad=typeof o!=='object'||Array.isArray(o)||o.v!==1||typeof o.id!=='string'||!/^FES_[A-Z0-9_]{1,40}$/.test(o.id)||!own(FESTIVALS,o.key)||!int(o.points)||o.points>5000
   ||!Array.isArray(o.got)||o.got.some(i=>!Number.isInteger(i)||i<0||i>=MILESTONES.length)||new Set(o.got).size!==o.got.length||o.got.some(i=>o.points<MILESTONES[i].at)
-  ||(o.picked!==null&&!(typeof o.picked==='string'&&FESTIVALS[o.key].four.includes(o.picked)))||!Array.isArray(o.story)||o.story.some(p=>!Number.isInteger(p)||p<1||p>3)
+  ||(o.picked!==null&&!(typeof o.picked==='string'&&FESTIVALS[o.key].four.includes(o.picked)))||!Array.isArray(o.story)||o.story.some(p=>!Number.isInteger(p)||p<1||p>4)
   ||[o.stars,o.games,o.tasks].some(m=>!m||typeof m!=='object'||Array.isArray(m)||Object.keys(m).some(d=>!/^[1-7]$/.test(d)))
   ||Object.values(o.stars).some(x=>!Array.isArray(x)||x.length!==3||x.some(v=>v!==0&&v!==1))||Object.values(o.tasks).some(x=>!Array.isArray(x)||x.length!==2||x.some(v=>v!==0&&v!==1))
   ||Object.values(o.games).some(x=>!x||!Number.isInteger(x.tier)||x.tier<0||x.tier>3||!int(x.best));

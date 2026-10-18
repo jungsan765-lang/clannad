@@ -53,7 +53,7 @@
 .fe-go{margin-top:auto}
 .fe-go.big{min-height:52px;font-size:1.15rem;padding:8px 48px;align-self:flex-start}
 /* 이야기 */
-.fe-stories{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.fe-stories{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .fe-story{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:18px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(8,10,18,.92) 72%),var(--fe-pic,none) center/cover;border:1px solid rgba(255,255,255,.14)}
 .fe-story.shut{filter:grayscale(.8) brightness(.6)}
 .fe-story.done{border-color:color-mix(in srgb,var(--fe-a) 60%,transparent)}

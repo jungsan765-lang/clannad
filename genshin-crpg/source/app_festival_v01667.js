@@ -114,7 +114,12 @@ function castOf(c){const seen=[];const walk=l=>{for(const it of l||[]){const id=
 // ---------- the story window ----------
 function read(v,s){
  const c=STORY()[s.chain];if(!c)return;const name=String(game.s.global.PLAYER_NAME||'');
- const words=t=>{try{return window.CRPGText?CRPGText.readable(t,{name}):String(t).replaceAll('{PLAYER_NAME}',name);}catch{return String(t);}};
+ // the shared parts: 이세계인's lines are the player's on 이세계인's route, 여행자's on the traveler's; {이세계인} is the protagonist's name or
+ // 「이세계인」; a line kept to one route (or to a protagonist who knows Genshin or not) shows only there
+ const ISK=v.route==='ISK',own=ISK?'이세계인':'여행자',know=game.s.flags?.FLAG_ISK_META_KNOWLEDGE==='KNOWN'?'KNOWN':'UNKNOWN';
+ const seen=it=>(!it.route||it.route===v.route)&&(!it.know||it.know===know);
+ const iskName=t=>String(t).replace(/\{이세계인\}(이라고|라고|이라는|라는|으로|이야|이나|은|는|이|가|을|를|과|와|야|로|나)?/g,(m,p)=>ISK?'{PLAYER_NAME}'+(p||''):'이세계인'+(p?(window.CRPGText?.josa?.('이세계인',p)||p):''));
+ const words=t=>{try{t=iskName(t);return window.CRPGText?CRPGText.readable(t,{name}):String(t).replaceAll('{PLAYER_NAME}',name);}catch{return String(t);}};
  const R=F.reader={v,s,c,stack:[],list:c.items,i:0,map:c.map,done:false,auto:false};
  const wrap=mk('div','fe-reader');wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-label',c.title);
  const bg=mk('div','fe-reader-bg'),fig=mk('div','fe-reader-fig'),boxEl=mk('div','fe-reader-box'),who=mk('strong','fe-reader-who'),text=mk('p','fe-reader-text'),choices=mk('div','fe-reader-choices'),place=mk('div','fe-reader-place');
@@ -133,10 +138,11 @@ function read(v,s){
   if(R.done)return;if(waiting)return;
   for(let guard=0;guard<400;guard++){
    if(R.i>=R.list.length){const back=R.stack.pop();if(!back){finish();return;}R.list=back.list;R.i=back.i;continue;}
-   const it=R.list[R.i++];
+   const it=R.list[R.i++];if(!seen(it))continue;
    if(it.t==='scene'){wrap.classList.remove('dip');void wrap.offsetWidth;wrap.classList.add('dip');continue;}
    if(it.t==='move'){setMap(it.toId);continue;}
    if(it.t==='narr'){show('',it.text,'narr');return;}
+   if(it.t==='line'&&it.who===own){show(name||'나',it.text,'say');return;}
    if(it.t==='line'){show(it.who,it.text,'line');return;}
    if(it.t==='say'){show(name||'나',it.text,'say');return;}
    if(it.t==='choice'){waiting=it;choices.replaceChildren();it.opts.forEach((o,i)=>{const b=btn(words(o.label),()=>pick(o),'fe-reader-choice');b.dataset.key=String(i+1);choices.append(b);});boxEl.classList.add('asking');return;}

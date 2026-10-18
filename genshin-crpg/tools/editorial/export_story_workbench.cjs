@@ -98,8 +98,11 @@ for(const chain of content.chains){
 // 0.16.67 축제 이야기 (tools/editorial/festival_k/*.md): after the main story, in the same shape; a place change keeps its names.
 const FEST_NAMES={XMAS:'눈꽃 축제',SEOLLAL:'설날',CHUSEOK:'추석'};
 for(const c of require(root+'/tools/editorial/compile_festival_story.cjs').compile()){
- const named=list=>list.map(it=>it.t==='move'?{...it,from:mapName(it.fromId),to:mapName(it.toId)}:it.t==='choice'?{...it,opts:it.opts.map(o=>({...o,items:named(o.items)}))}:it);
- chains.push({id:c.id,route:c.route==='TRV'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',file:'festival_k/'+c.file,title:c.title,about:FEST_NAMES[c.festival]+' '+c.part+'편 「'+c.title+'」 · '+mapName(c.map)+'에서 시작 · 축제 창의 「이야기」에서 봅니다',items:named(c.items)});
+ // a line kept to one route, or to a protagonist who knows Genshin or not, shows the workbench's condition tag
+ const conds=it=>[...(it.route?[it.route==='ISK'?'이세계인 갈래':'여행자 갈래']:[]),...(it.know?[it.know==='KNOWN'?'원신을 아는 주인공':'원신을 모르는 주인공']:[])];
+ const named=list=>list.map(it=>{const x=it.t==='move'?{...it,from:mapName(it.fromId),to:mapName(it.toId)}:it.t==='choice'?{...it,opts:it.opts.map(o=>({...o,cond:conds(o),items:named(o.items)}))}:{...it};const cs=conds(it);if(cs.length)x.cond=cs;return x;});
+ const shared=c.route==='ALL';
+ chains.push({id:c.id,route:shared?'ROUTE_BOTH':c.route==='TRV'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',file:'festival_k/'+c.file,title:c.title,about:FEST_NAMES[c.festival]+' '+c.part+'편 「'+c.title+'」 · '+(shared?'두 갈래 공통 · 「이세계인:」 줄은 이세계인 갈래에서, 「여행자:」 줄은 여행자 갈래에서 내 말 · {이세계인} = 이세계인 갈래에선 주인공 이름, 여행자 갈래에선 「이세계인」':(c.route==='ISK'?'이세계인':'여행자')+' 갈래 · '+mapName(c.map)+'에서 시작'),items:named(c.items)});
 }
 const out={version:1,made:new Date().toISOString().slice(0,10),chains};
 const file=process.argv[2]||path.join(root,'reports/story_workbench.json');
