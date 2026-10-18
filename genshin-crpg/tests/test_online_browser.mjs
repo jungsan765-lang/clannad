@@ -94,12 +94,14 @@ try{
  await page.locator('.choice').click();await idle();await page.waitForTimeout(1300);assert.equal(calls.length,singletonCalls);assert.equal(fixture.read().revision,singletonRevision);assert.equal(await page.evaluate(()=>game.storyActiveNodeId()),'ISK_M03_A_066');assert.equal(await page.locator('.action-feedback,.pending-action-notice').count(),0);
  await page.screenshot({path:resolve(evidence,'single-response.png')});await page.evaluate(()=>CRPGOnline.flushReading());await same('single response checkpoint');results.push({singleResponseRequests:0,singleResponseProgress:'ISK_M03_A_066'});
  // Play a whole real scene through response choices; only its end triggers a checkpoint.
- fixture.seed(restart.s);await start();const sceneCalls=calls.length;let sceneSteps=0;
+ fixture.seed(restart.s);await start();const sceneCalls=calls.length;let sceneSteps=0,capped=false;
  for(let i=0;i<80;i++){
   const step=await page.evaluate(()=>{const c=game.storyChoices(),n=c[0]||game.storyNode(),type=c.length?'STORY_CHOICE':n?.[5]==='INPUT_TEXT'?'STORY_NAME':'STORY_NEXT',params=type==='STORY_NAME'?{name:game.s.global.PLAYER_NAME}:{node:n?.[4]},preview=n&&game.previewStoryRead(n[4],type,params);return preview?{type,params,boundary:preview.boundary}:null;});if(!step)break;
-  await page.evaluate(({type,params})=>act(type,params),step);sceneSteps++;assert.equal(await page.evaluate(()=>busy),false);if(step.boundary)break;assert.equal(calls.length,sceneCalls,'no intermediate dialogue/choice checkpoints');
+  // more than 64 unsent lines are sent once before the next one (app_online.js); the first scene is longer since 0.16.68 (「토끼 인형」)
+  if(await page.evaluate(()=>CRPGOnline.readingCount()>=64))capped=true;
+  await page.evaluate(({type,params})=>act(type,params),step);sceneSteps++;assert.equal(await page.evaluate(()=>busy),false);if(step.boundary)break;assert.ok(calls.length-sceneCalls<=(capped?1:0),'no intermediate dialogue/choice checkpoints');
  }
- assert(sceneSteps>=30);await page.waitForFunction(()=>!CRPGOnline.readingCount()&&!CRPGOnline.pending);await same('automatic scene end checkpoint');assert.equal(calls.length,sceneCalls+1);results.push({sceneSteps,automaticSceneCheckpoints:1});
+ assert(sceneSteps>=30);await page.waitForFunction(()=>!CRPGOnline.readingCount()&&!CRPGOnline.pending);await same('automatic scene end checkpoint');const capFlushes=calls.length-sceneCalls-1;assert.ok(capFlushes===0||capped&&capFlushes===1,'only the scene end (and one 64-line send) checkpoints: '+capFlushes);results.push({sceneSteps,capFlushes,automaticSceneCheckpoints:1});
  fixture.seed(free().s);await start();
  const lostRevision=fixture.read().revision;drops=2;
  await page.evaluate(()=>act('WAIT',{minutes:10}));await idle();
