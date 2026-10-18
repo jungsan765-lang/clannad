@@ -915,7 +915,7 @@ P.festivalV01667=true;
 })(globalThis);
 /* 0.16.68 이야기 분위기 (user's workbench note, 2026-10-19: 「여기서 천천히 설명을 진행하면서 분위기를 조성 … 화면 전체를 어둡게 하거나
  * 테두리에 효과같은걸 얹어가면서」): the look a manuscript gives its lines (`@mood 어둠`, tools/editorial/compile_main_story_k.cjs), read by
- * the story screen (app_story_mood_v01668.js). It changes nothing in the story itself. */
+ * the story screen (app_storymood_v01668.js). It changes nothing in the story itself. */
 (function(root){
 'use strict';
 const P=root.CRPGRuntime.Runtime.prototype;if(P.storyMood)return;
