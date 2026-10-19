@@ -63,7 +63,7 @@ for(const chain of content.chains){
  const freq={};let total=0;for(const id of ids){const row=get(id);if(!row)continue;total++;for(const a of atoms(row[11]))freq[a]=(freq[a]||0)+1;}
  const own=new Set(Object.entries(freq).filter(([,n])=>n>=total*.6).map(([a])=>a));
  const cond=row=>atoms(row[11]).filter(a=>!own.has(a)).map(condText);
- const seen=new Set();let scene='';
+ const seen=new Set();let scene='',quest='';
  const sceneOf=id=>{const m=String(id).match(/^PRO_[^_]+_(.+)_\d+$/);return m?m[1].replace(/_/g,' '):null;};
  // Every node reachable from id, in order (both ways through any choice).
  const reachMemo=new Map();
@@ -90,6 +90,7 @@ for(const chain of content.chains){
     if(!merge)return;id=merge;continue;}
    if(seen.has(id)){list.push({t:'flow',to:id});return;}seen.add(id);
    const row=get(id);if(!row){list.push({t:'missing',id});return;}
+   if(!quest&&row[1])quest=String(row[1]);
    const sc=sceneOf(row[4]);if(sc&&sc!==scene){scene=sc;list.push({t:'scene',name:sc});}
    if(row[8]&&row[8]!==state.map){if(state.map)list.push({t:'move',from:mapName(state.map),to:mapName(row[8]),fromId:state.map,toId:row[8]});state.map=row[8];}
    const type=row[5],who=type==='DIALOGUE'?(row[7]||''):'',player=/^PLAYER_/.test(row[6]||'');
@@ -105,7 +106,10 @@ for(const chain of content.chains){
  }
  const items=[];visit(chain.entry,items,{map:null});
  const a=about[chain.id]||{};
- chains.push({id:chain.id,route,file:fileOf[chain.id]||a.file||'',about:a.what||'',...(STATUS[chain.id]?{status:STATUS[chain.id]}:{}),items});
+ // the quest's title card, worded as the game words it (app_shell.js storyStage): 「몬드 · 메인 임무」 over the quest's name
+ const qrow=quest?T['22_QUEST_DB']?.get(quest):null;let card=null;
+ if(qrow){const name=String(qrow[1]||''),cut=name.indexOf(' · ');card={label:cut>0?name.slice(0,cut):(String(qrow[2]||'')+(/^Q_(TRV|ISK)_/.test(quest)?' · 메인 임무':'')),title:cut>0?name.slice(cut+3):name};}
+ chains.push({id:chain.id,route,file:fileOf[chain.id]||a.file||'',about:a.what||'',...(STATUS[chain.id]?{status:STATUS[chain.id]}:{}),...(quest?{quest}:{}),...(card?{card}:{}),items});
 }
 // 0.16.67 축제 이야기 (tools/editorial/festival_k/*.md): after the main story, in the same shape; a place change keeps its names.
 const FEST_NAMES={XMAS:'눈꽃 축제',SEOLLAL:'설날',CHUSEOK:'추석'};

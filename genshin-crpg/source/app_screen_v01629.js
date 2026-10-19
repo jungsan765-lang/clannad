@@ -14,6 +14,29 @@ const over=box=>box.scrollHeight>box.clientHeight+1;
 function zoomDown(box){let i=0;box.style.setProperty('--fit','1');while(over(box)&&i<ZOOMS.length-1){i++;box.style.setProperty('--fit',String(ZOOMS[i]));}}
 // 0.16.56: the shop's, forge's and kitchen's chosen card scrolls with the wheel instead (screen_v01629.css): whole letters, no 「자세히」.
 const WHEEL='.market-layout>.market-detail,.shell-forge-scroll';
+// 0.16.68 (user: 「여전히 대장간이나 제작상품들 클릭하면 화면이 맨 위로 올라가는 문제가 있어」): picking a good in the shop, a 구매,
+// a 제작 or a 준비 draws the whole screen again, and the wheel lists started over at the top. Each list now keeps where it was
+// scrolled for the same place, tab and filter; the chosen thing's card keeps its place while the same thing stays chosen.
+// Another tab, filter or place starts at the top as before.
+const KEEP_LIST='.market-layout>.market-grid,.shell-forge-list',KEEP_CARD='.market-layout>.market-detail,.shell-forge-scroll';
+const keepAt=new Map(),keepSeen=new WeakSet();let keepPage='',keepCard=null;
+const keepPageSign=()=>(document.body.dataset.shellScreen||'')+'|'+(document.querySelector('#root .shell-h1')?.textContent||'');
+function keepTabs(box){const p=box.closest('.panel')||document;
+ return [...p.querySelectorAll(':is(.shell-workbar,.market-tabs,.market-filter,.craft-tabs,.bag-tabs,.forge-filters,.shell-forge-tabs) :is(.selected,.active,[aria-pressed="true"],[aria-selected="true"],input:checked)')]
+  .map(b=>b.matches('input')?'✓':b.textContent.replace(/[\d,·]+/g,'').trim()).join('/');}
+function keepKey(box){const card=box.matches(KEEP_CARD),wrap=box.closest('.shell-forge');
+ const chosen=card?(box.closest('.market-layout')?.querySelector('.market-item.selected')?.dataset.marketKey||wrap?.querySelector('.shell-forge-tile.active')?.dataset.pick||''):'';
+ return (card?'card':'list')+'|'+(wrap?.className||'market')+'|'+keepTabs(box)+'|'+chosen;}
+document.addEventListener('scroll',e=>{const box=e.target;if(!box?.matches?.(KEEP_LIST+','+KEEP_CARD)||!keepSeen.has(box))return;const key=keepKey(box);keepAt.set(key,box.scrollTop);if(box.matches(KEEP_CARD))keepCard=key;},true);
+function keepPlace(){
+ const boxes=document.querySelectorAll(KEEP_LIST+','+KEEP_CARD);if(!boxes.length)return;
+ const page=keepPageSign();if(page!==keepPage){keepPage=page;keepAt.clear();keepCard=null;}
+ for(const box of boxes){if(keepSeen.has(box))continue;keepSeen.add(box);const key=keepKey(box),card=box.matches(KEEP_CARD);
+  if(card&&key!==keepCard){keepCard=key;keepAt.delete(key);continue;}
+  const top=keepAt.get(key);if(!top)continue;
+  const put=()=>{if(box.isConnected&&box.scrollTop<top-1)box.scrollTop=top;};put();requestAnimationFrame(put);}
+}
+new MutationObserver(keepPlace).observe(document.documentElement,{childList:true,subtree:true});
 function fitBox(box){if(!box?.isConnected||!box.clientHeight)return;if(box.matches(WHEEL)){box.classList.remove('fit-box','fit-brief');box.style.removeProperty('--fit');for(const old of box.querySelectorAll(':scope>.fit-more,:scope>.shell-forge-hero>.fit-more'))old.remove();return;}box.classList.add('fit-box');box.classList.remove('fit-brief');for(const old of box.querySelectorAll(':scope>.fit-more,:scope>.shell-forge-hero>.fit-more'))old.remove();// 0.16.31: the one beside a forge card's name was left behind, so it showed twice.
  zoomDown(box);if(!over(box)||!box.matches('.bag-detail,.market-detail,.shell-forge-scroll'))return;
  const title=box.querySelector(':scope>h2,:scope h3')?.textContent||'자세히';
