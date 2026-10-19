@@ -16,21 +16,23 @@ const kstAt=(day,hour)=>day*86400000-9*3600000+hour*3600000;
 // 0.16.49 (user: 「방어력이나 공격력같은것에 비경들에만 영향을 미치게 하는게 낫지 않을까」 → 「비경 안 공격력·방어력」): 피로 lowers ATK and DEF
 // in domain fights only, and leaves HP alone.
 const statsOf=b=>Object.fromEntries(b.actors.filter(a=>a.side==='ALLY').map(a=>[a.source,[a.atk,a.def,a.maxHp]]));
-check('a domain fight leaves every member who fought one 피로; each takes 15% off ATK and DEF in later domain fights, not HP',()=>{
+// 0.16.68 (user: 「피로도 시스템 -4 말고 -10이 최대로 하자. 회복속도도 조금 늘리고 음식효과도 그만큼 늘려. 너무 왔다갔다 한다.」): up to 10,
+// 6% a step (10 → −60%, the most as before), 1 eases every 10 minutes, a dish clears 2.5 times as much.
+check('a domain fight leaves every member who fought one 피로; each takes 6% off ATK and DEF in later domain fights, not HP',()=>{
  const r=domain();const fresh=statsOf(enter(r));assert.equal(S(r).fatigueRevision,2);const out=win(r);
- assert.deepEqual(plain(Object.keys(out.fatigue.stacks).sort()),plain(ids(r).sort()));assert.equal(out.fatigue.perStack,.15);assert.equal(out.fatigue.max,4);
+ assert.deepEqual(plain(Object.keys(out.fatigue.stacks).sort()),plain(ids(r).sort()));assert.equal(out.fatigue.perStack,.06);assert.equal(out.fatigue.max,10);
  for(const id of ids(r))assert.equal(r.fatigueStacks(id),1,id);
  assert.equal(JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON).fatigue.stacks[PLAYER],1,'the result screen gets it');
  const hp=hpOf(r,PLAYER);r.s.global.PLAYER_HP_CURRENT=r.player().maxHp;r.action('MENU',{screen:'STATUS'});assert.equal(r.s.global.PLAYER_HP_CURRENT,r.player().maxHp,'HP outside a fight is not capped');void hp;
  const b=enter(r),tired=statsOf(b),me=b.actors.find(a=>a.source===PLAYER);assert.equal(me.fatigue,1);
- for(const id of ids(r)){assert.equal(tired[id][0],Math.max(1,Math.round(fresh[id][0]*.85)),id+' ATK');assert.equal(tired[id][1],Math.round(fresh[id][1]*.85),id+' DEF');assert.equal(tired[id][2],fresh[id][2],id+' max HP untouched');}
- win(r);for(let i=0;i<4;i++){enter(r);win(r);}for(const id of ids(r))assert.equal(r.fatigueStacks(id),4,'never past 4');
- const last=enter(r).actors.find(a=>a.source===PLAYER);assert.equal(last.fatigue,4);assert.equal(last.atk,Math.max(1,Math.round(fresh[PLAYER][0]*.4)),'it adds up: 4 → −60%');
+ for(const id of ids(r)){assert.equal(tired[id][0],Math.max(1,Math.round(fresh[id][0]*.94)),id+' ATK');assert.equal(tired[id][1],Math.round(fresh[id][1]*.94),id+' DEF');assert.equal(tired[id][2],fresh[id][2],id+' max HP untouched');}
+ win(r);for(let i=0;i<10;i++){enter(r);win(r);}for(const id of ids(r))assert.equal(r.fatigueStacks(id),10,'never past 10');
+ const last=enter(r).actors.find(a=>a.source===PLAYER);assert.equal(last.fatigue,10);assert.equal(last.atk,Math.max(1,Math.round(fresh[PLAYER][0]*.4)),'it adds up: 10 → −60%');
 });
 
-check('피로 adds up: 1–4 take 15 · 30 · 45 · 60% off ATK and DEF',()=>{
+check('피로 adds up: 1–10 take 6 · 12 · … · 60% off ATK and DEF',()=>{
  const r=domain();const fresh=statsOf(enter(r))[PLAYER];win(r);
- for(let n=1;n<=4;n++){const me=statsOf(enter(r))[PLAYER];assert.equal(me[0],Math.max(1,Math.round(fresh[0]*(1-.15*n))),'ATK 피로 '+n);assert.equal(me[1],Math.round(fresh[1]*(1-.15*n)),'DEF 피로 '+n);win(r);}
+ for(let n=1;n<=10;n++){const me=statsOf(enter(r))[PLAYER];assert.equal(me[0],Math.max(1,Math.round(fresh[0]*(1-.06*n))),'ATK 피로 '+n);assert.equal(me[1],Math.round(fresh[1]*(1-.06*n)),'DEF 피로 '+n);win(r);}
 });
 
 check('field fights, bosses, ley lines, the abyss, raids, co-op and the story are not touched by 피로 and leave none',()=>{
@@ -70,9 +72,9 @@ check('a recovery dish clears 피로 only when its ingredients are rare enough f
  assert.equal(r.foodRarity(byName(r,'고기볶음')),1);assert.equal(r.foodRarity(byName(r,'몬드 감자전')),6);assert.equal(r.foodRarity(byName(r,'채식 전복')),8);
  assert(dishes.filter(id=>r.foodRarity(id)===0).length>=30);
  const at=(level,name)=>{const x=domain(level,level<=20?'CECILIA_GARDEN:20':level<=40?'LIANSHAN_FORMULA:40':'LIANSHAN_FORMULA:60');return x.foodFatigueClear(byName(x,name),PLAYER);};
- // Lv20 or lower: any recovery dish clears 1 (more for rarer); Lv21–40 needs 1; Lv41+ needs 2.
- assert.equal(at(20,'티바트 달걀 프라이'),1);assert.equal(at(40,'티바트 달걀 프라이'),0);assert.equal(at(60,'티바트 달걀 프라이'),0,'an easy dish does nothing at Lv60');
- assert.equal(at(40,'고기볶음'),1);assert.equal(at(60,'고기볶음'),0);assert.equal(at(60,'만족의 기쁨'),1);assert.equal(at(60,'몬드 감자전'),3);assert.equal(at(60,'채식 전복'),4);assert.equal(at(20,'몬드 감자전'),4);
+ // Lv20 or lower: any recovery dish clears 3 (more for rarer: 3 · 5 · 8 · 10); Lv21–40 needs 1; Lv41+ needs 2.
+ assert.equal(at(20,'티바트 달걀 프라이'),3);assert.equal(at(40,'티바트 달걀 프라이'),0);assert.equal(at(60,'티바트 달걀 프라이'),0,'an easy dish does nothing at Lv60');
+ assert.equal(at(40,'고기볶음'),3);assert.equal(at(60,'고기볶음'),0);assert.equal(at(60,'만족의 기쁨'),3);assert.equal(at(60,'몬드 감자전'),8);assert.equal(at(60,'채식 전복'),10);assert.equal(at(20,'몬드 감자전'),10);
  const hi=domain(60,'LIANSHAN_FORMULA:60');assert.equal(dishes.filter(id=>hi.foodFatigueClear(id,PLAYER)>0).length,7,'seven dishes are hard enough at Lv41+');
  // Eating: a hard-enough dish clears; an easy one heals HP and leaves 피로.
  const x=domain(60,'LIANSHAN_FORMULA:60');for(let i=0;i<3;i++){enter(x);win(x);}assert.equal(x.fatigueStacks(PLAYER),3);
@@ -110,31 +112,32 @@ check('a defeat outside the story no longer heals for free: the party stands up 
  assert.equal(r.s.global.SCREEN_MODE,'LOCATION');assert(r.row('32_MAP_DB',r.s.global.CURRENT_MAP_ID)[12]==='Y','a safe town');
 });
 
-// 0.16.52 (user: 「비경 피로도 시간 지나면 줄어들 수 있게 하자」): 1 eases every 30 minutes of real time (the server's action clock).
-check('피로 eases by itself: 1 every 30 minutes, counting on from the last 1 that eased',()=>{
+// 0.16.52 (user: 「비경 피로도 시간 지나면 줄어들 수 있게 하자」): 1 eases every 30 minutes of real time (the server's action clock);
+// 0.16.68: every 10 minutes.
+check('피로 eases by itself: 1 every 10 minutes, counting on from the last 1 that eased',()=>{
  const T=Date.parse('2026-10-14T12:00:00+09:00'),M=60000,r=domain();r.actionStartedAt=T;for(let i=0;i<3;i++){enter(r);win(r);}
- assert.equal(F.easeMinutes,30);assert.equal(r.fatigueStacks(PLAYER),3);assert.equal(r.fatigueNextEase(PLAYER),30);
- r.actionStartedAt=T+29*M;assert.equal(r.fatigueStacks(PLAYER),3);assert.equal(r.fatigueNextEase(PLAYER),1);
- r.actionStartedAt=T+30*M;assert.equal(r.fatigueStacks(PLAYER),2,'30 minutes: one less');
- // Another domain fight 10 minutes later adds 1, and the clock keeps counting from where it was (not from the new fight).
- r.actionStartedAt=T+40*M;enter(r);win(r);assert.equal(r.fatigueStacks(PLAYER),3);r.actionStartedAt=T+60*M;assert.equal(r.fatigueStacks(PLAYER),2);
- // The record is brought up to date after an action, and two hours clear it all.
- r.actionStartedAt=T+60*M;r.action('MENU',{screen:'STATUS'});assert.equal(r.s.fatigue.version,2);assert.equal(r.s.fatigue.stacks[PLAYER],2);assert.equal(r.s.fatigue.at[PLAYER],T+60*M);
- r.actionStartedAt=T+180*M;assert.equal(r.fatigueStacks(PLAYER),0);r.action('MENU',{screen:'STATUS'});assert.equal(r.s.fatigue.stacks[PLAYER],undefined);assert.equal(r.s.fatigue.at[PLAYER],undefined);
+ assert.equal(F.easeMinutes,10);assert.equal(r.fatigueStacks(PLAYER),3);assert.equal(r.fatigueNextEase(PLAYER),10);
+ r.actionStartedAt=T+9*M;assert.equal(r.fatigueStacks(PLAYER),3);assert.equal(r.fatigueNextEase(PLAYER),1);
+ r.actionStartedAt=T+10*M;assert.equal(r.fatigueStacks(PLAYER),2,'10 minutes: one less');
+ // Another domain fight 4 minutes later adds 1, and the clock keeps counting from where it was (not from the new fight).
+ r.actionStartedAt=T+14*M;enter(r);win(r);assert.equal(r.fatigueStacks(PLAYER),3);r.actionStartedAt=T+20*M;assert.equal(r.fatigueStacks(PLAYER),2);
+ // The record is brought up to date after an action, and an hour clears it all.
+ r.actionStartedAt=T+20*M;r.action('MENU',{screen:'STATUS'});assert.equal(r.s.fatigue.version,2);assert.equal(r.s.fatigue.stacks[PLAYER],2);assert.equal(r.s.fatigue.at[PLAYER],T+20*M);
+ r.actionStartedAt=T+60*M;assert.equal(r.fatigueStacks(PLAYER),0);r.action('MENU',{screen:'STATUS'});assert.equal(r.s.fatigue.stacks[PLAYER],undefined);assert.equal(r.s.fatigue.at[PLAYER],undefined);
  // A domain fight started while tired uses what is left then.
- const q=domain();q.actionStartedAt=T;enter(q);win(q);enter(q);win(q);q.actionStartedAt=T+30*M;const me=enter(q).actors.find(a=>a.source===PLAYER);assert.equal(me.fatigue,1);
+ const q=domain();q.actionStartedAt=T;enter(q);win(q);enter(q);win(q);q.actionStartedAt=T+10*M;const me=enter(q).actors.find(a=>a.source===PLAYER);assert.equal(me.fatigue,1);
 });
-check('a save from before keeps its 피로 and starts the 30-minute clock at its next action',()=>{
+check('a save from before keeps its 피로 and starts the 10-minute clock at its next action',()=>{
  const T=Date.parse('2026-10-14T12:00:00+09:00'),M=60000,r=domain();r.actionStartedAt=T;enter(r);win(r);enter(r);win(r);
  const old=JSON.parse(r.serialize());old.fatigue={version:1,stacks:{[PLAYER]:2}};const x=new api.Runtime(env.db,old);x.actionStartedAt=T+5*60*M;
  assert.equal(x.fatigueStacks(PLAYER),2,'no time counted before the clock starts');x.action('MENU',{screen:'STATUS'});assert.equal(x.s.fatigue.version,2);assert.equal(x.s.fatigue.at[PLAYER],T+5*60*M);
- x.actionStartedAt=T+5*60*M+30*M;assert.equal(x.fatigueStacks(PLAYER),1);
+ x.actionStartedAt=T+5*60*M+10*M;assert.equal(x.fatigueStacks(PLAYER),1);
  const bad=JSON.parse(r.serialize());bad.fatigue={version:2,stacks:{[PLAYER]:2},at:{[PLAYER]:-1}};assert.throws(()=>new api.Runtime(env.db,bad),/비경 피로/);
  const bad2=JSON.parse(r.serialize());bad2.fatigue={version:2,stacks:{},at:{[PLAYER]:T}};assert.throws(()=>new api.Runtime(env.db,bad2),/비경 피로/);
 });
 
 check('the save rejects a broken 피로 record',()=>{
- const r=domain();enter(r);win(r);const bad=JSON.parse(r.serialize());bad.fatigue={version:1,stacks:{[PLAYER]:5}};
+ const r=domain();enter(r);win(r);const bad=JSON.parse(r.serialize());bad.fatigue={version:1,stacks:{[PLAYER]:11}};
  assert.throws(()=>new api.Runtime(env.db,bad),/비경 피로/);const bad2=JSON.parse(r.serialize());bad2.fatigue={version:1,stacks:{NOBODY:1}};assert.throws(()=>new api.Runtime(env.db,bad2),/비경 피로/);
  const ok=JSON.parse(r.serialize());assert.equal(new api.Runtime(env.db,ok).fatigueStacks(PLAYER),1);
 });

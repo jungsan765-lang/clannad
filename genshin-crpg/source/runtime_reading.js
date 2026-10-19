@@ -34,23 +34,29 @@ P.previewStoryRead=function(node,type='STORY_NEXT',params={node}){
  * A defeat outside the story no longer heals for free: the party stands up at 30% HP in the safe town and rests at the inn
  * there or eats. Abyss, raid, co-op and story fights are left as they were. It sits at the end of runtime_reading.js, the
  * last engine file, so it wraps the battle and shop rules outermost and the engine file list stays the one the older engine
- * comparisons check. Only a domain fight carries the marker (fatigueRevision); other fights look exactly as before. */
+ * comparisons check. Only a domain fight carries the marker (fatigueRevision); other fights look exactly as before.
+ * 0.16.68 (user: 「피로도 시스템 -4 말고 -10이 최대로 하자. 회복속도도 조금 늘리고 음식효과도 그만큼 늘려. 너무 왔다갔다 한다.」): 피로 goes up
+ * to 10 in smaller steps, so four domain runs no longer send the party straight back to town. Each 피로 takes 6% off ATK and
+ * DEF (10 → −60%, the same most as 4 × 15% before); 1 eases every 10 minutes instead of 30 (0.6% a minute, was 0.5%); a dish
+ * clears 2.5 times as much (1 · 2 · 3 · 4 → 3 · 5 · 8 · 10). A 피로 already held stays the same number. */
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.fatigueVersion)return;
 const fail=(c,m)=>{throw new api.RuleError(c,m);},copy=x=>JSON.parse(JSON.stringify(x));
-const PLAYER='PLAYER_CUSTOM',PER=.15,MAX=4,RECOVER_HP=.3,REVISION=2,DECAY_MS=30*60000;
+const PLAYER='PLAYER_CUSTOM',PER=.06,MAX=10,RECOVER_HP=.3,REVISION=2,DECAY_MS=10*60000,STEP=2.5;
 // A dish's rarity: each ingredient of its recipe (a processed one counts as what it is made from) scores by how hard it is
 // to get — 0 for anything a shop sells under 200 Mora or one try at a reachable place gives 1 or more of; 1 when one try gives
 // at least ½ (사과, 일몰 열매, 죽순, 연꽃받침, 절운고추 …); 2 when it gives fewer (송이버섯, 금어초, 솔방울 …). Easy ingredients add
 // nothing, however many a dish needs. The list is fixed here so the server and every screen agree; tests/test_fatigue_v01648.cjs
 // recomputes it from the gathering pools and the shops and fails when they drift apart.
 // The eater's level asks for a rarity: Lv20 or lower 0, Lv21–40 1, Lv41 and up 2. A dish under that clears nothing; one at it
-// clears 1, and every 2 more clear 1 more (up to 4). A dish with no recipe (only sold) scores by its grade.
+// clears 3, and every 2 more clear more (3 · 5 · 8 · 10, up to 10; 0.16.68, was 1 · 2 · 3 · 4). A dish with no recipe (only sold)
+// scores by its grade.
 const RARE={ING_APPLE:1,ING_SUNSETTIA:1,ING_LOTUS_HEAD:1,ING_BAMBOO_SHOOT:1,MAT_LIYUE_JUEYUN_CHILI:1,MAT_LIYUE_GLAZE_LILY:1,MAT_LIYUE_STARCONCH:1,
  ING_MATSUTAKE:2,ING_SNAPDRAGON:2,ING_PINECONE:2,ING_JAM:2,ING_CALLA_LILY:2,ING_LAMP_GRASS:2,MAT_LIYUE_NOCTILUCOUS_JADE:2};
 const GRADE_RARITY={'일반':0,'고급':1,'희귀':2,'전설':4},NEED=[[20,0],[40,1],[Infinity,2]];
 const needFor=level=>NEED.find(([top])=>(Number(level)||1)<=top)[1];
+const clearFor=(rarity,need)=>rarity<need?0:Math.min(MAX,Math.ceil(STEP*(1+Math.floor((rarity-need)/2))));
 const tableCache=new WeakMap();
 // Ingredients come from 48_RECIPE_INGREDIENT_DB, the table the cooking itself uses (recipeCost); the columns of 17_RECIPE_DB
 // are not filled the same way on every screen.
@@ -106,8 +112,8 @@ P.foodRarity=function(item){const t=recipeTable(this);if(item in t.dish)return t
 P.foodFatigueNeed=function(owner=PLAYER){return needFor(levelOf(this,owner));};
 // For the screens: how rare one ingredient is (0 · 1 · 2), and what a dish clears in each level band.
 P.ingredientRarity=function(id){return rarityOf(recipeTable(this),id,1,0);};
-P.foodFatigueBands=function(item){let spec=null;try{spec=this.foodSpec(item,{});}catch{}if(!spec?.heal)return null;const r=this.foodRarity(item);return NEED.map(([top,need],i)=>({from:i?NEED[i-1][0]+1:1,upTo:Number.isFinite(top)?top:60,need,clear:r<need?0:Math.min(MAX,1+Math.floor((r-need)/2))}));};
-P.foodFatigueClear=function(item,owner=PLAYER){let spec=null;try{spec=this.foodSpec(item,{});}catch{}if(!spec?.heal)return 0;const r=this.foodRarity(item),need=this.foodFatigueNeed(owner);return r<need?0:Math.min(MAX,1+Math.floor((r-need)/2));};
+P.foodFatigueBands=function(item){let spec=null;try{spec=this.foodSpec(item,{});}catch{}if(!spec?.heal)return null;const r=this.foodRarity(item);return NEED.map(([top,need],i)=>({from:i?NEED[i-1][0]+1:1,upTo:Number.isFinite(top)?top:60,need,clear:clearFor(r,need)}));};
+P.foodFatigueClear=function(item,owner=PLAYER){let spec=null;try{spec=this.foodSpec(item,{});}catch{}if(!spec?.heal)return 0;return clearFor(this.foodRarity(item),this.foodFatigueNeed(owner));};
 // A recovery dish eases 피로 when it is hard enough for the eater's level. A tired eater at full HP may still eat such a dish
 // (the meal rule refuses full HP): the HP is lowered by 1 for the check and the dish fills it again.
 P.meal=function(meals,...rest){
@@ -137,7 +143,7 @@ P.validateSave=function(s){
  return out;
 };
 P.fatigueVersion=REVISION;
-api.fatigueV01648={version:REVISION,perStack:PER,max:MAX,easeMinutes:DECAY_MS/60000,stats:['atk','def'],need:NEED.map(([top,n])=>({upToLevel:Number.isFinite(top)?top:60,rarity:n})),rareIngredients:copy(RARE),gradeRarity:copy(GRADE_RARITY),recoverHp:RECOVER_HP};
+api.fatigueV01648={version:REVISION,perStack:PER,max:MAX,easeMinutes:DECAY_MS/60000,clearStep:STEP,stats:['atk','def'],need:NEED.map(([top,n])=>({upToLevel:Number.isFinite(top)?top:60,rarity:n})),rareIngredients:copy(RARE),gradeRarity:copy(GRADE_RARITY),recoverHp:RECOVER_HP};
 })(globalThis);
 /* 0.16.51 비경 단계 난이도 (user, 2026-10-16: 「비경 도는것에 대해 좀 밸런스를 맞춰보는게 좋아보여. 저레벨부터 고레벨까지 전체적으로
  * 훑어보고 적당한 선을 지정하고 그게 이 보상에 맞는 수준이 맞는지까지」). The line, measured at the stage's own level with the
