@@ -50,11 +50,16 @@ const LEVELS=[6,15,30,45,60],HERO_BOOKS=[6,18,50,100,180],DIRECT_XP=[20,50,90,22
 // 0.16.48: twice the payout for the two blossoms a day (version 3 fights).
 const HERO_BOOKS_V3=HERO_BOOKS.map(n=>n*2),DIRECT_XP_V3=DIRECT_XP.map(n=>n*2),WEALTH_MORA_V3=WEALTH_MORA.map(n=>n*2);
 const tierOf3=n=>{const t=tierOf(n);if(!t)return null;const i=t.tier-1;return {...t,books:{MAT_CHAR_EXP_HERO:HERO_BOOKS_V3[i]},mora:WEALTH_MORA_V3[i],directXp:DIRECT_XP_V3[i]};};
+// 0.16.69: 부의 꽃 Mora sized to what growth costs at each level, two blossoms being about a third of a day's
+// Mora with the daily and weekly tasks (version 4 fights). A version 3 fight already started keeps its payout.
+const WEALTH_MORA_V4=[2500,4500,10500,26000,37000];
+const tierOf4=n=>{const t=tierOf3(n);return t&&{...t,mora:WEALTH_MORA_V4[t.tier-1]};};
+const tierAt=(version,n,region)=>version===1?legacyTierOf(n,region):version===3?tierOf3(n):version===4?tierOf4(n):tierOf(n);
 const windowOf=now=>Math.floor((Number(now)+KST)/HALF_DAY);
 const tierOf=n=>{const base=TIERS.find(t=>t.tier===Number(n));if(!base)return null;const i=base.tier-1,level=LEVELS[i];return {...base,level,minLevel:Math.max(5,level-5),books:{MAT_CHAR_EXP_HERO:HERO_BOOKS[i]},mora:WEALTH_MORA[i],directXp:DIRECT_XP[i]};};
 // Battles already saved by 0.16.0 retain the difficulty and blossom payout they entered with.
 const legacyTierOf=(n,region)=>{const base=TIERS.find(t=>t.tier===Number(n));if(!base)return null;const level=(region==='리월'?[30,38,44,50,58]:[6,10,15,20,28])[base.tier-1];return {...base,level,minLevel:Math.max(5,level-5),books:{MAT_CHAR_EXP_HERO:Math.ceil(level/3)},mora:Math.round(600+level*80+level*level*2)};};
-const regionalTiers=region=>TIERS.map(t=>tierOf3(t.tier,region));
+const regionalTiers=region=>TIERS.map(t=>tierOf4(t.tier,region));
 const route=(kind,map)=>'BRT_LEY_'+kind+'_'+map.replace(/^MAP_/,''),group=map=>'EG_LEY_'+map.replace(/^MAP_/,'');
 const ROUTES=Object.fromEntries(SITES.flatMap(s=>Object.keys(KINDS).map(k=>[route(k,s.map),{kind:k,map:s.map,region:s.region}])));
 const hash=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h;};
@@ -65,7 +70,7 @@ function sitesAt(hour){
   out.push({kind:'REVELATION',map:list[a].map,region},{kind:'WEALTH',map:list[b].map,region});}
  return out;
 }
-api.leyLines={version:3,hourMs:HOUR,halfDayMs:HALF_DAY,windowOf,minLevel:MIN_LEVEL,kinds:copy(KINDS),tiers:copy(regionalTiers('몬드')),regionalTiers,sites:copy(SITES),scale:copy(SCALE),growth:copy(GROWTH),bookXp:copy(BOOK_XP),route,
+api.leyLines={version:4,hourMs:HOUR,halfDayMs:HALF_DAY,windowOf,minLevel:MIN_LEVEL,kinds:copy(KINDS),tiers:copy(regionalTiers('몬드')),regionalTiers,sites:copy(SITES),scale:copy(SCALE),growth:copy(GROWTH),bookXp:copy(BOOK_XP),route,
  // 0.16.48: the places at a given hour are those of the half day it falls in.
  sitesAt:hour=>sitesAt('D'+windowOf(Number(hour)*HOUR)),sitesAtWindow:win=>sitesAt('D'+win)};
 
@@ -137,10 +142,10 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
  const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;
  const id=String(origin).startsWith('BOSS:')?String(origin).slice(5):null,r=id&&ROUTES[id];
  if(!r||!b||b===before||b.leyLine)return out;
- const p=this.s.bossRouteProgress,t=tierOf3(this._leyTier,r.region)||(p?.route===id&&tierOf3(p.leyTier,r.region))||tierOf3(this.leyLineTopTier(r.region),r.region),level=t.level,k=level-MIN_LEVEL,foes=b.actors.filter(a=>a.side==='ENEMY');
+ const p=this.s.bossRouteProgress,t=tierOf4(this._leyTier,r.region)||(p?.route===id&&tierOf4(p.leyTier,r.region))||tierOf4(this.leyLineTopTier(r.region),r.region),level=t.level,k=level-MIN_LEVEL,foes=b.actors.filter(a=>a.side==='ENEMY');
  for(const a of foes){relevel(this,a,level);a.maxHp=Math.max(1,Math.round(a.maxHp*SCALE.hp*(1+GROWTH.hp*k)));a.hp=a.maxHp;a.atk=Math.round(a.atk*SCALE.atk*(1+GROWTH.atk*k));a.def=Math.round(a.def*(1+GROWTH.def*k));
   for(const s of a.shields||[])if(Number.isFinite(s.value))s.value=Math.round(s.value*SCALE.hp*(1+GROWTH.hp*k));}
- b.leyLine={version:3,kind:r.kind,route:id,map:r.map,hour:this.leyLineHour(),window:this.leyLineWindow(),tier:t.tier,level};
+ b.leyLine={version:4,kind:r.kind,route:id,map:r.map,hour:this.leyLineHour(),window:this.leyLineWindow(),tier:t.tier,level};
  const parts=foes.map((a,i)=>({source:a.source,level:a.level,grade:a.grade,xp:Math.floor(t.directXp/foes.length)+(i<t.directXp%foes.length?1:0),mora:0}));
  if(!b.storyConfig?.noRewards)b.mondBalance={version:1,kind:'BOSS',risk:0,rewards:{xp:parts.reduce((n,x)=>n+x.xp,0),mora:parts.reduce((n,x)=>n+x.mora,0),parts}};
  return out;
@@ -148,9 +153,9 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
 P.finishBattle=function(victory){
  const b=this.s.runtime,ley=b?.leyLine?copy(b.leyLine):null,result=old.finishBattle.call(this,victory);
  if(!ley||!result||typeof result!=='object')return result;
- const t=ley.version===1?legacyTierOf(ley.tier,ROUTES[ley.route].region):ley.version===3?tierOf3(ley.tier):tierOf(ley.tier);result.leyLine={kind:ley.kind,name:KINDS[ley.kind].name,tier:ley.tier,level:ley.level,claimed:false};
+ const t=tierAt(ley.version,ley.tier,ROUTES[ley.route].region);result.leyLine={kind:ley.kind,name:KINDS[ley.kind].name,tier:ley.tier,level:ley.level,claimed:false};
  // 0.16.48: a claim is kept per half day (version 2 record). A fight entered before keeps its own hour's claim rule.
- const win=ley.version===3?ley.window:this.leyLineWindow(),taken=ley.version===3?this.leyLineClaimed(ley.kind,win):(this.s.leyLine?.version===1&&this.s.leyLine[ley.kind]===ley.hour)||this.leyLineClaimed(ley.kind,win);
+ const win=ley.version>=3?ley.window:this.leyLineWindow(),taken=ley.version>=3?this.leyLineClaimed(ley.kind,win):(this.s.leyLine?.version===1&&this.s.leyLine[ley.kind]===ley.hour)||this.leyLineClaimed(ley.kind,win);
  if(victory&&t&&!b.storyConfig?.noRewards&&!taken){
   const prior=this.s.leyLine?.version===2?this.s.leyLine:{version:2};this.s.leyLine={...prior,version:2,[ley.kind]:win};const loot={};
   if(ley.kind==='REVELATION')for(const [id,n]of Object.entries(t.books)){this.giveItem(id,n);loot[id]=n;}
@@ -165,8 +170,8 @@ P.finishBattle=function(victory){
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s,l=out.leyLine;
  if(l!==undefined&&(!l||typeof l!=='object'||Array.isArray(l)||![1,2].includes(l.version)||Object.entries(l).some(([k,v])=>k!=='version'&&(!KINDS[k]||!Number.isSafeInteger(v)||v<0))))fail('LEYLINE_SAVE','지맥의 꽃 기록이 올바르지 않습니다.');
- const b=out.runtime?.leyLine,t=b&&(b.version===1?legacyTierOf(b.tier,ROUTES[b.route]?.region):b.version===3?tierOf3(b.tier):tierOf(b.tier));if(b&&(![1,2,3].includes(b.version)||b.version===3&&!Number.isSafeInteger(b.window)||!KINDS[b.kind]||!ROUTES[b.route]||!Number.isSafeInteger(b.hour)||!t||b.level!==t.level))fail('LEYLINE_SAVE','지맥의 꽃 전투 기록이 올바르지 않습니다.');
+ const b=out.runtime?.leyLine,t=b&&tierAt(b.version,b.tier,ROUTES[b.route]?.region);if(b&&(![1,2,3,4].includes(b.version)||b.version>=3&&!Number.isSafeInteger(b.window)||!KINDS[b.kind]||!ROUTES[b.route]||!Number.isSafeInteger(b.hour)||!t||b.level!==t.level))fail('LEYLINE_SAVE','지맥의 꽃 전투 기록이 올바르지 않습니다.');
  return out;
 };
-P.leyLineVersion=3;
+P.leyLineVersion=4;
 })(globalThis);

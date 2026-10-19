@@ -150,12 +150,12 @@ check('지맥의 꽃: two windows a day (Korean 0:00 and 12:00); each kind pays 
  const st=r.leyLineStatus();assert.equal(st.nextAt,'12시');assert(st.minutesLeft>600&&st.minutesLeft<=660,'about 11 hours to 12시');
  Object.assign(r.s.global,{CURRENT_MAP_ID:'MAP_MOND_PLAINS',SCREEN_MODE:'LOCATION'});const id=L.route('REVELATION','MAP_MOND_PLAINS');
  assert.equal(r.placeBossReason(id,'DIRECT'),'');r.action('PLACE_ENTER',{place:'BOSS:'+id,mode:'BOSS'});r.action('BOSS_ROUTE',{route:id,entry:'DIRECT',tier:2});
- assert.equal(S(r).leyLine.version,3);assert.equal(S(r).leyLine.window,L.windowOf(kstAt(d,1)));if(S(r).opening?.state==='PENDING')r.action('COMBAT_BEGIN');
+ assert.equal(S(r).leyLine.version,4);assert.equal(S(r).leyLine.window,L.windowOf(kstAt(d,1)));if(S(r).opening?.state==='PENDING')r.action('COMBAT_BEGIN');
  const hero=r.itemCount('MAT_CHAR_EXP_HERO');const out=win(r);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO')-hero,36,'18 → 36 books at step 2');assert.equal(out.leyLine.claimed,true);
  assert(r.leyLineClaimed('REVELATION'));
  r.actionStartedAt=kstAt(d,11);assert(r.leyLineClaimed('REVELATION'),'still this morning');assert.match(r.placeBossReason(id,'DIRECT')||'',/12시에 새 꽃/);
  r.actionStartedAt=kstAt(d,13);assert.equal(r.leyLineClaimed('REVELATION'),false,'the afternoon blossom pays again');assert.equal(r.leyLineStatus().nextAt,'0시');
- assert.deepEqual(plain(L.tiers.map(t=>t.books.MAT_CHAR_EXP_HERO)),[12,36,100,200,360]);assert.deepEqual(plain(L.tiers.map(t=>t.mora)),[3600,10000,28000,54000,80000]);
+ assert.deepEqual(plain(L.tiers.map(t=>t.books.MAT_CHAR_EXP_HERO)),[12,36,100,200,360]);assert.deepEqual(plain(L.tiers.map(t=>t.mora)),[2500,4500,10500,26000,37000]);
 });
 
 check('지맥의 꽃: a fight entered under the hourly rule keeps its payout; the screens say 0시·12시',()=>{

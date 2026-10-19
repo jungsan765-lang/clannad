@@ -9,7 +9,7 @@ const fixture=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/weekly_as
 r.s.tasks=copy(fixture.tasks);const old=copy(r.s.tasks),mora=r.s.global.MORA,primo=r.s.global.PRIMOGEM;
 let loaded=new e.R(e.db,copy(r.s));loaded.taskView();assert.deepEqual(copy(loaded.s.tasks),old,'current-period quota/reward/progress/claims stay exact');assert.equal(loaded.s.global.MORA,mora);assert.equal(loaded.s.global.PRIMOGEM,primo);assert.equal(loaded.taskView().weeklyBonus.goal,old.weeklyIds.length-1,'old Abyss goal is optional for all-clear');
 loaded.action('WAIT',{minutes:1440});loaded.taskView();assert(loaded.s.tasks.weeklyIds.includes('W_V168_ABYSS'),'world-day waiting cannot reroll the real weekly manifest');
-e.advance(7*86400000);const v=loaded.taskView();assert(!loaded.s.tasks.weeklyIds.includes('W_V168_ABYSS'));assert.equal(v.bonus.reward.primogem,20);assert.equal(v.weeklyBonus.reward.primogem,200);
+e.advance(7*86400000);const v=loaded.taskView();assert(!loaded.s.tasks.weeklyIds.includes('W_V168_ABYSS'));assert.equal(v.bonus.reward.primogem,40);assert.equal(v.weeklyBonus.reward.primogem,400);
 assert.equal(v.weeklyBonus.goal,loaded.s.tasks.weeklyIds.length,'all-clear denominator uses the new eligible manifest');
 for(const id of ['W_WIN','W_BOSS','W_DOMAIN','W_V168_TALENT30','W_V168_ASCENSION','W_V168_WEALTH','W_V168_LIFE_SUPPLY'])assert(loaded.s.tasks.weeklyIds.includes(id),id+' remains assigned');
 const saved=loaded.serialize();loaded=new e.R(e.db,JSON.parse(saved));assert.equal(loaded.serialize(),saved,'new plan reloads exactly');

@@ -1846,6 +1846,10 @@ html.stage-pc body.teyvat .shell-loc-left .domain-stage small{display:none}
    (index.html), 80px shorter than the tablet's. What did not fit in that height, found with the screen check at 1280×640, is
    made to fit here; the computer (1600×900) and the tablet (1280×720) are not touched. */
 @media (max-height:680px){
+ /* 보물상자 여는 창과 지역 사건 보상 창 (0.16.69, user: 「내가 화면 잘 체크하라고 했잖니」): the 320px chest pushed 「확인」 under the
+    window's edge; 230px leaves room for the event window's extra line (오늘 지역 사건 원석은 다 받았습니다) */
+ html.stage-pc body.teyvat .ch-reveal>.ch-stage{width:230px}
+ html.stage-pc body.teyvat .ch-body.ch-reveal{gap:8px;padding-top:6px;padding-bottom:12px}
  /* 편성: the four cards were 75px taller than their column */
  html.stage-pc body.teyvat .party-cols .formation-slot .party-portrait{height:96px!important}
  html.stage-pc body.teyvat .party-cols .formation-slot{padding-top:6px;padding-bottom:6px;gap:5px}

@@ -71,7 +71,8 @@ check('the same level-selected ley difficulties and payouts exist in both region
 });
 function ley(r,kind,tier){const map=r.s.global.CURRENT_MAP_ID;let hour=r.leyLineHour();while(!api.leyLines.sitesAt(hour).some(s=>s.map===map&&s.kind===kind))hour++;
  const at=hour*3600000+60000;advance(Math.max(0,at-c.Date.now()));r.actionStartedAt=at;const route=api.leyLines.route(kind,map);r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT',tier});return {hour,route};}
-// 0.16.48: a claim is kept per half day (s.leyLine version 2 holds the window) and new fights pay twice (360 books, 80,000 Mora, 800 XP).
+// 0.16.48: a claim is kept per half day (s.leyLine version 2 holds the window) and new fights pay twice (360 books, 800 XP).
+// 0.16.69: 부의 꽃 Lv60 pays 37,000 (version 4 fights).
 check('ley settlement uses its low direct-XP plan, books/Mora dominate, and claims cannot be repeated',()=>{
  for(const kind of ['REVELATION','WEALTH']){
   let r=ready('MAP_MOND_PLAINS');const {hour,route}=ley(r,kind,5),expected=cp(r.s.runtime.mondBalance.rewards);
@@ -79,7 +80,7 @@ check('ley settlement uses its low direct-XP plan, books/Mora dominate, and clai
   const x=settle(r);assert.equal(x.xp,expected.xp);assert.equal(r.s.leyLine.version,2);assert.equal(r.s.leyLine[kind],api.leyLines.windowOf(hour*3600000));
   assert.equal(x.xp,800);assert.equal(expected.mora,0);
   if(kind==='REVELATION'){assert.equal(x.loot.MAT_CHAR_EXP_HERO,360);assert(360000>4*24000);assert.equal(x.mora,0);}
-  else {assert.equal(x.mora,80000);assert.equal(x.loot.MAT_CHAR_EXP_HERO||0,0);}
+  else {assert.equal(x.mora,37000);assert.equal(x.loot.MAT_CHAR_EXP_HERO||0,0);}
   assert(r.placeBossReason(route,r.placeEntries().find(e=>e.route===route)));const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state);
  }
 });

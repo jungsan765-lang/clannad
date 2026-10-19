@@ -138,6 +138,9 @@ function run({env,beforeEnv,finalAnchors=FINAL_ANCHORS,expectedRevision=1,onChec
  // These authored three-round evacuation objectives already have an explicit
  // integrity/action budget. Their genuine native policy is excluded before
  // startBattle's first projection as well as after fieldObjective is attached.
+ // 0.16.69 changed only the Mora/Primogem table a new daily/weekly board is assigned with (rewardRevision 1).
+ // This combat check compares the rest of the save as before.
+ const withoutTaskRewards=save=>{const s=JSON.parse(save);for(const scope of ['daily','weekly']){if(!s.tasks)break;delete s.tasks[scope+'RewardRevision'];for(const d of Object.values(s.tasks[scope+'Definitions']||{})){delete d.rewardRevision;delete d.reward;}}return s;};
  const protectedFields=[{mission:'reed',stage:1,kind:'ESCORT',map:'MAP_LY_DETAIL_DIHUA'},{mission:'guyun',stage:1,kind:'DEFEND',map:'MAP_LY_DETAIL_GUYUN'}];
  const startProtectedField=(e,spec)=>{
   const r=H.setup(e,{level:48,team:['MOND_AMBER','MOND_KAEYA','MOND_BARBARA'],route:'ROUTE_ISEKAI',seed:12,map:spec.map,gear:'craft',enhance:6,talent:6});
@@ -151,7 +154,7 @@ function run({env,beforeEnv,finalAnchors=FINAL_ANCHORS,expectedRevision=1,onChec
    assert.equal(a.enemyBalanceRevision,undefined);assert.equal(b.enemyBalanceRevision,undefined);assert.equal(b.opening.state,'PENDING');
    assert.deepEqual(copy(b.actors),copy(a.actors),'all native actor projections, equipment, shields and starting statuses retain the existing objective budget');
    assert.deepEqual(copy(b.order),copy(a.order),'first effective speed and native initial rolls stay within the same old objective policy');assert.deepEqual(copy(b.fieldObjective),copy(a.fieldObjective));assert.equal(current.s.global.PRNG_STATE,old.s.global.PRNG_STATE);
-   assert.deepEqual(JSON.parse(current.serialize()),JSON.parse(old.serialize()),'complete new native protected encounter agrees with the genuine source engine');
+   assert.deepEqual(withoutTaskRewards(current.serialize()),withoutTaskRewards(old.serialize()),'complete new native protected encounter agrees with the genuine source engine');
    return{kind:spec.kind,mission:spec.mission,marker:null,actors:b.actors.map(a=>({source:a.source,side:a.side,stats:stats(a)})),exactNativeBeforeProjectionAndInitiative:true};
   });
   check('new_native_protected_field_save_restores_exactly_and_rejects_unpublished_marker:'+spec.kind,()=>{

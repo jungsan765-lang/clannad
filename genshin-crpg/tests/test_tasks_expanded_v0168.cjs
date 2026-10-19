@@ -35,7 +35,7 @@ check('일일11·주간27 후보: 열린 갈래만 표시하고 기존 기본 �
  const r=fresh();const offered=r.commissionEntries().filter(q=>q.row[0].startsWith('Q_TASK_'));
  assert(offered.length>0&&offered.length<=C.families.length,'hundreds are not offered together');
  for(const q of offered){const def=C.chains.find(t=>t.id===q.row[0]);assert((C.oneTimeBranches[def.id]||[]).every(id=>r.s.quests[id]?.claimed));assert(r.isCommission(def.id));assert.equal(q.definition.authorship,'CRPG_TASK_V0168');assert.deepEqual(copy(q.definition.choices),[]);}
- assert.equal(r.taskView().daily.length,2);assert(r.taskView().weekly.length>=4&&r.taskView().weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=27);assert.equal(r.taskView().bonus.id,'D_BONUS');assert.equal(r.taskView().weeklyBonus.reward.primogem,200);
+ assert.equal(r.taskView().daily.length,2);assert(r.taskView().weekly.length>=4&&r.taskView().weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=27);assert.equal(r.taskView().bonus.id,'D_BONUS');assert.equal(r.taskView().weeklyBonus.reward.primogem,400);
 });
 
 check('accepted objective starts at zero; real qualifying victory and report reveal its successor once',()=>{
@@ -119,8 +119,8 @@ check('saved branch manifests are deterministic, keep reward brackets, and ignor
  assert(!ids.some(id=>C.daily.find(t=>t.id===id)?.filter?.party?.mono),'isekai receives no impossible mono-element assignment');
  assert.deepEqual(copy(r.taskView().daily.map(t=>t.id)),ids);level(r,60);assert.deepEqual(copy(r.taskView().daily.map(t=>t.id)),ids,'level/roster changes cannot reroll the saved day');
  const restored=new R(db,saved);assert.deepEqual(copy(restored.taskView().daily.map(t=>t.id)),ids);
- assert.equal(view.daily.reduce((n,t)=>n+(t.reward.primogem||0),0)+(view.bonus.reward.primogem||0),20);
- assert(view.weekly.length>=4&&view.weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=27);assert.equal(view.weeklyBonus.reward.primogem,200);const budget=copy(view.daily.map(t=>t.reward));assert.deepEqual(copy(restored.taskView().daily.map(t=>t.reward)),budget,'the saved assignment keeps its original reward bracket after level changes');
+ assert.equal(view.daily.reduce((n,t)=>n+(t.reward.primogem||0),0)+(view.bonus.reward.primogem||0),40);
+ assert(view.weekly.length>=4&&view.weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=27);assert.equal(view.weeklyBonus.reward.primogem,400);const budget=copy(view.daily.map(t=>t.reward));assert.deepEqual(copy(restored.taskView().daily.map(t=>t.reward)),budget,'the saved assignment keeps its original reward bracket after level changes');
  const bad=copy(saved);bad.tasks.dailyIds.push(bad.tasks.dailyIds[0]);assert.throws(()=>r.validateSave(bad),/임무 기록/);
  const badFuture=copy(saved);badFuture.tasks.day+=20;assert.throws(()=>r.validateSave(badFuture),/임무 기록/);
 });

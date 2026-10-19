@@ -57,7 +57,7 @@ check('받기 pays frozen rewards once; 모두 받기 claims the frontier; the d
  const all=r.action('TASK_CLAIM',{task:'ALL'}).result;assert.deepEqual(new Set(all.claimed),new Set(expectedIds));assert.equal(all.mora,expectedMora);assert.equal(all.primogem,0);
  assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/캐서린에게 보고해야/);
  r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});assert(r.taskView().bonus.here);
- const rep=r.action('TASK_CLAIM',{task:'ALL'}).result;assert.deepEqual(plain(rep.claimed),['D_BONUS']);assert.equal(rep.primogem,20);assert.equal(r.s.global.MORA,mora+expectedMora);assert.equal(r.s.global.PRIMOGEM,primo+20);assert.equal(r.s.tasks.weekly.bonus,1,'one day toward the week');assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/받을 임무 보상이 없습니다/);
+ const rep=r.action('TASK_CLAIM',{task:'ALL'}).result;assert.deepEqual(plain(rep.claimed),['D_BONUS']);assert.equal(rep.primogem,40);assert.equal(r.s.global.MORA,mora+expectedMora);assert.equal(r.s.global.PRIMOGEM,primo+40);assert.equal(r.s.tasks.weekly.bonus,1,'one day toward the week');assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/받을 임무 보상이 없습니다/);
  r.action('PLACE_LEAVE',{});r.s.global.CURRENT_MAP_ID='MAP_D163_VALLEY_OF_REMEMBRANCE';const weeklyProgress=r.s.tasks.weeklyProgress.W_DOMAIN;
  advance(DAY);v=r.taskView();assert.equal(v.ready,0);assert(v.daily.every(x=>!x.claimed&&x.progress===0));assert.equal(v.weekly.find(x=>x.id==='W_DOMAIN').progress,weeklyProgress);
  domainWin(r);assert.equal(r.s.tasks.daily.domain,1);assert(!r.s.tasks.claimed.D_DOMAIN);

@@ -14,7 +14,8 @@ const DAILY=[
  {id:'D_DOMAIN',kind:'domain',goal:1,name:'비경 1번 이기기',short:'1번 이기기',icon:'domain',reward:{items:{[BOOK2]:2}}},
  {id:'D_LIFE',kind:'life',goal:2,name:'채집·채광·사냥·낚시 2번',short:'2번',icon:'life',reward:{mora:600}}
 ];
-const DAILY_BONUS={id:'D_BONUS',name:'오늘의 임무 모두 달성',short:'모두 달성',icon:'bonus',reward:{primogem:20},report:true};
+// 0.16.69: the all-complete reports pay twice the Primogems (20→40, 200→400).
+const DAILY_BONUS={id:'D_BONUS',name:'오늘의 임무 모두 달성',short:'모두 달성',icon:'bonus',reward:{primogem:40},report:true};
 const WEEKLY=[
  {id:'W_WIN',kind:'win',goal:25,name:'전투 25번 이기기',icon:'battle',reward:{items:{[BOOK3]:2}}},
  {id:'W_BOSS',kind:'boss',goal:3,name:'필드 보스 3번 토벌',icon:'boss',reward:{primogem:30},minLevel:15},
@@ -23,7 +24,10 @@ const WEEKLY=[
 ];
 const catalog=root.CRPGTaskCatalogV0168||{},snapshot169=catalog.snapshotV0169||catalog,snapshot171=catalog.snapshotV01611||catalog,REVISION=172,ROOT_TASK='Q_TASK_LEARN_01',replace=(base,updates)=>base.map(t=>({...t,...(updates||[]).find(x=>x.id===t.id)}));
 const DAILY_POOL=[...replace(DAILY,catalog.legacyDaily),...(catalog.daily||[])],WEEKLY_POOL=[...replace(WEEKLY,catalog.legacyWeekly),...(catalog.weekly||[])];
-const WEEKLY_BONUS={id:'W_ALL',name:'이번 주 임무 모두 달성',short:'모두 달성',icon:'bonus',reward:{primogem:200},report:true,...catalog.weeklyAllBonus};
+const WEEKLY_BONUS={id:'W_ALL',name:'이번 주 임무 모두 달성',short:'모두 달성',icon:'bonus',reward:{primogem:400},report:true,...catalog.weeklyAllBonus};
+// 0.16.69 reward table (Mora by level, Primogems ×2). Only a day/week assigned from now on uses it: the box
+// marks the period (dailyRewardRevision/weeklyRewardRevision 1) and each definition from it carries rewardRevision 1.
+const NEXT_REWARD=catalog.rewardV01669||{};
 const CHAINS=catalog.chains||[],CHAIN_BY=Object.assign(Object.create(null),Object.fromEntries(CHAINS.map(t=>[t.id,t])));
 const LEGACY_CHAINS=snapshot169.legacyChains||catalog.legacyChains||catalog.chains||[],LEGACY_CHAIN_BY=Object.fromEntries(LEGACY_CHAINS.map(t=>[t.id,t]));
 const BY169=Object.fromEntries([...(snapshot169.daily||[]),...(snapshot169.weekly||[]),DAILY_BONUS,WEEKLY_BONUS].map(t=>[t.id,t])),CHAIN169_BY=Object.fromEntries((snapshot169.chains||CHAINS).map(t=>[t.id,t]));
@@ -99,9 +103,10 @@ function elementalChoices(rt){
  function feasible(es){return heroElements.some(h=>es.filter(e=>e!==h).every(e=>companions.some(m=>m.element===e)))||es.every(e=>companions.some(m=>m.element===e));}
  for(const e of elements)if(feasible([e]))choices.push([e]);for(let i=0;i<elements.length;i++)for(let j=i+1;j<elements.length;j++)if(feasible([elements[i],elements[j]]))choices.push([elements[i],elements[j]]);return choices;
 }
-function definition(rt,t,{legacy=false,revision=REVISION,individual=true,period,selectedElements,previousElements,level}={}){
- const d=copy(t);d.reward=rewardAt(t,level??(num(rt.s.global.PLAYER_LEVEL_STATE)||1));d.assignedLevel=level??(num(rt.s.global.PLAYER_LEVEL_STATE)||1);d.revision=legacy?168:revision;d.individual=individual;if(legacy&&d.id?.startsWith('D_'))delete d.reward.primogem;if(legacy&&d.id?.startsWith('W_')){delete d.reward.primogem;const slot=slotOf(d,'weekly');if(slot==='boss')d.reward.primogem=30;if(slot==='bonus')d.reward.primogem=40;}
+function definition(rt,t,{legacy=false,revision=REVISION,individual=true,period,selectedElements,previousElements,level,rewards}={}){
+ const next=rewards===1&&!legacy?NEXT_REWARD[t.id]:null,d=copy(t);d.reward=rewardAt(next?{...t,reward:{...(t.reward||{}),...next}}:t,level??(num(rt.s.global.PLAYER_LEVEL_STATE)||1));d.assignedLevel=level??(num(rt.s.global.PLAYER_LEVEL_STATE)||1);d.revision=legacy?168:revision;d.individual=individual;if(legacy&&d.id?.startsWith('D_'))delete d.reward.primogem;if(legacy&&d.id?.startsWith('W_')){delete d.reward.primogem;const slot=slotOf(d,'weekly');if(slot==='boss')d.reward.primogem=30;if(slot==='bonus')d.reward.primogem=40;}
  if(d.dynamicElements){const options=elementalChoices(rt),index=(hash(rt.s.global.SAVE_ID+':elements')+period)%Math.max(1,options.length);let es=selectedElements||options[index];if(!selectedElements&&options.length>1&&JSON.stringify(es)===JSON.stringify(previousElements))es=options[(index+1)%options.length];if(es?.length){d.selectedElements=es.slice();d.filter={...(d.filter||{}),party:{elements:es.slice()}};const labels={ANEMO:'바람',GEO:'바위',PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',DENDRO:'풀'};d.name=es.map(e=>labels[e]).join('·')+' 원소 캐릭터 포함 '+d.goal+'승';d.short='원소 편성 '+d.goal+'승';}else{d.selectedElements=[];delete d.filter?.party;d.name=d.fallbackName||'전투 '+d.goal+'번 이기기';d.short=d.fallbackShort||d.goal+'번 이기기';}}
+ if(next)d.rewardRevision=1;
  return d;
 }
 function rotate(rt,scope,period,keep=[]){
@@ -134,8 +139,8 @@ P.tasksBox=function(write=false){
  const t=this.tasksNow(),day=dayOf(t),week=weekOf(t),b=this.s.tasks;let box=b&&b.version===1?b:{version:1,revision:REVISION,day,week,daily:{},weekly:{},claimed:{}};let changed=box!==b;
  const freshScope=scope=>{
   const period=scope==='daily'?day:week,previousElements=scope==='daily'?(Object.values(box.dailyDefinitions||{}).find(d=>d.dynamicElements)?.selectedElements||box.lastDailyElements):undefined;
-  box[scope]={};box[scope+'Progress']={};box[scope+'ActiveSeq']={};box[scope+'Opened']=rootReady(this);box[scope+'Ids']=rootReady(this)?rotate(this,scope,period):[];
-  box[scope+'Definitions']=Object.fromEntries(box[scope+'Ids'].map(id=>[id,definition(this,BY[id],{period,previousElements})]));
+  box[scope]={};box[scope+'Progress']={};box[scope+'ActiveSeq']={};box[scope+'Opened']=rootReady(this);box[scope+'RewardRevision']=1;box[scope+'Ids']=rootReady(this)?rotate(this,scope,period):[];
+  box[scope+'Definitions']=Object.fromEntries(box[scope+'Ids'].map(id=>[id,definition(this,BY[id],{period,previousElements,rewards:1})]));
   if(scope==='daily')box.lastDailyElements=Object.values(box.dailyDefinitions).find(d=>d.dynamicElements)?.selectedElements||[];
   if(scope==='weekly')box.weeklyExpansionVersion=REVISION;
   for(const id of Object.keys(box.claimed))if(id.startsWith(scope==='daily'?'D_':'W_'))delete box.claimed[id];
@@ -152,12 +157,12 @@ P.tasksBox=function(write=false){
   }
   if(box.revision!==REVISION){
    const strict171=box.revision===171,prior=box[scope+'Ids'].filter(id=>BY[id]),defs=box[scope+'Definitions'],priorActive=box[scope+'ActiveSeq']||{},progress=Object.fromEntries(prior.map(id=>[id,Math.min(defs[id].goal,progressOf(box,scope,defs[id]))])),ids=strict171?prior:rootReady(this)?rotate(this,scope,period,prior):prior;
-   box[scope+'Ids']=ids;box[scope+'Definitions']=Object.fromEntries(ids.map(id=>[id,defs[id]||definition(this,BY[id],{period})]));
+   box[scope+'Ids']=ids;box[scope+'Definitions']=Object.fromEntries(ids.map(id=>[id,defs[id]||definition(this,BY[id],{period,rewards:box[scope+'RewardRevision']})]));
    box[scope+'Progress']=Object.fromEntries(ids.map(id=>[id,progress[id]||0]));box[scope+'ActiveSeq']=strict171?Object.fromEntries(ids.filter(id=>Object.hasOwn(priorActive,id)).map(id=>[id,priorActive[id]])):{};box[scope+'Opened']=rootReady(this);if(scope==='weekly')box.weeklyExpansionVersion=REVISION;changed=true;
   }
   if(rootReady(this)&&box[scope+'Opened']!==true){
    const prior=box[scope+'Ids'],defs=box[scope+'Definitions'],ids=rotate(this,scope,period,prior);
-   box[scope+'Ids']=ids;box[scope+'Definitions']=Object.fromEntries(ids.map(id=>[id,defs[id]||definition(this,BY[id],{period})]));
+   box[scope+'Ids']=ids;box[scope+'Definitions']=Object.fromEntries(ids.map(id=>[id,defs[id]||definition(this,BY[id],{period,rewards:box[scope+'RewardRevision']})]));
    box[scope+'Progress']??={};for(const id of ids)if(box[scope+'Progress'][id]===undefined)box[scope+'Progress'][id]=0;box[scope+'Opened']=true;changed=true;
   }
   activate(this,box,scope);
@@ -320,12 +325,12 @@ P.apply=function(a){
 P.validateSave=function(s){
  this.installTaskCommissions();const out=old.validateSave.call(this,s)||s,t=out.tasks,bad=()=>fail('TASK_SAVE','임무 기록이 올바르지 않습니다.');
  const facade=Object.create(this);facade.s=out;
- const validDefinition=(d,id,isChain=false)=>{
+ const validDefinition=(d,id,isChain=false,rewards)=>{
   if(!plain(d)||d.id!==id||![168,169,171,REVISION].includes(d.revision)||!ok(d.assignedLevel)||d.assignedLevel<1||d.assignedLevel>60||typeof d.individual!=='boolean')return false;
   const base=isChain?(d.revision===168?LEGACY_CHAIN_BY[id]:d.revision===169?CHAIN169_BY[id]:d.revision===171?CHAIN171_BY[id]:CHAIN_BY[id]):(d.revision===168?LEGACY_BY[id]:d.revision===169?BY169[id]:d.revision===171?BY171[id]:BY[id]);
   if(!base||d.individual!==(d.revision===168&&!isChain?!!base.filter:true))return false;
   if(d.selectedElements!==undefined&&(!base.dynamicElements||!Array.isArray(d.selectedElements)||d.selectedElements.length>2||new Set(d.selectedElements).size!==d.selectedElements.length||d.selectedElements.some(e=>!['PYRO','HYDRO','CRYO','ELECTRO','ANEMO','GEO','DENDRO'].includes(e))))return false;
-  const expected=definition(facade,base,{legacy:d.revision===168,revision:d.revision,individual:d.individual,selectedElements:d.selectedElements,period:t?.day||dayOf(this.tasksNow()),level:d.assignedLevel});return JSON.stringify(d)===JSON.stringify(expected);
+  const expected=definition(facade,base,{legacy:d.revision===168,revision:d.revision,individual:d.individual,selectedElements:d.selectedElements,period:t?.day||dayOf(this.tasksNow()),level:d.assignedLevel,rewards:isChain?undefined:rewards});return JSON.stringify(d)===JSON.stringify(expected);
  };
  if(t!==undefined){
   if(!plain(t)||t.version!==1||t.revision!==undefined&&![169,171,REVISION].includes(t.revision)||!ok(t.day)||!ok(t.week)||t.day>dayOf(this.tasksNow())||t.week>weekOf(this.tasksNow())||!plain(t.daily)||!plain(t.weekly)||!plain(t.claimed))bad();
@@ -334,8 +339,9 @@ P.validateSave=function(s){
   for(const scope of ['daily','weekly']){
    const ids=t[scope+'Ids'],progress=t[scope+'Progress'],defs=t[scope+'Definitions'],active=t[scope+'ActiveSeq'],current=[171,REVISION].includes(t.revision),periodBy=t.revision===171?BY171:BY,limit=current?(t.revision===171?snapshot171[scope].length:(scope==='daily'?DAILY_COUNT:WEEKLY_COUNT)):(scope==='daily'?4:20);
    if(current&&(!Array.isArray(ids)||!plain(defs)||!plain(progress)||!plain(active)||t[scope+'Opened']!==rootReady(facade)))bad();
+   if(t[scope+'RewardRevision']!==undefined&&(t[scope+'RewardRevision']!==1||!current))bad();
    if(ids!==undefined&&(!Array.isArray(ids)||ids.length>limit||!current&&scope==='daily'&&ids.length!==4||new Set(ids).size!==ids.length||ids.some(id=>!(periodBy[id]||!current&&(BY169[id]||LEGACY_BY[id]))||id==='D_BONUS'||id==='W_ALL'||!id.startsWith(scope==='daily'?'D_':'W_'))))bad();
-   if(defs!==undefined){if(!plain(defs)||!ids||Object.keys(defs).length!==ids.length)bad();for(const id of ids){if(!validDefinition(defs[id],id))bad();if(current&&[171,REVISION].includes(defs[id].revision)&&(num(progress?.[id])>0||t.claimed[id])&&(!rootReady(facade)||!branchReady(t,scope,id)||active[id]===undefined))bad();}}
+   if(defs!==undefined){if(!plain(defs)||!ids||Object.keys(defs).length!==ids.length)bad();for(const id of ids){if(!validDefinition(defs[id],id,false,t[scope+'RewardRevision']))bad();if(current&&[171,REVISION].includes(defs[id].revision)&&(num(progress?.[id])>0||t.claimed[id])&&(!rootReady(facade)||!branchReady(t,scope,id)||active[id]===undefined))bad();}}
    if(progress!==undefined){if(!plain(progress))bad();for(const[id,n]of Object.entries(progress)){const goal=defs?.[id]?.goal??(!t.revision?LEGACY_BY[id]?.goal:undefined)??BY169[id]?.goal??BY[id]?.goal;if(!ids?.includes(id)||!ok(n)||n>goal)bad();}}
    if(active!==undefined){if(!current||!plain(active))bad();for(const[id,seq]of Object.entries(active))if(!ids?.includes(id)||!ok(seq)||seq>out.global.LAST_COMMITTED_ACTION_SEQ||!branchReady(t,scope,id)||!rootReady(facade))bad();}
    if(current&&rootReady(facade)&&ids.some(id=>!t.claimed[id]&&branchReady(t,scope,id)&&active[id]===undefined))bad();

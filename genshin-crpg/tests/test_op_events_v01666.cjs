@@ -24,7 +24,7 @@ check('지맥 보상 2배: a blossom pays twice, three times a day; the result s
  const x=settle(r);assert.equal(x.loot.MAT_CHAR_EXP_HERO,720,'360 twice');assert.deepEqual(cp(x.opEvents),[{kind:'LEY_DOUBLE',name:'지맥 보상 2배',used:1,limit:3}]);
  assert.equal(r.opEventUsesLeft('LEY_DOUBLE'),2);assert.equal(JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON).opEvents[0].used,1);
  r.s.opEvent.uses.LEY_DOUBLE=3;assert.equal(r.opEventUsesLeft('LEY_DOUBLE'),0);
- let q=ready('MAP_MOND_PLAINS');const w=ley(q,'WEALTH',5);q=new R(db,cp(q.s));q.actionStartedAt=w.hour*3600000+60000;open(q,'LEY_DOUBLE');assert.equal(settle(q).mora,160000,'80,000 twice');
+ let q=ready('MAP_MOND_PLAINS');const w=ley(q,'WEALTH',5);q=new R(db,cp(q.s));q.actionStartedAt=w.hour*3600000+60000;open(q,'LEY_DOUBLE');assert.equal(settle(q).mora,74000,'37,000 twice');
 });
 check('비경 보급: the doubled material wins go from three to six',()=>{
  const r=ready('MAP_D163_TAISHAN_MANSION');const d={kind:'TALENT',key:'TAISHAN_MANSION',level:60,id:'TAISHAN_MANSION:60',version:4},day=api.growthV01522.dayOf(r.leyLineNow());

@@ -479,7 +479,11 @@ try{
    // 0.16.33 보물상자: the stones and a chest in the scenery, the stone puzzle, the challenge window, a won challenge's result.
    {const r=early();r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_CRPG_WHISPER_HUNT'});fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
     await view('early-chest-scenery',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('LOCATION');CRPGShell.toggleScenery(true);})()`);
-    await view('early-chest-totem',`(async()=>{CRPGShell.toggleScenery(false);await __go('LOCATION');CRPGChests.start(game.chestsHere('SCENERY').find(x=>x.kind==='TOTEM'));})()`);}
+    await view('early-chest-totem',`(async()=>{CRPGShell.toggleScenery(false);await __go('LOCATION');CRPGChests.start(game.chestsHere('SCENERY').find(x=>x.kind==='TOTEM'));})()`);
+    // 0.16.69 (user: 「내가 화면 잘 체크하라고 했잖니」 — the 확인 button sat below the window): the chest rising, then opened with its three rewards.
+    const chestAt=`(async()=>{CRPGChests.close();CRPGShell.toggleScenery(false);await __go('LOCATION');CRPGChests.start(game.chestsHere('SCENERY').find(x=>x.id==='CHEST_M20'));await new Promise(r=>setTimeout(r,900));`;
+    await view('early-chest-reveal',chestAt+'})()');
+    await view('early-chest-open',chestAt+`document.querySelector('.ch-open').click();await new Promise(r=>setTimeout(r,2400));})()`);}
    {const r=early();r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_FOREST'});fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
     await view('early-chest-challenge',`(async()=>{CRPGChests.close();await __go('LOCATION');CRPGChests.start(game.chestsHere('SCENERY').find(x=>x.kind==='CHALLENGE'));})()`);
     const w=early();w.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_FOREST'});w.action('CHEST_OPEN',{chest:'CHEST_M26'});fixture.seed(w.s);await page.evaluate(()=>{CRPGChests.close();return CRPGOnline.sync();});await idle();

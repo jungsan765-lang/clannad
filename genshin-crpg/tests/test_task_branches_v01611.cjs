@@ -98,7 +98,7 @@ check('all-complete is paid once only after the entire fixed branch manifest',()
  const r=high();let rounds=0;
  while(rounds++<20){const v=r.taskView(),frontier=[...v.daily,...v.weekly].filter(t=>!t.claimed);if(!frontier.length)break;for(const t of frontier){quotaFixture(r,t.id);r.action('TASK_CLAIM',{task:t.id});}}
  assert(rounds<20);const v=r.taskView();assert(v.bonus.done&&v.weeklyBonus.done);assert.equal(v.bonus.goal,r.s.tasks.dailyIds.length);assert.equal(v.weeklyBonus.goal,r.s.tasks.weeklyIds.length);
- guild(r);const before=r.s.global.PRIMOGEM;r.action('TASK_CLAIM',{task:'D_BONUS'});r.action('TASK_CLAIM',{task:'W_ALL'});assert.equal(r.s.global.PRIMOGEM-before,220);assert.throws(()=>r.action('TASK_CLAIM',{task:'W_ALL'}));assert.throws(()=>r.action('TASK_CLAIM',{task:'D_BONUS'}));new R(db,copy(r.s));
+ guild(r);const before=r.s.global.PRIMOGEM;r.action('TASK_CLAIM',{task:'D_BONUS'});r.action('TASK_CLAIM',{task:'W_ALL'});assert.equal(r.s.global.PRIMOGEM-before,440);assert.throws(()=>r.action('TASK_CLAIM',{task:'W_ALL'}));assert.throws(()=>r.action('TASK_CLAIM',{task:'D_BONUS'}));new R(db,copy(r.s));
 });
 
 check('daily reset closes daily successors but retains weekly progress and claims',()=>{

@@ -40,7 +40,7 @@ function screen(){
 check('실제 임무판은 일일·주간의 열린 갈래와 모두달성 보상을 별도로 표시한다',()=>{
  const p=screen();assert.equal(p.pane.querySelectorAll('.task-row').length,p.r.taskView().daily.length+1);
  const tabs=p.pane.querySelectorAll('.task-scope');tabs[1].onclick();const rows=p.pane.querySelectorAll('.task-row');assert.equal(rows.length,p.r.taskView().weekly.length+1);assert.equal(new Set(rows.map(n=>n.dataset.task)).size,rows.length);
- const all=rows.find(n=>n.dataset.task==='W_ALL');assert(all);assert(all.textContent.includes('200'));assert.equal(p.r.taskView().weeklyBonus.goal,p.r.s.tasks.weeklyIds.length);
+ const all=rows.find(n=>n.dataset.task==='W_ALL');assert(all);assert(all.textContent.includes('400'));assert.equal(p.r.taskView().weeklyBonus.goal,p.r.s.tasks.weeklyIds.length);
  const bonus=p.r.taskView().weeklyBonus;assert(!bonus.done);assert(p.pane.querySelector('.task-scope.active b').textContent==='주간');
 });
 check('기존 쪽 넘기기로 열린 주간 갈래·보너스에 접근하고 주간·일일 쪽 기억을 구분한다',()=>{
@@ -58,7 +58,7 @@ check('주간 모두달성 버튼은 정확한 기존 TASK_CLAIM 경로와 수�
  for(let count=0;count<box.weeklyIds.length+1;count++){const frontier=p.r.taskView().weekly;if(!frontier.length)break;for(const row of frontier){const live=p.r.tasksBox(true),def=live.weeklyDefinitions[row.id];live.weeklyProgress[row.id]=def.goal;p.r.action('TASK_CLAIM',{task:row.id});}}assert(p.r.s.tasks.weeklyIds.every(id=>p.r.s.tasks.claimed[id]));
  p.r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';p.r.s.global.WORLD_TIME='12:00';p.r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});
  p.context.render();p.pane.querySelectorAll('.task-scope')[1].onclick();const row=p.pane.querySelectorAll('.task-row').find(n=>n.dataset.task==='W_ALL');assert(row);row.querySelector('.task-claim').onclick();assert.deepEqual(JSON.parse(JSON.stringify(p.calls.at(-1))),{type:'TASK_CLAIM',params:{task:'W_ALL'}});
- const out=p.r.action('TASK_CLAIM',{task:'W_ALL'}).result;assert.equal(out.primogem,200);assert.deepEqual(JSON.parse(JSON.stringify(out.claimed)),['W_ALL']);p.context.CRPGTaskBoard.gained(out);const gain=p.body.querySelector('.task-gain');assert(gain&&gain.textContent.includes('200'));
+ const out=p.r.action('TASK_CLAIM',{task:'W_ALL'}).result;assert.equal(out.primogem,400);assert.deepEqual(JSON.parse(JSON.stringify(out.claimed)),['W_ALL']);p.context.CRPGTaskBoard.gained(out);const gain=p.body.querySelector('.task-gain');assert(gain&&gain.textContent.includes('400'));
  p.context.render();assert(p.pane.querySelectorAll('.task-row').find(n=>n.dataset.task==='W_ALL').classList.contains('claimed'));assert.throws(()=>p.r.action('TASK_CLAIM',{task:'W_ALL'}),/이미/);
 });
 check('메인 일일 완료 숫자는 새 갈래가 열려도 고정된 전체 목표와 완료 기록을 유지한다',()=>{
