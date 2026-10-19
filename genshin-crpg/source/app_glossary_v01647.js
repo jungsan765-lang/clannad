@@ -6,7 +6,7 @@
 // with the official name from the start (tests/test_glossary_v01647.cjs). The map below is written by
 // tools/editorial/build_glossary.cjs; do not edit it by hand.
 (function(){
-const FIX=/*GLOSSARY_DISPLAY*/{"나선비경":"나선 비경","대리 단장":"단장 대행","대리단장":"단장 대행","도금여단":"도금 여단","보물사냥단":"보물 사냥단","사풍 수호":"바람 사신수","사풍수호":"바람 사신수","사풍의 수호신":"바람 사신수","정찰기사":"정찰 기사"}/*END*/;
+const FIX=/*GLOSSARY_DISPLAY*/{"나선비경":"나선 비경","대리 단장":"단장 대행","대리단장":"단장 대행","도금여단":"도금 여단","드래곤스파인":"드래곤 스파인","보물사냥단":"보물 사냥단","사풍 수호":"바람 사신수","사풍수호":"바람 사신수","사풍의 수호신":"바람 사신수","수석연금술사":"수석 연금술사","정찰기사":"정찰 기사"}/*END*/;
 const keys=Object.keys(FIX);if(!keys.length||typeof MutationObserver!=='function')return;
 const re=new RegExp(keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|'),'g'),has=new RegExp(re.source);
 const fix=s=>s.replace(re,m=>FIX[m]);
