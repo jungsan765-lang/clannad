@@ -92,4 +92,12 @@ for(const x of TABLES.flatMap(t=>(ix.byTable[t]||[]).filter(x=>x[19]==='CRPG_V01
 {const rows=ix.byTable['55_MAIN_STORY_DB']||[],row=id=>rows.find(x=>x[0]==='ROUTE_ISEKAI'&&x[4]===id);
  for(const [gone,kept] of [['ISK_M01_UT027','ISK_M01_UT026'],['ISK_M01_UT043','ISK_M01_UT042'],['ISK_M01_UT053','ISK_M01_UT052'],['ISK_M01_KT004','ISK_M01_KT003'],['ISK_M01_EX_U_GUILD_C2','ISK_M01_EX_U_GUILD_C1'],['ISK_M01_EX_K_GUILD_C2','ISK_M01_EX_K_GUILD_C1']]){
   const g=row(gone),k=row(kept);assert.ok(g&&k,gone);assert.equal(g[14],null,gone+' is not offered');assert.ok(k[14],kept+' is offered');assert.equal(String(k[12]).split('=')[0],String(g[12]).split('=')[0],kept+' sets the same flag');}}
+// 0.16.68 (user: 「드발린 나오는 장면에서 흔들리는 연출 하면 더 좋을 것 같아」): a line after `@shake` shakes the story screen once —
+// the engine names it (Runtime#storyFx) and the story screen shakes the place behind and the picture, not the dialogue box.
+{const marked=[];for(const c of content.chains)(function w(items){for(const it of items||[]){if(it.fx)marked.push(it.id);for(const o of it.options||[]){if(o.fx)marked.push(o.keep||o.id);w(o.items);}}})(c.items);
+ assert.ok(marked.length>=20,'Dvalin\'s scenes shake: '+marked.length);
+ for(const id of marked)assert.equal(r.storyFx(id),'흔들림',id);
+ const ui=fs.readFileSync(path.join(root,'source/app_storymood_v01668.js'),'utf8');
+ assert.match(ui,/story-shake\[data-mode=story\] \.world-backdrop\{animation:shellDrift 46s ease-in-out infinite alternate,storyShake/,'the drift keeps going under the shake');
+ assert.match(ui,/prefers-reduced-motion:no-preference/,'not with reduced motion');assert.doesNotMatch(ui,/story-shake[^']*shell-dialogue/,'the dialogue box stays still');}
 console.log('manuscript edition OK',ix.mainStoryK.installed.length,'chains');

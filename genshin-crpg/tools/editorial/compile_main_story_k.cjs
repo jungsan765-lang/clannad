@@ -32,6 +32,7 @@
 //                                 reachable through it stay exactly as in the original DB
 //   @cond <EXPR> | @cond -        precondition added to the following new lines (or cleared)
 //   @mood <name> | @mood -        the look of the following lines (0.16.68: 어둠 = the backdrop dims, the edges sink), or back to normal
+//   @shake                        the next line (or kept row, fight, choice) shakes the story screen once when it shows (0.16.68: Dvalin)
 //   // comment
 const fs=require('fs'),path=require('path');
 const root=path.resolve(__dirname,'../..'),srcDir=path.join(__dirname,'main_story_k'),personalDir=path.join(__dirname,'personal_k'),out=path.join(root,'source/runtime_main_story_k_content.js');
@@ -49,7 +50,8 @@ function parseChain(raw,offset,file){
  const chain={id:'',entry:'',items:[],edits:[]};
  let pos=0;
  const err=(l,msg)=>{throw Error(`${l.file}:${l.line}: ${msg}`);};
- const counters={};let scene='MAIN',map='',cond='',mood='';
+ const counters={};let scene='MAIN',map='',cond='',mood='',shake=false;
+ const shook=item=>{if(shake){item.fx='흔들림';shake=false;}return item;};
  const nextId=()=>{const key=scene;counters[key]=(counters[key]||0)+1;return `PRO_${chain.id.replace(/^ISK_/,'').replace(/_/g,'')}_${key}_${String(counters[key]).padStart(3,'0')}`;};
  function block(indent){
   const items=[];
@@ -64,23 +66,24 @@ function parseChain(raw,offset,file){
    if(t.startsWith('## ')){scene=t.slice(3).trim().replace(/[^A-Za-z0-9가-힣]+/g,'_');pos++;continue;}
    if(t.startsWith('@map ')){map=t.slice(5).trim();pos++;continue;}
    if(t.startsWith('@cond ')){cond=t.slice(6).trim();if(cond==='-')cond='';pos++;continue;}
+   if(t==='@shake'){shake=true;pos++;continue;}
    if(t.startsWith('@mood ')){mood=t.slice(6).trim();if(mood==='-')mood='';else if(!/^[가-힣A-Za-z]{1,12}$/.test(mood))err(l,'bad mood '+mood);pos++;continue;}
-   if(t.startsWith('@keep ')){const w=t.slice(6).trim().split(/\s+/);const item={k:'keep',id:w[0]};if(mood)item.mood=mood;if(w[1]==='hold')item.hold=true;else if(w[1]==='as'&&w[2]==='이야기')item.as='NARRATION';else if(w[1])err(l,'unknown @keep flag '+w[1]);pos++;const text=quoted(indent);if(text!=null)item.text=text;items.push(item);continue;}
+   if(t.startsWith('@keep ')){const w=t.slice(6).trim().split(/\s+/);const item=shook({k:'keep',id:w[0]});if(mood)item.mood=mood;if(w[1]==='hold')item.hold=true;else if(w[1]==='as'&&w[2]==='이야기')item.as='NARRATION';else if(w[1])err(l,'unknown @keep flag '+w[1]);pos++;const text=quoted(indent);if(text!=null)item.text=text;items.push(item);continue;}
    if(t.startsWith('@thru ')){items.push({k:'thru',id:t.slice(6).trim()});pos++;continue;}
    if(t.startsWith('@goto ')){items.push({k:'goto',id:t.slice(6).trim()});pos++;continue;}
-   if(t.startsWith('@combat ')){const group=t.slice(8).trim();if(!/^EG_[A-Z0-9_]+$/.test(group))err(l,'bad encounter group '+group);pos++;const text=quoted(indent);if(text==null)err(l,'@combat needs a > line');const item={k:'combat',id:nextId(),group,text};if(map)item.map=map;if(cond)item.cond=cond;if(mood)item.mood=mood;items.push(item);continue;}
+   if(t.startsWith('@combat ')){const group=t.slice(8).trim();if(!/^EG_[A-Z0-9_]+$/.test(group))err(l,'bad encounter group '+group);pos++;const text=quoted(indent);if(text==null)err(l,'@combat needs a > line');const item=shook({k:'combat',id:nextId(),group,text});if(map)item.map=map;if(cond)item.cond=cond;if(mood)item.mood=mood;items.push(item);continue;}
    if(t.startsWith('@text ')){const id=t.slice(6).trim();pos++;const text=quoted(indent);if(text==null)err(l,'@text needs a > line');chain.edits.push({k:'text',id,text});continue;}
    if(t.startsWith('@drop ')){chain.edits.push({k:'drop',id:t.slice(6).trim()});pos++;continue;}
    if(t.startsWith('>'))err(l,'stray > line');
    if(t.startsWith('~ ')){const prev=items[items.length-1];if(!prev||prev.k!=='line'||!prev.speaker||prev.speaker==='나')err(l,'~ needs a preceding named dialogue line');if(prev.alt)err(l,'only one ~ variant per line');prev.alt={id:nextId(),text:t.slice(2).trim()};pos++;continue;}
    if(t.startsWith('??')){
-    const group={k:'choice',group:nextId().replace(/^PRO_/,'G_PRO_'),options:[]};
+    const group={k:'choice',group:nextId().replace(/^PRO_/,'G_PRO_'),options:[]},groupFx=shake;shake=false;
     while(pos<lines.length&&lines[pos].indent===indent&&lines[pos].text.startsWith('??')){
      const o=lines[pos];
      const fz=/^\?\?=\s*([A-Za-z0-9_]+)\s*$/.exec(o.text);
      if(fz){pos++;if(pos<lines.length&&lines[pos].indent>indent)err(lines[pos],'a frozen choice (??=) takes no body');group.options.push({freeze:fz[1]});continue;}
      const m=/^\?\?(?:@([A-Za-z0-9_]+))?\s*(.*)$/.exec(o.text);
-     const opt={label:m[2].trim()};if(m[1])opt.keep=m[1];else opt.id=nextId();if(mood)opt.mood=mood;
+     const opt={label:m[2].trim()};if(m[1])opt.keep=m[1];else opt.id=nextId();if(mood)opt.mood=mood;if(groupFx)opt.fx='흔들림';
      if(!opt.keep&&!opt.label)err(o,'choice needs a label');
      pos++;
      if(pos<lines.length&&lines[pos].indent>indent)opt.items=block(lines[pos].indent);else opt.items=[];
@@ -93,7 +96,7 @@ function parseChain(raw,offset,file){
    if(!m)err(l,'cannot parse line: '+t);
    const speaker=m[1].trim()==='이야기'?'':m[1].trim();
    if(speaker==='나'||speaker==='{PLAYER_NAME}')err(l,'player lines are choices: write `?? '+m[2].trim().slice(0,20)+'…` (a single option is fine)');
-   const item={k:'line',id:nextId(),speaker,text:m[2].trim()};if(map)item.map=map;if(cond)item.cond=cond;if(mood)item.mood=mood;
+   const item=shook({k:'line',id:nextId(),speaker,text:m[2].trim()});if(map)item.map=map;if(cond)item.cond=cond;if(mood)item.mood=mood;
    if(!item.text)err(l,'empty text');
    items.push(item);pos++;
   }

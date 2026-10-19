@@ -15,7 +15,8 @@
     "monsters": 570,
     "foods": 451
    }
-  }
+  },
+  "yatta_quest": "Yatta 공식 임무 문자열 사본(https://gi.yatta.moe/api/v2/kr/quest/1001~1003: 프롤로그 1~3막 단계 이름·대사)과 캐릭터 이야기(avatarFetter)·몬스터 설명. 2026-10-19 대조"
  },
  "terms": [
   {
@@ -593,6 +594,134 @@
    "wrong": [],
    "source": "yatta",
    "note": "0.16.67 축제 이야기 · Yatta 공식 게임 문자열 행추 소개 「비운 상회」 (2026-10-18 확인)"
+  },
+  {
+   "ko": "단장 대행",
+   "en": "Acting Grand Master",
+   "kind": "칭호",
+   "wrong": [
+    "대리 단장",
+    "대리단장"
+   ],
+   "source": "yatta_quest",
+   "note": "진(캐릭터 소개 「몬드 페보니우스 기사단의 단장 대행」). 퍼즐 문제와 옛 데이터의 「대리 단장」은 화면에서 바로잡는다",
+   "display": true
+  },
+  {
+   "ko": "정찰 기사",
+   "en": "Outrider",
+   "kind": "칭호",
+   "wrong": [
+    "정찰기사"
+   ],
+   "source": "yatta_quest",
+   "display": true,
+   "note": "엠버(「정찰 기사 엠버, 대령이오!」). 띄어 쓴다. 옛 데이터의 붙인 표기는 화면에서 바로잡는다"
+  },
+  {
+   "ko": "비행 챔피언",
+   "en": "Gliding Champion",
+   "kind": "칭호",
+   "wrong": [
+    "활공 챔피언"
+   ],
+   "source": "yatta_quest",
+   "note": "엠버(「몬드성의 비행 챔피언, 그게 바로 나야!」). 「활공 대회 3연속 우승」 같은 대회 이름·횟수는 공식 문자열에 없어 쓰지 않는다"
+  },
+  {
+   "ko": "토끼 백작",
+   "en": "Baron Bunny",
+   "kind": "아이템",
+   "wrong": [
+    "바론 버니"
+   ],
+   "source": "yatta_quest",
+   "note": "엠버의 인형"
+  },
+  {
+   "ko": "천공의 하프",
+   "en": "Holy Lyre der Himmel",
+   "kind": "아이템",
+   "wrong": [
+    "천공의 리라"
+   ],
+   "source": "yatta_quest",
+   "note": "「지하실에서 천공의 하프 획득하기」"
+  },
+  {
+   "ko": "바람 사신수",
+   "en": "Four Winds",
+   "kind": "칭호",
+   "wrong": [
+    "사풍수호",
+    "사풍 수호",
+    "사풍의 수호신"
+   ],
+   "source": "yatta_quest",
+   "display": true,
+   "note": "「몬드의 「바람 사신수」 중 하나인 동풍의 용 드발린」(열공의 마룡 설명). 진의 대사 「바람의 사신수인 드발린」처럼 「바람의 사신수」도 쓴다"
+  },
+  {
+   "ko": "동풍의 용",
+   "en": "Dragon of the East",
+   "kind": "칭호",
+   "wrong": [],
+   "source": "yatta_quest",
+   "note": "드발린"
+  },
+  {
+   "ko": "풍마룡",
+   "en": "Stormterror (as people call Dvalin)",
+   "kind": "인물",
+   "wrong": [],
+   "source": "yatta_quest",
+   "note": "몬드 사람들이 드발린을 부르는 이름. 보스 이름은 「열공의 마룡」"
+  },
+  {
+   "ko": "드발린의 눈물",
+   "en": "Dvalin's Tear",
+   "kind": "아이템",
+   "wrong": [],
+   "source": "yatta_quest",
+   "note": "「드발린의 눈물 결정」「바람 드래곤의 눈물」도 공식"
+  },
+  {
+   "ko": "부제",
+   "en": "Deacon",
+   "kind": "칭호",
+   "wrong": [],
+   "source": "yatta_quest",
+   "note": "달리아(「페보니우스 성당의 부제 달리아입니다. 바람의 신 바르바토스 님의 전도자죠」)"
+  },
+  {
+   "ko": "서풍 매의 사당",
+   "en": "Temple of the Falcon",
+   "kind": "장소",
+   "wrong": [
+    "매의 신전"
+   ],
+   "source": "0.15.20",
+   "note": "지도 지명(32_MAP_DB MAP_MOND_TEMPLE_FALCON)"
+  },
+  {
+   "ko": "북풍 늑대의 사당",
+   "en": "Temple of the Wolf",
+   "kind": "장소",
+   "wrong": [
+    "늑대의 신전"
+   ],
+   "source": "0.15.20",
+   "note": "지도 지명(32_MAP_DB MAP_MOND_TEMPLE_WOLF)"
+  },
+  {
+   "ko": "남풍 사자의 사당",
+   "en": "Temple of the Lion",
+   "kind": "장소",
+   "wrong": [
+    "사자의 신전"
+   ],
+   "source": "0.15.20",
+   "note": "지도 지명(32_MAP_DB MAP_MOND_TEMPLE_LION)"
   }
  ],
  "allow": [
@@ -633,8 +762,14 @@
  ],
  "display": {
   "나선비경": "나선 비경",
+  "대리 단장": "단장 대행",
+  "대리단장": "단장 대행",
   "도금여단": "도금 여단",
-  "보물사냥단": "보물 사냥단"
+  "보물사냥단": "보물 사냥단",
+  "사풍 수호": "바람 사신수",
+  "사풍수호": "바람 사신수",
+  "사풍의 수호신": "바람 사신수",
+  "정찰기사": "정찰 기사"
  },
  "data": {
   "characters": {

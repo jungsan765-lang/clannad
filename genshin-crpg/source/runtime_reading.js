@@ -926,4 +926,6 @@ P.festivalV01667=true;
 'use strict';
 const P=root.CRPGRuntime.Runtime.prototype;if(P.storyMood)return;
 P.storyMood=function(id){if(!id)return '';try{return this.storyIndex()?.storyMoods?.[String(id)]||'';}catch{return '';}};
+// 0.16.68 (user: 「드발린 나오는 장면에서 흔들리는 연출 하면 더 좋을 것 같아」): a line written after `@shake` shakes the screen once (「흔들림」).
+P.storyFx=function(id){if(!id)return '';try{return this.storyIndex()?.storyFx?.[String(id)]||'';}catch{return '';}};
 })(globalThis);

@@ -25,7 +25,13 @@
 | 켄리아 | Khaenri'ah | 나라 |  | yatta |  |
 | 폰타인 | Fontaine | 나라 |  | yatta |  |
 | 노드크라이 | Nod-Krai | 지역 |  | yatta |  |
+| 단장 대행 | Acting Grand Master | 칭호 | 대리 단장, 대리단장 (화면에서 바로잡음) | yatta_quest | 진(캐릭터 소개 「몬드 페보니우스 기사단의 단장 대행」). 퍼즐 문제와 옛 데이터의 「대리 단장」은 화면에서 바로잡는다 |
+| 동풍의 용 | Dragon of the East | 칭호 |  | yatta_quest | 드발린 |
+| 바람 사신수 | Four Winds | 칭호 | 사풍수호, 사풍 수호, 사풍의 수호신 (화면에서 바로잡음) | yatta_quest | 「몬드의 「바람 사신수」 중 하나인 동풍의 용 드발린」(열공의 마룡 설명). 진의 대사 「바람의 사신수인 드발린」처럼 「바람의 사신수」도 쓴다 |
+| 부제 | Deacon | 칭호 |  | yatta_quest | 달리아(「페보니우스 성당의 부제 달리아입니다. 바람의 신 바르바토스 님의 전도자죠」) |
+| 비행 챔피언 | Gliding Champion | 칭호 | 활공 챔피언 | yatta_quest | 엠버(「몬드성의 비행 챔피언, 그게 바로 나야!」). 「활공 대회 3연속 우승」 같은 대회 이름·횟수는 공식 문자열에 없어 쓰지 않는다 |
 | 선인 | Adeptus | 칭호 |  | yatta |  |
+| 정찰 기사 | Outrider | 칭호 | 정찰기사 (화면에서 바로잡음) | yatta_quest | 엠버(「정찰 기사 엠버, 대령이오!」). 띄어 쓴다. 옛 데이터의 붙인 표기는 화면에서 바로잡는다 |
 | 집정관 | Archon | 칭호 |  | yatta |  |
 | 집행관 | Harbinger | 칭호 |  | yatta |  |
 | 남십자 함대 | The Crux | 단체 | 남십자 선대 | 0.15.20 |  |
@@ -42,10 +48,13 @@
 | 페보니우스 기사단 | Knights of Favonius | 단체 | 서풍 기사단, 서풍기사단 | yatta |  |
 | 페보니우스 성당 | Church of Favonius | 단체 | 서풍 교회 | 0.15.20 |  |
 | 군옥각 | Jade Chamber | 장소 |  | yatta |  |
+| 남풍 사자의 사당 | Temple of the Lion | 장소 | 사자의 신전 | 0.15.20 | 지도 지명(32_MAP_DB MAP_MOND_TEMPLE_LION) |
 | 리월항 | Liyue Harbor | 장소 |  | yatta |  |
 | 만민당 | Wanmin Restaurant | 장소 |  | yatta |  |
 | 망서 객잔 | Wangshu Inn | 장소 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 업적 「망서 객잔의 …」 (2026-10-18 확인) |
 | 몬드성 | Mondstadt City | 장소 |  | yatta |  |
+| 북풍 늑대의 사당 | Temple of the Wolf | 장소 | 늑대의 신전 | 0.15.20 | 지도 지명(32_MAP_DB MAP_MOND_TEMPLE_WOLF) |
+| 서풍 매의 사당 | Temple of the Falcon | 장소 | 매의 신전 | 0.15.20 | 지도 지명(32_MAP_DB MAP_MOND_TEMPLE_FALCON) |
 | 옥경대 | Yujing Terrace | 장소 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 임무 이름 (2026-10-18 확인) |
 | 왕생당 | Wangsheng Funeral Parlor | 장소 |  | yatta | 0.16.67 축제 이야기 · Yatta 공식 게임 문자열 호두 소개·임무 「왕생당 당주 …」 (2026-10-18 확인) |
 | 일곱신상 | Statue of The Seven | 장소 | 일곱 신상 | yatta | 붙여 씀 |
@@ -58,6 +67,7 @@
 | 엠버 | Amber | 인물 | 앰버 | yatta |  |
 | 여행자 | Traveler | 인물 |  | yatta |  |
 | 페이몬 | Paimon | 인물 | 파이몬 | yatta |  |
+| 풍마룡 | Stormterror (as people call Dvalin) | 인물 |  | yatta_quest | 몬드 사람들이 드발린을 부르는 이름. 보스 이름은 「열공의 마룡」 |
 | 계시의 꽃 | Blossom of Revelation | 콘텐츠 |  | yatta |  |
 | 나선 비경 | Spiral Abyss | 콘텐츠 | 나선비경 (화면에서 바로잡음) | yatta | 띄어 씀. 옛 코드·규칙 표식(`[나선비경]`)에는 붙인 표기가 남아 있고 화면에서 바로잡는다 |
 | 부의 꽃 | Blossom of Wealth | 콘텐츠 |  | game |  |
@@ -76,11 +86,14 @@
 | 주인 없는 스타더스트 | Masterless Stardust | 재화 |  | yatta | 상점에서는 「스타더스트」로 줄여 씀 |
 | 주인 없는 스타라이트 | Masterless Starglitter | 재화 |  | yatta | 상점에서는 「스타라이트」로 줄여 씀 |
 | 창세의 결정 | Genesis Crystal | 재화 |  | yatta |  |
+| 드발린의 눈물 | Dvalin's Tear | 아이템 |  | yatta_quest | 「드발린의 눈물 결정」「바람 드래곤의 눈물」도 공식 |
 | 모험가의 경험 | Adventurer's Experience | 아이템 |  | yatta |  |
 | 방랑자의 경험 | Wanderer's Advice | 아이템 |  | yatta |  |
 | 신의 눈 | Vision | 아이템 |  | yatta | 낱말 퍼즐 답은 띄어쓰기 없이 「신의눈동자」처럼 쓴다 |
 | 신의 눈동자 | Oculus | 아이템 |  | yatta | 바람 신의 눈동자(Anemoculus), 바위 신의 눈동자(Geoculus) |
 | 영웅의 경험 | Hero's Wit | 아이템 |  | yatta |  |
+| 천공의 하프 | Holy Lyre der Himmel | 아이템 | 천공의 리라 | yatta_quest | 「지하실에서 천공의 하프 획득하기」 |
+| 토끼 백작 | Baron Bunny | 아이템 | 바론 버니 | yatta_quest | 엠버의 인형 |
 | 감전 | Electro-Charged | 원소 반응 |  | yatta |  |
 | 결정 | Crystallize | 원소 반응 | 결정화 | 0.15.20 |  |
 | 과부하 | Overloaded | 원소 반응 |  | yatta |  |
@@ -91,8 +104,14 @@
 
 ## 화면에서 바로잡는 표기
 - 「나선비경」 → 「나선 비경」
+- 「대리 단장」 → 「단장 대행」
+- 「대리단장」 → 「단장 대행」
 - 「도금여단」 → 「도금 여단」
 - 「보물사냥단」 → 「보물 사냥단」
+- 「사풍 수호」 → 「바람 사신수」
+- 「사풍수호」 → 「바람 사신수」
+- 「사풍의 수호신」 → 「바람 사신수」
+- 「정찰기사」 → 「정찰 기사」
 
 ## 예외 (틀린 표기처럼 보이지만 그대로 둠)
 - `source/runtime_exclusive_weapons.js`의 「고양이 꼬리 사냥활」: 디오나 전용 무기(이 게임의 창작 이름). 주점 이름은 캣테일

@@ -50,9 +50,14 @@ const WORDS={'FLAG_ISK_META_KNOWLEDGE=KNOWN':'몬드를 알 때','FLAG_ISK_META_
 // 0.16.68 스토리 체험 (user: 「스토리 연출도 확인할 수 있게, 스토리 체험하는 작업대도 만들어두자」): the raw condition atoms a story player decides on
 const rawIf=c=>String(c||'').split(/\s+AND\s+|\s*&&\s*/).map(s=>s.trim()).filter(a=>/^(FLAG_|BOND\(|MET\()/.test(a));
 const usedMaps=new Set(),usedRefs=new Set();
-const stage=(x,row,r)=>{if(row[8]){x.map=row[8];usedMaps.add(row[8]);}if(row[6]&&!/^PLAYER_/.test(row[6])){x.ref=row[6];usedRefs.add(row[6]);}const m=r.storyMood?.(row[4]);if(m)x.mood=m;const i=rawIf(row[11]);if(i.length)x.if=i;return x;};
-const condText=a=>WORDS[a]||(a.match(/^BOND\((\w+)\)>=(\d+)/)?charName(a.match(/^BOND\((\w+)\)/)[1])+' 호감도 '+a.match(/>=(\d+)/)[1]+' 이상':a.replace(/^FLAG_(ISK|TRV)_/,'').replace('=',' = '));
+const stage=(x,row,r)=>{if(row[8]){x.map=row[8];usedMaps.add(row[8]);}if(row[6]&&!/^PLAYER_/.test(row[6])){x.ref=row[6];usedRefs.add(row[6]);}const m=r.storyMood?.(row[4]);if(m)x.mood=m;const fx=r.storyFx?.(row[4]);if(fx)x.fx=fx;const i=rawIf(row[11]);if(i.length)x.if=i;return x;};
+// 0.16.68: 「MET(PROFILE_MOND_DILUC) = TRUE」 → 「다이루크를 이미 만났을 때」 (3장 A's condition branch)
+const objectParticle=w=>{const c=String(w).charCodeAt(String(w).length-1);return c>=0xac00&&c<=0xd7a3&&(c-0xac00)%28?'을':'를';};
+const metText=a=>{const m=String(a).match(/^MET\((\w+)\)\s*(=|!=)\s*(TRUE|FALSE)$/);if(!m)return null;const p=[...(T['04_CHAR_DB']?.values()||[])].find(x=>x[0]===m[1]);const who=p?.[2]||charName(m[1].replace(/^PROFILE_(MOND|LIYUE)_/,'$1_'))||m[1];const met=(m[2]==='=')===(m[3]==='TRUE');return who+objectParticle(who)+(met?' 이미 만났을 때':' 처음 만날 때');};
+const condText=a=>metText(a)||WORDS[a]||(a.match(/^BOND\((\w+)\)>=(\d+)/)?charName(a.match(/^BOND\((\w+)\)/)[1])+' 호감도 '+a.match(/>=(\d+)/)[1]+' 이상':a.replace(/^FLAG_(ISK|TRV)_/,'').replace('=',' = '));
 const chains=[];
+// the first line of every chapter: a pause that leads into one of these is where a chapter ends
+const ENTRIES=new Set(content.chains.map(c=>c.entry).filter(Boolean));
 for(const chain of content.chains){
  if(/^(LEG|AFF)_/.test(chain.id))continue;
  const route=chain.id.startsWith('TRV_')?'ROUTE_TRAVELER':'ROUTE_ISEKAI',r=ROUTES[route],ix=r.storyIndex();
@@ -67,11 +72,14 @@ for(const chain of content.chains){
  const sceneOf=id=>{const m=String(id).match(/^PRO_[^_]+_(.+)_\d+$/);return m?m[1].replace(/_/g,' '):null;};
  // Every node reachable from id, in order (both ways through any choice).
  const reachMemo=new Map();
+ // a condition branch's scenes: every row of the route in that group (the game shows the one whose condition holds)
+ const condMembers=g=>ix.byTable['55_MAIN_STORY_DB'].filter(x=>x[0]===route&&x[14]===g&&x[5]!=='CHOICE');
  function reach(id){
   const key=id;if(reachMemo.has(key))return reachMemo.get(key);
   const order=[],got=new Set(),stack=[id];
   while(stack.length&&order.length<6000){const x=stack.pop();if(!x||got.has(x)||String(x).startsWith('SCREEN:'))continue;got.add(x);order.push(x);
    if(String(x).startsWith('CHOICE_GROUP:')){const opts=(groups.get(x.slice(13))||[]).map(c=>c[13]);for(let i=opts.length-1;i>=0;i--)stack.push(opts[i]);}
+   else if(String(x).startsWith('CONDITION_GROUP:')){const opts=condMembers(x.slice(16)).map(c=>c[4]);for(let i=opts.length-1;i>=0;i--)stack.push(opts[i]);}
    else{const row=get(x);if(row)stack.push(row[13]);}}
   const out={order,got};reachMemo.set(key,out);return out;
  }
@@ -79,6 +87,13 @@ for(const chain of content.chains){
   for(let guard=0;id&&guard<5000;guard++){
    if(stop&&id===stop)return;
    if(String(id).startsWith('SCREEN:')){list.push({t:'free',text:'자유 행동으로 돌아감'});return;}
+   // 0.16.68: a condition branch is shown like a choice the game makes by itself (auto): one option per scene, labelled by its condition
+   if(String(id).startsWith('CONDITION_GROUP:')){const g=id.slice(16);if(seen.has(id)){list.push({t:'flow',to:id});return;}seen.add(id);
+    const rows=condMembers(g);if(!rows.length){list.push({t:'missing',id});return;}
+    let merge=null;if(rows.length>1){const sets=rows.map(c=>reach(c[4]));merge=sets[0].order.find(x=>sets.every(s=>s.got.has(x)))||null;}
+    const opts=rows.map(c=>{const label=cond(c).join(' · ')||'그 밖의 경우';const o=stage({id:'IF:'+c[4],label,cond:[],does:[],items:[]},c,r);delete o.ref;delete o.map;const s={map:state.map};visit(c[4],o.items,s,merge);return o;});
+    list.push({t:'choice',auto:true,group:g,opts});
+    if(!merge)return;id=merge;continue;}
    if(String(id).startsWith('CHOICE_GROUP:')){const g=id.slice(13);if(seen.has(id)){list.push({t:'flow',to:id});return;}seen.add(id);
     const rows=groups.get(g)||[];
     // a choice with one answer is the protagonist speaking (the game shows every line of theirs as a choice)
@@ -100,7 +115,9 @@ for(const chain of content.chains){
    list.push(item);
    // 0.16.68: a chapter ends at its pause (「준비가 되면 이야기를 이어 가자」); what follows is the next chapter, exported on its own
    // (before this, 몬드 2장 carried 3–5장 inside it: user, 「2장 너무 길다」)
-   if(item.t==='pause'||item.t==='end')return;
+   // 0.16.68: …but a pause inside a chapter (3장 A stops before the cliff) goes on; only a pause whose next line starts another
+   // chapter ends this one
+   if(item.t==='end'||item.t==='pause'&&ENTRIES.has(String(row[13]||'')))return;
    id=row[13];
   }
  }
