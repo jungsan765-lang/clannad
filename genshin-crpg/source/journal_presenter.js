@@ -5,7 +5,7 @@
   const RANK = {active:-1, ready:0, travel:1, locked:2, done:3};
   const stageOf = id => Number(String(id).match(STAGE)?.[1] || 0);
   const bondNeed = d => Number(d?.BOND_SCORE_MIN || Number(d?.HEART_MIN || 0) * 20);
-  const general = entry => !/ADULT/.test(entry.definition?.RELATION_KIND || '');
+  const general = () => true;
   // storyEntryReason reports "go to the place" before every other blocker, so ask again as if
   // the player stood at the entry's map: an empty answer means travelling is all that is left.
   function reasonThere(game, entry) {

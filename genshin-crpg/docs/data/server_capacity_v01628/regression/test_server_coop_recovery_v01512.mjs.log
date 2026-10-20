@@ -1,7 +1,0 @@
-PASS a queued guest action is cancelled by leave/rejoin, even when the room and battle IDs match
-PASS a queued user auto-turn cannot act after the user leaves; internal departure fallback still proceeds
-PASS a queued host auto-turn cannot act in a closed and reopened room with the same persisted ID
-PASS SIGKILL and a fresh process preserve the shared fight and old command receipt; host reopen restores its room ID
-PASS a crash between battle commit and payout keeps a pending reward; failed payout commits neither save nor status
-PASS concurrent payout attempts and a second hard restart pay the durable battle reward exactly once
-{"ok":true,"checks":["a queued guest action is cancelled by leave/rejoin, even when the room and battle IDs match","a queued user auto-turn cannot act after the user leaves; internal departure fallback still proceeds","a queued host auto-turn cannot act in a closed and reopened room with the same persisted ID","SIGKILL and a fresh process preserve the shared fight and old command receipt; host reopen restores its room ID","a crash between battle commit and payout keeps a pending reward; failed payout commits neither save nor status","concurrent payout attempts and a second hard restart pay the durable battle reward exactly once"]}

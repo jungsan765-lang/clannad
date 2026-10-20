@@ -10,7 +10,7 @@ const PARTICLE='(이라는|라는|으로|이야|이나|은|는|이|가|을|를|�
 const JOSA={'은':['은','는'],'는':['은','는'],'이':['이','가'],'가':['이','가'],'을':['을','를'],'를':['을','를'],'과':['과','와'],'와':['과','와'],'이야':['이야','야'],'야':['이야','야'],'이나':['이나','나'],'나':['이나','나'],'이라는':['이라는','라는'],'라는':['이라는','라는'],'으로':['으로','로'],'로':['으로','로']};
 // These authored rows refer to a book, picture or stage protagonist, not the player.
 // Key by an explicit node allowlist: reloading can replace a value, never grow past eight.
-const literalProtagonistNodes=Object.freeze(['LEG_MOND_LISA_N031_ACT','AFF_ISK_MOND_JEAN_H04_OPEN_2','AFF_ISK_MOND_JEAN_H120_S8_D2','LEG_MOND_ALBEDO_N002','AFF_LIYUE_XINGQIU_H03_N003','AFF_LIYUE_XINGQIU_H03_N012','AFF_LIYUE_YANFEI_H04_N003','LEG_ISK_LIYUE_YUNJIN_N019']);
+const literalProtagonistNodes=Object.freeze(['LEG_MOND_LISA_N031_ACT','AFF_ISK_MOND_JEAN_H04_OPEN_2','LEG_MOND_ALBEDO_N002','AFF_LIYUE_XINGQIU_H03_N003','AFF_LIYUE_XINGQIU_H03_N012','AFF_LIYUE_YANFEI_H04_N003','LEG_ISK_LIYUE_YUNJIN_N019']);
 const literalProtagonistTexts=new Map();
 function registerLiteralProtagonist(id,text){if(!literalProtagonistNodes.includes(id)||typeof text!=='string'||!text.includes('주인공'))return false;literalProtagonistTexts.set(id,text);return true;}
 function hasLiteralProtagonist(text){return Array.from(literalProtagonistTexts.values()).includes(text);}

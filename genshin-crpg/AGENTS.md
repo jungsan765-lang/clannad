@@ -1,3 +1,9 @@
+# 호감도는 100까지 (2026-10-20)
+
+호감도는 0~100점, 하트 5개가 전부다. 100을 넘는 관계 단계와 그 이야기·기획·설정은 모두 지웠고 다시 만들지 않는다. 관계 기록은 `runtime_relationships.js`의 `RECORD_FIELDS` 칸만 둔다. 옛 판과 비교하던 과거 검증 자료(docs/data의 옛 엔진·DB 사본)와 그 비교 검사도 지웠다. 원문 DB(`content/db.json`)의 SHA는 0.16.70에서 바뀌었으므로, 아래의 옛 SHA 기록은 당시의 기록일 뿐이다. 빌드 결과물 `dist/`는 저장소에 넣지 않는다(CI가 소스에서 빌드).
+
+---
+
 # 고유명사는 사전대로 (2026-10-15)
 
 게임에 들어가는 고유명사(지명·단체·인물·아이템·몬스터·시스템 이름)는 고유명사 사전 [tools/editorial/glossary_ko.json](tools/editorial/glossary_ko.json)의 공식 한국어를 쓴다. 읽기용 표는 [docs/GLOSSARY_KO.md](docs/GLOSSARY_KO.md)다. 사전에 없으면 공식 자료(Yatta 공식 게임 문자열, HoYoLAB 지도, HoYoWiki 한국어)로 확인하고 사전에 넣은 뒤 쓴다. 기억이나 추측으로 쓰지 않는다. 예: 「티바트」가 공식이고 「테이바트」는 틀린 표기다(사용자 지적). 사전을 고친 뒤에는 `node tools/editorial/build_glossary.cjs`를 실행한다. `tests/test_glossary_v01647.cjs`가 틀린 표기와 공식과 다른 이름을 막는다.

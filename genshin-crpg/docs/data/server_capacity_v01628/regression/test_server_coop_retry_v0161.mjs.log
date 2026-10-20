@@ -1,2 +1,0 @@
-{"case":"replayed-command-on-guest-owned-fight","version":"0.16.28","first":{"status":200,"battle":"94d7e3d4-e293-434e-8d05-ad4fb8c4d028:B1","owner":"0c34609ba280"},"replay":{"status":200,"replayed":true,"battle":"94d7e3d4-e293-434e-8d05-ad4fb8c4d028:B1"},"statusAfter":{"battle":"94d7e3d4-e293-434e-8d05-ad4fb8c4d028:B1","owner":"0c34609ba280"},"guestFightStillRunning":true,"ownerSaveRevision":6}
-PASS guest-owned co-op retry preserves the battle, owner and save revision; changed intent is rejected

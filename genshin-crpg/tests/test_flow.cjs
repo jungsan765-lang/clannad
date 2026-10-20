@@ -12,7 +12,7 @@ let skew=0;// lets a test skip the 60 second defeat lock without waiting
 const ctx=vm.createContext({console,Date:class extends Date{static now(){return super.now()+skew;}}}),hashes={},loaded=[];
 for(const file of files){const p=path.join(source,file);if(file==='runtime_rules.js'&&!fs.existsSync(p))continue;const text=fs.readFileSync(p,'utf8');hashes[file]=crypto.createHash('sha256').update(text).digest('hex');vm.runInContext(text,ctx,{filename:file});loaded.push(file);}
 const db=JSON.parse(fs.readFileSync(dataPath,'utf8'));
-ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db)});
 const {Runtime}=ctx.CRPGRuntime,results=[];
 const copy=x=>JSON.parse(JSON.stringify(x));
 let saveSeq=0;

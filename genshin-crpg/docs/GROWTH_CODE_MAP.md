@@ -134,12 +134,12 @@ where the code is). Line numbers drift; search for the names when they no longer
   5/25 when C + held ≥ 6) — never joins by itself (the roster's wrapper `runtime_roster_v01522.js:11` joins the first copy);
   weapons `:81-84`.
 - Constellations `runtime_premium_v0148.js`: `constellationReason` `:80-86` needs JOINED; Stella items `:156-164`; offers `:29-41`.
-- Affection: `s.relations[PROFILE]` `BOND_SCORE` 0–120, hearts `floor(/20)` max 5, events, `eventCompletedAt`, unlocked, firstContact,
+- Affection: `s.relations[PROFILE]` `BOND_SCORE` 0–100, hearts `floor(/20)` max 5, events, `eventCompletedAt`, unlocked, firstContact,
   companion (`runtime_relationships.js:40-69`, migrate `:81`). `changeBond` `:90-94`; +10 at `storyCompleteLegend`
   `runtime_nodes.js:229-238`; +1 per win for each party companion whose mission is done (`runtime_relationships.js:95-117`;
   `runtime_combat.js:71,189`). `ADD_HEART` is ignored (`:214-215`); `completeAffection` `:120-129`.
-- `58_MOND_AFFECTION_DB` 458 rows: H01–H05 need 20/40/60/80/100 (H03/H05 `AFTER_PRIOR_DAILY` `runtime_nodes.js:148-151`); 26 upper scenes
-  (B110/B120 ×8, H110/H120 ×5) + 2 adult FIRST at 120; all require `Q_LEG_*` and `FLAG_LEG_*_CLEAR`. `AFFECTION_ENTER`
+- `58_MOND_AFFECTION_DB` 430 rows: H01–H05 need 20/40/60/80/100 (H03/H05 `AFTER_PRIOR_DAILY` `runtime_nodes.js:148-151`); all require
+  `Q_LEG_*` and `FLAG_LEG_*_CLEAR`. `AFFECTION_ENTER`
   `storyEntryReason` `runtime_nodes.js:239-258`; Liyue scenes need the Liyue story (`runtime_liyue.js:134`).
 - Affection already gives +1% ATK/DEF per heart, max 5% (`runtime_liyue_rework.js` `P.character` `:121`); info keys
   `runtime_nodes.js:216`; achievements `runtime_achievements_v0152.js:51-54,127-128`.

@@ -46,7 +46,7 @@ check('PC frame: one fixed page size (1600x900 on a computer, 1280x720 on a tabl
  assert(html.includes("ZOOM={'75':.6,'100':.8,'125':1,'150':1.2}")&&html.includes("ZOOM[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||auto()")&&html.includes("JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale"),'reads the zoom setting');
  assert(html.includes('window.CRPGFrameFit='),'the setting refits at once');
  assert(shell.includes("classList.contains('crpg-stage-pc')")&&shell.includes("mk('p','','화면 배율')"),'the 화면 배율 row only inside the computer frame');
- assert(shell.includes('/성인 모드|화면 배율|인물 일러스트/'),'it sits under 표시 설정');
+ assert(shell.includes('/화면 배율|인물 일러스트/'),'it sits under 표시 설정');
  return {};
 });
 

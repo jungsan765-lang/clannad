@@ -558,7 +558,7 @@ const MENU_LAYOUT={
    if(n.tagName==='P'&&n.textContent.includes('·아이템·'))n.textContent=n.textContent.replace('·아이템·','·가방·');}
   // The display rows are appended after the sound section by the settings code; put them back under 표시 설정.
   const displayHead=nodes.find(n=>n.tagName==='H2'&&/표시 설정/.test(n.textContent));
-  if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row,.settings-row.shell-ui-scale')&&/성인 모드|화면 배율|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
+  if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row,.settings-row.shell-ui-scale')&&/화면 배율|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
   const groups=sectionsByHeading(nodes,'계정·저장');const t=tabset('PAGE_SYSTEM',groups.map((g,i)=>({id:'s'+i+':'+g.label,label:g.label,nodes:g.nodes})),'shell-page-tabs'+(isMobile()?'':' vertical'));if(t)body.append(t);else body.append(...nodes);void key;}
 };
 // Battle results: a banner, the rewards as tiles, and the next steps as large buttons at the bottom.

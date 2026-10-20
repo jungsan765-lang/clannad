@@ -22,30 +22,6 @@ check('Lv60 material domains retain their XP and EXP domains pay their current X
   const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state,'duplicate settlement cannot pay');
  }
 });
-check('genuine 0.16.26 in-flight EXP10000 and talent80 settlements survive pending and started save reloads',()=>{
- const H=require('../tools/audit_protagonist_v01618.cjs'),{loadBefore,productionBootstrap}=require('./test_enemy_balance_v01627.cjs');
- // This loader verifies the published commit, authored DB and complete historical
- // source closure. A new battle with its revision erased is not a historical save.
- const beforeEnv=productionBootstrap(loadBefore());beforeEnv.c.Date=c.Date;
- for(const [map,id,xp,books]of [['MAP_CHASM_DEEP','LOST_VALLEY:60',10000,0],['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60',1600,80]])for(const boundary of ['PENDING','STARTED']){
-  const old=H.setup(beforeEnv,{level:60,map,gear:'none',route:'ROUTE_TRAVELER',seed:714});old.action('DOMAIN_START',{domain:id});
-  if(boundary==='STARTED')old.action('COMBAT_BEGIN');
-  const saved=JSON.parse(old.serialize()),loaded=new R(db,cp(saved));
-  assert.equal(saved.runtime.enemyBalanceRevision,undefined);
-  if(books)assert.equal(saved.runtime.growthDomain.talentRewardVersion,3);
-  else assert.equal(saved.runtime.growthDomain.expRewardVersion,undefined);
-  assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime),'saved native battle projection '+id+':'+boundary);
-  assert.equal(loaded.s.global.PRNG_STATE,saved.global.PRNG_STATE);
-  const prior=settle(old),current=settle(loaded);assert.equal(current.xp,xp);assert.equal(current.mora,0);
-  assert.equal(current.domain.items.GROWTH_TALENT_LIYUE||0,books);
-  // 0.16.56: a fight saved before the tiered books keeps its old item and never pays the new ones.
-  assert(!Object.keys(current.domain.items).some(id=>id.startsWith('GROWTH_BOOK_')||/^GROWTH_GEM_.*_[1-4]$/.test(id)));
-  for(const book of Object.keys(api.leyLines.bookXp))assert.equal(current.loot[book]||0,0);
-  assert.deepEqual(cp(current),cp(prior),'original settlement remains exact '+id+':'+boundary);
-  assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(old.serialize()),'settled historical save remains exact');
-  const state=loaded.serialize();loaded.finishBattle(true);assert.equal(loaded.serialize(),state,'historical settlement cannot pay twice');
- }
-});
 check('daily first-three bonus doubles materials only; the experience domain neither doubles nor uses one of the three',()=>{
  const r=ready('MAP_D163_FORSAKEN_RIFT');delete r.s.domainDaily;r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:5'});const x=settle(r);
  assert.equal(x.xp,40);assert.equal(x.mora,0);assert.deepEqual(cp(x.domain.items),{GROWTH_BOOK_FREEDOM_1:2});assert.equal(r.s.domainDaily.wins,1);

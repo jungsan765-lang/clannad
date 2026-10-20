@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict'),crypto=require('node:crypto');
 const {c,fs,root,db,R}=require('../helpers_v011.cjs');
-c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db)});
 const cp=x=>JSON.parse(JSON.stringify(x));let seq=0;
 const report={scope:'All 85 authored legend definitions. Main completion/branch prerequisites and initial provisioning are synthetic fixtures. All tested legend/rejoin transitions use runtime actions. Random field encounters suppressed; actual MOVE edges still used. No source writes.',source:root,dbSha256:crypto.createHash('sha256').update(fs.readFileSync(root+'/content/db.json')).digest('hex'),results:[]};
 const path=process.env.QA_REPORT||'/tmp/recruitment_v013_qa.json';

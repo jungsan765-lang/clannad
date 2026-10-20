@@ -1,7 +1,0 @@
-PASS letters are on the server with trades; adventurers are found by the name everyone sees
-PASS sending: checked first, then the parcel and the postage leave the sender in one save
-PASS receiving: the box lists it, reading is remembered, the parcel is taken once; a waiting parcel keeps its letter
-PASS sending back: the parcel goes home and its sender takes it back; the postage stays paid
-PASS free time only; blocking; plain letters; a parcel left 30 days, or for someone who left, goes home
-PASS operator rollback: letters and the market follow the journey, or the rollback stops when another player is involved
-{"ok":true,"checks":["letters are on the server with trades; adventurers are found by the name everyone sees","sending: checked first, then the parcel and the postage leave the sender in one save","receiving: the box lists it, reading is remembered, the parcel is taken once; a waiting parcel keeps its letter","sending back: the parcel goes home and its sender takes it back; the postage stays paid","free time only; blocking; plain letters; a parcel left 30 days, or for someone who left, goes home","operator rollback: letters and the market follow the journey, or the rollback stops when another player is involved"]}

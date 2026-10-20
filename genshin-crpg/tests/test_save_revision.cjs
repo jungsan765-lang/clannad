@@ -60,11 +60,7 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
   const r=free(fresh());r.giveItem('MAT_CHAR_EXP_WANDERER',2);const g=r.s.global,action={id:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),revision:g.SAVE_REVISION,type:'USE_ITEM',item:'MAT_CHAR_EXP_WANDERER',owner:'PLAYER_CUSTOM',quantity:1};
   const receipt=r.transact(action),state=r.serialize();assert.deepEqual(copy(r.transact(action)),copy(receipt));assert.equal(r.serialize(),state);assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),1);
  });
- await test('default mode remains OFF and importing mode or consent cannot enable it',()=>{
-  const state=JSON.parse(fresh().serialize());state.adultModeEnabled=true;state.consent=true;state.global.ADULT_CONSENT_FLAG=true;
-  const adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,migrate:ctx.CRPGRelationships.migrateState,validate:s=>new Runtime(db,s).s});
-  try{const saved=adapter.parseImport(JSON.stringify(state)).state,loaded=new Runtime(db,saved);assert.equal(saved.consent,undefined);assert.equal(saved.adultModeEnabled,undefined);assert.equal(saved.global.ADULT_CONSENT_FLAG,undefined);assert.equal(loaded.adultModeEnabled(),false);}finally{adapter.close();}
- });
+
  const failed=results.filter(r=>!r.ok);console.log(JSON.stringify({passed:results.length-failed.length,failed:failed.length,results},null,2));if(failed.length)process.exitCode=1;
 })().catch(error=>{console.error(error);process.exitCode=1});
 

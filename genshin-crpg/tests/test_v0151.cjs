@@ -88,8 +88,7 @@ check('tradeable and bound items apart: a bag filter under the kinds, a lock wit
  assert.match(src('shell.css'),/body\.teyvat \.bag-cols \.bag-layout\{grid-template-columns:minmax\(0,1fr\);grid-template-rows:auto auto/,'the bag stacks on a phone');
 });
 
-check('adult mode is gone; the title carries the fan-project notice; the sound picker is folded',()=>{
- const app=src('app.js');assert(!/성인 모드|성인모드/.test(app.match(/settingsControls[\s\S]{0,4000}/)?.[0]||''),'no adult mode row');assert.match(app,/adultModeEnabled=false/);
+check('the title carries the fan-project notice; the sound picker is folded',()=>{
  const shell=src('app_shell.js');assert(shell.includes('본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다.'));assert.match(shell,/title-legal/);
  assert.match(shell,/shell-sound-gallery/);assert.match(shell,/효과음 고르기/);
 });

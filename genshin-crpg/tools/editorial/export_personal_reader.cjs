@@ -27,7 +27,7 @@ for(const x of ix.byTable[TABLE])if(x[0]===ROUTE&&x[14]){if(!groups.has(x[14]))g
 const frozen=new Set();const fz=items=>{for(const it of items)if(it.k==='choice')for(const o of it.options){if(o.freeze)frozen.add(o.freeze);else fz(o.items);}};content.chains.forEach(c=>fz(c.items));
 const clean=t=>String(t).replace(/\{PLAYER_NAME\}/g,'(이름)').replace(/\{PLAYER\}/g,'(이름)').trim();
 // Conditions that gate the whole event are explained once in the event header, not on every line.
-const EVENTWIDE=/^(!?ROUTE_ID=|HEART\(|BOND_SCORE\(|!?DONE\(|AFTER_PRIOR_DAILY\(|WORLD_DAY_AFTER|FLAG\(FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR\)|FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR=|SCENE_MEMORY\(|ADULT_ROUTE_ENABLED\(|ADULT_CONTENT_ELIGIBLE\(|PROJECT_AGE_CLASS\(|CE_155_|QUEST_COST_COMMITTED=|LIYUE_PERSONAL_READY=|MENU_ACCESS=|CURRENT_MAP_ID=|PLAYER_LEVEL_STATE|FLAG_TRV_[A-Z_]*CLEAR=|FLAG_ISK_[A-Z_]*(CLEAR|UNLOCKED)=|FUTURE_PERSONAL)/;
+const EVENTWIDE=/^(!?ROUTE_ID=|HEART\(|BOND_SCORE\(|!?DONE\(|AFTER_PRIOR_DAILY\(|WORLD_DAY_AFTER|FLAG\(FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR\)|FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR=|SCENE_MEMORY\(|QUEST_COST_COMMITTED=|LIYUE_PERSONAL_READY=|MENU_ACCESS=|CURRENT_MAP_ID=|PLAYER_LEVEL_STATE|FLAG_TRV_[A-Z_]*CLEAR=|FLAG_ISK_[A-Z_]*(CLEAR|UNLOCKED)=|FUTURE_PERSONAL)/;
 const condOne=c=>{let m;
  if((m=/^ITEM\(([A-Z0-9_]+)\)>=(\d+)$/.exec(c)))return `${itemName.get(m[1])||m[1]} ${m[2]}개가 있을 때`;
  if((m=/^MORA>=(\d+)$/.exec(c)))return `모라 ${m[1]} 이상일 때`;
@@ -83,7 +83,7 @@ function visit(id,depth,stop){
 const defs=[...ix.legends.values()].concat([...ix.affections.values()]).filter(d=>d.ROUTE_SCOPE===ROUTE&&charOf(d).startsWith(doc.region==='리월'?'LIYUE_':'MOND_'));
 const only=arg('--char');
 const chars=[...new Set(defs.map(charOf))].filter(c=>!only||c===only).filter(c=>has('--all')||defs.some(d=>charOf(d)===c&&manuscript.has(d.id)));
-const rank=d=>d.kind==='LEGEND'?(/REJOIN/.test(d.id)?1:0):(m=>m?({H:10,B:20,ADULT:30}[m[1]]||40)+Number(m[2]||0)/1000:50)(/_(H|B)(\d+)$|_(ADULT)_FIRST$/.exec(d.id)?.filter(Boolean).slice(1)&&/_(H|B)(\d+)$/.exec(d.id)||/_(ADULT)_FIRST$/.exec(d.id));
+const rank=d=>d.kind==='LEGEND'?(/REJOIN/.test(d.id)?1:0):(m=>m?10+Number(m[1])/1000:50)(/_H(\d+)$/.exec(d.id));
 const eventTitle=d=>{const ends=[...reach(d.ENTRY_NODE_ID)].map(get).filter(x=>x&&ENDS.has(x[5])&&x[9]);const m=ends.map(x=>/「([^」]+)」/.exec(x[9])?.[1]).find(Boolean);return m||'';};
 out.push('# '+doc.title);out.push('');
 out.push(doc.intro+' 게임에 설치된 순서 그대로입니다. 굵은 글씨는 말하는 사람이고 주인공은 **(이름)**으로 적었습니다. 주인공의 말은 게임에서 전부 선택지로 나오며, 고를 것이 하나뿐인 선택지는 **(이름)** 줄로 적었습니다. **▶ 선택**은 플레이어가 고르는 자리이며 번호 아래 들여쓴 부분이 그 선택의 결과입니다. 선택지 옆의 *(…일 때)* 표시는 그 조건에서만 나오는 선택지라는 뜻입니다. 〔자유 행동〕은 이야기가 잠시 멈추고 자유 행동으로 돌아가는 자리, 〔마침〕은 이야기가 끝나는 자리입니다. 각 이야기 제목 아래 *조건* 줄은 그 이야기가 열리는 조건입니다.');
@@ -92,11 +92,11 @@ for(const c of chars){
  const list=defs.filter(d=>charOf(d)===c).sort((a,b)=>rank(a)-rank(b)||a.id.localeCompare(b.id));
  for(const d of list){
   const title=d.kind==='LEGEND'?`전설 임무${/REJOIN/.test(d.id)?' (재합류)':''}`:(eventTitle(d)||d.id);
-  const stage=d.kind==='LEGEND'?'':` · ${/_(H|B)(\d+)$/.exec(d.id)?.[0].slice(1)||(/ADULT/.test(d.id)?'성인 선택 이야기':'')}`;
+  const stage=d.kind==='LEGEND'?'':` · ${/_H\d+$/.exec(d.id)?.[0].slice(1)||''}`;
   out.push('');out.push(`### ${title}${stage}${manuscript.has(d.id)?'':' *(원문 그대로 · 아직 손보지 않음)*'}`);
   const cond=[];
   if(d.kind==='LEGEND'){const items=Object.entries(JSON.parse(d.COST_ITEMS_JSON||'{}')).map(([k,n])=>`${itemName.get(k)||k} ${n}개`);if(Number(d.COST_MORA))items.unshift(`모라 ${d.COST_MORA}`);if(items.length)cond.push('준비물: '+items.join(', '));if(d.DAILY_DIALOGUE_KO)cond.push(`평소 한마디: 「${clean(d.DAILY_DIALOGUE_KO)}」`);}
-  else{if(d.HEART_MIN)cond.push(`하트 ${d.HEART_MIN} 이상`);if(d.BOND_SCORE_MIN)cond.push(`호감 점수 ${d.BOND_SCORE_MIN} 이상`);if(d.PREV_EVENT_ID)cond.push(`앞 이야기(${/_(H|B)\d+$/.exec(d.PREV_EVENT_ID)?.[0].slice(1)||d.PREV_EVENT_ID})를 마친 뒤`);if(/AFTER_PRIOR_DAILY|WORLD_DAY_AFTER/.test(String(get(d.ENTRY_NODE_ID)?.[11]||'')))cond.push('하루가 지난 뒤');if(/ADULT_OPTIONAL|ADULT_FIRST/.test(d.RELATION_KIND))cond.push('성인 설정을 켠 경우에만');}
+  else{if(d.HEART_MIN)cond.push(`하트 ${d.HEART_MIN} 이상`);if(d.BOND_SCORE_MIN)cond.push(`호감 점수 ${d.BOND_SCORE_MIN} 이상`);if(d.PREV_EVENT_ID)cond.push(`앞 이야기(${/_H\d+$/.exec(d.PREV_EVENT_ID)?.[0].slice(1)||d.PREV_EVENT_ID})를 마친 뒤`);if(/AFTER_PRIOR_DAILY|WORLD_DAY_AFTER/.test(String(get(d.ENTRY_NODE_ID)?.[11]||'')))cond.push('하루가 지난 뒤');}
   if(cond.length){out.push('');out.push(`*조건: ${cond.join(' · ')}*`);}
   curMap=null;printed=new Map();owner='';visit(d.ENTRY_NODE_ID,0,null);
  }

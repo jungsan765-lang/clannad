@@ -101,7 +101,7 @@ shop=function(p,v){lifeShop(p,v);contactStories(p);};
 dialogue=function(p,v){lifeDialogue(p,v);contactStories(p);};
 function characterMeetingPlace(pid,entries){
  const owner=game.tables['04_CHAR_DB'].get(pid)?.[1];if(game.s.party.some(p=>p.active&&p.source===owner))return {label:'현재 파티에서 함께 이동 중',map:game.s.global.CURRENT_MAP_ID};
- const normal=entries.filter(e=>e.profile===pid&&e.kind==='AFFECTION'&&/_H0[1-5]$/.test(e.id)&&!/ADULT/.test(e.definition?.RELATION_KIND||'')&&!game.storyDone(e.id)).sort((a,b)=>a.id.localeCompare(b.id));
+ const normal=entries.filter(e=>e.profile===pid&&e.kind==='AFFECTION'&&/_H0[1-5]$/.test(e.id)&&!game.storyDone(e.id)).sort((a,b)=>a.id.localeCompare(b.id));
  const next=normal[0]||entries.find(e=>e.profile===pid&&e.kind==='LEGEND'&&!game.storyDone(e.id));if(next?.definition?.MAP_ID)return {label:'다음 만남 장소',map:next.definition.MAP_ID};
  const entities=new Set([owner,'NPC_'+pid.replace(/^PROFILE_/, '')].filter(Boolean)),scheduled=game.placeCatalog().find(p=>entities.has(p.entity));if(scheduled?.maps?.length)return {label:'활동 장소 · '+scheduled.facility,map:scheduled.maps[0]};
  const field=game.rows('51_EVENT_DB').map(r=>parseUI(r[13])).find(d=>d.kind==='personal_event'&&d.profile_id===pid&&d.map_id);return field?{label:'현장 대화 장소',map:field.map_id}:null;

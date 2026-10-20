@@ -31,7 +31,7 @@ check('travel map: a held press on a circle keeps it in place, and every circle 
 check('글자 크기: always 16px now, whatever was saved (the fixed screen has one text size)',()=>{
  const app=src('app.js'),code=app.slice(app.indexOf('function applySettings'),app.indexOf('async function persistSettings'));
  assert(code.length>50&&code.includes('function applySettings'));
- const run=prefs=>{const box={settings:{adultModeEnabled:false,...prefs},game:null,document:{documentElement:{style:{}}}};vm.runInNewContext(code+';applySettings();',box);return {scale:box.settings.fontScale,px:Math.round(parseFloat(box.document.documentElement.style.fontSize)*1000)/1000};};
+ const run=prefs=>{const box={settings:{...prefs},game:null,document:{documentElement:{style:{}}}};vm.runInNewContext(code+';applySettings();',box);return {scale:box.settings.fontScale,px:Math.round(parseFloat(box.document.documentElement.style.fontSize)*1000)/1000};};
  for(const scale of [80,100,125,150,117])assert.deepEqual(run({fontScale:scale}),{scale:100,px:16},scale+'%');
  assert(!app.includes("choiceTiles({label:'글자 크기'"),'no 글자 크기 row');
  return {px:16};

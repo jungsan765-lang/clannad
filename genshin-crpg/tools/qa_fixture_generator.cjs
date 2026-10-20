@@ -22,7 +22,7 @@ if(fs.existsSync(opt.output)&&fs.readdirSync(opt.output).length&&!fs.existsSync(
 fs.mkdirSync(path.join(opt.output,'fixtures'),{recursive:true});fs.writeFileSync(path.join(opt.output,'.crpg-qa-output'),'Disposable local QA output\n');
 
 const {c,db,R,fresh}=require('../tests/helpers_v011.cjs'),{fixture}=require('../tests/helpers_abyss.cjs');
-c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db)});
 const TEAM=['MOND_AMBER','MOND_KAEYA','MOND_LISA'],catalog=[],nativeBase=new Map(['ROUTE_TRAVELER','ROUTE_ISEKAI'].map(route=>{const r=new R(db);r.newGame({name:'기준',route,seed:71247,saveId:'QA-BASE-'+route});return [route,Object.fromEntries(['PLAYER_BASE_HP','PLAYER_BASE_ATK','PLAYER_BASE_DEF','PLAYER_BASE_SPD'].map(k=>[k,r.s.global[k]]))];}));
 function basic(level=5,map='MAP_MOND_CITY',route='ROUTE_TRAVELER'){
  const r=fresh(map,route);r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:level});delete r.serverAdmin;

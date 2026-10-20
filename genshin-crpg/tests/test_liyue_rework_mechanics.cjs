@@ -1,6 +1,6 @@
 'use strict';
 const assert=require('node:assert/strict'),{c,db,R,fresh,fs,root}=require('./helpers_v011.cjs');
-c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false}});
+c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db)});
 const results=[];function test(name,fn){try{fn();results.push({name,pass:true});console.log('PASS',name);}catch(e){results.push({name,pass:false,error:e.stack});console.error('FAIL',name,e);process.exitCode=1;}}
 const cp=x=>JSON.parse(JSON.stringify(x));
 function restore(r){return new R(db,JSON.parse(r.serialize()));}

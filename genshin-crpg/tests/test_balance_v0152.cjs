@@ -5,7 +5,6 @@
 const assert=require('node:assert/strict'),path=require('path');
 const {c,fs,root}=require('./helpers_v011.cjs'),{fixture}=require('./helpers_abyss.cjs'),{equip}=require('./helpers_abyss_artifacts.cjs');
 const {play}=require('../tools/audit_protagonist_v01618.cjs');
-const {loadBefore}=require('./test_enemy_balance_v01627.cjs');
 const api=c.CRPGRuntime,results=[];
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const TEAMS={four:['LIYUE_XIANGLING','LIYUE_XINGQIU','LIYUE_BEIDOU'],five:['LIYUE_HUTAO','LIYUE_ZHONGLI','LIYUE_XIAO'],mond:['MOND_AMBER','MOND_LISA','MOND_BENNETT'],shield4:['LIYUE_XIANGLING','MOND_FISCHL','MOND_NOELLE'],support5:['LIYUE_ZHONGLI','MOND_DILUC','MOND_JEAN'],ranged:['MOND_AMBER','MOND_FISCHL','MOND_DIONA']};
@@ -97,16 +96,6 @@ check('daily rematches: invested public shield/ranged counterplay wins; fresh Dv
  assert.equal(wins(inadequate).length,0,'the former uninvested starting party cannot simply outlast current Dvalin: '+JSON.stringify(inadequate));
  assert.deepEqual([api.bossRematch.BOSS_ANDRIUS.level,api.bossRematch.BOSS_DVALIN.level],[25,28]);
  return {andriusFourC6:an,dvalinRangedFourC6:dv,formerAndriusFourC0:formerFourC0,inadequateDvalin:inadequate};
-});
-check('genuine 0.16.26 Dvalin rematch still supplies and executes its original public wind-route counterplay',()=>{
- const before=loadBefore(root),profile={level:28,team:'four',enh:10,ex:true,art:[60,5],cons:6},out=[717,9031,4242].map(seed=>{
-  // Declared ownership/gear are created through the sealed old engine itself.
-  // Actual entry, cards, PRNG, attacks and settlement are historical native code.
-  const r=party(profile,before);r.s.global.PRNG_STATE=seed;ENTER.rematch('BOSS_DVALIN')(r);
-  assert.equal(r.s.runtime.enemyBalanceRevision,undefined);assert.equal(r.s.runtime.mondBossBalance.rematchNoWindRevision,undefined);
-  return fight(r,{manual:true});
- });assert(wins(out).length>=2,JSON.stringify(out));assert(out.every(x=>x.openingPolicy.windCardVisible&&x.inputs.includes('SYS_MOND_WIND_ROUTE')));
- return {beforeFingerprint:before.fingerprint,fights:out};
 });
 check('stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers',()=>{
  const B=JSON.parse(JSON.stringify(api.balanceV0152.base));assert.deepEqual(B.MON_GEOVISHAP_HATCHLING,[.55,1,1]);assert.deepEqual(B.MON_HUSK_BOW,[1.7,1,1]);

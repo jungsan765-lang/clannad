@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict');
 const helpers=require('./helpers_v011.cjs'),{fresh,R,db,c}=helpers;
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),{createRequire}=require('node:module');
-const contract=require('./test_enemy_balance_v01627.cjs');
+const {productionBootstrap,FixedDate}=require('./helpers_production.cjs');
 const {measure,policy}=require('../tools/audit_balance_v0161.cjs');
 const currentFixture=require('../tools/audit_balance_v01522.cjs');
 const G=c.CRPGRuntime.growthV01522,cp=x=>x===undefined?undefined:JSON.parse(JSON.stringify(x));
@@ -39,20 +39,8 @@ check('Lv3 loses fixed Lv10 and Lv12 fights; correctly levelled four-person star
 const LAWACHURL={level:27,map:'MAP_CRPG_ENTOMBED_PALACE',group:'EG_MOND_LOCAL_CRPG_ENTOMBED_PALACE_4',origin:'RANDOM',route:'ROUTE_TRAVELER',team:['MOND_FISCHL','LIYUE_XIANGLING','MOND_BARBARA'],gear:'craft',enhance:6,talent:'cap'};
 const ORIGINAL_BEFORE={717:[37070,2297,215,9],4242:[37070,2297,215,15],9031:[27460,2297,215,8]};
 const CURRENT_BUDGET={717:[39665,2538,234,11,true,2],4242:[39665,2538,234,17,false,4],9031:[29382,2538,234,14,true,2]};
-const genuine=contract.loadBefore();contract.productionBootstrap(genuine);contract.productionBootstrap({c,R,db,api:c.CRPGRuntime});
-c.Date=genuine.c.Date;
-function genuineFixture(){
- let serial=0;
- const historicalFresh=(map='MAP_MOND_CITY',route='ROUTE_TRAVELER')=>{
-  const r=new genuine.R(genuine.db);r.newGame({name:'클라나드',route,seed:71247,saveId:'V011-'+(++serial)});
-  Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:map,STORY_MENU_POLICY:'',WORLD_TIME:'12:00',MORA:3000});
-  delete r.s.storyJourney;delete r.s.storyBreak;r.prepareStory();return r;
- };
- const file=path.resolve(__dirname,'../tools/audit_balance_v01522.cjs'),m={exports:{}},actualRequire=createRequire(file);
- vm.runInNewContext(fs.readFileSync(file,'utf8'),{module:m,exports:m.exports,__dirname:path.dirname(file),console,process,require:id=>id==='../tests/helpers_v011.cjs'?{...helpers,...genuine,fresh:historicalFresh}:actualRequire(id)},{filename:'genuine-before-fixture-only'});
- return m.exports;
-}
-const historicalFixture=genuineFixture();
+productionBootstrap({c,R,db,api:c.CRPGRuntime});
+c.Date=FixedDate;
 function prepareLawachurl(tool,engine,seed){
  const r=tool.setup({...LAWACHURL,saveId:'BALANCE-V0166-'+seed});
  Object.assign(r.tutorialState().done,{combatAttack:true,combatGuard:true,combatSkill:true,combatBurst:true});
@@ -64,21 +52,6 @@ function prepareLawachurl(tool,engine,seed){
  for(const id of ['PLAYER_CUSTOM',...LAWACHURL.team]){assert.equal(r.constellationLevel(id),0);const t=r.talentLevels(id),cap=r.growth(id).talentCap;assert(t.base.na<=cap&&t.base.e<=cap&&t.base.q<=cap);}
  return r;
 }
-check('genuine 0.16.26 prepared Lv27 counter party retains three native wins and exact loaded-save continuation',()=>{
- for(const seed of [717,4242,9031]){
-  const old=prepareLawachurl(historicalFixture,genuine.api,seed),a=old.s.runtime.actors.find(a=>a.side==='ENEMY'),anchor=ORIGINAL_BEFORE[seed];
-  assert.equal(a.level,27);assert.deepEqual([a.maxHp,a.atk,a.def],anchor.slice(0,3));assert.equal(old.s.runtime.enemyBalanceRevision,undefined);
-  const pending=JSON.parse(old.serialize()),loaded=new R(db,cp(pending));assert.deepEqual(JSON.parse(loaded.serialize()),pending);
-  old.action('COMBAT_BEGIN');loaded.action('COMBAT_BEGIN');assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(old.serialize()));
-  const started=JSON.parse(old.serialize()),again=new R(db,cp(started));assert.deepEqual(JSON.parse(again.serialize()),started);
-  historicalFixture.observe(old);currentFixture.observe(again);
-  const before=policy(old),after=policy(again);assert.equal(before.victory,true);assert.equal(before.rounds,anchor[3]);assert(before.rounds<=30);assert.deepEqual(cp(after),cp(before));
-  // 0.16.49 (user: 「비경에 참가 캐릭터 말고도 다른 캐릭터들도 경험치를 받는 버그」) removed the 25% battle experience of owned characters
-  // outside the fight for every settlement; the genuine 0.16.26 engine still pays it, so only that experience is left out here.
-  const withoutBench=save=>{const s=cp(save),party=new Set((s.party||[]).filter(p=>p.active).map(p=>p.source));for(const [id,c] of Object.entries(s.chars||{}))if(!party.has(id)){delete c.xp;delete c.level;}if(s.lastGrowth)for(const id of Object.keys(s.lastGrowth))if(id!=='PLAYER_CUSTOM'&&!party.has(id))delete s.lastGrowth[id];return s;};
-  assert.deepEqual(withoutBench(JSON.parse(again.serialize())),withoutBench(JSON.parse(old.serialize())),'all actual final actors, receipt, PRNG and complete save retain genuine old rules (but the bench experience)');
- }
-});
 check('current gradual Lv27 budget has two native scripted wins and one loss, with exact saved continuation and payouts',()=>{
  for(const seed of [717,4242,9031]){
   const r=prepareLawachurl(currentFixture,c.CRPGRuntime,seed),a=r.s.runtime.actors.find(a=>a.side==='ENEMY'),anchor=CURRENT_BUDGET[seed],old=ORIGINAL_BEFORE[seed],weight=.175;

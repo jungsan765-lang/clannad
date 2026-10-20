@@ -6,7 +6,7 @@ async function runSaveDeleteTests(){
    const reject=async(fn,code)=>{try{await fn();throw Error('expected '+code)}catch(e){check(e.code===code,'unexpected rejection: '+e.code)}};
    const backups=()=>a.transact(['backups'],'readonly',(tx,set)=>{const r=tx.objectStore('backups').getAll();r.onsuccess=()=>set(r.result)});
    try{
-    const record=await a.save('delete-me',state),kept=await a.save('keep-me',state);await a.setPreferences({adultModeEnabled:false,fontSize:21});
+    const record=await a.save('delete-me',state),kept=await a.save('keep-me',state);await a.setPreferences({fontSize:21});
     const events=[];a.subscribe(e=>events.push(e));
     const otherTabEvent=new Promise((resolve,reject)=>{const timeout=setTimeout(()=>reject(Error('no external-delete notification')),2000);b.subscribe(e=>{if(e.type==='external-delete'&&e.slotId==='delete-me'){clearTimeout(timeout);resolve(e)}})});
     check(await a.remove('delete-me',{expectedSlotRevision:record.slotRevision})===true,'boolean API preserved');

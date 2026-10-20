@@ -12,11 +12,11 @@ const argv=process.argv.slice(2),arg=k=>{const i=argv.indexOf(k);return i>=0?arg
 const only=(arg('--only')||'').split(',').filter(Boolean),all=argv.includes('--all');
 const manuscript=new Set(content.chains.map(c=>c.id));
 const TABLE='57_MOND_STORY_SCENE_DB';
-const EVENTWIDE=/^(ROUTE_ID=|HEART\(|BOND_SCORE\(|DONE\(|AFTER_PRIOR_DAILY\(|WORLD_DAY_AFTER|FLAG\(FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR\)|FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR=|ADULT_ROUTE_ENABLED\(|ADULT_CONTENT_ELIGIBLE\(|PROJECT_AGE_CLASS\(|CE_155_|LIYUE_PERSONAL_READY=|MENU_ACCESS=|CURRENT_MAP_ID=|PLAYER_LEVEL_STATE|FLAG_TRV_[A-Z_]*CLEAR=|FLAG_ISK_[A-Z_]*(CLEAR|UNLOCKED)=|FUTURE_PERSONAL|SEPARATE_DAILY)/;
+const EVENTWIDE=/^(ROUTE_ID=|HEART\(|BOND_SCORE\(|DONE\(|AFTER_PRIOR_DAILY\(|WORLD_DAY_AFTER|FLAG\(FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR\)|FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR=|LIYUE_PERSONAL_READY=|MENU_ACCESS=|CURRENT_MAP_ID=|PLAYER_LEVEL_STATE|FLAG_TRV_[A-Z_]*CLEAR=|FLAG_ISK_[A-Z_]*(CLEAR|UNLOCKED)=|FUTURE_PERSONAL|SEPARATE_DAILY)/;
 const cp=x=>JSON.parse(JSON.stringify(x));
 let problems=[],summary=[];
 function base(route){const r=new R(db);r.newGame({name:'검증',route,seed:71247,saveId:'QA-'+route});Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',STORY_MENU_POLICY:'',WORLD_TIME:'12:00',MORA:100000});delete r.s.storyJourney;delete r.s.storyBreak;r.prepareStory();return r;}
-// Event-wide gates (hearts, bond score, prior events, adult eligibility) are granted; everything else is evaluated for real.
+// Event-wide gates (hearts, bond score, prior events) are granted; everything else is evaluated for real.
 function relax(r){const orig=r.storyCondition.bind(r);r.storyCondition=function(expr,def){const parts=String(expr||'').split(/\s*(?:&&|\bAND\b)\s*/).map(x=>x.trim()).filter(x=>x&&!EVENTWIDE.test(x));return parts.length?orig(parts.join(' && '),def):true;};}
 function enter(route,def){
  const r=base(route);relax(r);

@@ -2,7 +2,7 @@
 // Synthetic prerequisites only; each reported payment receives exactly the current listed cost.
 const assert=require('node:assert/strict');
 const {c,db,R,fresh}=require('../helpers_v011.cjs');
-c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db)});
 const cp=x=>JSON.parse(JSON.stringify(x));let seq=0;
 function provision(def){let r=new R(db);r.newGame({name:'QA개인임무',route:def.ROUTE_SCOPE,seed:7733,saveId:'V013-RECRUIT-'+(++seq)});const g=r.s.global,f=r.s.flags;
  Object.assign(g,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:r.storyDefinition(def.id).MAP_ID,STORY_MENU_POLICY:'',STORY_WAITING:true,STORY_NEXT_PREPARED:'',SCREEN_MODE:'LOCATION',WORLD_TIME:'12:00',MORA:100000,PLAYER_LEVEL:20,PLAYER_LEVEL_STATE:20});r.s.ascensions.PLAYER_CUSTOM=1;
