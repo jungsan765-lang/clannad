@@ -12,11 +12,13 @@ import {resolve,extname} from 'node:path';
 import {createRequire} from 'node:module';
 import {onlineFixture,R,DB} from './helpers_online.mjs';
 import {ENGINE_FINGERPRINT} from '../server/generated/engine.mjs';
+import {ensureDist} from './helpers_dist.mjs';
 if(process.env.CRPG_TEST_BACKEND==='do'){console.log(JSON.stringify({ok:true,skipped:'screens do not depend on the backend; checked in the D1 run'}));process.exit(0);}
 // In CI the screens are looked at once, on the built pack (the source job has the shorter time limit).
 if(process.env.CI&&!process.env.CRPG_TEST_DIST){console.log(JSON.stringify({ok:true,skipped:'checked on the built pack in CI'}));process.exit(0);}
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 const root=resolve(import.meta.dirname,'..'),version=JSON.parse(readFileSync(resolve(root,'package.json'))).version,evidence=resolve(root,'evidence/screen-fit');mkdirSync(evidence,{recursive:true});
+ensureDist(root);
 const TYPES={'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml','.jpg':'image/jpeg','.mp3':'audio/mpeg','.ogg':'audio/ogg','.woff2':'font/woff2'};
 // Pictures not yet copied into a local dist come from the repository's own assets folder (the build copies them).
 const server=createServer((req,res)=>{let path=decodeURIComponent(new URL(req.url,'http://localhost').pathname.slice(1))||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),built=resolve(root,'dist',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css|html)$/.test(path)&&existsSync(source)?source:!existsSync(built)&&existsSync(resolve(root,path))?resolve(root,path):built;try{res.setHeader('Content-Type',TYPES[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version))+'\nwindow.CRPG_MANIFEST.engineVersion='+JSON.stringify(ENGINE_FINGERPRINT)+';';res.end(data);}catch{res.writeHead(404).end();}});

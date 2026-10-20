@@ -53,7 +53,7 @@ assert.equal(text.readable('DEX가 왔다. ATK +8',{name:'DEX'}),'DEX가 왔다.
 assert.equal(text.named('책의 주인공이 {PLAYER_NAME}을 만났다.','민수',{literalProtagonist:true}),'책의 주인공이 민수를 만났다.');
 assert.equal(text.readable('책의 주인공이 {PLAYER_NAME}을 만났다.',{name:'민수',literalProtagonist:true}),'책의 주인공이 민수를 만났다.');
 assert.equal(text.readable('책의 주인공이 왔다.',{literalProtagonist:true}),'책의 주인공이 왔다.');
-assert.equal(text.literalProtagonistNodes.length,8);assert(Object.isFrozen(text.literalProtagonistNodes));
+assert.equal(text.literalProtagonistNodes.length,7);assert(Object.isFrozen(text.literalProtagonistNodes));// 0.16.70: the bond-120 scene was removed
 for(let i=0;i<20;i++)assert.equal(text.registerLiteralProtagonist('UNAPPROVED_'+i,'주인공이 왔다.'),false);
 const literalRows=text.literalProtagonistNodes.map(id=>ix.nodes.get('ROUTE_ISEKAI:'+id)||ix.nodes.get('ROUTE_TRAVELER:'+id));
 assert(literalRows.every(Boolean));
@@ -64,7 +64,7 @@ function historyFirst(runtime){
  const before=runtime.serialize();
  // No scene or displayText call may seed the formatter before history opens.
  vm.runInContext('displayHistory()',ui);
- assert.equal(ui.historyBody.children.length,8);
+ assert.equal(ui.historyBody.children.length,history.length);
  history.forEach((entry,i)=>{
   assert.equal(ui.historyBody.children[i].children[1].textContent,entry.text);
   ui.value=entry.text;
@@ -76,4 +76,4 @@ function historyFirst(runtime){
 const first=fresh('MAP_MOND_CITY','ROUTE_ISEKAI');first.s.global.PLAYER_NAME='민수';historyFirst(first);
 const reloaded=new R(db,JSON.parse(first.serialize()));reloaded.s.global.PLAYER_NAME='수진';historyFirst(reloaded);
 assert.deepEqual(literalRows.map(r=>JSON.stringify(r)),rowsBefore,'literal preservation must not rewrite story rows');
-console.log('PASS Noelle named particles, six nicknames, normal player aliases, eight literal story nouns, fresh/reload history-first and unchanged rows/saves');
+console.log('PASS Noelle named particles, six nicknames, normal player aliases, seven literal story nouns, fresh/reload history-first and unchanged rows/saves');
