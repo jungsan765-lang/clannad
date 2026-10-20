@@ -1,0 +1,131 @@
+--- docs/data/balance_v01627/before/source/runtime_growth_v01522.js	2026-10-11 01:22:34.324563053 +0900
++++ source/runtime_growth_v01522.js	2026-10-11 01:38:31.481132936 +0900
+@@ -29,6 +29,33 @@
+  BOSS_TARTAGLIA:{level:50,hpMultiplier:2.1,atkMultiplier:1.9,defMultiplier:1},
+  BOSS_AZHDAHA:{level:60,hpMultiplier:1.5,atkMultiplier:1.45,defMultiplier:1}
+ };
++// New openings only. Old actor snapshots, future waves in an old battle and
++// their promised rewards continue under the previous policy.
++const BOSS_CHALLENGE_PROFILES_V01627=copy(BOSS_CHALLENGE_PROFILES_V01624);
++Object.assign(BOSS_CHALLENGE_PROFILES_V01627,{
++ FB_ANEMO_HYPOSTASIS:{level:18,hpMultiplier:19800/13182,atkMultiplier:1760/1281,defMultiplier:198/164},
++ FB_ELECTRO_HYPOSTASIS:{level:20,hpMultiplier:16800/14588,atkMultiplier:1785/1053,defMultiplier:210/183},
++ FB_CRYO_REGISVINE:{level:22,hpMultiplier:28600/18264,atkMultiplier:2048/1689,defMultiplier:231/203},
++ FB_CRYO_HYPOSTASIS:{level:30,hpMultiplier:33000/25550,atkMultiplier:2128/1509,defMultiplier:323/294},
++ FB_PYRO_REGISVINE:{level:38,hpMultiplier:63000/37953,atkMultiplier:4200/2644,defMultiplier:483/401},
++ FB_OCEANID:{level:40,hpMultiplier:48548/40457,atkMultiplier:4800/2919,defMultiplier:473/430},
++ FB_GEO_HYPOSTASIS:{level:45,hpMultiplier:57324/52113,atkMultiplier:4940/4117,defMultiplier:534/508},
++ FB_PRIMO_GEOVISHAP:{level:48,hpMultiplier:70400/56718,atkMultiplier:6050/4694,defMultiplier:598/557},
++ FB_RUIN_SERPENT:{level:56,hpMultiplier:91846/83496,atkMultiplier:9350/7840,defMultiplier:735/700},
++ BOSS_ANDRIUS:{level:25,hpMultiplier:1.75,atkMultiplier:2.64,defMultiplier:1.05},
++ BOSS_DVALIN:{level:28,hpMultiplier:4,atkMultiplier:3.36,defMultiplier:1},
++ BOSS_TARTAGLIA:{level:50,hpMultiplier:2.415,atkMultiplier:3.135,defMultiplier:1.2},
++ BOSS_AZHDAHA:{level:60,hpMultiplier:1.65,atkMultiplier:2.03,defMultiplier:1.1}
++});
++const ENEMY_BALANCE_V01627={
++ ordinary:{hp:1.4,atk:1.6,def:1.5},
++ TALENT:{hp:1.5,atk:2.2,def:1.75},
++ ASCENSION:{hp:1.5,atk:1.3,def:1.4},
++ EXP:{hp:1.05,atk:1.08,def:1.1}
++};
++const BALANCE_WEIGHT_V01627=[[20,0],[30,.25],[40,.55],[50,.8],[60,1]];
++const defenseBasisV01627=level=>100+5*Math.max(0,Number(level)-35);
++function newEnemyPolicy(b){return !b.abyss&&!b.raid&&!String(b.origin||'').startsWith('ABYSS:')&&!String(b.origin||'').startsWith('RAID')&&b.storyConfig?.objective?.kind!=='PROTECT_FORMATION'&&(b.enemyBalanceRevision===1||!b.id&&b.enemyBalanceRevision===undefined);}
+ function bossChallengeOrigin(source){
+  if(api.fieldBosses?.bosses?.[source])return 'BOSS:'+api.fieldBosses.route(source);
+  if(['BOSS_ANDRIUS','BOSS_DVALIN'].includes(source))return 'MATERIAL_CHALLENGE:'+source;
+@@ -147,11 +174,12 @@
+ const TRIALS_V3=['TALENT','ASCENSION','EXP'];
+ // The ascension domains' slimes grow with the level band (stages of GEM_FOES).
+ const GEM_STAGE={5:1,10:2,15:2,20:3,25:4,30:1,35:2,40:2,45:3,50:3,55:4,60:4};
+-// 0.16.8: current version-4 EXP stages each pay more than the preceding stage. A version-4 fight already
+-// in a save settles using the current table; versions 1/2/3 retain the payout of their original rules.
++// The old version-4 EXP promise is immutable. New entries carry an explicit
++// reward revision so the harder Lv60 stage does not lose to Lv55 farming.
+ // Talent/ascension XP is an independent immutable table, so EXP tuning cannot change material rewards.
+ const EXP_XP_V3={5:200,10:450,15:450,20:1100,25:1100,30:1800,35:1800,40:2500,45:2500,50:4500,55:4500,60:8000};
+-const EXP_XP={5:200,10:450,15:1000,20:1100,25:1250,30:1500,35:1800,40:2100,45:4500,50:5400,55:8000,60:10000};
++const LEGACY_EXP_XP_V01626={5:200,10:450,15:1000,20:1100,25:1250,30:1500,35:1800,40:2100,45:4500,50:5400,55:8000,60:10000};
++const EXP_XP={...LEGACY_EXP_XP_V01626,60:13000};
+ const MATERIAL_XP={5:40,10:90,15:90,20:220,25:220,30:360,35:360,40:500,45:500,50:900,55:900,60:1600};
+ // 0.16.13: late ascension enemies take longer than the lower-stage farm. Increase only their gems,
+ // retaining the early drops, all XP/talent rewards and existing 441/882 total ascension requirements.
+@@ -198,7 +226,7 @@
+ const TALENT_STAGE={5:1,10:2,15:3,20:4,25:4,30:1,35:1,40:2,45:2,50:3,55:3,60:4};
+ const isDomain=d=>!!d&&!!SITES[d.key]&&d.kind===SITES[d.key].kind&&SITES[d.key].levels.includes(d.level)&&d.id===d.key+':'+d.level;
+ function siteFoes(d,element){const s=SITES[d.key];if(s.kind==='ASCENSION')return gemFoes(s.region,element,GEM_STAGE[d.level]);if(s.kind==='TALENT')return DOMAINS[d.key].stages[TALENT_STAGE[d.level]-1];return Array.isArray(s.foes)?s.foes:s.foes[d.level];}
+-const domainXp=d=>(d.kind==='EXP'?(isTrialV3(d)?EXP_XP_V3:EXP_XP):MATERIAL_XP)[d.level];
++const domainXp=d=>(d.kind==='EXP'?(isTrialV3(d)?EXP_XP_V3:d.expRewardVersion===1?EXP_XP:LEGACY_EXP_XP_V01626):MATERIAL_XP)[d.level];
+ const SPECIALTIES={MOND_AMBER:'ING_LAMP_GRASS',MOND_DILUC:'ING_LAMP_GRASS',MOND_FISCHL:'ING_LAMP_GRASS',MOND_LISA:'ING_LAMP_GRASS',MOND_BENNETT:'ING_LAMP_GRASS',LIYUE_BAIZHU:'MAT_LIYUE_VIOLETGRASS',LIYUE_QIQI:'MAT_LIYUE_VIOLETGRASS',LIYUE_XINYAN:'MAT_LIYUE_VIOLETGRASS',LIYUE_HUTAO:'MAT_LIYUE_SILK_FLOWER',LIYUE_XINGQIU:'MAT_LIYUE_SILK_FLOWER',LIYUE_XIANGLING:'MAT_LIYUE_JUEYUN_CHILI',LIYUE_YAOYAO:'MAT_LIYUE_JUEYUN_CHILI',LIYUE_ZHONGLI:'MAT_LIYUE_COR_LAPIS',LIYUE_KEQING:'MAT_LIYUE_COR_LAPIS',LIYUE_CHONGYUN:'MAT_LIYUE_COR_LAPIS',LIYUE_BEIDOU:'MAT_LIYUE_NOCTILUCOUS_JADE',LIYUE_YANFEI:'MAT_LIYUE_NOCTILUCOUS_JADE',LIYUE_NINGGUANG:'MAT_LIYUE_GLAZE_LILY',LIYUE_YUNJIN:'MAT_LIYUE_GLAZE_LILY',LIYUE_GAMING:'MAT_LIYUE_STARCONCH',LIYUE_YELAN:'MAT_LIYUE_STARCONCH',LIYUE_TARTAGLIA:'MAT_LIYUE_STARCONCH'};
+ const BOSS_MATERIAL={불:'MAT_FB_EVERFLAME_SEED',물:'MAT_FB_CLEANSING_HEART',바람:'MAT_FB_HURRICANE_SEED',번개:'MAT_FB_LIGHTNING_PRISM',얼음:'MAT_FB_HOARFROST_CORE',바위:'MAT_FB_BASALT_PILLAR',풀:'TRPG_BOSS_ESSENCE',물리:'TRPG_BOSS_ESSENCE'};
+ const ELITES={MAP_MOND_WOLVENDOM:'EG_MOND_HILI_ELITE',MAP_MOND_EAGLES_GATE:'EG_MOND_ABYSS_MAGE',MAP_DRAGONSPINE:'EG_MOND_HILI_ELITE',MAP_LIYUE_PLAINS:'EG_LIYUE_HILI_ROCK',MAP_LIYUE_MOUNTAINS:'EG_LIYUE_VISHAP',MAP_CHASM_DEEP:'EG_LIYUE_RUIN'};
+@@ -281,9 +309,16 @@
+  const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant*partyHp*hpBudget;
+  const authoredBossAtk=a.fb&&FIELD_BOSS_ATK_FLOOR_V01619.has(a.source)?a.atk:0;
+  a.hp=a.maxHp=Math.round(hp);a.atk=Math.max(authoredBossAtk,Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk*atkBudget));a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
+- const challenge=BOSS_CHALLENGE_PROFILES_V01624[a.source],challengeApplied=!!(challenge&&a.side==='ENEMY'&&!a.fbSummon&&!b.abyss&&!b.raid&&b.origin===bossChallengeOrigin(a.source));
++ const revised=newEnemyPolicy(b),profiles=revised?BOSS_CHALLENGE_PROFILES_V01627:BOSS_CHALLENGE_PROFILES_V01624;
++ const challenge=profiles[a.source],challengeApplied=!!(challenge&&a.side==='ENEMY'&&!a.fbSummon&&!b.abyss&&!b.raid&&b.origin===bossChallengeOrigin(a.source));
+  if(challengeApplied){a.hp=a.maxHp=Math.max(1,Math.round(a.maxHp*challenge.hpMultiplier));a.atk=Math.round(a.atk*challenge.atkMultiplier);a.def=Math.round(a.def*challenge.defMultiplier);a.bossChallengeRevision=1;}
+- const shieldHp=challengeApplied?a.maxHp:hp;
++ if(revised&&a.side==='ENEMY'&&!a.fieldStructure){
++  if(i!==3){const domain=this._growthDomain||b.growthDomain,spec=ENEMY_BALANCE_V01627[domain?.version===4?domain.kind:'ordinary']||ENEMY_BALANCE_V01627.ordinary,w=enemyBudget(BALANCE_WEIGHT_V01627,level);a.hp=a.maxHp=Math.max(1,Math.round(a.maxHp*(1+(spec.hp-1)*w)));a.atk=Math.round(a.atk*(1+(spec.atk-1)*w));a.def=Math.round(a.def*(1+(spec.def-1)*w));}
++  // Keep same-level mitigation while allowing the existing attacker-level
++  // defense basis to express a real level gap, without an entry/rarity gate.
++  a.def=Math.round(a.def*defenseBasisV01627(level)/100);
++ }
++ const shieldHp=revised||challengeApplied?a.maxHp:hp;
+  for(const s of a.shields||[]){s.value=Math.round(s.value*shieldHp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*shieldHp/prev);}a.growthScaled=true;
+  if(!b.abyss&&b.opening?.state==='PENDING'&&Number.isFinite(initialSpeed)){
+   const turn=b.order.find(x=>x.id===a.id);if(turn)turn.score+=this.combatStat(a,'spd')-initialSpeed;
+@@ -297,6 +332,7 @@
+ P.startBattle=function(group,origin='EXPLICIT',...rest){
+  this.installGrowthContent();const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;if(!b||b===before||b.abyss||b.raid||String(origin).startsWith('RAID')){if(b&&b!==before)openingSpeeds.delete(b);return out;}
+  try{
++ if(!String(origin).startsWith('ABYSS:')&&b.storyConfig?.objective?.kind!=='PROTECT_FORMATION')b.enemyBalanceRevision=1;
+  const level=this._growthDomain?.level||b.leyLine?.level||this.growthEncounterLevel(origin);
+  for(const a of [...b.actors,...(b.enemyReserve||[])].filter(x=>x.side==='ENEMY'&&!x.fbSummon))this.tuneGrowthEnemy(a,b,api.growthRegionData.bosses[a.source]||level);
+  if(b.actors.some(a=>DAILY_PRESSURE_V01624[a.source]&&a.side==='ENEMY'&&origin===bossChallengeOrigin(a.source)))b.dailyPressureRevision=1;
+@@ -306,7 +342,7 @@
+  return b.opening?.state==='PENDING'?{...out,order:this.combatOrderView()}:out;
+  }finally{openingSpeeds.delete(b);}
+ };
+-P.tuneGrowthSummon=function(a,b){const owner=b.actors.find(x=>x.id===a.fbSummon?.owner),spec=this.fieldBossSummonSpec?.(b,a.source)||api.fieldBosses.summons[a.source];if(!owner?.growthScaled||!spec)return;const prev=a.maxHp,p=phaseFor(owner.level);a.hp=a.maxHp=Math.max(1,Math.round(spec.hp<=1?owner.maxHp*spec.hp:spec.hp/5*hpCurve(owner.level)*(1+.16*p)));a.atk=Math.round(owner.atk*(spec.atk||0));a.def=Math.round(spec.def*adCurve(owner.level));a.level=owner.level;for(const s of a.shields||[])s.value=Math.round(s.value*a.maxHp/prev);a.growthScaled=true;};
++P.tuneGrowthSummon=function(a,b){const owner=b.actors.find(x=>x.id===a.fbSummon?.owner),spec=this.fieldBossSummonSpec?.(b,a.source)||api.fieldBosses.summons[a.source];if(!owner?.growthScaled||!spec)return;const prev=a.maxHp,p=phaseFor(owner.level);a.hp=a.maxHp=Math.max(1,Math.round(spec.hp<=1?owner.maxHp*spec.hp:spec.hp/5*hpCurve(owner.level)*(1+.16*p)));a.atk=Math.round(owner.atk*(spec.atk||0));a.def=Math.round(spec.def*adCurve(owner.level)*(newEnemyPolicy(b)?defenseBasisV01627(owner.level)/100:1));a.level=owner.level;for(const s of a.shields||[])s.value=Math.round(s.value*a.maxHp/prev);a.growthScaled=true;};
+ P.fbSummon=function(...args){const a=old.fbSummon.apply(this,args);this.tuneGrowthSummon(a,args[0]);return a;};
+ P.spawnLiyueWave=function(...args){const out=old.spawnLiyueWave.apply(this,args),b=this.s.runtime;if(!b)return out;const level=this.growthEncounterLevel(b.origin);for(const a of b.actors.filter(a=>a.siege&&!a.growthScaled)){this.tuneGrowthEnemy(a,b,level);a.hp=a.maxHp=Math.round(a.maxHp*(b.liyueObjective?.waveHp||1));}const o=b.liyueObjective;if(o&&!o.growthScaled){o.hp=o.maxHp=FORMATION_HP;o.def=220;o.growthScaled=true;}this.limitBattleEnemies?.(b);return out;};
+ P.combatStat=function(a,key){const n=old.combatStat.call(this,a,key);return key==='def'?n/Math.sqrt(adCurve(Math.max(1,Math.min(60,Number(a.level)||1)))):n;};
+@@ -324,7 +360,7 @@
+ P.growthDomainEntries=function(map=this.s.global.CURRENT_MAP_ID){
+  return Object.entries(SITES).filter(([,d])=>d.map===map).flatMap(([key,d])=>d.levels.map(level=>{const gateIndex=level<=10?-1:phaseFor(level)-1,gate=gateIndex>=0?this.growthStoryGate(gateIndex):{ready:true};
+   const low=this.s.global.PLAYER_LEVEL_STATE<level-5,reason=low?'주인공 Lv. '+(level-5)+'부터 입장할 수 있습니다.':!gate.ready?gate.label+'을 먼저 진행해 주세요.':'';
+-  return {id:key+':'+level,key,kind:d.kind,name:d.name,trial:KINDS[d.kind],region:d.region,level,levels:d.levels.slice(),map:d.map,...(d.kind==='ASCENSION'?{ascensionRewardVersion:4}:d.kind==='TALENT'?{talentRewardVersion:3}:{}),reason,lock:low?'주인공 Lv.'+(level-5):reason?gate.label:''};}));
++  return {id:key+':'+level,key,kind:d.kind,name:d.name,trial:KINDS[d.kind],region:d.region,level,levels:d.levels.slice(),map:d.map,...(d.kind==='ASCENSION'?{ascensionRewardVersion:4}:d.kind==='TALENT'?{talentRewardVersion:3}:{expRewardVersion:1}),reason,lock:low?'주인공 Lv.'+(level-5):reason?gate.label:''};}));
+ };
+ P.growthDomainSites=function(){return Object.entries(SITES).map(([key,d])=>({key,name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice()}));};
+ P.growthDomainFoes=function(d,element='NEUTRAL'){const list=isDomain(d)?siteFoes(d,element):isTrialV3(d)?trialFoesV3(d,element):d.key&&DOMAINS[d.key]?domainStageFoes(d.key,d.stage,element):[];return list.map(([id,n])=>({id,n,name:this.row('09_MONSTER_DB',id)?.[1]||id}));};
+@@ -394,6 +430,7 @@
+ P.newGame=function(o){this.installGrowthContent();old.newGame.call(this,o);migrate(this,this.s);this.installRegionalLevels();this.recalculate();this.s.global.PLAYER_HP_CURRENT=this.s.global.PLAYER_HP_MAX;return copy(this.s);};
+ P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
+  const b=s.runtime;if(b?.dailyPressureRevision!==undefined&&(b.dailyPressureRevision!==1||b.abyss||b.raid||!b.actors?.some(a=>a.side==='ENEMY'&&DAILY_PRESSURE_V01624[a.source]&&b.origin===bossChallengeOrigin(a.source))))fail('DAILY_PRESSURE_SAVE','일일보스 공격 정책 저장값을 확인해 주세요.');
++ if(b?.enemyBalanceRevision!==undefined&&(b.enemyBalanceRevision!==1||b.abyss||b.raid||String(b.origin||'').startsWith('ABYSS:')||String(b.origin||'').startsWith('RAID')||b.storyConfig?.objective?.kind==='PROTECT_FORMATION'))fail('ENEMY_BALANCE_SAVE','적 전투 수치 정책 저장값을 확인해 주세요.');
+  if(s.runtime?.materialBudget&&!s.runtime.growthDomain)fail('GROWTH_SAVE','재료 비경 난이도 저장값이 잘못되었습니다.');
+  const d=s.runtime?.growthDomain;if(d){
+   if(d.version===4){const spec=SITES[d.key];if(!spec||!isDomain(d)||d.region!==spec.region||d.map!==spec.map||d.name!==spec.name||!Object.values(GEMS).some(x=>x[0]===d.element)||d.kind!=='ASCENSION'&&d.element!=='NEUTRAL'||!Number.isSafeInteger(d.day)||s.runtime.origin!=='DOMAIN:'+d.id)fail('GROWTH_SAVE','비경 저장값이 잘못되었습니다.');}
+@@ -409,6 +446,7 @@
+   const budget=s.runtime.materialBudget;if(d.materialBudgetVersion===1&&!budget||budget&&(d.materialBudgetVersion!==1||budget.version!==1||budget.durability!==LEGACY_MATERIAL_DURABILITY_V01615[d.level]||budget.pressure!==LEGACY_MATERIAL_PRESSURE_V01615[d.level]))fail('GROWTH_SAVE','재료 비경 난이도 저장값이 일치하지 않습니다.');
+   if(d.ascensionRewardVersion!==undefined&&(d.version!==4||d.kind!=='ASCENSION'||![0,1,2,3,4].includes(d.ascensionRewardVersion)))fail('GROWTH_SAVE','돌파 비경 보상 저장값이 잘못되었습니다.');
+   if(d.talentRewardVersion!==undefined&&(d.version!==4||d.kind!=='TALENT'||![0,1,2,3].includes(d.talentRewardVersion)))fail('GROWTH_SAVE','특성 비경 보상 저장값이 잘못되었습니다.');
++  if(d.expRewardVersion!==undefined&&(d.version!==4||d.kind!=='EXP'||d.expRewardVersion!==1||s.runtime.enemyBalanceRevision!==1))fail('GROWTH_SAVE','경험치 비경 보상 저장값이 잘못되었습니다.');
+   // Freeze unmarked saved fights to their authored old payout. Fresh entry previews
+   // and starts carry their new marker before any combat or settlement happens.
+   if(d.version===4&&d.kind==='ASCENSION'&&d.ascensionRewardVersion===undefined)d.ascensionRewardVersion=0;
+@@ -420,6 +458,6 @@
+  s.global.PLAYER_XP_NEXT=s.global.PLAYER_LEVEL_STATE>=CAPS[s.ascensions.PLAYER_CUSTOM]?0:xpNext(s.global.PLAYER_LEVEL_STATE);
+  if(s.domainDaily&&(!Number.isSafeInteger(s.domainDaily.day)||!Number.isSafeInteger(s.domainDaily.wins)||s.domainDaily.wins<0))fail('GROWTH_SAVE','비경 일일 기록을 확인해 주세요.');if(s.eliteClaims&&(Array.isArray(s.eliteClaims)||Object.entries(s.eliteClaims).some(([m,d])=>!ELITES[m]||!Number.isSafeInteger(d))))fail('GROWTH_SAVE','정예 토벌 기록을 확인해 주세요.');return s;
+ };
+-api.growthV01522={bossChallengeOrigin,bossChallengeProfiles:copy(BOSS_CHALLENGE_PROFILES_V01624),dailyPressure:copy(DAILY_PRESSURE_V01624),dailyCardDamage:copy(DAILY_CARD_DAMAGE_V01624),caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingVersion:3,pacingCurve:XP_PACING_V0168.slice(),previousPacingCurve:XP_PACING_V0161.slice(),previousPacingCurveVersion2:XP_PACING_V0166.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
+- legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),domainAscensionGems:copy(ASCENSION_GEMS_V01622),ascensionRewardVersion:4,legacyDomainAscensionGems:{0:copy(LEGACY_MATERIAL_QUANTITIES),1:copy(LEGACY_ASCENSION_GEMS_V01613),2:copy(LEGACY_ASCENSION_GEMS_V01616),3:copy(LEGACY_ASCENSION_GEMS_V01621)},domainTalentBooks:copy(TALENT_BOOKS_V01622),talentRewardVersion:3,legacyDomainTalentBooks:{0:copy(LEGACY_MATERIAL_QUANTITIES),1:copy(LEGACY_TALENT_BOOKS_V01616),2:copy(LEGACY_TALENT_BOOKS_V01621)},ascensionGemCosts:copy(ASCENSION_GEM_COSTS_V01622),talentBookMultipliers:TALENT_BOOK_MULTIPLIERS_V01616.slice(),talentBookCosts:copy(TALENT_BOOK_COSTS_V01621),materialRequirementVersion:3,legacyMaterialBudgets:{1:{durability:copy(LEGACY_MATERIAL_DURABILITY_V01615),pressure:copy(LEGACY_MATERIAL_PRESSURE_V01615)}},legacyTrialXp:copy(EXP_XP_V3),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
++api.growthV01522={bossChallengeOrigin,bossChallengeProfiles:copy(BOSS_CHALLENGE_PROFILES_V01627),previousBossChallengeProfiles:copy(BOSS_CHALLENGE_PROFILES_V01624),enemyBalanceRevision:1,enemyBalance:copy(ENEMY_BALANCE_V01627),enemyBalanceWeight:copy(BALANCE_WEIGHT_V01627),defenseBasis:defenseBasisV01627,dailyPressure:copy(DAILY_PRESSURE_V01624),dailyCardDamage:copy(DAILY_CARD_DAMAGE_V01624),caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingVersion:3,pacingCurve:XP_PACING_V0168.slice(),previousPacingCurve:XP_PACING_V0161.slice(),previousPacingCurveVersion2:XP_PACING_V0166.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
++ legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),expRewardVersion:1,previousDomainXp:copy(LEGACY_EXP_XP_V01626),domainMaterialXp:copy(MATERIAL_XP),domainAscensionGems:copy(ASCENSION_GEMS_V01622),ascensionRewardVersion:4,legacyDomainAscensionGems:{0:copy(LEGACY_MATERIAL_QUANTITIES),1:copy(LEGACY_ASCENSION_GEMS_V01613),2:copy(LEGACY_ASCENSION_GEMS_V01616),3:copy(LEGACY_ASCENSION_GEMS_V01621)},domainTalentBooks:copy(TALENT_BOOKS_V01622),talentRewardVersion:3,legacyDomainTalentBooks:{0:copy(LEGACY_MATERIAL_QUANTITIES),1:copy(LEGACY_TALENT_BOOKS_V01616),2:copy(LEGACY_TALENT_BOOKS_V01621)},ascensionGemCosts:copy(ASCENSION_GEM_COSTS_V01622),talentBookMultipliers:TALENT_BOOK_MULTIPLIERS_V01616.slice(),talentBookCosts:copy(TALENT_BOOK_COSTS_V01621),materialRequirementVersion:3,legacyMaterialBudgets:{1:{durability:copy(LEGACY_MATERIAL_DURABILITY_V01615),pressure:copy(LEGACY_MATERIAL_PRESSURE_V01615)}},legacyTrialXp:copy(EXP_XP_V3),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
+ })(globalThis);

@@ -1,0 +1,292 @@
+{
+  "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "sourceHash": "bfe0d10cde798b29b91e13db7feb3d74da3c5e5b6561f63af523eba751eb9d84",
+  "rows": [
+    {
+      "floor": 9,
+      "prep": "HIGH",
+      "constellationPolicy": "C0",
+      "itemPolicy": "FINITE",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 19,
+      "finalHp": 0.816970684954608,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 3,
+          "preHp": 0.9707770153185,
+          "ko": [],
+          "immune": 3,
+          "mastery": null,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 11,
+          "preHp": 0.8365425937478339,
+          "ko": [],
+          "immune": 0,
+          "mastery": null,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 5,
+          "preHp": 0.8059055936785194,
+          "ko": [],
+          "immune": 7,
+          "mastery": null,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 9,
+      "prep": "HIGH",
+      "constellationPolicy": "C0",
+      "itemPolicy": "FINITE",
+      "seed": 4242,
+      "state": "TIMEOUT",
+      "rounds": 16,
+      "finalHp": 0.47504921327588345,
+      "ko": 1,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 3,
+          "preHp": 0.9277510792538893,
+          "ko": [],
+          "immune": 3,
+          "mastery": null,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "TIMEOUT",
+          "rounds": 13,
+          "preHp": 0.46847764111753687,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "immune": 0,
+          "mastery": null,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 9,
+      "prep": "HIGH",
+      "constellationPolicy": "C0",
+      "itemPolicy": "FINITE",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 12,
+      "finalHp": 0.9592867464470601,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 3,
+          "preHp": 0.9349673383525243,
+          "ko": [],
+          "immune": 3,
+          "mastery": null,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 4,
+          "preHp": 0.9463158768821966,
+          "ko": [],
+          "immune": 0,
+          "mastery": null,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 5,
+          "preHp": 0.9463158768821966,
+          "ko": [],
+          "immune": 8,
+          "mastery": null,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "C0",
+      "itemPolicy": "FINITE",
+      "seed": 717,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "finalHp": 0.8640532265320041,
+      "ko": 1,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "preHp": 0.8657076918666322,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "immune": 19,
+          "mastery": true,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "C0",
+      "itemPolicy": "FINITE",
+      "seed": 4242,
+      "state": "DOWNED",
+      "rounds": 8,
+      "finalHp": 0.8778941273663177,
+      "ko": 1,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "DOWNED",
+          "rounds": 8,
+          "preHp": 0.8659854930952713,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "immune": 10,
+          "mastery": true,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "C0",
+      "itemPolicy": "FINITE",
+      "seed": 9031,
+      "state": "DOWNED",
+      "rounds": 17,
+      "finalHp": 0.81783092355974,
+      "ko": 1,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 9,
+          "preHp": 0.9582241277964109,
+          "ko": [],
+          "immune": 13,
+          "mastery": true,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "DOWNED",
+          "rounds": 8,
+          "preHp": 0.7987275682030358,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "immune": 0,
+          "mastery": true,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          }
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

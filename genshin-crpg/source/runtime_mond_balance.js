@@ -45,13 +45,13 @@
  };
  P.mondRewardPlan=function(b){return enabled(b)?b.mondBalance.rewards:null;};
  P.mondLootSourceMatches=function(b,a,d){
-  if(!enabled(b)||b.mondBalance.kind!=='FIELD')return false;
+  if(!(enabled(b)&&b.mondBalance.kind==='FIELD'||b?.growthBalance)||b.storyConfig)return false;
   // Explicit parent-species aliases only, not arbitrary conditional loot.
   return d[0]==='LT_SLIME'&&d[1]==='MON_SLIME'&&/^MON_SLIME_/.test(a.source)||
    d[0]==='LT_WHOPPER'&&d[1]==='MON_WHOPPERFLOWER'&&/^MON_WHOPPER_/.test(a.source);
  };
  P.mondLootConditionAllowed=function(b,a,d){
-  if(!enabled(b)||b.mondBalance.kind!=='FIELD')return false;
+  if(!(enabled(b)&&b.mondBalance.kind==='FIELD'||b?.growthBalance)||b.storyConfig)return false;
   if(d[0]!==this.row('09_MONSTER_DB',a.source)[14])return false;
   return (CONFIG.dropConditions[d[0]]||[]).includes(d[6]||'없음');
  };
@@ -63,7 +63,7 @@
   if(m.version!==VERSION||!['FIELD','BOSS'].includes(m.kind)||!Number.isInteger(m.risk)||m.risk<0||m.risk>6||!m.rewards||!Array.isArray(m.rewards.parts))throw new api.RuleError('MOND_BALANCE_SAVE','몬드 전투 보상 기록이 올바르지 않습니다.');
   const v=m.rewards;
   for(const k of ['xp','mora'])if(!Number.isSafeInteger(v[k])||v[k]<0||v[k]>1000000)throw new api.RuleError('MOND_BALANCE_SAVE','몬드 보상 수치가 올바르지 않습니다.');
-  if(v.parts.some(p=>!b.actors.some(a=>a.side==='ENEMY'&&a.source===p.source)||!Number.isInteger(p.level)||p.level<1||p.level>20||!Number.isSafeInteger(p.xp)||p.xp<0||!Number.isSafeInteger(p.mora)||p.mora<0)||v.xp!==v.parts.reduce((n,p)=>n+p.xp,0)||v.mora!==v.parts.reduce((n,p)=>n+p.mora,0))throw new api.RuleError('MOND_BALANCE_SAVE','몬드 보상 상세가 합계와 일치하지 않습니다.');
+  if(v.parts.some(p=>!b.actors.some(a=>a.side==='ENEMY'&&a.source===p.source)||!Number.isInteger(p.level)||p.level<1||p.level>60||!Number.isSafeInteger(p.xp)||p.xp<0||!Number.isSafeInteger(p.mora)||p.mora<0)||v.xp!==v.parts.reduce((n,p)=>n+p.xp,0)||v.mora!==v.parts.reduce((n,p)=>n+p.mora,0))throw new api.RuleError('MOND_BALANCE_SAVE','몬드 보상 상세가 합계와 일치하지 않습니다.');
   return s;
  };
  api.mondIntegratedBalanceVersion=VERSION;

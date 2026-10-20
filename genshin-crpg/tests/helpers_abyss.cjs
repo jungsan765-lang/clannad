@@ -1,25 +1,25 @@
 // Synthetic QA setup uses native stat formulas and actual equipment. No boosted combat stats.
 const {fresh,R,db,c}=require('./helpers_v011.cjs'),{equip,artifacts}=require('./helpers_abyss_artifacts.cjs');
-function fixture(level=15,team=['MOND_DILUC','MOND_NOELLE','MOND_JEAN'],enh=6,route='ROUTE_ISEKAI'){const r=fresh('MAP_V141_MUSK_REEF',route);r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:level});for(const [i,id]of team.entries()){r.unlockCharacter(id);r.action('PARTY',{char:id,slot:i+2});}for(const id of ['PLAYER_CUSTOM',...team]){
+function fixture(level=15,team=['MOND_DILUC','MOND_NOELLE','MOND_JEAN'],enh=6,route='ROUTE_ISEKAI'){const r=fresh('MAP_V141_MUSK_REEF',route);r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:level});for(const [i,id]of team.entries()){r.adminApply({op:'recruit',char:id});r.action('PARTY',{char:id,slot:i+2});}for(const id of ['PLAYER_CUSTOM',...team]){
  for(const cat of ['WEAPON','ARMOR','ACCESSORY']){const types={WEAPON:r.equipmentProficiencies(id),ARMOR:['방어구'],ACCESSORY:['장신구']}[cat];const rows=r.rows('16_EQUIP_DB').filter(x=>types.includes(x[2])&&(!String(x[30]||'').match(/^(MOND_|LIYUE_)/)||x[30]===id)&&Number(x[19]||1)<=level&&!/장착 불가/.test(String(x[3])+' '+String(x[30])));let best=null,bestScore=-1;for(const x of rows){const score=Number(x[4]||0)+Number(x[5]||0)+Number(x[6]||0)*.15;if(score>bestScore){best=x;bestScore=score;}} if(best){const slot=r.giveEquipment(best[0]),inv=r.s.inventory.find(i=>i.slot===slot);inv.enhance=enh;if(enh>10)inv.enhancementCap=12;try{r.action('EQUIP',{slot,owner:id});}catch{}}}
  }
- r.action('OPERATOR_DEBUG',{op:'heal'});return r;}
+ for(const id of ['PLAYER_CUSTOM',...team]){const cap=r.growth(id).talentCap;r.s.talents??={};r.s.talents[id]={na:cap,e:cap,q:cap};}r.action('OPERATOR_DEBUG',{op:'heal'});return r;}
 /* Reference parties for Spiral Abyss v2. Floors 1-3: Lv.10-15 with +7 gear. From floor 4 the party needs
    levels, enhancement and artifacts; floors 8+ need the room's specific approach (gear swaps between rooms). */
 const HEAL=['FOOD_SWEET_MADAME','FOOD_HASH_BROWN','FOOD_MATSUTAKE_ROLL','FOOD_SNEZ_ZHARKOYE'];
 const SETUPS={
- 1:{lv:10,enh:7,team:['MOND_AMBER','MOND_KLEE','MOND_ALBEDO'],formation:'LINE_AHEAD',roles:['공격우선','공격우선','균형']},
- 2:{lv:12,enh:7,team:['MOND_FISCHL','LIYUE_XINGQIU','MOND_DIONA'],formation:'DOUBLE_LINE',roles:['균형','연계우선','지원우선']},
- 3:{lv:15,enh:7,team:['LIYUE_XIANGLING','MOND_NOELLE','MOND_LISA'],formation:'DOUBLE_LINE',roles:['연계우선','균형','연계우선']},
- 4:{ex:1,lv:18,enh:9,art:1,team:['LIYUE_GAMING','LIYUE_YUNJIN','MOND_ROSARIA'],formation:'LINE_AHEAD',roles:['공격우선','균형','공격우선'],food:{2:{ALL:'FOOD_JADE_PARCELS'}}},
- 5:{ex:1,lv:19,enh:9,art:1,team:['MOND_VENTI','LIYUE_CHONGYUN','LIYUE_YAOYAO'],formation:'DOUBLE_LINE',roles:['연계우선','균형','지원우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',6]}},
- 6:{ex:1,lv:20,enh:10,art:1,team:['MOND_EULA','LIYUE_XIAO','LIYUE_BAIZHU'],formation:'DIAMOND',roles:['균형','공격우선','지원우선'],food:{3:{ALL:'FOOD_ADEPTUS_TEMPTATION'}}},
- 7:{ex:1,lv:20,enh:10,art:1,team:['LIYUE_YANFEI','MOND_MIKA','LIYUE_BEIDOU'],formation:'DOUBLE_LINE',roles:['연계우선','균형','공격우선'],food:{2:{PLAYER_CUSTOM:'FOOD_ALMOND_TOFU'}}},
- 8:{ex:1,lv:20,enh:10,art:1,team:['MOND_RAZOR','LIYUE_TARTAGLIA','LIYUE_XIANYUN'],formation:'DOUBLE_LINE',roles:['연계우선','연계우선','균형'],gear:{ALL:['EQ_LY_SPECIAL_LEYLINE_STAKE',10]},swapBack:3,food:{3:{ALL:'FOOD_PILE_EM_UP'}}},
- 9:{ex:1,lv:20,enh:10,art:1,team:['MOND_DAHLIA','LIYUE_XINYAN','LIYUE_LANYAN'],formation:'DOUBLE_LINE',roles:['지원우선','균형','지원우선'],gear:{ALL:['EQ_ACC_STEADFAST',9]},swapAcc:{2:['EQ_LY_ACC_STARGAZER',0],3:['EQ_ACC_STEADFAST',9]},hitArtifacts:2,swapBack:3},
- 10:{ex:1,lv:20,enh:12,art:1,team:['MOND_MONA','LIYUE_KEQING','MOND_SUCROSE'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','연계우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',10]}},
- 11:{ex:1,lv:20,enh:12,art:1,team:['LIYUE_HUTAO','LIYUE_GANYU','LIYUE_NINGGUANG'],formation:'LINE_AHEAD',roles:['공격우선','공격우선','균형'],gear:{ALL:['EQ_LY_ACC_QINGXIN_SACHET',10]}},
- 12:{lv:20,enh:12,art:1,mastery:1,team:['MOND_DILUC','MOND_JEAN','LIYUE_ZHONGLI'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','지원우선']}
+ 1:{lv:15,enh:7,team:['MOND_AMBER','MOND_KLEE','MOND_ALBEDO'],formation:'LINE_AHEAD',roles:['공격우선','공격우선','균형']},
+ 2:{lv:20,enh:7,team:['MOND_FISCHL','LIYUE_XINGQIU','MOND_DIONA'],formation:'DOUBLE_LINE',roles:['균형','연계우선','지원우선']},
+ 3:{lv:25,enh:7,team:['LIYUE_XIANGLING','MOND_NOELLE','MOND_LISA'],formation:'DOUBLE_LINE',roles:['연계우선','균형','연계우선']},
+ 4:{ex:1,lv:30,enh:9,art:1,team:['LIYUE_GAMING','LIYUE_YUNJIN','MOND_ROSARIA'],formation:'LINE_AHEAD',roles:['공격우선','균형','공격우선'],food:{2:{ALL:'FOOD_JADE_PARCELS'}}},
+ 5:{ex:1,lv:35,enh:9,art:1,team:['MOND_VENTI','LIYUE_CHONGYUN','LIYUE_YAOYAO'],formation:'DOUBLE_LINE',roles:['연계우선','균형','지원우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',6]}},
+ 6:{ex:1,lv:40,enh:10,art:1,team:['MOND_EULA','LIYUE_XIAO','LIYUE_BAIZHU'],formation:'DIAMOND',roles:['균형','공격우선','지원우선'],food:{3:{ALL:'FOOD_ADEPTUS_TEMPTATION'}}},
+ 7:{ex:1,lv:45,enh:10,art:1,team:['LIYUE_YANFEI','MOND_MIKA','LIYUE_BEIDOU'],formation:'DOUBLE_LINE',roles:['연계우선','균형','공격우선'],food:{2:{PLAYER_CUSTOM:'FOOD_ALMOND_TOFU'}}},
+ 8:{ex:1,lv:50,enh:10,art:1,team:['MOND_RAZOR','LIYUE_TARTAGLIA','LIYUE_XIANYUN'],formation:'DOUBLE_LINE',roles:['연계우선','연계우선','균형'],gear:{ALL:['EQ_LY_SPECIAL_LEYLINE_STAKE',10]},swapBack:3,food:{3:{ALL:'FOOD_PILE_EM_UP'}}},
+ 9:{ex:1,lv:55,enh:10,art:1,team:['MOND_DAHLIA','LIYUE_XINYAN','LIYUE_LANYAN'],formation:'DOUBLE_LINE',roles:['지원우선','균형','지원우선'],gear:{ALL:['EQ_ACC_STEADFAST',9]},swapAcc:{2:['EQ_LY_ACC_STARGAZER',0],3:['EQ_ACC_STEADFAST',9]},hitArtifacts:2,swapBack:3},
+ 10:{ex:1,lv:60,enh:12,art:1,team:['MOND_MONA','LIYUE_KEQING','MOND_SUCROSE'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','연계우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',10]},food:{3:{ALL:'FOOD_ADEPTUS_TEMPTATION'}}},
+ 11:{ex:1,lv:60,enh:12,art:1,team:['LIYUE_HUTAO','LIYUE_GANYU','LIYUE_NINGGUANG'],formation:'LINE_AHEAD',roles:['공격우선','공격우선','균형'],gear:{ALL:['EQ_LY_ACC_QINGXIN_SACHET',10]}},
+ 12:{lv:60,enh:12,art:1,mastery:1,team:['MOND_DILUC','MOND_JEAN','LIYUE_ZHONGLI'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','지원우선']}
 };
 // The artifact with the most accuracy out of many natural rolls, enhanced to +5 (for fog rooms).
 function hitArtifact(r,id){let best=null,score=-1;for(let n=0;n<900;n++){const d=r.rollArtifact(),i=r.artifactInstance(d.slot);i.artifact.level=5;const h=r.artifactStats(i).HIT||0;if(h>score){if(best)r.s.inventory=r.s.inventory.filter(x=>x!==best);best=i;score=h;}else r.s.inventory=r.s.inventory.filter(x=>x!==i);}r.action('EQUIP',{slot:best.slot,owner:id});return score;}

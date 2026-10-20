@@ -1,13 +1,37 @@
 /* Liyue card execution. Signatures pin the authored definitions; persistent hooks live in battle state. */
 (function(root){
 'use strict';const api=root.CRPGRuntime,P=api.Runtime.prototype,S=root.CRPGLiyueCardSignatures;
-const old=Object.fromEntries(['cardSupport','cardReason','cardTargets','combatCards','executeCard','basicHit','damage','applyDamage','combatDamageMultiplier','tickFields','onCombatTurnStart','aiTurn','craft','finishLife','validateSave','applyCombatAura','reactionFor','combatActionLocked','displaceCombatActor','newRound'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['cardDefinition','combatHealingStatusText','cardSupport','cardReason','cardTargets','combatCards','executeCard','basicHit','damage','applyDamage','combatDamageMultiplier','tickFields','onCombatTurnStart','aiTurn','craft','finishLife','validateSave','applyCombatAura','reactionFor','combatActionLocked','displaceCombatActor','newRound'].map(k=>[k,P[k]]));
+const healing=Object.freeze({qiqiERatio:.13,qiqiEFlat:350,qiqiQRatio:.1,qiqiQFlat:295,xianyunQRatio:.03,xianyunQFlat:850,xianyunFieldRatio:.08,xianyunFieldFlat:400,yaoyaoQRatio:.025,yaoyaoQFlat:380,yaoyaoFieldRatio:.015,yaoyaoFieldFlat:180});
+// Existing battles keep their promised burst and new field amounts after loading.
+const xianyunHealing=b=>b&&!b.healingBalanceRevision?{...healing,xianyunQFlat:1250,xianyunFieldFlat:600}:healing;
+const xianyunMeta=h=>({script:S.LIYUE_XIANYUN_Q.replace('HEAL_ALL:ATK*0.8',`HEAL_ALL:ATK*${h.xianyunQRatio}+${h.xianyunQFlat}`).replace('HEAL_ALL:ATK*0.25',`HEAL_LOWEST_HP_ALLY:ATK*${h.xianyunFieldRatio}+${h.xianyunFieldFlat}`),coefficient:`즉시 회복 ATK×${h.xianyunQRatio}+${h.xianyunQFlat} / 지속 회복 ATK×${h.xianyunFieldRatio}+${h.xianyunFieldFlat}×2라운드 / 추가타 ATK×0.45`,text:`아군 전체를 한운 ATK×${h.xianyunQRatio}+${h.xianyunQFlat}만큼 회복하고 2라운드 동안 대나무별을 소환한다. 매 라운드 첫 아군 공격은 앞열 보호를 무시하며, 적중 후 바람 추가타와 HP 비율이 가장 낮은 아군 1명에게 한운 ATK×${h.xianyunFieldRatio}+${h.xianyunFieldFlat}의 회복이 발생한다.`});
+// Clone signed card rows for current numbers. Authored DB rows and saved effects remain intact.
+const cardMeta={
+ LIYUE_QIQI_E:{script:S.LIYUE_QIQI_E.replace('HEAL:ATK*0.55','HEAL:ATK*0.13+350'),coefficient:'피해 ATK×0.45 / 회복 (ATK×0.13+350)×2라운드',text:'한병의 귀차를 2라운드 소환한다. 매 라운드 종료 시 적 1명에게 얼음 피해를 주고 HP 비율이 가장 낮은 아군 1명을 치치 ATK×0.13+350만큼 회복한다. 그 라운드에 치치가 직접 피해를 줬다면 회복량이 25% 증가한다.'},
+ LIYUE_QIQI_Q:{script:S.LIYUE_QIQI_Q.replace('HEAL_SELF:ATK*0.45','HEAL_SELF:ATK*0.10+295'),coefficient:'초기 ATK×0.8 / 회복 ATK×0.10+295',text:'적 최대 4명에게 얼음 피해와 [도액 부적]을 2라운드 부여한다. 각 아군은 라운드당 1회, 부적이 붙은 적에게 직접 피해를 줬을 때 치치 ATK×0.10+295만큼 자신을 회복한다.'},
+ LIYUE_XIANYUN_Q:xianyunMeta(healing),
+ LIYUE_YAOYAO_E:{script:S.LIYUE_YAOYAO_E.replace('HEAL_LOWEST_HP_ALLY:MAX_HP*0.05','HEAL_LOWEST_HP_ALLY:MAX_HP*0.015+180'),coefficient:'피해 ATK×0.35 / 회복 (MAX_HP×0.015+180)×2라운드',text:'월계·투척형을 2라운드 소환한다. 라운드 종료 시 HP 70% 이하 아군이 있으면 HP 비율이 가장 낮은 아군 1명을 요요 MAX_HP×0.015+180만큼 회복하고 주변 적에게 풀 피해를 준다. 모두 70% 초과면 적 최대 2명에게 공격용 무를 던진다.'},
+ LIYUE_YAOYAO_Q:{script:S.LIYUE_YAOYAO_Q.replace('HEAL_ALL:MAX_HP*0.10','HEAL_ALL:MAX_HP*0.025+380')+';ROUND_END_HEAL_LOWEST_HP_ALLY:MAX_HP*0.015+180',coefficient:'피해 ATK×0.8 / 회복 MAX_HP×0.025+380',text:'적 최대 4명에게 풀 피해를 주고 아군 전체를 요요 MAX_HP×0.025+380만큼 회복한다. 현재 월계가 있으면 2라운드 [선인의 슬기] 상태로 강화되어 매 라운드 HP 비율이 가장 낮은 아군 1명을 요요 MAX_HP×0.015+180만큼 치료하며 공격한다. 월계가 없다면 하나를 소환한다.'},
+ LIYUE_ZHONGLI_E:{script:S.LIYUE_ZHONGLI_E.replace('SHIELD_ALL:MAX_HP*0.20','SHIELD_ALL:MAX_HP*0.13'),coefficient:'보호막 MAX_HP×0.13 / 석주 ATK×0.35×2라운드',text:'아군 전체에게 종려 MAX_HP×0.13의 2라운드 옥홀 방패를 부여하고 석주를 2라운드 설치한다. 옥홀 방패가 있는 아군은 강제 이동·넉백을 무시한다. 라운드 종료마다 석주가 적 최대 3명에게 바위 피해를 준다.'},
+ LIYUE_LANYAN_E:{script:S.LIYUE_LANYAN_E.replace('MATCHED_ELEMENT_DAMAGE_TAKEN*0.50','SHIELD_MATCHED_ELEMENT_ABSORPTION*2.50'),coefficient:'보호막 ATK×1.3 / 고리 ATK×0.8 / 동일 원소 흡수 250%',text:'아군 1명에게 2라운드 현조 보호막을 부여하고 적에게 제비 고리를 던진다. 보호막은 바람 피해에 250%의 흡수 효율을 갖는다. 대상 적에게 불/물/얼음/번개가 부착돼 있으면 해당 원소로 전환되어 그 원소 피해에 250%의 흡수 효율을 가지며, 고리에도 해당 원소가 함께 부착된다.'}
+};
+const currentMeta=(r,id)=>{
+ const z=r.combatCharacterBudget(),ratio=Number((.2*z.zhongliShieldMultiplier).toFixed(4));
+ if(id==='LIYUE_BAIZHU_E'&&(!r.s?.runtime||r.s.runtime.characterBalanceRevision===1)){const healRatio=r.combatBaizhuHealingRatio();return {script:S[id].replace('HEAL_ALL:MAX_HP*0.08','HEAL_ALL:MAX_HP*'+healRatio),coefficient:`피해 ATK×0.4×최대 3회 / 전원 회복 MAX_HP×${healRatio}`,text:`유사를 보내 적에게 최대 3회 풀 피해를 준다. 적이 1명일 때에는 최대 2회 적중한다. 돌아오면 아군 전체를 백출 MAX_HP×${healRatio}만큼 회복한다.`};}
+ if(id==='LIYUE_ZHONGLI_E')return {script:S[id].replace('SHIELD_ALL:MAX_HP*0.20','SHIELD_ALL:MAX_HP*'+ratio),coefficient:`보호막 MAX_HP×${ratio} / 석주 ATK×0.35×2라운드`,text:`아군 전체에게 종려 MAX_HP×${ratio}의 2라운드 옥홀 방패를 부여하고 석주를 2라운드 설치한다. 옥홀 방패가 있는 아군은 강제 이동·넉백을 무시한다. 라운드 종료마다 석주가 적 최대 3명에게 바위 피해를 준다.`};
+ if(id==='LIYUE_ZHONGLI_Q')return {script:S[id].replace('MAX_HP*0.25','MAX_HP*'+z.zhongliQHpRatio),coefficient:`ATK×0.8+MAX_HP×${z.zhongliQHpRatio}`,text:'적 최대 4명에게 바위 피해를 주고 일반 적을 1라운드 석화시켜 행동할 수 없게 한다. 보스는 다음 행동의 행동 점수가 30% 감소하고 가하는 피해가 10% 감소한다.'};
+ if(id==='LIYUE_ZHONGLI_PASSIVE_ARCHON'&&(!r.s?.runtime||r.s.runtime.characterBalanceRevision===1))return {script:S[id].replace('ROUND1:EXTERNAL_DAMAGE_TAKEN=0;ROUND2:EXTERNAL_DAMAGE_TAKEN*0.50;ROUND3:*0.70;ROUND4:*0.90','ROUND1:EXTERNAL_DAMAGE_TAKEN*0.50;ROUND2:EXTERNAL_DAMAGE_TAKEN*0.70;ROUND3:*0.85;ROUND4:*0.95'),coefficient:'1~4라운드 외부 피해 ×0.5 / 0.7 / 0.85 / 0.95',text:'종려 자신이 받는 외부 피해가 1라운드에는 50%, 2라운드에는 30%, 3라운드에는 15%, 4라운드에는 5% 줄어든다. 5라운드부터는 이 감소가 적용되지 않는다. 보호막 흡수 전에 적용하며 자신의 HP 소모에는 적용하지 않는다.'};
+ return id==='LIYUE_XIANYUN_Q'?xianyunMeta(xianyunHealing(r.s.runtime)):cardMeta[id];
+};
+P.cardDefinition=function(r,enemy=false){const meta=!enemy&&currentMeta(this,r[0]),original=String(r[32]||'');if(meta&&original===S[r[0]]){r=r.slice();r[7]=meta.coefficient;r[14]=meta.text;r[32]=meta.script;}const c=old.cardDefinition.call(this,r,enemy);if(meta&&original===S[c.id])c.liyueAuthoredScript=original;return c;};
+P.combatHealingStatusText=function(s){if(s?.id!=='FORTUNE_TALISMAN')return old.combatHealingStatusText?.call(this,s)||'';const ratio=Number(s.healRatio??.45),base=Number(s.healFlat??0);return`이 적에게 직접 피해를 준 아군은 라운드마다 한 번 치치 공격력 ${Number((ratio*100).toFixed(4))}%${base?' + '+base:''}만큼 자신을 회복한다.`;};
 const st=(a,id)=>(a?.statuses||[]).find(s=>s.id===id&&(!Number.isFinite(s.rounds)||s.rounds>0)),el=x=>({PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀',PHYSICAL:'물리'}[x]||x),fail=(c,m)=>{throw new api.RuleError(c,m);};
 const field=(b,k,side)=>b.fields.find(f=>f.kind===k&&!f.done&&(side===undefined||f.side===side));
 const stamp=(b,a)=>b.round+':'+a.id+':'+b.actionSequence;
 const once=(f,key)=>{f.used||={};if(f.used[key])return false;f.used[key]=true;return true;};
 const active=(b,side)=>b.actors.filter(a=>a.hp>0&&a.side===side),lowest=a=>a.slice().sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];
-P.cardSupport=function(c){if(Object.hasOwn(S,c.id))return c.ready&&S[c.id]===c.script?'':'리월 카드의 실행 정의가 원고와 일치하지 않습니다.';return old.cardSupport.call(this,c);};
+P.cardSupport=function(c){if(Object.hasOwn(S,c.id))return c.ready&&(S[c.id]===c.script||c.liyueAuthoredScript===S[c.id]&&c.script===currentMeta(this,c.id)?.script)?'':'리월 카드의 실행 정의가 원고와 일치하지 않습니다.';return old.cardSupport.call(this,c);};
 P.cardReason=function(a,c){
  if(Object.hasOwn(S,c.id)){
   if(c.kind==='패시브')return '편성 중 조건에 따라 자동 적용됩니다.';
@@ -28,12 +52,12 @@ P.executeCard=function(a,c,target,branch){
  const add=(kind,rounds=2,extra={})=>this.addField(kind,a,rounds,{sourceCardId:c.id,liyue:true,...extra}),buff=(t,id,rounds=2,extra={})=>this.addCombatStatus(t,id,rounds,{actor:a.id,...extra});
  const prior=this._liyueExecuting;this._liyueExecuting={card:c.id,actor:a.id};
  try{switch(c.id.replace('LIYUE_','')){
- case'BAIZHU_E':for(let i=0;i<(ts.length===1?2:ts.length?3:0);i++)hit(ts[i%ts.length],.4,'DENDRO');allies.forEach(t=>heal(t,hp*.08));break;
+ case'BAIZHU_E':for(let i=0;i<(ts.length===1?2:ts.length?3:0);i++)hit(ts[i%ts.length],.4,'DENDRO');allies.forEach(t=>heal(t,hp*this.combatBaizhuHealingRatio()));break;
  case'BAIZHU_Q':add('BAIZHU_SEAMLESS_SHIELD');break;
  case'BEIDOU_E':case'YUNJIN_E':buff(a,'LIYUE_COUNTER',null,{resolveTurn:(a.turns||0)+1,card:c.id,triggered:false});break;
  case'BEIDOU_Q':add('STORMBREAKER');break;
- case'QIQI_E':add('HERALD_OF_FROST');break;
- case'QIQI_Q':for(const t of many(.8,'CRYO'))buff(t,'FORTUNE_TALISMAN');break;
+ case'QIQI_E':add('HERALD_OF_FROST',2,{healRatio:healing.qiqiERatio,healFlat:healing.qiqiEFlat});break;
+ case'QIQI_Q':for(const t of many(.8,'CRYO'))buff(t,'FORTUNE_TALISMAN',2,{healRatio:healing.qiqiQRatio,healFlat:healing.qiqiQFlat});break;
  case'NINGGUANG_E':many(.8,'GEO',3);add('JADE_SCREEN');break;
  case'NINGGUANG_Q':{const f=field(b,'JADE_SCREEN',a.side),n=f?8:6;if(f)f.done=true;for(let i=0;i<n&&ts.some(t=>t.hp>0);i++){const live=ts.filter(t=>t.hp>0);hit(live[0],.28,'GEO');}break;}
  case'KEQING_E':if(ts[0]&&hit(ts[0],.35,'ELECTRO')){const mode=a.control==='AI'?'PURSUIT':branch;if(!['PURSUIT','EXPLOSION'].includes(mode))fail('CARD_BRANCH','추격 또는 폭발을 선택하세요.');if(mode==='PURSUIT')hit(ts[0],1.2,'ELECTRO',{ignoreIntercept:true});else many(.6,'ELECTRO',2);}break;
@@ -49,8 +73,8 @@ P.executeCard=function(a,c,target,branch){
  case'XIANGLING_E':add('GOU_BA',99,{name:'누룽지',asset:'summon_guoba.webp',summonTurns:2,summonTicks:0});break;
  case'XIANGLING_Q':add('PYRONADO');break;
  case'XIANYUN_E':buff(friend,'SKY_LADDER',null,{untilTurn:(friend.turns||0)+2});break;
- case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');break;
- case'LANYAN_E':{const matched=ts[0]&&this.auraList(ts[0]).map(v=>v.element).find(e=>['불','물','얼음','번개'].includes(e));this.shield(friend,stat('atk')*1.3,c.id,2,{converted:matched,actor:a.id});if(ts[0]){hit(ts[0],.8,'ANEMO');if(matched)this.applyCombatAura(a,ts[0],matched,{});}a.lanyanConverted=matched||null;break;}
+ case'XIANYUN_Q':{const h=xianyunHealing(b);allies.forEach(t=>heal(t,stat('atk')*h.xianyunQRatio+h.xianyunQFlat));add('BAMBOO_STAR',2,{healTargetCount:1,healRatio:h.xianyunFieldRatio,healFlat:h.xianyunFieldFlat});break;}
+ case'LANYAN_E':{const matched=ts[0]&&this.auraList(ts[0]).map(v=>v.element).find(e=>['불','물','얼음','번개'].includes(e));this.shield(friend,stat('atk')*1.3,c.id,2,{converted:matched,actor:a.id,element:matched||'바람',damageMultipliers:{[matched||'바람']:.4}});if(ts[0]){hit(ts[0],.8,'ANEMO');if(matched)this.applyCombatAura(a,ts[0],matched,{});}a.lanyanConverted=matched||null;break;}
  case'LANYAN_Q':for(const t of ts.slice(0,4))this.applyCombatControl(a,t,'PULL',{element:'바람'});many(1.1,'ANEMO');if(a.lanyanConverted){const t=ts.filter(t=>t.hp>0).sort((a,b)=>b.hp-a.hp)[0];if(t)this.applyCombatAura(a,t,a.lanyanConverted,{});}break;
  case'XIAO_E':many(1.15,'ANEMO',3,{ignoreIntercept:true});break;
  case'XIAO_Q':buff(a,'BANE_OF_ALL_EVIL');break;
@@ -65,10 +89,10 @@ P.executeCard=function(a,c,target,branch){
  case'YELAN_E':{const count=ts.slice(0,3).length;many(.18,'HYDRO',3,{stat:'maxHp'});if(count===3)buff(a,'BREAKTHROUGH',null,{gainedAction:stamp(b,a),consumeAction:null});break;}
  case'YELAN_Q':add('EXQUISITE_THROW');break;
  case'YUNJIN_Q':add('FLYING_CLOUD_FLAG');break;
- case'YAOYAO_E':add('YUEGUI_THROWING',99,{name:'월계',asset:'summon_yuegui.webp',summonTurns:2,summonTicks:0});break;
- case'YAOYAO_Q':{many(.8,'DENDRO');allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING',a.side);add('YUEGUI_THROWING',99,{sage:!!f,name:'월계',asset:'summon_yuegui.webp',summonTurns:2,summonTicks:0});break;}
+ case'YAOYAO_E':add('YUEGUI_THROWING',99,{name:'월계',asset:'summon_yuegui.webp',summonTurns:2,summonTicks:0,healRatio:healing.yaoyaoFieldRatio,healFlat:healing.yaoyaoFieldFlat});break;
+ case'YAOYAO_Q':{many(.8,'DENDRO');allies.forEach(t=>heal(t,hp*healing.yaoyaoQRatio+healing.yaoyaoQFlat));const f=field(b,'YUEGUI_THROWING',a.side);add('YUEGUI_THROWING',99,{sage:!!f,name:'월계',asset:'summon_yuegui.webp',summonTurns:2,summonTicks:0,healRatio:healing.yaoyaoFieldRatio,healFlat:healing.yaoyaoFieldFlat});break;}
  case'ZHONGLI_E':allies.forEach(t=>this.shield(t,hp*.2,c.id,2,{ignoreForcedMove:true}));add('STONE_STELE');break;
- case'ZHONGLI_Q':for(const t of many(.8,'GEO',4,{rawAdd:hp*.25})){if(t.grade==='보스')(buff(t,'LIYUE_BOSS_PETRIFY',null,{nextDamage:true,resolveTurn:(t.turns||0)+1}),this.liyueSlowNextAction(t,.7));else buff(t,'LIYUE_PETRIFY',1);}break;
+ case'ZHONGLI_Q':for(const t of many(.8,'GEO',4,{rawAdd:hp*this.combatCharacterBudget().zhongliQHpRatio})){if(t.grade==='보스')(buff(t,'LIYUE_BOSS_PETRIFY',null,{nextDamage:true,resolveTurn:(t.turns||0)+1}),this.liyueSlowNextAction(t,.7));else buff(t,'LIYUE_PETRIFY',1);}break;
  case'CHONGYUN_E':many(.8,'CRYO',3);add('CHONGYUN_FROST');break;
  case'CHONGYUN_Q':for(let i=0;i<3&&ts.some(t=>t.hp>0);i++){const live=ts.filter(t=>t.hp>0),t=live[i%live.length],boost=i===2&&(this.auraList(t).some(v=>v.element==='불')||/EVIL_SPIRIT|ABYSS|심연|악령/.test((t.tags||[]).join(' ')+t.source));hit(t,.55*(boost?1.5:1),'CRYO');const removable=t.statuses.find(s=>s.removable===true&&s.mods);if(removable)t.statuses=t.statuses.filter(s=>s!==removable);}break;
  case'ZIBAI_E':if(st(a,'AGE_GAP'))fail('AGE_GAP_ACTIVE','시간의 틈이 이미 유지 중입니다.');buff(a,'AGE_GAP',3,{light:0,uses:0,justCastRound:b.round,lastGainTurn:null});break;
@@ -128,11 +152,10 @@ P.applyDamage=function(a,t,amount,d={}){
  const b=this.s.runtime;if(!b)return old.applyDamage.call(this,a,t,amount,d);let n=amount;const external=a.id!==t.id&&a.side!==t.side;
  const before=(t.shields||[]).map(s=>({...s})),counter=st(t,'LIYUE_COUNTER'),jade=field(b,'JADE_SCREEN',t.side),rain=field(b,'RAIN_SWORDS',t.side);
  if(external&&n>0){
-  if(t.source==='LIYUE_ZHONGLI')n*=[0,0,.5,.7,.9][Math.min(5,b.round)]??1;
+  if(t.source==='LIYUE_ZHONGLI')n*=this.combatCharacterBudget().zhongliSelfTaken[Math.min(5,b.round)]??1;
   if(counter&&!counter.triggered){counter.triggered=true;counter.attacker=a.id;n*=counter.card==='LIYUE_BEIDOU_E'?.5:.4;}
   if(field(b,'STORMBREAKER',t.side))n*=.9;
   if(jade&&!d.sourceKind&&['원거리','전장','대공'].includes(this._liyueDamage?.options?.range||a.range)){jade.firstAttacks||={};jade.firstAttacks[b.round]??=stamp(b,a);if(jade.firstAttacks[b.round]===stamp(b,a))n*=.6;}
-  if(before.some(s=>s.converted===d.element))n*=.5;
   if(rain?.stacks>0){n*=.8;const floor=field(b,'RAINCUTTER',t.side)?1:0;rain.stacks=Math.max(floor,rain.stacks-1);if(!rain.stacks){rain.done=true;const source=b.actors.find(x=>x.id===rain.actor),ally=lowest(active(b,t.side));if(source&&ally)this.heal(ally,source.maxHp*.06,source.name);}}
  }
  const start=b.log.length,result=old.applyDamage.call(this,a,t,n,d),dealt=b.log.slice(start).some(v=>v.target===t.name&&((v.damage||0)>0||(v.absorbed||0)>0));
@@ -143,8 +166,8 @@ P.applyDamage=function(a,t,amount,d={}){
  const follow=(source,target,k,e,more={})=>{if(source?.hp>0&&target?.hp>0)this.damage(source,target,k,e,{range:'전장',sourceKind:'FOLLOWUP',...more});};
  const storm=field(b,'STORMBREAKER',a.side);if(storm&&once(storm,key)){const source=b.actors.find(v=>v.id===storm.actor);follow(source,t,.45,'ELECTRO');follow(source,active(b,t.side).find(v=>v.id!==t.id),.45,'ELECTRO');}
  const swords=field(b,'RAINCUTTER',a.side);if(swords&&normal&&once(swords,key))follow(b.actors.find(v=>v.id===swords.actor),t,.45,'HYDRO');
- const talisman=st(t,'FORTUNE_TALISMAN');if(talisman&&once(b,'TALISMAN:'+talisman.actor+':'+key)){const source=b.actors.find(v=>v.id===talisman.actor);if(source)this.heal(a,this.combatStat(source,'atk')*.45,source.name);}
- const star=field(b,'BAMBOO_STAR',a.side);if(star&&once(star,''+b.round)){const source=b.actors.find(v=>v.id===star.actor);follow(source,t,.45,'ANEMO');active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.25,source.name));}
+ const talisman=st(t,'FORTUNE_TALISMAN');if(talisman&&once(b,'TALISMAN:'+talisman.actor+':'+key)){const source=b.actors.find(v=>v.id===talisman.actor);if(source){const amount=this.combatStat(source,'atk')*Number(talisman.healRatio??.45)+Number(talisman.healFlat??0);if(b.characterBalanceRevision===1)this.heal(a,amount,source.name,source.id,{sourceKind:'FOLLOWUP',sourceCardId:'LIYUE_QIQI_Q'});else this.heal(a,amount,source.name);}}
+ const star=field(b,'BAMBOO_STAR',a.side);if(star&&once(star,''+b.round)){const source=b.actors.find(v=>v.id===star.actor);follow(source,t,.45,'ANEMO');const friends=active(b,a.side),targets=star.healTargetCount===1?[lowest(friends)].filter(Boolean):friends;targets.forEach(v=>{const amount=this.combatStat(source,'atk')*Number(star.healRatio??.25)+Number(star.healFlat??0);if(b.characterBalanceRevision===1)this.heal(v,amount,source.name,source.id,{sourceKind:'FIELD',sourceCardId:'LIYUE_XIANYUN_Q'});else this.heal(v,amount,source.name);});}
  const dice=field(b,'EXQUISITE_THROW',a.side);if(dice&&once(dice,''+b.round))follow(b.actors.find(v=>v.id===dice.actor),t,.08,'HYDRO',{stat:'maxHp'});
  const sky=st(a,'SKY_LADDER');if(sky&&once(sky,action)){sky.consumeAction=action;const source=b.actors.find(v=>v.id===sky.actor);for(const target of this.nearbyTargets(t,t.side,3))follow(source,target,1,'ANEMO',{aoe:true});}
  const bane=st(a,'BANE_OF_ALL_EVIL');if(bane&&once(bane,action)){const adjacent=this.nearbyTargets(t,t.side,4).find(v=>v!==t);if(adjacent)this.applyDamage(a,adjacent,result*.35,{element:'바람',sourceKind:'FOLLOWUP'});}
@@ -170,13 +193,13 @@ P.tickFields=function(timing){
   if(timing==='START'&&f.kind==='BAIZHU_SEAMLESS_SHIELD'&&once(f,'START:'+b.round)&&low)this.shield(low,a.maxHp*.1,'LIYUE_BAIZHU_Q',1,{actor:a.id});
   if(timing!=='END'||!once(f,'END:'+b.round))continue;
   switch(f.kind){
-   case'HERALD_OF_FROST':hit(.45,'CRYO',1);if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));break;
+   case'HERALD_OF_FROST':hit(.45,'CRYO',1);if(low)heal(low,(atk*Number(f.healRatio??.55)+Number(f.healFlat??0))*(a.liyueDirectRound===b.round?1.25:1));break;
    case'CELESTIAL_SHOWER':for(const t of foes.slice(0,foes.length>=3?3:2))this.damage(a,t,.4,'CRYO',{range:'전장',sourceKind:'FIELD',card:f.sourceCardId});if(foes.length===1)this.damage(a,foes[0],.4,'CRYO',{range:'전장',sourceKind:'FIELD',noAura:true,card:f.sourceCardId});break;
    case'GOU_BA':hit(.45,'PYRO',2);f.summonTicks=Number(f.summonTicks||0)+1;if(f.summonTicks>=Number(f.summonTurns||2)){f.done=true;this.addField('CHILI',a,1,{liyue:true});}break;
    case'PYRONADO':hit(.55*(Object.keys(b.liyueMelee||{}).filter(k=>k.startsWith(b.round+':')).length>=2?1.2:1),'PYRO');break;
    case'DIVINE_MAIDEN':hit(.45,'CRYO');break;
    case'STONE_STELE':hit(.35,'GEO',3);break;
-   case'YUEGUI_THROWING':if(low?.hp/low?.maxHp<=.7||f.sage){if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO',f.sage?2:1);}else hit(.35,'DENDRO',2);f.summonTicks=Number(f.summonTicks||0)+1;if(f.summonTicks>=Number(f.summonTurns||2))f.done=true;break;
+   case'YUEGUI_THROWING':if(low?.hp/low?.maxHp<=.7||f.sage){if(low)heal(low,a.maxHp*Number(f.healRatio??.05)+Number(f.healFlat??0));hit(.35,'DENDRO',f.sage?2:1);}else hit(.35,'DENDRO',2);f.summonTicks=Number(f.summonTicks||0)+1;if(f.summonTicks>=Number(f.summonTurns||2))f.done=true;break;
    case'ICE_LOTUS':if(b.round>=f.expires)this.liyueExplodeLotus(f);break;
    case'XINYAN_SHIELD_FLAME':if(b.round>=f.due){hit(.35,'PYRO',3);f.done=true;}break;
    case'FIRE_STAGE':if(b.round>=f.due){for(const t of foes.filter(t=>f.targets.includes(t.id)))this.damage(a,t,.45,'PYRO',{range:'전장',sourceKind:'FIELD',card:f.sourceCardId});f.done=true;}break;
@@ -187,12 +210,12 @@ P.tickFields=function(timing){
  b.fields=b.fields.filter(f=>!f.done);
 };
 P.liyuePartyPassive=function(owner){return this.s.party.some(p=>p.active&&p.source===owner)&&this.s.chars[owner]?.hp>0;};
-P.craft=function(id,quantity=1){const r=this.recipeDefinition(id),out=old.craft.call(this,id,quantity);if(this.liyuePartyPassive('LIYUE_XIANGLING')&&this.passiveRecipeKind(r)==='COOK'&&/ATK|공격력/.test(JSON.stringify(this.foodSpec(out.result)))){this.giveItem(out.result,1);out.quantity++;out.liyuePassive='LIYUE_XIANGLING_PASSIVE_COOK';}return out;};
+P.craft=function(id,quantity=1){const r=this.recipeDefinition(id),out=old.craft.call(this,id,quantity);if(this.liyuePartyPassive('LIYUE_XIANGLING')&&this.passiveRecipeKind(r)==='COOK'&&['STATUS_FOOD_ATK','STATUS_FOOD_FEAST'].includes(this.tables['14_ITEM_DB'].get(out.result)?.[9])){this.giveItem(out.result,1);out.quantity++;out.liyuePassive='LIYUE_XIANGLING_PASSIVE_COOK';}return out;};
 P.finishLife=function(id,a={}){const job=this.s.lifeJob?JSON.parse(JSON.stringify(this.s.lifeJob)):null,out=old.finishLife.call(this,id,a);if(job&&this.row('32_MAP_DB',job.map)[1]==='리월')for(const item of Object.keys(out.items||{})){const ore=job.kind==='MINE'&&this.liyuePartyPassive('LIYUE_NINGGUANG')&&['ORE_IRON','ORE_WHITE_IRON'].includes(item),herb=['GATHER','FORAGE'].includes(job.kind)&&this.liyuePartyPassive('LIYUE_QIQI')&&['MAT_LIYUE_QINGXIN','MAT_LIYUE_VIOLETGRASS'].includes(item);if(ore||herb){this.giveItem(item,1);out.items[item]++;out.liyuePassive=ore?'LIYUE_NINGGUANG_PASSIVE_ORE':'LIYUE_QIQI_PASSIVE_HERB';}}return out;};
 P.reactionFor=function(t,e,o={}){const rx=old.reactionFor.call(this,t,e,o),a=this._liyueDamage?.actor;if(rx?.[0]==='RX_CRYSTALLIZE'&&rx.previousAura==='물'&&a&&active(this.s.runtime,a.side).some(x=>x.source==='LIYUE_ZIBAI')){const lunar=Object.assign([...rx],{previousAura:rx.previousAura});lunar[0]='RX_LUNAR_CRYSTALLIZE';lunar[1]='달 결정';lunar[17]='TRANSFORM';return lunar;}return rx;};
 P.applyCombatAura=function(a,t,e,o={}){const rx=o.reaction===undefined?this.reactionFor(t,e,o):o.reaction;if(rx?.[0]==='RX_LUNAR_CRYSTALLIZE'||rx?.[0]==='RX_CRYSTALLIZE'&&rx.previousAura==='물'&&active(this.s.runtime,a.side).some(x=>x.source==='LIYUE_ZIBAI')){t.auras=this.auraList(t).filter(x=>x.element!=='물');this.syncAura(t);this.liyueLunarDamage(a,t,this.reactionBase(a));this.s.runtime.log.push({actor:a.name,target:t.name,reaction:'RX_LUNAR_CRYSTALLIZE',reactionName:'달 결정',text:'달 결정 반응'});return rx;}return old.applyCombatAura.call(this,a,t,e,o);};
 
-P.validateSave=function(s){if(s.runtime)for(const a of s.runtime.actors||[]){const age=st(a,'AGE_GAP');if(age&&(!Number.isInteger(age.light)||age.light<0||age.light>100||!Number.isInteger(age.uses)||age.uses<0||age.uses>4))fail('LIYUE_CARD_SAVE','자백의 전투 자원 기록을 확인하세요.');}return old.validateSave.call(this,s);};
+P.validateSave=function(s){if(s.runtime?.healingBalanceRevision!==undefined&&s.runtime.healingBalanceRevision!==1)fail('HEALING_BALANCE_SAVE','전투 회복 정책 기록을 확인하세요.');if(s.runtime)for(const a of s.runtime.actors||[]){const age=st(a,'AGE_GAP');if(age&&(!Number.isInteger(age.light)||age.light<0||age.light>100||!Number.isInteger(age.uses)||age.uses<0||age.uses>4))fail('LIYUE_CARD_SAVE','자백의 전투 자원 기록을 확인하세요.');}return old.validateSave.call(this,s);};
 const actionExecute=P.executeCard,actionBasic=P.basicHit;
 P.executeCard=function(a,c,...rest){const b=this.s.runtime,key=stamp(b,a),consumables=(a.statuses||[]).filter(s=>['SKY_LADDER','BREAKTHROUGH','SCARLET_SEAL','LIYUE_BOSS_PETRIFY'].includes(s.id)).map(s=>({s,gained:s.gainedAction}));const result=actionExecute.call(this,a,c,...rest);for(const {s,gained} of consumables)if(s.consumeAction===key&&s.gainedAction===gained)a.statuses=a.statuses.filter(x=>x!==s);return result;};
 P.basicHit=function(a,t,k){const b=this.s.runtime,breakthrough=st(a,'BREAKTHROUGH'),targets=breakthrough?[t,...active(b,t.side).filter(x=>x!==t)].slice(0,3):[t];let result=false;for(const target of targets)result=actionBasic.call(this,a,target,k)||result;const key=stamp(b,a);a.statuses=a.statuses.filter(s=>s.consumeAction!==key);return result;};
