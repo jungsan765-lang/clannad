@@ -11,7 +11,7 @@ P.installMarketContent=function(){if(this._marketInstalled)return;this.installJo
  table('48_RECIPE_INGREDIENT_DB',rows=>{for(const p of E.optionalRecipePatches){for(let i=rows.length-1;i>0;i--)if(rows[i][1]===p.id)rows.splice(i,1);Object.entries(p.ingredients).forEach(([id,n],i)=>rows.push(['RI_CRPG_MARKET_'+p.id+'_'+i,p.id,i+1,id,n,'','','CRPG_LOCAL_V011']));}});
  this._marketInstalled=true;
 };
-P.saleUnitPrice=function(inv){const row=this.tables[inv.equip?'16_EQUIP_DB':'14_ITEM_DB']?.get(inv.equip||inv.item);if(!row)return 0;let price=Number(row[inv.equip?17:14]);if(!Number.isSafeInteger(price)||price<=0)return 0;const retail=this.rows('19_SHOP_STOCK_DB').filter(r=>r[3]===(inv.equip||inv.item)&&Number(r[5])>0&&!/SYSTEM_DISABLED|레거시|사용 금지/.test(r[8]||'')).map(r=>Number(r[5]));if(retail.length)price=Math.min(price,Math.floor(Math.min(...retail)/4));return Math.max(0,price);};
+P.saleUnitPrice=function(inv){const row=this.tables[inv.equip?'16_EQUIP_DB':'14_ITEM_DB']?.get(inv.equip||inv.item);if(!row)return 0;let price=Number(row[inv.equip?17:14]);if(!Number.isSafeInteger(price)||price<=0)return 0;const retail=this.rows('19_SHOP_STOCK_DB').filter(r=>r[3]===(inv.equip||inv.item)&&Number(r[5])>0&&!/SYSTEM_DISABLED|레거시|사용 금지/.test(r[8]||'')).map(r=>Number(r[5]));if(retail.length)price=Math.min(price,Math.floor(Math.min(...retail)/4));const resaleCap={FOOD_NATLAN_STEW:68,FOOD_SNEZ_SLICED_SASHIMI:45,EQ_SPECIAL_GRAPPLE:394,FOOD_FONT_CAKE:92,FOOD_BREAKFAST_SANDWICH:59,FOOD_GOLDEN_FRIED_CHICKEN:96}[inv.equip||inv.item];if(resaleCap!==undefined)price=Math.min(price,resaleCap);return Math.max(0,price);};
 P.saleEntry=function(a){
  const reason=this.placeVisitReason('SHOP');if(reason)fail('SHOP',reason);const place=this.currentPlace();if(this.placeStocks().some(s=>s.row[3]==='SERVICE_INN_REST_8H'))fail('SHOP','숙박시설에서는 물건을 판매할 수 없습니다.');
  const inv=a.slot?this.s.inventory.find(i=>i.slot===a.slot):this.s.inventory.find(i=>i.item===a.item&&!i.equip);if(!inv)fail('ITEM','판매할 소지품을 확인해 주세요.');
@@ -27,7 +27,8 @@ P.saleEntry=function(a){
  return {inv,id,quantity,price,total:price*quantity,variant,name:row[1]};
 };
 P.sell=function(a){const e=this.saleEntry(a);if(e.inv.equip)this.s.inventory=this.s.inventory.filter(i=>i.slot!==e.inv.slot);else{this._foodSpendLots={[e.id]:{NORMAL:e.variant==='NORMAL'?e.quantity:0,BARBARA_SPECIAL:e.variant==='BARBARA_SPECIAL'?e.quantity:0}};try{this.pay({items:{[e.id]:e.quantity}});}finally{delete this._foodSpendLots;}}this.s.global.MORA+=e.total;return {sold:e.id,name:e.name,quantity:e.quantity,mora:e.total};};
-P.shopEquipmentPreview=function(id,owner='PLAYER_CUSTOM'){const r=new api.Runtime(this.db,copy(this.s)),slot=r.giveEquipment(id);return r.equipmentPreview(slot,owner);};
+// 0.15.6: a light child runtime with its own copy of the save, like equipmentPreview (a new runtime cost about 0.3 s).
+P.shopEquipmentPreview=function(id,owner='PLAYER_CUSTOM'){const r=Object.assign(Object.create(this),{s:copy(this.s)}),slot=r.giveEquipment(id);return r.equipmentPreview(slot,owner);};
 P.actionReason=function(type,a={}){const reason=old.actionReason.call(this,type,a);if(reason)return reason;if(type==='SELL')try{this.saleEntry(a);}catch(e){return e.message;}return '';};
 P.apply=function(a){if(a.type==='SELL')return this.sell(a);return old.apply.call(this,a);};
 P.newGame=function(o){this.installMarketContent();old.newGame.call(this,o);this.s.marketVersion=1;return copy(this.s);};

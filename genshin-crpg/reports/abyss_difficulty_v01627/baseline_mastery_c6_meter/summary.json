@@ -1,0 +1,312 @@
+{
+  "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "sourceHash": "bfe0d10cde798b29b91e13db7feb3d74da3c5e5b6561f63af523eba751eb9d84",
+  "rows": [
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "REFERENCE",
+      "itemPolicy": "FINITE",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 19,
+      "finalHp": 0.98268106162843,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 7,
+          "preHp": 1,
+          "ko": [],
+          "immune": 6,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 60875,
+            "shieldAdded": 107113,
+            "healActual": 2083,
+            "healCalls": 32,
+            "hits": 20,
+            "minPartyHp": 0.987830050743958,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523716024795938,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 7,
+          "preHp": 1,
+          "ko": [],
+          "immune": 0,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 57049,
+            "shieldAdded": 113631,
+            "healActual": 3507,
+            "healCalls": 30,
+            "hits": 19,
+            "minPartyHp": 0.987830050743958,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 0.9699842022116903,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523716024795938,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 5,
+          "preHp": 0.9828918322295805,
+          "ko": [],
+          "immune": 2,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 1561,
+            "shieldSpent": 41468,
+            "shieldAdded": 83739,
+            "healActual": 4115,
+            "healCalls": 20,
+            "hits": 14,
+            "minPartyHp": 0.9828918322295805,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 0.8699678596720597,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523716024795938,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "REFERENCE",
+      "itemPolicy": "FINITE",
+      "seed": 4242,
+      "state": "CLEARED",
+      "rounds": 14,
+      "finalHp": 1,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 4,
+          "preHp": 1,
+          "ko": [],
+          "immune": 0,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 34912,
+            "shieldAdded": 70714,
+            "healActual": 1757,
+            "healCalls": 18,
+            "hits": 12,
+            "minPartyHp": 0.9877458501883107,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523680429419579,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 5,
+          "preHp": 1,
+          "ko": [],
+          "immune": 0,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 38908,
+            "shieldAdded": 80525,
+            "healActual": 1757,
+            "healCalls": 19,
+            "hits": 13,
+            "minPartyHp": 0.9877458501883107,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523680429419579,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 5,
+          "preHp": 1,
+          "ko": [],
+          "immune": 3,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 38270,
+            "shieldAdded": 82341,
+            "healActual": 1757,
+            "healCalls": 19,
+            "hits": 13,
+            "minPartyHp": 0.9877458501883107,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523680429419579,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "REFERENCE",
+      "itemPolicy": "FINITE",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 18,
+      "finalHp": 1,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 5,
+          "preHp": 1,
+          "ko": [],
+          "immune": 3,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 37103,
+            "shieldAdded": 67733,
+            "healActual": 1853,
+            "healCalls": 19,
+            "hits": 13,
+            "minPartyHp": 0.987185781957747,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523785047929891,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 6,
+          "preHp": 1,
+          "ko": [],
+          "immune": 0,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 42377,
+            "shieldAdded": 108809,
+            "healActual": 1853,
+            "healCalls": 24,
+            "hits": 14,
+            "minPartyHp": 0.987185781957747,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523785047929891,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 7,
+          "preHp": 1,
+          "ko": [],
+          "immune": 7,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "shieldSpent": 54317,
+            "shieldAdded": 120466,
+            "healActual": 1853,
+            "healCalls": 29,
+            "hits": 18,
+            "minPartyHp": 0.987185781957747,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523785047929891,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          }
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

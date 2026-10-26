@@ -6,7 +6,7 @@
  function resonance(parent){
   const v=game.travelerResonanceView?.();if(!v?.statue)return;
   const card=el('section','card traveler-resonance');card.id='traveler-resonance';
-  card.append(el('small','eyebrow','일곱 신상'),el('h2','',v.traveler?'원소 공명':v.statue==='GEO'?'바위 신상':'바람 신상'));
+  card.append(el('small','eyebrow','일곱신상'),el('h2','',v.traveler?'원소 공명':v.statue==='GEO'?'바위 신상':'바람 신상'));
   if(!v.traveler){card.append(el('p','story',QUIET[v.statue]||QUIET.ANEMO),el('p','muted','이세계인은 신상과 공명할 수 없습니다. 대신 적을 약화시키고, 동료와 합동 공격을 이어 가며 강해집니다.'));parent.append(card);return;}
   card.append(el('p','story',FLAVOR[v.statue]));
   if(!v.resonant){card.append(el('p','requirement-unmet','먼저 바람 신상과의 공명을 되찾아야 합니다.'));parent.append(card);return;}
@@ -25,5 +25,5 @@
  const priorDialogue=dialogue;
  dialogue=function(...args){priorDialogue.apply(this,args);resonance(args[0]);};
  const priorVisual=placeVisual;
- placeVisual=function(entry){const v=priorVisual(entry);return /^EVT_CRPG_STATUE_/.test(entry?.id||'')?{...v,kind:'일곱 신상 · 원소 공명'}:v;};
+ placeVisual=function(entry){const v=priorVisual(entry);return /^EVT_CRPG_STATUE_/.test(entry?.id||'')?{...v,kind:'일곱신상 · 원소 공명'}:v;};
 })();

@@ -1,5 +1,5 @@
 /* Item-grid shopping and exact-instance selling share the inventory presentation. */
-let marketMode='BUY',marketCategory='전체',marketSelection=null,marketPlace=null,marketAvailable=false,marketOwner='PLAYER_CUSTOM';
+let marketMode='BUY',marketCategory='전체',marketSelection=null,marketPlace=null,marketAvailable=false,marketOwner='PLAYER_CUSTOM',marketQty={};
 function marketItems(){
  if(marketMode==='BUY')return game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')).map(s=>({key:s.row[0],stock:s,d:shopStockDetail(s.row),group:shopStockGroup(s.row),reason:s.reason,quantity:s.remaining,price:Number(s.row[5])}));
  const entries=[];
@@ -13,10 +13,11 @@ function marketItems(){
 }
 function marketComparison(box,id){
  const members=game.ownedActors().filter(x=>x.active);if(!members.some(x=>x.id===marketOwner))marketOwner='PLAYER_CUSTOM';
- const label=el('label','market-compare-label','장착할 인물과 비교'),select=el('select');select.setAttribute('aria-label','장비 비교 대상');
- for(const m of members){const opt=el('option','',ownerName(m.id));opt.value=m.id;select.append(opt);}select.value=marketOwner;label.append(select);box.append(label);const values=el('div','market-comparison');box.append(values);
- const refresh=()=>{values.replaceChildren();const preview=game.shopEquipmentPreview(id,marketOwner);if(preview.after){const table=el('dl','item-detail-fields');for(const [key,name]of [['atk','공격력'],['def','방어력'],['maxHp','최대 HP'],['crit','치명타 확률'],['spd','속도']]){const before=preview.before[key],after=preview.after[key],delta=after-before;table.append(el('dt','',name),el('dd',delta>0?'stat-up':delta<0?'stat-down':'',before+' → '+after+(delta?' ('+(delta>0?'+':'')+Math.round(delta*100)/100+')':'')));}values.append(table);}if(preview.reason)values.append(el('p','market-restriction',preview.reason));};
- select.onchange=()=>{marketOwner=select.value;refresh();};refresh();
+ // 0.15.25: whom to compare with, by face (no drop-down in the game, AGENTS.md).
+ const label=el('div','market-compare-label','장착할 인물과 비교'),select=choiceTiles({label:'장비 비교 대상',className:'face-choice',options:members.map(m=>({value:m.id,label:ownerName(m.id),icon:typeof actorPortrait==='function'?actorPortrait(m.id,'choice-face'):null})),value:marketOwner,onChange:v=>{marketOwner=v;refresh();}});
+ label.append(select);box.append(label);const values=el('div','market-comparison');box.append(values);
+ const refresh=()=>{values.replaceChildren();const preview=game.shopEquipmentPreview(id,marketOwner);if(preview.after){const table=el('dl','item-detail-fields');for(const [key,name]of [['atk','공격력'],['def','방어력'],['maxHp','최대 HP'],['crit','치명타 확률'],['spd','속도']]){const before=preview.before[key],after=preview.after[key],delta=after-before;const show=v=>Number.isFinite(v)?String(Math.round(v*10)/10):String(v);table.append(el('dt','',name),el('dd',delta>0?'stat-up':delta<0?'stat-down':'',show(before)+' → '+show(after)+(delta?' ('+(delta>0?'+':'')+show(delta)+')':'')));}values.append(table);}if(preview.reason)values.append(el('p','market-restriction',preview.reason));};
+ refresh();
 }
 function showSaleQuantity(entry){
  const box=el('div','purchase-quantity'),label=el('label','','판매 수량'),input=el('input');input.type='number';input.min='1';input.max=String(Math.min(999,entry.quantity));input.value='1';input.step='1';input.setAttribute('aria-label','판매 수량');label.append(input);
@@ -32,9 +33,22 @@ function marketDetail(box,entry){
  }
  box.append(el('p','market-price'+(marketMode==='BUY'&&Number(game.s.global.MORA)<entry.price?' lack':''),(marketMode==='BUY'?'구매가 ':'판매가 ')+entry.price.toLocaleString()+' 모라'),el('p','muted',(marketMode==='BUY'?'남은 재고 ':'보유 수량 ')+(entry.quantity===Infinity?'상시':entry.quantity+'개')));
  if(stock){const min=String(stock.row[8]).match(/LEVEL>=(\d+)/)?.[1];if(min)box.append(el('p',game.s.global.PLAYER_LEVEL_STATE<Number(min)?'market-restriction':'muted','Lv. '+min+' 이상 구매 가능'));}
- if(reason)box.append(el('p','market-restriction',reason));const controls=el('div','row market-controls');
- if(stock){const one=actionButton('1개 구매','BUY',{stock:stock.row[0],quantity:1},true);one.disabled=one.disabled||!!reason;controls.append(one);if(['ITEM','EQUIP'].includes(stock.row[2])){const why=game.stockReason(stock.row,2),multi=button('여러 개 구매',()=>showPurchaseQuantity(stock.row[0]),busy||!!why);multi.title=why;controls.append(multi);}}
- else{controls.append(actionButton('1개 판매','SELL',entry.args,true));if(!entry.inv.equip&&entry.quantity>1)controls.append(button('여러 개 판매',()=>showSaleQuantity(entry),busy||!!reason));}
+ if(reason)box.append(el('p','market-restriction',reason));
+ // 0.16.29 (user: 「여러개 구매 2개에서 직접 갯수 입력하는거 최대치를 최대 갯수에 막거나 전부 사기를 넣어주고」, 「구매 UI도 별로」): one row
+ // − n + 최대 under the item and one button that buys or sells that many; the count never goes past what the stock and the
+ // Mora (or the bag) allow, and no keyboard opens on a phone.
+ const selling=!stock,many=selling?!entry.inv.equip:['ITEM','EQUIP'].includes(stock.row[2]);
+ const max=Math.max(1,selling?(entry.inv.equip?1:entry.quantity):(many?shopQuantityLimit(stock.row):1));
+ let qty=Math.min(max,Math.max(1,marketQty[entry.key]||1));
+ const controls=el('div','market-controls'),stepper=el('div','qty-stepper'),num=el('strong','qty-num'),total=el('span','qty-total'),why=el('p','market-restriction qty-why');why.setAttribute('role','status');
+ const minus=button('−',()=>set(qty-1)),plus=button('+',()=>set(qty+1)),most=button('최대',()=>set(max));
+ for(const [b,label] of [[minus,'1개 줄이기'],[plus,'1개 늘리기'],[most,'살 수 있는 만큼']])b.setAttribute('aria-label',selling&&b===most?'가진 만큼':label);if(selling)most.textContent='전부';
+ const go=button('',()=>{const args=selling?{...entry.args,quantity:qty}:{stock:stock.row[0],quantity:qty};if(game.actionReason(selling?'SELL':'BUY',args)||(!selling&&game.stockReason(stock.row,qty)))return;marketQty[entry.key]=1;act(selling?'SELL':'BUY',args);},false,true);go.classList.add('qty-go');
+ function set(n){qty=Math.min(max,Math.max(1,n));marketQty[entry.key]=qty;num.textContent=qty+'개';total.textContent=(qty*entry.price).toLocaleString()+' 모라';
+  minus.disabled=busy||qty<=1;plus.disabled=busy||qty>=max;most.disabled=busy||qty>=max;
+  const no=selling?game.actionReason('SELL',{...entry.args,quantity:qty}):(reason||game.actionReason('BUY',{stock:stock.row[0],quantity:qty})||game.stockReason(stock.row,qty));go.textContent=(selling?'판매':'구매')+' · '+qty+'개';go.disabled=busy||!!no;why.textContent=no&&no!==reason?no:'';}
+ if(many&&max>1){stepper.append(minus,num,plus,most);controls.append(stepper);}
+ controls.append(total,go,why);set(qty);
  box.append(controls);if(stock?.row[2]==='EQUIP')marketComparison(box,stock.row[3]);if(d&&d.kind!=='EQUIPMENT')appendItemUses(box,d);
 }
 const marketOldShop=shop;
@@ -50,8 +64,8 @@ shop=function(p,v){
  if(!entries.some(e=>e.key===marketSelection))marketSelection=entries[0]?.key||null;
  p.append(el('p','muted',marketMode==='BUY'?'상품을 선택하면 효과와 장착 후 능력치를 비교할 수 있습니다.':'장착·준비 중인 장비와 임무 핵심 물품은 판매할 수 없습니다.'));
  const layout=el('div','market-layout'),grid=el('div','market-grid'),detail=el('section','card market-detail');
- for(const e of entries){const b=button('',()=>{marketSelection=e.key;render();});b.className='market-item'+(e.key===marketSelection?' selected':'')+(e.reason?' unavailable':'');b.dataset.marketKey=e.key;b.setAttribute('aria-pressed',String(e.key===marketSelection));b.setAttribute('aria-label',(e.d?.name||e.stock?.row[4])+' 상세');if(e.d)b.append(itemGlyph(e.d));b.append(e.d?tierMark(el('strong','',e.d.name),e.d):el('strong','',e.stock?.row[4]),el('span','',e.price.toLocaleString()+' 모라'));if(e.reason)b.append(el('small','market-restriction',e.reason));grid.append(b);}
- const selected=entries.find(e=>e.key===marketSelection);if(selected)marketDetail(detail,selected);else detail.append(el('p','empty',marketMode==='BUY'?'이 조건에 맞는 상품이 없습니다.':'판매할 소지품이 없습니다.'));layout.append(grid,detail);p.append(layout);contactStories(p);discoveryCards(p);
+ for(const e of entries){const b=button('',()=>{marketSelection=e.key;render();});b.className='market-item'+(e.key===marketSelection?' selected':'')+(e.reason?' unavailable':'');b.dataset.marketKey=e.key;b.setAttribute('aria-pressed',String(e.key===marketSelection));b.setAttribute('aria-label',(e.d?.name||e.stock?.row[4])+' 상세');if(e.d){b.append(itemGlyph(e.d));if(e.d.actionHint==='FOOD'&&typeof foodEffectMark==='function'){const m=foodEffectMark(e.d.id);if(m)b.append(m);}}b.append(e.d?tierMark(el('strong','',e.d.name),e.d):el('strong','',e.stock?.row[4]),el('span','',e.price.toLocaleString()+' 모라'));if(e.reason)b.append(el('small','market-restriction',e.reason));grid.append(b);}
+ const selected=entries.find(e=>e.key===marketSelection);if(selected)marketDetail(detail,selected);else detail.append(el('p','empty',marketMode==='BUY'?'이 조건에 맞는 상품이 없습니다.':'가방에 판매할 물건이 없습니다.'));layout.append(grid,detail);p.append(layout);contactStories(p);discoveryCards(p);
 };
 const marketReceivedLoot=receivedLoot;
 receivedLoot=function(before,type){

@@ -33,7 +33,16 @@ export async function decompress(bytes){return JSON.parse(await new Response(new
 
 // Append-only combat history must not resend its entire growing array on every hit.
 export function wirePatch(before,after){
- const d=diffParts(before,after),set=[],splices=[];
+ return encodeWirePatch(before,after,diffParts(before,after));
+}
+// Reuse the persistence delta: private RNG/receipt shards never enter the wire
+// protocol. Only changed paths need decoding, rather than every saved shard.
+export function publicWirePatch(before,after,delta=diffParts(before,after)){
+ const visible=path=>{const keys=JSON.parse(path);return keys[0]!=='processed'&&!(keys[0]==='global'&&keys[1]==='PRNG_STATE');};
+ return encodeWirePatch(before,after,{set:delta.set.filter(([path])=>visible(path)),remove:delta.remove.filter(visible)});
+}
+function encodeWirePatch(before,after,d){
+ const set=[],splices=[];
  for(const [path,value] of d.set){
   const old=before.get(path);if(old?.startsWith('[')&&value.startsWith('[')){
    const a=JSON.parse(old),b=JSON.parse(value),as=a.map(x=>JSON.stringify(x)),bs=b.map(x=>JSON.stringify(x));let prefix=0,suffix=0;

@@ -1,12 +1,14 @@
 """Shared browser/server DB sanitation; no spreadsheet save state ships."""
 import copy
+# Authoring worksheets have DEV scope in 00_CORE; keep schemas but never ship audit/task prose.
+EDITORIAL_TABLES=frozenset(['28_CANON_AUDIT','40_CRPG_MIGRATION_PLAN'])
 def clean_runtime_db(raw):
  db=copy.deepcopy(raw)
  # Runtime/SAVE sheets retain their header contracts, never another game's progress.
  save_tables=['15_INVENTORY_STATE','25_CURRENT_ROSTER','38_COMBAT_STATE','39_COMBAT_LOG','41_PARTY_STATE','42_QUEST_STATE','43_RELATION_STATE','44_RUNTIME_STATE','52_RUNTIME_STATE','54_RELATIONSHIP_STATE']
  removed=[]
  for name,rows in db.items():
-  if name in save_tables or name.startswith(('25_','38_','39_','41_','42_','43_','44_','52_','54_','98_')):
+  if name in EDITORIAL_TABLES or name in save_tables or name.startswith(('25_','38_','39_','41_','42_','43_','44_','52_','54_','98_')):
    removed.append(name);db[name]=rows[:1]
  # Explicit fresh state starts from declared JSON/type defaults, never live values.
  for r in db['24_CURRENT_STATE'][1:]:

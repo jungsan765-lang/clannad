@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict'),h=require('./helpers_v011.cjs'),{fresh,R,db}=h,fs=h.fs,path=h.path,results=[];
 function test(name,fn){try{fn();results.push({name,ok:true});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
-function guild(r){r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});}
+function guild(r){r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});/* Native prerequisite bootstrap preserves the historical mechanic under test. */if(!r.s.quests.Q_TASK_LEARN_01?.claimed){r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});}}
 // v0.14.0: field commissions are multi-step scenes; play the right call at every step.
 function solve(r,id){const spec=h.c.CRPGRuntime.fieldScenes[id];for(let i=0;i<8&&r.s.quests[id].node!=='READY_TO_CLAIM';i++){const step=r.fieldSceneState(id).step;r.action('COMMISSION_PUZZLE',{quest:id,answer:spec.steps[step].options.findIndex(o=>o.ok),step});}}
 test('field commission scene lives on location and reward requires Katheryne',()=>{
@@ -28,3 +28,4 @@ test('UI routes field actions to main screen and reports at Katheryne',()=>{
  const src=fs.readFileSync(path.join(h.root,'source/app_quality_fixes.js'),'utf8');for(const s of ['현재 장소의 의뢰','임무 목록에서는 진행 상황만 확인','캐서린에게 보고','COMMISSION_PUZZLE'])assert(src.includes(s),s);
 });
 fs.writeFileSync(path.join(h.root,'reports/quality-fixes-v01335.json'),JSON.stringify({total:results.length,passed:results.filter(x=>x.ok).length,results},null,2));if(results.some(x=>!x.ok))process.exitCode=1;
+

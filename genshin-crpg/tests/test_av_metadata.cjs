@@ -17,7 +17,7 @@ const hash=x=>crypto.createHash('sha256').update(x).digest('hex');
 const metadataKeys=['actorId','targetId','hpBefore','hpAfter','maxHp','round','actionSequence','cardName','presentationCardId','presentationSourceKind'];
 function context(withAV){
   const c=vm.createContext({console});for(const[n,t]of code)vm.runInContext(t,c,{filename:n});
-  c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+  c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db)});
   if(withAV)vm.runInContext(presentation,c,{filename:'presentation.js'});return c;
 }
 const baseline=context(false),enhanced=context(true),results=[];

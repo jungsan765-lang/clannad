@@ -1,0 +1,285 @@
+{
+  "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "sourceHash": "bfe0d10cde798b29b91e13db7feb3d74da3c5e5b6561f63af523eba751eb9d84",
+  "rows": [
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "REFERENCE",
+      "itemPolicy": "NONE",
+      "seed": 717,
+      "state": "CLEARED",
+      "rounds": 25,
+      "finalHp": 0.9954943189238605,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 8,
+          "preHp": 1,
+          "ko": [],
+          "immune": 13,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 385,
+            "directHpDamage": 385,
+            "shieldSpent": 78741,
+            "shieldAdded": 122700,
+            "healActual": 2083,
+            "healCalls": 38,
+            "hits": 26,
+            "minPartyHp": 0.987830050743958,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523716024795938,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 8,
+          "preHp": 1,
+          "ko": [],
+          "immune": 0,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 6876,
+            "directHpDamage": 3796,
+            "shieldSpent": 62651,
+            "shieldAdded": 140139,
+            "healActual": 8574,
+            "healCalls": 33,
+            "hits": 21,
+            "minPartyHp": 0.9800536108483129,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 0.8483957073595904,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523716024795938,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 9,
+          "preHp": 0.9955491528339211,
+          "ko": [],
+          "immune": 14,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 6921,
+            "directHpDamage": 4755,
+            "shieldSpent": 80335,
+            "shieldAdded": 163933,
+            "healActual": 7998,
+            "healCalls": 38,
+            "hits": 26,
+            "minPartyHp": 0.9677904876580373,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 0.8370104047502315,
+              "MOND_DILUC": 0.9550016477425927,
+              "MOND_JEAN": 0.9523716024795938,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "REFERENCE",
+      "itemPolicy": "NONE",
+      "seed": 4242,
+      "state": "CLEARED",
+      "rounds": 21,
+      "finalHp": 1,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 7,
+          "preHp": 1,
+          "ko": [],
+          "immune": 4,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "directHpDamage": 0,
+            "shieldSpent": 52038,
+            "shieldAdded": 89720,
+            "healActual": 1757,
+            "healCalls": 29,
+            "hits": 18,
+            "minPartyHp": 0.9877458501883107,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523680429419579,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 6,
+          "preHp": 1,
+          "ko": [],
+          "immune": 0,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "directHpDamage": 0,
+            "shieldSpent": 47498,
+            "shieldAdded": 113949,
+            "healActual": 1757,
+            "healCalls": 25,
+            "hits": 15,
+            "minPartyHp": 0.9877458501883107,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523680429419579,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 8,
+          "preHp": 1,
+          "ko": [],
+          "immune": 6,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 4893,
+            "directHpDamage": 3917,
+            "shieldSpent": 64217,
+            "shieldAdded": 150745,
+            "healActual": 6650,
+            "healCalls": 33,
+            "hits": 21,
+            "minPartyHp": 0.9762798158739016,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 0.9549830861306271,
+              "MOND_DILUC": 0.926857406552838,
+              "MOND_JEAN": 0.9523680429419579,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        }
+      ],
+      "errors": []
+    },
+    {
+      "floor": 12,
+      "prep": "HIGH",
+      "constellationPolicy": "REFERENCE",
+      "itemPolicy": "NONE",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 21,
+      "finalHp": 1,
+      "ko": 0,
+      "gateBlocked": false,
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 7,
+          "preHp": 1,
+          "ko": [],
+          "immune": 8,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "directHpDamage": 0,
+            "shieldSpent": 55305,
+            "shieldAdded": 91065,
+            "healActual": 1853,
+            "healCalls": 30,
+            "hits": 19,
+            "minPartyHp": 0.987185781957747,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523785047929891,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 7,
+          "preHp": 1,
+          "ko": [],
+          "immune": 0,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 0,
+            "directHpDamage": 0,
+            "shieldSpent": 55445,
+            "shieldAdded": 112931,
+            "healActual": 1853,
+            "healCalls": 30,
+            "hits": 19,
+            "minPartyHp": 0.987185781957747,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 1,
+              "MOND_DILUC": 1,
+              "MOND_JEAN": 0.9523785047929891,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 7,
+          "preHp": 1,
+          "ko": [],
+          "immune": 7,
+          "mastery": true,
+          "metrics": {
+            "hpDamage": 7252,
+            "directHpDamage": 5307,
+            "shieldSpent": 63269,
+            "shieldAdded": 125045,
+            "healActual": 9105,
+            "healCalls": 31,
+            "hits": 20,
+            "minPartyHp": 0.9772760277998687,
+            "minHpBySource": {
+              "PLAYER_CUSTOM": 0.9111702399836259,
+              "MOND_DILUC": 0.9550111746437175,
+              "MOND_JEAN": 0.9523785047929891,
+              "LIYUE_ZHONGLI": 1
+            }
+          },
+          "consumed": {}
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

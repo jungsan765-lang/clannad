@@ -20,7 +20,7 @@ function guildGuide(parent,q){
 function reportButtons(parent,q){
   if(q.reward?.equipment_choice){
     for(const id of q.reward.equipment_choice){
-      parent.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id},true));
+      parent.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id},true));
     }
   }else{
     parent.append(actionButton('임무 보고 · 보상 수령','CLAIM_QUEST',{quest:q.row[0]},true));
@@ -122,9 +122,13 @@ commissionCard=function(parent,q,guild=false){
   const r=q.row,d=q.definition,state=q.state;
   c.append(
     el('small','',state?.claimed?'완료':q.accepted?'진행 중':'미수락'),
-    el('h3','',r[1]),
-    el('p','',r[5]||d.text)
+    el('h3','',r[1])
   );
+  // 0.16.34 (TODO 5-2): who asks and why, then the conditions as chips; the words of the objective follow.
+  const td=q.taskDisplay;
+  if(td?.story){const ask=el('p','commission-request');ask.append(el('strong','',td.requester||'캐서린'),document.createTextNode(' '+td.story));c.append(ask);}
+  if(td?.chips?.length&&window.CRPGGuildRows?.chips)c.append(window.CRPGGuildRows.chips(td.chips,null));
+  c.append(el('p','',r[5]||d.text));
   travelGuide(c,d.map_id);
   rewardPreview(c,q.reward);
 
@@ -150,6 +154,16 @@ commissionCard=function(parent,q,guild=false){
     if(game.s.global.CURRENT_MAP_ID===d.map_id){
       c.append(actionButton('메인 화면에서 현장 진행',game.s.placeVisit?'PLACE_LEAVE':'MENU',game.s.placeVisit?{}:{screen:'LOCATION'},true));
     }
+  }
+  // 0.16.34 (TODO 5-3): a commission taken can be given back; one press asks, the second gives it back (what was paid to start
+  // a step is named, since it is not returned).
+  if(q.accepted&&!state?.claimed&&game.commissionAbandonReason&&!game.commissionAbandonReason(r[0])){
+    const lost=game.commissionAbandonLoss?.(r[0]),ask=button('의뢰 포기',()=>{
+      const box=el('div','commission-abandon');
+      box.append(el('p','choice-note','포기하면 진행한 만큼이 사라집니다. 다시 받을 수 있습니다.'+(lost?' 이미 낸 '+Object.entries(lost).map(([id,n])=>safeName('14_ITEM_DB',id)+' '+n+'개').join(', ')+'는 돌려받지 못합니다.':'')),actionButton('포기하기','COMMISSION_ABANDON',{quest:r[0]}),button('취소',()=>box.replaceWith(ask),false,false));
+      ask.replaceWith(box);
+    },false,false);
+    ask.classList.add('commission-abandon-ask');c.append(ask);
   }
   parent.append(c);
 };
@@ -219,7 +233,7 @@ function pinnedCommissionActions(card,info){
   const place=guildPlaceFor(row[2]);
   if(game.atCommissionGuild?.(row[2])){
    if(q.reward?.equipment_choice){
-    for(const id of q.reward.equipment_choice)card.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:info.id,equipment:id},true));
+    for(const id of q.reward.equipment_choice)card.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:info.id,equipment:id},true));
    }else card.append(actionButton('캐서린에게 보고 · 보상 수령','CLAIM_QUEST',{quest:info.id},true));
   }else if(place?.maps?.includes(game.s.global.CURRENT_MAP_ID)){
    card.append(actionButton('캐서린에게 보고하러 가기','PLACE_ENTER',{place:place.id,mode:'TALK'},true));
@@ -251,7 +265,7 @@ mainObjective=function(parent){
  if(!pin||!info){pinnedBaseMainObjective(parent);return;}
  const box=el('section','main-objective pinned-objective');
  box.append(
-  el('small','eyebrow','고정 임무 · '+(pin.kind==='COMMISSION'?'의뢰':pin.kind==='LEGEND'?'동료 획득':'호감도')),
+  el('small','eyebrow','고정 임무 · '+(pin.kind==='COMMISSION'?'의뢰':pin.kind==='LEGEND'?'개인 이야기':'호감도')),
   el('h2','',info.title),
   el('p','muted','메인 임무 대신 이 목표의 목적지와 다음 행동을 표시합니다.')
  );
@@ -277,14 +291,12 @@ const razorDialogue=dialogue;
 dialogue=function(p,v){
  razorDialogue(p,v);
  const place=game.currentPlace?.();if(!place?.valid||place.place!==RAZOR_PLACE)return;
- const entry=game.storyEntries().find(e=>e.id==='LEG_MOND_RAZOR');if(!entry)return;
+ // 0.16.30: Razor's own story, once he is met in a wish (companions come from wishes only).
+ const entry=game.storyEntries().find(e=>e.id==='LEG_MOND_RAZOR');if(!entry||game.recruitmentEntries?.().find(e=>e.definition?.id===entry.id)?.owned===false)return;
  const d=entry.definition,card=el('section','card razor-contact');
- card.append(el('small','eyebrow','울프 영지'),el('h2','','레이저'),el('p','story','숲길의 냄새와 발자국을 확인하던 레이저가 멈춰 선다. 몬드성의 소개처가 아니라 울프 영지에서 직접 그의 부탁을 듣는다.'));
+ card.append(el('small','eyebrow','울프 영지'),el('h2','','레이저'),el('p','story','숲길의 냄새와 발자국을 확인하던 레이저가 멈춰 선다. 울프 영지에서 직접 그의 부탁을 듣는다.'));
  if(game.storyDone(entry.id))card.append(el('p','muted','이미 함께 해결한 이야기입니다.'));
- else if(!game.legendRegistered(entry.id)){
-  if(typeof requirementList==='function')requirementList(card,game.legendRequirements(d,{cost:false,location:false}));
-  card.append(actionButton('레이저의 부탁을 듣고 임무 소개받기','LEGEND_REGISTER',{quest:entry.id},true));
- }else{
+ else{
   const why=game.actionReason('LEGEND_ENTER',{quest:entry.id});if(why)card.append(el('p','choice-note',why));
   card.append(actionButton('레이저 개인 이야기 시작','LEGEND_ENTER',{quest:entry.id},true),pinButton('LEGEND',entry.id));
  }
