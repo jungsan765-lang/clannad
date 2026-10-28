@@ -23,7 +23,7 @@ const sameOrigin='http://127.0.0.1:'+app.address.port;const sameOriginReg=await 
 const reg=await app.api('/register',{method:'POST',body:{username:'tester_01',password,displayName:'서울시험'}});assert.equal(reg.status,200,JSON.stringify(reg.json));const token=reg.json.token;assert.equal(token.length,64);
 const empty=await app.api('/me',{token});assert.equal(empty.status,200);assert.equal(empty.json.state,null);assert(Number(empty.headers.get('x-server-time'))>0);
 const created=await app.api('/game/new',{method:'POST',token,body:{name:'서울시험',route:'ROUTE_ISEKAI'}});assert.equal(created.status,200,JSON.stringify(created.json));assert.equal(created.json.revision,0);assert(created.json.state);
-const action={version:'0.14.5',engineVersion:created.json.engineVersion,type:'MENU',params:{screen:'SYSTEM'},revision:0,requestId:'live-request-0001',responseMode:'state-parts-v1'};
+const action={version:'0.14.8',engineVersion:created.json.engineVersion,type:'MENU',params:{screen:'SYSTEM'},revision:0,requestId:'live-request-0001',responseMode:'state-parts-v1'};
 const first=await app.api('/game/action',{method:'POST',token,body:action});assert.equal(first.status,200,JSON.stringify(first.json));assert(first.json.statePatch);assert.equal(first.json.revision,1);assert.equal(first.json.baseRevision,0);
 const merged=joinState(applyParts(splitState(created.json.state),first.json.statePatch)),current=await app.api('/me',{token});assert.deepEqual(merged,current.json.state);assert.equal(current.json.revision,1);
 const replay=await app.api('/game/action',{method:'POST',token,body:action});assert.equal(replay.status,200);assert.equal(replay.json.replayed,true);assert.equal(replay.json.revision,1);
@@ -39,7 +39,7 @@ const dir=await mkdtemp(join(tmpdir(),'crpg-live-region-')),dbPath=join(dir,'liv
 app=await open(dbPath);
 const persistent=await app.api('/register',{method:'POST',body:{username:'persist_01',password}}),pt=persistent.json.token;
 const newGame=await app.api('/game/new',{method:'POST',token:pt,body:{name:'지속시험',route:'ROUTE_ISEKAI'}});
-const move={version:'0.14.5',engineVersion:newGame.json.engineVersion,type:'MENU',params:{screen:'SYSTEM'},revision:0,requestId:'persistent-live-0001',responseMode:'state-parts-v1'};
+const move={version:'0.14.8',engineVersion:newGame.json.engineVersion,type:'MENU',params:{screen:'SYSTEM'},revision:0,requestId:'persistent-live-0001',responseMode:'state-parts-v1'};
 assert.equal((await app.api('/game/action',{method:'POST',token:pt,body:move})).status,200);await app.close();
 app=await open(dbPath);
 const relog=await app.api('/login',{method:'POST',body:{username:'persist_01',password}});assert.equal(relog.status,200);const restored=await app.api('/me',{token:relog.json.token});assert.equal(restored.status,200);assert.equal(restored.json.revision,1);

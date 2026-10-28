@@ -25,7 +25,7 @@ export function durableFixture(){
  async function call(path,data,using=token){const res=await worker.fetch(new Request('https://test.invalid'+path,{method:data===undefined?'GET':'POST',headers:{'content-type':'application/json',...(using?{authorization:'Bearer '+using}:{})},...(data===undefined?{}:{body:JSON.stringify(data)})}),env,{waitUntil:p=>pending.push(p)});return {status:res.status,...await res.json()};}
  return {sql,env,call,handles,objects,get,get d1Calls(){return d1Calls;},get token(){return token;},get account(){return account;},
   async start(){const a=await call('/register',{username:'durabletest',password:'test-only-password'});if(a.status!==200)throw Error(JSON.stringify(a));account=a.account;token=a.token;return call('/game/new',{name:'검증',route:'ROUTE_ISEKAI'});},
-  async action(type,params={},extra={}){return call('/game/action',{version:'0.14.5',revision:get(account.id).meta().revision,requestId:crypto.randomUUID(),type,params,...extra});},
+  async action(type,params={},extra={}){return call('/game/action',{version:'0.14.8',revision:get(account.id).meta().revision,requestId:crypto.randomUUID(),type,params,...extra});},
   read(){const o=get(account.id),m=o.meta();return {...m,state:JSON.stringify(joinState(o.parts()))};},
   restart(){objects.delete(account.id);return get(account.id);},
   async flush(){const o=get(account.id);handles.get(account.id).alarm=null;await o.alarm();await Promise.all(pending);},

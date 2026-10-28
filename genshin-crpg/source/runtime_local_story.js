@@ -20,8 +20,9 @@ P.storyIndex=function(){
   if(ix.nodes.has(row[0]+':'+id))throw Error('Duplicate ensemble node '+id);
   ix.nodes.set(row[0]+':'+id,row);all.push(row);return row;
  };
+ // The protagonist never speaks as a plain row: a line of theirs is offered as a single-option choice.
  const chain=(base,prefix,lines,next)=>{
-  for(let i=lines.length-1;i>=0;i--){const id=prefix+'_'+i;add(base,id,lines[i][0],lines[i][1],next);next=id;}return next;
+  for(let i=lines.length-1;i>=0;i--){const id=prefix+'_'+i;if(lines[i][0]==='나'){add(base,id,'나',lines[i][1],next,'CHOICE',id);next='CHOICE_GROUP:'+id;}else{add(base,id,lines[i][0],lines[i][1],next);next=id;}}return next;
  };
  // Replace the long port-entry scenes with authored beats. Keep every effect,
  // route choice and travel/combat gate, plus replies to actual branch choices.
