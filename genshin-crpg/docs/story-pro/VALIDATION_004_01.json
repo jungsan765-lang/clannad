@@ -1,0 +1,28 @@
+{
+  "task": "004.01-r2",
+  "ok": true,
+  "scope": "manuscript structure/text only; no game or browser execution",
+  "choiceGroups": 4,
+  "optionsPerGroup": 2,
+  "menusPerReadingPath": 3,
+  "readingPaths": [
+    {"commonChoice": 1, "route": "K1", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 1, "route": "K1", "routeChoice": 2, "menus": 3},
+    {"commonChoice": 1, "route": "K2", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 1, "route": "K2", "routeChoice": 2, "menus": 3},
+    {"commonChoice": 2, "route": "K1", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 2, "route": "K1", "routeChoice": 2, "menus": 3},
+    {"commonChoice": 2, "route": "K2", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 2, "route": "K2", "routeChoice": 2, "menus": 3}
+  ],
+  "maxUnitCharacters": 74,
+  "bodyAndStructuredTextMatch": true,
+  "choiceSpecificRepliesDistinct": true,
+  "K2Unchanged": true,
+  "choicesUnchanged": true,
+  "K2DoesNotDiscloseXiaoWarningInDialogue": true,
+  "ellipsisInMeaningfulUtterance": true,
+  "exactCanonicalKeqingHonorific": "not_confirmed",
+  "gameIntegration": "pending",
+  "testServerDeployment": "not_done"
+}

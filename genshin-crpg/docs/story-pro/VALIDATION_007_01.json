@@ -1,0 +1,33 @@
+{
+  "task": "007.01",
+  "ok": true,
+  "scope": "manuscript text and declared structure only; not game/browser/server execution",
+  "readingPaths": [
+    {
+      "option": 1,
+      "utteranceAndNarrationUnits": 24,
+      "bodyCharacters": 736,
+      "declaredFieldActions": 1,
+      "declaredExitRoute": "K2"
+    },
+    {
+      "option": 2,
+      "utteranceAndNarrationUnits": 24,
+      "bodyCharacters": 746,
+      "declaredFieldActions": 1,
+      "declaredExitRoute": "K2"
+    }
+  ],
+  "choiceGroups": 1,
+  "optionsPerGroup": 2,
+  "bodyAndStructuredTextMatch": true,
+  "choicesHaveDifferentReplies": true,
+  "priorFiveSilencePreserved": true,
+  "millelithSpeakerConfirmed": true,
+  "harbingerRecognitionDialogue": true,
+  "hairDescriptionRemoved": true,
+  "maxUnitCharacters": 46,
+  "gameIntegration": "pending",
+  "testServerDeployment": "not_done",
+  "manuscriptSha256": "b9951d7485224f24bbe27989d55219323e3e2faa63d19d9d0d9f502bb4461df5"
+}
