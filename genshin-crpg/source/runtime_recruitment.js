@@ -43,10 +43,14 @@ const liyueContactOwners={
  LIYUE_LANYAN:['EVT_CRPG_LIYUE_ARTISAN'],LIYUE_XIAO:['EVT_CRPG_LIYUE_JUEYUN_CONTACT'],LIYUE_BEIDOU:['EVT_CRPG_LIYUE_DOCKS'],LIYUE_HUTAO:['EVT_CRPG_LIYUE_WANGSHENG'],
  LIYUE_KEQING:['EVT_CRPG_LIYUE_YUJING'],LIYUE_QIQI:['EVT_CRPG_LIYUE_BUBU'],LIYUE_YELAN:['EVT_CRPG_LIYUE_YANSHANG'],LIYUE_GANYU:['EVT_CRPG_LIYUE_YUJING'],
  LIYUE_TARTAGLIA:['EVT_CRPG_LIYUE_NORTHLAND'],LIYUE_NINGGUANG:['EVT_CRPG_LIYUE_YUJING'],LIYUE_BAIZHU:['EVT_CRPG_LIYUE_BUBU'],LIYUE_SHENHE:['EVT_CRPG_LIYUE_YUJING'],
- LIYUE_XIANYUN:['EVT_CRPG_LIYUE_YUJING'],LIYUE_ZIBAI:['EVT_CRPG_LIYUE_MOUNTAIN_RETURN']
+ LIYUE_XIANYUN:['EVT_CRPG_LIYUE_YUJING']
 };
+// v0.14.11: 자백 is met only through events. Her recruitment mission, its introduction at 리월 산악지대 · 귀환 흔적 and the
+// 귀환 확인 steps are closed; a save where she has already joined keeps her, and a save standing in the old place can leave.
+const eventOnly=new Set(['LIYUE_ZIBAI']),EVENT_ONLY_PLACE='EVT_CRPG_LIYUE_MOUNTAIN_RETURN';
+P.recruitEventOnly=id=>eventOnly.has(id);
 P.liyueRecruitContactPlace=id=>liyueContactPlaces.some(p=>p.id===id);
-P.placeCatalog=function(){const list=basePlaceCatalog.call(this);for(const entry of liyueContactPlaces)if(!list.some(p=>p.id===entry.id))list.push({...entry,maps:entry.maps.slice(),modes:entry.modes.slice()});return list;};
+P.placeCatalog=function(){const list=basePlaceCatalog.call(this);for(const entry of liyueContactPlaces)if(!list.some(p=>p.id===entry.id)&&(entry.id!==EVENT_ONLY_PLACE||this.s?.placeVisit?.place===entry.id))list.push({...entry,maps:entry.maps.slice(),modes:entry.modes.slice()});return list;};
 P.legendContactAllowed=function(d,place=this.currentPlace()){
  if(!d||d.kind!=='LEGEND'||!place?.valid)return false;
  if(['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(place.entity))return false;
@@ -60,6 +64,8 @@ P.storyIndex=function(){
   if(d.REGION!=='리월'||d.CHAR_ID==='LIYUE_ZHONGLI')continue;
   const stage=liyueRecruitStages[d.CHAR_ID]||4,quest=liyueStageQuest(d.ROUTE_SCOPE,stage),extra=d.CHAR_ID==='LIYUE_ZIBAI'?' && FLAG_WORLD_ZIBAI_RETURNED=TRUE':'',level=liyueRecruitLevels[stage];
   d.LIYUE_RECRUIT_STAGE=stage;d.LIYUE_RECRUIT_LEVEL=level;d.MAIN_FLAG_GATE='';d.START_CONDITION='ROUTE_ID='+d.ROUTE_SCOPE+' && DONE('+quest+')=TRUE && PLAYER_LEVEL_STATE>='+level+' && '+d.COMPLETE_FLAG_ID+'=FALSE'+extra+' && CURRENT_MAP_ID='+d.MAP_ID;
+  // An event-only companion's mission can no longer be introduced or started (the flag is never set).
+  if(eventOnly.has(d.CHAR_ID)){d.STATUS='EVENT_ONLY';d.START_CONDITION+=' && FLAG_RECRUIT_EVENT_ONLY_OPEN=TRUE';}
   const cost=liyueRecruitCosts[d.CHAR_ID];if(cost){const c=liyueScaledCost(d.CHAR_ID,stage,cost);d.COST_MORA=c.mora;d.COST_ITEMS_JSON=JSON.stringify(c.items);}
   const row=ix.nodes.get(d.ROUTE_SCOPE+':'+d.ENTRY_NODE_ID);if(row)row[11]=d.START_CONDITION;
  }
@@ -88,6 +94,12 @@ P.storyIndex=function(){
  }
  for(const a of ix.affections.values())if(a.id.startsWith('AFF_ISK_MOND_DILUC_H0')){a.REQUIRED_FLAGS=JSON.stringify(['FLAG_ISK_RECRUIT_DILUC','FLAG_LEG_ISK_MOND_DILUC_CLEAR']);a.NOTE=String(a.NOTE||'').replace(/2AB[^.;]*/g,'일반 획득 또는 이야기 합류 이후');}
  for(const row of ix.byTable['57_MOND_STORY_SCENE_DB'])if(String(row[4]).startsWith('AFF_ISK_MOND_DILUC_H0')&&row[11])row[11]=String(row[11]).replace(/FLAG_ISK_MOND_BRANCH=EXPEDITION\s*&&\s*/g,'').replace(/FLAG_ISK_EXPEDITION_FORK=RETURN\s*&&\s*/g,'').replace(/FLAG\(FLAG_ISK_DILUC_LEGEND_FREE\)=TRUE\s*&&\s*/g,'').replace(/FLAG_ISK_DILUC_LEGEND_FREE=TRUE\s*&&\s*/g,'');
+ // 0.14.12 (user): the Traveler route's Mond chapter 2 no longer hands Diluc over. He still comes along for that one
+ // investigation, but only his own personal mission makes him a companion (a 5★, so it asks a lot). Saves where he
+ // already joined keep him.
+ const join=ix.nodes.get('ROUTE_TRAVELER:TRV_M02_N234'),accept=ix.nodes.get('ROUTE_TRAVELER:TRV_M02_JOIN_DILUC_ACCEPT');
+ if(join){join[5]='NARRATION';join[9]='다이루크가 이번 조사에 동행한다. 정식으로 함께하려면 천사의 몫에서 그의 개인 임무를 따로 마쳐야 한다.';join[12]='';}
+ if(accept)accept[12]='';
  Object.defineProperty(ix,'liyueRecruitmentStageVersion',{value:2});return ix;
 };
 P.legendEffectiveCost=function(d){
@@ -111,6 +123,7 @@ const flagNames={FLAG_TRV_MON_PROLOGUE_CLEAR:'몬드 도입부 완료',FLAG_ISK_
 P.legendRequirements=function(d,{cost=true,location=true,introduction=true}={}){
  if(!d)return [];
  const out=[],g=this.s.global,add=(label,met,kind)=>out.push({label,met:!!met,kind});
+ if(d.STATUS==='EVENT_ONLY'){add('이벤트에서만 만날 수 있습니다',false,'event');return out;}
  if(d.STATUS!=='ACTIVE')add('이 루트의 개인 임무 연결 준비 중',false,'content');
  const liyueGate=this.liyueLegendProgress?.(d);if(liyueGate){add(liyueGate.label,liyueGate.ready,'story');const lv=Number(g.PLAYER_LEVEL_STATE)||1;add('주인공 Lv. '+liyueGate.level+' 이상 · 현재 Lv. '+lv,lv>=liyueGate.level,'level');}
  const flags=new Set([d.MAIN_FLAG_GATE,...[...String(d.START_CONDITION||'').matchAll(/(FLAG_[A-Z0-9_]+)\s*=\s*TRUE/g)].map(m=>m[1])].filter(Boolean));
@@ -148,6 +161,7 @@ P.recruitmentEntries=function(){
   let method=archon?'지역의 신의 눈동자 전량 수집 → 순서대로 공양 → 동행 수락':d?'개인 임무 완료 → 동행 제안 수락':'이 루트의 획득 임무 연결 준비 중';
   if(r[1]==='MOND_DILUC'&&route==='ROUTE_ISEKAI')method=joined?'이야기 진행 중 동행 합류 완료':'다운 와이너리 개인 임무 완료 → 동행 제안 수락';
   let requirements=d?this.legendRequirements(d):[{label:'획득 임무 연결 준비 중',met:false,kind:'content'}];
+  if(eventOnly.has(r[1])){method='이벤트 전용 · 획득 임무 없음';requirements=[{label:'이벤트에서 만나기',met:joined,kind:'event'}];}
   if(archon){const summary=r[3]==='몬드'?this.oculusSummary():this.geoOculusSummary?.();requirements=[{label:'지역 눈동자 수집 '+(summary?.collected||0)+' / '+(summary?.total||16),met:!!summary&&summary.collected===summary.total,kind:'oculi'},{label:'본편 완료 후 최종 공양에서 동행 약속',met:joined,kind:'story'}];}
   return {profile:r[0],character:r[1],name:r[2],region:r[3],owned:joined,definition:d,method,requirements,complete:!!d&&this.storyDone(d.id),archon};
  });
@@ -174,7 +188,8 @@ P.recruitmentRejoinEntry=function(d){
 P.storyCompleteLegend=function(id){const out=old.storyCompleteLegend.call(this,id),d=this.storyDefinition(id);if(d&&this.s.storyContext?.entry===d.id&&!['MOND_VENTI','LIYUE_ZHONGLI'].includes(d.CHAR_ID))this.s.storyContext.kind='RECRUIT';return out;};
 P.actionReason=function(type,a={}){
  if(type==='RECRUIT_REJOIN')return this.recruitmentRejoinEntry(this.storyDefinition(a.quest))?.reason??'다시 제안할 개인 임무가 없습니다.';
- if(type==='ZIBAI_RETURN_CHECK')return this.playPhase()!=='FREE'?'현재 장면을 먼저 마쳐 주세요.':!this.liyuePersonalReady()?'리월 본편을 먼저 마쳐 주세요.':this.s.flags.FLAG_WORLD_ZIBAI_RETURNED?'이미 귀환을 확인했습니다.':this.s.global.CURRENT_MAP_ID!=='MAP_LIYUE_MOUNTAINS'?'리월 산지의 귀환 흔적을 찾아가세요.':'';
+ // v0.14.11: 자백 is met only through events, so the 귀환 확인 steps that led to her mission are closed.
+ if(type==='ZIBAI_RETURN_CHECK')return this.s.flags.FLAG_WORLD_ZIBAI_RETURNED?'이미 귀환을 확인했습니다.':'자백은 이벤트에서만 만날 수 있습니다.';
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){

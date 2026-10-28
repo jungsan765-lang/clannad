@@ -10,11 +10,9 @@
  const priorDraw=NavigationUI.draw;
  NavigationUI.draw=function(){const section=priorDraw.call(this);if(game.view().map[1]!=='리월'&&this.atlas!=='liyue')return section;
   const shown=catalog.areas.find(a=>a.id===(this.target||game.s.global.CURRENT_MAP_ID));
-  if(shown){const types={FEATURE:'구조물 기준점',SHORE:'기슭 기준점',PATH:'길 기준점',AREA:'지형 대표점'};
-   const note=el('aside','liyue-coordinate-detail');note.dataset.coordinateId=shown.id;
-   note.append(el('strong','',shown.name+' · '+(types[shown.anchorKind]||'지형 기준점')),
-    el('span','liyue-coordinate-value','원본 좌표 X '+shown.point[0]+' / Y '+shown.point[1]),
-    el('p','',shown.anchor),el('small','muted','880 × 786 원본의 왼쪽 위 기준 · 번호 버튼이 아닌 연결선 끝의 작은 점이 위치입니다.'));
+  // 0.14.10: what the place looks like, in words; the picture coordinates stay in data only (no pixel numbers on screen).
+  if(shown){const note=el('aside','liyue-coordinate-detail');note.dataset.coordinateId=shown.id;note.dataset.point=shown.point[0]+','+shown.point[1];
+   note.append(el('strong','',shown.name),el('p','',shown.anchor),el('small','muted','지도에서는 연결선 끝의 작은 점이 이곳입니다.'));
    section.querySelector('.terrain-layout')?.after(note);
   }
   const browse=el('details','liyue-area-browser');browse.id='liyue-area-browser';browse.append(el('summary','','리월 세부 지역 찾아보기 · '+catalog.areas.length+'곳'));

@@ -4,6 +4,10 @@ const assert=require('node:assert/strict'),{fresh,R,db,fs,root,c}=require('./hel
 const {fixture,runFloor,buildSetup,SETUPS,fight,hpOf}=require('./helpers_abyss.cjs'),{artifacts}=require('./helpers_abyss_artifacts.cjs');
 const CFG=c.CRPGRuntime.abyssConfig,report=[],plain=x=>JSON.parse(JSON.stringify(x));
 assert.equal(CFG.version,2);assert.equal(CFG.markName,'나선 각인');assert.equal(CFG.floors.length,12);
+assert.equal(CFG.floors.reduce((n,f)=>n+(f.reward.primogem||0),0),1600,'floors 1–8 pay 1,600 Primogems in all');assert(CFG.floors.slice(8).every(f=>!f.reward.primogem));
+{ // A floor among 1–8 claimed under the old rule (an Inazuma pick) pays its Primogems once, on load.
+ const r=fixture(10),s=JSON.parse(r.serialize());s.abyss.claimed={2:{floor:2,mora:1000,items:{},slot:'X',equip:'EQ_SWORD_AMENOMA',run:1}};s.abyss.clears={1:{rounds:5},2:{rounds:6}};const gems=Number(s.global.PRIMOGEM)||0;
+ const back=new R(db,s);assert.equal(back.s.global.PRIMOGEM,gems+120);assert.equal(back.s.abyss.claimed[2].primogem,120);assert.equal(new R(db,JSON.parse(back.serialize())).s.global.PRIMOGEM,gems+120,'only once');}
 assert(CFG.floors.every(f=>f.rooms.length===3&&f.rooms.every(r=>r.name&&r.hint&&r.limit>=10&&r.foes.length)),'every floor has three described rooms');
 // Room text shows the scene, never the answer.
 for(const f of CFG.floors)for(const room of f.rooms)assert.doesNotMatch(room.hint,/세요|필요|먹고|먹은|요리|장비|치명타|고정 피해|원거리|명중|보호막을|쓰러뜨|피해가 들어|통합니다|관측경|말뚝/,room.name);
@@ -24,10 +28,14 @@ for(let f=1;f<=12;f++){
  assert.equal(r.s.abyss.clears[f].rounds,out.rooms.reduce((n,x)=>n+x.rounds,0));assert.deepEqual(plain(r.s.abyss.clears[f].chambers),out.rooms.map(x=>x.rounds));
  if(r.needsRecovery())r.action('RECOVER');r.action('MENU',{screen:'LOCATION'});
  const reward=CFG.floors[f-1].reward,mora=r.s.global.MORA,items=Object.fromEntries(Object.keys(reward.items||{}).map(id=>[id,r.itemCount(id)]));
- if(f<12){
+ // 0.14.12: floors 1–8 pay Primogems (1,600 in all) instead of an Inazuma pick; Inazuma gear starts at floor 9.
+ if(reward.primogem){assert(f<=8&&!CFG.floors[f-1].reward.artifact);const gems=Number(r.s.global.PRIMOGEM)||0;r.action('ABYSS_REWARD',{floor:f});assert.equal(r.s.global.PRIMOGEM,gems+reward.primogem);assert.equal(r.s.abyss.claimed[f].primogem,reward.primogem);}
+ else if(f<12){
+  assert(f>=9,'Inazuma gear only from floor 9');
   assert.throws(()=>r.action('ABYSS_REWARD',{floor:f,equipment:'EQ_SWORD_FAVONIUS'}),/이나즈마 장비/);
-  const pick=CFG.rewards[f%CFG.rewards.length],had=r.s.inventory.filter(i=>i.equip===pick).length;
-  r.action('ABYSS_REWARD',{floor:f,equipment:pick});assert.equal(r.s.inventory.filter(i=>i.equip===pick).length,had+1);
+  // 0.14.8: a 4★ weapon arrives as its forging blueprint (weapons of that grade come only from the forge).
+  const pick=CFG.rewards[f%CFG.rewards.length],bp=r.weaponBlueprintId?.(pick),count=()=>bp?r.itemCount(bp):r.s.inventory.filter(i=>i.equip===pick).length,had=count();
+  r.action('ABYSS_REWARD',{floor:f,equipment:pick});assert.equal(count(),had+1);
  }else{r.action('ABYSS_REWARD',{floor:12});const art=r.s.inventory.find(i=>i.equip==='EQ_ABYSS_INAZUMA_ARTIFACT');assert(art.artifact.quality>=900);}
  assert.equal(r.s.global.MORA,mora+reward.mora);for(const [id,n] of Object.entries(reward.items||{}))assert.equal(r.itemCount(id),items[id]+n);
  assert.throws(()=>r.action('ABYSS_REWARD',{floor:f,equipment:CFG.rewards[0]}),/첫 정복 보상/);

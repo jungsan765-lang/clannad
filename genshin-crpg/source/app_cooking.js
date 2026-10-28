@@ -94,7 +94,7 @@ function renderKitchen(p,recipes){
   const entry=placeHeader(p,'CRAFT');if(!entry)return;
   if(presenterDB!==game.db){itemPresenter=CRPGInventoryPresenter.create(game.db,MANIFEST);presenterDB=game.db;}
   const list=recipes.map(dishInfo),made=list.filter(d=>d.ready).length,learned=list.filter(d=>!d.locked).length;
-  const hero=el('section','cook-hero');hero.append(el('h2','','오늘은 무엇을 만들까요?'),el('p','muted','재료를 모아 요리하고, 몬드의 디어 헌터 식당이나 리월의 만민당에서 새 레시피를 배울 수 있습니다. 요리는 만든다고 바로 먹지 않고 소지품에 보관됩니다.'));
+  const hero=el('section','cook-hero');hero.append(el('h2','','오늘은 무엇을 만들까요?'),el('p','muted','재료를 모아 요리하고, 몬드의 디어 헌터 식당이나 리월의 만민당에서 새 레시피를 배울 수 있습니다. 요리는 만든다고 바로 먹지 않고 가방에 보관됩니다.'));
   const stats=el('div','cook-stats');stats.append(el('span','','지금 만들 수 있는 요리 '+made+'개'),el('span','','배운 레시피 '+learned+' / '+list.length));hero.append(stats);p.append(hero);
   if(view.tab!=='ALL'&&!list.some(d=>d.tab===view.tab))view.tab='ALL';
   const tabs=el('div','bag-tabs cook-tabs');tabs.setAttribute('aria-label','요리 분류');

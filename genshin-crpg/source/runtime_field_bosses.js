@@ -107,7 +107,7 @@ P.installFieldBosses=function(){
   if(!has('09_MONSTER_DB',id))rows['09_MONSTER_DB'].push(monster(id,{...d,hp:d.kind==='OCEANID'?d.hp:tuned({...d,id},'hp'),atk:tuned({...d,id},'atk'),def:Math.round(d.def*grown(d.level,'def'))},'보스','필드 보스',LOOT(id)));
   if(!has('33_ENCOUNTER_GROUP_DB',GROUP(id))){const r=Array(rows['33_ENCOUNTER_GROUP_DB'][0].length).fill('');Object.assign(r,{0:GROUP(id),1:d.name,2:'BOSS',3:'필드 보스',4:d.level,5:d.level,6:'FIXED',7:id,8:1,9:1,22:'없음',23:'필드 보스 전용 규칙',24:1,25:'Y',26:'Y',27:d.summary,28:'필드 보스,'+d.region});rows['33_ENCOUNTER_GROUP_DB'].push(r);}
   if(!has('49_ENCOUNTER_MEMBER_DB','EM_'+GROUP(id)+'_1'))rows['49_ENCOUNTER_MEMBER_DB'].push(['EM_'+GROUP(id)+'_1',GROUP(id),1,id,1,1,'MON1','CRPG_FIELD_BOSS_V1','필드 보스']);
-  if(!has('35_BOSS_ROUTE_DB',ROUTE(id)))rows['35_BOSS_ROUTE_DB'].push([ROUTE(id),d.name+' 토벌',d.map,'DIRECT','','','',GROUP(id),'Y','N','CURRENT_STEP','N','',FLAG(id),'Y','필드 보스 · 승리 후 게임 내 24시간 뒤 다시 나타남']);
+  if(!has('35_BOSS_ROUTE_DB',ROUTE(id)))rows['35_BOSS_ROUTE_DB'].push([ROUTE(id),d.name+' 토벌',d.map,'DIRECT','','','',GROUP(id),'Y','N','CURRENT_STEP','N','',FLAG(id),'Y','필드 보스 · 모두 합쳐 12시간마다 3번 토벌']);
   if(!has('50_BOSS_ROUTE_STEP_DB','BRS_'+ROUTE(id)+'_1'))rows['50_BOSS_ROUTE_STEP_DB'].push(['BRS_'+ROUTE(id)+'_1',ROUTE(id),1,'BOSS',GROUP(id),'보스']);
   if(!rows['20_LOOT_TABLE'].some(r=>r[0]===LOOT(id))){rows['20_LOOT_TABLE'].push([LOOT(id),id,d.material,2,3,100,'없음','필드 보스 전용 재료']);rows['20_LOOT_TABLE'].push([LOOT(id),id,'TRPG_BOSS_ESSENCE',1,1,20,'없음','필드 보스 추가 보상']);}
  }

@@ -20,7 +20,7 @@ function guildGuide(parent,q){
 function reportButtons(parent,q){
   if(q.reward?.equipment_choice){
     for(const id of q.reward.equipment_choice){
-      parent.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id},true));
+      parent.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id},true));
     }
   }else{
     parent.append(actionButton('임무 보고 · 보상 수령','CLAIM_QUEST',{quest:q.row[0]},true));
@@ -219,7 +219,7 @@ function pinnedCommissionActions(card,info){
   const place=guildPlaceFor(row[2]);
   if(game.atCommissionGuild?.(row[2])){
    if(q.reward?.equipment_choice){
-    for(const id of q.reward.equipment_choice)card.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:info.id,equipment:id},true));
+    for(const id of q.reward.equipment_choice)card.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:info.id,equipment:id},true));
    }else card.append(actionButton('캐서린에게 보고 · 보상 수령','CLAIM_QUEST',{quest:info.id},true));
   }else if(place?.maps?.includes(game.s.global.CURRENT_MAP_ID)){
    card.append(actionButton('캐서린에게 보고하러 가기','PLACE_ENTER',{place:place.id,mode:'TALK'},true));

@@ -22,7 +22,7 @@ const GameVersion={
   box.append(button('업데이트 확인',async()=>{await this.check();this.open();},this.checking));showModal('게임 버전',box);
  },
  async apply(){
-  if(busy||this.updating)return;if(game&&autoSavePaused){say('자동 저장이 일시중지되어 있습니다. 저장·설정에서 새 자동 저장을 시작한 뒤 업데이트해 주세요.');return;}
+  if(busy||this.updating)return;if(game&&autoSavePaused){say('자동 저장이 일시중지되어 있습니다. 설정에서 새 자동 저장을 시작한 뒤 업데이트해 주세요.');return;}
   this.updating=true;busy=true;render();
   try{
    await saveQueue.catch(()=>{});if(game)try{await storeSave();}catch(e){if(!(window.CRPGOnline?.active&&e.code==='VERSION_MISMATCH'))throw e;}
