@@ -1,20 +1,29 @@
 """대화 기억.
 
 - 최근 대화: data/recent.json (프로그램을 껐다 켜도 이어짐)
-- 장기기억: data/memory.json — 캐릭터가 스스로 읽기 편한 짧은 한국어 메모들
+- 장기기억: data/memory.json — 캐릭터가 스스로 읽기 편한 짧은 한국어 메모(사실)들.
+  사실마다 번호(id)·중요도(1~3)·상태(active/archived)가 있다. 정리할 때 전체를 다시 쓰지 않고 '추가·고침·보관'만 하므로
+  말없이 사라지는 기억이 없다. 중요도 3(★)은 정리로 보관되지 않는다(약속이 지난 경우만 예외). 보관된 것도 찾으면 나온다.
 - 대화 원문: data/logs/날짜.jsonl (PC에만 보관)
 """
 
 from __future__ import annotations
 
 import json
+import re
 import threading
+import uuid
 from datetime import date, datetime
 from pathlib import Path
 
 from wording import apply_terms
 
-CATEGORIES = ["주인님 정보", "취향", "약속·할 일", "최근 있었던 일", "관계·호칭"]
+CATEGORIES = ["주인님 정보", "관계·호칭", "사람", "취향", "약속·할 일", "게임", "다니카 자신", "최근 있었던 일"]
+CORE_IMPORTANCE = {"주인님 정보": 3, "관계·호칭": 3}  # 예전 기억을 옮길 때 기본 중요도 (나머지는 2)
+
+
+def _norm(text: str) -> str:
+    return re.sub(r"[\s.,!?~'\"·…]+", "", text or "")
 RECENT_KEEP = 60  # 디스크에 남겨두는 최근 대화 줄 수
 
 
@@ -46,7 +55,7 @@ class Memory:
         self._lock = threading.Lock()
         self.recent: list[dict] = self._read("recent.json", [])
         mem = self._read("memory.json", {})
-        self.facts: list[dict] = mem.get("facts", [])
+        self.facts: list[dict] = [self._upgrade(f) for f in mem.get("facts", [])]
         self.updated: str | None = mem.get("updated")
         self.pending: list[dict] = mem.get("pending", [])  # 아직 장기기억에 반영 안 된 대화
         self.knowledge: list[dict] = self._read("knowledge.json", [])  # 찾아보고 알게 된 것
@@ -243,15 +252,164 @@ class Memory:
 
     def notes_text(self) -> str:
         """시스템 프롬프트에 넣을 장기기억 (분류별, 항상 같은 순서 → 캐시가 깨지지 않음)."""
-        if not self.facts:
+        core = self.core_facts(getattr(self, "max_chars", 4000))
+        if not core:
             return "(아직 기억해 둔 것이 없음)"
         lines = []
-        for cat in CATEGORIES + sorted({f["category"] for f in self.facts} - set(CATEGORIES)):
-            items = [f for f in self.facts if f["category"] == cat]
+        for cat in CATEGORIES + sorted({f["category"] for f in core} - set(CATEGORIES)):
+            items = [f for f in core if f["category"] == cat]
             if items:
-                lines.append(f"[{cat}]")
-                lines += [f"- {f['text']} ({f['date']})" for f in items]
+                lines.append(f"[{cat}]" + (" (네가 예전에 한 말·약속. 어긋나지 않게)" if cat == "다니카 자신" else ""))
+                lines += [f"- {'★ ' if f['importance'] >= 3 else ''}{f['text']} ({f['date']})" for f in items]
+        hidden = len(self.active_facts()) - len(core)
+        if hidden > 0:
+            lines.append(f"(이 밖에 덜 중요한 기억 {hidden}개는 관련 있을 때 '관련 기억'으로 함께 온다)")
         return "\n".join(lines)
+
+    # ------------------------------------------------------------ 사실 (장기기억 한 줄 한 줄)
+
+    @staticmethod
+    def _upgrade(f: dict) -> dict:
+        """예전 형식(분류·글·날짜만)을 번호·중요도·상태가 있는 형식으로."""
+        f = dict(f)
+        f.setdefault("id", "f" + uuid.uuid4().hex[:7])
+        f.setdefault("importance", CORE_IMPORTANCE.get(f.get("category", ""), 2))
+        f.setdefault("status", "active")
+        f.setdefault("subject", "")
+        return f
+
+    def active_facts(self) -> list[dict]:
+        return [f for f in self.facts if f.get("status", "active") == "active"]
+
+    def archived_facts(self) -> list[dict]:
+        return [f for f in self.facts if f.get("status") == "archived"]
+
+    def fact(self, fid: str) -> dict | None:
+        return next((f for f in self.facts if f["id"] == fid), None)
+
+    def _similar(self, category: str, text: str) -> dict | None:
+        n = _norm(text)
+        for f in self.active_facts():
+            m = _norm(f["text"])
+            if f["category"] == category and (m == n or (len(n) >= 8 and len(m) >= 8 and (n in m or m in n))):
+                return f
+        return None
+
+    def add_fact(self, category: str, text: str, importance: int = 2, subject: str = "", when: str | None = None,
+                 source: str = "chat", save: bool = True) -> dict | None:
+        """사실 하나 더하기. 거의 같은 게 있으면 그걸 고친다(더 긴 글·더 높은 중요도로)."""
+        text = " ".join(str(text or "").split())[:300]
+        if not text:
+            return None
+        category = category if category in CATEGORIES else "최근 있었던 일"
+        importance = max(1, min(3, int(importance or 2)))
+        day = (when or datetime.now().date().isoformat())[:10]
+        with self._lock:
+            same = self._similar(category, text)
+            if same:
+                if len(text) > len(same["text"]):
+                    same["text"] = text
+                same["importance"] = max(same["importance"], importance)
+                same["date"] = day
+                same["subject"] = subject or same.get("subject", "")
+                f = same
+            else:
+                f = {"id": "f" + uuid.uuid4().hex[:7], "category": category, "text": text, "date": day,
+                     "importance": importance, "status": "active", "subject": subject.strip()[:40], "source": source}
+                self.facts.append(f)
+            if save:
+                self._save()
+        return f
+
+    def update_fact(self, fid: str, text: str | None = None, importance: int | None = None,
+                    category: str | None = None, when: str | None = None, subject: str | None = None) -> dict | None:
+        """고치기 (예전 내용은 history 에 남김: '예전엔 ○○였다'까지 기억)."""
+        with self._lock:
+            f = self.fact(fid)
+            if f is None:
+                return None
+            if text and _norm(text) != _norm(f["text"]):
+                f.setdefault("history", []).append({"text": f["text"], "date": f.get("date", "")})
+                del f["history"][:-5]
+                f["text"] = " ".join(text.split())[:300]
+            if importance:
+                f["importance"] = max(1, min(3, int(importance)))
+            if category in CATEGORIES:
+                f["category"] = category
+            if subject is not None:
+                f["subject"] = subject.strip()[:40]
+            f["date"] = (when or f.get("date") or datetime.now().date().isoformat())[:10]
+            f["status"] = "active"
+            self._save()
+        return f
+
+    def archive_fact(self, fid: str, force: bool = False) -> dict | None:
+        """보관 (지우지 않음 — 떠올리기로 찾을 수 있다). 중요도 3은 약속이 아니면 force 일 때만."""
+        with self._lock:
+            f = self.fact(fid)
+            if f is None or f.get("status") == "archived":
+                return None
+            if f["importance"] >= 3 and f["category"] != "약속·할 일" and not force:
+                return None
+            f["status"] = "archived"
+            f["archived"] = datetime.now().date().isoformat()
+            self._save()
+        return f
+
+    def delete_fact(self, fid: str) -> None:
+        with self._lock:
+            self.facts = [f for f in self.facts if f["id"] != fid]
+            self._save()
+
+    def relevant_facts(self, words: list[str], limit: int = 6, skip_core: bool = True) -> list[dict]:
+        """단서에 맞는 사실 (시스템 프롬프트에 안 들어간 덜 중요한 것·보관된 것에서)."""
+        if not words:
+            return []
+        core_ids = {f["id"] for f in self.core_facts(getattr(self, "max_chars", 4000))} if skip_core else set()
+        scored = []
+        for f in self.facts:
+            if f["id"] in core_ids:
+                continue
+            hay = f"{f['text']} {f.get('subject', '')}"
+            hits = [w for w in words if w and w in hay]
+            if hits:
+                scored.append((len(hits), max(len(w) for w in hits), f.get("date", ""), f))
+        scored.sort(key=lambda s: s[:3], reverse=True)
+        return [s[3] for s in scored[:limit]]
+
+    def core_facts(self, max_chars: int = 4000) -> list[dict]:
+        """시스템 프롬프트에 늘 넣는 것: 중요도 3 전부 + 중요도 2 (최근 것부터) 글자 수 안에서."""
+        act = self.active_facts()
+        core = [f for f in act if f["importance"] >= 3]
+        size = sum(len(f["text"]) + 20 for f in core)
+        for f in sorted((f for f in act if f["importance"] == 2), key=lambda f: f.get("date", ""), reverse=True):
+            if size + len(f["text"]) + 20 > max_chars:
+                continue
+            core.append(f)
+            size += len(f["text"]) + 20
+        return core
+
+    def apply_ops(self, ops: list[dict], consumed: int) -> list[dict]:
+        """정리 결과(추가·고침·보관)를 반영. 반영한 대화(consumed 개)는 대기 목록에서 뺀다. 보관된 사실들을 돌려준다."""
+        archived = []
+        for op in ops:
+            kind = op.get("op")
+            fid = str(op.get("id", "") or "")
+            imp = op.get("importance") or CORE_IMPORTANCE.get(op.get("category", ""), 2)
+            if kind == "archive" and fid:
+                f = self.archive_fact(fid)
+                if f:
+                    archived.append(f)
+            elif kind == "update" and fid and self.fact(fid):
+                self.update_fact(fid, op.get("text"), imp, op.get("category"), op.get("date"), op.get("subject"))
+            elif op.get("text"):
+                self.add_fact(op.get("category", ""), op["text"], imp, op.get("subject", ""), op.get("date"),
+                              source="consolidate", save=False)
+        with self._lock:
+            self.pending = self.pending[consumed:]
+            self.updated = datetime.now().isoformat(timespec="seconds")
+            self._save()
+        return archived
 
     def needs_consolidation(self, every: int) -> bool:
         return len(self.pending) >= every
@@ -259,26 +417,12 @@ class Memory:
     def consolidation_input(self) -> str:
         today = date.today().isoformat()
         convo = "\n".join(f"[{p['time']}] 주인님: {p['user']}\n[{p['time']}] 나: {p['reply']}" for p in self.pending)
-        return (f"오늘 날짜: {today}\n\n## 지금까지의 기억\n{self.notes_text()}\n\n"
+        facts = "\n".join(f"[{f['id']}] 중요도{f['importance']} [{f['category']}] {f['text']} ({f.get('date', '')})"
+                          + (f" {{{f['subject']}}}" if f.get("subject") else "") for f in self.active_facts())
+        return (f"오늘 날짜: {today}\n\n## 지금까지의 기억 (번호·중요도·분류)\n{facts or '(없음)'}\n\n"
                 f"## 기억에 아직 반영 안 된 대화\n{convo or '(없음)'}")
 
     def apply_consolidation(self, facts: list[dict], consumed: int, max_chars: int) -> None:
-        """정리된 기억으로 바꾸고, 반영한 대화(consumed 개)는 대기 목록에서 뺀다."""
-        clean = []
-        for f in facts:
-            text = str(f.get("text", "")).strip()
-            if not text:
-                continue
-            cat = f.get("category") if f.get("category") in CATEGORIES else "최근 있었던 일"
-            clean.append({"category": cat, "text": text, "date": str(f.get("date", ""))[:10]})
-        # 너무 길면 오래된 '최근 있었던 일'부터 뺀다
-        def size(items):
-            return sum(len(i["text"]) + 20 for i in items)
-        while size(clean) > max_chars:
-            olds = [i for i in clean if i["category"] == "최근 있었던 일"] or clean
-            clean.remove(min(olds, key=lambda i: i["date"]))
-        with self._lock:
-            self.facts = clean
-            self.pending = self.pending[consumed:]
-            self.updated = datetime.now().isoformat(timespec="seconds")
-            self._save()
+        """(예전 형식) 사실 목록 → 더하기로 반영. 시스템 프롬프트에는 max_chars 안에서만 들어가고 나머지는 남아 있다."""
+        self.max_chars = max_chars
+        self.apply_ops([{"op": "add", **f} for f in facts], consumed)

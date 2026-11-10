@@ -972,3 +972,32 @@ def test_chat_recalls_old_conversations_and_screens(qapp, tmp_path, built):
     assert any(b.get("type") == "image" for b in content)  # 그때 화면 한 장
     assert "그때 화면" in _json.dumps(content, ensure_ascii=False)
     a.quit()
+
+
+def test_chat_remembers_important_things_right_away(qapp, tmp_path, built):
+    import json as _json
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "민지 씨군요. 기억해 둘게요.", "emotion": "normal", "action": "none", "target": "",
+         "important": False, "remember": [
+             {"category": "사람", "text": "민지는 주인님의 고등학교 친구다.", "importance": 3, "subject": "민지"},
+             {"category": "취향", "text": "Minji likes cats.", "importance": 1, "subject": ""}]},
+        {"speak": True, "message": "네.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.ask("민지는 내 고등학교 친구야")
+    _wait(qapp, a)
+    facts = a.companion.memory.active_facts()
+    assert [(f["category"], f["importance"], f["subject"]) for f in facts] == [("사람", 3, "민지")]  # 영어는 버림
+    assert "★ 민지는 주인님의 고등학교 친구다." in a.companion.system_blocks()[1]["text"]
+    assert "remember" in fake.calls[0]["output_config"]["format"]["schema"]["required"]
+    # 늘 보는 기억 밖(보관된 것)도 관련 있으면 함께
+    old = a.companion.memory.add_fact("최근 있었던 일", "주인님은 10월에 부산 여행을 다녀왔다.", 1, "", "2026-10-03")
+    a.companion.memory.archive_fact(old["id"])
+    a.ask("부산 또 가고 싶다")
+    _wait(qapp, a)
+    sent = _json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "[관련 기억" in sent and "부산 여행" in sent and "보관됨" in sent
+    a.quit()

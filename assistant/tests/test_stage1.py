@@ -145,14 +145,52 @@ def test_history_is_sent_and_consolidation_updates_memory(tmp_path):
     assert logs and len(logs[0].read_text(encoding="utf-8").splitlines()) == 2
 
 
-def test_memory_trims_to_max_chars(tmp_path):
+def test_memory_keeps_everything_but_shows_core_within_max_chars(tmp_path):
     mem = Memory(tmp_path)
-    facts = [{"category": "최근 있었던 일", "text": "가" * 50, "date": f"2026-10-{d:02d}"} for d in range(1, 21)]
+    facts = [{"category": "최근 있었던 일", "text": f"10월 {d}일에 주인님이 게임 {d}판을 했다" + "가" * 30,
+              "date": f"2026-10-{d:02d}"} for d in range(1, 21)]
     facts.append({"category": "주인님 정보", "text": "주인님은 서울에 산다.", "date": "2026-09-01"})
     mem.apply_consolidation(facts, 0, max_chars=400)
-    assert sum(len(f["text"]) + 20 for f in mem.facts) <= 400
-    assert any(f["category"] == "주인님 정보" for f in mem.facts)  # 오래된 '최근 있었던 일'부터 뺌
-    assert min(f["date"] for f in mem.facts if f["category"] == "최근 있었던 일") > "2026-10-01"
+    assert len(mem.facts) == 21  # 아무것도 버리지 않음
+    core = mem.core_facts(400)
+    assert sum(len(f["text"]) + 20 for f in core) <= 400
+    assert any(f["category"] == "주인님 정보" and f["importance"] == 3 for f in core)  # 중요도 3은 늘
+    dates = {f["date"] for f in core}
+    assert "2026-10-20" in dates and "2026-10-01" not in dates  # 최근 것부터
+    assert "덜 중요한 기억" in mem.notes_text()
+    assert mem.relevant_facts(["10월 2일에"])[0]["date"] == "2026-10-02"  # 늘 보진 않아도 찾으면 나옴
+
+
+def test_fact_ops_add_update_archive_and_protect_core(tmp_path):
+    mem = Memory(tmp_path)
+    a = mem.add_fact("사람", "민지는 주인님의 고등학교 친구다.", 3, "민지")
+    b = mem.add_fact("약속·할 일", "주인님은 11월 15일에 민지와 홍대에서 만난다.", 3, "민지", "2026-11-03")
+    c = mem.add_fact("취향", "주인님은 매운 음식을 싫어한다.", 2)
+    assert mem.add_fact("사람", "민지는 주인님의 고등학교 친구다", 2)["id"] == a["id"]  # 같은 건 하나로 (중요도는 높은 쪽)
+    archived = mem.apply_ops([
+        {"op": "update", "id": c["id"], "text": "주인님은 매운 음식을 이제 좋아한다.", "importance": 2},
+        {"op": "archive", "id": b["id"]},  # 지난 약속은 보관 가능
+        {"op": "archive", "id": a["id"]},  # 중요도 3 사람 정보는 보관 안 됨
+        {"op": "add", "id": "", "category": "다니카 자신", "text": "다니카는 비 오는 날을 좋아한다고 말했다.", "importance": 2},
+    ], 0)
+    assert [f["id"] for f in archived] == [b["id"]]
+    assert mem.fact(a["id"])["status"] == "active" and mem.fact(b["id"])["status"] == "archived"
+    assert mem.fact(c["id"])["history"][0]["text"] == "주인님은 매운 음식을 싫어한다."  # 예전 내용도 남김
+    text = mem.notes_text()
+    assert "★ 민지는" in text and "[다니카 자신] (네가 예전에 한 말" in text and "홍대" not in text
+    again = Memory(tmp_path)
+    assert again.fact(b["id"])["status"] == "archived" and len(again.facts) == 4
+
+
+def test_old_memory_file_is_upgraded(tmp_path):
+    import json as _json
+
+    (tmp_path / "memory.json").write_text(_json.dumps({"facts": [
+        {"category": "주인님 정보", "text": "주인님은 대학생이다.", "date": "2026-10-01"},
+        {"category": "취향", "text": "주인님은 고양이를 좋아한다.", "date": "2026-10-02"}]}, ensure_ascii=False),
+        encoding="utf-8")
+    mem = Memory(tmp_path)
+    assert [f["importance"] for f in mem.facts] == [3, 2] and all(f["id"] and f["status"] == "active" for f in mem.facts)
 
 
 # ---------------------------------------------------------------- 설정 파일

@@ -444,6 +444,11 @@ class AssistantApp(QObject):
         self.busy = False
         self.voice.paused = False
         self.status.end("chat")
+        remembered = getattr(self.companion, "last_remembered", []) or []
+        if remembered:  # 대답과 함께 바로 적은 기억
+            self.companion.last_remembered = []
+            star = "★ " if any(f["importance"] >= 3 for f in remembered) else ""
+            QTimer.singleShot(1500, lambda: self.status.flash(f"{star}기억했어요: {remembered[0]['text'][:24]}", 3))
         self.bubble.show_text(reply.message, self.anchor())
         self.show_overlay(reply.message, important=True)  # 주인님이 직접 말을 건 것의 대답
         self._say_aloud(reply.message)
@@ -1280,6 +1285,10 @@ class AssistantApp(QObject):
         def done(ok) -> None:
             self.status.end("memory")
             log.info("기억 정리 %s", "완료" if ok else "할 것 없음")
+            for f in getattr(self.companion, "last_archived", []) or []:  # 보관된 기억도 떠올리기로 찾을 수 있게
+                self.remember_episode("fact", f"(예전 기억, {f.get('date', '')}) {f['text']}", f.get("subject", ""),
+                                      f"{f['category']} · 보관 {f.get('archived', '')}")
+            self.companion.last_archived = []
             if on_done:
                 on_done(ok)
 

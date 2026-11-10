@@ -11,6 +11,7 @@ from pathlib import Path
 from ai_client import AIClient, AIError
 from lorebook import LoreBook
 from memory import CATEGORIES, Memory, gap_text
+from recall import cues as recall_cues
 
 log = logging.getLogger("assistant.companion")
 
@@ -30,8 +31,14 @@ REPLY_SCHEMA = {
         "action": {"type": "string", "enum": ACTIONS},
         "target": {"type": "string"},
         "important": {"type": "boolean"},
+        # 이번 말에서 오래 기억할 것 (바로 장기기억에 적는다). 없으면 빈 배열
+        "remember": {"type": "array", "items": {
+            "type": "object",
+            "properties": {"category": {"type": "string", "enum": CATEGORIES}, "text": {"type": "string"},
+                           "importance": {"type": "integer", "enum": [1, 2, 3]}, "subject": {"type": "string"}},
+            "required": ["category", "text", "importance", "subject"], "additionalProperties": False}},
     },
-    "required": ["speak", "message", "emotion", "action", "target", "important"],
+    "required": ["speak", "message", "emotion", "action", "target", "important", "remember"],
     "additionalProperties": False,
 }
 
@@ -269,21 +276,25 @@ ORGANIZE_RULES = """# 할 일: 파일 정리안 만들기
 MEMORY_SCHEMA = {
     "type": "object",
     "properties": {
-        "facts": {
+        "ops": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
+                    "op": {"type": "string", "enum": ["add", "update", "archive"]},
+                    "id": {"type": "string"},
                     "category": {"type": "string", "enum": CATEGORIES},
                     "text": {"type": "string"},
                     "date": {"type": "string"},
+                    "importance": {"type": "integer", "enum": [1, 2, 3]},
+                    "subject": {"type": "string"},
                 },
-                "required": ["category", "text", "date"],
+                "required": ["op", "id", "category", "text", "date", "importance", "subject"],
                 "additionalProperties": False,
             },
         }
     },
-    "required": ["facts"],
+    "required": ["ops"],
     "additionalProperties": False,
 }
 
@@ -347,6 +358,10 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   앞으로는 맞는 말로만 부른다.
 - 그 밖의 일(프로그램 끄기, 파일 삭제·이름 바꾸기, 메시지 보내기, 결제, 게임 자동 조작 등)은 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
+- remember: 이번 주인님 말(또는 네가 한 말)에 오래 기억해야 할 게 있으면 바로 적는다. 주인님에 대한 사실·취향·약속·일정,
+  주인님 주변 사람(subject 에 이름), 게임 목표·진행(subject 에 게임 이름), 주인님이 고쳐 준 것, 네가 너 자신에 대해 새로 말한 것·
+  네가 한 약속(분류 '다니카 자신'). text 는 나중에 읽어도 알 수 있게 한 문장(누가·무엇·언제). importance 3 = 절대 잊으면 안 됨
+  (이름·관계·약속·강한 취향·고쳐 준 것), 2 = 보통, 1 = 사소함. 이미 '기억'에 있는 그대로면 다시 적지 않는다. 없으면 빈 배열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
 - 스포 주의: 게임 스토리의 앞으로의 전개·반전·결말은 주인님이 직접 묻지 않으면 먼저 말하지 않는다(화면에 이미 나온 데까지는 괜찮다).
   직접 물었으면 '스포일러인데요' 하고 짧게 알린 뒤 답한다.
@@ -368,13 +383,19 @@ DEFAULT_PERSONA = """# 캐릭터
 - 이름 없는 바탕화면 비서. 사용자를 "주인님"이라고 부르고 해요체로 짧고 담백하게 말한다."""
 
 MEMORY_RULES = """# 할 일: 장기기억 정리
-너는 위 캐릭터 본인이다. 주인님과의 대화를 나중에 네가 다시 읽고 바로 쓸 수 있도록, 기억 메모를 정리해 새로 쓴다.
-- 기존 기억 + 새 대화를 합쳐서 '지금 기준으로 맞는' 메모 전체를 다시 쓴다. 바뀐 사실은 새 것으로 고치고, 겹치는 건 합친다.
-- 남길 것: 주인님에 대한 사실(이름, 일, 일정, 건강, 사는 방식), 취향(좋아함/싫어함), 약속·할 일(날짜 포함), 의미 있는 사건, 주인님이 바라는 호칭·말투.
-- 버릴 것: 인사·잡담처럼 다시 쓸 일 없는 것, 추측, 너 자신(캐릭터)의 설정.
-- 메모 하나는 한국어 한 문장, 짧게. 주어는 '주인님'. 날짜는 그 일이 있었던 날(YYYY-MM-DD), 모르면 대화 날짜.
-- 지난 약속·일정은 끝났으면 '최근 있었던 일'로 옮기거나 지운다.
-- 전체는 {max_chars}자 안쪽. 넘으면 오래되고 덜 중요한 것부터 합치거나 뺀다.
+너는 위 캐릭터 본인이다. 주인님과의 새 대화를 읽고, 나중에 네가 다시 읽고 바로 쓸 수 있도록 기억을 고친다.
+기억 전체를 다시 쓰지 않는다. 바꿀 것만 ops 로 낸다 (바꿀 게 없으면 빈 배열):
+- add: 새 사실 (id 는 빈 문자열). update: 기존 사실이 바뀌었거나 더 자세해졌을 때 (그 번호를 id 로, text 는 고친 전체 문장).
+- archive: 더는 맞지 않거나 끝난 것(지난 약속, 바뀌기 전 사실) — 지우는 게 아니라 보관이다. 중요도 3은 약속이 아니면 보관하지 않는다.
+- 이미 있는 것과 같은 내용을 다시 add 하지 않는다.
+남길 것과 분류:
+- 주인님 정보(이름·일·사는 곳·건강·생활), 관계·호칭(주인님이 바라는 호칭·말투, 너와의 관계), 사람(주인님 주변 사람: subject 에 그 이름),
+  취향(좋아함·싫어함), 약속·할 일(날짜 포함), 게임(게임별 목표·버릇·잘하는 것: subject 에 게임 이름),
+  다니카 자신(네가 너 자신에 대해 말한 것·네 의견·네가 한 약속 — 나중에 말이 어긋나지 않게), 최근 있었던 일(의미 있는 사건).
+- 버릴 것: 인사·잡담, 추측, 성격 파일에 이미 있는 네 설정.
+- 중요도: 3 = 절대 잊으면 안 됨(이름·관계·약속·강하게 말한 취향·주인님이 고쳐 준 것), 2 = 보통, 1 = 사소함.
+- 메모 하나는 한국어 한 문장, 짧고 구체적으로(누가·무엇·언제). 주어를 분명히. 날짜는 그 일이 있었던 날(YYYY-MM-DD).
+- 늘 보는 기억은 {max_chars}자 안쪽만 들어가니, 덜 중요한 건 중요도 1~2로 두면 관련 있을 때만 꺼내진다.
 """
 
 _HANGUL = re.compile(r"[\uac00-\ud7a3\u3131-\u318e]")
@@ -491,6 +512,9 @@ class Companion:
         self.history_turns = history_turns
         self.consolidate_every = consolidate_every
         self.memory_max_chars = memory_max_chars
+        memory.max_chars = memory_max_chars  # 늘 보는 기억의 글자 수
+        self.last_archived: list[dict] = []
+        self.last_remembered: list[dict] = []
 
     @classmethod
     def read_persona(cls, path: Path | None) -> str | None:
@@ -556,6 +580,11 @@ class Companion:
         for label, jpeg in images or []:  # 화면 기억에서 꺼낸 그때 화면
             content.append({"type": "text", "text": label})
             content.append(self._image_block(jpeg))
+        related = self.memory.relevant_facts(recall_cues(user_text))
+        if related:
+            content.append({"type": "text", "text": "[관련 기억 (늘 보는 기억 밖에 있던 것 — 보관된 건 예전 사실일 수 있다)]\n"
+                            + "\n".join(f"- {f['text']} ({f.get('date', '')}"
+                                         + (", 보관됨" if f.get("status") == "archived" else "") + ")" for f in related)})
         ctx = context or ""  # 맨 앞 줄에 '[지금 하고 있는 게임: …]' 이 있어서 앞부분도 함께 (게임별 사전용)
         notes = self.lorebook.notes_for(user_text + "\n" + ctx[:200] + "\n" + ctx[-600:])
         if notes:
@@ -671,6 +700,7 @@ class Companion:
                 data = {"speak": True, "message": "……", "emotion": "normal"}
         if data is None:
             data = {"speak": True, "message": "……", "emotion": "normal"}
+        self.remember_now(data.get("remember") or [], now)
         message = self.memory.fix_words(data["message"].strip()) or "……"
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
         action = data.get("action") if data.get("action") in ACTIONS else "none"
@@ -679,6 +709,21 @@ class Companion:
         self.memory.add_turn(memory_text, message, now)
         return Reply(True, message, emotion, total, action, str(data.get("target", "") or ""),
                      bool(data.get("important", False)))
+
+    def remember_now(self, items: list, now: datetime | None = None) -> list[dict]:
+        """대답과 함께 온 '오래 기억할 것'을 바로 장기기억에 적는다 (정리를 기다리지 않음)."""
+        saved = []
+        for it in items[:5]:
+            if not isinstance(it, dict) or not is_korean(str(it.get("text", ""))):
+                continue
+            f = self.memory.add_fact(it.get("category", ""), self.memory.fix_words(str(it.get("text", ""))),
+                                     it.get("importance", 2), str(it.get("subject", "")),
+                                     (now or datetime.now()).date().isoformat(), source="remember")
+            if f:
+                saved.append(f)
+                log.info("바로 기억함 (중요도 %s): %s", f["importance"], f["text"])
+        self.last_remembered = saved
+        return saved
 
     def _ask(self, messages: list[dict], on_text=None, fast: bool = False) -> tuple[dict | None, float]:
         r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(), messages=messages,
@@ -1088,10 +1133,13 @@ class Companion:
             return False
         if not r.data:
             return False
-        facts = r.data.get("facts", [])
-        non_korean = [f for f in facts if not is_korean(f.get("text", ""))]
-        if non_korean:
-            log.warning("한국어가 아닌 기억 %d개는 버림", len(non_korean))
-            facts = [f for f in facts if is_korean(f.get("text", ""))]
-        self.memory.apply_consolidation(facts, consumed, self.memory_max_chars)
+        ops = r.data.get("ops")
+        if ops is None:  # 예전 형식 {"facts": [...]} → 더하기
+            ops = [{"op": "add", "id": "", **f} for f in r.data.get("facts", [])]
+        bad = [o for o in ops if o.get("op") != "archive" and not is_korean(o.get("text", ""))]
+        if bad:
+            log.warning("한국어가 아닌 기억 %d개는 버림", len(bad))
+            ops = [o for o in ops if o not in bad]
+        self.last_archived = self.memory.apply_ops(ops, consumed)
+        log.info("기억 정리: %s", ", ".join(f"{o.get('op')} {o.get('text', '')[:20]}" for o in ops) or "바뀐 것 없음")
         return True
