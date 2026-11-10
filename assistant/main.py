@@ -31,7 +31,7 @@ from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
 from ui.placeholder import make_placeholder
 from ui.topmost import TopmostKeeper
-from updater import Updater
+from updater import Updater, confirm_started, count_start, rollback
 from usage import UsageLedger
 from ui.settings_dialog import RESTART_KEYS, TALK_STYLES, SettingsDialog
 from voice.listener import VoiceListener, list_input_devices
@@ -107,7 +107,7 @@ class AssistantApp(QObject):
         stt = Transcriber(g("voice.model", "small"), g("voice.device", "cpu"),
                           download_root=str(settings.data_dir / "whisper"))
         self.voice = VoiceListener(stt, wake_word=str(g("voice.wake_word", "") or ""),
-                                   device=str(g("voice.device", "") or ""))
+                                   device=str(g("voice.mic", "") or ""))
         self.voice.heard.connect(self._on_heard)
         self.voice.state.connect(self._on_voice_state)
         self.voice.error.connect(lambda m: self.bubble.show_text(m, self.anchor(), system=True, seconds=8))
@@ -347,9 +347,7 @@ class AssistantApp(QObject):
 
     def restart(self) -> None:
         """새 프로그램을 띄우고 지금 것은 끈다 (새 쪽은 지금 것이 완전히 꺼질 때까지 기다렸다 시작)."""
-        main_py = self.settings.root / "main.py"
-        subprocess.Popen([sys.executable, str(main_py), "--after", str(os.getpid())], cwd=str(self.settings.root),
-                         creationflags=getattr(subprocess, "DETACHED_PROCESS", 0))
+        relaunch(self.settings.root)
         self.quit()
 
     def settings_values(self) -> dict:
@@ -363,7 +361,7 @@ class AssistantApp(QObject):
             "screen.cooldown_seconds": int(self.watch_cfg.cooldown_seconds),
             "screen.monitor": str(self.watch_cfg.monitor),
             "voice.mode": self.voice.mode,
-            "voice.device": self.voice.device,
+            "voice.mic": self.voice.device,
             "voice.wake_word": self.voice.wake_word,
             "voice.model": str(g("voice.model", "medium")),
             "budget.monthly_usd": self.budget_usd(),
@@ -394,8 +392,8 @@ class AssistantApp(QObject):
         self.watcher.apply_config()
         if "screen.enabled" in changed:
             self.set_screen_enabled(bool(changed["screen.enabled"]), save=False)
-        if "voice.device" in changed:
-            self.voice.set_device(str(changed["voice.device"]))
+        if "voice.mic" in changed:
+            self.voice.set_device(str(changed["voice.mic"]))
         if "voice.wake_word" in changed:
             self.voice.wake_word = str(changed["voice.wake_word"])
         if "voice.mode" in changed:
@@ -636,6 +634,12 @@ class AssistantApp(QObject):
         self._write_state(state)
 
 
+def relaunch(root: Path) -> None:
+    start = root / "launcher.py" if (root / "launcher.py").is_file() else root / "main.py"
+    subprocess.Popen([sys.executable, str(start), "--after", str(os.getpid())], cwd=str(root),
+                     creationflags=getattr(subprocess, "DETACHED_PROCESS", 0))
+
+
 def settings_flag(settings: Settings, key: str, default: bool) -> bool:
     value = settings.get(key, default)
     return value if isinstance(value, bool) else str(value).lower() in ("1", "true", "yes", "on")
@@ -659,6 +663,8 @@ def apply_saved_prefs(settings: Settings) -> None:
     except (OSError, json.JSONDecodeError):
         prefs = {}
     for key, value in prefs.items():
+        if key == "voice.device" and str(value) not in ("cpu", "cuda", "auto"):
+            key = "voice.mic"  # 예전 버전은 마이크 이름을 voice.device 에 저장했음 (음성 인식 장치와 이름이 겹침)
         settings.set(key, value)
 
 
@@ -716,12 +722,30 @@ def main() -> int:
         i = sys.argv.index("--after")
         if i + 1 < len(sys.argv) and sys.argv[i + 1].isdigit():
             wait_for_exit(int(sys.argv[i + 1]))
-    settings = Settings.load()
-    setup_logging(settings.data_dir / "logs")
+    root = Path(__file__).resolve().parent
+    logs = root / "data" / "logs"
+    setup_logging(logs)  # 설정 파일이 깨져도 이유가 기록에 남게 맨 먼저
+    state_path = root / "data" / "update_state.json"
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    assistant = build(settings)
-    assistant.start()
+    if count_start(state_path) > 3 and rollback(root, state_path):  # 업데이트 뒤로 계속 꺼지기만 함
+        relaunch(root)
+        return 1
+    try:
+        settings = Settings.load(root)
+        state_path = settings.data_dir / "update_state.json"
+        assistant = build(settings)
+        assistant.start()
+    except Exception as exc:  # noqa: BLE001 - 창이 없으니 그냥 꺼지면 이유를 알 수 없음 → 알려준다
+        log.exception("다니카를 켜지 못함")
+        if rollback(root, state_path):
+            QMessageBox.information(None, "다니카", "방금 업데이트한 버전이 켜지지 않아서 이전 버전으로 되돌렸어요.\n"
+                                    "확인을 누르면 다시 켤게요.")
+            relaunch(root)
+            return 1
+        QMessageBox.critical(None, "다니카", f"다니카를 켜지 못했어요.\n\n{exc}\n\n자세한 기록: {logs / 'app.log'}")
+        return 1
+    QTimer.singleShot(10_000, lambda: confirm_started(state_path))  # 잘 켜졌으면 업데이트 백업 정리
     return app.exec()
 
 

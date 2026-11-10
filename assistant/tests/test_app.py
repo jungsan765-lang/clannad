@@ -163,7 +163,7 @@ def test_settings_dialog_applies_live_and_persists(qapp, tmp_path, built):
     dlg.scale.slider.setValue(100)
     changed = dlg.changed()
     assert changed["character.talk_motion"] == "still" and changed["screen.interval_seconds"] == 60
-    assert changed["voice.wake_word"] == "다니카" and changed["voice.device"] == "USB 마이크"
+    assert changed["voice.wake_word"] == "다니카" and changed["voice.mic"] == "USB 마이크"
     assert dlg.interval.label.text() == "1분"
     a.apply_settings(changed)
     assert a.talk_style() == "still" and a.talk_actions["still"].isChecked()

@@ -10,12 +10,16 @@
 
 from __future__ import annotations
 
+import logging
 import tomllib
 from dataclasses import dataclass, field
 from pathlib import Path
 
 NORMAL_KNOWLEDGE = """평소 모드. 주인님이 컴퓨터로 무엇을 하는지 가끔 보고, 꼭 필요할 때만 짧게 말을 건다.
 게임 화면이면 일반적인 코칭(위치·타이밍·판단 중 하나를 구체적으로), 오류 창이면 원인과 할 일, 영상·글이면 짧은 감상."""
+
+
+log = logging.getLogger("assistant.watch")
 
 
 @dataclass
@@ -41,7 +45,13 @@ def load_modes(folder: Path) -> list[Mode]:
     modes = []
     if folder.is_dir():
         for path in sorted(folder.glob("*.toml")):
-            d = tomllib.loads(path.read_text(encoding="utf-8"))
+            try:
+                from settings import parse_toml
+
+                d = parse_toml(path.read_text(encoding="utf-8"), path.name)
+            except (OSError, ValueError, UnicodeDecodeError) as exc:
+                log.warning("게임 모드 파일을 읽지 못해 건너뜀: %s", exc)
+                continue
             modes.append(Mode(
                 name=d.get("name", path.stem),
                 processes=[p.lower() for p in d.get("processes", [])],

@@ -38,7 +38,7 @@ mode = "off"            # always(항상 듣기) | push(단축키·메뉴로 그�
 model = "medium"        # 음성 인식 모델: small | medium | large-v3-turbo (클수록 한국어가 정확하고 느림). 처음 쓸 때 한 번 다운로드
 device = "cpu"          # cpu | cuda (그래픽카드)
 wake_word = ""          # 비우면 들은 말 전부에 반응. 예: "다니카" → 이름을 불렀을 때만
-device = ""             # 마이크 이름. 비우면 Windows 기본 마이크 (설정 창에서 고르는 게 편함)
+mic = ""                # 마이크 이름. 비우면 Windows 기본 마이크 (설정 창에서 고르는 게 편함)
 
 [hotkeys]               # 등록한 키는 다른 프로그램(게임)으로 전달되지 않음. 겹치면 바꾸기. 비우면 안 씀
 ask_screen = "F8"       # 지금 화면 보고 말하기

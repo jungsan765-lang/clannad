@@ -2,11 +2,47 @@
 
 from __future__ import annotations
 
+import logging
+import re
 import tomllib
 from pathlib import Path
 from typing import Any
 
 HERE = Path(__file__).resolve().parent
+log = logging.getLogger("assistant.settings")
+_TABLE = re.compile(r"^\s*\[+\s*([^\]]+?)\s*\]+")
+_KEY = re.compile(r"^\s*([A-Za-z0-9_\-.\"']+)\s*=")
+
+
+def repair_toml(text: str) -> str:
+    """같은 표 안에서 같은 이름이 또 나오면 뒤의 줄을 지운다 (먼저 나온 값을 쓴다)."""
+    table, seen, out = "", set(), []
+    for line in text.splitlines(keepends=True):
+        m = _TABLE.match(line)
+        if m:
+            table = m.group(1)
+        else:
+            k = _KEY.match(line)
+            if k:
+                name = (table, k.group(1).strip("\"'"))
+                if name in seen:
+                    out.append("# (같은 이름이 두 번 있어 무시함) " + line)
+                    continue
+                seen.add(name)
+        out.append(line)
+    return "".join(out)
+
+
+def parse_toml(text: str, name: str) -> dict:
+    try:
+        return tomllib.loads(text)
+    except tomllib.TOMLDecodeError as exc:
+        try:
+            data = tomllib.loads(repair_toml(text))
+        except tomllib.TOMLDecodeError:
+            raise ValueError(f"{name} 문법 오류: {exc}") from exc
+        log.warning("%s 에 같은 이름이 두 번 있어 먼저 나온 값을 씁니다: %s", name, exc)
+        return data
 
 
 def _merge(base: dict, extra: dict) -> dict:
@@ -32,10 +68,7 @@ class Settings:
         for name in ("config.toml", "config.local.toml"):
             path = root / name
             if path.is_file():
-                try:
-                    data = _merge(data, tomllib.loads(path.read_text(encoding="utf-8")))
-                except tomllib.TOMLDecodeError as exc:
-                    raise ValueError(f"{name} 문법 오류: {exc}") from exc
+                data = _merge(data, parse_toml(path.read_text(encoding="utf-8"), name))
         return cls(data, root)
 
     def get(self, dotted: str, default: Any = None) -> Any:

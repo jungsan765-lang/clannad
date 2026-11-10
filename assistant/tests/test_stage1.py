@@ -151,3 +151,39 @@ def test_memory_trims_to_max_chars(tmp_path):
     assert sum(len(f["text"]) + 20 for f in mem.facts) <= 400
     assert any(f["category"] == "주인님 정보" for f in mem.facts)  # 오래된 '최근 있었던 일'부터 뺌
     assert min(f["date"] for f in mem.facts if f["category"] == "최근 있었던 일") > "2026-10-01"
+
+
+# ---------------------------------------------------------------- 설정 파일
+
+def test_shipped_config_files_parse_strictly():
+    """함께 나가는 설정 파일은 고쳐 읽기 없이 그대로 읽혀야 한다 (깨지면 프로그램이 안 켜짐)."""
+    import tomllib
+    from pathlib import Path
+
+    here = Path(__file__).resolve().parents[1]
+    for path in [here / "config.toml", *sorted((here / "modes").glob("*.toml"))]:
+        tomllib.loads(path.read_text(encoding="utf-8"))
+    cfg = tomllib.loads((here / "config.toml").read_text(encoding="utf-8"))
+    assert cfg["voice"]["device"] in ("cpu", "cuda") and "mic" in cfg["voice"]
+
+
+def test_settings_survive_duplicate_names(tmp_path):
+    from settings import Settings
+
+    (tmp_path / "config.toml").write_text('[voice]\ndevice = "cpu"\nmode = "off"\ndevice = ""\n', encoding="utf-8")
+    s = Settings.load(tmp_path)
+    assert s.get("voice.device") == "cpu" and s.get("voice.mode") == "off"
+
+
+def test_old_saved_mic_name_moves_to_mic_setting(tmp_path):
+    import json
+
+    from main import apply_saved_prefs
+    from settings import Settings
+
+    (tmp_path / "config.toml").write_text('[voice]\ndevice = "cpu"\nmic = ""\n', encoding="utf-8")
+    (tmp_path / "data").mkdir()
+    (tmp_path / "data" / "state.json").write_text(json.dumps({"prefs": {"voice.device": "USB 마이크"}}), encoding="utf-8")
+    s = Settings.load(tmp_path)
+    apply_saved_prefs(s)
+    assert s.get("voice.device") == "cpu" and s.get("voice.mic") == "USB 마이크"

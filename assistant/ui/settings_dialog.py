@@ -124,7 +124,7 @@ class SettingsDialog(QDialog):
         self.mic.addItem("윈도우 기본 마이크", "")
         for name in mics:
             self.mic.addItem(name, name)
-        i = self.mic.findData(str(v["voice.device"]))
+        i = self.mic.findData(str(v["voice.mic"]))
         self.mic.setCurrentIndex(i if i >= 0 else 0)
         self.level_bar = QProgressBar()
         self.level_bar.setRange(0, 60)
@@ -202,7 +202,7 @@ class SettingsDialog(QDialog):
             "screen.cooldown_seconds": self.cooldown.value(),
             "screen.monitor": self.monitor.value(),
             "voice.mode": self.voice_mode.value(),
-            "voice.device": self.mic.currentData(),
+            "voice.mic": self.mic.currentData(),
             "voice.wake_word": self.wake.text().strip() if self.wake_on.isChecked() else "",
             "voice.model": self.model.value(),
             "budget.monthly_usd": self.budget.value(),
