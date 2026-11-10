@@ -14,6 +14,7 @@ class WindowInfo:
     title: str
     process: str  # 실행 파일 이름 (예: chrome.exe), 소문자
     rect: tuple[int, int, int, int]  # left, top, right, bottom
+    hwnd: int = 0  # 창 번호 (그 창만 찍을 때)
 
 
 def _process_name(pid: int) -> str:
@@ -46,7 +47,7 @@ def _info(hwnd) -> WindowInfo | None:
     u32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
     rect = wintypes.RECT()
     u32.GetWindowRect(hwnd, ctypes.byref(rect))
-    return WindowInfo(buf.value, _process_name(pid.value), (rect.left, rect.top, rect.right, rect.bottom))
+    return WindowInfo(buf.value, _process_name(pid.value), (rect.left, rect.top, rect.right, rect.bottom), int(hwnd or 0))
 
 
 def foreground_window() -> WindowInfo | None:
@@ -59,6 +60,10 @@ def foreground_window() -> WindowInfo | None:
 
 
 # ---------------------------------------------------------------- 다른 프로그램 창 읽기 (부탁받았을 때)
+
+# 쓰고 있으면 어느 모니터에 있든 알아서 함께 보는 메신저 (설정에서 끔)
+MESSENGERS = {"kakaotalk.exe": "카카오톡", "discord.exe": "디스코드", "telegram.exe": "텔레그램", "slack.exe": "슬랙",
+              "line.exe": "라인", "whatsapp.exe": "왓츠앱"}
 
 # 대화에서 부르는 이름 → 실행 파일
 PROGRAMS = {

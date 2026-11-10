@@ -19,7 +19,7 @@ from PySide6.QtCore import QObject, QTimer, Signal
 from . import capture as cap
 from .dxgi import DxgiGrabber
 from .modes import NORMAL_KNOWLEDGE, Mode, detect
-from .windows import WindowInfo, foreground_window
+from .windows import MESSENGERS, WindowInfo, capture_window, foreground_window
 
 log = logging.getLogger("assistant.watch")
 # 게임 화면처럼 보여도 게임이 아닌 프로그램 (브라우저 게임은 모드 파일의 창 제목으로 따로 잡는다)
@@ -50,6 +50,7 @@ class WatchConfig:
     review_interval: float = 5.0  # 복기 모드에서 화면을 보는 간격(초)
     review_gap: float = 40.0  # 복기 사이 최소 간격(초)
     focus_crop: bool = True  # 맨 앞 창이 화면의 70%보다 작으면 그 창을 원래 크기로 한 장 더 보냄
+    auto_read: bool = True  # 메신저(카톡 등)를 쓰고 있으면 어느 모니터에 있든 그 창을 직접 찍어 함께 본다
 
 
 @dataclass
@@ -58,6 +59,8 @@ class Shot:
     thumb: object
     title: str
     focus: bytes | None = None  # 맨 앞 창이 화면보다 작으면 그 창만 원래 크기로 (작은 글씨 읽기)
+    focus_label: str = ""  # 확대한 창이 무엇인지 (예: 카카오톡 — 단톡방)
+    focus_thumb: object = None
 
 
 @dataclass
@@ -127,6 +130,8 @@ class ScreenWatcher(QObject):
         self.dxgi = DxgiGrabber()
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
+        self.window_capture = capture_window  # 창 하나만 찍기 (테스트에서 바꿔 끼움)
+        self.last_focus_thumb = None
         self._black_warned = -1e9
         self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
@@ -308,7 +313,7 @@ class ScreenWatcher(QObject):
         frames = (self.frames_for_analysis(shot.jpeg, count=6, min_gap=4.0) if review
                   else self.frames_for_analysis(shot.jpeg))
         return self.companion.analyze(frames, shot.title, mode=mode, session_notes=notes, note=note, question=question,
-                                      review=review, focus=shot.focus)
+                                      review=review, focus=shot.focus, focus_label=shot.focus_label)
 
     def ask_now(self, question: str = "지금 화면 어때?") -> None:
         """단축키(F8): 판단·간격 무시하고 지금 화면을 보고 말하게 한다."""
@@ -324,8 +329,37 @@ class ScreenWatcher(QObject):
         shot = Shot(cap.to_jpeg(small, self.cfg.jpeg_quality), cap.thumb(small), self.title)
         if self.cfg.focus_crop:
             shot.focus = self._focus_crop(img)
-        self._current_focus = shot.focus
+            if shot.focus:
+                shot.focus_label = "지금 쓰고 있는 창"
+        if shot.focus is None and self.cfg.auto_read:
+            self._messenger_shot(shot)
+        if shot.focus:
+            from io import BytesIO
+
+            shot.focus_thumb = cap.thumb(Image.open(BytesIO(shot.focus)))
+        self._current_focus = (shot.focus, shot.focus_label)
         return shot
+
+    def _messenger_shot(self, shot: Shot) -> None:
+        """메신저(카톡 등)를 쓰고 있으면, 다니카 쪽 모니터에 있어도 그 창을 직접 찍어 함께 본다."""
+        try:
+            info = self.window_info()
+        except Exception:  # noqa: BLE001
+            return
+        if not info or info.process not in MESSENGERS or not info.hwnd:
+            return
+        try:
+            img = self.window_capture(info.hwnd)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("메신저 창을 찍지 못함: %s", exc)
+            return
+        if img is None:
+            return
+        if max(img.size) > 1568:
+            k = 1568 / max(img.size)
+            img = img.resize((round(img.width * k), round(img.height * k)), Image.Resampling.LANCZOS)
+        shot.focus = cap.to_jpeg(img, 90)
+        shot.focus_label = f"{MESSENGERS[info.process]} — {info.title}"[:80]
 
     def _focus_crop(self, img: Image.Image) -> bytes | None:
         """맨 앞 창(보는 모니터 위)이 화면의 70%보다 작으면 그 부분만 원래 크기로 잘라 낸다 (카톡 같은 작은 글씨)."""
@@ -357,15 +391,20 @@ class ScreenWatcher(QObject):
             return self._say(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
                                               mode=mode, session_notes=notes)
         stale = self.last_judged is not None and self.clock() - self.last_judged >= self.cfg.max_skip_minutes * 60
-        if cap.change_amount(self.last_thumb, shot.thumb) < self.cfg.change_threshold and not stale:
+        changed = cap.change_amount(self.last_thumb, shot.thumb)
+        if shot.focus_thumb is not None:  # 메신저 창에 새 메시지가 오면 큰 화면이 그대로여도 다시 본다
+            changed = max(changed, cap.change_amount(self.last_focus_thumb, shot.focus_thumb))
+        if changed < self.cfg.change_threshold and not stale:
             self.stats["skipped_same"] += 1
             return None
         self.last_thumb = shot.thumb
+        self.last_focus_thumb = shot.focus_thumb
         self.frames.append((self.clock(), shot.jpeg))
         self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
         self.activity.emit("judge")
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
+                                    focus_label=shot.focus_label,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
                                     review=self.reviewing(mode))
         self.stats["judged"] += 1
@@ -419,8 +458,10 @@ class ScreenWatcher(QObject):
 
     def _say(self, *args, **kwargs):
         self.activity.emit("line")
-        if getattr(self, "_current_focus", None):
-            kwargs.setdefault("focus", self._current_focus)
+        focus, label = getattr(self, "_current_focus", (None, ""))
+        if focus:
+            kwargs.setdefault("focus", focus)
+            kwargs.setdefault("focus_label", label)
         return self.companion.screen_line(*args, **kwargs)
 
     def _done(self, reply) -> None:

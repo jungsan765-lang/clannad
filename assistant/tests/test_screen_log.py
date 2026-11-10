@@ -193,3 +193,42 @@ def test_overlay_picks_readable_colors_for_any_background():
     assert ov.palette_.text.lightness() > 200 and ov.recolor.isActive()
     ov._finish()
     assert not ov.isVisible() and not ov.recolor.isActive()
+
+
+def test_messenger_on_other_monitor_is_read_automatically(tmp_path):
+    from PIL import Image
+
+    from test_watch_voice import WindowInfo, _img, _watcher
+
+    same = _img(100)
+    quiet = {"speak": False, "urgent": False, "scene": "other", "situation": "단톡방 대화", "point": ""}
+    w, comp, said, t, state = _watcher(tmp_path, images=[same] * 6, notes=[dict(quiet) for _ in range(6)],
+                                       window=WindowInfo("친구들 단톡방", "kakaotalk.exe", (2000, 100, 2400, 800), hwnd=77))
+    grabbed = []
+    chats = iter([Image.new("RGB", (400, 700), (255, 255, 255)), Image.new("RGB", (400, 700), (255, 255, 255)),
+                  Image.new("RGB", (400, 700), (40, 40, 40))])
+    w.window_capture = lambda hwnd: grabbed.append(hwnd) or next(chats)
+    w.tick()  # 다니카 쪽 모니터의 카톡 → 그 창을 직접 찍어 함께
+    assert grabbed == [77] and comp.focus_seen and comp.focus_label_seen == "카카오톡 — 친구들 단톡방"
+    judged = len(comp.judged)
+    t["now"] = 31
+    w.tick()  # 큰 화면도 카톡도 그대로 → 건너뜀
+    assert len(comp.judged) == judged
+    t["now"] = 62
+    w.tick()  # 카톡에 새 메시지 → 큰 화면이 그대로여도 다시 본다
+    assert len(comp.judged) == judged + 1
+    w.cfg.auto_read = False
+    t["now"] = 93
+    w.tick()
+    assert grabbed == [77, 77, 77]  # 끄면 더 찍지 않음
+
+
+def test_messenger_rules_in_prompts(tmp_path):
+    from test_organize_status import _comp
+
+    comp, fake = _comp(tmp_path, [{"speak": False, "urgent": False, "scene": "other", "situation": "", "point": ""}])
+    comp.judge(b"main", "x", "claude-haiku-5-5", None, focus=b"chat", focus_label="카카오톡 — 단톡방")
+    msg = fake.calls[-1]["messages"][0]["content"]
+    assert "카카오톡 — 단톡방" in msg[1]["text"] and "메신저" in fake.calls[-1]["system"][0]["text"]
+    comp.screen_line(b"main", "x", None)
+    assert "남의 메시지를 그대로 읽어 주지 않고" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)

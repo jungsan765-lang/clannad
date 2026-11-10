@@ -139,6 +139,7 @@ class AssistantApp(QObject):
         self.screen_log = ScreenLog(settings.data_dir / "screens", int(self.pref("screen.memory_days", 180)),
                                     float(self.pref("screen.memory_gb", 100)), bool(self.pref("screen.memory", True)))
         self.watcher.screen_log = self.screen_log
+        self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
@@ -653,6 +654,7 @@ class AssistantApp(QObject):
             "screen.coach": self.coach,
             "screen.memory": self.screen_log.enabled,
             "screen.read_windows": bool(self.pref("screen.read_windows", True)),
+            "screen.auto_read": bool(self.watch_cfg.auto_read),
             "screen.memory_days": self.screen_log.keep_days,
             "screen.memory_gb": int(self.screen_log.max_gb),
             "screen.overlay": str(self.pref("screen.overlay", "important")),
@@ -702,6 +704,8 @@ class AssistantApp(QObject):
             if key in changed:
                 setattr(cfg, attr, changed[key])
         self.watcher.apply_config()
+        if "screen.auto_read" in changed:
+            self.watch_cfg.auto_read = bool(changed["screen.auto_read"])
         if "screen.memory" in changed:
             self.screen_log.enabled = bool(changed["screen.memory"])
         if "screen.memory_days" in changed or "screen.memory_gb" in changed:
