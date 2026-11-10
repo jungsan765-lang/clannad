@@ -33,6 +33,10 @@ class Mode:
     quiet_during_play: bool = False
     review_on_result: bool = False
     pick_advice: bool = False  # 캐릭터 선택(픽) 화면이 보이면 바로 픽 조언
+    daily_reset: str = ""  # 일일 숙제 초기화 시각 "05:00" (한국 시간)
+    weekly_reset: str = ""  # 주간 숙제 초기화 "mon 05:00"
+    daily_note: str = ""  # 일일 숙제 이름 (예: 일일 임무)
+    weekly_note: str = ""
     urgent: str = ""
     is_game: bool = False
 
@@ -63,6 +67,8 @@ def load_modes(folder: Path) -> list[Mode]:
                 quiet_during_play=bool(d.get("quiet_during_play", False)),
                 review_on_result=bool(d.get("review_on_result", False)),
                 pick_advice=bool(d.get("pick_advice", False)),
+                daily_reset=str(d.get("daily_reset", "")), weekly_reset=str(d.get("weekly_reset", "")),
+                daily_note=str(d.get("daily_note", "")), weekly_note=str(d.get("weekly_note", "")),
                 urgent=str(d.get("urgent", "")).strip(),
                 is_game=True,
             ))

@@ -59,6 +59,7 @@ from pc_monitor import read_status as read_pc_status
 from pc_monitor import status_text as pc_status_text
 from idle import idle_seconds
 from planner import Planner
+from progress import Progress
 from tts import Speaker
 from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
@@ -166,6 +167,8 @@ class AssistantApp(QObject):
         self.watcher.activity.connect(self._on_watch_activity)
         self.watcher.new_game.connect(lambda p, t, seen: self.make_game_mode(p, t, seen, auto=True))
         self.watcher.result_seen.connect(self._on_result_seen)
+        self.watcher.session_started.connect(self._on_game_started)
+        self.watcher.session_ended.connect(self._on_game_ended)
         self._record_wait: dict | None = None  # 결과 화면 뒤 공식 기록이 올라오길 기다리는 중
         # 화면 기억: 바뀐 화면을 날짜별로 이 PC 에 (보관 기간·최대 용량을 넘으면 오래된 날부터 지움)
         self.screen_log = ScreenLog(settings.data_dir / "screens", int(self.pref("screen.memory_days", 180)),
@@ -180,6 +183,8 @@ class AssistantApp(QObject):
         self.wishlist = Wishlist(settings.data_dir / "requests.json")
         self.planner = Planner(settings.data_dir)
         companion.planner = self.planner
+        self.progress = Progress(settings.data_dir)
+        self._last_chores = -1e9
         self.planner_timer = QTimer(self)  # 알림 시각 확인 (내 PC, 비용 없음)
         self.planner_timer.timeout.connect(self.check_reminders)
         # 원신 계정 정보 (진열장·실시간 메모·기원 기록). 로그인 정보는 이 PC 사용자만 풀 수 있게 암호화
@@ -328,6 +333,9 @@ class AssistantApp(QObject):
             infos.append(self.genshin.context_text())
         if self.cyphers.ready and (mode == "사이퍼즈" or CYPHERS_WORDS.search(text)):
             infos.append(self.cyphers.context_text())
+        for game in self.progress.games:  # 하는 중이거나 말에 나온 게임의 진행 (스포일러 경계)
+            if (mode == game or game in text) and self.progress.text_for(game):
+                infos.append(self.progress.prompt_text(game))
         if PC_WORDS.search(text) and self.pc_monitor.last is not None:  # "컴퓨터 왜 이렇게 느려?"
             infos.append(pc_status_text(self.pc_monitor.last))
         for info in infos:
@@ -399,6 +407,12 @@ class AssistantApp(QObject):
                 self.status.flash(MEDIA_LABEL[cmd[0]] + (f" ×{cmd[1]}" if cmd[1] > 1 else ""))
         elif reply.action == "make_recap":
             QTimer.singleShot(300, lambda: self.make_recap(reply.target.strip() or "today"))
+        elif reply.action == "set_progress" and ":" in reply.target:
+            game, text = (x.strip() for x in reply.target.split(":", 1))
+            names = {m.name for m in self.watcher.modes}
+            game = game if game in names else (self.watcher.mode.name if self.watcher.mode.is_game else game)
+            self.progress.set_progress(game, text)
+            self.status.flash(f"{game} 진행을 기억했어요")
         elif reply.action == "save_clip":
             self.save_highlight(self._last_question)
         elif reply.action == "set_reminder":
@@ -825,6 +839,9 @@ class AssistantApp(QObject):
             "pc.monitor": self.pc_timer.isActive(),
             "assist.briefing": bool(self.pref("assist.briefing", True)),
             "assist.pause_when_away": bool(self.pref("assist.pause_when_away", True)),
+            "assist.resume": bool(self.pref("assist.resume", True)),
+            "assist.chores": bool(self.pref("assist.chores", True)),
+            "assist.auto_dates": bool(self.pref("assist.auto_dates", True)),
             "voice.speak": bool(self.pref("voice.speak", False)),
             "voice.speak_rate": str(self.pref("voice.speak_rate", "normal")),
             "pc.clip_tool": str(self.pref("pc.clip_tool", "gamebar")),
@@ -1215,6 +1232,7 @@ class AssistantApp(QObject):
         self._run(work, done, fail)
 
     def check_reminders(self) -> None:
+        self.check_chores()
         for r in self.planner.due():
             late = r.get("late_minutes", 0)
             text = r["text"]
@@ -1430,17 +1448,29 @@ class AssistantApp(QObject):
         query = f"{mode.name} 최신 업데이트 이벤트 {time.strftime('%Y년 %m월')}"
 
         def work():
-            notes, _ = self.companion.search(query, f"{mode.name}의 지금 진행 중인 이벤트·최근 업데이트·바뀐 점",
+            notes, _ = self.companion.search(query, f"{mode.name}의 지금 진행 중인 이벤트·최근 업데이트·바뀐 점과 각각의 기간",
                                              remember=False)
-            return notes
+            items = []
+            if notes and self.pref("assist.auto_dates", True):
+                try:
+                    items = self.companion.extract_dates(mode.name, notes, today, self.watch_cfg.judge_model)
+                except Exception as exc:  # noqa: BLE001 - 일정 뽑기가 안 돼도 소식은 저장
+                    log.warning("일정 뽑기 실패: %s", exc)
+            return notes, items
 
-        def done(notes: str) -> None:
+        def done(result) -> None:
             self.status.end("news")
+            notes, items = result
             if not notes:
                 return
             words = ", ".join(dict.fromkeys([mode.name, *mode.titles, "최신", "이벤트", "업데이트", "패치", "신규"]))
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(f"## {mode.name} 최신 소식 ({today} 확인)\n키워드: {words}\n{notes}\n", encoding="utf-8")
+            games = ", ".join(dict.fromkeys([mode.name, *mode.titles]))
+            path.write_text(f"게임: {games}\n\n## {mode.name} 최신 소식 ({today} 확인)\n키워드: {words}\n{notes}\n",
+                            encoding="utf-8")
+            added = self.schedule_from_news(mode.name, items)
+            if added:
+                log.info("최신 소식에서 알림 %d개 자동 등록", added)
             self.companion.reload_lore()
             log.info("게임 최신 소식 저장: %s", path)
             if force:
@@ -1466,11 +1496,81 @@ class AssistantApp(QObject):
     def _game_context(self, mode) -> str:
         """화면 대사·분석에 덧붙일 실제 게임 데이터 (지금 모드에 맞는 것만)."""
         name = getattr(mode, "name", "")
+        parts = [self.progress.prompt_text(name)] if name else []
         if name == "원신":
-            return self.genshin.context_text()
+            parts.append(self.genshin.context_text())
         if name == "사이퍼즈":
-            return self.cyphers.context_text()
-        return ""
+            parts.append(self.cyphers.context_text())
+        return "\n".join(p for p in parts if p)
+
+    # ------------------------------------------------------------ 이어하기·진행 기억·숙제·일정
+
+    def _on_game_started(self, game: str) -> None:
+        """게임을 켬: 오래간만이면(1시간+) 지난번 어디까지 했는지 한마디."""
+        before = self.progress.last_played(game)
+        self.progress.played(game)
+        text = self.progress.text_for(game)
+        if not text or not self.pref("assist.resume", True):
+            return
+        if before is not None and datetime.now() - before < timedelta(hours=1):
+            return
+        when = f"{before:%m/%d %H:%M}" if before else "지난번"
+        self._announce(f"주인님이 {game}을(를) 다시 켰다. 지난번({when})까지의 진행: {text}. 이어하기 한마디로 어디까지 했는지와 "
+                       "다음 목표를 짧게(한두 문장) 상기시킨다. 그보다 뒤의 스토리는 말하지 않는다.")
+
+    def _on_game_ended(self, game: str, minutes: float, notes: list) -> None:
+        """게임을 끔: 화면으로 본 기록으로 진행을 갱신 (싼 모델)."""
+        self.progress.played(game)
+        prev = self.progress.text_for(game)
+
+        def done(text: str) -> None:
+            if text and text != prev:
+                self.progress.set_progress(game, text)
+                log.info("진행 기억 갱신 [%s] %s", game, text)
+
+        self._run(lambda: self.companion.update_progress(game, prev, notes, self.watch_cfg.judge_model), done,
+                  lambda m: log.warning("진행 정리 실패: %s", m))
+
+    def check_chores(self) -> None:
+        """5분마다: 밤에 오늘 아직 안 켠 게임의 일일·주간 숙제 (원신은 HoYoLAB 이 있으면 그쪽 알림을 씀)."""
+        if not self.pref("assist.chores", True) or time.monotonic() - self._last_chores < 300:
+            return
+        self._last_chores = time.monotonic()
+        modes = [m for m in self.watcher.modes if not (m.name == "원신" and self.genshin.has_login)]
+        for chore in self.progress.chores(modes):
+            log.info("숙제 알림: %s", chore)
+            self._announce(f"게임 숙제 알림: {chore} 주인님께 짧게 알린다.")
+
+    def schedule_from_news(self, game: str, items: list[dict]) -> int:
+        """최신 소식에서 뽑은 일정 → 알림 (이벤트·기원: 3일 전·하루 전 저녁 8시 / 점검: 1시간 전). 같은 건 한 번만."""
+        now = datetime.now()
+        existing = {r["text"] for r in self.planner.reminders}
+        added = 0
+
+        def add(when: datetime, text: str) -> None:
+            nonlocal added
+            if when > now and text not in existing:
+                self.planner.add_reminder(when, text)
+                existing.add(text)
+                added += 1
+
+        for it in items:
+            name = str(it.get("name", "")).strip()[:60]
+            try:
+                end = datetime.strptime(it.get("end", ""), "%Y-%m-%d %H:%M") if it.get("end") else None
+                start = datetime.strptime(it.get("start", ""), "%Y-%m-%d %H:%M") if it.get("start") else None
+            except ValueError:
+                continue
+            if not name:
+                continue
+            if it.get("kind") == "maintenance" and start:
+                add(start - timedelta(hours=1), f"[자동] {game} 점검 1시간 전: {name} ({start:%m/%d %H:%M} 시작)")
+            elif it.get("kind") in ("event", "banner") and end:
+                for days, label in ((3, "3일"), (1, "하루")):
+                    at = datetime.combine((end - timedelta(days=days)).date(), datetime.min.time()).replace(hour=20)
+                    if end - now > timedelta(days=days):
+                        add(at, f"[자동] {game} {name} 끝나기 {label} 전 ({end:%m/%d %H:%M} 종료)")
+        return added
 
     # 결과 화면을 본 뒤 공식 기록을 확인하는 때(분). 공식 기록은 늦으면 1시간쯤 뒤에 올라온다
     RECORD_CHECKS = (2, 8, 20, 40, 65)

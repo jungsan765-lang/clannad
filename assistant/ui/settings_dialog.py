@@ -252,7 +252,14 @@ class SettingsDialog(QDialog):
                            "'발생한 내용 녹화'를, NVIDIA 는 즉석 리플레이를 켜 두어야 영상이 남아요. 화면 몇 장은 항상 data/highlights 에.")
         clip_note.setWordWrap(True)
         clip_note.setStyleSheet("color: #555;")
-        self.assist_rows = [("", self.pc_monitor), ("", self.briefing), ("", self.pause_away), ("", self.speak), ("말 빠르기", self.speak_rate),
+        self.resume = QCheckBox("게임을 다시 켜면 '지난번엔 어디까지 하셨어요' 한마디 (진행은 플레이가 끝날 때 정리)")
+        self.resume.setChecked(bool(v.get("assist.resume", True)))
+        self.chores = QCheckBox("게임 숙제 알림 (원신 의뢰·보상·주간 보스, 칸코레 일일·주간 임무 — 밤에 한 번)")
+        self.chores.setChecked(bool(v.get("assist.chores", True)))
+        self.auto_dates = QCheckBox("게임 이벤트 끝·점검 알림 자동 등록 (매주 찾는 최신 소식에서)")
+        self.auto_dates.setChecked(bool(v.get("assist.auto_dates", True)))
+        self.assist_rows = [("", self.pc_monitor), ("", self.briefing), ("", self.pause_away), ("", self.resume),
+                            ("", self.chores), ("", self.auto_dates), ("", self.speak), ("말 빠르기", self.speak_rate),
                             ("하이라이트 저장", self.clip_tool), ("", self.auto_clip), ("", clip_note)]
         g10 = group("비서 기능", self.assist_rows)
 
@@ -343,6 +350,9 @@ class SettingsDialog(QDialog):
             "pc.monitor": self.pc_monitor.isChecked(),
             "assist.briefing": self.briefing.isChecked(),
             "assist.pause_when_away": self.pause_away.isChecked(),
+            "assist.resume": self.resume.isChecked(),
+            "assist.chores": self.chores.isChecked(),
+            "assist.auto_dates": self.auto_dates.isChecked(),
             "voice.speak": self.speak.isChecked(),
             "voice.speak_rate": self.speak_rate.value(),
             "pc.clip_tool": self.clip_tool.value(),

@@ -1,5 +1,9 @@
 # 함대 컬렉션(칸코레). 브라우저나 전용 뷰어에서 실행되므로 창 제목과 뷰어 이름으로 인식한다.
 name = "칸코레"
+daily_reset = "05:00"
+weekly_reset = "mon 05:00"
+daily_note = "일일 임무·연습"
+weekly_note = "주간 임무"
 processes = ["electronicobserver.exe", "kancolleviewer.exe", "poi.exe"]
 titles = ["艦隊これくしょん", "艦これ", "KanColle", "칸코레"]
 interval_seconds = 10

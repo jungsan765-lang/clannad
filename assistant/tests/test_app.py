@@ -506,11 +506,13 @@ def test_game_knowledge_folders_and_weekly_news(qapp, tmp_path, built, monkeypat
     a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
     assert [e.title for e in a.companion.lorebook.find("大破 상태로 進撃 화면")] == ["대파 진격"]  # 일본어 화면 용어로도
     kc = Mode("칸코레", titles=["艦これ"], is_game=True)
+    a.set_pref("assist.auto_dates", False)  # 일정 뽑기는 따로 시험
     a.refresh_game_news(kc)
     _wait(qapp, a)
     news = tmp_path / "data" / "knowledge" / "news_칸코레.md"
     text = news.read_text(encoding="utf-8")
-    assert text.startswith("## 칸코레 최신 소식") and "키워드: 칸코레, 艦これ, 최신" in text and "가을 이벤트" in text
+    assert text.startswith("게임: 칸코레, 艦これ\n\n## 칸코레 최신 소식") and "키워드: 칸코레, 艦これ, 최신" in text
+    assert "가을 이벤트" in text
     assert "칸코레 최신 소식" in [e.title.split(" (")[0] for e in a.companion.lorebook.find("칸코레 이벤트 뭐 해?")]
     assert a.companion.memory.knowledge == []  # 최신 소식은 '찾아본 것' 메모가 아니라 사전으로
     calls = len(fake.calls)
@@ -874,4 +876,54 @@ def test_away_pauses_screen_and_briefs_on_return(qapp, tmp_path, built):
     assert a._screen_allowed() or a.bubble.isVisible()
     sent = str(fake.calls[-1]["messages"])
     assert "자리를 비웠다가" in sent and "E3 甲 깨기" in sent and "일어나셨군요" in a.bubble.text
+    a.quit()
+
+
+
+def test_resume_progress_chores_and_news_dates(qapp, tmp_path, built):
+    from datetime import datetime as _dt
+
+    from watch.modes import Mode
+
+    fake = FakeAnthropic([
+        {"progress": "3장 '금빛 탐욕' 진행 중, 쪼개진뿔 카일록을 쓰러뜨림"},
+        {"speak": True, "message": "지난번엔 카일록까지 쓰러뜨리셨어요. 이어서 3장이에요.", "emotion": "normal"},
+        {"speak": True, "message": "알겠어요, 5장으로 기억할게요.", "emotion": "normal", "action": "set_progress",
+         "target": "붉은사막: 5장 진입, 다음 목표는 델레시아"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.watcher.session_ended.emit("붉은사막", 40.0, ["2장 진행", "카일록 보스전", "카일록 쓰러뜨림"])
+    _wait(qapp, a)
+    assert "카일록" in a.progress.text_for("붉은사막") and "progress" == fake.calls[0].get("output_config", {}) \
+        .get("format", {}).get("schema", {}).get("required", [""])[0]
+    assert "[주인님 붉은사막 진행" in a._game_context(Mode("붉은사막", is_game=True))
+    a.progress.games["붉은사막"]["last_played"] = "2026-11-01T20:00"  # 오래간만에 켬 → 이어하기 한마디
+    a.bubble.hide()
+    a.watcher.session_started.emit("붉은사막")
+    _wait(qapp, a)
+    assert "다시 켰다" in str(fake.calls[1]["messages"]) and "카일록" in a.bubble.text
+    a.ask("나 붉은사막 5장 들어왔어")
+    _wait(qapp, a)
+    assert a.progress.text_for("붉은사막") == "5장 진입, 다음 목표는 델레시아"
+    # 숙제: 최근 3일 안에 하던 칸코레를 오늘 아직 안 켰으면 밤에 한 번
+    kc = Mode("칸코레", is_game=True, daily_reset="05:00", weekly_reset="mon 05:00", daily_note="일일 임무")
+    a.progress.games["칸코레"] = {"last_played": "2026-11-07T22:00"}
+    night = _dt(2026, 11, 8, 23, 0)  # 일요일 밤
+    chores = a.progress.chores([kc], night)
+    assert len(chores) == 2 and "일일 임무" in chores[0] and "11/09 05:00" in chores[1]
+    assert a.progress.chores([kc], night) == []  # 하루 한 번
+    assert a.progress.chores([kc], _dt(2026, 11, 10, 15, 0)) == []  # 낮에는 안 함
+    # 최신 소식 일정 → 알림 자동 등록
+    future = _dt.now().replace(microsecond=0)
+    end = (future.replace(hour=23, minute=59) + __import__("datetime").timedelta(days=5)).strftime("%Y-%m-%d %H:%M")
+    start = (future + __import__("datetime").timedelta(days=2)).strftime("%Y-%m-%d %H:%M")
+    items = [{"name": "가을 이벤트", "kind": "event", "start": "", "end": end},
+             {"name": "정기 점검", "kind": "maintenance", "start": start, "end": ""},
+             {"name": "이상한 날짜", "kind": "event", "start": "", "end": "언젠가"}]
+    assert a.schedule_from_news("칸코레", items) == 3
+    assert a.schedule_from_news("칸코레", items) == 0  # 같은 건 한 번만
+    texts = [r["text"] for r in a.planner.reminders]
+    assert any("끝나기 3일 전" in t for t in texts) and any("점검 1시간 전" in t for t in texts)
     a.quit()

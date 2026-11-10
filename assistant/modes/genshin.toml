@@ -1,6 +1,10 @@
 # 원신 (호요버스). 한국 포함 글로벌 PC 클라이언트는 GenshinImpact.exe, 중국판은 YuanShen.exe.
 # 한국어로 설정해도 창 제목이 '원신'으로 바뀐다는 근거가 없어서 실행 파일 이름으로 알아본다.
 name = "원신"
+daily_reset = "05:00"
+weekly_reset = "mon 05:00"
+daily_note = "일일 의뢰"
+weekly_note = "주간 보스·주간 임무"
 processes = ["genshinimpact.exe", "yuanshen.exe"]
 titles = ["Genshin Impact Cloud"]
 interval_seconds = 25

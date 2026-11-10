@@ -121,7 +121,9 @@ class ScreenWatcher(QObject):
     activity = Signal(str)  # "judge"(화면 확인 중) | "line"(할 말 고르는 중) | "analyze"(분석 중) | ""(끝)
     new_game = Signal(str, str, list)  # 처음 보는 게임을 자주 함: (실행 파일, 창 제목, 본 장면들)
     missed = Signal()  # 주인님이 부탁한 화면 보기·분석이 할 말 없이 끝남 (말없이 끝나지 않게 알려 준다)
-    result_seen = Signal(str)  # 게임 결과 화면을 봤음 (모드 이름) → 공식 기록이 있으면 나중에 기록으로 다시 본다
+    result_seen = Signal(str)
+    session_started = Signal(str)  # 게임을 켬 (모드 이름)
+    session_ended = Signal(str, float, list)  # 게임을 끔: (모드 이름, 분, 화면으로 본 기록)  # 게임 결과 화면을 봤음 (모드 이름) → 공식 기록이 있으면 나중에 기록으로 다시 본다
 
     def __init__(self, companion, cfg: WatchConfig, run_job: Callable, *, modes: list[Mode] | None = None,
                  can_run: Callable[[], bool] = lambda: True,
@@ -234,6 +236,7 @@ class ScreenWatcher(QObject):
             if self.session is None or self.session.mode is not self.mode:
                 self._end_session(now)
                 self.session = GameSession(self.mode, now, now)
+                self.session_started.emit(self.mode.name)
             self.session.last_seen = now
         elif self.session and now - self.session.last_seen > self.cfg.session_end_minutes * 60:
             self._end_session(now)
@@ -243,6 +246,7 @@ class ScreenWatcher(QObject):
         self.session = None
         if s and len(s.notes) >= 3 and s.minutes(now) >= 5:
             self.companion.memory.add_game_record(s.mode.name, s.minutes(now), s.notes)
+            self.session_ended.emit(s.mode.name, s.minutes(now), list(s.notes))
 
     def chat_context(self) -> str | None:
         """게임 중 주인님이 말을 걸면 대사에 함께 넣는 상황 정보."""

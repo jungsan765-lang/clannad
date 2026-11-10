@@ -19,7 +19,7 @@ EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
            "read_window", "add_rule", "correct_term", "zoom_screen", "add_focus", "block_window",
            "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media", "make_recap",
-           "save_clip"]
+           "save_clip", "set_progress"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -327,6 +327,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   시작 메뉴·바탕화면 바로가기에 있는 것만 켤 수 있다. 끄기·삭제는 못 한다.
 - 음악·소리: "다음 곡", "멈춰", "소리 줄여", "음소거"는 action 은 "media", target 은 play_pause·next·prev·stop·vol_up·vol_down·mute 중
   하나와, 소리면 몇 단계인지(한 단계 2%, 예: "vol_down 5" = 10% 줄이기). message 는 아주 짧게.
+- 진행: 주인님이 게임을 어디까지 했는지 말하면("붉은사막 5장 들어왔어", "칸코레 E3 甲 깼어") action 은 "set_progress",
+  target 은 "게임 이름: 지금까지 진행·지금 목표" 한 문장. 스포일러 경계와 이어하기 한마디에 쓴다.
 - 하이라이트: "방금 거 저장해줘", "클립 따줘"는 action 은 "save_clip" (녹화 프로그램의 '방금 것 저장'을 누르고 화면 몇 장을 남긴다).
 - 정리: "오늘 하루 정리해줘", "이번 주 어땠어?"처럼 지난 시간을 정리해 달라면 action 은 "make_recap",
   target 은 today·yesterday·week 중 하나. message 는 "정리해 볼게요" 처럼 짧게 (기록을 모아서 이어서 정리한다).
@@ -949,6 +951,36 @@ class Companion:
             d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, f"{label} 정리"))
         self.memory.add_turn(f"({label} 정리를 부탁함)", a.summary, now)
         return a
+
+    def update_progress(self, game: str, previous: str, notes: list[str], model: str = "claude-haiku-5-5") -> str:
+        """한 판(세션)이 끝났을 때: 화면으로 본 기록으로 '어디까지 했는지'를 한두 문장으로 (싼 모델)."""
+        schema = {"type": "object", "properties": {"progress": {"type": "string"}}, "required": ["progress"],
+                  "additionalProperties": False}
+        text = (f"게임: {game}\n이전에 적어 둔 진행: {previous or '(없음)'}\n이번 플레이에서 화면으로 본 기록:\n"
+                + "\n".join(f"- {n}" for n in notes[-40:])
+                + "\n\n주인님이 지금 이 게임을 어디까지 했는지(장·퀘스트·지역·이벤트 해역·레벨·목표 등)를 한국어 한두 문장으로 쓴다. "
+                  "기록에 보이는 것만 쓰고 짐작하지 않는다. 새 진행 정보가 없으면 이전 진행을 그대로 쓴다.")
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": "너는 게임 진행 기록을 정리하는 도우미다."}],
+                                  messages=[{"role": "user", "content": text}], schema=schema, kind="progress",
+                                  max_tokens=400, effort="low", thinking_off=True, timeout=30)
+        out = str((r.data or {}).get("progress", "")).strip()
+        return self.memory.fix_words(out) if out and is_korean(out) else previous
+
+    def extract_dates(self, game: str, news: str, today: str, model: str = "claude-haiku-5-5") -> list[dict]:
+        """게임 최신 소식 글 → 끝나는 날짜가 있는 이벤트·기원·점검 목록 (알림 자동 등록용, 싼 모델)."""
+        schema = {"type": "object", "properties": {"items": {"type": "array", "items": {
+            "type": "object", "properties": {
+                "name": {"type": "string"}, "kind": {"type": "string", "enum": ["event", "banner", "maintenance", "other"]},
+                "start": {"type": "string"}, "end": {"type": "string"}},
+            "required": ["name", "kind", "start", "end"], "additionalProperties": False}}},
+            "required": ["items"], "additionalProperties": False}
+        text = (f"오늘: {today}\n게임: {game}\n아래 최신 소식 글에서 날짜가 분명히 적힌 이벤트·기원(픽업)·점검만 뽑는다. "
+                "start/end 는 한국 시간 'YYYY-MM-DD HH:MM'(시각을 모르면 이벤트 끝은 23:59, 점검 시작은 그 날짜 00:00), "
+                "모르면 빈 문자열. 이미 끝난 것은 빼고, 글에 없는 날짜는 짐작하지 않는다.\n\n" + news[:6000])
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": "너는 게임 공지에서 일정을 뽑는 도우미다."}],
+                                  messages=[{"role": "user", "content": text}], schema=schema, kind="dates",
+                                  max_tokens=1500, effort="low", thinking_off=True, timeout=30)
+        return list((r.data or {}).get("items", []))
 
     # ------------------------------------------------------------ 영상 복기
 

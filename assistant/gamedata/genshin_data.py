@@ -336,6 +336,12 @@ class GenshinData:
             once("expedition", 6, f"탐사 파견 {len(n.expeditions)}개가 모두 끝났다.")
         if (now.hour >= 22 or now.hour < 4) and n.completed_commissions < n.max_commissions:
             once("commission", 20, f"오늘 일일 의뢰가 {n.completed_commissions}/{n.max_commissions}이다(새벽 5시 초기화).")
+        elif (now.hour >= 20 or now.hour < 4) and n.completed_commissions >= n.max_commissions \
+                and not getattr(n, "claimed_commission_reward", True):
+            once("commission_reward", 20, "일일 의뢰는 다 했는데 캐서린에게 보상을 아직 안 받았다(새벽 5시 초기화).")
+        weekly_day = (now - timedelta(hours=5)).weekday()  # 월요일 새벽 5시 초기화 기준 요일
+        if weekly_day == 6 and now.hour >= 20 and getattr(n, "remaining_resin_discounts", 0) > 0:
+            once("weekly_boss", 20, f"주간 보스 레진 할인이 {n.remaining_resin_discounts}번 남았다(월요일 새벽 5시 초기화).")
         return out
 
 
