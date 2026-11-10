@@ -175,3 +175,16 @@ def test_ai_matter_shapes():
     a = ai(np.zeros((90, 160, 3), np.uint8))
     assert a.shape == (90, 160) and a.dtype == np.float32
     assert 0.0 <= a.min() and a.max() <= 1.0
+
+
+def test_remove_glow_clears_purple_keeps_white():
+    img = np.zeros((80, 80, 4), np.uint8)
+    img[10:70, 10:40] = (235, 235, 240, 255)  # 흰 옷 (불투명)
+    img[10:70, 40:70] = (30, 30, 35, 255)  # 검은 장갑 (불투명)
+    img[30:40, 45:60] = (190, 70, 240, 255)  # 장갑 위 보라 빛 (불투명)
+    img[50:60, 72:80] = (170, 60, 220, 110)  # 덜 지워진 보라 배경 (반투명)
+    out = mt.remove_glow(img)
+    assert (mt.glow_weight(out) > 0.3).sum() == 0
+    assert out[35, 52, :3].max() < 90  # 보라 빛 → 주변 검은색으로
+    assert out[55, 76, 3] < 20  # 반투명 보라 → 지워짐
+    assert np.array_equal(out[40, 20], img[40, 20])  # 흰 옷은 그대로

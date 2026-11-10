@@ -38,6 +38,7 @@ class MotionSpec:
     segments: list[tuple[float, float]] = field(default_factory=list)
     length: float = 12.0  # 이어 붙인 동작의 목표 길이(초)
     join: int = 6  # 이음새에 그려 넣는 중간 장면 최대 수
+    reverse: bool = True  # 이어 붙일 때 거꾸로 재생한 조각도 쓸지 (머리카락·옷이 거꾸로 움직일 수 있음)
 
 
 @dataclass
@@ -62,6 +63,8 @@ class Recipe:
     talk_motion: str | None = None
     fidgets: list[str] = field(default_factory=list)  # 가만히 있을 때 가끔 하는 동작
     fidget_every: tuple[float, float] = (180.0, 420.0)  # 초 단위 최소~최대 간격
+    remove_glow: bool = False  # 보라색 빛(이펙트)과 덜 지워진 보라 배경 정리
+    glow_hue: tuple[int, int] = (122, 168)  # 정리할 색상 범위 (OpenCV 색상 0~180)
 
 
 def _crop(value, where: str) -> tuple[int, int, int, int] | None:
@@ -141,7 +144,12 @@ def load_recipe(path: str | Path) -> Recipe:
         stabilize=bool(data.get("stabilize", True)),
         padding=int(data.get("padding", 8)),
         image_format=image_format,
+        remove_glow=bool(data.get("remove_glow", False)),
     )
+    glow_hue = data.get("glow_hue", [122, 168])
+    if not (isinstance(glow_hue, list) and len(glow_hue) == 2 and 0 <= glow_hue[0] < glow_hue[1] <= 180):
+        raise RecipeError("glow_hue 는 [시작, 끝] (0~180) 이어야 해요.")
+    recipe.glow_hue = (int(glow_hue[0]), int(glow_hue[1]))
 
     motions = data.get("motions") or {}
     if not motions:
@@ -189,6 +197,7 @@ def load_recipe(path: str | Path) -> Recipe:
             segments=segments,
             length=float(m.get("length", 12.0)),
             join=int(m.get("join", 6)),
+            reverse=bool(m.get("reverse", True)),
         )
 
     for spec in recipe.motions.values():

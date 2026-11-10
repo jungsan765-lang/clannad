@@ -17,7 +17,7 @@ import numpy as np
 from PIL import Image
 
 from . import matte as mt
-from .compose import compose_sequence
+from .compose import compose_sequence, morph
 from .compose import frame_diff as _diff
 from .compose import small_rep as _small
 from .recipe import MotionSpec, Recipe
@@ -413,6 +413,11 @@ def build(recipe: Recipe, out_dir: Path, work_dir: Path, models_dir: Path, log: 
         except (json.JSONDecodeError, OSError):
             pass
 
+    def clean(frames: list[np.ndarray]) -> list[np.ndarray]:
+        if not recipe.remove_glow:
+            return frames
+        return [mt.remove_glow(f, recipe.glow_hue) for f in frames]
+
     motions_meta: dict[str, dict] = {}
     sheet_rows = []
     warnings = []
@@ -421,12 +426,13 @@ def build(recipe: Recipe, out_dir: Path, work_dir: Path, models_dir: Path, log: 
         spec = parts[0].spec
         seam = None
         if len(parts) > 1:
-            pieces = [render_frames(p, places[name], canvas) for p in parts]
-            frames, joins = compose_sequence(pieces, round(spec.length * spec.fps), spec.join, log=log)
+            pieces = [clean(render_frames(p, places[name], canvas)) for p in parts]
+            frames, joins = compose_sequence(pieces, round(spec.length * spec.fps), spec.join,
+                                             reverse=spec.reverse, log=log)
             seam = max(joins)
             log(f"  {name}: 구간 {len(parts)}개를 이어 {len(frames)}장 ({len(frames) / spec.fps:.1f}초)")
         else:
-            frames = render_frames(parts[0], places[name], canvas)
+            frames = clean(render_frames(parts[0], places[name], canvas))
         if len(parts) == 1 and spec.loop == "loop" and spec.loop_search:
             cut, seam = find_loop(frames)
             if cut < len(frames):
@@ -434,6 +440,12 @@ def build(recipe: Recipe, out_dir: Path, work_dir: Path, models_dir: Path, log: 
             frames = frames[:cut]
         if spec.loop == "loop" and len(parts) == 1:
             frames = blend_tail(frames, spec.blend)
+            if seam is not None and seam > 3.0 and spec.blend == 0:
+                # 끝과 처음이 다르면 그 사이 움직임을 그려 넣어 부드럽게 잇는다
+                k = int(np.clip(round(seam / 2), 2, max(2, spec.join + 4)))
+                frames = frames + morph(frames[-1], frames[0], k)
+                log(f"  {name}: 끝→처음 사이에 중간 장면 {k}장 추가")
+                seam = None
             if seam is not None and seam > 3.0:
                 warnings.append(f"{name}: 끝→처음 이음새가 튈 수 있어요(점수 {seam:.1f}). loop = \"pingpong\" 이나 blend = 3 을 써보세요.")
 

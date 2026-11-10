@@ -197,6 +197,63 @@ def stabilize(alphas: list[np.ndarray], agree: float = 0.08) -> list[np.ndarray]
     return out
 
 
+def glow_weight(rgba: np.ndarray, hue: tuple[int, int] = (122, 168), s_min: int = 50, v_min: int = 60) -> np.ndarray:
+    """픽셀이 얼마나 '보라·자홍 빛'인지 0~1. (OpenCV 색상값 0~180 기준, 빨강은 제외)"""
+    hsv = cv2.cvtColor(np.ascontiguousarray(rgba[..., :3]), cv2.COLOR_RGB2HSV).astype(np.float32)
+    h, s, v = hsv[..., 0], hsv[..., 1], hsv[..., 2]
+    lo, hi = hue
+    hue_w = np.clip(1.0 - np.maximum(lo - h, h - hi) / 8.0, 0.0, 1.0)  # 범위 밖 8 까지 서서히
+    sat_w = np.clip((s - s_min) / 50.0, 0.0, 1.0)
+    val_w = np.clip((v - v_min) / 40.0, 0.0, 1.0)
+    return (hue_w * sat_w * val_w * (rgba[..., 3] > 0)).astype(np.float32)
+
+
+def remove_glow(rgba: np.ndarray, hue: tuple[int, int] = (122, 168), s_min: int = 50, v_min: int = 60,
+                solid: float = 0.85, min_island: float = 0.02) -> np.ndarray:
+    """보라색 빛(번개 이펙트)과 덜 지워진 보라 배경을 정리한다.
+
+    - 반투명한 보라 픽셀(배경 잔여물, 가장자리 테두리)은 지운다.
+    - 불투명한 보라 픽셀(옷 위에 덮인 빛)은 주변의 원래 옷 색으로 다시 칠한다.
+    """
+    w = glow_weight(rgba, hue, s_min, v_min)
+    if not (w > 0.05).any():
+        return rgba
+    # 빛의 한가운데는 하얗게 타서 채도가 낮다. 흰 옷과 헷갈리지 않게,
+    # 확실한 보라 빛 바로 주변에서만 기준을 낮춰 함께 잡는다.
+    zone = cv2.dilate((w > 0.5).astype(np.uint8), np.ones((13, 13), np.uint8)) > 0
+    relaxed = glow_weight(rgba, (hue[0] - 8, hue[1] + 10), 15, 110)
+    w = np.maximum(w, np.where(zone, relaxed, 0.0)).astype(np.float32)
+    rgb = rgba[..., :3].astype(np.float32)
+    a = rgba[..., 3].astype(np.float32) / 255.0
+
+    # 반투명 보라: 보라 정도만큼 투명하게
+    semi = a < solid
+    a = np.where(semi, a * (1.0 - w), a)
+
+    # 불투명 보라: 보라가 아닌 단단한 주변 색으로 다시 칠함 (넓은 빛도 메우도록 반경을 넓혀가며)
+    good = ((a >= solid) & (w < 0.05)).astype(np.float32)
+    fill = np.zeros_like(rgb)
+    filled = np.zeros(a.shape, bool)
+    for radius in (4, 10, 24, 60):
+        k = radius * 2 + 1
+        num = cv2.blur(rgb * good[..., None], (k, k))
+        den = cv2.blur(good, (k, k))
+        ok = (den > 0.02) & ~filled
+        fill[ok] = num[ok] / den[ok][:, None]
+        filled |= ok
+    target = (~semi) & filled
+    strength = np.clip(w * 1.6, 0.0, 1.0)[..., None]  # 반쯤 보라여도 거의 다 원래 색으로
+    rgb = np.where(target[..., None], rgb * (1 - strength) + fill * strength, rgb)
+
+    # 남은 반투명 보라 테두리는 채도를 빼서 회색 쪽으로
+    if semi.any():
+        gray = rgb.mean(-1, keepdims=True)
+        rgb = np.where(semi[..., None], rgb * (1 - w[..., None]) + gray * w[..., None], rgb)
+
+    a = refine_alpha(a, 0.0, 1.0, min_island)  # 지우고 남은 작은 조각 정리
+    return to_rgba(np.clip(rgb, 0, 255).astype(np.uint8), a)
+
+
 def to_rgba(rgb: np.ndarray, alpha: np.ndarray) -> np.ndarray:
     a8 = np.round(alpha * 255).astype(np.uint8)
     rgba = np.dstack([rgb, a8])
