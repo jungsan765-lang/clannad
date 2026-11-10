@@ -16,6 +16,7 @@ from PIL import Image
 from PySide6.QtCore import QObject, QTimer, Signal
 
 from . import capture as cap
+from .dxgi import DxgiGrabber
 from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import WindowInfo, foreground_window
 
@@ -116,6 +117,8 @@ class ScreenWatcher(QObject):
         self.last_spoke: float | None = None
         self.last_check: float | None = None
         self.running_job = False
+        self.dxgi = DxgiGrabber()
+        self._black_warned = -1e9
         self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.tick)
@@ -136,7 +139,14 @@ class ScreenWatcher(QObject):
         monitor = cap.pick_monitor(cap.list_monitors(), self.cfg.monitor)
         if monitor is None:
             raise RuntimeError("모니터를 찾지 못했어요.")
-        return cap.grab(monitor)
+        # 게임이 포커스를 가져도 실제 화면이 찍히는 DXGI 먼저, 안 되면 기존 방식
+        img = self.dxgi.grab((monitor.left, monitor.top, monitor.width, monitor.height))
+        if img is None:
+            img = cap.grab(monitor)
+        if img.getextrema() and max(hi for _, hi in img.getextrema()) < 12 and self.clock() - self._black_warned > 600:
+            self._black_warned = self.clock()
+            log.warning("화면이 새까맣게 찍힘 (전용 전체화면 게임이면 '테두리 없는 창 모드'로 바꾸면 보일 수 있음)")
+        return img
 
     # ------------------------------------------------------------ 켜고 끄기
 
@@ -207,8 +217,15 @@ class ScreenWatcher(QObject):
         s = self.stats
         return f"화면 보기: {age} · 판단 {s['judged']}번 · 먼저 말 건 {s['spoke']}번 · 변화 없어 건너뜀 {s['skipped_same']}번"
 
+    def interval_for(self, mode: Mode) -> float:
+        """설정 창의 '화면 확인 간격'이 게임 모드 값보다 짧으면 그걸 따른다."""
+        return min(mode.interval_seconds, self.cfg.interval_seconds)
+
+    def cooldown_for(self, mode: Mode) -> float:
+        return min(mode.cooldown_seconds, self.cfg.cooldown_seconds)
+
     def in_cooldown(self, mode: Mode) -> bool:
-        return self.last_spoke is not None and self.clock() - self.last_spoke < mode.cooldown_seconds
+        return self.last_spoke is not None and self.clock() - self.last_spoke < self.cooldown_for(mode)
 
     def tick(self) -> None:
         self.stats["ticks"] += 1
@@ -217,7 +234,7 @@ class ScreenWatcher(QObject):
             return
         now = self.clock()
         mode = self.mode
-        if self.last_check is not None and now - self.last_check < mode.interval_seconds:
+        if self.last_check is not None and now - self.last_check < self.interval_for(mode):
             return
         # 긴급 경고·총평이 없는 모드는 쉬는 시간 동안 아예 보지 않는다 (판단 비용도 0)
         if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result):

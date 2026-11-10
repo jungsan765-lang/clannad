@@ -357,3 +357,96 @@ def test_saved_mode_is_valid_and_loads(tmp_path):
     assert m.interval_seconds == 10 and m.cooldown_seconds == 600 and m.quiet_during_play  # 범위 안으로
     assert '"말레니아"' in m.knowledge and "\\주의" in m.knowledge
     assert detect("eldenring.exe", "", [m]) is m
+
+
+# ---------------------------------------------------------------- DXGI 화면 찍기
+
+def test_dxgi_picks_the_overlapping_monitor_and_waits_for_first_frame(monkeypatch):
+    import sys
+    import types
+
+    from watch import dxgi
+
+    made = []
+
+    class Cam:
+        def __init__(self, d, o):
+            self.d, self.o, self.calls = d, o, 0
+
+        def grab(self, new_frame_only=True):
+            self.calls += 1
+            if self.calls < 3:
+                return None  # 막 만든 카메라는 첫 화면이 조금 늦게 옴
+            return np.full((1080, 1920, 3), 200 if self.o == 1 else 10, dtype=np.uint8)
+
+        def release(self):
+            pass
+
+    def output(left, top, w, h):
+        c = types.SimpleNamespace(left=left, top=top, right=left + w, bottom=top + h)
+        return types.SimpleNamespace(desc=types.SimpleNamespace(DesktopCoordinates=c), update_desc=lambda: None)
+
+    fake = types.ModuleType("dxcam")
+    vars(fake)["__factory"] = types.SimpleNamespace(outputs=[[output(1920, 0, 2560, 1440), output(0, 0, 1920, 1080)]])
+    fake.create = lambda device_idx, output_idx, output_color: made.append(Cam(device_idx, output_idx)) or made[-1]
+    comtypes = types.ModuleType("comtypes")
+    comtypes.COINIT_APARTMENTTHREADED = 2
+    comtypes.CoInitializeEx = lambda flags: None
+    monkeypatch.setitem(sys.modules, "dxcam", fake)
+    monkeypatch.setitem(sys.modules, "comtypes", comtypes)
+    g = dxgi.DxgiGrabber()
+    g.failed = False
+    img = g.grab((0, 0, 1920, 1080))  # 왼쪽(주) 모니터 = 두 번째 출력
+    assert img.size == (1920, 1080) and img.getpixel((5, 5)) == (200, 200, 200)
+    assert (made[0].d, made[0].o) == (0, 1)
+    g.grab((0, 0, 1920, 1080))
+    assert len(made) == 1  # 카메라는 다시 만들지 않음
+
+
+def test_dxgi_unavailable_falls_back(monkeypatch):
+    import sys
+
+    from watch import dxgi
+
+    monkeypatch.setitem(sys.modules, "dxcam", None)  # 설치 안 됨
+    g = dxgi.DxgiGrabber()
+    g.failed = False
+    assert g.grab((0, 0, 10, 10)) is None and g.failed
+    assert g.grab((0, 0, 10, 10)) is None  # 그 뒤로는 바로 포기 (mss 로)
+
+
+def test_watcher_uses_dxgi_then_mss(qapp, tmp_path, monkeypatch):
+    from watch import capture
+
+    w, *_ = _watcher(tmp_path)
+    mon = capture.Monitor(1, 0, 0, 1920, 1080)
+    monkeypatch.setattr(capture, "list_monitors", lambda: [mon])
+    monkeypatch.setattr(capture, "grab", lambda m: Image.new("RGB", (1920, 1080), (1, 2, 3)))
+    w.dxgi.failed = False
+    w.dxgi.grab = lambda rect: Image.new("RGB", (1920, 1080), (90, 90, 90))
+    assert w._default_grab().getpixel((0, 0)) == (90, 90, 90)
+    w.dxgi.grab = lambda rect: None
+    assert w._default_grab().getpixel((0, 0)) == (1, 2, 3)  # DXGI 가 안 되면 기존 방식
+
+
+def test_users_shorter_interval_wins_over_game_mode(qapp, tmp_path):
+    slow = Mode("느긋한 게임", processes=["slow.exe"], interval_seconds=25, cooldown_seconds=150, knowledge="x",
+                is_game=True)
+    w, comp, said, t, state = _watcher(tmp_path, modes=[slow],
+                                       window=WindowInfo("slow", "slow.exe", (0, 0, 100, 100)))
+    w.cfg.interval_seconds, w.cfg.cooldown_seconds = 10, 90
+    assert w.interval_for(slow) == 10 and w.cooldown_for(slow) == 90
+    w.cfg.interval_seconds = 60
+    assert w.interval_for(slow) == 25  # 모드가 더 짧으면 모드 값
+
+
+def test_requirements_file_parses_for_pip():
+    from pathlib import Path
+
+    from packaging.requirements import Requirement
+
+    lines = Path(__file__).resolve().parents[1].joinpath("requirements.txt").read_text(encoding="utf-8").splitlines()
+    reqs = [Requirement(line.split(" #")[0].strip()) for line in lines if line.strip() and not line.startswith("#")]
+    dx = next(r for r in reqs if r.name == "dxcam")
+    assert str(dx.specifier) == "==0.3.0" and dx.marker.evaluate({"sys_platform": "win32"})
+    assert not dx.marker.evaluate({"sys_platform": "linux"})
