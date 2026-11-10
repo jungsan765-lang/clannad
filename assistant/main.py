@@ -11,6 +11,8 @@ from __future__ import annotations
 import json
 import logging
 import logging.handlers
+import os
+import subprocess
 import sys
 from pathlib import Path
 from typing import Callable
@@ -29,6 +31,7 @@ from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
 from ui.placeholder import make_placeholder
 from ui.topmost import TopmostKeeper
+from updater import Updater
 from usage import UsageLedger
 from voice.listener import VoiceListener
 from voice.stt import Transcriber
@@ -106,6 +109,14 @@ class AssistantApp(QObject):
         self.voice.error.connect(lambda m: self.bubble.show_text(m, self.anchor(), system=True, seconds=8))
         self.hotkeys: GlobalHotkeys | None = None
 
+        # 자동 업데이트 (GitHub 작업 브랜치에서 바뀐 파일만)
+        self.updater = Updater(settings.root, settings.data_dir / "update_state.json",
+                               str(g("update.repo", "jungsan765-lang/clannad")),
+                               str(g("update.branch", "ccr-49bbcf3c-9rks61")))
+        self.update_timer = QTimer(self)
+        self.update_timer.timeout.connect(lambda: self.check_update())
+        self.update_pending = False
+
         self.menu = self._build_menu()
         # 캐릭터 → 말풍선 → 입력창 순서로 (뒤에 올린 것이 더 앞)
         self.topmost = TopmostKeeper([self.window, self.bubble, self.input],
@@ -143,10 +154,14 @@ class AssistantApp(QObject):
         self.set_screen_enabled(bool(self.pref("screen.enabled", True)), save=False)
         self.set_voice_mode(str(self.pref("voice.mode", "off")), save=False)
         self._register_hotkeys()
+        if settings_flag(self.settings, "update.auto", True):
+            QTimer.singleShot(3000, lambda: self.check_update(startup=True))
+            self.update_timer.start(round(float(self.settings.get("update.check_hours", 6)) * 3600 * 1000))
         if self.companion.memory.pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
             self._run(self.companion.consolidate, lambda _: log.info("시작 시 기억 정리 완료"), lambda m: log.warning(m))
 
     def quit(self) -> None:
+        self.update_timer.stop()
         self.watcher.set_enabled(False)
         self.voice.shutdown()
         if self.hotkeys:
@@ -279,6 +294,62 @@ class AssistantApp(QObject):
         self.hotkeys.register(str(g("hotkeys.toggle_screen", "F9") or ""), self.toggle_screen)
         self.hotkeys.register(str(g("hotkeys.voice", "F7") or ""), self.push_to_talk)
 
+    # ------------------------------------------------------------ 업데이트·다시 시작·설정 파일
+
+    def check_update(self, startup: bool = False, manual: bool = False) -> None:
+        def done(result) -> None:
+            if not result.changed:
+                if manual:
+                    self.bubble.show_text("최신 버전이에요.", self.anchor(), system=True, seconds=3)
+                return
+            note = " (직접 고친 설정은 그대로 뒀어요)" if result.kept else ""
+            if result.requirements_changed:
+                self.bubble.show_text("업데이트에 필요한 것을 설치하는 중이에요…", self.anchor(), system=True, seconds=0)
+                self._run(self._pip_install, lambda _: self._after_update(startup, note), self._on_update_fail)
+            else:
+                self._after_update(startup, note)
+
+        self._run(self.updater.run, done, self._on_update_fail if manual else lambda m: log.warning("업데이트 확인 실패: %s", m))
+
+    def _pip_install(self) -> None:
+        exe = Path(sys.executable)
+        python = exe.with_name("python.exe") if exe.name.lower() == "pythonw.exe" else exe
+        subprocess.run([str(python), "-m", "pip", "install", "-q", "-r", str(self.settings.root / "requirements.txt")],
+                       check=True, capture_output=True,
+                       creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+
+    def _after_update(self, startup: bool, note: str) -> None:
+        self.update_pending = True
+        if startup:
+            self.bubble.show_text("업데이트를 받았어요. 다시 시작할게요." + note, self.anchor(), system=True, seconds=3)
+            QTimer.singleShot(3000, self.restart)
+        else:
+            self.bubble.show_text("업데이트를 받았어요. 메뉴의 '다시 시작'을 누르면 적용돼요." + note,
+                                  self.anchor(), system=True, seconds=8)
+
+    def _on_update_fail(self, message: str) -> None:
+        self.bubble.show_text(f"업데이트 실패: {message}", self.anchor(), system=True, seconds=8)
+
+    def restart(self) -> None:
+        """새 프로그램을 띄우고 지금 것은 끈다 (새 쪽은 지금 것이 완전히 꺼질 때까지 기다렸다 시작)."""
+        main_py = self.settings.root / "main.py"
+        subprocess.Popen([sys.executable, str(main_py), "--after", str(os.getpid())], cwd=str(self.settings.root),
+                         creationflags=getattr(subprocess, "DETACHED_PROCESS", 0))
+        self.quit()
+
+    def open_settings(self) -> None:
+        path = self.settings.root / "config.toml"
+        try:
+            if sys.platform == "win32":
+                subprocess.Popen(["notepad.exe", str(path)])
+            else:
+                subprocess.Popen(["xdg-open", str(path)])
+        except OSError as exc:
+            self.bubble.show_text(f"설정 파일을 못 열었어요: {exc}", self.anchor(), system=True, seconds=6)
+            return
+        self.bubble.show_text("설정을 고치고 저장한 뒤 메뉴의 '다시 시작'을 누르면 적용돼요.", self.anchor(),
+                              system=True, seconds=6)
+
     # ------------------------------------------------------------ 설정 기억 (메뉴에서 바꾼 값)
 
     def pref(self, key: str, default=None):
@@ -339,6 +410,9 @@ class AssistantApp(QObject):
         self.mode_action = QAction("", menu)
         self.mode_action.setEnabled(False)
         menu.addAction(self.mode_action)
+        self.watch_status_action = QAction("", menu)
+        self.watch_status_action.setEnabled(False)
+        menu.addAction(self.watch_status_action)
         self.screen_action = QAction(f"화면 보기 (평소 {int(self.watch_cfg.interval_seconds)}초마다, {g('hotkeys.toggle_screen', 'F9')})", menu)
         self.screen_action.setCheckable(True)
         self.screen_action.triggered.connect(lambda on: self.set_screen_enabled(on))
@@ -371,6 +445,16 @@ class AssistantApp(QObject):
         forget.triggered.connect(self.companion.memory.clear_recent)
         menu.addAction(forget)
         menu.addSeparator()
+        settings_file = QAction("설정 파일 열기", menu)
+        settings_file.triggered.connect(self.open_settings)
+        menu.addAction(settings_file)
+        update = QAction("업데이트 확인", menu)
+        update.triggered.connect(lambda: self.check_update(manual=True))
+        menu.addAction(update)
+        restart = QAction("다시 시작 (설정·업데이트 적용)", menu)
+        restart.triggered.connect(self.restart)
+        menu.addAction(restart)
+        menu.addSeparator()
         quit_ = QAction("종료", menu)
         quit_.triggered.connect(self.quit)
         menu.addAction(quit_)
@@ -395,6 +479,7 @@ class AssistantApp(QObject):
         mode = f"지금 모드: {self.watcher.mode.name}" + (f" · 맨 앞: {self.watcher.title[:60]}" if self.watcher.title else "")
         if hasattr(self, "mode_action"):
             self.mode_action.setText(mode)
+            self.watch_status_action.setText(self.watcher.status_text())
         if self.tray:
             self.tray.setToolTip(f"{self.window.sprites.name}\n{text}\n{mode}"[:120])
 
@@ -501,7 +586,32 @@ def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> 
     return AssistantApp(settings, companion, ledger, sprites, tray=tray)
 
 
+def wait_for_exit(pid: int, seconds: float = 15.0) -> None:
+    """다시 시작할 때 이전 프로그램이 완전히 꺼지길 기다린다 (단축키 등록이 겹치지 않게)."""
+    if sys.platform == "win32":
+        import ctypes
+
+        handle = ctypes.windll.kernel32.OpenProcess(0x00100000, False, pid)  # SYNCHRONIZE
+        if handle:
+            ctypes.windll.kernel32.WaitForSingleObject(handle, int(seconds * 1000))
+            ctypes.windll.kernel32.CloseHandle(handle)
+        return
+    import time
+
+    end = time.monotonic() + seconds
+    while time.monotonic() < end:
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return
+        time.sleep(0.2)
+
+
 def main() -> int:
+    if "--after" in sys.argv:
+        i = sys.argv.index("--after")
+        if i + 1 < len(sys.argv) and sys.argv[i + 1].isdigit():
+            wait_for_exit(int(sys.argv[i + 1]))
     settings = Settings.load()
     setup_logging(settings.data_dir / "logs")
     app = QApplication(sys.argv)

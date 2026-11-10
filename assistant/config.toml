@@ -53,6 +53,13 @@ credit_usd = 100         # 매달 들어오는 크레딧. 이만큼 쓰면 '이�
 warn_ratio = 0.8         # 예산의 이 비율을 넘으면 경고
 krw_per_usd = 1400       # 화면 표시용 환율 (원/달러)
 
+[update]
+auto = true                          # 켤 때와 몇 시간마다 GitHub 에서 바뀐 파일만 받아 업데이트
+repo = "jungsan765-lang/clannad"
+branch = "ccr-49bbcf3c-9rks61"
+check_hours = 6                      # 켜져 있는 동안 확인 간격
+# 직접 고친 config.toml·modes/*.toml 은 덮어쓰지 않고, 새 기본값을 '이름.new' 로 옆에 둔다
+
 [ui]
 bubble_min_seconds = 4.0       # 말풍선 최소 표시 시간
 bubble_seconds_per_char = 0.12 # 글자 수에 비례해 더 오래 보여줌

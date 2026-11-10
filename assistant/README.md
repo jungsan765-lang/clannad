@@ -45,6 +45,12 @@
 ### 단축키
 - `hotkeys` 의 F7(듣기)·F8(지금 화면)·F9(화면 보기 켜고 끄기). 등록한 키는 다른 프로그램으로 전달되지 않으니 게임 키와 겹치면 바꾼다.
 
+### 업데이트·설정
+- 켤 때와 `update.check_hours`(기본 6시간)마다 GitHub 작업 브랜치에서 `assistant/` 의 바뀐 파일만 받는다(저장소 전체가 아님).
+  켤 때 받은 업데이트는 바로 다시 시작해서 적용, 켜져 있을 때 받은 것은 메뉴의 '다시 시작'으로 적용.
+  `requirements.txt` 가 바뀌면 필요한 것도 설치한다. 직접 고친 `config.toml`·`modes/*.toml` 은 덮어쓰지 않고 새 기본값을 `.new` 로 둔다.
+- 메뉴(다니카나 트레이 아이콘 오른쪽 클릭): 설정 파일 열기(메모장), 업데이트 확인, 다시 시작, 화면 보기 상태(마지막 확인·판단 횟수).
+
 ### 대화가 동작하는 방식
 - 모든 API 호출은 `ai_client.py` 하나로 모인다. 모델은 `config.toml` 의 `ai.chat_model` / `ai.memory_model`.
 - 답은 JSON(`speak`, `message`, `emotion`) 형식으로만 받는다 (structured outputs).

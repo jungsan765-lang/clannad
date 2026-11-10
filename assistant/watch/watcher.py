@@ -176,6 +176,14 @@ class ScreenWatcher(QObject):
 
     # ------------------------------------------------------------ 주기 확인
 
+    def status_text(self) -> str:
+        """메뉴에 보여줄 화면 보기 상태."""
+        if not self.enabled:
+            return "화면 보기: 꺼져 있음"
+        age = "아직 안 봄" if self.last_check is None else f"마지막 확인 {self.clock() - self.last_check:.0f}초 전"
+        s = self.stats
+        return f"화면 보기: {age} · 판단 {s['judged']}번 · 먼저 말 건 {s['spoke']}번 · 변화 없어 건너뜀 {s['skipped_same']}번"
+
     def in_cooldown(self, mode: Mode) -> bool:
         return self.last_spoke is not None and self.clock() - self.last_spoke < mode.cooldown_seconds
 
@@ -226,6 +234,8 @@ class ScreenWatcher(QObject):
         self.stats["judged"] += 1
         if not note:
             return None
+        log.info("화면 판단 [%s] %s / %s → %s", mode.name, note.get("scene"), note.get("situation"),
+                 "말함" if note.get("speak") or note.get("urgent") else "조용")
         now = self.clock()
         scene, urgent = note.get("scene", "other"), bool(note.get("urgent"))
         if session:

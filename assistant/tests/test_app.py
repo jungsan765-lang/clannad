@@ -23,7 +23,7 @@ def _settings(tmp_path, character):
     (tmp_path / "config.toml").write_text(
         f'[app]\ndata_dir = "{(tmp_path / "data").as_posix()}"\n'
         f'[character]\nfolder = "{character}"\npersona = "none.md"\nscale = 0.5\n'
-        '[ui]\nbubble_min_seconds = 1.0\n', encoding="utf-8")
+        '[ui]\nbubble_min_seconds = 1.0\n[update]\nauto = false\n', encoding="utf-8")
     return Settings.load(tmp_path)
 
 
@@ -128,3 +128,19 @@ def test_budget_in_usd_with_credit_notice(qapp, tmp_path, built, monkeypatch):
     n = len(shown)
     a._budget_warning()
     assert len(shown) == n  # 같은 달에 같은 알림은 한 번만
+
+
+def test_menu_has_settings_update_restart_and_screen_status(qapp, tmp_path, built):
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    labels = [act.text() for act in a.menu.actions()]
+    assert "설정 파일 열기" in labels and "업데이트 확인" in labels and any(t.startswith("다시 시작") for t in labels)
+    a._refresh_cost()
+    assert a.watch_status_action.text().startswith("화면 보기:")
+    assert not a.update_timer.isActive()  # 자동 업데이트 끔 설정이면 확인 안 함
+    a.quit()
+
+
+def test_wait_for_exit_returns_for_missing_pid():
+    app_main.wait_for_exit(999999, seconds=0.5)
