@@ -47,17 +47,19 @@ class FakeCompanion:
         self.judged = []
         self.lines = []
 
-    def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False):
+    def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False,
+              review=False):
         self.judged.append({"title": title, "model": model, "minutes": minutes, "mode": mode.name if mode else None,
                             "notes": list(session_notes or [])})
         if self.notes:
             return self.notes.pop(0)
         return {"speak": True, "urgent": False, "scene": "playing", "situation": "오류 창", "point": "경로 확인"}
 
-    def analyze(self, frames, title, mode=None, session_notes=None, note=None, question=None):
+    def analyze(self, frames, title, mode=None, session_notes=None, note=None, question=None, review=False):
         from companion import Analysis
 
-        self.analyses = getattr(self, "analyses", []) + [{"frames": frames, "note": note, "question": question}]
+        self.analyses = getattr(self, "analyses", []) + [{"frames": frames, "note": note, "question": question,
+                                                          "review": review}]
         return Analysis(True, "흐름을 보니 왼쪽이 비었습니다.", "교전 직후", [{"title": "위치", "detail": "근거"}], ["보급"])
 
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False):
@@ -488,3 +490,27 @@ def test_ask_analysis_skips_judge(qapp, tmp_path):
     w, comp, said, t, _ = _watcher(tmp_path)
     w.ask_analysis("파티 어때?")
     assert comp.judged == [] and comp.analyses[-1]["question"] == "파티 어때?" and len(comp.analyses[-1]["frames"]) == 1
+
+
+def test_review_mode_keeps_watching_and_recaps_after_a_scene_ends(qapp, tmp_path):
+    game = Mode("사이퍼즈", processes=["cyphers.exe"], interval_seconds=20, cooldown_seconds=120, knowledge="x",
+                is_game=True)
+    fight = {"speak": False, "urgent": False, "scene": "playing", "situation": "교전 중", "point": ""}
+    ended = {"speak": True, "urgent": False, "scene": "playing", "situation": "아군 둘이 쓰러지고 후퇴", "point": "합류"}
+    notes = [dict(fight) for _ in range(5)] + [dict(ended), dict(ended), dict(ended)]
+    w, comp, said, t, _ = _watcher(tmp_path, notes=notes, modes=[game],
+                                   window=WindowInfo("사이퍼즈", "cyphers.exe", (0, 0, 1900, 1000)))
+    w.cfg.analysis = w.cfg.review = True
+    for i in range(7):
+        t["now"] = i * 5.0  # 5초마다
+        w.tick()
+    rec = comp.analyses[-1]
+    assert rec["review"] and len(rec["frames"]) == 6  # 지난 25초 장면 6장
+    assert [round(a) for _, a in rec["frames"]] == [25, 20, 15, 10, 5, 0]
+    assert said == ["흐름을 보니 왼쪽이 비었습니다."]
+    t["now"] = 40.0
+    w.tick()  # 복기 사이 40초가 안 지나서 또 복기하지 않음 (판단은 계속)
+    assert len(comp.analyses) == 1 and len(comp.judged) == 8
+    t["now"] = 75.0
+    w.tick()
+    assert len(comp.analyses) == 2

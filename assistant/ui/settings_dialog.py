@@ -17,6 +17,9 @@ TALK_STYLES = [("bounce", "살짝 움직임"), ("still", "멈춤"), ("breathe", 
 CHATTY = [("quiet", "조용히"), ("normal", "보통"), ("chatty", "자주")]
 VOICE_MODES = [("off", "듣지 않기"), ("push", "단축키 누를 때만"), ("always", "항상 듣기")]
 MODELS = [("small", "빠름"), ("medium", "보통 (추천)"), ("large-v3-turbo", "정확함 (느림)")]
+COACH = [("off", "끔"), ("analysis", "분석"), ("review", "복기")]
+OVERLAY = [("game", "게임 중일 때만"), ("always", "항상"), ("off", "끔")]
+OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
 SHARPNESS = [(1280, "보통"), (1920, "선명 (추천)"), (2560, "아주 선명 (비용 약 2배)")]
 
 # 다시 시작해야 적용되는 설정
@@ -122,9 +125,15 @@ class SettingsDialog(QDialog):
         width = int(v.get("screen.max_width", 1920))
         near = min(SHARPNESS, key=lambda s: abs(s[0] - width))[0]  # 예전 값(1024 등)은 가까운 칸으로
         self.sharp = Choice([(str(w), label) for w, label in SHARPNESS], str(near))
-        self.analysis = QCheckBox("분석 모드: 중요한 순간마다 최근 장면들로 자세히 분석 (한 번에 약 50~150원, F10 은 언제든)")
-        self.analysis.setChecked(bool(v.get("screen.analysis", False)))
-        g2 = group("화면 보기", [("", self.screen_on), ("", self.analysis), ("말 거는 정도", self.chatty),
+        self.coach = Choice(COACH, str(v.get("screen.coach", "off")))
+        coach_note = QLabel("분석: 결과·파티 화면처럼 중요한 순간에 자세히 (한 번에 약 50~150원).  복기: 게임 중 5초마다 보고, "
+                            "싸움·판이 끝나면 '이랬으면 좋았을 것'을 짚음 (게임 1시간에 약 1,000~3,000원).  F10 은 언제든.")
+        coach_note.setWordWrap(True)
+        coach_note.setStyleSheet("color: #555;")
+        self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "game")))
+        self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
+        g2 = group("화면 보기", [("", self.screen_on), ("코칭", self.coach), ("", coach_note),
+                                 ("게임 화면 자막", self.overlay), ("자막 위치", self.overlay_pos), ("말 거는 정도", self.chatty),
                                  ("화면 확인 간격", self.interval),
                                  ("한 번 말한 뒤 쉬는 시간", self.cooldown), ("볼 모니터", self.monitor),
                                  ("화면 선명도 (글자 읽기)", self.sharp)])
@@ -265,7 +274,9 @@ class SettingsDialog(QDialog):
             "screen.interval_seconds": self.interval.value(),
             "screen.cooldown_seconds": self.cooldown.value(),
             "screen.monitor": self.monitor.value(),
-            "screen.analysis": self.analysis.isChecked(),
+            "screen.coach": self.coach.value(),
+            "screen.overlay": self.overlay.value(),
+            "screen.overlay_pos": self.overlay_pos.value(),
             "screen.max_width": int(self.sharp.value()),
             "voice.mode": self.voice_mode.value(),
             "voice.mic": self.mic.currentData(),

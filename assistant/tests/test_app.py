@@ -82,7 +82,7 @@ def test_topmost_keeper_reasserts_visible_windows(qapp, tmp_path, built, monkeyp
     assert a.topmost.timer.isActive()
     calls.clear()
     a.topmost.tick()
-    assert calls == [a.window, a.bubble, a.status, a.input]  # 캐릭터 → 말풍선 → 하는 일 → 입력창 (뒤가 더 앞)
+    assert calls == [a.overlay, a.window, a.bubble, a.status, a.input]  # 자막 → 캐릭터 → 말풍선 → 하는 일 → 입력창
     a.quit()
     assert not a.topmost.timer.isActive()
 
@@ -380,7 +380,7 @@ def test_analysis_shows_panel_and_summary_and_chat_can_ask(qapp, tmp_path, built
     a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
     a.start()
     a.set_analysis(True)
-    assert a.watch_cfg.analysis and a.analysis_action.isChecked() and a.pref("screen.analysis") is True
+    assert a.watch_cfg.analysis and a.coach_actions["analysis"].isChecked() and a.pref("screen.coach") == "analysis"
     an = Analysis(True, "원충이 모자랍니다.", "비경 직후", [{"title": "원충", "detail": "110%"}], ["시계 바꾸기"], when="21:30")
     a._on_screen_line(an)
     html = a.analysis_panel.view.toHtml()
@@ -395,4 +395,46 @@ def test_analysis_shows_panel_and_summary_and_chat_can_ask(qapp, tmp_path, built
 
     QTest.qWait(400)
     assert asked == ["지금 파티 분석해 줘"] and "분석하는 중" in a.status.text
+    a.quit()
+
+
+def test_coach_modes_and_game_overlay(qapp, tmp_path, built, monkeypatch):
+    from companion import Analysis, Reply
+    from watch.modes import Mode
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    a.set_coach("review")
+    assert a.watch_cfg.review and a.watch_cfg.analysis and a.coach == "review" and a.coach_actions["review"].isChecked()
+    game = Mode("사이퍼즈", processes=["cyphers.exe"], interval_seconds=20, is_game=True)
+    assert a.watcher.interval_for(game) == 5 and a.watcher.interval_for(a.watcher.normal) == 30  # 게임 중에만 5초
+    # 자막: 게임 모니터를 쓰고 있을 때만
+    monkeypatch.setattr(a.watcher, "foreground_on_watched", lambda: True)
+    a.watcher.mode = game
+    a._on_screen_line(Analysis(True, "방금 그 싸움, 아군을 기다렸으면 이겼습니다.", "교전 직후", [], [], when="21:00"))
+    assert a.overlay.isVisible() and "아군을 기다렸으면" in a.overlay.text
+    a.overlay.hide()
+    monkeypatch.setattr(a.watcher, "foreground_on_watched", lambda: False)  # 다니카 쪽 모니터를 보는 중
+    a.bubble.hide()
+    a._on_screen_line(Reply(True, "다른 말", "normal"))
+    assert not a.overlay.isVisible()
+    monkeypatch.setattr(a.watcher, "foreground_on_watched", lambda: True)
+    a.apply_settings({"screen.overlay": "off"})
+    a.bubble.hide()
+    a._on_screen_line(Reply(True, "또 다른 말", "normal"))
+    assert not a.overlay.isVisible()
+    a.set_pref("screen.coach", None)
+    a.quit()
+
+
+def test_old_analysis_pref_becomes_analysis_coach(qapp, tmp_path, built):
+    import json
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    (tmp_path / "data").mkdir(exist_ok=True)
+    (tmp_path / "data" / "state.json").write_text(json.dumps({"prefs": {"screen.analysis": True}}), encoding="utf-8")
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    assert a.coach == "analysis"
     a.quit()

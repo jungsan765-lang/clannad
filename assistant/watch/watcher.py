@@ -46,6 +46,9 @@ class WatchConfig:
     max_skip_minutes: float = 3.0  # 화면이 그대로여도 이 시간마다 한 번은 판단
     new_game_hits: int = 8  # 평소 모드에서 같은 프로그램이 게임 화면으로 이만큼 보이면 게임 모드를 만든다
     analysis: bool = False  # 분석 모드: 짚을 만한 순간에 최근 장면 여러 장으로 자세히 분석
+    review: bool = False  # 복기 모드(게임 중): 자주 보고, 한 장면이 끝나면 지난 30초쯤을 되짚는다
+    review_interval: float = 5.0  # 복기 모드에서 화면을 보는 간격(초)
+    review_gap: float = 40.0  # 복기 사이 최소 간격(초)
 
 
 @dataclass
@@ -120,7 +123,7 @@ class ScreenWatcher(QObject):
         self.last_check: float | None = None
         self.running_job = False
         self.dxgi = DxgiGrabber()
-        self.frames: deque = deque(maxlen=8)  # 최근 장면 (시각, jpeg) — 분석할 때 흐름을 보려고
+        self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self._black_warned = -1e9
         self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
@@ -221,8 +224,17 @@ class ScreenWatcher(QObject):
         return f"화면 보기: {age} · 판단 {s['judged']}번 · 먼저 말 건 {s['spoke']}번 · 변화 없어 건너뜀 {s['skipped_same']}번"
 
     def interval_for(self, mode: Mode) -> float:
-        """설정 창의 '화면 확인 간격'이 게임 모드 값보다 짧으면 그걸 따른다."""
-        return min(mode.interval_seconds, self.cfg.interval_seconds)
+        """설정 창의 '화면 확인 간격'이 게임 모드 값보다 짧으면 그걸 따른다. 복기 모드 게임 중엔 더 자주."""
+        base = min(mode.interval_seconds, self.cfg.interval_seconds)
+        return min(base, self.cfg.review_interval) if self.reviewing(mode) else base
+
+    def reviewing(self, mode: Mode) -> bool:
+        return self.cfg.review and mode.is_game
+
+    def foreground_on_watched(self) -> bool:
+        """주인님이 지금 보는 모니터(화면 보기 대상)의 창을 쓰고 있는지 (게임 화면 자막을 띄울지)."""
+        info, area = self.window_info(), self.monitor_rect()
+        return bool(info and area and _overlaps(info.rect, area))
 
     def cooldown_for(self, mode: Mode) -> float:
         return min(mode.cooldown_seconds, self.cfg.cooldown_seconds)
@@ -239,8 +251,8 @@ class ScreenWatcher(QObject):
         mode = self.mode
         if self.last_check is not None and now - self.last_check < self.interval_for(mode):
             return
-        # 긴급 경고·총평이 없는 모드는 쉬는 시간 동안 아예 보지 않는다 (판단 비용도 0)
-        if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result):
+        # 긴급 경고·총평이 없는 모드는 쉬는 시간 동안 아예 보지 않는다 (판단 비용도 0). 복기 모드는 장면을 계속 모은다
+        if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result or self.reviewing(mode)):
             return
         self.last_check = now
         self.running_job = True
@@ -259,7 +271,8 @@ class ScreenWatcher(QObject):
         shot = self._shot()
         self.last_thumb = shot.thumb
         self.frames.append((self.clock(), shot.jpeg))
-        return self._analyze(shot, None, mode, list(session.notes) if session else None, question)
+        return self._analyze(shot, None, mode, list(session.notes) if session else None, question,
+                             review=self.reviewing(mode))
 
     def frames_for_analysis(self, current: bytes, count: int = 3, min_gap: float = 15.0) -> list[tuple[bytes, float]]:
         """지금 장면 + 그 전 장면들(서로 min_gap 초 넘게 떨어진 것)을 오래된 것부터."""
@@ -275,10 +288,12 @@ class ScreenWatcher(QObject):
             last_t = t
         return list(reversed(picked))
 
-    def _analyze(self, shot, note, mode, notes, question=None):
+    def _analyze(self, shot, note, mode, notes, question=None, review: bool = False):
         self.activity.emit("analyze")
-        return self.companion.analyze(self.frames_for_analysis(shot.jpeg), shot.title, mode=mode, session_notes=notes,
-                                      note=note, question=question)
+        frames = (self.frames_for_analysis(shot.jpeg, count=6, min_gap=4.0) if review
+                  else self.frames_for_analysis(shot.jpeg))
+        return self.companion.analyze(frames, shot.title, mode=mode, session_notes=notes, note=note, question=question,
+                                      review=review)
 
     def ask_now(self, question: str = "지금 화면 어때?") -> None:
         """단축키(F8): 판단·간격 무시하고 지금 화면을 보고 말하게 한다."""
@@ -312,7 +327,8 @@ class ScreenWatcher(QObject):
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
         self.activity.emit("judge")
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes,
-                                    chattiness=self.cfg.chattiness, analysis=self.cfg.analysis)
+                                    chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
+                                    review=self.reviewing(mode))
         self.stats["judged"] += 1
         if not note:
             return None
@@ -335,6 +351,12 @@ class ScreenWatcher(QObject):
         if urgent and mode.urgent:
             return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                               session_notes=notes)
+        if self.reviewing(mode):  # 복기: 장면이 끝났다고 판단되면 지난 장면들을 되짚는다 (복기 사이는 review_gap)
+            if not note.get("speak") or scene in ("loading", "cutscene"):
+                return None
+            if self.last_spoke is not None and now - self.last_spoke < self.cfg.review_gap:
+                return None
+            return self._analyze(shot, note, mode, notes, review=True)
         if scene in ("loading", "cutscene") or (mode.quiet_during_play and scene == "playing"):
             return None
         if self.in_cooldown(mode) or not note.get("speak"):

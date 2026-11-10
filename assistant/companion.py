@@ -108,6 +108,23 @@ ANALYSIS_TASK = """[분석]
 - 확실하지 않은 건 '추측'이라고 밝힌다. 화면에 근거가 없는 내용은 지어내지 않는다.
 - 분석할 거리가 정말 없으면(로딩·빈 화면 등) speak 는 false."""
 
+REVIEW_TASK = """[복기]
+첨부한 이미지들은 방금 지나간 장면들이다(오래된 것부터, 각 이미지 앞에 몇 초 전인지 적혀 있다).
+이미 지나간 일이니 '지금 ~하세요'가 아니라 되짚는다. 옆에서 같이 본 사람처럼, 그 분야(그 게임)를 깊이 아는 시선으로:
+- situation: 방금 무슨 일이 있었는지 흐름 (몇 초 전 → 지금).
+- points: 2~3개. 잘한 점 하나(있으면)와 아쉬운 판단. detail 에는 어느 장면에서 무엇이 보였는지(체력, 미니맵, 아군·적 위치, 킬 로그,
+  쿨타임 표시 등) 근거와, '이때 이렇게 했으면 좋았을 것'을 구체적으로.
+- next_steps: 다음에 비슷한 상황이 오면 할 것 1~2개.
+- summary: 게임 화면 자막으로 띄울 한두 문장. 캐릭터 말투로. 예) '방금 그 싸움, 아군을 기다렸다 들어갔으면 이길 수 있었습니다.'
+- 사진 사이에 생긴 일은 보이지 않으니 확실하지 않으면 '아마'라고 한다. 순간 조작(회피·콤보·에임)은 평가하지 않는다.
+- 아래에 '주인님 … 정보/전적'이 있으면 그 실제 숫자도 근거로 쓴다.
+- 짚을 만한 게 없으면 speak 는 false."""
+
+REVIEW_JUDGE = """말 거는 정도: 복기 모드. 방금 한 장면이 마무리됐을 때만 speak=true:
+교전·전투가 끝났을 때(누가 쓰러짐, 체력이 크게 깎인 뒤 물러남), 주인님 캐릭터가 쓰러짐(사망·부활 대기),
+목표(타워·보스·거점 등)를 얻거나 잃음, 판·라운드가 끝남·결과 화면, 눈에 띄는 실수나 아까운 판단.
+싸움이 한창일 때, 그냥 이동 중, 로딩, 메뉴는 false. situation 에는 방금 무슨 일이 있었는지 구체적으로 적는다."""
+
 ANALYSIS_JUDGE = """말 거는 정도: 분석 모드. 자세히 분석할 만한 순간에만 speak=true:
 결과·정산 화면, 판·전투가 막 끝났을 때, 파티·장비·스킬·성유물 화면, 눈에 띄는 실수나 위험한 상황, 오류 창, 중요한 선택지.
 평범한 이동·탐험·대화·메뉴 넘기기는 false."""
@@ -514,10 +531,12 @@ class Companion:
 
     def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
               mode=None, session_notes: list[str] | None = None, chattiness: str = "normal",
-              analysis: bool = False) -> dict | None:
+              analysis: bool = False, review: bool = False) -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔."""
         recent = self.memory.spoken_lines(5)
-        system = JUDGE_RULES + "\n" + (ANALYSIS_JUDGE if analysis else CHATTINESS.get(chattiness, CHATTINESS["normal"]))
+        style = (REVIEW_JUDGE if review else ANALYSIS_JUDGE if analysis
+                 else CHATTINESS.get(chattiness, CHATTINESS["normal"]))
+        system = JUDGE_RULES + "\n" + style
         if mode is not None:
             system += "\n\n" + self._mode_text(mode, None)
         info = [f"맨 앞 창: {title or '(알 수 없음)'}"]
@@ -605,7 +624,8 @@ class Companion:
     # ------------------------------------------------------------ 분석
 
     def analyze(self, frames: list[tuple[bytes, float]], title: str, mode=None, session_notes: list[str] | None = None,
-                note: dict | None = None, question: str | None = None, now: datetime | None = None) -> Analysis:
+                note: dict | None = None, question: str | None = None, now: datetime | None = None,
+                review: bool = False) -> Analysis:
         """최근 장면 여러 장(jpeg, 몇 초 전)을 보고 깊게 분석한다. 말풍선엔 summary, 분석 창엔 나머지."""
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
@@ -613,7 +633,7 @@ class Companion:
         for jpeg, ago in frames:
             content.append({"type": "text", "text": "(지금 화면)" if ago < 1 else f"({ago:.0f}초 전 화면)"})
             content.append(self._image_block(jpeg))
-        lines = [f"[지금: {stamp}]", ANALYSIS_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
+        lines = [f"[지금: {stamp}]", REVIEW_TASK if review else ANALYSIS_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
         if self.user_names:
             lines.append(self.names_text())
         mode_text = self._mode_text(mode, session_notes)

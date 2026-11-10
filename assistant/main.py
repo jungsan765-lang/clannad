@@ -38,6 +38,7 @@ from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
 from ui.hoyolab_login import HoyolabLogin, complete as cookies_complete
 from ui.analysis_panel import AnalysisPanel
+from ui.overlay import GameOverlay, screen_for
 from ui.organize_dialog import OrganizeDialog
 from ui.wishlist_dialog import WishlistDialog
 from ui.placeholder import make_placeholder
@@ -103,6 +104,7 @@ class AssistantApp(QObject):
         self.input = ChatInput()
         self.status = StatusPill(self.anchor)  # 캐릭터 아래 '지금 하는 일' 표시
         self.analysis_panel = AnalysisPanel(self.anchor)  # 분석 모드의 자세한 내용
+        self.overlay = GameOverlay()  # 게임 모니터 위 자막 (입력은 그대로 게임으로)
         companion.analysis_effort = str(settings.get("ai.analysis_effort", "medium"))
         self.status.set_enabled(bool(self.pref("ui.show_status", True)))
         self._streamed = False
@@ -172,7 +174,7 @@ class AssistantApp(QObject):
 
         self.menu = self._build_menu()
         # 캐릭터 → 말풍선 → 하는 일 표시 → 입력창 순서로 (뒤에 올린 것이 더 앞)
-        self.topmost = TopmostKeeper([self.window, self.bubble, self.status, self.input],
+        self.topmost = TopmostKeeper([self.overlay, self.window, self.bubble, self.status, self.input],
                                      int(settings.get("character.topmost_interval_ms", 1500)), self)
 
         self.window.clicked.connect(self.open_input)
@@ -207,7 +209,10 @@ class AssistantApp(QObject):
             self.window.play("appear")
         self.set_screen_enabled(bool(self.pref("screen.enabled", True)), save=False)
         self.set_voice_mode(str(self.pref("voice.mode", "off")), save=False)
-        self.set_analysis(bool(self.pref("screen.analysis", False)), save=False)
+        coach = self.pref("screen.coach", None)
+        if coach is None:  # 예전 설정(분석 모드 켜기/끄기)
+            coach = "analysis" if self.pref("screen.analysis", False) else "off"
+        self.set_coach(str(coach), save=False)
         self._register_hotkeys()
         if settings_flag(self.settings, "update.auto", True):
             QTimer.singleShot(3000, lambda: self.check_update(startup=True))
@@ -280,6 +285,7 @@ class AssistantApp(QObject):
         self.voice.paused = False
         self.status.end("chat")
         self.bubble.show_text(reply.message, self.anchor())
+        self.show_overlay(reply.message)
         self.window.set_emotion(reply.emotion)
         self._start_talking()
         self._refresh_cost()
@@ -356,20 +362,52 @@ class AssistantApp(QObject):
         if save:
             self.set_pref("screen.enabled", on)
 
-    def set_analysis(self, on: bool, save: bool = True) -> None:
-        self.watch_cfg.analysis = bool(on)
-        if hasattr(self, "analysis_action"):
-            self.analysis_action.setChecked(bool(on))
+    COACH = (("off", "끔"), ("analysis", "분석: 중요한 순간마다 자세히"), ("review", "복기: 5초마다 보고 끝난 장면 되짚기"))
+
+    def set_coach(self, coach: str, save: bool = True) -> None:
+        """코칭 방식: off | analysis(중요한 순간 분석) | review(게임 중 5초마다 보고 끝난 장면 복기)."""
+        coach = coach if coach in dict(self.COACH) else "off"
+        self.watch_cfg.analysis = coach in ("analysis", "review")
+        self.watch_cfg.review = coach == "review"
+        for key, act in getattr(self, "coach_actions", {}).items():
+            act.setChecked(key == coach)
         if save:
-            self.set_pref("screen.analysis", bool(on))
+            self.set_pref("screen.coach", coach)
+
+    def set_analysis(self, on: bool, save: bool = True) -> None:  # 예전 이름
+        self.set_coach("analysis" if on else "off", save)
+
+    @property
+    def coach(self) -> str:
+        return "review" if self.watch_cfg.review else "analysis" if self.watch_cfg.analysis else "off"
 
     def analyze_now(self, question: str = "지금 화면을 자세히 분석해 줘") -> None:
-        """F10·메뉴·대화: 지금 화면을 최근 장면들과 함께 자세히 분석."""
+        """F10·메뉴·대화: 지금 화면을 최근 장면들과 함께 자세히 분석 (복기 모드 게임 중이면 지난 장면 복기)."""
         if self.busy or self.watcher.running_job:
             self.status.flash("하던 일이 끝나면 다시 눌러 주세요")
             return
-        self.status.begin("screen", "분석하는 중")
+        self.status.begin("screen", "복기하는 중" if self.watcher.reviewing(self.watcher.mode) else "분석하는 중")
         self.watcher.ask_analysis(question)
+
+    def show_overlay(self, text: str) -> None:
+        """게임 모니터 위에 자막으로도 (설정: game=게임 중일 때만, always=그 모니터를 쓸 때 항상, off)."""
+        how = str(self.pref("screen.overlay", "game"))
+        if how == "off" or not text or text == "……":
+            return
+        if not self.watcher.foreground_on_watched() or (how == "game" and not self.watcher.mode.is_game):
+            return
+        ranks = None
+        if str(self.watch_cfg.monitor).isdigit():
+            try:
+                from watch import capture
+
+                mons = sorted(capture.list_monitors(), key=lambda m: m.left)
+                ranks = [next(i for i, m in enumerate(mons) if m.index == int(self.watch_cfg.monitor))]
+            except Exception:  # noqa: BLE001
+                ranks = None
+        seconds = self.bubble.duration_ms(text) / 1000 + 2
+        self.overlay.show_on(screen_for(str(self.watch_cfg.monitor), ranks), text, seconds,
+                             str(self.pref("screen.overlay_pos", "top")))
 
     def toggle_screen(self) -> None:
         on = not self.watcher.enabled
@@ -407,6 +445,7 @@ class AssistantApp(QObject):
                 self.search_and_answer(reply.target, about_screen=True)
             return
         self.bubble.show_text(reply.message, self.anchor())
+        self.show_overlay(reply.message)
         self.window.set_emotion(reply.emotion)
         self._start_talking()
         self._refresh_cost()
@@ -541,7 +580,9 @@ class AssistantApp(QObject):
             "screen.interval_seconds": int(self.watch_cfg.interval_seconds),
             "screen.cooldown_seconds": int(self.watch_cfg.cooldown_seconds),
             "screen.monitor": str(self.watch_cfg.monitor),
-            "screen.analysis": bool(self.watch_cfg.analysis),
+            "screen.coach": self.coach,
+            "screen.overlay": str(self.pref("screen.overlay", "game")),
+            "screen.overlay_pos": str(self.pref("screen.overlay_pos", "top")),
             "screen.max_width": int(self.watch_cfg.max_width),
             "voice.mode": self.voice.mode,
             "voice.mic": self.voice.device,
@@ -587,8 +628,8 @@ class AssistantApp(QObject):
             if key in changed:
                 setattr(cfg, attr, changed[key])
         self.watcher.apply_config()
-        if "screen.analysis" in changed:
-            self.set_analysis(bool(changed["screen.analysis"]), save=False)
+        if "screen.coach" in changed:
+            self.set_coach(str(changed["screen.coach"]), save=False)
         if "screen.enabled" in changed:
             self.set_screen_enabled(bool(changed["screen.enabled"]), save=False)
         if "voice.mic" in changed:
@@ -716,11 +757,17 @@ class AssistantApp(QObject):
         now = QAction(f"지금 화면 보고 말하기 ({g('hotkeys.ask_screen', 'F8')})", menu)
         now.triggered.connect(self.ask_screen_now)
         menu.addAction(now)
-        self.analysis_action = QAction("분석 모드 (중요한 순간마다 자세히 분석)", menu)
-        self.analysis_action.setCheckable(True)
-        self.analysis_action.triggered.connect(lambda on: self.set_analysis(on))
-        menu.addAction(self.analysis_action)
-        analyze = QAction(f"지금 자세히 분석 ({g('hotkeys.analyze', 'F10')})", menu)
+        cmenu = menu.addMenu("코칭 (분석·복기)")
+        cgroup = QActionGroup(cmenu)
+        self.coach_actions = {}
+        for key, label in self.COACH:
+            act = QAction(label, cmenu)
+            act.setCheckable(True)
+            act.triggered.connect(lambda _=False, k=key: self.set_coach(k))
+            cgroup.addAction(act)
+            cmenu.addAction(act)
+            self.coach_actions[key] = act
+        analyze = QAction(f"지금 자세히 분석·복기 ({g('hotkeys.analyze', 'F10')})", menu)
         analyze.triggered.connect(lambda: self.analyze_now())
         menu.addAction(analyze)
         panel = QAction("분석 창 보기", menu)

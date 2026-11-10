@@ -385,3 +385,13 @@ def test_screen_rules_ask_for_substance_and_judge_switches_in_analysis(tmp_path)
     assert "분석 모드" in sys_text and "결과·정산 화면" in sys_text and "화면을 그대로 옮긴 말" in sys_text
     comp.screen_line(b"jpg", "x", None)
     assert "그대로 읊지 않는다" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+
+
+def test_review_prompts(tmp_path):
+    comp, fake = _comp(tmp_path, [{"speak": True, "summary": "방금 그 싸움, 아깝습니다.", "situation": "교전 직후",
+                                   "points": [], "next_steps": [], "emotion": "normal"}])
+    comp.analyze([(b"a", 10.0), (b"b", 0.0)], "사이퍼즈", review=True)
+    tail = fake.calls[-1]["messages"][-1]["content"][-1]["text"]
+    assert "[복기]" in tail and "이렇게 했으면 좋았을 것" in tail and "순간 조작" in tail
+    comp.judge(b"jpg", "x", "claude-haiku-5-5", None, analysis=True, review=True)
+    assert "복기 모드" in fake.calls[-1]["system"][0]["text"]
