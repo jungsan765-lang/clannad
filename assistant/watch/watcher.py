@@ -8,7 +8,10 @@
 from __future__ import annotations
 
 import logging
+import sys
+import threading
 import time
+import traceback
 from collections import deque
 from dataclasses import dataclass, field
 from typing import Callable
@@ -20,6 +23,25 @@ from . import capture as cap
 from .dxgi import DxgiGrabber
 from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, WindowInfo, capture_window, foreground_window
+
+# 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
+STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "line": 120.0, "analyze": 200.0}
+
+
+class _Abandoned(Exception):
+    """너무 오래 걸려서 버린 확인. 뒤늦게 다음 단계(비싼 호출)로 넘어가지 않게 멈춘다."""
+
+
+def _thread_stacks(limit: int = 8000) -> str:
+    """지금 어디서 막혀 있는지 (로그용)."""
+    names = {t.ident: t.name for t in threading.enumerate()}
+    out = []
+    for ident, frame in sys._current_frames().items():  # noqa: SLF001
+        stack = "".join(traceback.format_stack(frame, limit=14))
+        if any(k in stack for k in ("watcher", "anthropic", "httpx", "dxcam", "dxgi", "companion")):
+            out.append(f"--- {names.get(ident, ident)}\n{stack}")
+    return "\n".join(out)[:limit]
+
 
 log = logging.getLogger("assistant.watch")
 # 게임 화면처럼 보여도 게임이 아닌 프로그램 (브라우저 게임은 모드 파일의 창 제목으로 따로 잡는다)
@@ -127,6 +149,9 @@ class ScreenWatcher(QObject):
         self.last_spoke: float | None = None
         self.last_check: float | None = None
         self.running_job = False
+        self._job_gen = 0  # 버린 확인의 결과가 뒤늦게 오면 무시하려고 매번 번호를 붙인다
+        self._job_local = threading.local()
+        self._stage_name, self._stage_at, self._stage_limit = "", None, STAGE_LIMITS["start"]
         self.dxgi = DxgiGrabber()
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
@@ -250,8 +275,53 @@ class ScreenWatcher(QObject):
     def in_cooldown(self, mode: Mode) -> bool:
         return self.last_spoke is not None and self.clock() - self.last_spoke < self.cooldown_for(mode)
 
+    # ------------------------------------------------------------ 뒤에서 하는 일 (너무 오래 걸리면 버림)
+
+    def _launch(self, fn: Callable, arg) -> None:
+        self._job_gen += 1
+        gen = self._job_gen
+        self.running_job = True
+        self._stage_name, self._stage_at, self._stage_limit = "start", self.clock(), STAGE_LIMITS["start"]
+
+        def work(a):
+            self._job_local.gen = gen
+            return fn(a)
+
+        def finish(handler, value):
+            if gen != self._job_gen:  # 이미 버린 확인
+                log.info("너무 늦게 끝난 화면 확인 결과는 버림")
+                return
+            self._stage_at = None
+            handler(value)
+
+        self.run_job(work, lambda r: finish(self._done, r), lambda m: finish(self._fail, m), arg)
+
+    def _stage(self, what: str) -> None:
+        """뒤에서: 다음 단계로 넘어간다. 이미 버린 확인이면 여기서 멈춘다 (돈 드는 다음 호출을 안 하게)."""
+        if getattr(self._job_local, "gen", self._job_gen) != self._job_gen:
+            raise _Abandoned(what)
+        self._stage_name, self._stage_at, self._stage_limit = what, self.clock(), STAGE_LIMITS.get(what, 60.0)
+        self.activity.emit(what)
+
+    def check_stuck(self) -> bool:
+        """확인 하나가 너무 오래 걸리면 버리고 다음 확인을 할 수 있게 한다."""
+        if not self.running_job or self._stage_at is None:
+            return False
+        waited = self.clock() - self._stage_at
+        if waited <= self._stage_limit:
+            return False
+        log.warning("화면 확인이 %.0f초째 안 끝나서 건너뜀 (단계: %s)\n%s", waited, self._stage_name, _thread_stacks())
+        self._job_gen += 1
+        self.running_job = False
+        self._stage_at = None
+        self.stats["errors"] += 1
+        self.activity.emit("")
+        self.status.emit("화면 확인이 너무 오래 걸려서 이번 건 건너뛰었어요. 인터넷이나 서버가 잠깐 느린 것 같아요.")
+        return True
+
     def tick(self) -> None:
         self.stats["ticks"] += 1
+        self.check_stuck()
         self.update_mode()
         if self.running_job or not self.can_run():
             return
@@ -263,16 +333,14 @@ class ScreenWatcher(QObject):
         if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result or self.reviewing(mode)):
             return
         self.last_check = now
-        self.running_job = True
-        self.run_job(self._work, self._done, self._fail, None)
+        self._launch(self._work, None)
 
     def ask_analysis(self, question: str = "지금 화면을 자세히 분석해 줘") -> None:
         """단축키(F10)·대화: 판단 없이 지금 화면을 최근 장면들과 함께 자세히 분석한다."""
         if self.running_job:
             return
         self.update_mode()
-        self.running_job = True
-        self.run_job(self._work_analysis, self._done, self._fail, question)
+        self._launch(self._work_analysis, question)
 
     def _remember(self, shot, mode, note=None) -> None:
         if self.screen_log is None:
@@ -309,7 +377,7 @@ class ScreenWatcher(QObject):
         return list(reversed(picked))
 
     def _analyze(self, shot, note, mode, notes, question=None, review: bool = False):
-        self.activity.emit("analyze")
+        self._stage("analyze")
         frames = (self.frames_for_analysis(shot.jpeg, count=6, min_gap=4.0) if review
                   else self.frames_for_analysis(shot.jpeg))
         return self.companion.analyze(frames, shot.title, mode=mode, session_notes=notes, note=note, question=question,
@@ -320,8 +388,7 @@ class ScreenWatcher(QObject):
         if self.running_job:
             return
         self.update_mode()
-        self.running_job = True
-        self.run_job(self._work, self._done, self._fail, question)
+        self._launch(self._work, question)
 
     def _shot(self) -> Shot:
         img = self.grabber()
@@ -402,7 +469,7 @@ class ScreenWatcher(QObject):
         self.frames.append((self.clock(), shot.jpeg))
         self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
-        self.activity.emit("judge")
+        self._stage("judge")
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
                                     focus_label=shot.focus_label,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
@@ -457,7 +524,7 @@ class ScreenWatcher(QObject):
             self.new_game.emit(p, self.window_title, hits[-10:])
 
     def _say(self, *args, **kwargs):
-        self.activity.emit("line")
+        self._stage("line")
         focus, label = getattr(self, "_current_focus", (None, ""))
         if focus:
             kwargs.setdefault("focus", focus)

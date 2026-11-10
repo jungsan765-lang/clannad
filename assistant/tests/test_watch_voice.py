@@ -546,3 +546,36 @@ def test_rules_reach_screen_line_and_analysis(tmp_path):
     assert "판정 얘기 하지 않기" in prompt(fake.calls[-1])
     mem.remove_rule(0)
     assert mem.rules_for("디맥") == [] and Memory(tmp_path / "d").rules_for("원신") == ["레진 얘기 하지 않기"]
+
+
+def test_slow_screen_check_is_skipped_and_late_result_ignored(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    jobs = []
+    w.run_job = lambda fn, done, fail, *args: jobs.append((fn, done, fail, args))  # 끝나지 않는 확인 흉내
+    statuses, acts = [], []
+    w.status.connect(statuses.append)
+    w.activity.connect(acts.append)
+    w.timer.start(1000)
+    t["now"] = 100.0
+    w.tick()
+    assert w.running_job and len(jobs) == 1
+    fn, done, fail, args = jobs[0]
+    t["now"] = 120.0
+    w.tick()
+    assert w.running_job and len(jobs) == 1  # 아직 기다리는 중
+    t["now"] = 100.0 + 41
+    w.tick()  # 너무 오래 걸림 → 버리고 다음 확인을 시작할 수 있게
+    assert any("너무 오래" in s for s in statuses) and acts[-1] in ("", "start")
+    assert len(jobs) == 2  # 바로 다음 확인이 시작됨
+    # 버린 확인이 뒤늦게 돌아오면: 다음 단계(비싼 호출)로 안 넘어가고, 결과도 무시
+    try:
+        result = fn(*args)
+    except Exception as exc:  # noqa: BLE001
+        fail(str(exc))
+    else:
+        done(result)
+    assert said == [] and comp.lines == [] and w.running_job  # 새 확인은 그대로 진행 중
+    fn2, done2, fail2, args2 = jobs[1]
+    done2(fn2(*args2))
+    assert not w.running_job and said == ["경로에 얼룩이 하나 있네요."]
+    w.timer.stop()

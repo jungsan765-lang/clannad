@@ -647,7 +647,7 @@ class Companion:
         content = [self._image_block(jpeg)] + self._focus_blocks(focus, focus_label) + [{"type": "text", "text": "\n".join(info)}]
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                   messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
-                                  kind="judge", max_tokens=400, effort="low", thinking_off=True, timeout=30)
+                                  kind="judge", max_tokens=400, effort="low", thinking_off=True, timeout=20)
         return r.data
 
     def screen_line(self, jpeg: bytes, title: str, note: dict | None, model: str | None = None,
