@@ -188,3 +188,26 @@ def test_remove_glow_clears_purple_keeps_white():
     assert out[35, 52, :3].max() < 90  # 보라 빛 → 주변 검은색으로
     assert out[55, 76, 3] < 20  # 반투명 보라 → 지워짐
     assert np.array_equal(out[40, 20], img[40, 20])  # 흰 옷은 그대로
+
+
+def test_still_character_breathes_with_fixed_bottom(tmp_path):
+    from sprites.still import make_still_character
+
+    img = np.zeros((300, 160, 4), np.uint8)
+    img[40:300, 40:120] = (200, 210, 230, 253)  # 아래가 잘린 몸 (불투명이 253)
+    img[10:40, 60:100] = (240, 210, 200, 253)  # 머리
+    img[2, 2] = (255, 255, 255, 20)  # 떨어진 희미한 점
+    path = tmp_path / "c.png"
+    Image.fromarray(img).save(path)
+    m = make_still_character(path, tmp_path / "out", tmp_path / "models", name="t", height=200, log=lambda *_: None)
+    assert m["default"] == "idle" and m["talk"] == "talk"
+    assert m["motions"]["idle"]["loop"] == "pingpong" and m["motions"]["talk"]["loop"] == "loop"
+    out = tmp_path / "out"
+    first = np.asarray(Image.open(out / "idle" / "0000.png"))
+    last = np.asarray(Image.open(out / "idle" / f"{m['motions']['idle']['frames'] - 1:04d}.png"))
+    assert first[..., 3].max() == 255  # 253 → 255 보정
+    assert np.abs(first[-3:].astype(int) - last[-3:].astype(int)).max() <= 2  # 맨 아래는 그대로
+    top = lambda f: np.nonzero((f[..., 3] > 128).any(1))[0].min()
+    assert top(first) - top(last) >= 3  # 숨 들이쉬면 머리가 올라감
+    assert first[:5, :5, 3].max() == 0  # 떨어진 점은 지워짐
+    assert (out / "previews" / "all.mp4").stat().st_size > 0

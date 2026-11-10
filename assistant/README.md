@@ -68,6 +68,16 @@ python preview_character.py character/이름              # 바탕화면에 띄�
 - 누끼: 기본은 애니 캐릭터 AI 분할 모델(처음 한 번 약 170MB 자동 다운로드). 단색 배경은 `matte = "chroma"`.
 - 결과물(`character/`), 영상, 모델, 작업 폴더는 `.gitignore`로 저장소에 올라가지 않는다.
 
+## 캐릭터 만들기 (그림 한 장, 지금 쓰는 방식)
+
+```
+python make_still.py 그림.png --name danika_still   # → character/danika_still/ (config 기본값)
+```
+
+- 투명 배경 그림이면 그대로, 배경이 있으면 AI 로 누끼. 불투명이 253·254 인 그림은 255 로 보정, 떨어진 점 정리.
+- 평소: 숨쉬기(3.6초), 말할 때: 통통 튀기. 그림 아래가 잘려 있어도 떠 보이지 않게 맨 아래는 고정하고 위로 갈수록 움직인다.
+- `--breath`, `--bounce` 로 움직임 폭(px) 조절.
+
 ## 캐릭터 만들기 (분리 파츠 → 리깅)
 
 ```
