@@ -1129,3 +1129,24 @@ def test_weekly_summary_from_diaries(qapp, tmp_path, built):
     a._write_weekly(folder, now)  # 한 번만
     assert len(fake.calls) == 1
     a.quit()
+
+
+def test_weak_recall_expands_words_with_cheap_model(qapp, tmp_path, built):
+    import json as _json
+
+    import test_recall
+
+    fake = FakeAnthropic([
+        {"words": ["카일록", "쪼개진뿔", "보스전"]},
+        {"speak": True, "message": "아, 쪼개진뿔 카일록이요.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    test_recall._logs(tmp_path / "data")
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.recall_index.sync(tmp_path / "data")
+    a.ask("저번에 그 뿔 달린 녀석 기억나?")
+    _wait(qapp, a)
+    assert fake.calls[0]["output_config"]["format"]["schema"]["required"] == ["words"]
+    sent = _json.dumps(fake.calls[1]["messages"][-1], ensure_ascii=False)
+    assert "떠오른 기억" in sent and "카일록" in sent and "카일록이요" in a.bubble.text
+    a.quit()

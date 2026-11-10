@@ -346,11 +346,11 @@ SCREEN_HEAD = ("[지금 화면과 이어지는 예전 일 — 실제로 있었�
 
 def recall_block(index: EpisodeIndex, text: str, now: datetime, recent_since: str | None = None,
                  window: tuple[datetime, datetime] | None = None, max_chars: int = 2600, for_screen: bool = False,
-                 min_score: float = 6.0) -> tuple[str, list[Episode]]:
+                 min_score: float = 6.0, extra_words: list[str] | None = None) -> tuple[str, list[Episode]]:
     """주인님 말 → (대화에 붙일 '떠오른 기억' 글, 찾은 일화들). 떠올리라는 말이 아니면 아주 확실한 것만.
     for_screen: 화면 대사용 (떠올리라는 말은 없음, 더 확실한 것 2개까지만)."""
     intent = bool(RECALL_INTENT.search(text or "")) and not for_screen
-    words = cues(text)
+    words = cues(text) + [w for w in (extra_words or []) if w]
     if not words:
         return "", []
     since = window[0].isoformat(timespec="seconds") if window else None

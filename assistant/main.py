@@ -60,7 +60,7 @@ from pc_monitor import status_text as pc_status_text
 from idle import idle_seconds
 from planner import Planner
 from progress import Progress
-from recall import EpisodeIndex, recall_block
+from recall import RECALL_INTENT, EpisodeIndex, recall_block
 from tts import Speaker
 from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
@@ -84,7 +84,7 @@ SCREEN_KINDS = ("judge", "screen", "pick", "analysis", "result_review", "officia
 KIND_KO = {"chat": "대화", "judge": "화면 판단", "screen": "화면 대사", "pick": "픽 조언", "analysis": "분석·복기",
            "result_review": "판 끝난 총평", "official_review": "공식 기록 총평", "memory": "기억 정리", "search": "검색",
            "progress": "진행 정리", "dates": "일정 뽑기", "diary": "일기", "recap": "하루·주간 정리",
-           "mode": "게임 모드 만들기", "organize": "파일 정리", "video": "영상 복기"}
+           "mode": "게임 모드 만들기", "organize": "파일 정리", "video": "영상 복기", "recall": "기억 찾기 낱말"}
 
 
 class _TtsSignals(QObject):
@@ -372,13 +372,17 @@ class AssistantApp(QObject):
                     "주인님이 지난 일을 물으면 이걸 근거로 답한다]\n" + diary)
             if at is not None:
                 images = [(f"({e.time:%H:%M} 화면)", e.file.read_bytes()) for e in self.screen_log.nearest(at)]
-        memory_text, recalled = self.recall_for(text, window)
-        if memory_text:
-            context = ((context + "\n") if context else "") + memory_text
-            if not images:  # 떠올린 일이 화면 장면이면 그때 화면 한 장 (자세히 기억나게)
-                images = self._recall_images(recalled)
-        self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress, images=images),
-                  self._on_reply, self._on_error, text, on_progress=self._on_partial)
+        def work(t, progress):
+            # 떠올리기는 뒤에서 (색인 찾기·필요하면 낱말 넓히기 — 화면이 멈추지 않게)
+            ctx, imgs = context, images
+            memory_text, recalled = self.recall_for(t, window)
+            if memory_text:
+                ctx = ((ctx + "\n") if ctx else "") + memory_text
+                if not imgs:  # 떠올린 일이 화면 장면이면 그때 화면 한 장 (자세히 기억나게)
+                    imgs = self._recall_images(recalled)
+            return self.companion.reply(t, context=ctx, on_partial=progress, images=imgs)
+
+        self._run(work, self._on_reply, self._on_error, text, on_progress=self._on_partial)
 
     # ------------------------------------------------------------ 떠올리기
 
@@ -406,7 +410,19 @@ class AssistantApp(QObject):
             # 시간을 콕 집은 말(어제·오늘·3시·아까)일 때만 그 시간대로 좁힌다. '그때·전에'는 언제든
             pinpoint = re.search(r"어제|그저께|그제|오늘|아까|방금|\d{1,2}\s*시", text)
             span = (window[0], window[1]) if window and pinpoint else None
-            return recall_block(self.recall_index, text, datetime.now(), recent_since, span)
+            block, eps = recall_block(self.recall_index, text, datetime.now(), recent_since, span)
+            if RECALL_INTENT.search(text) and (not eps or eps[0].score < 4.0):  # 떠올리라는데 약하게 나오면 낱말을 넓혀 한 번 더
+                try:
+                    extra = self.companion.expand_cues(text, self.watch_cfg.judge_model)
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("낱말 넓히기 실패: %s", exc)
+                    extra = []
+                if extra:
+                    block2, eps2 = recall_block(self.recall_index, text, datetime.now(), recent_since, span,
+                                                extra_words=extra)
+                    if eps2 and (not eps or eps2[0].score > eps[0].score):
+                        return block2, eps2
+            return block, eps
         except Exception:  # noqa: BLE001 - 떠올리기가 안 돼도 대화는 된다
             log.exception("떠올리기 실패")
             return "", []

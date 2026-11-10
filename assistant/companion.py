@@ -1060,6 +1060,17 @@ class Companion:
         out = str((r.data or {}).get("progress", "")).strip()
         return self.memory.fix_words(out) if out and is_korean(out) else previous
 
+    def expand_cues(self, text: str, model: str = "claude-haiku-5-5") -> list[str]:
+        """'그때 그거' 를 찾을 낱말이 부족할 때: 같은 뜻 다른 말·관련 이름을 싼 모델로 (기억 찾기용)."""
+        schema = {"type": "object", "properties": {"words": {"type": "array", "items": {"type": "string"}}},
+                  "required": ["words"], "additionalProperties": False}
+        prompt = (f"주인님 말: {text}\n주인님이 예전 일을 떠올리려 한다. 대화·화면 기록에서 찾을 때 쓸 낱말을 8개까지 낸다: "
+                  "말에 나온 이름·물건·장소·게임 용어, 그 다른 표기(한글·영어·줄임말), 같은 뜻 다른 말. 조사는 빼고 2글자 이상.")
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": "너는 검색어를 뽑는 도우미다."}],
+                                  messages=[{"role": "user", "content": prompt}], schema=schema, kind="recall",
+                                  max_tokens=200, effort="low", thinking_off=True, timeout=15)
+        return [str(w).strip() for w in (r.data or {}).get("words", []) if 2 <= len(str(w).strip()) <= 30][:8]
+
     def write_diary(self, day: str, material: str, model: str = "claude-haiku-5-5") -> str:
         """하루 일기: 그날 기록(대화·화면·분석·게임)을 다니카 시점의 짧은 일기로 (싼 모델). 떠올리기 색인에 들어간다."""
         schema = {"type": "object", "properties": {"diary": {"type": "string"}}, "required": ["diary"],
