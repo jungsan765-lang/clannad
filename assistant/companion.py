@@ -1032,6 +1032,22 @@ class Companion:
         out = str((r.data or {}).get("progress", "")).strip()
         return self.memory.fix_words(out) if out and is_korean(out) else previous
 
+    def write_diary(self, day: str, material: str, model: str = "claude-haiku-5-5") -> str:
+        """하루 일기: 그날 기록(대화·화면·분석·게임)을 다니카 시점의 짧은 일기로 (싼 모델). 떠올리기 색인에 들어간다."""
+        schema = {"type": "object", "properties": {"diary": {"type": "string"}}, "required": ["diary"],
+                  "additionalProperties": False}
+        names = self.names_text()
+        text = (f"날짜: {day}\n{names}\n아래는 이날 이 PC 에 남은 기록이다(대화, 화면으로 본 것, 분석, 게임).\n"
+                "이걸로 '다니카의 일기' 한 편을 쓴다: 나중에 '그날 뭐 했지?', '그때 그거' 를 떠올릴 수 있게 구체적으로 — "
+                "언제(대략 시각), 무엇을, 누가 나왔는지, 주인님이 한 중요한 말(짧게 따옴), 게임 진행·결과, 약속, 기분.\n"
+                "다니카(나) 시점의 한국어 5~12문장. 기록에 없는 건 지어내지 않는다. 사적인 남의 대화는 요점만.\n\n"
+                + material[:14000])
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": "너는 기록을 일기로 정리하는 도우미다."}],
+                                  messages=[{"role": "user", "content": text}], schema=schema, kind="diary",
+                                  max_tokens=1500, effort="low", thinking_off=True, timeout=60)
+        out = str((r.data or {}).get("diary", "")).strip()
+        return self.memory.fix_words(out) if out and is_korean(out) else ""
+
     def extract_dates(self, game: str, news: str, today: str, model: str = "claude-haiku-5-5") -> list[dict]:
         """게임 최신 소식 글 → 끝나는 날짜가 있는 이벤트·기원·점검 목록 (알림 자동 등록용, 싼 모델)."""
         schema = {"type": "object", "properties": {"items": {"type": "array", "items": {

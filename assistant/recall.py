@@ -294,6 +294,33 @@ class EpisodeIndex:
         return [Episode(*r) for r in rows]
 
 
+# ---------------------------------------------------------------- 하루 일기 재료
+
+def diary_material(index: EpisodeIndex, day: str, max_chars: int = 14000) -> str:
+    """그날 일화들 → 일기 재료 글 (화면 일지는 같은 상황이 이어지면 하나로)."""
+    start, end = f"{day}T00:00:00", f"{day}T23:59:59"
+    rows = index.recent(("chat", "said", "screen", "analysis", "game", "lookup"), start, end, limit=3000)
+    lines, last = [], ""
+    for e in rows:
+        body = e.text.replace("\n", " / ")
+        if e.kind == "screen":
+            key = (e.game, body[:40])
+            if str(key) == last:
+                continue
+            last = str(key)
+            line = f"{e.time[11:16]} [화면 {e.game}] {body[:160]}"
+        else:
+            line = f"{e.time[11:16]} [{KIND_LABEL.get(e.kind, e.kind)}] {body[:400]}"
+        lines.append(line)
+    text = "\n".join(lines)
+    if len(text) > max_chars:  # 너무 길면 화면 일지를 솎아 냄 (대화·분석은 남김)
+        keep = [ln for ln in lines if "[화면 " not in ln]
+        screens = [ln for ln in lines if "[화면 " in ln]
+        step = max(1, len(screens) // max(1, (max_chars - sum(len(k) for k in keep)) // 120))
+        text = "\n".join(sorted(keep + screens[::step]))[:max_chars]
+    return text
+
+
 # ---------------------------------------------------------------- 떠올리기 (대화에 붙일 글)
 
 SCREEN_HEAD = ("[지금 화면과 이어지는 예전 일 — 실제로 있었던 일(이 PC 기록). 정말 관련 있을 때만 '저번에도 …' 처럼 짧게 "

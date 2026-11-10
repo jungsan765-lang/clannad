@@ -194,6 +194,7 @@ class AssistantApp(QObject):
         self.recall_timer = QTimer(self)
         self.recall_timer.timeout.connect(self.sync_recall)
         self._recall_busy = False
+        self._diary_busy = False
         self.planner_timer = QTimer(self)  # 알림 시각 확인 (내 PC, 비용 없음)
         self.planner_timer.timeout.connect(self.check_reminders)
         # 원신 계정 정보 (진열장·실시간 메모·기원 기록). 로그인 정보는 이 PC 사용자만 풀 수 있게 암호화
@@ -376,13 +377,14 @@ class AssistantApp(QObject):
     # ------------------------------------------------------------ 떠올리기
 
     def sync_recall(self) -> None:
-        """원본 기록(대화·화면 일지)의 새 줄을 색인에 넣는다 (뒤에서, 비용 없음)."""
+        """원본 기록(대화·화면 일지)의 새 줄을 색인에 넣는다 (뒤에서, 비용 없음). 날이 바뀌었으면 일기도."""
         if self._recall_busy:
             return
         self._recall_busy = True
 
         def done(_n) -> None:
             self._recall_busy = False
+            self.write_diaries()
 
         def fail(message: str) -> None:
             self._recall_busy = False
@@ -422,6 +424,48 @@ class AssistantApp(QObject):
                 except OSError:
                     return []
         return []
+
+    def write_diaries(self) -> None:
+        """새벽 5시가 지나면 지난 날(최대 7일 전까지)의 일기를 쓴다 (싼 모델, 하루 한 편). data/diary/날짜.md + 떠올리기 색인."""
+        if self._diary_busy or not self.pref("memory.diary", True):
+            return
+        now = datetime.now()
+        if now.hour < 5:
+            return
+        folder = self.settings.data_dir / "diary"
+        days = [(now.date() - timedelta(days=i)).isoformat() for i in range(1, 8)]
+        todo = [d for d in days if not (folder / f"{d}.md").exists()]
+        if not todo:
+            return
+        self._diary_busy = True
+        from recall import diary_material
+
+        def work():
+            self.recall_index.sync(self.settings.data_dir)
+            written = []
+            for day in sorted(todo):
+                material = diary_material(self.recall_index, day)
+                folder.mkdir(parents=True, exist_ok=True)
+                if len(material) < 80:  # 그날 기록이 거의 없음
+                    (folder / f"{day}.md").write_text(f"# {day}\n\n(기록이 거의 없는 날)\n", encoding="utf-8")
+                    continue
+                diary = self.companion.write_diary(day, material, self.watch_cfg.judge_model)
+                if diary:
+                    (folder / f"{day}.md").write_text(f"# {day}\n\n{diary}\n", encoding="utf-8")
+                    self.recall_index.add(f"{day}T23:59:00", "diary", f"{day} 일기: {diary}", source=f"diary:{day}")
+                    written.append(day)
+            return written
+
+        def done(written) -> None:
+            self._diary_busy = False
+            if written:
+                log.info("일기 씀: %s", ", ".join(written))
+
+        def fail(message: str) -> None:
+            self._diary_busy = False
+            log.warning("일기 쓰기 실패: %s", message)
+
+        self._run(work, done, fail)
 
     def remember_episode(self, kind: str, text: str, game: str = "", detail: str = "") -> None:
         """분석·찾아본 것·게임 기록처럼 원본 기록 파일이 없는 일을 색인에 바로 넣는다."""
@@ -1181,7 +1225,7 @@ class AssistantApp(QObject):
 
         # 기억
         mem = menu.addMenu("기억")
-        add(mem, "기억 보기", self.show_memory)
+        add(mem, "기억 보기·찾아보기·일기…", self.show_memory)
         add(mem, "화면 보는 규칙 (하지 마·챙겨 봐·보지 마)…", self.open_rules)
         add(mem, "고친 말 (남과 → 호박 같은 것)…", self.open_terms)
         add(mem, "기억 지금 정리하기", self.consolidate_now)
@@ -1263,14 +1307,11 @@ class AssistantApp(QObject):
         return date.today().isoformat()[:7]
 
     def show_memory(self) -> None:
-        mem = self.companion.memory
-        text = mem.notes_text() + (f"\n\n(정리 대기 중인 대화 {len(mem.pending)}개)" if mem.pending else "")
-        pinned = self.companion.pinned_text()
-        if pinned:
-            text = "[꼭 기억할 것]\n" + pinned + "\n\n" + text
-        if mem.knowledge:
-            text += "\n\n[찾아보고 알게 된 것] " + ", ".join(k["query"] for k in mem.knowledge[-30:])
-        QMessageBox.information(None, "장기기억", text)
+        """기억 창: 늘 기억하는 것·보관된 것·찾아보기·일기."""
+        from ui.memory_dialog import MemoryDialog
+
+        self.sync_recall()
+        MemoryDialog(self.companion.memory, self.recall_index, self.settings.data_dir / "diary").exec()
 
     def consolidate_now(self) -> None:
         self._consolidate(lambda ok: self.bubble.show_text("기억을 정리했어요." if ok else "정리할 새 대화가 없어요.",

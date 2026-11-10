@@ -23,7 +23,7 @@ def _settings(tmp_path, character):
     (tmp_path / "config.toml").write_text(
         f'[app]\ndata_dir = "{(tmp_path / "data").as_posix()}"\n'
         f'[character]\nfolder = "{character}"\npersona = "none.md"\nscale = 0.5\n'
-        '[ui]\nbubble_min_seconds = 1.0\n[update]\nauto = false\n', encoding="utf-8")
+        '[ui]\nbubble_min_seconds = 1.0\n[update]\nauto = false\n[memory]\ndiary = false\n', encoding="utf-8")
     return Settings.load(tmp_path)
 
 
@@ -1000,4 +1000,74 @@ def test_chat_remembers_important_things_right_away(qapp, tmp_path, built):
     _wait(qapp, a)
     sent = _json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
     assert "[관련 기억" in sent and "부산 여행" in sent and "보관됨" in sent
+    a.quit()
+
+
+
+def test_daily_diary_is_written_and_recalled(qapp, tmp_path, built):
+    import json as _json
+    from datetime import datetime as _dt
+    from datetime import timedelta as _td
+
+    day = (_dt.now() - _td(days=1)).date().isoformat()
+    logs = tmp_path / "data" / "logs"
+    logs.mkdir(parents=True)
+    rows = [{"time": f"{day}T21:{m:02d}:00", "user": f"오늘 카일록 잡았다 {m}번째 시도", "reply": "축하드립니다."}
+            for m in range(5)]
+    (logs / f"{day}.jsonl").write_text("\n".join(_json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
+                                       encoding="utf-8")
+    fake = FakeAnthropic([{"diary": "밤 9시쯤 주인님이 다섯 번 만에 카일록을 쓰러뜨리셨다. 무척 기뻐하셨다."}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.set_pref("memory.diary", True)
+    a.write_diaries()
+    _wait(qapp, a)
+    if _dt.now().hour < 5:  # 새벽엔 안 씀
+        return
+    diary = (tmp_path / "data" / "diary" / f"{day}.md").read_text(encoding="utf-8")
+    assert "카일록을 쓰러뜨리셨다" in diary and "21:00" in str(fake.calls[0]["messages"])
+    hits = a.recall_index.search(["카일록"], kinds=("diary",))
+    assert hits and hits[0].text.startswith(f"{day} 일기")
+    calls = len(fake.calls)
+    a.write_diaries()  # 이미 쓴 날은 다시 안 씀 (다른 날은 기록이 없어서 '거의 없는 날'로만)
+    _wait(qapp, a)
+    assert len(fake.calls) == calls
+    a.quit()
+
+
+def test_memory_window_tabs(qapp, tmp_path, built):
+    import test_recall
+
+    from ui.memory_dialog import MemoryDialog
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    test_recall._logs(tmp_path / "data")
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    mem = a.companion.memory
+    keep = mem.add_fact("사람", "민지는 주인님의 고등학교 친구다.", 3, "민지")
+    old = mem.add_fact("약속·할 일", "주인님은 11월 15일에 홍대에 간다.", 2)
+    mem.archive_fact(old["id"])
+    a.recall_index.sync(tmp_path / "data")
+    diary = tmp_path / "data" / "diary"
+    diary.mkdir(parents=True)
+    (diary / "2026-11-05.md").write_text("# 2026-11-05\n\n카일록을 잡으셨다.\n", encoding="utf-8")
+    dlg = MemoryDialog(mem, a.recall_index, diary)
+    assert dlg.table.rowCount() == 1 and dlg.table.item(0, 0).text() == "★★★" and dlg.archived.count() == 1
+    dlg.table.selectRow(0)
+    dlg._bump(-1)
+    assert mem.fact(keep["id"])["importance"] == 2
+    dlg.archived.setCurrentRow(0)
+    dlg._restore()
+    assert mem.fact(old["id"])["status"] == "active" and dlg.table.rowCount() == 2
+    dlg.query.setText("카일록")
+    found = dlg.search()
+    assert any(k == "screen" and ref.endswith(".jpg") for k, _, _, _, ref in found)
+    dlg.results.setCurrentRow(0)
+    assert dlg.detail.toPlainText()
+    assert dlg.days.count() == 1
+    dlg.days.setCurrentRow(0)
+    assert "카일록을 잡으셨다" in dlg.day_text.toPlainText()
+    dlg.new_text.setText("주인님은 오이를 싫어한다.")
+    dlg._add()
+    assert any("오이" in f["text"] for f in mem.active_facts())
     a.quit()
