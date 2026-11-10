@@ -1150,3 +1150,20 @@ def test_weak_recall_expands_words_with_cheap_model(qapp, tmp_path, built):
     sent = _json.dumps(fake.calls[1]["messages"][-1], ensure_ascii=False)
     assert "떠오른 기억" in sent and "카일록" in sent and "카일록이요" in a.bubble.text
     a.quit()
+
+
+def test_memory_files_are_backed_up_daily(qapp, tmp_path, built):
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.companion.memory.add_fact("주인님 정보", "주인님은 서울에 산다.", 3)
+    folder = a.backup_memory(keep=2)
+    assert folder and "서울" in (folder / "memory.json").read_text(encoding="utf-8")
+    assert a.backup_memory() is None  # 하루 한 번
+    for d in ("2026-01-01", "2026-01-02", "2026-01-03"):
+        (tmp_path / "data" / "backup" / d).mkdir()
+    import shutil
+
+    shutil.rmtree(folder)
+    a.backup_memory(keep=2)
+    assert len(list((tmp_path / "data" / "backup").iterdir())) == 2
+    a.quit()

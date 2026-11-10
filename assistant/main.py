@@ -394,6 +394,7 @@ class AssistantApp(QObject):
 
         def done(_n) -> None:
             self._recall_busy = False
+            self.backup_memory()
             self.write_diaries()
 
         def fail(message: str) -> None:
@@ -446,6 +447,31 @@ class AssistantApp(QObject):
                 except OSError:
                     return []
         return []
+
+    BACKUP_FILES = ("memory.json", "pinned.json", "terms.json", "rules.json", "planner.json", "progress.json",
+                    "knowledge.json", "recent.json")
+
+    def backup_memory(self, keep: int = 14) -> Path | None:
+        """하루 한 번 기억 파일들을 data/backup/날짜/ 에 복사 (최근 keep 일치만). 잘못 지우거나 망가져도 되돌릴 수 있게."""
+        import shutil
+
+        data = self.settings.data_dir
+        folder = data / "backup" / datetime.now().date().isoformat()
+        if folder.exists():
+            return None
+        try:
+            folder.mkdir(parents=True)
+            for name in self.BACKUP_FILES:
+                if (data / name).is_file():
+                    shutil.copy2(data / name, folder / name)
+            days = sorted(p for p in (data / "backup").iterdir() if p.is_dir())
+            for old in days[:-keep]:
+                shutil.rmtree(old, ignore_errors=True)
+        except OSError as exc:
+            log.warning("기억 백업 실패: %s", exc)
+            return None
+        log.info("기억 백업: %s", folder)
+        return folder
 
     def write_diaries(self) -> None:
         """새벽 5시가 지나면 지난 날(최대 7일 전까지)의 일기를 쓴다 (싼 모델, 하루 한 편). data/diary/날짜.md + 떠올리기 색인."""

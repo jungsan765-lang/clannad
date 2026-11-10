@@ -82,3 +82,10 @@ def test_search_with_time_range_and_odd_cues(tmp_path):
     hits = idx.search(["카일록"], since="2026-11-05T00:00:00", until="2026-11-06T00:00:00", limit=50)
     assert hits and all(h.time.startswith("2026-11-05") for h in hits)
     assert idx.search(['"따옴표"와', "%퍼센트", "*", "NEAR("]) is not None  # 이상한 글자도 오류 없이
+
+
+def test_broken_index_is_rebuilt(tmp_path):
+    (tmp_path / "memory.db").write_bytes(b"this is not a database" * 100)
+    idx = EpisodeIndex(tmp_path / "memory.db")
+    assert idx.add("2026-11-10T10:00:00", "chat", "주인님: 안녕") and idx.count() == 1
+    assert (tmp_path / "memory.broken.db").exists()

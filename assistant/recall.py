@@ -104,6 +104,19 @@ class EpisodeIndex:
         path.parent.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
         self._batch = False  # sync 중엔 한 줄마다 저장하지 않고 끝에서 한 번
+        try:
+            self._open()
+        except sqlite3.DatabaseError as exc:  # 색인이 깨졌으면 옆으로 치우고 새로 (원본 기록에서 다시 만들어짐)
+            log.warning("기억 색인이 깨져서 새로 만듦: %s", exc)
+            try:
+                self.db.close()
+            except Exception:  # noqa: BLE001
+                pass
+            path.replace(path.with_suffix(".broken.db"))
+            self._open()
+
+    def _open(self) -> None:
+        path = self.path
         self.db = sqlite3.connect(str(path), check_same_thread=False)
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript("""
