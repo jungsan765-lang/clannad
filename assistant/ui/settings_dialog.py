@@ -17,6 +17,8 @@ TALK_STYLES = [("bounce", "살짝 움직임"), ("still", "멈춤"), ("breathe", 
 CHATTY = [("quiet", "조용히"), ("normal", "보통"), ("chatty", "자주")]
 VOICE_MODES = [("off", "듣지 않기"), ("push", "단축키 누를 때만"), ("always", "항상 듣기")]
 MODELS = [("small", "빠름"), ("medium", "보통 (추천)"), ("large-v3-turbo", "정확함 (느림)")]
+MEMORY_DAYS = [("30", "30일"), ("90", "90일"), ("180", "180일"), ("365", "1년")]
+MEMORY_GB = [("20", "20GB"), ("50", "50GB"), ("100", "100GB"), ("300", "300GB")]
 COACH = [("off", "끔"), ("analysis", "분석"), ("review", "복기")]
 OVERLAY = [("game", "게임 중일 때만"), ("always", "항상"), ("off", "끔")]
 OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
@@ -210,6 +212,14 @@ class SettingsDialog(QDialog):
         self.cy_nick = QLineEdit(str(v.get("cyphers.nickname", "")))
         self.cy_nick.setPlaceholderText("사이퍼즈 닉네임")
         g8 = group("사이퍼즈 연결 (이 컴퓨터에만 저장)", [("API 키", self.neople_key), ("닉네임", self.cy_nick)])
+
+        # 화면 기억 (이 PC 에만)
+        self.memory_on = QCheckBox("바뀐 화면을 이 PC 에 저장해 두기 ('아까 3시쯤 뭐 했지?', 지난 10분 복기에 씀)")
+        self.memory_on.setChecked(bool(v.get("screen.memory", True)))
+        self.memory_days = Choice(MEMORY_DAYS, str(v.get("screen.memory_days", 180)))
+        self.memory_gb = Choice(MEMORY_GB, str(v.get("screen.memory_gb", 100)))
+        g9 = group("화면 기억 (이 컴퓨터에만 저장)", [("", self.memory_on), ("보관 기간", self.memory_days),
+                                                    ("최대 용량", self.memory_gb)])
         g5 = group("대답·표시", [("", self.web), ("", self.fast), ("", self.show_status)])
 
         # 비용
@@ -226,7 +236,7 @@ class SettingsDialog(QDialog):
         # 칸이 많아 화면보다 길어질 수 있으니 안쪽만 스크롤 (저장·취소 버튼은 늘 보이게)
         content = QWidget()
         inner = QVBoxLayout(content)
-        for g in (g6, g7, g8, g1, g5, g2, g3, g4):
+        for g in (g6, g7, g8, g1, g5, g2, g9, g3, g4):
             inner.addWidget(g)
         inner.addStretch(1)
         scroll = QScrollArea()
@@ -275,6 +285,9 @@ class SettingsDialog(QDialog):
             "screen.cooldown_seconds": self.cooldown.value(),
             "screen.monitor": self.monitor.value(),
             "screen.coach": self.coach.value(),
+            "screen.memory": self.memory_on.isChecked(),
+            "screen.memory_days": int(self.memory_days.value()),
+            "screen.memory_gb": int(self.memory_gb.value()),
             "screen.overlay": self.overlay.value(),
             "screen.overlay_pos": self.overlay_pos.value(),
             "screen.max_width": int(self.sharp.value()),

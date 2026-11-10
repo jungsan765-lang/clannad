@@ -124,6 +124,7 @@ class ScreenWatcher(QObject):
         self.running_job = False
         self.dxgi = DxgiGrabber()
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
+        self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
         self._black_warned = -1e9
         self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
@@ -266,11 +267,23 @@ class ScreenWatcher(QObject):
         self.running_job = True
         self.run_job(self._work_analysis, self._done, self._fail, question)
 
+    def _remember(self, shot, mode, note=None) -> None:
+        if self.screen_log is None:
+            return
+        try:
+            from datetime import datetime
+
+            self.screen_log.save(shot.jpeg, datetime.now(), getattr(mode, "name", ""), shot.title,
+                                 (note or {}).get("situation", ""))
+        except OSError as exc:
+            log.warning("화면 기억 저장 실패: %s", exc)
+
     def _work_analysis(self, question: str):
         mode, session = self.mode, self.session
         shot = self._shot()
         self.last_thumb = shot.thumb
         self.frames.append((self.clock(), shot.jpeg))
+        self._remember(shot, mode)
         return self._analyze(shot, None, mode, list(session.notes) if session else None, question,
                              review=self.reviewing(mode))
 
@@ -315,6 +328,7 @@ class ScreenWatcher(QObject):
         shot = self._shot()
         if question is not None:
             self.last_thumb = shot.thumb
+            self._remember(shot, mode)
             return self._say(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
                                               mode=mode, session_notes=notes)
         stale = self.last_judged is not None and self.clock() - self.last_judged >= self.cfg.max_skip_minutes * 60
@@ -330,6 +344,7 @@ class ScreenWatcher(QObject):
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
                                     review=self.reviewing(mode))
         self.stats["judged"] += 1
+        self._remember(shot, mode, note)
         if not note:
             return None
         log.info("화면 판단 [%s] %s / %s → %s", mode.name, note.get("scene"), note.get("situation"),
@@ -391,6 +406,8 @@ class ScreenWatcher(QObject):
         self.stats["spoke"] += 1
         if reply.message:  # 비어 있으면 '조용히 찾아보기' (찾아본 뒤 말한다)
             self.companion.memory.add_spoken(reply.message)
+            if self.screen_log is not None:
+                self.screen_log.note(said=reply.message)
             if self.session:
                 self.session.add(self.last_spoke, "내가 한 말: " + reply.message)
         self.spoke.emit(reply)

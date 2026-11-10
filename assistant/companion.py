@@ -444,7 +444,7 @@ class Companion:
         return "\n".join(lines)
 
     def reply(self, user_text: str, now: datetime | None = None, context: str | None = None,
-              on_partial=None, fast: bool | None = None) -> Reply:
+              on_partial=None, fast: bool | None = None, images: list[tuple[str, bytes]] | None = None) -> Reply:
         """context: 지금 하는 게임과 이번 판 기록 등 (게임 중 대화가 이어지게).
         on_partial: 답을 받는 대로 지금까지의 대사를 넘겨준다 (말풍선에 바로 보여주기).
         fast: 빠른 모드 (요금 2배)."""
@@ -454,6 +454,9 @@ class Companion:
         content = [{"type": "text", "text": f"[지금: {stamp}]" + (f" {gap}" if gap else "")}]
         if context:
             content.append({"type": "text", "text": context})
+        for label, jpeg in images or []:  # 화면 기억에서 꺼낸 그때 화면
+            content.append({"type": "text", "text": label})
+            content.append(self._image_block(jpeg))
         notes = self.lorebook.notes_for(user_text + "\n" + (context or "")[-600:])
         if notes:
             content.append({"type": "text", "text": notes})

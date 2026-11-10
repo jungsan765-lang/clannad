@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 import time
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Callable
 
@@ -26,6 +27,7 @@ import organizer as org
 import re
 from gamedata.cyphers_data import CyphersData
 from gamedata.genshin_data import GenshinData
+from screen_log import ScreenLog, recall_window
 from secret_store import SecretStore
 from ai_client import AIClient, AIError
 from companion import Analysis, Companion
@@ -133,6 +135,12 @@ class AssistantApp(QObject):
         self.watcher.status.connect(self._on_watch_status)
         self.watcher.activity.connect(self._on_watch_activity)
         self.watcher.new_game.connect(lambda p, t, seen: self.make_game_mode(p, t, seen, auto=True))
+        # 화면 기억: 바뀐 화면을 날짜별로 이 PC 에 (보관 기간·최대 용량을 넘으면 오래된 날부터 지움)
+        self.screen_log = ScreenLog(settings.data_dir / "screens", int(self.pref("screen.memory_days", 180)),
+                                    float(self.pref("screen.memory_gb", 100)), bool(self.pref("screen.memory", True)))
+        self.watcher.screen_log = self.screen_log
+        self.cleanup_timer = QTimer(self)
+        self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
         self.watcher.known_games |= set(self._load_state().get("auto_mode_tried", []))
         self.wishlist = Wishlist(settings.data_dir / "requests.json")
@@ -221,11 +229,14 @@ class AssistantApp(QObject):
         if self.companion.memory.pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
             self._consolidate()
         self.genshin_timer.start(10 * 60 * 1000)  # 원신 실시간 메모는 10분마다
+        self.cleanup_timer.start(6 * 3600 * 1000)
+        QTimer.singleShot(20_000, lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         QTimer.singleShot(8000, lambda: self.refresh_genshin())
 
     def quit(self) -> None:
         self.update_timer.stop()
         self.genshin_timer.stop()
+        self.cleanup_timer.stop()
         self.watcher.set_enabled(False)
         self.voice.shutdown()
         if self.hotkeys:
@@ -268,7 +279,18 @@ class AssistantApp(QObject):
         for info in infos:
             if info:
                 context = (context + "\n" if context else "") + info
-        self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress),
+        images = []
+        window = recall_window(text, datetime.now()) if self.screen_log.enabled else None
+        if window:  # "아까 3시쯤 뭐 했지?" → 그 시간대 화면 일지(와 콕 집은 시각이면 그때 화면)
+            start, end, at = window
+            diary = self.screen_log.diary(start, end)
+            if diary:
+                context = ((context + "\n") if context else "") + (
+                    f"[화면 기억 — {start:%m/%d %H:%M}~{end:%H:%M} 에 저장해 둔 화면 일지 (시각 [모드] 상황). "
+                    "주인님이 지난 일을 물으면 이걸 근거로 답한다]\n" + diary)
+            if at is not None:
+                images = [(f"({e.time:%H:%M} 화면)", e.file.read_bytes()) for e in self.screen_log.nearest(at)]
+        self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress, images=images),
                   self._on_reply, self._on_error, text, on_progress=self._on_partial)
 
     def _on_partial(self, message: str) -> None:
@@ -582,6 +604,9 @@ class AssistantApp(QObject):
             "screen.cooldown_seconds": int(self.watch_cfg.cooldown_seconds),
             "screen.monitor": str(self.watch_cfg.monitor),
             "screen.coach": self.coach,
+            "screen.memory": self.screen_log.enabled,
+            "screen.memory_days": self.screen_log.keep_days,
+            "screen.memory_gb": int(self.screen_log.max_gb),
             "screen.overlay": str(self.pref("screen.overlay", "game")),
             "screen.overlay_pos": str(self.pref("screen.overlay_pos", "top")),
             "screen.max_width": int(self.watch_cfg.max_width),
@@ -629,6 +654,12 @@ class AssistantApp(QObject):
             if key in changed:
                 setattr(cfg, attr, changed[key])
         self.watcher.apply_config()
+        if "screen.memory" in changed:
+            self.screen_log.enabled = bool(changed["screen.memory"])
+        if "screen.memory_days" in changed or "screen.memory_gb" in changed:
+            self.screen_log.keep_days = int(changed.get("screen.memory_days", self.screen_log.keep_days))
+            self.screen_log.max_gb = float(changed.get("screen.memory_gb", self.screen_log.max_gb))
+            self._run(self.screen_log.cleanup, lambda _: None, log.warning)
         if "screen.coach" in changed:
             self.set_coach(str(changed["screen.coach"]), save=False)
         if "screen.enabled" in changed:
@@ -774,6 +805,9 @@ class AssistantApp(QObject):
         news = QAction("지금 하는 게임 최신 소식 확인", menu)
         news.triggered.connect(lambda: self.refresh_game_news(force=True))
         menu.addAction(news)
+        recent = QAction("지난 10분 복기 (저장된 화면으로)", menu)
+        recent.triggered.connect(lambda: self.review_recent(10))
+        menu.addAction(recent)
         video = QAction("영상으로 복기…", menu)
         video.triggered.connect(lambda: self.review_video_file())
         menu.addAction(video)
@@ -816,6 +850,9 @@ class AssistantApp(QObject):
         g_show.triggered.connect(self.show_genshin)
         gmenu.addAction(g_show)
         menu.addAction(c_refresh)
+        screens = QAction("화면 기억 폴더 열기", menu)
+        screens.triggered.connect(self.open_screens_folder)
+        menu.addAction(screens)
         make_mode = QAction("지금 하는 게임 모드 만들기", menu)
         make_mode.triggered.connect(self.make_game_mode_now)
         menu.addAction(make_mode)
@@ -1172,6 +1209,58 @@ class AssistantApp(QObject):
         self._run(lambda: self.companion.make_mode(process, title, seen), done, fail)
 
     # ------------------------------------------------------------ 영상 복기
+
+    def review_recent(self, minutes: int = 10) -> None:
+        """녹화 없이: 화면 기억에 저장된 지난 N분 화면으로 영상 복기처럼 되짚는다."""
+        if self.status.active("video"):
+            self.status.flash("복기가 이미 진행 중이에요")
+            return
+        now = datetime.now()
+        shots = [e for e in self.screen_log.entries(now - timedelta(minutes=minutes), now) if e.file]
+        if len(shots) < 2:
+            self.bubble.show_text("지난 화면이 충분히 저장돼 있지 않아요. 화면 기억이 켜져 있는지 확인해 주세요.",
+                                  self.anchor(), system=True, seconds=6)
+            return
+        step = max(1, -(-len(shots) // 20))  # 10분 전체에 고르게 (최대 20장), 마지막 화면은 꼭 넣는다
+        picked = shots[::step]
+        if picked[-1] is not shots[-1]:
+            picked = picked[-19:] + [shots[-1]]
+        t0 = picked[0].time
+        mode = self.watcher.mode if self.watcher.mode.is_game else None
+        self.status.begin("video", f"지난 {minutes}분 복기 중")
+
+        def work():
+            frames = [((e.time - t0).total_seconds(), e.file.read_bytes()) for e in picked]
+            name = f"지난 {minutes}분 화면 ({t0:%H:%M}~{picked[-1].time:%H:%M})"
+            return self.companion.review_video(frames, name, None, mode)
+
+        def done(result) -> None:
+            self.status.end("video")
+            if not result.speak:
+                self.bubble.show_text("지난 화면에서는 짚을 만한 걸 찾지 못했어요.", self.anchor(), system=True, seconds=5)
+                return
+            import video_review as vr
+
+            vr.save_markdown(self.settings.data_dir / "reviews", f"recent_{minutes}min", result)
+            self.analysis_panel.show_analysis(result)
+            if not self.busy:
+                self.bubble.show_text(result.summary, self.anchor())
+                self.show_overlay(result.summary)
+                self._start_talking()
+
+        def fail(message: str) -> None:
+            self.status.end("video")
+            self.bubble.show_text(f"복기 실패: {message}", self.anchor(), system=True, seconds=8)
+
+        self._run(work, done, fail)
+
+    def open_screens_folder(self) -> None:
+        folder = self.screen_log.folder
+        folder.mkdir(parents=True, exist_ok=True)
+        if sys.platform == "win32":
+            os.startfile(str(folder))  # noqa: S606 - 탐색기로 열기
+        else:
+            self.bubble.show_text(str(folder), self.anchor(), system=True, seconds=6)
 
     def review_video_file(self, path: str | None = None) -> None:
         """녹화한 게임 영상 → 구간·간격 고르기 → 장면 뽑기 → 시간대별 복기 (분석 창 + data/reviews/)."""
