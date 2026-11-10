@@ -278,6 +278,7 @@ class Companion:
         self.can_search = True  # 모르는 건 인터넷에서 찾아보기 (설정 창)
         self.user_names: list[str] = []  # 주인님 아이디·닉네임 (설정 창, 내 PC 에만 저장)
         self.lorebook = LoreBook()  # 필요할 때 꺼내 보는 배경지식 사전
+        self.extra_context = None  # 모드에 따라 화면 대사에 덧붙일 정보 (예: 원신 계정 정보). mode → 글
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -368,6 +369,14 @@ class Companion:
                    {"type": "text", "text": how}]
         label = f"(화면에서 본 '{query}'을 찾아보고 한 말)" if about_screen else f"(찾아본 내용을 보고 이어서 답함: {query})"
         r = self._respond(content, label, now, on_partial, fast)
+        r.action, r.target = "none", ""
+        return r
+
+    def remark(self, fact: str, now: datetime | None = None) -> Reply:
+        """먼저 알려 드릴 일(레진이 넘치기 직전 등)을 캐릭터 말투로 한두 문장."""
+        content = [{"type": "text", "text": f"[먼저 알려 드릴 일]\n{fact}\n주인님께 캐릭터 말투로 한두 문장으로 알린다. "
+                                            "speak 는 true, action 은 none."}]
+        r = self._respond(content, f"(알림: {fact})", now or datetime.now(), None, None)
         r.action, r.target = "none", ""
         return r
 
@@ -489,6 +498,9 @@ class Companion:
         notes = self.lorebook.notes_for(seen)
         if notes:
             lines.append(notes)
+        extra = self.extra_context(mode) if self.extra_context else ""
+        if extra:
+            lines.append(extra)
         content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(lines)}]
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,

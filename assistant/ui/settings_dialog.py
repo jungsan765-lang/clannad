@@ -79,7 +79,8 @@ def _seconds(v: int) -> str:
 
 class SettingsDialog(QDialog):
     def __init__(self, values: dict, monitors: list[str], mics: list[str], voice_level: Callable[[], float] | None = None,
-                 meter: tuple[Callable[[], bool], Callable[[], None]] | None = None, parent=None):
+                 meter: tuple[Callable[[], bool], Callable[[], None]] | None = None,
+                 hoyolab: tuple[Callable[[], str], Callable[[], str], Callable[[], str]] | None = None, parent=None):
         super().__init__(parent)
         self.setWindowTitle("다니카 설정")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
@@ -166,6 +167,26 @@ class SettingsDialog(QDialog):
         self.nick = QLineEdit(str(v.get("user.nickname", "")))
         self.nick.setPlaceholderText("예) 하늘고래, SkyWhale  (여러 개면 쉼표로)")
         g6 = group("주인님 (이 컴퓨터에만 저장)", [("아이디·닉네임", self.nick)])
+
+        # 원신 연결 (게임 프로그램은 건드리지 않음)
+        self.uid = QLineEdit(str(v.get("genshin.uid", "")))
+        self.uid.setPlaceholderText("원신 UID (게임 화면 오른쪽 아래 숫자 9~10자리)")
+        self.uid.setMaxLength(10)
+        self.hoyo_label = QLabel(hoyolab[0]() if hoyolab else "연결 안 됨")
+        self.hoyo_label.setWordWrap(True)
+        hoyo = QWidget()
+        hr = QHBoxLayout(hoyo)
+        hr.setContentsMargins(0, 0, 0, 0)
+        hr.addWidget(self.hoyo_label, 1)
+        if hoyolab:
+            login, logout = QPushButton("로그인…"), QPushButton("로그아웃")
+            login.clicked.connect(lambda: self.hoyo_label.setText(hoyolab[1]()))
+            logout.clicked.connect(lambda: self.hoyo_label.setText(hoyolab[2]()))
+            hr.addWidget(login)
+            hr.addWidget(logout)
+        wish_note = QLabel("기원 기록은 게임 안에서 기원 → 기록을 한 번 열어 두면, 게임을 끌 때 알아서 받아요.")
+        wish_note.setWordWrap(True)
+        g7 = group("원신 연결", [("UID (진열장)", self.uid), ("HoYoLAB (레진·의뢰)", hoyo), ("", wish_note)])
         g5 = group("대답·표시", [("", self.web), ("", self.fast), ("", self.show_status)])
 
         # 비용
@@ -180,7 +201,7 @@ class SettingsDialog(QDialog):
         buttons.accepted.connect(self.accept)
         buttons.rejected.connect(self.reject)
         lay = QVBoxLayout(self)
-        for g in (g6, g1, g5, g2, g3, g4):
+        for g in (g6, g7, g1, g5, g2, g3, g4):
             lay.addWidget(g)
         lay.addWidget(self.note)
         lay.addWidget(buttons)
@@ -226,6 +247,7 @@ class SettingsDialog(QDialog):
             "budget.monthly_usd": self.budget.value(),
             "ai.fast": self.fast.isChecked(),
             "ai.web_search": self.web.isChecked(),
+            "genshin.uid": "".join(ch for ch in self.uid.text() if ch.isdigit()),
             "user.nickname": ", ".join(n.strip() for n in self.nick.text().replace("，", ",").split(",") if n.strip()),
             "ui.show_status": self.show_status.isChecked(),
         }

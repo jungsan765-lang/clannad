@@ -23,6 +23,9 @@ from PySide6.QtGui import QAction, QActionGroup, QIcon, QPixmap
 from PySide6.QtWidgets import QApplication, QFileDialog, QMenu, QMessageBox, QSystemTrayIcon
 
 import organizer as org
+import re
+from gamedata.genshin_data import GenshinData
+from secret_store import SecretStore
 from ai_client import AIClient, AIError
 from companion import Companion
 from lorebook import LoreBook
@@ -32,6 +35,7 @@ from settings import Settings
 from ui.bubble import SpeechBubble
 from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
+from ui.hoyolab_login import HoyolabLogin, complete as cookies_complete
 from ui.organize_dialog import OrganizeDialog
 from ui.wishlist_dialog import WishlistDialog
 from ui.placeholder import make_placeholder
@@ -47,6 +51,8 @@ from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
 
 log = logging.getLogger("assistant")
+# 대화에 이런 말이 나오면 원신 계정 정보를 함께 넘긴다
+GENSHIN_WORDS = re.compile(r"원신|레진|기원|뽑기|천장|픽업|성유물|진열장|파티|일퀘|일일 ?의뢰|파견|주전자|나선|비경|환상극|돌파|특성")
 
 
 class _Signals(QObject):
@@ -122,6 +128,17 @@ class AssistantApp(QObject):
         self.watcher.known_games |= {p for m in modes for p in m.processes}
         self.watcher.known_games |= set(self._load_state().get("auto_mode_tried", []))
         self.wishlist = Wishlist(settings.data_dir / "requests.json")
+        # 원신 계정 정보 (진열장·실시간 메모·기원 기록). 로그인 정보는 이 PC 사용자만 풀 수 있게 암호화
+        self.secrets = SecretStore(settings.data_dir / "secrets.bin")
+        self.genshin = GenshinData(settings.data_dir / "genshin", uid=str(self.pref("genshin.uid", "") or ""),
+                                   cookies=lambda: self.secrets.get("hoyolab"))
+        companion.extra_context = lambda mode: (self.genshin.context_text()
+                                                if mode is not None and mode.name == "원신" else "")
+        self.genshin_timer = QTimer(self)
+        self.genshin_timer.timeout.connect(lambda: self.refresh_genshin())
+        self._genshin_busy = False
+        self._last_mode = "평소"
+        self.watcher.mode_changed.connect(self._on_mode_changed)
         self._screen_searches: list[float] = []
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
         self._last_watch_error = ""
@@ -187,9 +204,12 @@ class AssistantApp(QObject):
             self.update_timer.start(round(float(self.settings.get("update.check_hours", 6)) * 3600 * 1000))
         if self.companion.memory.pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
             self._consolidate()
+        self.genshin_timer.start(10 * 60 * 1000)  # 원신 실시간 메모는 10분마다
+        QTimer.singleShot(8000, lambda: self.refresh_genshin())
 
     def quit(self) -> None:
         self.update_timer.stop()
+        self.genshin_timer.stop()
         self.watcher.set_enabled(False)
         self.voice.shutdown()
         if self.hotkeys:
@@ -223,6 +243,10 @@ class AssistantApp(QObject):
         self._streamed = False
         self._last_question = text
         context = self.watcher.chat_context()  # 게임 중이면 이번 판 기록을 함께 넘긴다
+        if self.genshin.has_uid and (self.watcher.mode.name == "원신" or GENSHIN_WORDS.search(text)):
+            info = self.genshin.context_text()
+            if info:
+                context = (context + "\n" if context else "") + info
         self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress),
                   self._on_reply, self._on_error, text, on_progress=self._on_partial)
 
@@ -485,6 +509,7 @@ class AssistantApp(QObject):
             "budget.monthly_usd": self.budget_usd(),
             "ai.fast": bool(self.companion.fast),
             "ai.web_search": bool(self.companion.can_search),
+            "genshin.uid": self.genshin.uid,
             "user.nickname": ", ".join(self.companion.user_names),
             "ui.show_status": self.status.enabled,
         }
@@ -497,7 +522,8 @@ class AssistantApp(QObject):
         except Exception:  # noqa: BLE001
             monitors = []
         dlg = SettingsDialog(self.settings_values(), monitors, list_input_devices(), voice_level=lambda: self.voice.level,
-                             meter=(self.voice.start_meter, self.voice.stop_meter))
+                             meter=(self.voice.start_meter, self.voice.stop_meter),
+                             hoyolab=(self.hoyolab_status, self.hoyolab_login, self.hoyolab_logout))
         if dlg.exec() == SettingsDialog.DialogCode.Accepted:
             self.apply_settings(dlg.changed())
 
@@ -527,6 +553,10 @@ class AssistantApp(QObject):
             self.companion.fast = bool(changed["ai.fast"])
         if "ai.web_search" in changed:
             self.companion.can_search = bool(changed["ai.web_search"])
+        if "genshin.uid" in changed:
+            self.genshin.uid = str(changed["genshin.uid"])
+            self.genshin.showcase_next = 0
+            QTimer.singleShot(500, lambda: self.refresh_genshin(force=True))
         if "user.nickname" in changed:
             self.companion.user_names = split_names(changed["user.nickname"])
         if "ui.show_status" in changed:
@@ -658,6 +688,13 @@ class AssistantApp(QObject):
         undo = QAction("마지막 정리 되돌리기", omenu)
         undo.triggered.connect(self.undo_organize)
         omenu.addAction(undo)
+        gmenu = menu.addMenu("원신")
+        g_refresh = QAction("원신 정보 새로고침 (진열장·실시간 메모·기원 기록)", gmenu)
+        g_refresh.triggered.connect(lambda: self.refresh_genshin(force=True, wishes=True))
+        gmenu.addAction(g_refresh)
+        g_show = QAction("받은 원신 정보 보기", gmenu)
+        g_show.triggered.connect(self.show_genshin)
+        gmenu.addAction(g_show)
         make_mode = QAction("지금 하는 게임 모드 만들기", menu)
         make_mode.triggered.connect(self.make_game_mode_now)
         menu.addAction(make_mode)
@@ -792,6 +829,86 @@ class AssistantApp(QObject):
                 on_fail(message)
 
         self._run(self.companion.consolidate, done, fail)
+
+    # ------------------------------------------------------------ 원신 계정 정보
+
+    def refresh_genshin(self, force: bool = False, wishes: bool = False) -> None:
+        """실시간 메모(로그인했을 때), 진열장(원신 중이거나 직접 눌렀을 때), 기원 기록(게임을 껐을 때·직접)."""
+        g = self.genshin
+        if self._genshin_busy or not g.has_uid:
+            if force and not g.has_uid:
+                self.bubble.show_text("설정 창에 원신 UID 를 먼저 적어 주세요.", self.anchor(), system=True, seconds=5)
+            return
+        in_game = self.watcher.mode.name == "원신"
+        self._genshin_busy = True
+        if force:
+            self.status.begin("genshin", "원신 정보 받는 중")
+
+        def work():
+            g.refresh_notes()
+            if in_game or force:
+                g.refresh_showcase(force=force)
+            if wishes or force:
+                g.refresh_wishes()
+            return g.alerts()
+
+        def done(alerts) -> None:
+            self._genshin_busy = False
+            self.status.end("genshin")
+            errors = " ".join(dict.fromkeys(g.last_error.values()))
+            if force and errors:
+                self.bubble.show_text(errors, self.anchor(), system=True, seconds=8)
+            if alerts:  # 알릴 일이 있으면 '받아 왔어요' 대신 다니카가 바로 말한다
+                self._announce(alerts[0])
+            elif force and not errors:
+                self.bubble.show_text("원신 정보를 받아 왔어요.", self.anchor(), system=True, seconds=5)
+
+        def fail(message: str) -> None:
+            self._genshin_busy = False
+            self.status.end("genshin")
+            log.warning("원신 정보 받기 실패: %s", message)
+
+        self._run(work, done, fail)
+
+    def _announce(self, fact: str, tries: int = 0) -> None:
+        """레진이 넘치기 직전 같은 일을 다니카가 먼저 말한다 (바쁘면 조금 뒤에)."""
+        if self.busy or (self.bubble.isVisible() and not self.bubble.system):  # 안내 말풍선은 덮어써도 됨
+            if tries < 10:
+                QTimer.singleShot(60_000, lambda: self._announce(fact, tries + 1))
+            return
+        self._run(lambda: self.companion.remark(fact), self._on_screen_line, lambda m: log.warning("알림 실패: %s", m))
+
+    def _on_mode_changed(self, name: str) -> None:
+        if self._last_mode == "원신" and name != "원신":  # 게임을 끄면 기원 기록 파일을 읽을 수 있다
+            QTimer.singleShot(5000, lambda: self.refresh_genshin(wishes=True))
+        elif name == "원신":
+            QTimer.singleShot(3000, lambda: self.refresh_genshin())
+        self._last_mode = name
+
+    def hoyolab_status(self) -> str:
+        if not self.genshin.has_login:
+            return "연결 안 됨"
+        err = self.genshin.last_error.get("notes")
+        return "연결됨" + (f" (문제: {err})" if err else "")
+
+    def hoyolab_login(self) -> str:
+        dlg = HoyolabLogin()
+        if dlg.exec() == HoyolabLogin.DialogCode.Accepted and cookies_complete(dlg.cookies):
+            self.secrets.set("hoyolab", dlg.cookies)
+            QTimer.singleShot(500, lambda: self.refresh_genshin(force=True))
+        return self.hoyolab_status()
+
+    def hoyolab_logout(self) -> str:
+        self.secrets.delete("hoyolab")
+        self.genshin.notes = None
+        return self.hoyolab_status()
+
+    def show_genshin(self) -> None:
+        g = self.genshin
+        text = g.context_text() or "아직 받은 원신 정보가 없어요."
+        if g.last_error:
+            text += "\n\n[문제]\n" + "\n".join(dict.fromkeys(g.last_error.values()))
+        QMessageBox.information(None, "원신 정보", text)
 
     # ------------------------------------------------------------ 게임 모드 만들기
 

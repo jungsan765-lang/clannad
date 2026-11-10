@@ -22,10 +22,15 @@ class Monitor:
         return self.left, self.top, self.left + self.width, self.top + self.height
 
 
+def _mss(mss):
+    """새 버전 이름(MSS)이 있으면 그걸, 없으면 예전 이름(mss)."""
+    return (getattr(mss, "MSS", None) or mss.mss)()
+
+
 def list_monitors() -> list[Monitor]:
     import mss
 
-    with mss.mss() as sct:
+    with _mss(mss) as sct:
         return [Monitor(i, m["left"], m["top"], m["width"], m["height"]) for i, m in enumerate(sct.monitors) if i > 0]
 
 
@@ -48,7 +53,7 @@ def pick_monitor(monitors: list[Monitor], choice: str | int) -> Monitor | None:
 def grab(monitor: Monitor) -> Image.Image:
     import mss
 
-    with mss.mss() as sct:
+    with _mss(mss) as sct:
         shot = sct.grab({"left": monitor.left, "top": monitor.top, "width": monitor.width, "height": monitor.height})
         return Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX")
 
