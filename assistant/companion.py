@@ -16,7 +16,8 @@ log = logging.getLogger("assistant.companion")
 
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
-ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen"]
+ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
+           "read_window"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -266,6 +267,9 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   '꼭 기억할 것'에 들어가 절대 잊지 않는다.
 - 화면 분석: 주인님이 지금 화면(게임 상황·파티·작업)을 자세히 분석해 달라고 하면 action 은 "analyze_screen",
   message 는 "살펴보겠습니다" 같은 짧은 말 (최근 장면들을 보고 분석 창에 자세히 정리한다).
+- 창 읽기: 주인님이 카카오톡·디스코드·메모장 같은 다른 프로그램 창(또는 '이 창')을 읽어 달라고 하면 action 은 "read_window",
+  target 에 프로그램 이름(예: "카카오톡", 지금 쓰던 창이면 빈 문자열), message 는 "확인해 보겠습니다" 같은 짧은 말.
+  창을 찍어서 본 뒤에 이어서 답한다. 메시지를 보내거나 창을 조작하지는 못한다.
 - 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
@@ -506,6 +510,23 @@ class Companion:
         r.action, r.target = "none", ""
         return r
 
+    def reply_after_window(self, label: str, images: list[bytes], on_partial=None, fast: bool | None = None,
+                           now: datetime | None = None) -> Reply:
+        """주인님이 읽어 달라고 한 창을 찍은 사진을 보고 방금 말에 이어서 답한다."""
+        now = now or datetime.now()
+        content: list[dict] = []
+        for i, jpeg in enumerate(images, 1):
+            content.append({"type": "text", "text": f"[읽어 달라고 한 창 {i}: {label}]"})
+            content.append(self._image_block(jpeg))
+        if not images:
+            content.append({"type": "text", "text": f"[{label} 창을 찾지 못했다(최소화돼 있거나 꺼져 있음)]"})
+        content.append({"type": "text", "text": "위 창 내용을 보고 방금 주인님 말에 이어서 답한다. 내용을 길게 옮겨 적지 말고 "
+                                                "물은 것에 필요한 만큼만 정리한다. 다른 사람의 대화는 주인님이 물은 만큼만 말한다. "
+                                                "창을 못 찾았으면 창을 열어 두라고 짧게 말한다. action 은 none."})
+        r = self._respond(content, f"(창을 읽고 답함: {label})", now, on_partial, fast)
+        r.action, r.target = "none", ""
+        return r
+
     def _respond(self, content: list[dict], memory_text: str, now: datetime, on_partial, fast: bool | None) -> Reply:
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         fast = self.fast if fast is None else fast
@@ -562,6 +583,12 @@ class Companion:
         return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg",
                                             "data": base64.b64encode(jpeg).decode("ascii")}}
 
+    def _focus_blocks(self, focus: bytes | None) -> list[dict]:
+        if not focus:
+            return []
+        return [{"type": "text", "text": "(지금 쓰고 있는 창을 원래 크기로 확대한 것 — 작은 글씨는 여기서 읽는다)"},
+                self._image_block(focus)]
+
     @staticmethod
     def _mode_text(mode, session_notes: list[str] | None) -> str:
         if mode is None:
@@ -575,7 +602,7 @@ class Companion:
 
     def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
               mode=None, session_notes: list[str] | None = None, chattiness: str = "normal",
-              analysis: bool = False, review: bool = False) -> dict | None:
+              analysis: bool = False, review: bool = False, focus: bytes | None = None) -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔."""
         recent = self.memory.spoken_lines(5)
         style = (REVIEW_JUDGE if review else ANALYSIS_JUDGE if analysis
@@ -591,7 +618,7 @@ class Companion:
                 "최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)")]
         if session_notes:
             info.append("이번 판(세션) 기록: " + " / ".join(session_notes[-8:]))
-        content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(info)}]
+        content = [self._image_block(jpeg)] + self._focus_blocks(focus) + [{"type": "text", "text": "\n".join(info)}]
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                   messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
                                   kind="judge", max_tokens=400, effort="low", thinking_off=True, timeout=30)
@@ -599,7 +626,8 @@ class Companion:
 
     def screen_line(self, jpeg: bytes, title: str, note: dict | None, model: str | None = None,
                     question: str | None = None, now: datetime | None = None, mode=None,
-                    session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None) -> Reply:
+                    session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None,
+                    focus: bytes | None = None) -> Reply:
         """화면을 보고 캐릭터 말투로 한마디.
 
         question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
@@ -630,7 +658,7 @@ class Companion:
         extra = self.extra_context(mode) if self.extra_context else ""
         if extra:
             lines.append(extra)
-        content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(lines)}]
+        content = [self._image_block(jpeg)] + self._focus_blocks(focus) + [{"type": "text", "text": "\n".join(lines)}]
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,
                                   schema=REPLY_SCHEMA, kind="screen", max_tokens=self.max_tokens, effort=self.effort,
@@ -669,7 +697,7 @@ class Companion:
 
     def analyze(self, frames: list[tuple[bytes, float]], title: str, mode=None, session_notes: list[str] | None = None,
                 note: dict | None = None, question: str | None = None, now: datetime | None = None,
-                review: bool = False) -> Analysis:
+                review: bool = False, focus: bytes | None = None) -> Analysis:
         """최근 장면 여러 장(jpeg, 몇 초 전)을 보고 깊게 분석한다. 말풍선엔 summary, 분석 창엔 나머지."""
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
@@ -677,6 +705,7 @@ class Companion:
         for jpeg, ago in frames:
             content.append({"type": "text", "text": "(지금 화면)" if ago < 1 else f"({ago:.0f}초 전 화면)"})
             content.append(self._image_block(jpeg))
+        content += self._focus_blocks(focus)
         lines = [f"[지금: {stamp}]", REVIEW_TASK if review else ANALYSIS_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
         if self.user_names:
             lines.append(self.names_text())

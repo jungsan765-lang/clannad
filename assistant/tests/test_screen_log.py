@@ -100,3 +100,66 @@ def test_review_recent_uses_saved_screens(tmp_path):
     assert content[0]["text"] == "(영상 0:00)" and "지난 10분 화면" in content[-1]["text"]
     assert a.analysis_panel.isVisible() and list((tmp_path / "data" / "reviews").glob("*recent_10min*.md"))
     a.quit()
+
+
+# ---------------------------------------------------------------- 다른 프로그램 창 읽기·맨 앞 창 확대
+
+def test_find_windows_by_korean_name_and_skip_own():
+    from watch.windows import WindowInfo, find_windows
+
+    wins = [(1, WindowInfo("다니카", "pythonw.exe", (0, 0, 500, 500))),
+            (2, WindowInfo("친구들 단톡방", "kakaotalk.exe", (0, 0, 400, 700))),
+            (3, WindowInfo("메모 - 메모장", "notepad.exe", (0, 0, 800, 600))),
+            (4, WindowInfo("카카오톡", "kakaotalk.exe", (0, 0, 400, 700)))]
+    assert [h for h, _ in find_windows("카톡", "pythonw.exe", windows=wins)] == [2, 4]  # 위에 있는 것부터
+    assert [h for h, _ in find_windows("", "pythonw.exe", windows=wins)] == [2]  # 다니카 창을 뺀 가장 최근 창
+    assert [h for h, _ in find_windows("메모", "pythonw.exe", windows=wins)] == [3]  # 창 제목으로도
+    assert find_windows("없는프로그램", "pythonw.exe", windows=wins) == []
+
+
+def test_focus_crop_of_small_active_window(tmp_path):
+    from PIL import Image
+
+    from test_watch_voice import WindowInfo, _watcher
+
+    img = Image.new("RGB", (1920, 1080), (30, 30, 30))
+    img.paste((250, 250, 250), (100, 100, 500, 800))  # 카톡 창 자리
+    w, comp, said, t, state = _watcher(tmp_path, images=[img, img],
+                                       window=WindowInfo("단톡방", "kakaotalk.exe", (100, 100, 500, 800)))
+    w.tick()
+    crop = Image.open(__import__("io").BytesIO(comp.focus_seen))
+    assert crop.size == (400, 700) and crop.getpixel((10, 10))[0] > 240  # 원래 크기 그대로 그 창만
+    state["window"] = WindowInfo("게임", "game.exe", (0, 0, 1920, 1080))  # 화면을 꽉 채운 창은 확대 안 함
+    t["now"] = 300
+    w.last_thumb = None
+    w.tick()
+    assert comp.focus_seen is None
+
+
+def test_window_reading_flow(tmp_path, monkeypatch):
+    import main as app_main
+    from ai_client import AIClient
+    from PIL import Image
+    from test_app import _settings, _wait
+    from usage import UsageLedger
+    from watch import windows as win
+
+    app = QApplication.instance() or QApplication([])
+    fake = FakeAnthropic([
+        {"speak": True, "message": "확인해 보겠습니다.", "emotion": "normal", "action": "read_window", "target": "카카오톡"},
+        {"speak": True, "message": "민수 님이 내일 7시에 보자고 하십니다.", "emotion": "normal"}])
+    a = app_main.build(_settings(tmp_path, "no_such_folder"),
+                       ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    monkeypatch.setattr(win, "find_windows", lambda target, own_pid_process="", limit=2: [
+        (7, win.WindowInfo("민수", "kakaotalk.exe", (0, 0, 400, 700)))] if target == "카카오톡" else [])
+    monkeypatch.setattr(win, "capture_window", lambda hwnd: Image.new("RGB", (400, 700), (255, 255, 255)))
+    a.ask("카톡 뭐 왔는지 봐 줘")
+    _wait(app, a)
+    _wait(app, a)
+    content = fake.calls[-1]["messages"][-1]["content"]
+    assert content[0]["text"] == "[읽어 달라고 한 창 1: 카카오톡]" and content[1]["type"] == "image"
+    assert a.bubble.text == "민수 님이 내일 7시에 보자고 하십니다." and not a.busy
+    a.apply_settings({"screen.read_windows": False})
+    a.read_window_and_answer("카카오톡")
+    assert "꺼져 있어요" in a.bubble.text and not a.busy
+    a.quit()

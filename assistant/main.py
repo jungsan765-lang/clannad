@@ -322,6 +322,8 @@ class AssistantApp(QObject):
         elif reply.action == "analyze_screen":
             question = self._last_question
             QTimer.singleShot(300, lambda: self.analyze_now(question))
+        elif reply.action == "read_window":
+            self.read_window_and_answer(reply.target.strip())
         elif reply.action == "make_game_mode":
             self.make_game_mode_now()
         elif reply.action == "pin_fact" and reply.target.strip():
@@ -330,6 +332,46 @@ class AssistantApp(QObject):
         elif reply.action == "note_request" and reply.target.strip():
             if self.wishlist.add(reply.target):
                 self.status.flash("개선 요청 메모에 적었어요")
+
+    def read_window_and_answer(self, target: str) -> None:
+        """'카톡 읽어줘' 등: 그 프로그램 창만 원래 크기로 찍어서(가려져 있어도) 보고 이어서 답한다."""
+        from watch import windows as win
+
+        if not bool(self.pref("screen.read_windows", True)):
+            self.bubble.show_text("설정에서 '부탁하면 다른 프로그램 창 읽기'가 꺼져 있어요.", self.anchor(), system=True,
+                                  seconds=5)
+            return
+        label = target or "지금 쓰던 창"
+        self.busy = True
+        self.voice.paused = True
+        self._streamed = False
+        self.status.begin("chat", f"{label[:16]} 창 읽는 중")
+        own = win._process_name(os.getpid()) if sys.platform == "win32" else ""
+
+        def work(progress):
+            images = []
+            for hwnd, info in win.find_windows(target, own_pid_process=own):
+                img = win.capture_window(hwnd)
+                if img is None:
+                    continue
+                if max(img.size) > 1568:
+                    k = 1568 / max(img.size)
+                    img = img.resize((round(img.width * k), round(img.height * k)))
+                import io
+
+                buf = io.BytesIO()
+                img.convert("RGB").save(buf, "JPEG", quality=90)
+                images.append(buf.getvalue())
+            progress(None)
+            return self.companion.reply_after_window(label, images, on_partial=progress)
+
+        def on_progress(msg) -> None:
+            if msg is None:
+                self.status.set_text("chat", "창 내용 읽는 중")
+            else:
+                self._on_partial(msg)
+
+        self._run(work, self._on_reply, self._on_error, on_progress=on_progress)
 
     def search_and_answer(self, query: str, about_screen: bool = False) -> None:
         """다니카가 '찾아보겠습니다' 라고 한 뒤(또는 화면에서 모르는 이름을 봤을 때): 검색 → 찾은 내용으로 말하기."""
@@ -605,6 +647,7 @@ class AssistantApp(QObject):
             "screen.monitor": str(self.watch_cfg.monitor),
             "screen.coach": self.coach,
             "screen.memory": self.screen_log.enabled,
+            "screen.read_windows": bool(self.pref("screen.read_windows", True)),
             "screen.memory_days": self.screen_log.keep_days,
             "screen.memory_gb": int(self.screen_log.max_gb),
             "screen.overlay": str(self.pref("screen.overlay", "game")),

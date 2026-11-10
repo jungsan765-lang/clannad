@@ -49,6 +49,7 @@ class WatchConfig:
     review: bool = False  # 복기 모드(게임 중): 자주 보고, 한 장면이 끝나면 지난 30초쯤을 되짚는다
     review_interval: float = 5.0  # 복기 모드에서 화면을 보는 간격(초)
     review_gap: float = 40.0  # 복기 사이 최소 간격(초)
+    focus_crop: bool = True  # 맨 앞 창이 화면의 70%보다 작으면 그 창을 원래 크기로 한 장 더 보냄
 
 
 @dataclass
@@ -56,6 +57,7 @@ class Shot:
     jpeg: bytes
     thumb: object
     title: str
+    focus: bytes | None = None  # 맨 앞 창이 화면보다 작으면 그 창만 원래 크기로 (작은 글씨 읽기)
 
 
 @dataclass
@@ -306,7 +308,7 @@ class ScreenWatcher(QObject):
         frames = (self.frames_for_analysis(shot.jpeg, count=6, min_gap=4.0) if review
                   else self.frames_for_analysis(shot.jpeg))
         return self.companion.analyze(frames, shot.title, mode=mode, session_notes=notes, note=note, question=question,
-                                      review=review)
+                                      review=review, focus=shot.focus)
 
     def ask_now(self, question: str = "지금 화면 어때?") -> None:
         """단축키(F8): 판단·간격 무시하고 지금 화면을 보고 말하게 한다."""
@@ -319,7 +321,30 @@ class ScreenWatcher(QObject):
     def _shot(self) -> Shot:
         img = self.grabber()
         small = cap.shrink(img, self.cfg.max_width)
-        return Shot(cap.to_jpeg(small, self.cfg.jpeg_quality), cap.thumb(small), self.title)
+        shot = Shot(cap.to_jpeg(small, self.cfg.jpeg_quality), cap.thumb(small), self.title)
+        if self.cfg.focus_crop:
+            shot.focus = self._focus_crop(img)
+        self._current_focus = shot.focus
+        return shot
+
+    def _focus_crop(self, img: Image.Image) -> bytes | None:
+        """맨 앞 창(보는 모니터 위)이 화면의 70%보다 작으면 그 부분만 원래 크기로 잘라 낸다 (카톡 같은 작은 글씨)."""
+        try:
+            info, area = self.window_info(), self.monitor_rect()
+        except Exception:  # noqa: BLE001
+            return None
+        if not info or not area or not _overlaps(info.rect, area):
+            return None
+        ml, mt, mr, mb = area
+        l, t, r, b = max(info.rect[0], ml), max(info.rect[1], mt), min(info.rect[2], mr), min(info.rect[3], mb)
+        if (r - l) * (b - t) > 0.7 * (mr - ml) * (mb - mt) or r - l < 120 or b - t < 80:
+            return None
+        sx, sy = img.width / max(1, mr - ml), img.height / max(1, mb - mt)  # 찍은 크기가 다를 때(배율) 맞춤
+        crop = img.crop((int((l - ml) * sx), int((t - mt) * sy), int((r - ml) * sx), int((b - mt) * sy)))
+        if max(crop.size) > 1568:
+            k = 1568 / max(crop.size)
+            crop = crop.resize((round(crop.width * k), round(crop.height * k)), Image.Resampling.LANCZOS)
+        return cap.to_jpeg(crop, 90)
 
     def _work(self, question: str | None):
         """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디/총평."""
@@ -340,7 +365,7 @@ class ScreenWatcher(QObject):
         self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
         self.activity.emit("judge")
-        note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes,
+        note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
                                     review=self.reviewing(mode))
         self.stats["judged"] += 1
@@ -394,6 +419,8 @@ class ScreenWatcher(QObject):
 
     def _say(self, *args, **kwargs):
         self.activity.emit("line")
+        if getattr(self, "_current_focus", None):
+            kwargs.setdefault("focus", self._current_focus)
         return self.companion.screen_line(*args, **kwargs)
 
     def _done(self, reply) -> None:

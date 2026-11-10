@@ -452,3 +452,13 @@ def test_dictionary_notes_tell_not_to_recite_and_judge_keeps_screen_terms(tmp_pa
     comp, fake = _comp(tmp_path, [])
     comp.judge(b"jpg", "x", "claude-haiku-5-5", None)
     assert "원문 그대로" in fake.calls[-1]["system"][0]["text"]
+
+
+def test_focus_image_goes_with_judge_and_line(tmp_path):
+    comp, fake = _comp(tmp_path, [{"speak": False, "urgent": False, "scene": "other", "situation": "", "point": ""},
+                                  {"speak": True, "message": "단톡방에 새 공지가 있네요.", "emotion": "normal"}])
+    comp.judge(b"main", "x", "claude-haiku-5-5", None, focus=b"crop")
+    kinds = [c["type"] for c in fake.calls[-1]["messages"][0]["content"]]
+    assert kinds == ["image", "text", "image", "text"] and "원래 크기로 확대" in fake.calls[-1]["messages"][0]["content"][1]["text"]
+    comp.screen_line(b"main", "x", None, focus=b"crop")
+    assert sum(c["type"] == "image" for c in fake.calls[-1]["messages"][-1]["content"]) == 2

@@ -218,8 +218,10 @@ class SettingsDialog(QDialog):
         self.memory_on.setChecked(bool(v.get("screen.memory", True)))
         self.memory_days = Choice(MEMORY_DAYS, str(v.get("screen.memory_days", 180)))
         self.memory_gb = Choice(MEMORY_GB, str(v.get("screen.memory_gb", 100)))
+        self.read_windows = QCheckBox("부탁하면 다른 프로그램 창도 읽기 ('카톡 읽어줘' 등. 그 창 내용이 AI 에게 보내져요)")
+        self.read_windows.setChecked(bool(v.get("screen.read_windows", True)))
         g9 = group("화면 기억 (이 컴퓨터에만 저장)", [("", self.memory_on), ("보관 기간", self.memory_days),
-                                                    ("최대 용량", self.memory_gb)])
+                                                    ("최대 용량", self.memory_gb), ("", self.read_windows)])
         g5 = group("대답·표시", [("", self.web), ("", self.fast), ("", self.show_status)])
 
         # 비용
@@ -286,6 +288,7 @@ class SettingsDialog(QDialog):
             "screen.monitor": self.monitor.value(),
             "screen.coach": self.coach.value(),
             "screen.memory": self.memory_on.isChecked(),
+            "screen.read_windows": self.read_windows.isChecked(),
             "screen.memory_days": int(self.memory_days.value()),
             "screen.memory_gb": int(self.memory_gb.value()),
             "screen.overlay": self.overlay.value(),

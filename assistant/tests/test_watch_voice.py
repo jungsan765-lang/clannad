@@ -48,21 +48,23 @@ class FakeCompanion:
         self.lines = []
 
     def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False,
-              review=False):
+              review=False, focus=None):
+        self.focus_seen = focus
         self.judged.append({"title": title, "model": model, "minutes": minutes, "mode": mode.name if mode else None,
                             "notes": list(session_notes or [])})
         if self.notes:
             return self.notes.pop(0)
         return {"speak": True, "urgent": False, "scene": "playing", "situation": "오류 창", "point": "경로 확인"}
 
-    def analyze(self, frames, title, mode=None, session_notes=None, note=None, question=None, review=False):
+    def analyze(self, frames, title, mode=None, session_notes=None, note=None, question=None, review=False, focus=None):
         from companion import Analysis
 
         self.analyses = getattr(self, "analyses", []) + [{"frames": frames, "note": note, "question": question,
                                                           "review": review}]
         return Analysis(True, "흐름을 보니 왼쪽이 비었습니다.", "교전 직후", [{"title": "위치", "detail": "근거"}], ["보급"])
 
-    def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False):
+    def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False,
+                    focus=None):
         self.lines.append({"note": note, "question": question, "mode": mode.name if mode else None,
                            "notes": list(session_notes or []), "review": review})
         text = "총평입니다." if review else ("지금은 코드 편집 중이시네요." if question else "경로에 얼룩이 하나 있네요.")
