@@ -395,3 +395,60 @@ def test_review_prompts(tmp_path):
     assert "[복기]" in tail and "이렇게 했으면 좋았을 것" in tail and "순간 조작" in tail
     comp.judge(b"jpg", "x", "claude-haiku-5-5", None, analysis=True, review=True)
     assert "복기 모드" in fake.calls[-1]["system"][0]["text"]
+
+
+# ---------------------------------------------------------------- 영상 복기
+
+def _make_video(path, seconds=12, fps=10):
+    import cv2
+    import numpy as np
+
+    writer = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*"MJPG"), fps, (320, 180))
+    for i in range(seconds * fps):
+        frame = np.full((180, 320, 3), (i * 2) % 255, dtype=np.uint8)  # 시간이 갈수록 밝아짐
+        writer.write(frame)
+    writer.release()
+
+
+def test_video_sampling_plan_and_frames(tmp_path):
+    import video_review as vr
+
+    path = tmp_path / "clip.avi"
+    _make_video(path)
+    info = vr.probe(path)
+    assert 11.5 < info.seconds < 12.5 and info.width == 320
+    assert vr.auto_step(0, 12) == 1 and vr.auto_step(0, 600) == 20
+    assert vr.plan_times(0, 10, 2) == [0, 2, 4, 6, 8, 10]
+    long = vr.plan_times(0, 600, 1)
+    assert len(long) == vr.MAX_FRAMES and long[0] == 0 and long[-1] == 600  # 장면 수 제한이면 구간 전체에 고르게
+    frames = vr.sample_frames(path, [0, 5, 10])
+    assert [t for t, _ in frames] == [0, 5, 10] and all(j[:2] == b"\xff\xd8" for _, j in frames)
+    assert vr.mmss(75) == "1:15" and vr.mmss(3725) == "1:02:05"
+    assert vr.estimate_krw(30) > vr.estimate_krw(5) > 0
+
+
+def test_review_video_request_and_result(tmp_path):
+    data = {"speak": True, "summary": "1분 10초 한타가 아까웠습니다.", "overall": "초반은 좋았으나 중반 한타에서 밀림.",
+            "moments": [{"time": "1:10", "title": "혼자 진입", "detail": "아군이 미니맵 반대편", "better": "합류 후 진입"}],
+            "next_steps": ["합류 확인"], "emotion": "normal"}
+    comp, fake = _comp(tmp_path, [data])
+    counts = []
+    a = comp.review_video([(0.0, b"a"), (70.0, b"b")], "cyphers_0110.mp4", "한타 봐 줘", on_count=counts.append)
+    assert a.speak and a.points[0]["title"] == "1:10 · 혼자 진입" and "→ 합류 후 진입" in a.points[0]["detail"]
+    req = fake.calls[-1]
+    content = req["messages"][-1]["content"]
+    assert content[0]["text"] == "(영상 0:00)" and content[2]["text"] == "(영상 1:10)"
+    assert "[영상 복기]" in content[-1]["text"] and "한타 봐 줘" in content[-1]["text"]
+    assert req.get("streamed") and req["max_tokens"] == 16000 and counts[-1] == 1
+    assert comp.memory.recent[-1]["text"] == "1분 10초 한타가 아까웠습니다."  # 나중에 대화로 이어서 물을 수 있게
+
+
+def test_dictionary_notes_tell_not_to_recite_and_judge_keeps_screen_terms(tmp_path):
+    from lorebook import LoreBook
+
+    book = LoreBook(LoreBook.parse(LORE))
+    notes = book.notes_for("라우마")
+    assert "그대로 읽거나 나열하지 않고" in notes and "필요한 것만 골라" in notes
+    comp, fake = _comp(tmp_path, [])
+    comp.judge(b"jpg", "x", "claude-haiku-5-5", None)
+    assert "원문 그대로" in fake.calls[-1]["system"][0]["text"]

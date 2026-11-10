@@ -91,4 +91,6 @@ class LoreBook:
         found = self.find(text, max_chars)
         if not found:
             return ""
-        return "[관련 배경지식 (네가 아는 것)]\n" + "\n\n".join(f"## {e.title}\n{e.text}" for e in found)
+        return ("[관련 배경지식 — 네가 원래 아는 것이다. 지금 상황에 필요한 것만 골라 네 생각과 네 말로 쓴다. "
+                "그대로 읽거나 나열하지 않고, 관련 없으면 쓰지 않는다]\n"
+                + "\n\n".join(f"## {e.title}\n{e.text}" for e in found))

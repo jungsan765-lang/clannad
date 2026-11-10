@@ -438,3 +438,76 @@ def test_old_analysis_pref_becomes_analysis_coach(qapp, tmp_path, built):
     a.start()
     assert a.coach == "analysis"
     a.quit()
+
+
+def test_video_review_flow_from_menu(qapp, tmp_path, built, monkeypatch):
+    from test_organize_status import _make_video
+    from ui.video_dialog import VideoReviewDialog
+
+    clip = tmp_path / "사이퍼즈 하이라이트.avi"
+    _make_video(clip)
+    data = {"speak": True, "summary": "초반 운영은 좋았습니다.", "overall": "흐름 요약",
+            "moments": [{"time": "0:05", "title": "합류", "detail": "근거", "better": "좋았음"}],
+            "next_steps": ["시야 확보"], "emotion": "normal"}
+    fake = FakeAnthropic([data])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    from pathlib import Path
+
+    from watch.modes import load_modes
+
+    a.watcher.modes = load_modes(Path(app_main.__file__).resolve().parent / "modes")  # 실제 게임 모드들
+    a.start()
+    seen = {}
+
+    def fake_exec(dlg):
+        seen["game"] = dlg.game.currentData()
+        seen["estimate"] = dlg.estimate.text()
+        dlg.step.setCurrentIndex(dlg.step.findData("3"))
+        return VideoReviewDialog.DialogCode.Accepted
+
+    monkeypatch.setattr(VideoReviewDialog, "exec", fake_exec)
+    a.review_video_file(str(clip))
+    _wait(qapp, a)
+    _wait(qapp, a)
+    assert seen["game"] == "사이퍼즈" and "예상 비용" in seen["estimate"]  # 파일 이름으로 게임을 맞춤
+    images = [c for c in fake.calls[-1]["messages"][-1]["content"] if c["type"] == "image"]
+    assert len(images) == 5  # 0,3,6,9,12초
+    assert a.analysis_panel.isVisible() and "0:05 · 합류" in a.analysis_panel.view.toHtml()
+    saved = list((tmp_path / "data" / "reviews").glob("*.md"))
+    assert saved and "초반 운영은 좋았습니다." in saved[0].read_text(encoding="utf-8")
+    assert not a.status.active("video")
+    a.quit()
+
+
+def test_game_knowledge_folders_and_weekly_news(qapp, tmp_path, built, monkeypatch):
+    import os
+    import time as _t
+
+    from watch.modes import Mode
+
+    fake = FakeAnthropic(["- 가을 이벤트 진행 중 (11/1~11/30), 신규 함선 2척."])
+    s = _settings(tmp_path, built["out"].as_posix())
+    (tmp_path / "knowledge").mkdir()
+    (tmp_path / "knowledge" / "kancolle.md").write_text("## 대파 진격\n키워드: 大破, 대파, 進撃\n- 대파면 철수.\n",
+                                                        encoding="utf-8")
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    assert [e.title for e in a.companion.lorebook.find("大破 상태로 進撃 화면")] == ["대파 진격"]  # 일본어 화면 용어로도
+    kc = Mode("칸코레", titles=["艦これ"], is_game=True)
+    a.refresh_game_news(kc)
+    _wait(qapp, a)
+    news = tmp_path / "data" / "knowledge" / "news_칸코레.md"
+    text = news.read_text(encoding="utf-8")
+    assert text.startswith("## 칸코레 최신 소식") and "키워드: 칸코레, 艦これ, 최신" in text and "가을 이벤트" in text
+    assert "칸코레 최신 소식" in [e.title.split(" (")[0] for e in a.companion.lorebook.find("칸코레 이벤트 뭐 해?")]
+    assert a.companion.memory.knowledge == []  # 최신 소식은 '찾아본 것' 메모가 아니라 사전으로
+    calls = len(fake.calls)
+    a.refresh_game_news(kc)
+    _wait(qapp, a)
+    assert len(fake.calls) == calls  # 일주일 안에는 다시 안 찾음
+    old = _t.time() - 8 * 86400
+    os.utime(news, (old, old))
+    a.refresh_game_news(kc)
+    _wait(qapp, a)
+    assert len(fake.calls) == calls + 1
+    a.quit()

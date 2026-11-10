@@ -54,7 +54,8 @@ JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담
   그런 게 없으면 speak 는 false.
 - scene: playing(게임 플레이·작업 중), result(게임 결과 화면), menu(로비·메뉴·선택 화면), loading(로딩), cutscene(컷신·대화 장면), other.
 - urgent: 아래 '즉시 알릴 상황'에 해당할 때만 true (그때는 speak 도 true).
-- situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다."""
+- situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다.
+- situation 에는 화면에 글자로 보이는 핵심 이름·용어(캐릭터·지명·적 이름, 大破·進撃 같은 게임 용어)를 원문 그대로 넣는다."""
 
 CHATTINESS = {
     "quiet": "말 거는 정도: 조용히. 오류·결과 화면처럼 분명히 짚을 게 있을 때만 speak=true. 망설여지면 false.",
@@ -119,6 +120,42 @@ REVIEW_TASK = """[복기]
 - 사진 사이에 생긴 일은 보이지 않으니 확실하지 않으면 '아마'라고 한다. 순간 조작(회피·콤보·에임)은 평가하지 않는다.
 - 아래에 '주인님 … 정보/전적'이 있으면 그 실제 숫자도 근거로 쓴다.
 - 짚을 만한 게 없으면 speak 는 false."""
+
+VIDEO_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "speak": {"type": "boolean"},
+        "summary": {"type": "string"},
+        "overall": {"type": "string"},
+        "moments": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {"time": {"type": "string"}, "title": {"type": "string"}, "detail": {"type": "string"},
+                               "better": {"type": "string"}},
+                "required": ["time", "title", "detail", "better"],
+                "additionalProperties": False,
+            },
+        },
+        "next_steps": {"type": "array", "items": {"type": "string"}},
+        "emotion": {"type": "string", "enum": EMOTIONS},
+    },
+    "required": ["speak", "summary", "overall", "moments", "next_steps", "emotion"],
+    "additionalProperties": False,
+}
+
+VIDEO_TASK = """[영상 복기]
+첨부한 이미지들은 주인님이 녹화한 게임 영상에서 일정 간격으로 뽑은 장면들이다(각 장면 앞에 영상 속 시각 m:ss).
+옆에서 함께 영상을 다시 보며 복기하듯, 그 게임을 깊이 아는 시선으로:
+- overall: 영상 전체 흐름 2~3문장 (무슨 판·전투였고 어떻게 흘러갔는지).
+- moments: 짚을 장면 3~8개를 시간 순으로. time 은 그 장면의 영상 시각(m:ss), title 은 짧은 제목,
+  detail 은 그 장면에서 보이는 근거(체력, 미니맵, 아군·적 위치, 킬 로그, 숫자), better 는 '이때 이렇게 했으면 좋았을 것'
+  (잘한 장면이면 무엇이 좋았는지).
+- next_steps: 다음 판에서 신경 쓸 것 1~3개, 구체적으로.
+- summary: 말풍선용 1~2문장, 캐릭터 말투.
+- 장면 사이에 생긴 일은 보이지 않으니 확실하지 않으면 '아마'라고 한다. 순간 조작은 평가하지 않는다. 화면에 근거 없는 건 지어내지 않는다.
+- 주인님이 특히 봐 달라고 한 것이 있으면 그것부터 다룬다.
+- 게임 영상이 아니거나 짚을 게 없으면 speak 는 false."""
 
 REVIEW_JUDGE = """말 거는 정도: 복기 모드. 방금 한 장면이 마무리됐을 때만 speak=true:
 교전·전투가 끝났을 때(누가 쓰러짐, 체력이 크게 깎인 뒤 물러남), 주인님 캐릭터가 쓰러짐(사망·부활 대기),
@@ -423,7 +460,11 @@ class Companion:
         content.append({"type": "text", "text": user_text})
         return self._respond(content, user_text, now, on_partial, fast)
 
-    def search(self, query: str, question: str = "") -> tuple[str, float]:
+    def reload_lore(self) -> None:
+        """사전 폴더들을 다시 읽는다 (게임 최신 소식을 새로 받았을 때 등)."""
+        self.lorebook = LoreBook.load(*getattr(self, "lore_dirs", []))
+
+    def search(self, query: str, question: str = "", remember: bool = True) -> tuple[str, float]:
         """인터넷 검색 → 한국어 사실 메모 (싼 모델이 찾아서 정리). 찾은 건 기억해 두고 다음엔 다시 찾지 않는다."""
         tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 3,
                   "user_location": {"type": "approximate", "country": "KR", "timezone": "Asia/Seoul"}}]
@@ -432,7 +473,7 @@ class Companion:
                                   messages=[{"role": "user", "content": ask}], kind="search", tools=tools,
                                   max_tokens=2000, effort="low", thinking_off=True)
         notes = r.text.strip()[:1500]
-        if notes:
+        if notes and remember:
             self.memory.add_knowledge(query, notes)
         return notes, r.usd
 
@@ -578,8 +619,8 @@ class Companion:
         lines.append("최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)"))
         if question:
             lines.append(f"주인님이 지금 화면을 보고 말해 달라고 했다: {question} → speak 는 true.")
-        seen = " ".join([title or "", question or "", (note or {}).get("situation", ""), (note or {}).get("point", "")]
-                        + list(session_notes or [])[-5:])
+        seen = " ".join([title or "", getattr(mode, "name", "") or "", question or "",
+                         (note or {}).get("situation", ""), (note or {}).get("point", "")] + list(session_notes or [])[-5:])
         notes = self.lorebook.notes_for(seen)
         if notes:
             lines.append(notes)
@@ -643,7 +684,8 @@ class Companion:
             lines.append(f"판단 메모: {note.get('situation', '')} / {note.get('point', '')}")
         if question:
             lines.append(f"주인님이 분석을 부탁했다: {question} → speak 는 true.")
-        seen = " ".join([title or "", question or "", (note or {}).get("situation", "")] + list(session_notes or [])[-8:])
+        seen = " ".join([title or "", getattr(mode, "name", "") or "", question or "", (note or {}).get("situation", "")]
+                        + list(session_notes or [])[-8:])
         notes = self.lorebook.notes_for(seen)
         if notes:
             lines.append(notes)
@@ -665,6 +707,54 @@ class Companion:
         return Analysis(True, d["summary"].strip(), d.get("situation", "").strip(), list(d.get("points", []))[:5],
                         [str(x) for x in d.get("next_steps", [])][:4],
                         d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, now.strftime("%H:%M"))
+
+    # ------------------------------------------------------------ 영상 복기
+
+    def review_video(self, frames: list[tuple[float, bytes]], name: str, question: str | None = None, mode=None,
+                     on_count=None) -> Analysis:
+        """녹화 영상에서 뽑은 장면들(영상 속 초, jpeg)로 시간대별 복기. on_count: 지금까지 짚은 장면 수."""
+        from video_review import mmss
+
+        content: list[dict] = []
+        for sec, jpeg in frames:
+            content.append({"type": "text", "text": f"(영상 {mmss(sec)})"})
+            content.append(self._image_block(jpeg))
+        lines = [VIDEO_TASK, f"영상 파일: {name}", f"장면 {len(frames)}장, 영상 {mmss(frames[0][0])} ~ {mmss(frames[-1][0])}"]
+        if self.user_names:
+            lines.append(self.names_text())
+        mode_text = self._mode_text(mode, None)
+        if mode_text:
+            lines.append(mode_text)
+        if question:
+            lines.append(f"주인님이 특히 봐 달라고 한 것: {question}")
+        notes = self.lorebook.notes_for(" ".join([name, question or "", getattr(mode, "name", "")]))
+        if notes:
+            lines.append(notes)
+        extra = self.extra_context(mode) if self.extra_context else ""
+        if extra:
+            lines.append(extra)
+        content.append({"type": "text", "text": "\n".join(lines)})
+
+        def count(buf: str) -> None:
+            if on_count:
+                on_count(buf.count('"better"'))
+
+        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(),
+                                  messages=[{"role": "user", "content": content}], schema=VIDEO_SCHEMA, kind="video",
+                                  max_tokens=16000, effort=self.analysis_effort, timeout=600, on_text=count)
+        d = r.data
+        if not d or not d.get("speak") or not str(d.get("summary", "")).strip():
+            return Analysis(False, "", usd=r.usd)
+        if not all(is_korean(t) for t in [d["summary"], d.get("overall", "")] if t):
+            log.warning("영상 복기가 한국어가 아님 → 표시하지 않음")
+            return Analysis(False, "", usd=r.usd)
+        points = [{"title": f"{m.get('time', '')} · {m.get('title', '')}",
+                   "detail": m.get("detail", "") + (f" → {m['better']}" if m.get("better") else "")}
+                  for m in d.get("moments", [])[:10]]
+        self.memory.add_turn(f"(영상 복기를 부탁함: {name})", d["summary"].strip())
+        return Analysis(True, d["summary"].strip(), d.get("overall", "").strip(), points,
+                        [str(x) for x in d.get("next_steps", [])][:4],
+                        d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, f"영상 {name}")
 
     # ------------------------------------------------------------ 파일 정리안
 

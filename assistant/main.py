@@ -39,6 +39,7 @@ from ui.chat_input import ChatInput
 from ui.hoyolab_login import HoyolabLogin, complete as cookies_complete
 from ui.analysis_panel import AnalysisPanel
 from ui.overlay import GameOverlay, screen_for
+from ui.video_dialog import VideoReviewDialog
 from ui.organize_dialog import OrganizeDialog
 from ui.wishlist_dialog import WishlistDialog
 from ui.placeholder import make_placeholder
@@ -770,6 +771,12 @@ class AssistantApp(QObject):
         analyze = QAction(f"지금 자세히 분석·복기 ({g('hotkeys.analyze', 'F10')})", menu)
         analyze.triggered.connect(lambda: self.analyze_now())
         menu.addAction(analyze)
+        news = QAction("지금 하는 게임 최신 소식 확인", menu)
+        news.triggered.connect(lambda: self.refresh_game_news(force=True))
+        menu.addAction(news)
+        video = QAction("영상으로 복기…", menu)
+        video.triggered.connect(lambda: self.review_video_file())
+        menu.addAction(video)
         panel = QAction("분석 창 보기", menu)
         panel.triggered.connect(lambda: (self.analysis_panel.show(), self.analysis_panel.raise_()))
         menu.addAction(panel)
@@ -992,6 +999,46 @@ class AssistantApp(QObject):
             return
         self._run(lambda: self.companion.remark(fact), self._on_screen_line, lambda m: log.warning("알림 실패: %s", m))
 
+    def refresh_game_news(self, mode=None, force: bool = False) -> None:
+        """게임 최신 소식: 그 게임을 하는 날, 일주일에 한 번 검색해서 data/knowledge/ 에 넣는다 (사전에서 꺼내 씀)."""
+        mode = mode or self.watcher.mode
+        if not getattr(mode, "is_game", False) or not self.companion.can_search:
+            if force:
+                self.bubble.show_text("게임 모드일 때 확인할 수 있어요.", self.anchor(), system=True, seconds=4)
+            return
+        safe = re.sub(r'[\\/:*?"<>|\s]+', "_", mode.name)
+        path = self.settings.data_dir / "knowledge" / f"news_{safe}.md"
+        if not force and path.is_file() and time.time() - path.stat().st_mtime < 7 * 86400:
+            return
+        if self.status.active("news"):
+            return
+        self.status.begin("news", f"'{mode.name}' 최신 소식 확인 중")
+        today = time.strftime("%Y-%m-%d")
+        query = f"{mode.name} 최신 업데이트 이벤트 {time.strftime('%Y년 %m월')}"
+
+        def work():
+            notes, _ = self.companion.search(query, f"{mode.name}의 지금 진행 중인 이벤트·최근 업데이트·바뀐 점",
+                                             remember=False)
+            return notes
+
+        def done(notes: str) -> None:
+            self.status.end("news")
+            if not notes:
+                return
+            words = ", ".join(dict.fromkeys([mode.name, *mode.titles, "최신", "이벤트", "업데이트", "패치", "신규"]))
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"## {mode.name} 최신 소식 ({today} 확인)\n키워드: {words}\n{notes}\n", encoding="utf-8")
+            self.companion.reload_lore()
+            log.info("게임 최신 소식 저장: %s", path)
+            if force:
+                self.bubble.show_text(f"{mode.name} 최신 소식을 확인해 두었어요.", self.anchor(), system=True, seconds=4)
+
+        def fail(message: str) -> None:
+            self.status.end("news")
+            log.warning("게임 최신 소식 실패: %s", message)
+
+        self._run(work, done, fail)
+
     def _on_mode_changed(self, name: str) -> None:
         if self._last_mode == "원신" and name != "원신":  # 게임을 끄면 기원 기록 파일을 읽을 수 있다
             QTimer.singleShot(5000, lambda: self.refresh_genshin(wishes=True))
@@ -999,6 +1046,8 @@ class AssistantApp(QObject):
             QTimer.singleShot(3000, lambda: self.refresh_genshin())
         elif name == "사이퍼즈":
             QTimer.singleShot(3000, lambda: self.refresh_cyphers())
+        if self.watcher.mode.is_game:
+            QTimer.singleShot(15_000, lambda: self.refresh_game_news())
         self._last_mode = name
 
     def _game_context(self, mode) -> str:
@@ -1121,6 +1170,74 @@ class AssistantApp(QObject):
                 self.bubble.show_text(f"게임 모드를 만들지 못했어요: {message}", self.anchor(), system=True, seconds=6)
 
         self._run(lambda: self.companion.make_mode(process, title, seen), done, fail)
+
+    # ------------------------------------------------------------ 영상 복기
+
+    def review_video_file(self, path: str | None = None) -> None:
+        """녹화한 게임 영상 → 구간·간격 고르기 → 장면 뽑기 → 시간대별 복기 (분석 창 + data/reviews/)."""
+        import video_review as vr
+
+        if self.status.active("video"):
+            self.status.flash("영상 복기가 이미 진행 중이에요")
+            return
+        if path is None:
+            path, _ = QFileDialog.getOpenFileName(None, "복기할 영상 고르기", str(Path.home() / "Videos"),
+                                                  "영상 (" + " ".join(vr.VIDEO_EXT) + ")")
+        if not path:
+            return
+        try:
+            info = vr.probe(Path(path))
+        except Exception as exc:  # noqa: BLE001
+            self.bubble.show_text(str(exc), self.anchor(), system=True, seconds=6)
+            return
+        games = [m.name for m in self.watcher.modes]
+        guess = next((m.name for m in self.watcher.modes
+                      if any(t.lower() in info.path.name.lower() for t in [m.name, *m.titles] if t)), "")
+        dlg = VideoReviewDialog(info, games, guess or (self.watcher.mode.name if self.watcher.mode.is_game else ""),
+                                self.ledger.krw_per_usd)
+        if dlg.exec() != VideoReviewDialog.DialogCode.Accepted:
+            return
+        c = dlg.choices()
+        mode = next((m for m in self.watcher.modes if m.name == c["game"]), None)
+        self.status.begin("video", "영상 장면 뽑는 중")
+
+        def work(progress):
+            frames = vr.sample_frames(info.path, c["times"], progress=lambda i, n: progress(("frames", i, n)))
+            progress(("review", 0, 0))
+            last = [-1]
+
+            def count(n: int) -> None:
+                if n != last[0]:
+                    last[0] = n
+                    progress(("review", n, 0))
+
+            return self.companion.review_video(frames, info.path.name, c["question"] or None, mode, on_count=count)
+
+        def on_progress(p) -> None:
+            kind, i, n = p
+            if kind == "frames":
+                self.status.set_text("video", f"영상 장면 뽑는 중 {i}/{n}")
+            else:
+                self.status.set_text("video", "영상 복기 중" + (f" (짚은 장면 {i}개)" if i else ""))
+
+        def done(result) -> None:
+            self.status.end("video")
+            if not result.speak:
+                self.bubble.show_text("이 영상에서는 짚을 만한 걸 찾지 못했어요.", self.anchor(), system=True, seconds=5)
+                return
+            saved = vr.save_markdown(self.settings.data_dir / "reviews", info.path.name, result)
+            log.info("영상 복기 저장: %s", saved)
+            self.analysis_panel.show_analysis(result)
+            if not self.busy:
+                self.bubble.show_text(result.summary, self.anchor())
+                self._start_talking()
+            self._refresh_cost()
+
+        def fail(message: str) -> None:
+            self.status.end("video")
+            self.bubble.show_text(f"영상 복기 실패: {message}", self.anchor(), system=True, seconds=8)
+
+        self._run(work, done, fail, on_progress=on_progress)
 
     def open_wishlist(self) -> None:
         WishlistDialog(self.wishlist).exec()
@@ -1388,12 +1505,12 @@ def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> 
         lore=lore,
         search_model=settings.get("ai.search_model", "claude-haiku-5-5"),
     )
-    # 자세한 사전: character.lore_dir, 없으면 성격 파일이 있는 폴더와 그 안의 lore/ 폴더 (persona.md·lore.md 제외)
+    # 사전(필요할 때 꺼내 보는 지식): 캐릭터 사전(성격 파일 옆, git 제외) + 게임 지식(knowledge/, 업데이트로 옴)
+    # + 다니카가 받아 둔 게임 최신 소식(data/knowledge/). persona.md·lore.md 는 늘 아는 것이라 빼고 읽는다
     lore_dir = settings.path("character.lore_dir")
-    if lore_dir is None and persona_path is not None:
-        companion.lorebook = LoreBook.load(persona_path.parent, persona_path.parent / "lore")
-    else:
-        companion.lorebook = LoreBook.load(lore_dir)
+    char_dirs = [lore_dir] if lore_dir else ([persona_path.parent, persona_path.parent / "lore"] if persona_path else [])
+    companion.lore_dirs = [*char_dirs, settings.root / "knowledge", data / "knowledge"]
+    companion.reload_lore()
     folder = settings.path("character.folder")
     if not folder or not (folder / "manifest.json").is_file():
         log.warning("캐릭터 폴더가 없어 임시 캐릭터를 씁니다: %s", folder)
