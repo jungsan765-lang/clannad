@@ -710,3 +710,37 @@ def test_chat_can_add_focus_and_block_window(qapp, tmp_path, built):
     assert kinds == [("do", "전체", "레진이 넘칠 것 같으면 알려 주기"), ("skip", "전체", "국민은행")]
     assert a.watcher.blocked_word("chrome.exe", "국민은행 - 개인뱅킹") == "국민은행"
     a.quit()
+
+
+def test_lookups_pile_up_in_a_per_game_dictionary(qapp, tmp_path, built):
+    from watch.modes import Mode
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "찾아볼게요.", "emotion": "normal", "action": "web_search",
+         "target": "붉은사막 회색갈기 퀘스트"},
+        "## 진행\n- 회색갈기 야영지에서 시작, 늑대 3마리 처치 후 보고.",
+        {"speak": True, "message": "야영지에서 시작하는 퀘스트예요.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.watcher.mode = Mode("붉은사막", is_game=True)
+    a.ask("회색갈기 퀘스트 어떻게 해?")
+    for _ in range(3):
+        _wait(qapp, a)
+    path = tmp_path / "data" / "knowledge" / "찾아본것_붉은사막.md"
+    text = path.read_text(encoding="utf-8")
+    assert text.startswith("## 붉은사막 회색갈기 퀘스트 (찾아본 것,") and "키워드: 회색갈기" in text
+    assert "\n## 진행" not in text  # 찾은 글 속 제목 줄이 항목을 끊지 않음
+    assert [e.title.split(" (")[0] for e in a.companion.lorebook.find("회색갈기 야영지 화면")] == ["붉은사막 회색갈기 퀘스트"]
+    a.quit()
+    b = app_main.build(_settings(tmp_path, built["out"].as_posix()),
+                       ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    assert b.companion.lorebook.find("회색갈기")  # 다시 켜도 남아 있음
+
+
+def test_spoiler_entries_come_with_a_warning():
+    from lorebook import LoreBook
+
+    book = LoreBook(LoreBook.parse("## 3장 결말 (스포일러)\n키워드: 검은곰\n- 누가 배신함\n\n## 검은곰 야영지\n키워드: 야영지\n- 위치\n"))
+    assert "스포 주의" in book.notes_for("검은곰 이야기") and "스포 주의" not in book.notes_for("야영지 어디")

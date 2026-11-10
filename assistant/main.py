@@ -437,8 +437,16 @@ class AssistantApp(QObject):
         self.status.begin("chat", f"'{query[:20]}' 찾아보는 중")
         question = "" if about_screen else self._last_question
 
+        mode = self.watcher.mode
+        game = mode.name if mode.is_game else "일반"
+
         def work(progress):
             notes, _ = self.companion.search(query, question)
+            if notes:  # 게임별 사전에 쌓아 두고, 다음부터 그 이름이 나오면 바로 꺼내 쓴다
+                from lorebook import save_lookup
+
+                self.companion.lorebook.entries.extend(
+                    save_lookup(self.settings.data_dir / "knowledge", game, query, notes, datetime.now()))
             progress(None)  # 다 찾았다
             return self.companion.reply_after_search(query, notes, on_partial=None if about_screen else progress,
                                                      about_screen=about_screen)

@@ -91,6 +91,47 @@ class LoreBook:
         found = self.find(text, max_chars, limit)
         if not found:
             return ""
-        return ("[관련 배경지식 — 네가 원래 아는 것이다. 지금 상황에 필요한 것만 골라 네 생각과 네 말로 쓴다. "
-                "그대로 읽거나 나열하지 않고, 관련 없으면 쓰지 않는다]\n"
-                + "\n\n".join(f"## {e.title}\n{e.text}" for e in found))
+        head = ("[관련 배경지식 — 네가 원래 아는 것이다. 지금 상황에 필요한 것만 골라 네 생각과 네 말로 쓴다. "
+                "그대로 읽거나 나열하지 않고, 관련 없으면 쓰지 않는다]")
+        if any(SPOILER in e.title for e in found):
+            head += "\n" + SPOILER_RULE
+        return head + "\n" + "\n\n".join(f"## {e.title}\n{e.text}" for e in found)
+
+
+SPOILER = "(스포일러)"
+SPOILER_RULE = ("[스포 주의: 제목에 (스포일러)가 붙은 항목은 스토리 전개·반전·결말이다. 주인님이 그 내용을 직접 묻지 않았으면 "
+                "먼저 꺼내지 않는다(화면에 이미 나온 데까지는 괜찮다). 직접 물었으면 '스포일러인데요' 하고 짧게 알린 뒤 답한다]")
+
+# 찾아본 것을 게임별 사전에 쌓을 때 키워드로 쓰지 않을 흔한 말
+_GENERIC = {"퀘스트", "공략", "보스", "위치", "방법", "어디", "뭐야", "누구", "정보", "게임", "캐릭터", "아이템", "스킬", "이름",
+            "설명", "최신", "소식", "패치", "무엇", "어떻게", "얻는", "얻는법", "얻는 법", "가는", "가는법", "잡는", "잡는법", "추천",
+            "나무위키", "인벤", "후기", "뜻", "의미", "정리"}
+
+
+def lookup_entry(game: str, query: str, notes: str, when) -> str:
+    """찾아본 것 하나를 사전 항목 글로. 키워드는 검색어에서 게임 이름·흔한 말을 뺀 것."""
+    words = [w.strip(" ?!.'\"") for w in re.split(r"[\s,·/]+", query)]
+    words = [w for w in words if len(w) >= 2 and w not in _GENERIC and w != game]
+    phrase = " ".join(words)
+    keys = list(dict.fromkeys(([phrase] if len(words) > 1 else []) + words))
+    body = re.sub(r"(?m)^#+\s*", "- ", notes.strip())[:1500]  # 찾은 글 속 제목 줄이 항목을 끊지 않게
+    return f"## {query} (찾아본 것, {when:%Y-%m-%d})\n키워드: {', '.join(keys)}\n{body}\n"
+
+
+def save_lookup(folder: Path, game: str, query: str, notes: str, when) -> list[Entry]:
+    """data/knowledge/찾아본것_게임.md 에 쌓는다 (같은 검색어면 새 것으로). 새 항목을 돌려준다."""
+    text = lookup_entry(game, query, notes, when)
+    found = LoreBook.parse(text)
+    if not found:
+        return []
+    safe = re.sub(r'[\\/:*?"<>|\s]+', "_", game or "일반")
+    path = folder / f"찾아본것_{safe}.md"
+    try:
+        folder.mkdir(parents=True, exist_ok=True)
+        old = path.read_text(encoding="utf-8") if path.is_file() else ""
+        blocks = [b for b in re.split(r"(?m)^(?=## )", old) if b.strip() and not b.startswith(f"## {query} (찾아본 것")]
+        path.write_text("".join(blocks) + ("\n" if blocks and not blocks[-1].endswith("\n") else "") + text,
+                        encoding="utf-8")
+    except OSError as exc:
+        log.warning("찾아본 것 저장 실패: %s", exc)
+    return found
