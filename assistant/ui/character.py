@@ -105,6 +105,7 @@ class CharacterWindow(QWidget):
     """
 
     clicked = Signal()
+    petted = Signal()  # 버튼 없이 머리 쪽을 마우스로 좌우로 여러 번 문지름
     menu_requested = Signal(QPoint)
     moved = Signal(QPoint)
     motion_changed = Signal(str)
@@ -123,6 +124,13 @@ class CharacterWindow(QWidget):
             self.setAttribute(Qt.WidgetAttribute.WA_ShowWithoutActivating)
         self.setFixedSize(sprites.size)
         self.setWindowTitle(sprites.name)
+        self.setMouseTracking(True)  # 버튼 없이 움직여도 받기 (쓰다듬기)
+        self._strokes: list[tuple[float, int]] = []  # (시각, 방향 바뀐 x)
+        self._last_x: int | None = None
+        self._last_dir = 0
+        self._last_pet = -1e9
+        self._pet_clock = QElapsedTimer()
+        self._pet_clock.start()
 
         self._timer = QTimer(self)
         self._timer.setTimerType(Qt.TimerType.PreciseTimer)
@@ -287,8 +295,35 @@ class CharacterWindow(QWidget):
         elif event.button() == Qt.MouseButton.RightButton:
             self.menu_requested.emit(event.globalPosition().toPoint())
 
+    PET_TURNS = 4  # 2초 안에 좌우로 방향을 이만큼 바꾸면 쓰다듬기
+    PET_COOLDOWN = 20.0
+
+    def _track_pet(self, pos: QPoint) -> None:
+        """머리 쪽(위 45%)에서 좌우로 문지르는지 본다."""
+        now = self._pet_clock.elapsed() / 1000
+        if pos.y() > self.height() * 0.45:
+            self._last_x, self._last_dir, self._strokes = None, 0, []
+            return
+        if self._last_x is not None:
+            dx = pos.x() - self._last_x
+            if abs(dx) >= 3:
+                d = 1 if dx > 0 else -1
+                if self._last_dir and d != self._last_dir:
+                    self._strokes = [s for s in self._strokes if now - s[0] < 2.0] + [(now, pos.x())]
+                    if len(self._strokes) >= self.PET_TURNS and now - self._last_pet > self.PET_COOLDOWN:
+                        self._last_pet = now
+                        self._strokes = []
+                        self.petted.emit()
+                self._last_dir = d
+        self._last_x = pos.x()
+
+    def leaveEvent(self, event) -> None:  # noqa: N802
+        self._last_x, self._last_dir, self._strokes = None, 0, []
+        super().leaveEvent(event)
+
     def mouseMoveEvent(self, event) -> None:  # noqa: N802
         if self._press_global is None:
+            self._track_pet(event.position().toPoint())
             return
         delta = event.globalPosition().toPoint() - self._press_global
         if not self._dragging and delta.manhattanLength() > self.DRAG_THRESHOLD:

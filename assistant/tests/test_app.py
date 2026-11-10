@@ -808,3 +808,46 @@ def test_recap_and_daily_briefing(qapp, tmp_path, built):
     a.briefing()  # 하루 한 번만
     assert len(fake.calls) == calls
     a.quit()
+
+
+def test_petting_highlight_and_speaking(qapp, tmp_path, built):
+    import time as _t
+
+    from PySide6.QtCore import QPoint
+
+    from tts import Speaker, clean_for_speech
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "저장해 둘게요.", "emotion": "normal", "action": "save_clip", "target": ""},
+        {"speak": True, "message": "……갑자기 왜 그러십니까.", "emotion": "surprised"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.watcher.frames.extend([(1.0, b"jpg1"), (2.0, b"jpg2")])
+    a.ask("방금 거 저장해줘")
+    _wait(qapp, a)
+    saved = list((tmp_path / "data" / "highlights").iterdir())
+    assert len(saved) == 1 and (saved[0] / "02.jpg").read_bytes() == b"jpg2"
+    assert "방금 거 저장해줘" in (saved[0] / "메모.txt").read_text(encoding="utf-8")
+    # 쓰다듬기: 머리 쪽에서 좌우로 여러 번
+    pets = []
+    a.window.petted.connect(lambda: pets.append(1))
+    a.bubble.hide()
+    for x in (10, 40, 10, 40, 10, 40, 10):
+        a.window._track_pet(QPoint(x, 5))
+    assert pets == [1]
+    _wait(qapp, a)
+    assert "쓰다듬었다" in str(fake.calls[-1]["messages"]) and a.bubble.text == "……갑자기 왜 그러십니까."
+    for x in (10, 40, 10, 40, 10, 40):
+        a.window._track_pet(QPoint(x, a.window.height() - 2))  # 발 쪽은 쓰다듬기 아님
+    assert pets == [1]
+    # 소리 내서 말하기: 이모지·괄호는 빼고 읽음, Windows 가 아니면 조용히 꺼짐
+    assert clean_for_speech("⏰ 레진 (180/200) 넘쳐요!") == "레진 넘쳐요!"
+    sp = Speaker()
+    sp.speak("안녕하세요")
+    end = _t.monotonic() + 2
+    while sp.available is None and _t.monotonic() < end:
+        _t.sleep(0.05)
+    assert sp.available is False and sp.problem
+    a.quit()

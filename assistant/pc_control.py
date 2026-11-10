@@ -98,3 +98,32 @@ def press_media(key: str, times: int = 1) -> bool:
         ctypes.windll.user32.keybd_event(vk, 0, 0x1, 0)  # KEYEVENTF_EXTENDEDKEY
         ctypes.windll.user32.keybd_event(vk, 0, 0x1 | 0x2, 0)  # + KEYEVENTF_KEYUP
     return True
+
+
+# ---------------------------------------------------------------- 하이라이트 (방금 장면 영상으로 저장)
+
+# 녹화 프로그램의 '방금 것 저장' 단축키. 그 프로그램에서 백그라운드 녹화(최근 기록)가 켜져 있어야 한다.
+CLIP_TOOLS = {
+    "gamebar": ("Xbox Game Bar (Win+Alt+G)", [0x5B, 0x12, 0x47]),  # Windows 설정 > 게임 > 캡처 > '발생한 내용 녹화'
+    "nvidia": ("NVIDIA 즉석 리플레이 (Alt+F10)", [0x12, 0x79]),  # NVIDIA 앱 > 즉석 리플레이 켜기
+}
+
+
+def press_combo(keys: list[int]) -> bool:
+    if sys.platform != "win32":
+        return False
+    import ctypes
+
+    user32 = ctypes.windll.user32
+    for vk in keys:
+        user32.keybd_event(vk, 0, 0, 0)
+    for vk in reversed(keys):
+        user32.keybd_event(vk, 0, 0x2, 0)
+    return True
+
+
+def save_clip(tool: str) -> bool:
+    """녹화 프로그램에 '방금 것 저장'을 누른다. 실제 저장 여부는 그 프로그램 설정에 달림."""
+    if tool not in CLIP_TOOLS:
+        return False
+    return press_combo(CLIP_TOOLS[tool][1])

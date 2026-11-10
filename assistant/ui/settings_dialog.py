@@ -21,6 +21,8 @@ BUBBLE_TIMES = [("short", "짧게"), ("normal", "보통"), ("long", "길게")]
 MEMORY_DAYS = [("30", "30일"), ("90", "90일"), ("180", "180일"), ("365", "1년")]
 MEMORY_GB = [("20", "20GB"), ("50", "50GB"), ("100", "100GB"), ("300", "300GB")]
 COACH = [("off", "끔"), ("analysis", "분석"), ("review", "복기")]
+SPEAK_RATES = [("slow", "느리게"), ("normal", "보통"), ("fast", "빠르게")]
+CLIP_TOOLS = [("gamebar", "Xbox Game Bar"), ("nvidia", "NVIDIA"), ("off", "화면 몇 장만")]
 RESULT_DEPTH = [("deep", "깊게 생각 (1~2분, 판마다 약 200~400원)"), ("quick", "빠르게")]
 OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
 OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
@@ -238,7 +240,18 @@ class SettingsDialog(QDialog):
         self.pc_monitor.setChecked(bool(v.get("pc.monitor", True)))
         self.briefing = QCheckBox("하루 처음 켤 때 브리핑 (오늘 알림·할 일, 원신 레진, 어제 한 것)")
         self.briefing.setChecked(bool(v.get("assist.briefing", True)))
-        self.assist_rows = [("", self.pc_monitor), ("", self.briefing)]
+        self.speak = QCheckBox("소리 내서 말하기 (Windows 한국어 음성, 일반 목소리)")
+        self.speak.setChecked(bool(v.get("voice.speak", False)))
+        self.speak_rate = Choice(SPEAK_RATES, str(v.get("voice.speak_rate", "normal")))
+        self.clip_tool = Choice(CLIP_TOOLS, str(v.get("pc.clip_tool", "gamebar")))
+        self.auto_clip = QCheckBox("게임 중 중요한 순간이면 알아서 저장 (3분에 한 번까지)")
+        self.auto_clip.setChecked(bool(v.get("pc.auto_clip", False)))
+        clip_note = QLabel("하이라이트는 녹화 프로그램의 '방금 것 저장' 단축키를 대신 눌러요. Xbox Game Bar 는 Windows 설정 > 게임 > 캡처 > "
+                           "'발생한 내용 녹화'를, NVIDIA 는 즉석 리플레이를 켜 두어야 영상이 남아요. 화면 몇 장은 항상 data/highlights 에.")
+        clip_note.setWordWrap(True)
+        clip_note.setStyleSheet("color: #555;")
+        self.assist_rows = [("", self.pc_monitor), ("", self.briefing), ("", self.speak), ("말 빠르기", self.speak_rate),
+                            ("하이라이트 저장", self.clip_tool), ("", self.auto_clip), ("", clip_note)]
         g10 = group("비서 기능", self.assist_rows)
 
         # 비용
@@ -327,6 +340,10 @@ class SettingsDialog(QDialog):
             "ui.show_status": self.show_status.isChecked(),
             "pc.monitor": self.pc_monitor.isChecked(),
             "assist.briefing": self.briefing.isChecked(),
+            "voice.speak": self.speak.isChecked(),
+            "voice.speak_rate": self.speak_rate.value(),
+            "pc.clip_tool": self.clip_tool.value(),
+            "pc.auto_clip": self.auto_clip.isChecked(),
         }
 
     def changed(self) -> dict:

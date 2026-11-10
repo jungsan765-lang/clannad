@@ -10,4 +10,5 @@ sounddevice>=0.5       # 마이크 (목소리로 말 걸기)
 faster-whisper>=1.2    # 음성 → 글자 (내 PC에서 처리)
 # keyring          # 선택: Windows 자격 증명 관리자에 API 키 저장
 dxcam==0.3.0; sys_platform == "win32"  # 게임 화면 찍기 (DXGI)
+comtypes>=1.4; sys_platform == "win32"  # 소리 내서 말하기 (Windows 음성)
 genshin==1.7.32  # 원신 HoYoLAB 실시간 메모·기원 기록 (공식 통로)

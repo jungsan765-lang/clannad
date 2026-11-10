@@ -18,7 +18,8 @@ EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
            "read_window", "add_rule", "correct_term", "zoom_screen", "add_focus", "block_window",
-           "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media", "make_recap"]
+           "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media", "make_recap",
+           "save_clip"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -326,6 +327,7 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   시작 메뉴·바탕화면 바로가기에 있는 것만 켤 수 있다. 끄기·삭제는 못 한다.
 - 음악·소리: "다음 곡", "멈춰", "소리 줄여", "음소거"는 action 은 "media", target 은 play_pause·next·prev·stop·vol_up·vol_down·mute 중
   하나와, 소리면 몇 단계인지(한 단계 2%, 예: "vol_down 5" = 10% 줄이기). message 는 아주 짧게.
+- 하이라이트: "방금 거 저장해줘", "클립 따줘"는 action 은 "save_clip" (녹화 프로그램의 '방금 것 저장'을 누르고 화면 몇 장을 남긴다).
 - 정리: "오늘 하루 정리해줘", "이번 주 어땠어?"처럼 지난 시간을 정리해 달라면 action 은 "make_recap",
   target 은 today·yesterday·week 중 하나. message 는 "정리해 볼게요" 처럼 짧게 (기록을 모아서 이어서 정리한다).
 - 알림: "30분 뒤에 알려줘", "11시에 자라고 해줘", "매일 밤 12시에 레진 쓰라고 해줘"처럼 부탁하면 action 은 "set_reminder",

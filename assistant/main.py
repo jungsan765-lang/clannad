@@ -58,6 +58,7 @@ from pc_monitor import PC_WORDS, PcMonitor
 from pc_monitor import read_status as read_pc_status
 from pc_monitor import status_text as pc_status_text
 from planner import Planner
+from tts import Speaker
 from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
 
@@ -71,6 +72,13 @@ class _Signals(QObject):
     done = Signal(object)
     failed = Signal(str)
     progress = Signal(object)  # 하는 중간중간 소식 (받는 중인 대사, 옮긴 파일 수 등)
+
+
+TTS_RATES = {"slow": -2, "normal": 0, "fast": 3}
+
+
+class _TtsSignals(QObject):
+    state = Signal(bool)
 
 
 class Job(QRunnable):
@@ -119,6 +127,12 @@ class AssistantApp(QObject):
         self.pc_monitor = PcMonitor()
         self.pc_timer = QTimer(self)  # PC 상태 (내 PC, 비용 없음)
         self.pc_timer.timeout.connect(self.check_pc)
+        self._last_clip = -1e9
+        self._last_pet = -1e9
+        self._tts_signals = _TtsSignals()
+        self._tts_signals.state.connect(self._on_tts_state)
+        self.speaker = Speaker(rate=TTS_RATES.get(str(self.pref("voice.speak_rate", "normal")), 0),
+                               on_state=self._tts_signals.state.emit)
         self._pc_busy = False
         self._streamed = False
         companion.fast = bool(self.pref("ai.fast", False))
@@ -206,6 +220,7 @@ class AssistantApp(QObject):
                                      int(settings.get("character.topmost_interval_ms", 1500)), self)
 
         self.window.clicked.connect(self.open_input)
+        self.window.petted.connect(self._on_petted)
         self.window.menu_requested.connect(lambda pos: self.menu.exec(pos))
         self.window.moved.connect(self._save_position)
         self.window.moved.connect(lambda _: self.status.refresh())
@@ -340,6 +355,7 @@ class AssistantApp(QObject):
         self.status.end("chat")
         self.bubble.show_text(reply.message, self.anchor())
         self.show_overlay(reply.message, important=True)  # 주인님이 직접 말을 건 것의 대답
+        self._say_aloud(reply.message)
         self.window.set_emotion(reply.emotion)
         self._start_talking()
         self._refresh_cost()
@@ -375,6 +391,8 @@ class AssistantApp(QObject):
                 self.status.flash(MEDIA_LABEL[cmd[0]] + (f" ×{cmd[1]}" if cmd[1] > 1 else ""))
         elif reply.action == "make_recap":
             QTimer.singleShot(300, lambda: self.make_recap(reply.target.strip() or "today"))
+        elif reply.action == "save_clip":
+            self.save_highlight(self._last_question)
         elif reply.action == "set_reminder":
             r = self.planner.add_from_target(reply.target)
             if r:
@@ -634,6 +652,10 @@ class AssistantApp(QObject):
             return
         self.bubble.show_text(reply.message, self.anchor())
         self.show_overlay(reply.message, important=bool(getattr(reply, "important", False)))
+        self._say_aloud(reply.message)
+        if (getattr(reply, "important", False) and self.watcher.mode.is_game and self.pref("pc.auto_clip", False)
+                and time.monotonic() - self._last_clip > 180):  # 중요한 순간 자동 저장 (3분에 한 번)
+            self.save_highlight(reply.message, auto=True)
         self.window.set_emotion(reply.emotion)
         self._start_talking()
         self._refresh_cost()
@@ -792,6 +814,10 @@ class AssistantApp(QObject):
             "ui.show_status": self.status.enabled,
             "pc.monitor": self.pc_timer.isActive(),
             "assist.briefing": bool(self.pref("assist.briefing", True)),
+            "voice.speak": bool(self.pref("voice.speak", False)),
+            "voice.speak_rate": str(self.pref("voice.speak_rate", "normal")),
+            "pc.clip_tool": str(self.pref("pc.clip_tool", "gamebar")),
+            "pc.auto_clip": bool(self.pref("pc.auto_clip", False)),
         }
 
     def open_settings_dialog(self) -> None:
@@ -867,6 +893,10 @@ class AssistantApp(QObject):
             self.status.set_enabled(bool(changed["ui.show_status"]))
         if "pc.monitor" in changed:
             self.set_pc_monitor(bool(changed["pc.monitor"]))
+        if "voice.speak_rate" in changed:
+            self.speaker.rate = TTS_RATES.get(str(changed["voice.speak_rate"]), 0)
+        if changed.get("voice.speak"):
+            self.set_speak(True)
         self._refresh_cost()
         if RESTART_KEYS & set(changed):
             self.bubble.show_text("저장했어요. 크기·인식 모델은 메뉴의 '다시 시작' 후 적용돼요.", self.anchor(),
@@ -985,6 +1015,7 @@ class AssistantApp(QObject):
         add(game, f"지금 자세히 분석·복기 ({g('hotkeys.analyze', 'F10')})", lambda: self.analyze_now())
         add(game, "지난 10분 복기 (저장된 화면으로)", lambda: self.review_recent(10))
         add(game, "영상으로 복기…", lambda: self.review_video_file())
+        add(game, "방금 장면 저장 (하이라이트)", lambda: self.save_highlight("메뉴에서 저장"))
         add(game, "분석 창 보기", lambda: (self.analysis_panel.show(), self.analysis_panel.raise_()))
         game.addSeparator()
         add(game, "지금 하는 게임 최신 소식 확인", lambda: self.refresh_game_news(force=True))
@@ -1283,6 +1314,54 @@ class AssistantApp(QObject):
         if not facts:
             return
         self._announce("오늘 처음 켰다. 하루 시작 인사와 함께 아래를 짧게 브리핑한다(두세 문장): " + " / ".join(facts))
+
+    # ------------------------------------------------------------ 소리 내서 말하기·하이라이트·쓰다듬기
+
+    def _say_aloud(self, text: str) -> None:
+        if self.pref("voice.speak", False) and text and text != "……":
+            self.speaker.speak(text)
+
+    def _on_tts_state(self, speaking: bool) -> None:
+        """읽는 동안엔 마이크가 다니카 목소리를 주인님 말로 듣지 않게."""
+        if speaking:
+            self.voice.paused = True
+        elif not self.busy:
+            self.voice.paused = False
+
+    def set_speak(self, on: bool) -> None:
+        self.set_pref("voice.speak", on)
+        if on:
+            self.speaker.speak("이제 소리 내서 말할게요.")
+            QTimer.singleShot(4000, lambda: (self.speaker.available is False) and self.bubble.show_text(
+                self.speaker.problem, self.anchor(), system=True, seconds=10))
+
+    def save_highlight(self, note: str = "", auto: bool = False) -> None:
+        """방금 장면: 녹화 프로그램에 '방금 것 저장'을 누르고, 최근 화면 몇 장과 메모를 data/highlights/ 에 남긴다."""
+        import pc_control
+
+        self._last_clip = time.monotonic()
+        tool = str(self.pref("pc.clip_tool", "gamebar"))
+        pressed = pc_control.save_clip(tool)
+        folder = self.settings.data_dir / "highlights" / time.strftime("%Y%m%d_%H%M%S")
+        try:
+            folder.mkdir(parents=True, exist_ok=True)
+            for i, (_, jpeg) in enumerate(list(self.watcher.frames)[-6:], 1):
+                (folder / f"{i:02d}.jpg").write_bytes(jpeg)
+            (folder / "메모.txt").write_text(f"{time.strftime('%Y-%m-%d %H:%M:%S')} [{self.watcher.mode.name}]\n{note}\n",
+                                            encoding="utf-8")
+        except OSError as exc:
+            log.warning("하이라이트 저장 실패: %s", exc)
+        log.info("하이라이트 저장 (%s, 녹화 단축키 %s)", "자동" if auto else "부탁", "누름" if pressed else "안 누름")
+        if not auto:
+            how = pc_control.CLIP_TOOLS.get(tool, ("", []))[0]
+            self.status.flash(f"방금 장면 저장했어요{f' ({how})' if pressed else ' (화면 몇 장만)'}", 4)
+
+    def _on_petted(self) -> None:
+        self.window.set_emotion("happy")
+        if time.monotonic() - self._last_pet < 120 or self.busy:
+            return
+        self._last_pet = time.monotonic()
+        self._announce("주인님이 마우스로 네 머리를 쓰다듬었다. 캐릭터답게 아주 짧게(한 문장) 반응한다.")
 
     def open_planner(self) -> None:
         from ui.planner_dialog import PlannerDialog
