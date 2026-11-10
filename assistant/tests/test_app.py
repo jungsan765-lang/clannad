@@ -649,3 +649,27 @@ def test_corrected_word_sticks_everywhere(qapp, tmp_path, built):
     dlg._remove()
     assert mem.term_pairs() == [("艦隊", "함대")]
     a.quit()
+
+
+def test_zoom_reads_small_text_at_native_resolution(qapp, tmp_path, built):
+    from PIL import Image
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "확대해서 볼게요.", "emotion": "normal", "action": "zoom_screen", "target": "외침"},
+        {"speak": True, "message": "외침에 '파티 구함 2/4'라고 올라와 있어요.", "emotion": "normal", "action": "none",
+         "target": ""},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.watcher.grabber = lambda: Image.new("RGB", (2560, 1440), (30, 30, 30))
+    a.ask("외침 뭐라고 하는지 읽어줘")
+    for _ in range(3):
+        _wait(qapp, a)
+    call = fake.calls[-1]
+    content = call["messages"][-1]["content"]
+    images = [b for b in content if b.get("type") == "image"]
+    labels = [b["text"] for b in content if b.get("type") == "text"]
+    assert len(images) == 5 and any("원래 해상도 조각: 왼쪽 아래" in t for t in labels)  # 전체 1 + 조각 4
+    assert a.bubble.text == "외침에 '파티 구함 2/4'라고 올라와 있어요." and not a.busy
+    a.quit()

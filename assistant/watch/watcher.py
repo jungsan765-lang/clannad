@@ -120,6 +120,7 @@ class ScreenWatcher(QObject):
     mode_changed = Signal(str)
     activity = Signal(str)  # "judge"(화면 확인 중) | "line"(할 말 고르는 중) | "analyze"(분석 중) | ""(끝)
     new_game = Signal(str, str, list)  # 처음 보는 게임을 자주 함: (실행 파일, 창 제목, 본 장면들)
+    missed = Signal()  # 주인님이 부탁한 화면 보기·분석이 할 말 없이 끝남 (말없이 끝나지 않게 알려 준다)
     result_seen = Signal(str)  # 게임 결과 화면을 봤음 (모드 이름) → 공식 기록이 있으면 나중에 기록으로 다시 본다
 
     def __init__(self, companion, cfg: WatchConfig, run_job: Callable, *, modes: list[Mode] | None = None,
@@ -154,6 +155,8 @@ class ScreenWatcher(QObject):
         self.last_check: float | None = None
         self.running_job = False
         self._job_gen = 0  # 버린 확인의 결과가 뒤늦게 오면 무시하려고 매번 번호를 붙인다
+        self._pending: tuple[Callable, object] | None = None  # 하던 확인이 끝나면 바로 할 부탁 (F8·F10·대화)
+        self._requested_gen: int | None = None
         self._job_local = threading.local()
         self._stage_name, self._stage_at, self._stage_limit = "", None, STAGE_LIMITS["start"]
         self.dxgi = DxgiGrabber()
@@ -281,9 +284,10 @@ class ScreenWatcher(QObject):
 
     # ------------------------------------------------------------ 뒤에서 하는 일 (너무 오래 걸리면 버림)
 
-    def _launch(self, fn: Callable, arg) -> None:
+    def _launch(self, fn: Callable, arg, requested: bool = False) -> None:
         self._job_gen += 1
         gen = self._job_gen
+        self._requested_gen = gen if requested else None
         self.running_job = True
         self._stage_name, self._stage_at, self._stage_limit = "start", self.clock(), STAGE_LIMITS["start"]
 
@@ -297,6 +301,9 @@ class ScreenWatcher(QObject):
                 return
             self._stage_at = None
             handler(value)
+            if requested and (handler != self._done or value is None or not getattr(value, "speak", False)):
+                self.missed.emit()
+            self._run_pending()
 
         self.run_job(work, lambda r: finish(self._done, r), lambda m: finish(self._fail, m), arg)
 
@@ -315,13 +322,24 @@ class ScreenWatcher(QObject):
         if waited <= self._stage_limit:
             return False
         log.warning("화면 확인이 %.0f초째 안 끝나서 건너뜀 (단계: %s)\n%s", waited, self._stage_name, _thread_stacks())
+        was_requested = self._requested_gen == self._job_gen
         self._job_gen += 1
         self.running_job = False
         self._stage_at = None
         self.stats["errors"] += 1
+        if was_requested:
+            self.missed.emit()
         self.activity.emit("")
         self.status.emit("화면 확인이 너무 오래 걸려서 이번 건 건너뛰었어요. 인터넷이나 서버가 잠깐 느린 것 같아요.")
+        self._run_pending()
         return True
+
+    def _run_pending(self) -> None:
+        if self._pending is not None and not self.running_job:
+            fn, arg = self._pending
+            self._pending = None
+            self.update_mode()
+            self._launch(fn, arg, requested=True)
 
     def tick(self) -> None:
         self.stats["ticks"] += 1
@@ -341,10 +359,11 @@ class ScreenWatcher(QObject):
 
     def ask_analysis(self, question: str = "지금 화면을 자세히 분석해 줘") -> None:
         """단축키(F10)·대화: 판단 없이 지금 화면을 최근 장면들과 함께 자세히 분석한다."""
-        if self.running_job:
+        if self.running_job:  # 하던 확인이 끝나면 바로 (버리지 않는다)
+            self._pending = (self._work_analysis, question)
             return
         self.update_mode()
-        self._launch(self._work_analysis, question)
+        self._launch(self._work_analysis, question, requested=True)
 
     def _remember(self, shot, mode, note=None) -> None:
         if self.screen_log is None:
@@ -391,9 +410,10 @@ class ScreenWatcher(QObject):
     def ask_now(self, question: str = "지금 화면 어때?") -> None:
         """단축키(F8): 판단·간격 무시하고 지금 화면을 보고 말하게 한다."""
         if self.running_job:
+            self._pending = (self._work, question)
             return
         self.update_mode()
-        self._launch(self._work, question)
+        self._launch(self._work, question, requested=True)
 
     def _shot(self) -> Shot:
         img = self.grabber()

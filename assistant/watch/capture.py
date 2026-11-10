@@ -65,6 +65,28 @@ def shrink(img: Image.Image, max_width: int = 1024) -> Image.Image:
     return img.resize((max_width, h), Image.Resampling.LANCZOS)
 
 
+_COLS = {1: [""], 2: ["왼쪽", "오른쪽"], 3: ["왼쪽", "가운데", "오른쪽"]}
+_ROWS = {1: [""], 2: ["위", "아래"], 3: ["위", "가운데", "아래"]}
+
+
+def tiles(img: Image.Image, max_side: int = 1400, overlap: float = 0.06) -> list[tuple[str, Image.Image]]:
+    """작은 글씨 읽기용: 화면을 줄이지 않고 원래 해상도 조각(최대 3x3)으로 나눈다. 경계 글자가 잘리지 않게 조금 겹친다."""
+    cols = min(3, max(1, -(-img.width // max_side)))
+    rows = min(3, max(1, -(-img.height // max_side)))
+    if cols == 1 and rows == 1:
+        return [("전체", img)]
+    w, h = img.width / cols, img.height / rows
+    pad_x, pad_y = int(w * overlap), int(h * overlap)
+    out = []
+    for r in range(rows):
+        for c in range(cols):
+            box = (max(0, int(c * w) - pad_x), max(0, int(r * h) - pad_y),
+                   min(img.width, int((c + 1) * w) + pad_x), min(img.height, int((r + 1) * h) + pad_y))
+            name = f"{_COLS[cols][c]} {_ROWS[rows][r]}".strip()
+            out.append((name, img.crop(box)))
+    return out
+
+
 def to_jpeg(img: Image.Image, quality: int = 70) -> bytes:
     buf = io.BytesIO()
     img.convert("RGB").save(buf, "JPEG", quality=quality, optimize=True)

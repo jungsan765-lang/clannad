@@ -167,6 +167,7 @@ class AssistantApp(QObject):
         self.watcher.mode_changed.connect(self._on_mode_changed)
         self._screen_searches: list[float] = []
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
+        self.watcher.missed.connect(self._on_screen_missed)
         self._last_watch_error = ""
 
         # 목소리로 말 걸기 (항상 듣기 / 단축키로 듣기 / 듣지 않기)
@@ -334,6 +335,8 @@ class AssistantApp(QObject):
             QTimer.singleShot(300, lambda: self.analyze_now(question))
         elif reply.action == "read_window":
             self.read_window_and_answer(reply.target.strip())
+        elif reply.action == "zoom_screen":
+            self.zoom_and_answer(reply.target.strip())
         elif reply.action == "make_game_mode":
             self.make_game_mode_now()
         elif reply.action == "correct_term":
@@ -388,6 +391,31 @@ class AssistantApp(QObject):
         def on_progress(msg) -> None:
             if msg is None:
                 self.status.set_text("chat", "창 내용 읽는 중")
+            else:
+                self._on_partial(msg)
+
+        self._run(work, self._on_reply, self._on_error, on_progress=on_progress)
+
+    def zoom_and_answer(self, target: str) -> None:
+        """'외침 읽어줘' 등: 보는 모니터를 줄이지 않고 원래 해상도 조각으로 나눠 찍어서 작은 글씨까지 읽고 답한다."""
+        from watch import capture as cap
+
+        label = target or "화면 글씨"
+        self.busy = True
+        self.voice.paused = True
+        self._streamed = False
+        self.status.begin("chat", "화면 확대해서 보는 중")
+
+        def work(progress):
+            img = self.watcher.grabber()
+            overview = cap.to_jpeg(cap.shrink(img, 1280), 80)
+            parts = [(name, cap.to_jpeg(t, 92)) for name, t in cap.tiles(img)]
+            progress(None)
+            return self.companion.reply_after_zoom(label, overview, parts, on_partial=progress)
+
+        def on_progress(msg) -> None:
+            if msg is None:
+                self.status.set_text("chat", "글씨 읽는 중")
             else:
                 self._on_partial(msg)
 
@@ -467,11 +495,15 @@ class AssistantApp(QObject):
         return "review" if self.watch_cfg.review else "analysis" if self.watch_cfg.analysis else "off"
 
     def analyze_now(self, question: str = "지금 화면을 자세히 분석해 줘") -> None:
-        """F10·메뉴·대화: 지금 화면을 최근 장면들과 함께 자세히 분석 (복기 모드 게임 중이면 지난 장면 복기)."""
-        if self.busy or self.watcher.running_job:
-            self.status.flash("하던 일이 끝나면 다시 눌러 주세요")
+        """F10·메뉴·대화: 지금 화면을 최근 장면들과 함께 자세히 분석 (복기 모드 게임 중이면 지난 장면 복기).
+        하던 화면 확인이 있으면 버리지 않고, 끝나는 대로 바로 한다."""
+        if self.busy:
+            self.status.flash("하던 대답이 끝나면 다시 눌러 주세요")
             return
-        self.status.begin("screen", "복기하는 중" if self.watcher.reviewing(self.watcher.mode) else "분석하는 중")
+        if self.watcher.running_job:
+            self.status.begin("screen", "하던 확인 끝나면 바로 볼게요")
+        else:
+            self.status.begin("screen", "복기하는 중" if self.watcher.reviewing(self.watcher.mode) else "분석하는 중")
         self.watcher.ask_analysis(question)
 
     def show_overlay(self, text: str, important: bool = True) -> None:
@@ -517,6 +549,13 @@ class AssistantApp(QObject):
             self.status.begin("screen", "이번 판 깊게 되짚는 중")
         else:
             self.status.end("screen")
+
+    def _on_screen_missed(self) -> None:
+        """부탁받은 화면 보기가 말없이 끝나면 '그냥 끊긴' 것처럼 보이지 않게 알린다."""
+        self.status.end("screen")
+        if not self.busy:
+            self.bubble.show_text("화면을 봤는데 제대로 못 읽었어요. 글씨를 읽어 달라는 거면 '외침 읽어줘'처럼 말씀해 주세요. "
+                                  "확대해서 다시 볼게요.", self.anchor(), system=True, seconds=8)
 
     def _on_screen_line(self, reply) -> None:
         if isinstance(reply, Analysis) and reply.speak:  # 분석은 창에 남겨 두니 대화 중이어도 보여 준다

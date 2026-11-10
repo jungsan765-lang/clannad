@@ -606,3 +606,35 @@ def test_result_screen_gets_deep_review_and_signal(qapp, tmp_path):
     w.tick()
     assert comp.analyses[-1]["deep"] and seen == ["cy"] and "analyze_deep" in acts
     assert said == ["흐름을 보니 왼쪽이 비었습니다."]
+
+
+def test_tiles_keep_native_resolution():
+    from watch.capture import tiles
+
+    parts = tiles(Image.new("RGB", (2560, 1440)))
+    assert [n for n, _ in parts] == ["왼쪽 위", "오른쪽 위", "왼쪽 아래", "오른쪽 아래"]
+    assert all(t.width >= 1280 and t.height >= 720 for _, t in parts)  # 줄이지 않음 (조금 겹침)
+    assert [n for n, _ in tiles(Image.new("RGB", (1280, 720)))] == ["전체"]
+    assert len(tiles(Image.new("RGB", (3840, 2160)))) == 6
+
+
+def test_requested_analysis_waits_instead_of_dropping(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path, notes=[{"speak": False, "urgent": False, "scene": "playing",
+                                                      "situation": "x", "point": ""}])
+    jobs = []
+    w.run_job = lambda fn, done, fail, *args: jobs.append((fn, done, fail, args))
+    missed = []
+    w.missed.connect(lambda: missed.append(1))
+    w.tick()  # 정기 확인이 도는 중
+    w.ask_analysis("외침 읽어줘")  # 그 사이 부탁 → 버리지 않고 기다림
+    assert len(jobs) == 1
+    fn, done, fail, args = jobs[0]
+    done(fn(*args))  # 정기 확인 끝 (할 말 없음) → 기다리던 분석 시작
+    assert len(jobs) == 2 and missed == []
+    fn, done, fail, args = jobs[1]
+    done(fn(*args))
+    assert comp.analyses[-1]["question"] == "외침 읽어줘" and said == ["흐름을 보니 왼쪽이 비었습니다."]
+    w.ask_now("이거 뭐야?")
+    fn, done, fail, args = jobs[2]
+    done(None)  # 부탁받은 게 말없이 끝나면 알림
+    assert missed == [1]

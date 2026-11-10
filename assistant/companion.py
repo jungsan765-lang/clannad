@@ -17,7 +17,7 @@ log = logging.getLogger("assistant.companion")
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
-           "read_window", "add_rule", "correct_term"]
+           "read_window", "add_rule", "correct_term", "zoom_screen"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -306,6 +306,10 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 창 읽기: 주인님이 카카오톡·디스코드·메모장 같은 다른 프로그램 창(또는 '이 창')을 읽어 달라고 하면 action 은 "read_window",
   target 에 프로그램 이름(예: "카카오톡", 지금 쓰던 창이면 빈 문자열), message 는 "확인해 보겠습니다" 같은 짧은 말.
   창을 찍어서 본 뒤에 이어서 답한다. 메시지를 보내거나 창을 조작하지는 못한다.
+- 화면 글씨 읽기: 주인님이 지금 화면(게임 포함)에 있는 글씨 — 채팅·외침·퀘스트·아이템 설명·알림 등 — 를 읽어 달라고 하면
+  action 은 "zoom_screen", target 에 읽을 곳(예: "외침", "왼쪽 아래 채팅창"), message 는 "확대해서 볼게요" 처럼 짧게.
+  화면을 줄이지 않고 원래 해상도 조각으로 나눠 찍어서 본 뒤 이어서 답한다. 다른 프로그램 창(카톡 등)은 read_window.
+  글씨가 작아 안 보인다고 그냥 끝내지 말고 이걸 쓴다.
 - 금지 사항: 주인님이 "앞으로 ~하지 마", "그런 얘기 하지 마", "그건 쓸데없어"처럼 하지 말라고 하면 action 은 "add_rule",
   target 은 "적용 범위: 하지 말 것" 한 문장으로 구체적으로 적는다. 적용 범위는 게임 중에 한 말이면 지금 게임 이름,
   "어디서든"·"항상"이면 "전체". 예) "칸코레: 원정 귀환 알림은 말하지 않기", "전체: 쉬라는 잔소리 하지 않기".
@@ -577,6 +581,23 @@ class Companion:
                                                 "물은 것에 필요한 만큼만 정리한다. 다른 사람의 대화는 주인님이 물은 만큼만 말한다. "
                                                 "창을 못 찾았으면 창을 열어 두라고 짧게 말한다. action 은 none."})
         r = self._respond(content, f"(창을 읽고 답함: {label})", now, on_partial, fast)
+        r.action, r.target = "none", ""
+        return r
+
+    def reply_after_zoom(self, target: str, overview: bytes, parts: list[tuple[str, bytes]], on_partial=None,
+                         fast: bool | None = None, now: datetime | None = None) -> Reply:
+        """화면을 원래 해상도 조각으로 나눠 찍은 것을 보고, 읽어 달라고 한 글씨를 읽어 답한다."""
+        now = now or datetime.now()
+        content: list[dict] = [{"type": "text", "text": "[전체 화면 (줄인 것, 위치 파악용)]"}, self._image_block(overview)]
+        for name, jpeg in parts:
+            content.append({"type": "text", "text": f"[원래 해상도 조각: {name}]"})
+            content.append(self._image_block(jpeg))
+        content.append({"type": "text", "text": (
+            f"주인님이 화면에서 '{target}' 을(를) 읽어 달라고 했다. 조각들은 화면을 줄이지 않고 나눈 것이라 작은 글씨도 보인다. "
+            "그 부분을 찾아 글자를 읽고 방금 주인님 말에 이어서 답한다. 채팅·외침처럼 짧은 글은 누가 뭐라고 했는지 옮기고"
+            "(여러 줄이면 최근 것부터 몇 줄), 길면 요약한다. 외국어는 한국어로 옮긴다. 확실히 안 읽히는 글자는 지어내지 않는다. "
+            "정말 안 보이면 어느 부분이 왜 안 보이는지 말하고 방법 하나(채팅창 키우기·배경 불투명하게)를 짧게 말한다. action 은 none.")})
+        r = self._respond(content, f"(화면을 확대해서 읽고 답함: {target})", now, on_partial, fast)
         r.action, r.target = "none", ""
         return r
 
