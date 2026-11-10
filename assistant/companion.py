@@ -841,9 +841,26 @@ class Companion:
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
         content: list[dict] = []
-        for jpeg, ago in frames:
-            content.append({"type": "text", "text": "(지금 화면)" if ago < 1 else f"({ago:.0f}초 전 화면)"})
-            content.append(self._image_block(jpeg))
+        if len(frames) >= 3:  # 지난 장면들은 한 장에 모아서 (이미지 비용 몇 분의 일), 지금 화면만 크게
+            past, (now_jpeg, _) = frames[:-1], frames[-1]
+            from watch.capture import contact_sheet
+
+            try:
+                sheet = contact_sheet([(j, f"-{ago:.0f}s") for j, ago in past])
+                content.append({"type": "text", "text": f"(지난 장면 {len(past)}개를 한 장에 모음: 1번이 가장 오래됨, "
+                                                        "칸 아래 '-30s' = 30초 전)"})
+                content.append(self._image_block(sheet))
+            except Exception as exc:  # noqa: BLE001 - 못 모으면 따로따로
+                log.warning("장면 모으기 실패: %r", exc)
+                for jpeg, ago in past:
+                    content.append({"type": "text", "text": f"({ago:.0f}초 전 화면)"})
+                    content.append(self._image_block(jpeg))
+            content.append({"type": "text", "text": "(지금 화면)"})
+            content.append(self._image_block(now_jpeg))
+        else:
+            for jpeg, ago in frames:
+                content.append({"type": "text", "text": "(지금 화면)" if ago < 1 else f"({ago:.0f}초 전 화면)"})
+                content.append(self._image_block(jpeg))
         content += self._focus_blocks(focus, focus_label)
         task = RESULT_TASK if deep else REVIEW_TASK if review else ANALYSIS_TASK
         lines = [f"[지금: {stamp}]", task, f"맨 앞 창: {title or '(알 수 없음)'}"]

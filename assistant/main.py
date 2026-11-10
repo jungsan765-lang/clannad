@@ -77,6 +77,8 @@ class _Signals(QObject):
 
 
 TTS_RATES = {"slow": -2, "normal": 0, "fast": 3}
+# 화면 보기에 드는 호출 종류 (하루 화면 한도에 들어감). 주인님이 직접 부탁한 대화·분석은 한도와 상관없이 된다
+SCREEN_KINDS = ("judge", "screen", "pick", "analysis", "result_review", "official_review")
 
 
 class _TtsSignals(QObject):
@@ -156,7 +158,7 @@ class AssistantApp(QObject):
             judge_model=g("screen.judge_model", "claude-haiku-5-5"), line_model=g("screen.line_model", "claude-opus-5-5"),
             cooldown_seconds=float(g("screen.cooldown_seconds", 90)),
             chattiness=str(g("screen.chattiness", "normal")),
-            max_skip_minutes=float(g("screen.max_skip_minutes", 3)),
+            max_skip_minutes=max(10.0, float(g("screen.max_skip_minutes", 15))),  # 그대로인 화면은 10분+에 한 번만
             change_threshold=float(g("screen.change_threshold", 0.015)),
             max_width=int(g("screen.max_width", 1920)), jpeg_quality=int(g("screen.jpeg_quality", 85)))
         modes = self._load_modes()
@@ -176,6 +178,7 @@ class AssistantApp(QObject):
         self.watcher.screen_log = self.screen_log
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
+        self.watch_cfg.line_quality = str(self.pref("screen.line_quality", "auto"))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
@@ -565,6 +568,15 @@ class AssistantApp(QObject):
             return False
         if self._away_since is not None:  # 자리 비움(자는 중 등) → 화면 보기 쉼 (밤새 비용 안 나가게)
             return False
+        limit = int(self.pref("screen.daily_krw", 3000) or 0)
+        if limit and self.ledger.krw(self.ledger.day_kinds_usd(SCREEN_KINDS)) >= limit:  # 오늘 화면 한도
+            today = datetime.now().date().isoformat()
+            if self.pref("screen.daily_limit_told", "") != today:
+                self.set_pref("screen.daily_limit_told", today)
+                self.bubble.show_text(f"오늘 화면 보기 한도({limit:,}원)를 다 써서 내일까지 화면 보기는 쉴게요. 대화와 F8·F10 은 "
+                                      "그대로 돼요. 한도는 설정 창 '화면 보기'에서 바꿀 수 있어요.", self.anchor(), system=True,
+                                      seconds=12)
+            return False
         if settings_flag(self.settings, "screen.stop_when_over_budget", True):
             budget = self.budget_usd()
             if budget and self.ledger.month_usd() >= budget:
@@ -820,6 +832,8 @@ class AssistantApp(QObject):
             "screen.read_windows": bool(self.pref("screen.read_windows", True)),
             "screen.auto_read": bool(self.watch_cfg.auto_read),
             "screen.result_depth": "deep" if self.watch_cfg.deep_result else "quick",
+            "screen.line_quality": self.watch_cfg.line_quality,
+            "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
             "screen.memory_gb": int(self.screen_log.max_gb),
             "screen.overlay": str(self.pref("screen.overlay", "important")),
@@ -885,6 +899,11 @@ class AssistantApp(QObject):
             self.watch_cfg.auto_read = bool(changed["screen.auto_read"])
         if "screen.result_depth" in changed:
             self.watch_cfg.deep_result = changed["screen.result_depth"] == "deep"
+        if "screen.line_quality" in changed:
+            self.watch_cfg.line_quality = str(changed["screen.line_quality"])
+        if "screen.daily_krw" in changed:
+            self.set_pref("screen.daily_krw", int(changed["screen.daily_krw"]))
+            self.set_pref("screen.daily_limit_told", "")
         if "screen.memory" in changed:
             self.screen_log.enabled = bool(changed["screen.memory"])
         if "screen.memory_days" in changed or "screen.memory_gb" in changed:
@@ -1112,8 +1131,10 @@ class AssistantApp(QObject):
 
     def cost_text(self) -> str:
         day, month = self.ledger.day_usd(), self.ledger.month_usd()
-        return (f"오늘 사용 {self.ledger.krw(day):,}원 · 이번 달 {self.ledger.krw(month):,}원 "
-                f"(${month:,.2f} / ${self.budget_usd():,.0f})")
+        screen = self.ledger.krw(self.ledger.day_kinds_usd(SCREEN_KINDS))
+        limit = int(self.pref("screen.daily_krw", 3000) or 0)
+        return (f"오늘 사용 {self.ledger.krw(day):,}원 (화면 {screen:,}원" + (f"/{limit:,}원" if limit else "") + ") · "
+                f"이번 달 {self.ledger.krw(month):,}원 (${month:,.2f} / ${self.budget_usd():,.0f})")
 
     def _refresh_cost(self) -> None:
         text = self.cost_text()

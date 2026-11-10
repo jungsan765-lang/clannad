@@ -98,5 +98,29 @@ def thumb(img: Image.Image) -> np.ndarray:
     return np.asarray(img.convert("L").resize((64, 36), Image.Resampling.BILINEAR), dtype=np.float32) / 255.0
 
 
+def contact_sheet(frames: list[tuple[bytes, str]], cols: int = 3, cell_width: int = 640, quality: int = 80) -> bytes:
+    """여러 장면을 한 장에 모은다 (왼쪽 위부터 순서대로, 칸마다 아래에 이름표). 장면 여러 장을 따로 보내는 것보다
+    AI 이미지 비용이 몇 분의 일. 이름표는 '-30s' 처럼 짧은 영문·숫자만 (기본 글꼴에 한글이 없어서)."""
+    from PIL import ImageDraw
+
+    imgs = []
+    for jpeg, label in frames:
+        im = Image.open(io.BytesIO(jpeg)).convert("RGB")
+        im = im.resize((cell_width, max(1, round(im.height * cell_width / im.width))), Image.Resampling.LANCZOS)
+        imgs.append((im, label))
+    if not imgs:
+        raise ValueError("no frames")
+    cols = max(1, min(cols, len(imgs)))
+    rows = -(-len(imgs) // cols)
+    cell_h = max(im.height for im, _ in imgs) + 18
+    sheet = Image.new("RGB", (cols * cell_width, rows * cell_h), (16, 16, 16))
+    draw = ImageDraw.Draw(sheet)
+    for i, (im, label) in enumerate(imgs):
+        x, y = (i % cols) * cell_width, (i // cols) * cell_h
+        sheet.paste(im, (x, y))
+        draw.text((x + 6, y + im.height + 3), f"{i + 1}. {label}", fill=(255, 255, 255))
+    return to_jpeg(sheet, quality)
+
+
 def change_amount(a: np.ndarray | None, b: np.ndarray) -> float:
     return 1.0 if a is None else float(np.abs(a - b).mean())

@@ -70,11 +70,17 @@ class WatchConfig:
     analysis: bool = False  # 분석 모드: 짚을 만한 순간에 최근 장면 여러 장으로 자세히 분석
     review: bool = False  # 복기 모드(게임 중): 자주 보고, 한 장면이 끝나면 지난 30초쯤을 되짚는다
     review_interval: float = 5.0  # 복기 모드에서 화면을 보는 간격(초)
-    review_gap: float = 40.0  # 복기 사이 최소 간격(초)
+    review_gap: float = 90.0  # 복기 사이 최소 간격(초). 짧으면 비싸진다 (복기 한 번 = 비싼 모델 1회)
     focus_crop: bool = True  # 맨 앞 창이 화면의 70%보다 작으면 그 창을 원래 크기로 한 장 더 보냄
     auto_read: bool = True  # 메신저(카톡 등)를 쓰고 있으면 어느 모니터에 있든 그 창을 직접 찍어 함께 본다
     deep_result: bool = True  # 판이 끝난 결과 화면 총평은 오래 생각해서 (1~2분, 조금 더 비쌈)
     pick_gap: float = 150.0  # 픽 조언 사이 최소 간격(초): 한 번의 픽 화면에선 한 번만
+    # 아끼기: 화면은 이 PC 에서 자주(무료) 살펴보고, AI 판단은 '확인 간격'마다 또는 장면이 크게 바뀌어 멈췄을 때만
+    sample_seconds: float = 10.0  # 이 PC 에서 화면이 바뀌었는지 살피는 간격 (비용 없음)
+    scene_change: float = 0.08  # 이만큼 크게 바뀌고(장면 전환) 멈춰 있으면 확인 간격 전이라도 판단
+    event_gap: float = 8.0  # 장면 전환 판단 사이 최소 간격(초)
+    economy_line_model: str = "claude-sonnet-5-5"  # 평범한 화면 대사는 이 모델 (중요한 말·대화는 line_model)
+    line_quality: str = "auto"  # auto: 평범한 화면 대사는 economy_line_model / best: 항상 line_model
 
 
 @dataclass
@@ -167,6 +173,7 @@ class ScreenWatcher(QObject):
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
         self.window_capture = capture_window  # 창 하나만 찍기 (테스트에서 바꿔 끼움)
         self.last_focus_thumb = None
+        self._prev_sample = None  # 바로 전 살펴보기 때 화면 (장면이 멈췄는지 보려고)
         self._black_warned = -1e9
         self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
@@ -373,7 +380,8 @@ class ScreenWatcher(QObject):
         self._blocked_logged = ""
         now = self.clock()
         mode = self.mode
-        if self.last_check is not None and now - self.last_check < self.interval_for(mode):
+        sample = min(self.cfg.sample_seconds, self.interval_for(mode))  # 살펴보기는 자주(무료), 판단은 _work 에서 가림
+        if self.last_check is not None and now - self.last_check < sample:
             return
         # 긴급 경고·총평이 없는 모드는 쉬는 시간 동안 아예 보지 않는다 (판단 비용도 0). 복기 모드는 장면을 계속 모은다
         if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result or self.reviewing(mode)):
@@ -508,19 +516,25 @@ class ScreenWatcher(QObject):
             self._remember(shot, mode)
             return self._say(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
                                               mode=mode, session_notes=notes)
-        stale = self.last_judged is not None and self.clock() - self.last_judged >= self.cfg.max_skip_minutes * 60
+        now = self.clock()
+        since = None if self.last_judged is None else now - self.last_judged
+        stale = since is not None and since >= self.cfg.max_skip_minutes * 60
         changed = cap.change_amount(self.last_thumb, shot.thumb)
         if shot.focus_thumb is not None:  # 메신저 창에 새 메시지가 오면 큰 화면이 그대로여도 다시 본다
             changed = max(changed, cap.change_amount(self.last_focus_thumb, shot.focus_thumb))
-        if changed < self.cfg.change_threshold and not stale:
-            self.stats["skipped_same"] += 1
+        settled = cap.change_amount(self._prev_sample, shot.thumb) < self.cfg.change_threshold * 2
+        self._prev_sample = shot.thumb
+        due = since is None or since >= self.interval_for(mode)  # 확인 간격이 지남
+        scene = changed >= self.cfg.scene_change and settled and (since is None or since >= self.cfg.event_gap)
+        if not stale and not (changed >= self.cfg.change_threshold and (due or scene)):
+            self.stats["skipped_same"] += 1  # 그대로이거나, 바뀌었지만 아직 확인 간격 전 (다음 살펴보기 때 다시)
             return None
+        self._stage("judge")  # 이미 버린 확인이면 여기서 멈춤 (아래 상태를 바꾸지 않게)
         self.last_thumb = shot.thumb
         self.last_focus_thumb = shot.focus_thumb
         self.frames.append((self.clock(), shot.jpeg))
         self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
-        self._stage("judge")
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
                                     focus_label=shot.focus_label,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
@@ -568,8 +582,8 @@ class ScreenWatcher(QObject):
             return None
         if self.cfg.analysis:
             return self._analyze(shot, note, mode, notes)
-        return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
-                                          session_notes=notes)
+        model = self.cfg.economy_line_model if self.cfg.line_quality == "auto" else self.cfg.line_model
+        return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes)
 
     def _count_game(self, scene: str, situation: str) -> None:
         """평소 모드인데 게임 화면이 자주 보이면 그 게임 모드를 만들자고 알린다."""

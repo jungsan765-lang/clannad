@@ -927,3 +927,22 @@ def test_resume_progress_chores_and_news_dates(qapp, tmp_path, built):
     texts = [r["text"] for r in a.planner.reminders]
     assert any("끝나기 3일 전" in t for t in texts) and any("점검 1시간 전" in t for t in texts)
     a.quit()
+
+
+def test_daily_screen_limit_pauses_watching(qapp, tmp_path, built):
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    a.bubble.hide()
+    assert a._screen_allowed()
+    a.ledger.record("claude-opus-5-5", {"input_tokens": 600_000}, "result_review")  # 2.4달러 ≈ 3,360원
+    a.ledger.record("claude-opus-5-5", {"input_tokens": 600_000}, "chat")  # 대화는 한도에 안 들어감
+    assert not a._screen_allowed() and "화면 보기 한도" in a.bubble.text
+    assert "(화면 3,360원/3,000원)" in a.cost_text()
+    a.apply_settings({"screen.daily_krw": "5000"})
+    a.bubble.hide()
+    assert a._screen_allowed()
+    a.apply_settings({"screen.daily_krw": "0"})
+    a.bubble.hide()  # '설정을 저장했어요' 말풍선
+    assert a._screen_allowed() and "/" not in a.cost_text().split("(화면")[1].split(")")[0]
+    a.quit()

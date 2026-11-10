@@ -73,6 +73,11 @@ class UsageLedger:
     def day_usd(self, today: date | None = None) -> float:
         return self.data["days"].get((today or date.today()).isoformat(), {}).get("usd", 0.0)
 
+    def day_kinds_usd(self, kinds: tuple[str, ...], today: date | None = None) -> float:
+        """오늘 이 종류들(예: 화면 보기 관련)에 쓴 돈."""
+        by_kind = self.data["days"].get((today or date.today()).isoformat(), {}).get("by_kind", {})
+        return sum(v for k, v in by_kind.items() if k in kinds)
+
     def month_usd(self, today: date | None = None) -> float:
         prefix = (today or date.today()).isoformat()[:7]
         return sum(d["usd"] for k, d in self.data["days"].items() if k.startswith(prefix))

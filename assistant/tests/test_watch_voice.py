@@ -470,13 +470,13 @@ def test_analysis_mode_uses_recent_frames_instead_of_one_liner(qapp, tmp_path):
     w.cfg.analysis = True
     seen = []
     w.activity.connect(seen.append)
-    for i, now in enumerate([0, 20, 40]):  # 쉬는 시간 없이 판단만 쌓이게
+    for i, now in enumerate([0, 30, 60]):  # 확인 간격(30초)마다, 쉬는 시간 없이 판단만 쌓이게
         t["now"] = now
         w.last_spoke = None
         w.last_check = None
         w.tick()
     a = comp.analyses[-1]
-    assert [round(ago) for _, ago in a["frames"]] == [40, 20, 0]  # 오래된 것부터, 지금 화면이 마지막
+    assert [round(ago) for _, ago in a["frames"]] == [60, 30, 0]  # 오래된 것부터, 지금 화면이 마지막
     assert a["note"]["scene"] == "playing" and said[-1] == "흐름을 보니 왼쪽이 비었습니다."
     assert "analyze" in seen and comp.lines == []  # 한 줄 대사는 안 씀
     assert comp.memory.spoken_lines()[-1] == "흐름을 보니 왼쪽이 비었습니다."
@@ -513,10 +513,10 @@ def test_review_mode_keeps_watching_and_recaps_after_a_scene_ends(qapp, tmp_path
     assert rec["review"] and len(rec["frames"]) == 6  # 지난 25초 장면 6장
     assert [round(a) for _, a in rec["frames"]] == [25, 20, 15, 10, 5, 0]
     assert said == ["흐름을 보니 왼쪽이 비었습니다."]
-    t["now"] = 40.0
-    w.tick()  # 복기 사이 40초가 안 지나서 또 복기하지 않음 (판단은 계속)
-    assert len(comp.analyses) == 1 and len(comp.judged) == 8
     t["now"] = 75.0
+    w.tick()  # 복기 사이 90초가 안 지나서 또 복기하지 않음 (판단은 계속)
+    assert len(comp.analyses) == 1 and len(comp.judged) == 8
+    t["now"] = 125.0
     w.tick()
     assert len(comp.analyses) == 2
 
@@ -668,3 +668,42 @@ def test_focus_and_dont_rules_reach_the_judge(tmp_path):
     assert "챙겨 봐 달라고 한 것" in system and "레진이 180" in system and "풍경 얘기 하지 않기" in system
     blocks = comp.system_blocks()[1]["text"]
     assert "챙겨 봐 달라고 한 것" in blocks and "[원신] 레진이 180" in blocks
+
+
+def test_local_sampling_judges_on_interval_or_settled_scene_change(qapp, tmp_path):
+    # 회색 밝기: 0 → 10(작은 변화) → 200(장면 전환) → 200(멈춤)
+    imgs = [_img(0), _img(10), _img(200), _img(200), _img(200)]
+    w, comp, said, t, _ = _watcher(tmp_path, images=imgs)
+    w.tick()  # 처음은 판단
+    assert len(comp.judged) == 1
+    t["now"] = 10
+    w.tick()  # 조금 바뀜, 확인 간격(30초) 전 → 판단 안 함 (이 PC 에서만 살펴봄)
+    assert len(comp.judged) == 1
+    t["now"] = 20
+    w.tick()  # 크게 바뀌었지만 아직 움직이는 중(멈췄는지 모름) → 기다림
+    assert len(comp.judged) == 1
+    t["now"] = 30
+    w.last_spoke = None
+    w.tick()  # 장면 전환 뒤 멈춤 → 판단
+    assert len(comp.judged) == 2
+    assert comp.lines[-1]["mode"] == "평소"
+
+
+def test_routine_lines_use_economy_model_and_review_uses_contact_sheet(tmp_path):
+    from PIL import Image as _Image
+
+    from watch import capture as cap
+
+    w_cfg = WatchConfig()
+    assert w_cfg.economy_line_model.startswith("claude-sonnet") and w_cfg.line_quality == "auto"
+    frames = [(cap.to_jpeg(_Image.new("RGB", (1920, 1080), (i * 40, 0, 0))), f"-{30 - i * 10}s") for i in range(3)]
+    sheet = _Image.open(__import__("io").BytesIO(cap.contact_sheet(frames)))
+    assert sheet.width == 3 * 640 and sheet.height < 1080 // 2
+    fake = FakeAnthropic([{"speak": True, "summary": "요약", "situation": "", "points": [], "next_steps": [],
+                           "emotion": "normal"}])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    jpeg = cap.to_jpeg(_Image.new("RGB", (800, 450)))
+    comp.analyze([(jpeg, 25.0), (jpeg, 20.0), (jpeg, 15.0), (jpeg, 10.0), (jpeg, 5.0), (jpeg, 0.0)], "게임", review=True)
+    content = fake.calls[-1]["messages"][-1]["content"]
+    assert sum(1 for b in content if b.get("type") == "image") == 2  # 지난 5장은 한 장으로 + 지금 화면
