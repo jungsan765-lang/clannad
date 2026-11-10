@@ -269,7 +269,9 @@ class MemoryDialog(QDialog):
             self.archived.addItem(item)
         self.days.clear()
         if self.diary_dir and self.diary_dir.is_dir():
-            for p in sorted(self.diary_dir.glob("????-??-??.md"), reverse=True):
-                item = QListWidgetItem(p.stem)
+            files = list(self.diary_dir.glob("????-??-??.md")) + list(self.diary_dir.glob("week-????-??-??.md"))
+            for p in sorted(files, key=lambda p: p.stem.replace("week-", "") + ("~" if p.stem.startswith("week") else ""),
+                            reverse=True):
+                item = QListWidgetItem(("한 주 · " + p.stem[5:]) if p.stem.startswith("week-") else p.stem)
                 item.setData(Qt.ItemDataRole.UserRole, str(p))
                 self.days.addItem(item)

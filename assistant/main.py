@@ -441,7 +441,9 @@ class AssistantApp(QObject):
         folder = self.settings.data_dir / "diary"
         days = [(now.date() - timedelta(days=i)).isoformat() for i in range(1, 8)]
         todo = [d for d in days if not (folder / f"{d}.md").exists()]
-        if not todo:
+        last_monday = now.date() - timedelta(days=now.weekday() + 7)
+        week_file = folder / f"week-{last_monday.isoformat()}.md"
+        if not todo and (week_file.exists() or not any(folder.glob("????-??-??.md"))):
             return
         self._diary_busy = True
         from recall import diary_material
@@ -449,6 +451,7 @@ class AssistantApp(QObject):
         def work():
             self.recall_index.sync(self.settings.data_dir)
             written = []
+            self._write_weekly(folder, now)
             for day in sorted(todo):
                 material = diary_material(self.recall_index, day)
                 folder.mkdir(parents=True, exist_ok=True)
@@ -497,6 +500,31 @@ class AssistantApp(QObject):
                                   game=mode.name if mode.is_game else "", ref=ref)
         except Exception:  # noqa: BLE001
             log.exception("순간 저장 실패")
+
+    def _write_weekly(self, folder: Path, now: datetime) -> None:
+        """(뒤에서) 지난주(월~일) 일기들 → 주간 요약 한 편 (기억의 선: 원본 → 일화 → 하루 일기 → 주간 요약 → 사실)."""
+        monday = now.date() - timedelta(days=now.weekday() + 7)
+        path = folder / f"week-{monday.isoformat()}.md"
+        if path.exists():
+            return
+        days = [(monday + timedelta(days=i)).isoformat() for i in range(7)]
+        texts = []
+        for d in days:
+            try:
+                body = (folder / f"{d}.md").read_text(encoding="utf-8").split("\n", 2)[-1].strip()
+            except OSError:
+                continue
+            if body and not body.startswith("(기록이 거의 없는 날)"):
+                texts.append(f"[{d}] {body}")
+        if len(texts) < 2:
+            return
+        summary = self.companion.write_diary(f"{days[0]} ~ {days[-1]} (한 주)", "\n".join(texts), self.watch_cfg.judge_model)
+        if summary:
+            folder.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"# {days[0]} ~ {days[-1]} 한 주\n\n{summary}\n", encoding="utf-8")
+            self.recall_index.add(f"{days[-1]}T23:59:30", "diary", f"{days[0]}~{days[-1]} 주간 요약: {summary}",
+                                  source=f"week:{days[0]}")
+            log.info("주간 요약 씀: %s", path.name)
 
     def remember_episode(self, kind: str, text: str, game: str = "", detail: str = "") -> None:
         """분석·찾아본 것·게임 기록처럼 원본 기록 파일이 없는 일을 색인에 바로 넣는다."""

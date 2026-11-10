@@ -1107,3 +1107,25 @@ def test_cost_details_by_kind(qapp, tmp_path, built):
     text = a.cost_details()
     assert text.index("분석·복기: 2,800원") < text.index("화면 판단: 140원") and "[이번 달]" in text
     a.quit()
+
+
+def test_weekly_summary_from_diaries(qapp, tmp_path, built):
+    from datetime import datetime as _dt
+    from datetime import timedelta as _td
+
+    fake = FakeAnthropic([{"diary": "지난주엔 붉은사막 3장을 끝내셨다."}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    folder = tmp_path / "data" / "diary"
+    folder.mkdir(parents=True)
+    now = _dt.now()
+    monday = now.date() - _td(days=now.weekday() + 7)
+    for i, text in enumerate(["카일록을 잡으셨다.", "민지 씨 얘기를 하셨다."]):
+        (folder / f"{(monday + _td(days=i)).isoformat()}.md").write_text(f"# d\n\n{text}\n", encoding="utf-8")
+    a._write_weekly(folder, now)
+    week = folder / f"week-{monday.isoformat()}.md"
+    assert "붉은사막 3장" in week.read_text(encoding="utf-8") and "카일록을 잡으셨다" in str(fake.calls[0]["messages"])
+    assert a.recall_index.search(["붉은사막"], kinds=("diary",))[0].text.startswith(monday.isoformat())
+    a._write_weekly(folder, now)  # 한 번만
+    assert len(fake.calls) == 1
+    a.quit()
