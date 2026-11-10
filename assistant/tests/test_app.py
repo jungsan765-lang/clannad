@@ -373,7 +373,7 @@ def test_judge_does_not_wait_long(tmp_path):
     comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path), None,
                      chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
     comp.judge(b"jpg", "x", "claude-haiku-5-5", None)
-    assert fake.options[-1] == {"timeout": 30, "max_retries": 1}
+    assert fake.options[-1] == {"timeout": 20, "max_retries": 1}
 
 
 def test_analysis_shows_panel_and_summary_and_chat_can_ask(qapp, tmp_path, built, monkeypatch):
