@@ -673,3 +673,21 @@ def test_zoom_reads_small_text_at_native_resolution(qapp, tmp_path, built):
     assert len(images) == 5 and any("원래 해상도 조각: 왼쪽 아래" in t for t in labels)  # 전체 1 + 조각 4
     assert a.bubble.text == "외침에 '파티 구함 2/4'라고 올라와 있어요." and not a.busy
     a.quit()
+
+
+def test_second_start_closes_the_first(qapp, tmp_path):
+    import time as _t
+
+    name = app_main.instance_name(tmp_path)
+    pid_file = tmp_path / "data" / "instance.pid"
+    assert not app_main.take_over_instance(name, pid_file)  # 처음엔 켜져 있는 것 없음
+    quit_calls = []
+    server = app_main.serve_instance(name, pid_file, lambda: quit_calls.append(1))
+    assert pid_file.read_text(encoding="utf-8") == str(os.getpid())
+    assert app_main.take_over_instance(name, pid_file)  # 두 번째로 켜면 → 첫 번째에게 꺼 달라고
+    end = _t.monotonic() + 3
+    while not quit_calls and _t.monotonic() < end:
+        qapp.processEvents()
+        _t.sleep(0.02)
+    assert quit_calls == [1]
+    server.close()

@@ -1813,6 +1813,107 @@ def wait_for_exit(pid: int, seconds: float = 15.0) -> None:
         time.sleep(0.2)
 
 
+# ---------------------------------------------------------------- 한 마리만
+
+def instance_name(root: Path) -> str:
+    import hashlib
+
+    return "danika-" + hashlib.sha1(str(root).lower().encode("utf-8")).hexdigest()[:12]
+
+
+def _pid_alive(pid: int) -> bool:
+    if sys.platform == "win32":
+        import ctypes
+
+        handle = ctypes.windll.kernel32.OpenProcess(0x00100000, False, pid)  # SYNCHRONIZE
+        if not handle:
+            return False
+        try:
+            return ctypes.windll.kernel32.WaitForSingleObject(handle, 0) == 0x102  # WAIT_TIMEOUT = 아직 살아 있음
+        finally:
+            ctypes.windll.kernel32.CloseHandle(handle)
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+    return True
+
+
+def _kill(pid: int) -> None:
+    if sys.platform == "win32":
+        import ctypes
+
+        handle = ctypes.windll.kernel32.OpenProcess(0x0001, False, pid)  # PROCESS_TERMINATE
+        if handle:
+            ctypes.windll.kernel32.TerminateProcess(handle, 1)
+            ctypes.windll.kernel32.CloseHandle(handle)
+        return
+    import signal
+
+    try:
+        os.kill(pid, signal.SIGTERM)
+    except OSError:
+        pass
+
+
+def take_over_instance(name: str, pid_file: Path, wait: float = 8.0) -> bool:
+    """이미 켜져 있는 다니카가 있으면 꺼 달라고 하고, 안 꺼지면(멈춰 있으면) 강제로 끈다. 있었으면 True.
+    run 을 다시 누르면 '다시 켜기'가 되고, 두 마리가 동시에 뜨지 않는다."""
+    from PySide6.QtNetwork import QLocalSocket
+
+    sock = QLocalSocket()
+    sock.connectToServer(name)
+    if not sock.waitForConnected(700):
+        return False  # 켜져 있는 다니카 없음
+    try:
+        old = int(pid_file.read_text(encoding="utf-8").strip())
+    except (OSError, ValueError):
+        old = 0
+    sock.write(b"quit\n")
+    sock.flush()
+    sock.waitForBytesWritten(1000)
+    sock.disconnectFromServer()
+    log.info("이미 켜져 있던 다니카(pid %s)를 끄고 새로 켬", old or "?")
+    if old and old != os.getpid():
+        wait_for_exit(old, wait)
+        if _pid_alive(old):  # 응답 없음 상태 → 강제로
+            log.warning("이전 다니카가 %.0f초 안에 안 꺼져서 강제로 끔 (pid %s)", wait, old)
+            _kill(old)
+            wait_for_exit(old, 3.0)
+    return True
+
+
+def serve_instance(name: str, pid_file: Path, on_quit: Callable[[], None]):
+    """나중에 켜지는 다니카가 '꺼 줘'라고 하면 끈다."""
+    from PySide6.QtNetwork import QLocalServer
+
+    QLocalServer.removeServer(name)  # 비정상 종료로 남은 것 정리
+    server = QLocalServer()
+    if not server.listen(name):
+        log.warning("한 마리만 켜기 장치를 못 켬: %s", server.errorString())
+
+    def on_connection() -> None:
+        while server.hasPendingConnections():
+            conn = server.nextPendingConnection()
+
+            def read(c=conn) -> None:
+                if b"quit" in bytes(c.readAll().data()):
+                    log.info("새로 켜진 다니카가 있어서 이쪽은 끔")
+                    on_quit()
+
+            conn.readyRead.connect(read)
+            if conn.bytesAvailable():
+                read()
+
+    server.newConnection.connect(on_connection)
+    try:
+        pid_file.parent.mkdir(parents=True, exist_ok=True)
+        pid_file.write_text(str(os.getpid()), encoding="utf-8")
+    except OSError:
+        pass
+    return server
+
+
 def main() -> int:
     if "--after" in sys.argv:
         i = sys.argv.index("--after")
@@ -1830,6 +1931,11 @@ def main() -> int:
     state_path = root / "data" / "update_state.json"
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
+    name, pid_file = instance_name(root), root / "data" / "instance.pid"
+    try:
+        take_over_instance(name, pid_file)
+    except Exception:  # noqa: BLE001 - 이것 때문에 못 켜지면 안 됨
+        log.exception("이전 다니카 확인 실패")
     if count_start(state_path) > 3 and rollback(root, state_path):  # 업데이트 뒤로 계속 꺼지기만 함
         relaunch(root)
         return 1
@@ -1849,7 +1955,12 @@ def main() -> int:
         return 1
     QTimer.singleShot(10_000, lambda: confirm_started(state_path))  # 잘 켜졌으면 업데이트 백업 정리
     hang_watch = HangWatch(logs)  # noqa: F841 - 프로그램이 도는 동안 살아 있어야 함
-    return app.exec()
+    server = serve_instance(name, pid_file, assistant.quit)  # noqa: F841 - 프로그램이 도는 동안 살아 있어야 함
+    code = app.exec()
+    # 뒤에서 기다리던 일(느린 응답 등)이 남아 있어도 프로세스가 남지 않게 바로 끝낸다 (보이지 않는 다니카가 남는 것 방지)
+    log.info("다니카 종료")
+    logging.shutdown()
+    os._exit(code)
 
 
 if __name__ == "__main__":
