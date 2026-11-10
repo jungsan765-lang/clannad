@@ -35,6 +35,7 @@ def cost_usd(model: str, usage: dict) -> float:
         + usage.get("output_tokens", 0) * pout
         + usage.get("cache_read_input_tokens", 0) * pread
         + usage.get("cache_creation_input_tokens", 0) * pwrite
+        + usage.get("cache_creation_1h_input_tokens", 0) * pin * 2  # 1시간 캐시 쓰기 = 입력 값의 2배
     ) / 1_000_000 + usage.get("web_search_requests", 0) * WEB_SEARCH_USD
 
 

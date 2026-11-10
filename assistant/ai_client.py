@@ -209,6 +209,10 @@ def _is_fast_problem(exc: Exception) -> bool:
 def _usage_dict(usage: Any) -> dict:
     keys = ("input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens")
     out = {k: int(getattr(usage, k, 0) or 0) for k in keys}
+    hour = int(getattr(getattr(usage, "cache_creation", None), "ephemeral_1h_input_tokens", 0) or 0)
+    if hour:  # 1시간 보관 캐시 쓰기는 값이 달라서 따로 센다
+        out["cache_creation_input_tokens"] = max(0, out["cache_creation_input_tokens"] - hour)
+        out["cache_creation_1h_input_tokens"] = hour
     searches = int(getattr(getattr(usage, "server_tool_use", None), "web_search_requests", 0) or 0)
     if searches:
         out["web_search_requests"] = searches

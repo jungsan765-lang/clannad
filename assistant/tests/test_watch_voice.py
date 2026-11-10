@@ -127,7 +127,9 @@ def test_watcher_waits_when_not_allowed(qapp, tmp_path):
 def test_repo_modes_load_and_detect():
     modes = load_modes(Path(__file__).resolve().parents[1] / "modes")
     names = {m.name for m in modes}
-    assert {"사이퍼즈", "붉은사막", "디맥", "칸코레"} <= names
+    assert {"사이퍼즈", "붉은사막", "디맥", "칸코레", "원신"} <= names
+    assert detect("GenshinImpact.exe", "Genshin Impact", modes).name == "원신"
+    assert detect("chrome.exe", "원신 공략 - 나무위키", modes) is None  # 브라우저로 공략 보는 건 게임 아님
     assert detect("chrome.exe", "艦隊これくしょん -艦これ- - オンラインゲーム - DMM GAMES - Chrome", modes).name == "칸코레"
     assert detect("CrimsonDesert.exe", "Crimson Desert", modes).name == "붉은사막"
     assert detect("Cyphers.exe", "", modes).name == "사이퍼즈"

@@ -305,7 +305,8 @@ class Companion:
         if known:
             second += "\n\n# 찾아보고 알게 된 것 (예전에 검색해 둔 내용)\n" + known
         return [
-            {"type": "text", "text": first, "cache_control": {"type": "ephemeral"}},
+            # 규칙·성격·배경지식은 거의 안 바뀌니 1시간 보관 (띄엄띄엄 말해도 다시 쓰는 비용이 안 듦)
+            {"type": "text", "text": first, "cache_control": {"type": "ephemeral", "ttl": "1h"}},
             {"type": "text", "text": second, "cache_control": {"type": "ephemeral"}},
         ]
 

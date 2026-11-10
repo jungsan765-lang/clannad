@@ -276,3 +276,21 @@ def test_user_names_and_pinned_facts_reach_prompts(tmp_path):
     assert "'하늘고래'" in json.dumps(fake.calls[-1]["messages"][0]["content"][1], ensure_ascii=False)
     from memory import Memory
     assert Memory(tmp_path).pinned == ["주인님은 민트초코를 싫어한다."]  # 껐다 켜도 남음
+
+
+def test_stable_prompt_part_is_cached_for_an_hour_and_priced(tmp_path):
+    from types import SimpleNamespace
+
+    from ai_client import _usage_dict
+    from usage import cost_usd
+
+    comp, fake = _comp(tmp_path, [])
+    comp.reply("안녕")
+    sys_blocks = fake.calls[-1]["system"]
+    assert sys_blocks[0]["cache_control"] == {"type": "ephemeral", "ttl": "1h"}
+    assert sys_blocks[1]["cache_control"] == {"type": "ephemeral"}
+    u = SimpleNamespace(input_tokens=0, output_tokens=0, cache_read_input_tokens=0, cache_creation_input_tokens=1_000_000,
+                        cache_creation=SimpleNamespace(ephemeral_1h_input_tokens=600_000, ephemeral_5m_input_tokens=400_000))
+    d = _usage_dict(u)
+    assert d["cache_creation_1h_input_tokens"] == 600_000 and d["cache_creation_input_tokens"] == 400_000
+    assert cost_usd("claude-opus-5-5", d) == pytest.approx(0.6 * 8 + 0.4 * 5)
