@@ -26,14 +26,18 @@ REPLY_SCHEMA = {
     "additionalProperties": False,
 }
 
+SCENES = ["playing", "result", "menu", "loading", "cutscene", "other"]
+
 JUDGE_SCHEMA = {
     "type": "object",
     "properties": {
         "speak": {"type": "boolean"},
+        "urgent": {"type": "boolean"},
+        "scene": {"type": "string", "enum": SCENES},
         "situation": {"type": "string"},
         "point": {"type": "string"},
     },
-    "required": ["speak", "situation", "point"],
+    "required": ["speak", "urgent", "scene", "situation", "point"],
     "additionalProperties": False,
 }
 
@@ -41,7 +45,10 @@ JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담
 - 말할 만한 때: 오류·경고 창, 게임에서 고칠 점이 분명히 보일 때(위치·타이밍·판단), 오래 같은 작업 중, 영상·글에 짧게 반응할 거리가 있을 때, 결과 화면(승리·패배·완료).
 - 말하지 않을 때: 로딩·로비·빈 화면, 별일 없는 평범한 화면, 최근에 한 말과 비슷한 내용, 확실히 보이지 않아 추측해야 하는 내용.
 - 망설여지면 speak 는 false. 너무 자주 말하는 것보다 조용한 편이 낫다.
-- situation: 지금 화면이 무엇인지 한국어 한 문장. point: 말한다면 무엇을 짚을지 한국어 한 문장(말 안 하면 빈 문자열)."""
+- situation: 지금 화면이 무엇인지 한국어 한 문장. point: 말한다면 무엇을 짚을지 한국어 한 문장(말 안 하면 빈 문자열).
+- scene: playing(게임 플레이·작업 중), result(게임 결과 화면), menu(로비·메뉴·선택 화면), loading(로딩), cutscene(컷신·대화 장면), other.
+- urgent: 아래 '즉시 알릴 상황'에 해당할 때만 true (그때는 speak 도 true).
+- situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다."""
 
 SCREEN_TASK = """[화면 보고 먼저 말 걸기]
 첨부한 이미지는 주인님의 모니터 화면이다. 판단 담당이 남긴 메모를 참고해, 캐릭터답게 짧게 한마디 한다.
@@ -158,10 +165,14 @@ class Companion:
              "cache_control": {"type": "ephemeral"}},
         ]
 
-    def reply(self, user_text: str, now: datetime | None = None) -> Reply:
+    def reply(self, user_text: str, now: datetime | None = None, context: str | None = None) -> Reply:
+        """context: 지금 하는 게임과 이번 판 기록 등 (게임 중 대화가 이어지게)."""
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
-        content = [{"type": "text", "text": f"[지금: {stamp}]"}, {"type": "text", "text": user_text}]
+        content = [{"type": "text", "text": f"[지금: {stamp}]"}]
+        if context:
+            content.append({"type": "text", "text": context})
+        content.append({"type": "text", "text": user_text})
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         result = self._ask(messages)
         total = result[1]
@@ -200,24 +211,54 @@ class Companion:
         return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg",
                                             "data": base64.b64encode(jpeg).decode("ascii")}}
 
-    def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None) -> dict | None:
+    @staticmethod
+    def _mode_text(mode, session_notes: list[str] | None) -> str:
+        if mode is None:
+            return ""
+        parts = [f"## 지금 모드: {mode.name}", mode.knowledge]
+        if mode.urgent:
+            parts.append("## 즉시 알릴 상황\n" + mode.urgent)
+        if session_notes:
+            parts.append("## 이번 판(세션) 기록\n" + "\n".join(f"- {n}" for n in session_notes[-20:]))
+        return "\n".join(p for p in parts if p)
+
+    def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
+              mode=None, session_notes: list[str] | None = None) -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔."""
         recent = self.memory.spoken_lines(5)
+        system = JUDGE_RULES
+        if mode is not None:
+            system += "\n\n" + self._mode_text(mode, None)
         info = [f"맨 앞 창: {title or '(알 수 없음)'}",
                 f"마지막으로 먼저 말 건 지: {'처음' if minutes_since_spoke is None else f'{minutes_since_spoke:.0f}분 전'}",
                 "최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)")]
+        if session_notes:
+            info.append("이번 판(세션) 기록: " + " / ".join(session_notes[-8:]))
         content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(info)}]
-        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": JUDGE_RULES}],
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                   messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
                                   kind="judge", max_tokens=400, effort="low", thinking_off=True)
         return r.data
 
     def screen_line(self, jpeg: bytes, title: str, note: dict | None, model: str | None = None,
-                    question: str | None = None, now: datetime | None = None) -> Reply:
-        """화면을 보고 캐릭터 말투로 한마디. question 이 있으면 주인님이 지금 화면에 대해 물은 것."""
+                    question: str | None = None, now: datetime | None = None, mode=None,
+                    session_notes: list[str] | None = None, review: bool = False) -> Reply:
+        """화면을 보고 캐릭터 말투로 한마디.
+
+        question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
+        """
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
-        lines = [f"[지금: {stamp}]", SCREEN_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
+        task = SCREEN_TASK
+        if review:
+            task = ("[이번 판 총평]\n첨부한 이미지는 방금 끝난 판의 결과 화면이다. 결과 화면과 '이번 판 기록'을 근거로 "
+                    "잘한 점 하나와 고칠 점 하나를 2~3문장으로 말한다. speak 는 true.")
+        lines = [f"[지금: {stamp}]", task, f"맨 앞 창: {title or '(알 수 없음)'}"]
+        mode_text = self._mode_text(mode, session_notes)
+        if mode_text:
+            lines.append(mode_text)
+        if note and note.get("urgent"):
+            lines.append("즉시 알릴 상황이다. 짧고 분명하게 경고한다. speak 는 true.")
         if note:
             lines.append(f"판단 메모: {note.get('situation', '')} / {note.get('point', '')}")
         recent = self.memory.spoken_lines(5)

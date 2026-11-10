@@ -1,35 +1,40 @@
-"""정해진 간격마다 모니터 하나를 보고, 말 걸 만하면 캐릭터가 한마디 하게 한다.
+"""모니터 하나를 주기적으로 보고, 말 걸 만하면 캐릭터가 한마디 하게 한다.
 
-흐름: 캡처(내 PC) → 화면이 그대로면 건너뜀(비용 0) → 싼 모델(Haiku)이 말 걸지 판단
-      → 말하기로 했을 때만 캐릭터 모델(Opus)이 화면을 보고 캐릭터 말투로 한마디.
+흐름: 맨 앞 창으로 모드 고르기(평소/게임) → 모드 간격마다 캡처(내 PC)
+      → 화면이 그대로면 건너뜀(비용 0) → Haiku 가 판단(장면·긴급·말할지)
+      → 말할 때만 Opus 가 캐릭터 말투로 한마디. 게임이면 이번 판 기록을 모아 대화·총평에 쓴다.
 """
 
 from __future__ import annotations
 
 import logging
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Callable
 
 from PIL import Image
 from PySide6.QtCore import QObject, QTimer, Signal
 
 from . import capture as cap
-from .windows import foreground_window
+from .modes import NORMAL_KNOWLEDGE, Mode, detect
+from .windows import WindowInfo, foreground_window
 
 log = logging.getLogger("assistant.watch")
 
 
 @dataclass
 class WatchConfig:
-    interval_seconds: float = 30.0
+    interval_seconds: float = 30.0  # 평소 모드 확인 간격
     monitor: str = "left"
     judge_model: str = "claude-haiku-5-5"
     line_model: str = "claude-opus-5-5"
-    cooldown_seconds: float = 120.0
+    cooldown_seconds: float = 120.0  # 평소 모드 말 거는 최소 간격
     change_threshold: float = 0.015
     max_width: int = 1024
     jpeg_quality: int = 70
+    tick_seconds: float = 5.0  # 모드 확인 주기 (내 PC, 비용 없음)
+    session_end_minutes: float = 3.0  # 게임 창이 이만큼 안 보이면 그 게임 세션 끝
+    review_gap_seconds: float = 120.0  # 총평 사이 최소 간격
 
 
 @dataclass
@@ -39,41 +44,84 @@ class Shot:
     title: str
 
 
-def default_grabber(cfg: WatchConfig) -> Callable[[], tuple[Image.Image, str]]:
-    def grab() -> tuple[Image.Image, str]:
-        monitor = cap.pick_monitor(cap.list_monitors(), cfg.monitor)
-        if monitor is None:
-            raise RuntimeError("모니터를 찾지 못했어요.")
-        win = foreground_window()
-        title = f"{win.title} [{win.process}]" if win else ""
-        return cap.grab(monitor), title
-    return grab
+@dataclass
+class GameSession:
+    mode: Mode
+    started: float
+    last_seen: float
+    notes: list[str] = field(default_factory=list)
+    last_review: float | None = None
+
+    def add(self, now: float, text: str) -> None:
+        if not text:
+            return
+        m = int((now - self.started) // 60)
+        self.notes.append(f"{m}분: {text}")
+        del self.notes[:-60]
+
+    def minutes(self, now: float) -> float:
+        return (now - self.started) / 60
+
+
+def _overlaps(a: tuple[int, int, int, int], b: tuple[int, int, int, int], min_px: int = 40) -> bool:
+    return min(a[2], b[2]) - max(a[0], b[0]) >= min_px and min(a[3], b[3]) - max(a[1], b[1]) >= min_px
 
 
 class ScreenWatcher(QObject):
-    """run_job(fn, on_done, on_fail) 로 무거운 일을 뒤에서 돌린다 (앱의 작업 실행기를 받음)."""
+    """run_job(fn, on_done, on_fail, *args) 로 무거운 일을 뒤에서 돌린다 (앱의 작업 실행기를 받음)."""
 
     spoke = Signal(object)  # companion.Reply
     nothing = Signal()  # 확인했지만 할 말이 없었음
     status = Signal(str)
+    mode_changed = Signal(str)
 
-    def __init__(self, companion, cfg: WatchConfig, run_job: Callable, *,
+    def __init__(self, companion, cfg: WatchConfig, run_job: Callable, *, modes: list[Mode] | None = None,
                  can_run: Callable[[], bool] = lambda: True,
-                 grabber: Callable[[], tuple[Image.Image, str]] | None = None,
+                 grabber: Callable[[], Image.Image] | None = None,
+                 window_info: Callable[[], WindowInfo | None] = foreground_window,
+                 monitor_rect: Callable[[], tuple[int, int, int, int] | None] | None = None,
                  clock: Callable[[], float] = time.monotonic):
         super().__init__()
         self.companion = companion
         self.cfg = cfg
         self.run_job = run_job
+        self.modes = modes or []
+        self.normal = Mode("평소", interval_seconds=cfg.interval_seconds, cooldown_seconds=cfg.cooldown_seconds,
+                           knowledge=NORMAL_KNOWLEDGE)
+        self.mode = self.normal
+        self.title = ""
+        self.session: GameSession | None = None
         self.can_run = can_run
-        self.grabber = grabber or default_grabber(cfg)
+        self.grabber = grabber or self._default_grab
+        self.window_info = window_info
+        self.monitor_rect = monitor_rect or self._default_monitor_rect
+        self._monitor_cache: tuple[float, tuple | None] = (-1e9, None)
         self.clock = clock
         self.last_thumb = None
         self.last_spoke: float | None = None
+        self.last_check: float | None = None
         self.running_job = False
-        self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "errors": 0}
+        self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.tick)
+
+    # ------------------------------------------------------------ 캡처 대상
+
+    def _default_monitor_rect(self):
+        now = self.clock()
+        if now - self._monitor_cache[0] > 60:
+            try:
+                m = cap.pick_monitor(cap.list_monitors(), self.cfg.monitor)
+                self._monitor_cache = (now, m.rect if m else None)
+            except Exception:  # noqa: BLE001 - 화면 정보를 못 읽으면 모드 판단만 느슨하게
+                self._monitor_cache = (now, None)
+        return self._monitor_cache[1]
+
+    def _default_grab(self) -> Image.Image:
+        monitor = cap.pick_monitor(cap.list_monitors(), self.cfg.monitor)
+        if monitor is None:
+            raise RuntimeError("모니터를 찾지 못했어요.")
+        return cap.grab(monitor)
 
     # ------------------------------------------------------------ 켜고 끄기
 
@@ -83,21 +131,67 @@ class ScreenWatcher(QObject):
 
     def set_enabled(self, on: bool) -> None:
         if on and not self.timer.isActive():
-            self.timer.start(round(self.cfg.interval_seconds * 1000))
+            self.timer.start(round(self.cfg.tick_seconds * 1000))
             self.status.emit("화면 보기 켜짐")
         elif not on and self.timer.isActive():
             self.timer.stop()
             self.status.emit("화면 보기 꺼짐")
 
+    # ------------------------------------------------------------ 모드·세션
+
+    def update_mode(self) -> None:
+        now = self.clock()
+        info = self.window_info()
+        area = self.monitor_rect()
+        # 맨 앞 창이 보는 모니터에 있을 때만 모드를 바꾼다 (다니카를 클릭해도 게임 모드 유지)
+        if info and (area is None or _overlaps(info.rect, area)):
+            self.title = f"{info.title} [{info.process}]"
+            new = detect(info.process, info.title, self.modes) or self.normal
+            if new is not self.mode:
+                self.mode = new
+                self.mode_changed.emit(new.name)
+        if self.mode.is_game:
+            if self.session is None or self.session.mode is not self.mode:
+                self._end_session(now)
+                self.session = GameSession(self.mode, now, now)
+            self.session.last_seen = now
+        elif self.session and now - self.session.last_seen > self.cfg.session_end_minutes * 60:
+            self._end_session(now)
+
+    def _end_session(self, now: float) -> None:
+        s = self.session
+        self.session = None
+        if s and len(s.notes) >= 3 and s.minutes(now) >= 5:
+            self.companion.memory.add_game_record(s.mode.name, s.minutes(now), s.notes)
+
+    def chat_context(self) -> str | None:
+        """게임 중 주인님이 말을 걸면 대사에 함께 넣는 상황 정보."""
+        s = self.session
+        if not s:
+            return None
+        lines = [f"[지금 하고 있는 게임: {s.mode.name}, {s.minutes(self.clock()):.0f}분째]"]
+        if s.notes:
+            lines.append("이번 판(세션)에서 본 것:\n" + "\n".join(f"- {n}" for n in s.notes[-15:]))
+        return "\n".join(lines)
+
     # ------------------------------------------------------------ 주기 확인
 
-    def in_cooldown(self) -> bool:
-        return self.last_spoke is not None and self.clock() - self.last_spoke < self.cfg.cooldown_seconds
+    def in_cooldown(self, mode: Mode) -> bool:
+        return self.last_spoke is not None and self.clock() - self.last_spoke < mode.cooldown_seconds
 
     def tick(self) -> None:
         self.stats["ticks"] += 1
-        if self.running_job or not self.can_run() or self.in_cooldown():
+        self.update_mode()
+        if self.running_job or not self.can_run():
             return
+        now = self.clock()
+        mode = self.mode
+        if self.last_check is not None and now - self.last_check < mode.interval_seconds:
+            return
+        # 긴급 경고·총평이 없는 모드는 쉬는 시간 동안 아예 보지 않는다 (판단 비용도 0)
+        if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result):
+            return
+        self.last_check = now
         self.running_job = True
         self.run_job(self._work, self._done, self._fail, None)
 
@@ -105,31 +199,52 @@ class ScreenWatcher(QObject):
         """단축키(F8): 판단·간격 무시하고 지금 화면을 보고 말하게 한다."""
         if self.running_job:
             return
+        self.update_mode()
         self.running_job = True
         self.run_job(self._work, self._done, self._fail, question)
 
     def _shot(self) -> Shot:
-        img, title = self.grabber()
+        img = self.grabber()
         small = cap.shrink(img, self.cfg.max_width)
-        return Shot(cap.to_jpeg(small, self.cfg.jpeg_quality), cap.thumb(small), title)
+        return Shot(cap.to_jpeg(small, self.cfg.jpeg_quality), cap.thumb(small), self.title)
 
     def _work(self, question: str | None):
-        """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디."""
+        """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디/총평."""
+        mode, session = self.mode, self.session
+        notes = list(session.notes) if session else None
         shot = self._shot()
-        if question is None:
-            change = cap.change_amount(self.last_thumb, shot.thumb)
-            if change < self.cfg.change_threshold:
-                self.stats["skipped_same"] += 1
-                return None
+        if question is not None:
+            self.last_thumb = shot.thumb
+            return self.companion.screen_line(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
+                                              mode=mode, session_notes=notes)
+        if cap.change_amount(self.last_thumb, shot.thumb) < self.cfg.change_threshold:
+            self.stats["skipped_same"] += 1
+            return None
         self.last_thumb = shot.thumb
-        note = None
-        if question is None:
-            minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
-            note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes)
-            self.stats["judged"] += 1
-            if not note or not note.get("speak"):
-                return None
-        return self.companion.screen_line(shot.jpeg, shot.title, note, self.cfg.line_model, question=question)
+        minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
+        note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes)
+        self.stats["judged"] += 1
+        if not note:
+            return None
+        now = self.clock()
+        scene, urgent = note.get("scene", "other"), bool(note.get("urgent"))
+        if session:
+            session.add(now, note.get("situation", ""))
+        if (mode.review_on_result and scene == "result" and session
+                and (session.last_review is None or now - session.last_review > self.cfg.review_gap_seconds)):
+            session.last_review = now
+            self.stats["reviews"] += 1
+            return self.companion.screen_line(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
+                                              session_notes=session.notes, review=True)
+        if urgent and mode.urgent:
+            return self.companion.screen_line(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
+                                              session_notes=notes)
+        if scene in ("loading", "cutscene") or (mode.quiet_during_play and scene == "playing"):
+            return None
+        if self.in_cooldown(mode) or not note.get("speak"):
+            return None
+        return self.companion.screen_line(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
+                                          session_notes=notes)
 
     def _done(self, reply) -> None:
         self.running_job = False
@@ -139,6 +254,8 @@ class ScreenWatcher(QObject):
         self.last_spoke = self.clock()
         self.stats["spoke"] += 1
         self.companion.memory.add_spoken(reply.message)
+        if self.session:
+            self.session.add(self.last_spoke, "내가 한 말: " + reply.message)
         self.spoke.emit(reply)
 
     def _fail(self, message: str) -> None:

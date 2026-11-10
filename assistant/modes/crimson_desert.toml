@@ -1,0 +1,12 @@
+# 붉은사막 (펄어비스). 실행 파일 이름은 CrimsonDesert.exe 로 알려져 있음.
+name = "붉은사막"
+processes = ["crimsondesert.exe"]
+titles = ["붉은사막", "Crimson Desert"]
+interval_seconds = 30
+cooldown_seconds = 180
+quiet_during_play = false
+knowledge = """붉은사막: 펄어비스의 1인용 오픈월드 액션 어드벤처. 주인공 클리프(그레이메인 용병단), 무대는 파이웰 대륙.
+- 전투 중: 보스·적의 공격 패턴, 회피·막기 타이밍, 체력 관리 중 하나를 짧게.
+- 탐험 중: 풍경이나 지금 보이는 장소에 짧은 감상, 길을 헤매는 것 같으면 지도·목표 확인을 권함.
+- 컷신·대화 장면·로딩 중에는 말하지 않는다.
+- 스토리 스포일러 금지: 화면에 나온 것 이상의 전개를 말하거나 추측하지 않는다."""

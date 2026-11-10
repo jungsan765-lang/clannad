@@ -32,6 +32,7 @@ from ui.topmost import TopmostKeeper
 from usage import UsageLedger
 from voice.listener import VoiceListener
 from voice.stt import Transcriber
+from watch.modes import load_modes
 from watch.watcher import ScreenWatcher, WatchConfig
 
 log = logging.getLogger("assistant")
@@ -88,7 +89,9 @@ class AssistantApp(QObject):
             cooldown_seconds=float(g("screen.cooldown_seconds", 120)),
             change_threshold=float(g("screen.change_threshold", 0.015)),
             max_width=int(g("screen.max_width", 1024)), jpeg_quality=int(g("screen.jpeg_quality", 70)))
-        self.watcher = ScreenWatcher(companion, self.watch_cfg, self._run, can_run=self._screen_allowed)
+        modes = load_modes(settings.root / "modes")
+        self.watcher = ScreenWatcher(companion, self.watch_cfg, self._run, modes=modes, can_run=self._screen_allowed)
+        self.watcher.mode_changed.connect(lambda _: self._refresh_cost())
         self.watcher.spoke.connect(self._on_screen_line)
         self.watcher.status.connect(self._on_watch_status)
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
@@ -171,7 +174,8 @@ class AssistantApp(QObject):
         self.busy = True
         self.voice.paused = True  # 답을 기다리는 동안 들은 말은 무시
         self.bubble.show_text("……", self.anchor(), seconds=0)
-        self._run(self.companion.reply, self._on_reply, self._on_error, text)
+        context = self.watcher.chat_context()  # 게임 중이면 이번 판 기록을 함께 넘긴다
+        self._run(lambda t: self.companion.reply(t, context=context), self._on_reply, self._on_error, text)
 
     def _on_reply(self, reply) -> None:
         self.busy = False
@@ -316,7 +320,10 @@ class AssistantApp(QObject):
         menu.addAction(self.cost_action)
         menu.addSeparator()
         g = self.settings.get
-        self.screen_action = QAction(f"{int(self.watch_cfg.interval_seconds)}초마다 화면 보기 ({g('hotkeys.toggle_screen', 'F9')})", menu)
+        self.mode_action = QAction("", menu)
+        self.mode_action.setEnabled(False)
+        menu.addAction(self.mode_action)
+        self.screen_action = QAction(f"화면 보기 (평소 {int(self.watch_cfg.interval_seconds)}초마다, {g('hotkeys.toggle_screen', 'F9')})", menu)
         self.screen_action.setCheckable(True)
         self.screen_action.triggered.connect(lambda on: self.set_screen_enabled(on))
         menu.addAction(self.screen_action)
@@ -362,8 +369,11 @@ class AssistantApp(QObject):
     def _refresh_cost(self) -> None:
         text = self.cost_text()
         self.cost_action.setText(text)
+        mode = f"지금 모드: {self.watcher.mode.name}" + (f" · 맨 앞: {self.watcher.title[:60]}" if self.watcher.title else "")
+        if hasattr(self, "mode_action"):
+            self.mode_action.setText(mode)
         if self.tray:
-            self.tray.setToolTip(f"{self.window.sprites.name}\n{text}")
+            self.tray.setToolTip(f"{self.window.sprites.name}\n{text}\n{mode}"[:120])
 
     def _budget_warning(self) -> None:
         budget = float(self.settings.get("budget.monthly_krw", 50000))

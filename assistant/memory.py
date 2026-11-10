@@ -68,6 +68,15 @@ class Memory:
             with open(self.folder / "logs" / f"{when.date().isoformat()}.jsonl", "a", encoding="utf-8") as f:
                 f.write(json.dumps({"time": stamp, "screen_line": line}, ensure_ascii=False) + "\n")
 
+    def add_game_record(self, game: str, minutes: float, notes: list[str], when: datetime | None = None) -> None:
+        """게임을 끝냈을 때 기록 요약. 다음 장기기억 정리 때 '최근 있었던 일'이 된다."""
+        when = when or datetime.now()
+        stamp = when.isoformat(timespec="seconds")
+        with self._lock:
+            self.pending.append({"time": stamp, "user": f"({game}을(를) 약 {minutes:.0f}분 플레이함)",
+                                 "reply": "(이번 플레이에서 본 것) " + " / ".join(notes[-12:])})
+            self._save()
+
     def spoken_lines(self, n: int = 5) -> list[str]:
         return [m["text"] for m in self.recent if m.get("kind") == "screen"][-n:]
 
