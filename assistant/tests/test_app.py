@@ -851,3 +851,27 @@ def test_petting_highlight_and_speaking(qapp, tmp_path, built):
         _t.sleep(0.05)
     assert sp.available is False and sp.problem
     a.quit()
+
+
+def test_away_pauses_screen_and_briefs_on_return(qapp, tmp_path, built):
+    fake = FakeAnthropic([{"speak": True, "message": "일어나셨군요. 오늘 할 일이 하나 있어요.", "emotion": "normal"}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.set_pref("assist.briefing_date", "2000-01-01")
+    a.planner.add_todo("E3 甲 깨기")
+    t = {"now": 0.0, "idle": 0.0}
+    a.clock = lambda: t["now"]
+    a.idle_seconds = lambda: t["idle"]
+    a.bubble.hide()
+    assert a._screen_allowed()
+    t["now"], t["idle"] = 25 * 60, 25 * 60  # 25분째 입력 없음 → 자리 비움
+    a.check_away()
+    assert not a._screen_allowed() and fake.calls == []
+    t["now"], t["idle"] = 8 * 3600, 5  # 8시간 뒤 마우스 움직임 → 돌아옴 → 브리핑
+    a.check_away()
+    _wait(qapp, a)
+    assert a._screen_allowed() or a.bubble.isVisible()
+    sent = str(fake.calls[-1]["messages"])
+    assert "자리를 비웠다가" in sent and "E3 甲 깨기" in sent and "일어나셨군요" in a.bubble.text
+    a.quit()

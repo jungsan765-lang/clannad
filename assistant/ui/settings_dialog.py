@@ -238,8 +238,10 @@ class SettingsDialog(QDialog):
         # 비서 기능
         self.pc_monitor = QCheckBox("PC 상태 감시 (그래픽카드 온도·메모리·저장 공간에 문제가 생기면 알려 주기)")
         self.pc_monitor.setChecked(bool(v.get("pc.monitor", True)))
-        self.briefing = QCheckBox("하루 처음 켤 때 브리핑 (오늘 알림·할 일, 원신 레진, 어제 한 것)")
+        self.briefing = QCheckBox("하루 브리핑: 처음 켤 때나 오래(3시간+) 자리 비웠다 돌아올 때 (오늘 알림·할 일, 원신 레진, 어제 한 것)")
         self.briefing.setChecked(bool(v.get("assist.briefing", True)))
+        self.pause_away = QCheckBox("자리 비우면(20분 동안 키보드·마우스 안 만짐, 게임 중 제외) 화면 보기 쉬기")
+        self.pause_away.setChecked(bool(v.get("assist.pause_when_away", True)))
         self.speak = QCheckBox("소리 내서 말하기 (Windows 한국어 음성, 일반 목소리)")
         self.speak.setChecked(bool(v.get("voice.speak", False)))
         self.speak_rate = Choice(SPEAK_RATES, str(v.get("voice.speak_rate", "normal")))
@@ -250,7 +252,7 @@ class SettingsDialog(QDialog):
                            "'발생한 내용 녹화'를, NVIDIA 는 즉석 리플레이를 켜 두어야 영상이 남아요. 화면 몇 장은 항상 data/highlights 에.")
         clip_note.setWordWrap(True)
         clip_note.setStyleSheet("color: #555;")
-        self.assist_rows = [("", self.pc_monitor), ("", self.briefing), ("", self.speak), ("말 빠르기", self.speak_rate),
+        self.assist_rows = [("", self.pc_monitor), ("", self.briefing), ("", self.pause_away), ("", self.speak), ("말 빠르기", self.speak_rate),
                             ("하이라이트 저장", self.clip_tool), ("", self.auto_clip), ("", clip_note)]
         g10 = group("비서 기능", self.assist_rows)
 
@@ -340,6 +342,7 @@ class SettingsDialog(QDialog):
             "ui.show_status": self.show_status.isChecked(),
             "pc.monitor": self.pc_monitor.isChecked(),
             "assist.briefing": self.briefing.isChecked(),
+            "assist.pause_when_away": self.pause_away.isChecked(),
             "voice.speak": self.speak.isChecked(),
             "voice.speak_rate": self.speak_rate.value(),
             "pc.clip_tool": self.clip_tool.value(),

@@ -57,6 +57,7 @@ from watch.modes import load_modes, save_mode
 from pc_monitor import PC_WORDS, PcMonitor
 from pc_monitor import read_status as read_pc_status
 from pc_monitor import status_text as pc_status_text
+from idle import idle_seconds
 from planner import Planner
 from tts import Speaker
 from wishlist import Wishlist
@@ -129,6 +130,11 @@ class AssistantApp(QObject):
         self.pc_timer.timeout.connect(self.check_pc)
         self._last_clip = -1e9
         self._last_pet = -1e9
+        self.idle_seconds = idle_seconds  # 테스트에서 바꿔 끼움
+        self.clock = time.monotonic
+        self._away_since: float | None = None  # 자리 비운 때 (자는 중 등)
+        self.away_timer = QTimer(self)
+        self.away_timer.timeout.connect(self.check_away)
         self._tts_signals = _TtsSignals()
         self._tts_signals.state.connect(self._on_tts_state)
         self.speaker = Speaker(rate=TTS_RATES.get(str(self.pref("voice.speak_rate", "normal")), 0),
@@ -269,6 +275,7 @@ class AssistantApp(QObject):
         self.genshin_timer.start(10 * 60 * 1000)  # 원신 실시간 메모는 10분마다
         self.cleanup_timer.start(6 * 3600 * 1000)
         self.planner_timer.start(20_000)
+        self.away_timer.start(30_000)
         self.set_pc_monitor(bool(self.pref("pc.monitor", True)))
         QTimer.singleShot(5000, self.check_reminders)  # 꺼져 있던 동안 지난 알림
         QTimer.singleShot(25_000, self.briefing)  # 하루 첫 실행이면 브리핑 (원신 정보를 받아 온 뒤)
@@ -279,6 +286,7 @@ class AssistantApp(QObject):
         self.update_timer.stop()
         self.planner_timer.stop()
         self.pc_timer.stop()
+        self.away_timer.stop()
         self.genshin_timer.stop()
         self.cleanup_timer.stop()
         self.watcher.set_enabled(False)
@@ -540,6 +548,8 @@ class AssistantApp(QObject):
 
     def _screen_allowed(self) -> bool:
         if self.busy or self.bubble.isVisible():  # 대화 중이거나 말풍선이 떠 있으면 다음 기회에
+            return False
+        if self._away_since is not None:  # 자리 비움(자는 중 등) → 화면 보기 쉼 (밤새 비용 안 나가게)
             return False
         if settings_flag(self.settings, "screen.stop_when_over_budget", True):
             budget = self.budget_usd()
@@ -814,6 +824,7 @@ class AssistantApp(QObject):
             "ui.show_status": self.status.enabled,
             "pc.monitor": self.pc_timer.isActive(),
             "assist.briefing": bool(self.pref("assist.briefing", True)),
+            "assist.pause_when_away": bool(self.pref("assist.pause_when_away", True)),
             "voice.speak": bool(self.pref("voice.speak", False)),
             "voice.speak_rate": str(self.pref("voice.speak_rate", "normal")),
             "pc.clip_tool": str(self.pref("pc.clip_tool", "gamebar")),
@@ -1292,8 +1303,29 @@ class AssistantApp(QObject):
 
         self._run(work, done, fail)
 
-    def briefing(self, force: bool = False) -> None:
-        """하루 첫 실행 때 한마디: 오늘 알림·할 일, 원신 레진, 어제 한 것 (이 PC 기록과 받아 둔 정보만)."""
+    AWAY_MINUTES = 20  # 키보드·마우스를 이만큼 안 만지면 자리 비움 (게임 중엔 패드일 수 있어 빼고)
+    LONG_AWAY_HOURS = 3  # 이만큼 비웠다 돌아오면 (자고 일어남) 오늘 브리핑
+
+    def check_away(self) -> None:
+        """30초마다: 자리 비움이면 화면 보기를 쉬고, 오래 비웠다 돌아오면 그때 브리핑한다."""
+        idle = self.idle_seconds()
+        now = self.clock()
+        if self._away_since is None:
+            if (idle >= self.AWAY_MINUTES * 60 and not self.watcher.mode.is_game
+                    and self.pref("assist.pause_when_away", True)):
+                self._away_since = now - idle
+                log.info("자리 비움 (%.0f분째 입력 없음) → 화면 보기 쉼", idle / 60)
+            return
+        if idle < 60:  # 돌아옴
+            hours = (now - self._away_since) / 3600
+            self._away_since = None
+            log.info("돌아옴 (%.1f시간 비움)", hours)
+            if hours >= self.LONG_AWAY_HOURS:
+                self.briefing(away_hours=hours)
+
+    def briefing(self, force: bool = False, away_hours: float | None = None) -> None:
+        """하루 첫 실행 때, 또는 오래 자리를 비웠다 돌아왔을 때(자고 일어남) 한마디:
+        오늘 알림·할 일, 원신 레진, 어제 한 것 (이 PC 기록과 받아 둔 정보만). 하루 한 번."""
         import recap
 
         today = datetime.now().date().isoformat()
@@ -1311,6 +1343,10 @@ class AssistantApp(QObject):
         _, yesterday = recap.collect("yesterday", datetime.now(), self.screen_log, None, None, None)
         if yesterday:
             facts.append("어제 화면으로 본 것: " + yesterday.split("\n")[0])
+        if away_hours is not None:  # 자고 일어남: 브리핑할 게 없어도 돌아온 인사는
+            self._announce(f"주인님이 {away_hours:.0f}시간쯤 자리를 비웠다가(자고 일어난 듯) 방금 돌아왔다. 돌아온 인사와 함께 "
+                           + ("아래를 짧게 브리핑한다(두세 문장): " + " / ".join(facts) if facts else "짧게 한마디 한다."))
+            return
         if not facts:
             return
         self._announce("오늘 처음 켰다. 하루 시작 인사와 함께 아래를 짧게 브리핑한다(두세 문장): " + " / ".join(facts))
