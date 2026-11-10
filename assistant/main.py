@@ -1010,6 +1010,63 @@ def settings_flag(settings: Settings, key: str, default: bool) -> bool:
     return value if isinstance(value, bool) else str(value).lower() in ("1", "true", "yes", "on")
 
 
+_crash_file = None
+
+
+def install_crash_logging(folder: Path) -> None:
+    """갑자기 꺼지면 crash.log, 처리 못 한 오류는 app.log 에 남긴다."""
+    global _crash_file
+    import faulthandler
+    import threading
+
+    folder.mkdir(parents=True, exist_ok=True)
+    _crash_file = open(folder / "crash.log", "a", encoding="utf-8")  # noqa: SIM115 - 프로그램이 끝날 때까지 열어 둠
+    faulthandler.enable(file=_crash_file, all_threads=True)
+    sys.excepthook = lambda t, v, tb: log.critical("처리 못 한 오류", exc_info=(t, v, tb))
+    threading.excepthook = lambda a: log.critical("스레드 오류 (%s)", a.thread, exc_info=(a.exc_type, a.exc_value,
+                                                                                         a.exc_traceback))
+
+
+class HangWatch(QObject):
+    """화면(메인 스레드)이 limit 초 넘게 멈추면, 그때 모든 스레드가 어디에 있었는지 hang.log 에 남긴다."""
+
+    def __init__(self, folder: Path, limit: float = 8.0):
+        super().__init__()
+        import threading
+
+        self.path, self.limit = folder / "hang.log", limit
+        self.beat = time.monotonic()
+        self.reported = False
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self._beat)
+        self.timer.start(1000)
+        threading.Thread(target=self._watch, daemon=True, name="hang-watch").start()
+
+    def _beat(self) -> None:
+        if self.reported:
+            log.warning("화면이 다시 움직임 (%.0f초 멈췄음)", time.monotonic() - self.stuck_since)
+        self.beat = time.monotonic()
+        self.reported = False
+
+    def _watch(self) -> None:
+        import faulthandler
+        from datetime import datetime
+
+        while True:
+            time.sleep(min(2.0, self.limit / 2))
+            stuck = time.monotonic() - self.beat
+            if stuck > self.limit and not self.reported:
+                self.reported, self.stuck_since = True, self.beat
+                try:
+                    with open(self.path, "a", encoding="utf-8") as f:
+                        f.write(f"\n=== {datetime.now():%Y-%m-%d %H:%M:%S} 화면이 {stuck:.0f}초째 멈춤 ===\n")
+                        f.flush()
+                        faulthandler.dump_traceback(file=f, all_threads=True)
+                except OSError:
+                    pass
+                log.error("화면이 %.0f초째 멈춤 → %s 에 기록", stuck, self.path)
+
+
 def setup_logging(folder: Path) -> None:
     folder.mkdir(parents=True, exist_ok=True)
     handler = logging.handlers.RotatingFileHandler(folder / "app.log", maxBytes=1_000_000, backupCount=3, encoding="utf-8")
@@ -1098,6 +1155,12 @@ def main() -> int:
     root = Path(__file__).resolve().parent
     logs = root / "data" / "logs"
     setup_logging(logs)  # 설정 파일이 깨져도 이유가 기록에 남게 맨 먼저
+    install_crash_logging(logs)
+    try:
+        version = json.loads((root / "data" / "update_state.json").read_text(encoding="utf-8")).get("commit", "")[:8]
+    except (OSError, json.JSONDecodeError):
+        version = "?"
+    log.info("다니카 시작 · 버전 %s", version or "?")
     state_path = root / "data" / "update_state.json"
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
@@ -1119,6 +1182,7 @@ def main() -> int:
         QMessageBox.critical(None, "다니카", f"다니카를 켜지 못했어요.\n\n{exc}\n\n자세한 기록: {logs / 'app.log'}")
         return 1
     QTimer.singleShot(10_000, lambda: confirm_started(state_path))  # 잘 켜졌으면 업데이트 백업 정리
+    hang_watch = HangWatch(logs)  # noqa: F841 - 프로그램이 도는 동안 살아 있어야 함
     return app.exec()
 
 

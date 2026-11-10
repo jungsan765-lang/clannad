@@ -51,3 +51,8 @@ class FakeAnthropic:
         self.replies = list(replies or [])
         self.messages = _Messages(self, False)
         self.beta = SimpleNamespace(messages=_Messages(self, True))
+        self.options = []
+
+    def with_options(self, **kwargs):
+        self.options.append(kwargs)
+        return self

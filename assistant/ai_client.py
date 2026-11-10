@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import time
 from dataclasses import dataclass
 from typing import Any, Callable
 
@@ -77,6 +78,7 @@ class AIClient:
         thinking_off: bool = False,
         on_text: Callable[[str], None] | None = None,
         fast: bool = False,
+        timeout: float | None = None,
     ) -> AIResult:
         """정해진 JSON 형식으로만 답을 받는다 (structured outputs).
 
@@ -92,18 +94,21 @@ class AIClient:
         if thinking_off:
             request["thinking"] = {"type": "disabled"}
         use_fast = fast and model.startswith(FAST_MODELS)
+        started = time.monotonic()
         try:
             try:
-                response = self._send(model, request, on_text, use_fast)
+                response = self._send(model, request, on_text, use_fast, timeout)
             except Exception as exc:  # noqa: BLE001
                 if not use_fast or not _is_fast_problem(exc):
                     raise
                 log.warning("빠른 모드가 막혀서 보통 속도로 다시 시도: %s", exc)
-                response = self._send(model, request, on_text, False)
+                response = self._send(model, request, on_text, False, timeout)
         except AIError:
             raise
         except Exception as exc:  # noqa: BLE001 - 아래에서 종류별로 한국어 메시지로 바꾼다
+            log.warning("API 실패 (%s, %.1f초): %r", kind, time.monotonic() - started, exc)
             raise AIError(_friendly_error(exc)) from exc
+        _log_call(kind, response, started)
 
         usage = _usage_dict(response.usage)
         served = getattr(response, "model", model) or model
@@ -123,14 +128,17 @@ class AIClient:
         return AIResult(data, text, served, stop, usd)
 
 
-    def _send(self, model: str, request: dict, on_text: Callable[[str], None] | None, fast: bool):
+    def _send(self, model: str, request: dict, on_text: Callable[[str], None] | None, fast: bool,
+              timeout: float | None = None):
         args = dict(request)
         if fast:
             args["speed"] = "fast"
+        # timeout: 짧게 끝나야 하는 일(화면 판단)은 오래 기다리지 않고 한 번만 다시 시도
+        client = self.client.with_options(timeout=timeout, max_retries=1) if timeout else self.client
         if model.startswith(FALLBACK_MODELS):
-            api, args = self.client.beta.messages, dict(args, betas=[FALLBACK_BETA], fallbacks="default")
+            api, args = client.beta.messages, dict(args, betas=[FALLBACK_BETA], fallbacks="default")
         else:
-            api = self.client.messages
+            api = client.messages
         if on_text is None:
             return api.create(**args)
         buf = ""
@@ -158,10 +166,13 @@ class AIClient:
             request["tools"] = tools
         usd = 0.0
         for _ in range(4):
+            started = time.monotonic()
             try:
                 response = self._send(model, request, None, False)
             except Exception as exc:  # noqa: BLE001
+                log.warning("API 실패 (%s, %.1f초): %r", kind, time.monotonic() - started, exc)
                 raise AIError(_friendly_error(exc)) from exc
+            _log_call(kind, response, started)
             served = getattr(response, "model", model) or model
             usd += self.ledger.record(served, _usage_dict(response.usage), kind)
             if getattr(response, "stop_reason", None) != "pause_turn":
@@ -177,6 +188,12 @@ class AIClient:
             log.warning("거절됨 (%s)", kind)
             text = ""
         return AIResult(None, text, served, stop, usd)
+
+
+def _log_call(kind: str, response: Any, started: float) -> None:
+    u = _usage_dict(getattr(response, "usage", None))
+    log.info("API %s %.1f초 (%s, 입력 %d+캐시 %d, 출력 %d)", kind, time.monotonic() - started,
+             getattr(response, "model", "?"), u["input_tokens"], u["cache_read_input_tokens"], u["output_tokens"])
 
 
 def _is_fast_problem(exc: Exception) -> bool:

@@ -345,3 +345,27 @@ def test_nickname_setting_and_pin_from_chat(qapp, tmp_path, built):
                        ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
     assert b.companion.user_names == ["하늘고래", "SkyWhale"]  # 다시 켜도 그대로
     assert "하늘고래" in b.companion.pinned_text() and "밤에 게임" in b.companion.pinned_text()
+
+
+def test_hang_watch_records_where_threads_were(qapp, tmp_path):
+    import time as _t
+
+    hw = app_main.HangWatch(tmp_path, limit=1.0)
+    qapp.processEvents()
+    _t.sleep(3.0)  # 화면 스레드를 일부러 멈춤
+    text = (tmp_path / "hang.log").read_text(encoding="utf-8")
+    assert "멈춤" in text and "test_hang_watch_records_where_threads_were" in text  # 멈춘 자리까지 남음
+    hw._beat()
+    assert not hw.reported
+    hw.timer.stop()
+
+
+def test_judge_does_not_wait_long(tmp_path):
+    from companion import Companion
+    from memory import Memory
+
+    fake = FakeAnthropic([{"speak": False, "urgent": False, "scene": "other", "situation": "", "point": ""}])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path), None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    comp.judge(b"jpg", "x", "claude-haiku-5-5", None)
+    assert fake.options[-1] == {"timeout": 30, "max_retries": 1}
