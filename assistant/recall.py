@@ -103,6 +103,7 @@ class EpisodeIndex:
         self.path = path
         path.parent.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
+        self._batch = False  # sync 중엔 한 줄마다 저장하지 않고 끝에서 한 번
         self.db = sqlite3.connect(str(path), check_same_thread=False)
         self.db.execute("PRAGMA journal_mode=WAL")
         self.db.executescript("""
@@ -146,7 +147,8 @@ class EpisodeIndex:
                 eid = cur.lastrowid
             if self.fts:
                 cur.execute("INSERT INTO ep_fts(rowid, body) VALUES (?, ?)", (eid, f"{text}\n{detail}\n{game}"))
-            self.db.commit()
+            if not self._batch:
+                self.db.commit()
         return eid
 
     def count(self) -> int:
@@ -181,6 +183,15 @@ class EpisodeIndex:
 
     def sync(self, data_dir: Path) -> int:
         """data/logs 와 data/screens 의 새 줄을 색인에 넣는다. 넣은 수."""
+        self._batch = True
+        try:
+            return self._sync(data_dir)
+        finally:
+            self._batch = False
+            with self._lock:
+                self.db.commit()
+
+    def _sync(self, data_dir: Path) -> int:
         added = 0
         for path in sorted((data_dir / "logs").glob("????-??-??.jsonl")):
             for i, line in enumerate(self._new_lines(path)):
@@ -232,26 +243,30 @@ class EpisodeIndex:
     # ------------------------------------------------------------ 찾기
 
     def _ids_for(self, cue: str, since: str | None, until: str | None) -> set[int]:
-        sql, args = "", []
+        """단서가 들어간 일화 번호들 (시간 범위가 있으면 그 안에서만). 아주 흔한 말이어도 SQL 변수 수 제한에 안 걸리게 하위 질의로."""
+        time_sql, time_args = "", []
+        if since:
+            time_sql += " AND time >= ?"
+            time_args.append(since)
+        if until:
+            time_sql += " AND time <= ?"
+            time_args.append(until)
         if self.fts and len(cue) >= 3:
             sql = "SELECT rowid FROM ep_fts WHERE ep_fts MATCH ?"
-            args = ['"' + cue.replace('"', '""') + '"']
+            args: list = ['"' + cue.replace('"', '""') + '"']
+            if time_sql:
+                sql += " AND rowid IN (SELECT id FROM episodes WHERE 1=1" + time_sql + ")"
+                args += time_args
         else:
             like = "%" + cue.replace("%", "").replace("_", "") + "%"
-            sql, args = "SELECT id FROM episodes WHERE (text LIKE ? OR detail LIKE ? OR game LIKE ?)", [like, like, like]
+            sql = "SELECT id FROM episodes WHERE (text LIKE ? OR detail LIKE ? OR game LIKE ?)" + time_sql
+            args = [like, like, like, *time_args]
         with self._lock:
-            ids = {r[0] for r in self.db.execute(sql, args).fetchall()}
-            if ids and (since or until):
-                q = "SELECT id FROM episodes WHERE id IN (%s)" % ",".join("?" * len(ids))
-                extra = []
-                if since:
-                    q += " AND time >= ?"
-                    extra.append(since)
-                if until:
-                    q += " AND time <= ?"
-                    extra.append(until)
-                ids = {r[0] for r in self.db.execute(q, [*ids, *extra]).fetchall()}
-        return ids
+            try:
+                return {r[0] for r in self.db.execute(sql, args).fetchall()}
+            except sqlite3.OperationalError as exc:  # 검색어가 이상해도 대화는 계속
+                log.warning("기억 찾기 실패 (%r): %s", cue, exc)
+                return set()
 
     def search(self, words: list[str], limit: int = 6, since: str | None = None, until: str | None = None,
                before: str | None = None, kinds: tuple[str, ...] | None = None) -> list[Episode]:

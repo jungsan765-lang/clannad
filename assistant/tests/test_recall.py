@@ -72,3 +72,13 @@ def test_screen_recall_only_strong_old_matches(tmp_path):
     text, eps = recall_block(idx, "붉은사막 쪼개진뿔 카일록 보스전 시작", datetime(2026, 11, 10), for_screen=True, min_score=2.0)
     assert text.startswith("[지금 화면과 이어지는 예전 일") and len(eps) <= 2 and "카일록" in text
     assert recall_block(idx, "바탕화면 탐색기", datetime(2026, 11, 10), for_screen=True)[0] == ""
+
+
+def test_search_with_time_range_and_odd_cues(tmp_path):
+    idx = EpisodeIndex(tmp_path / "memory.db")
+    for i in range(50):
+        idx.add(f"2026-11-0{1 + i % 9}T10:{i:02d}:00", "chat", f"주인님: 카일록 이야기 {i}번째")
+    idx.add("2026-11-09T10:00:00", "chat", '주인님: "따옴표"와 %퍼센트_밑줄 이 들어간 말')
+    hits = idx.search(["카일록"], since="2026-11-05T00:00:00", until="2026-11-06T00:00:00", limit=50)
+    assert hits and all(h.time.startswith("2026-11-05") for h in hits)
+    assert idx.search(['"따옴표"와', "%퍼센트", "*", "NEAR("]) is not None  # 이상한 글자도 오류 없이
