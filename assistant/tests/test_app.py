@@ -1097,3 +1097,13 @@ def test_remember_this_saves_the_moment_with_screen(qapp, tmp_path, built):
     sent = _json.dumps(content, ensure_ascii=False)
     assert "기억해 달라고 한 순간" in sent and any(b.get("type") == "image" for b in content)
     a.quit()
+
+
+def test_cost_details_by_kind(qapp, tmp_path, built):
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.ledger.record("claude-opus-5-5", {"input_tokens": 500_000}, "analysis")
+    a.ledger.record("claude-haiku-5-5", {"input_tokens": 1_000_000}, "judge")
+    text = a.cost_details()
+    assert text.index("분석·복기: 2,800원") < text.index("화면 판단: 140원") and "[이번 달]" in text
+    a.quit()

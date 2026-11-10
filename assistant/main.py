@@ -81,6 +81,10 @@ TTS_RATES = {"slow": -2, "normal": 0, "fast": 3}
 MOMENT_WORDS = re.compile(r"기억해|기억 ?해 ?둬|잊지 ?마|잊으면 안|중요한 거|중요해|메모해|적어 ?둬")
 # 화면 보기에 드는 호출 종류 (하루 화면 한도에 들어감). 주인님이 직접 부탁한 대화·분석은 한도와 상관없이 된다
 SCREEN_KINDS = ("judge", "screen", "pick", "analysis", "result_review", "official_review")
+KIND_KO = {"chat": "대화", "judge": "화면 판단", "screen": "화면 대사", "pick": "픽 조언", "analysis": "분석·복기",
+           "result_review": "판 끝난 총평", "official_review": "공식 기록 총평", "memory": "기억 정리", "search": "검색",
+           "progress": "진행 정리", "dates": "일정 뽑기", "diary": "일기", "recap": "하루·주간 정리",
+           "mode": "게임 모드 만들기", "organize": "파일 정리", "video": "영상 복기"}
 
 
 class _TtsSignals(QObject):
@@ -1272,6 +1276,7 @@ class AssistantApp(QObject):
             tgroup.addAction(act)
             self.talk_actions[style] = act
         self._sync_talk_actions()
+        add(more, "비용 자세히 보기", self.show_cost_details)
         add(more, "설정 파일 열기 (고급)", self.open_settings)
         add(more, "업데이트 확인", lambda: self.check_update(manual=True))
         add(more, "다시 시작 (설정·업데이트 적용)", self.restart)
@@ -1293,6 +1298,22 @@ class AssistantApp(QObject):
         limit = int(self.pref("screen.daily_krw", 3000) or 0)
         return (f"오늘 사용 {self.ledger.krw(day):,}원 (화면 {screen:,}원" + (f"/{limit:,}원" if limit else "") + ") · "
                 f"이번 달 {self.ledger.krw(month):,}원 (${month:,.2f} / ${self.budget_usd():,.0f})")
+
+    def cost_details(self) -> str:
+        """어디에 얼마 썼는지 (오늘·이번 달, 많이 쓴 것부터)."""
+        lines = []
+        for title, data in (("오늘", self.ledger.by_kind()), ("이번 달", self.ledger.by_kind(month=True))):
+            total = sum(data.values())
+            lines.append(f"[{title}] 합계 {self.ledger.krw(total):,}원")
+            for kind, usd in sorted(data.items(), key=lambda x: -x[1]):
+                if usd > 0:
+                    lines.append(f"  {KIND_KO.get(kind, kind)}: {self.ledger.krw(usd):,}원 ({usd / max(total, 1e-9):.0%})")
+            lines.append("")
+        return "\n".join(lines).strip()
+
+    def show_cost_details(self) -> None:
+        QMessageBox.information(None, "비용 자세히", self.cost_details() + "\n\n화면 판단·화면 대사·분석·복기·총평은 "
+                                "'하루 화면 비용 한도' 안에서만 써요 (설정 창 '화면 보기').")
 
     def _refresh_cost(self) -> None:
         text = self.cost_text()

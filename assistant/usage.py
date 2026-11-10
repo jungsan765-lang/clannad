@@ -78,6 +78,16 @@ class UsageLedger:
         by_kind = self.data["days"].get((today or date.today()).isoformat(), {}).get("by_kind", {})
         return sum(v for k, v in by_kind.items() if k in kinds)
 
+    def by_kind(self, today: date | None = None, month: bool = False) -> dict[str, float]:
+        """종류별 비용 (오늘, 또는 이번 달 전체)."""
+        key = (today or date.today()).isoformat()
+        out: dict[str, float] = {}
+        for k, d in self.data["days"].items():
+            if (month and k.startswith(key[:7])) or (not month and k == key):
+                for kind, usd in d.get("by_kind", {}).items():
+                    out[kind] = out.get(kind, 0.0) + usd
+        return out
+
     def month_usd(self, today: date | None = None) -> float:
         prefix = (today or date.today()).isoformat()[:7]
         return sum(d["usd"] for k, d in self.data["days"].items() if k.startswith(prefix))
