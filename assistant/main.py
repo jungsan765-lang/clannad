@@ -256,6 +256,7 @@ class AssistantApp(QObject):
         self.planner_timer.start(20_000)
         self.set_pc_monitor(bool(self.pref("pc.monitor", True)))
         QTimer.singleShot(5000, self.check_reminders)  # 꺼져 있던 동안 지난 알림
+        QTimer.singleShot(25_000, self.briefing)  # 하루 첫 실행이면 브리핑 (원신 정보를 받아 온 뒤)
         QTimer.singleShot(20_000, lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         QTimer.singleShot(8000, lambda: self.refresh_genshin())
 
@@ -372,6 +373,8 @@ class AssistantApp(QObject):
             cmd = parse_media(reply.target)
             if cmd and press_media(*cmd):
                 self.status.flash(MEDIA_LABEL[cmd[0]] + (f" ×{cmd[1]}" if cmd[1] > 1 else ""))
+        elif reply.action == "make_recap":
+            QTimer.singleShot(300, lambda: self.make_recap(reply.target.strip() or "today"))
         elif reply.action == "set_reminder":
             r = self.planner.add_from_target(reply.target)
             if r:
@@ -788,6 +791,7 @@ class AssistantApp(QObject):
             "user.nickname": ", ".join(self.companion.user_names),
             "ui.show_status": self.status.enabled,
             "pc.monitor": self.pc_timer.isActive(),
+            "assist.briefing": bool(self.pref("assist.briefing", True)),
         }
 
     def open_settings_dialog(self) -> None:
@@ -1008,6 +1012,8 @@ class AssistantApp(QObject):
         vmenu.addSeparator()
         add(vmenu, f"지금 듣기 ({g('hotkeys.voice', 'F7')})", self.push_to_talk)
         add(tools, "알림·할 일…", self.open_planner)
+        add(tools, "오늘 정리", lambda: self.make_recap("today"))
+        add(tools, "이번 주 정리", lambda: self.make_recap("week"))
         add(tools, "개선 요청 메모…", self.open_wishlist)
         add(tools, "화면 기억 폴더 열기", self.open_screens_folder)
 
@@ -1224,6 +1230,59 @@ class AssistantApp(QObject):
             self.pc_timer.stop()
 
         self._run(read_pc_status, done, fail)
+
+    def make_recap(self, kind: str = "today") -> None:
+        """오늘·어제·이번 주 정리: 이 PC 기록을 모아 다니카가 정리 → 분석 창 + 말풍선."""
+        import recap
+
+        kind = kind if kind in ("today", "yesterday", "week") else "today"
+        self.status.begin("recap", "정리하는 중")
+
+        def work():
+            label, facts = recap.collect(kind, datetime.now(), self.screen_log, self.settings.data_dir / "logs",
+                                         self.cyphers, self.planner)
+            return self.companion.recap(label, facts)
+
+        def done(a) -> None:
+            self.status.end("recap")
+            self._refresh_cost()
+            if not a.speak:
+                self.bubble.show_text("정리할 기록이 부족했어요.", self.anchor(), system=True, seconds=5)
+                return
+            self.analysis_panel.show_analysis(a)
+            if not self.busy:
+                self.bubble.show_text(a.summary, self.anchor(), seconds=10)
+                self.window.set_emotion(a.emotion)
+                self._start_talking()
+
+        def fail(message: str) -> None:
+            self.status.end("recap")
+            self._on_error(message)
+
+        self._run(work, done, fail)
+
+    def briefing(self, force: bool = False) -> None:
+        """하루 첫 실행 때 한마디: 오늘 알림·할 일, 원신 레진, 어제 한 것 (이 PC 기록과 받아 둔 정보만)."""
+        import recap
+
+        today = datetime.now().date().isoformat()
+        if not force and (not self.pref("assist.briefing", True) or self.pref("assist.briefing_date", "") == today):
+            return
+        self.set_pref("assist.briefing_date", today)
+        facts = []
+        plan = self.planner.today_text()
+        if plan:
+            facts.append(plan)
+        if self.genshin.has_login:
+            notes = self.genshin.notes_text()
+            if notes:
+                facts.append("원신: " + notes)
+        _, yesterday = recap.collect("yesterday", datetime.now(), self.screen_log, None, None, None)
+        if yesterday:
+            facts.append("어제 화면으로 본 것: " + yesterday.split("\n")[0])
+        if not facts:
+            return
+        self._announce("오늘 처음 켰다. 하루 시작 인사와 함께 아래를 짧게 브리핑한다(두세 문장): " + " / ".join(facts))
 
     def open_planner(self) -> None:
         from ui.planner_dialog import PlannerDialog

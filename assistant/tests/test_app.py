@@ -780,3 +780,31 @@ def test_reminder_and_todo_from_chat_and_firing(qapp, tmp_path, built):
     dlg._add_reminder()
     assert [r["text"] for r in a.planner.reminders] == ["물 마시기"]
     a.quit()
+
+
+def test_recap_and_daily_briefing(qapp, tmp_path, built):
+    fake = FakeAnthropic([
+        {"speak": True, "message": "정리해 볼게요.", "emotion": "normal", "action": "make_recap", "target": "today"},
+        {"speak": True, "summary": "오늘은 사이퍼즈를 오래 하셨네요.", "situation": "저녁 내내 게임",
+         "points": [], "next_steps": ["물 마시기"], "emotion": "happy"},
+        {"speak": True, "message": "좋은 아침입니다. 오늘 할 일이 하나 있어요.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.ask("오늘 하루 정리해줘")
+    _wait(qapp, a)
+    a.make_recap("today")  # 대화 뒤 0.3초 뒤에 시작하는 것을 바로
+    _wait(qapp, a)
+    assert "오늘 11/" in str(fake.calls[1]["messages"]) or "오늘 " in str(fake.calls[1]["messages"])
+    assert a.analysis_panel.isVisible()
+    assert a.bubble.text == "오늘은 사이퍼즈를 오래 하셨네요."
+    a.bubble.hide()
+    a.planner.add_todo("E3 甲 깨기")
+    a.briefing()
+    _wait(qapp, a)
+    assert "브리핑" in str(fake.calls[2]["messages"]) and "E3 甲 깨기" in str(fake.calls[2]["messages"])
+    calls = len(fake.calls)
+    a.briefing()  # 하루 한 번만
+    assert len(fake.calls) == calls
+    a.quit()

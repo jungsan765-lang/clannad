@@ -232,3 +232,30 @@ def test_messenger_rules_in_prompts(tmp_path):
     assert "카카오톡 — 단톡방" in msg[1]["text"] and "메신저" in fake.calls[-1]["system"][0]["text"]
     comp.screen_line(b"main", "x", None)
     assert "남의 메시지를 그대로 읽어 주지 않고" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+
+
+def test_recap_collects_play_time_chats_and_todos(tmp_path):
+    import json as _json
+    from datetime import datetime as _dt
+
+    import recap
+    from planner import Planner
+    from screen_log import ScreenLog
+
+    log_ = ScreenLog(tmp_path / "screens")
+    base = _dt(2026, 11, 10, 20, 0)
+    for i in range(0, 50, 5):  # 사이퍼즈 45분
+        log_.save(b"jpg", base.replace(minute=i), "사이퍼즈", "C", "교전")
+    log_.save(b"jpg", base.replace(hour=22), "평소", "VS Code", "코딩")
+    log_.note(said="쉬어 가셔도 됩니다.")
+    logs = tmp_path / "logs"
+    logs.mkdir()
+    (logs / "2026-11-10.jsonl").write_text("\n".join(_json.dumps(r, ensure_ascii=False) for r in [
+        {"time": "2026-11-10T20:00:00", "user": "안녕", "reply": "네"},
+        {"time": "2026-11-10T20:01:00", "user": "(알림: x)", "reply": "y"}]), encoding="utf-8")
+    p = Planner(tmp_path, clock=lambda: _dt(2026, 11, 10, 23, 0))
+    p.add_todo("방 청소")
+    label, facts = recap.collect("today", _dt(2026, 11, 10, 23, 0), log_, logs, None, p)
+    assert label == "오늘 11/10" and "사이퍼즈 45분" in facts and "말 건 횟수: 1번" in facts
+    assert "쉬어 가셔도" in facts and "남은 할 일: 방 청소" in facts
+    assert recap.collect("week", _dt(2026, 11, 10, 23, 0), log_, logs, None, None)[0].endswith("(최근 7일)")

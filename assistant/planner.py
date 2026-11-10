@@ -192,5 +192,6 @@ class Planner:
         if soon:
             parts.append("기한 가까운 할 일: " + ", ".join(f"{t['text']}({t['due'][5:]})" for t in soon))
         elif self.open_todos():
-            parts.append(f"할 일 {len(self.open_todos())}개 남음")
+            todos = self.open_todos()
+            parts.append("남은 할 일: " + ", ".join(t["text"] for t in todos[:3]) + (f" 외 {len(todos) - 3}개" if len(todos) > 3 else ""))
         return " / ".join(parts)

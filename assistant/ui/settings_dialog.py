@@ -236,7 +236,9 @@ class SettingsDialog(QDialog):
         # 비서 기능
         self.pc_monitor = QCheckBox("PC 상태 감시 (그래픽카드 온도·메모리·저장 공간에 문제가 생기면 알려 주기)")
         self.pc_monitor.setChecked(bool(v.get("pc.monitor", True)))
-        self.assist_rows = [("", self.pc_monitor)]
+        self.briefing = QCheckBox("하루 처음 켤 때 브리핑 (오늘 알림·할 일, 원신 레진, 어제 한 것)")
+        self.briefing.setChecked(bool(v.get("assist.briefing", True)))
+        self.assist_rows = [("", self.pc_monitor), ("", self.briefing)]
         g10 = group("비서 기능", self.assist_rows)
 
         # 비용
@@ -324,6 +326,7 @@ class SettingsDialog(QDialog):
             "user.nickname": ", ".join(n.strip() for n in self.nick.text().replace("，", ",").split(",") if n.strip()),
             "ui.show_status": self.show_status.isChecked(),
             "pc.monitor": self.pc_monitor.isChecked(),
+            "assist.briefing": self.briefing.isChecked(),
         }
 
     def changed(self) -> dict:

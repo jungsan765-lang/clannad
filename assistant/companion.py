@@ -18,7 +18,7 @@ EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
            "read_window", "add_rule", "correct_term", "zoom_screen", "add_focus", "block_window",
-           "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media"]
+           "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media", "make_recap"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -88,6 +88,13 @@ OFFICIAL_TASK = """[공식 기록으로 판 되짚기]
 - summary: 한두 문장 (말풍선에 뜬다). points: 잘한 점·고칠 점을 숫자 근거와 함께. next_steps: 다음 판에 할 것 2~3개.
 - 결과 화면을 보고 이미 짧게 총평했을 수 있으니 같은 말을 되풀이하지 말고 숫자로 더 깊게 본다.
 - 숫자는 기록에 있는 것만 쓰고 지어내지 않는다. 시간을 들여 깊게 생각해도 된다."""
+
+RECAP_TASK = """[지난 시간 정리]
+아래는 이 PC 에 남은 기록(화면 기억 일지, 대화 수, 게임 공식 기록, 할 일)이다. 이것만 근거로 그 기간을 주인님과 함께 돌아본다.
+- summary: 한두 문장 (말풍선에 뜬다). situation: 그 기간 흐름 (무엇을 얼마나 했는지).
+- points: 눈에 띈 것들 (잘된 것, 아쉬운 것, 게임 성적 변화 등)과 근거.
+- next_steps: 다음에 해 볼 것·챙길 것 2~3개 (남은 할 일, 쉬는 시간 등).
+- 기록에 없는 건 지어내지 않는다. 시간은 대략이라고 말한다. 잔소리보다 정리와 격려 위주로."""
 
 PICK_TASK = """[캐릭터 선택 화면 — 픽 조언]
 첨부한 이미지는 대전 전 캐릭터 고르는 화면이다. 고를 시간이 짧으니 바로 쓸 수 있게 말한다(speak 는 true, important 는 true).
@@ -319,6 +326,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   시작 메뉴·바탕화면 바로가기에 있는 것만 켤 수 있다. 끄기·삭제는 못 한다.
 - 음악·소리: "다음 곡", "멈춰", "소리 줄여", "음소거"는 action 은 "media", target 은 play_pause·next·prev·stop·vol_up·vol_down·mute 중
   하나와, 소리면 몇 단계인지(한 단계 2%, 예: "vol_down 5" = 10% 줄이기). message 는 아주 짧게.
+- 정리: "오늘 하루 정리해줘", "이번 주 어땠어?"처럼 지난 시간을 정리해 달라면 action 은 "make_recap",
+  target 은 today·yesterday·week 중 하나. message 는 "정리해 볼게요" 처럼 짧게 (기록을 모아서 이어서 정리한다).
 - 알림: "30분 뒤에 알려줘", "11시에 자라고 해줘", "매일 밤 12시에 레진 쓰라고 해줘"처럼 부탁하면 action 은 "set_reminder",
   target 은 "YYYY-MM-DD HH:MM | 알릴 내용 | 반복" (반복은 없음·매일·매주). 시각은 [지금: …] 기준으로 계산한다.
   message 는 "11시에 알려 드릴게요"처럼 짧게. 알림을 취소해 달라면 "cancel_reminder", target 은 그 알림 내용의 핵심 낱말.
@@ -918,6 +927,25 @@ class Companion:
             [str(x) for x in d.get("next_steps", [])][:4],
             d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, f"{now:%H:%M} 공식 기록"))
         self.memory.add_turn("(끝난 판의 공식 기록을 보고 되짚어 달라고 함)", a.summary, now)
+        return a
+
+    def recap(self, label: str, facts: str, now: datetime | None = None) -> Analysis:
+        """하루·주간 정리 (기록만 보고, 이미지 없음)."""
+        now = now or datetime.now()
+        stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
+        text = f"[지금: {stamp}]\n{RECAP_TASK}\n## 기간: {label}\n{facts or '(남은 기록이 거의 없다)'}"
+        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(),
+                                  messages=[{"role": "user", "content": [{"type": "text", "text": text}]}],
+                                  schema=ANALYSIS_SCHEMA, kind="recap", max_tokens=8000, effort=self.analysis_effort,
+                                  timeout=120)
+        d = r.data
+        if not d or not str(d.get("summary", "")).strip() or not is_korean(d["summary"]):
+            return Analysis(False, "", usd=r.usd)
+        a = self._fix_analysis(Analysis(
+            True, d["summary"].strip(), d.get("situation", "").strip(), list(d.get("points", []))[:6],
+            [str(x) for x in d.get("next_steps", [])][:4],
+            d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, f"{label} 정리"))
+        self.memory.add_turn(f"({label} 정리를 부탁함)", a.summary, now)
         return a
 
     # ------------------------------------------------------------ 영상 복기
