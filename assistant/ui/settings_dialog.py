@@ -21,6 +21,7 @@ BUBBLE_TIMES = [("short", "짧게"), ("normal", "보통"), ("long", "길게")]
 MEMORY_DAYS = [("30", "30일"), ("90", "90일"), ("180", "180일"), ("365", "1년")]
 MEMORY_GB = [("20", "20GB"), ("50", "50GB"), ("100", "100GB"), ("300", "300GB")]
 COACH = [("off", "끔"), ("analysis", "분석"), ("review", "복기")]
+RESULT_DEPTH = [("deep", "깊게 생각 (1~2분, 판마다 약 200~400원)"), ("quick", "빠르게")]
 OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
 OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
 SHARPNESS = [(1280, "보통"), (1920, "선명 (추천)"), (2560, "아주 선명 (비용 약 2배)")]
@@ -135,9 +136,11 @@ class SettingsDialog(QDialog):
                             "싸움·판이 끝나면 '이랬으면 좋았을 것'을 짚음 (게임 1시간에 약 1,000~3,000원).  F10 은 언제든.")
         coach_note.setWordWrap(True)
         coach_note.setStyleSheet("color: #555;")
+        self.result_depth = Choice(RESULT_DEPTH, str(v.get("screen.result_depth", "deep")))
         self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "important")))
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         g2 = group("화면 보기", [("", self.screen_on), ("코칭", self.coach), ("", coach_note),
+                                 ("판 끝난 뒤 총평", self.result_depth),
                                  ("게임 화면 자막", self.overlay), ("자막 위치", self.overlay_pos), ("말 거는 정도", self.chatty),
                                  ("화면 확인 간격", self.interval),
                                  ("한 번 말한 뒤 쉬는 시간", self.cooldown), ("볼 모니터", self.monitor),
@@ -293,6 +296,7 @@ class SettingsDialog(QDialog):
             "screen.cooldown_seconds": self.cooldown.value(),
             "screen.monitor": self.monitor.value(),
             "screen.coach": self.coach.value(),
+            "screen.result_depth": self.result_depth.value(),
             "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),
             "screen.read_windows": self.read_windows.isChecked(),

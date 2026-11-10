@@ -25,7 +25,7 @@ from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, WindowInfo, capture_window, foreground_window
 
 # 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
-STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "line": 120.0, "analyze": 200.0}
+STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "line": 120.0, "analyze": 200.0, "analyze_deep": 330.0}
 
 
 class _Abandoned(Exception):
@@ -73,6 +73,8 @@ class WatchConfig:
     review_gap: float = 40.0  # 복기 사이 최소 간격(초)
     focus_crop: bool = True  # 맨 앞 창이 화면의 70%보다 작으면 그 창을 원래 크기로 한 장 더 보냄
     auto_read: bool = True  # 메신저(카톡 등)를 쓰고 있으면 어느 모니터에 있든 그 창을 직접 찍어 함께 본다
+    deep_result: bool = True  # 판이 끝난 결과 화면 총평은 오래 생각해서 (1~2분, 조금 더 비쌈)
+    pick_gap: float = 150.0  # 픽 조언 사이 최소 간격(초): 한 번의 픽 화면에선 한 번만
 
 
 @dataclass
@@ -92,6 +94,7 @@ class GameSession:
     last_seen: float
     notes: list[str] = field(default_factory=list)
     last_review: float | None = None
+    last_pick: float | None = None
 
     def add(self, now: float, text: str) -> None:
         if not text:
@@ -117,6 +120,7 @@ class ScreenWatcher(QObject):
     mode_changed = Signal(str)
     activity = Signal(str)  # "judge"(화면 확인 중) | "line"(할 말 고르는 중) | "analyze"(분석 중) | ""(끝)
     new_game = Signal(str, str, list)  # 처음 보는 게임을 자주 함: (실행 파일, 창 제목, 본 장면들)
+    result_seen = Signal(str)  # 게임 결과 화면을 봤음 (모드 이름) → 공식 기록이 있으면 나중에 기록으로 다시 본다
 
     def __init__(self, companion, cfg: WatchConfig, run_job: Callable, *, modes: list[Mode] | None = None,
                  can_run: Callable[[], bool] = lambda: True,
@@ -376,12 +380,13 @@ class ScreenWatcher(QObject):
             last_t = t
         return list(reversed(picked))
 
-    def _analyze(self, shot, note, mode, notes, question=None, review: bool = False):
-        self._stage("analyze")
+    def _analyze(self, shot, note, mode, notes, question=None, review: bool = False, deep: bool = False):
+        self._stage("analyze_deep" if deep else "analyze")
         frames = (self.frames_for_analysis(shot.jpeg, count=6, min_gap=4.0) if review
                   else self.frames_for_analysis(shot.jpeg))
+        kw = {"deep": True} if deep else {}
         return self.companion.analyze(frames, shot.title, mode=mode, session_notes=notes, note=note, question=question,
-                                      review=review, focus=shot.focus, focus_label=shot.focus_label)
+                                      review=review, focus=shot.focus, focus_label=shot.focus_label, **kw)
 
     def ask_now(self, question: str = "지금 화면 어때?") -> None:
         """단축키(F8): 판단·간격 무시하고 지금 화면을 보고 말하게 한다."""
@@ -490,10 +495,18 @@ class ScreenWatcher(QObject):
                 and (session.last_review is None or now - session.last_review > self.cfg.review_gap_seconds)):
             session.last_review = now
             self.stats["reviews"] += 1
+            self.result_seen.emit(mode.name)  # 공식 기록이 있는 게임이면 나중에 기록으로 한 번 더 본다
+            if self.cfg.deep_result:
+                return self._analyze(shot, note, mode, session.notes, deep=True)
             if self.cfg.analysis:
                 return self._analyze(shot, note, mode, session.notes)
             return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                               session_notes=session.notes, review=True)
+        if (mode.pick_advice and scene == "pick" and session
+                and (session.last_pick is None or now - session.last_pick > self.cfg.pick_gap)):
+            session.last_pick = now  # 픽 시간은 짧으니 빠른 모드로 바로
+            return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode, session_notes=notes,
+                             pick=True, fast=True)
         if urgent and mode.urgent:
             return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                               session_notes=notes)

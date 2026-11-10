@@ -87,8 +87,8 @@ class LoreBook:
             size += len(e.text)
         return picked
 
-    def notes_for(self, text: str, max_chars: int = 3500) -> str:
-        found = self.find(text, max_chars)
+    def notes_for(self, text: str, max_chars: int = 3500, limit: int = 4) -> str:
+        found = self.find(text, max_chars, limit)
         if not found:
             return ""
         return ("[관련 배경지식 — 네가 원래 아는 것이다. 지금 상황에 필요한 것만 골라 네 생각과 네 말로 쓴다. "

@@ -66,6 +66,49 @@ def shrink(obj: Any, depth: int = 0) -> Any:
     return obj
 
 
+def find_value(obj: Any, names: tuple[str, ...], depth: int = 0) -> Any:
+    """JSON 어디에 있든 키 이름(소문자)이 names 중 하나인 첫 값."""
+    if depth > 6:
+        return None
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k.lower() in names and not isinstance(v, (dict, list)):
+                return v
+        for v in obj.values():
+            found = find_value(v, names, depth + 1)
+            if found is not None:
+                return found
+    elif isinstance(obj, list):
+        for x in obj:
+            found = find_value(x, names, depth + 1)
+            if found is not None:
+                return found
+    return None
+
+
+def is_win(result: Any) -> bool:
+    return str(result or "").strip().lower() in ("win", "승리", "승", "true", "1")
+
+
+def compact(obj: Any, depth: int = 0) -> Any:
+    """경기 상세(8명 기록)를 숫자는 다 남기고 아이디·아이템 목록만 빼서 줄인다."""
+    if depth > 6:
+        return None
+    if isinstance(obj, dict):
+        out = {}
+        for k, v in obj.items():
+            low = k.lower()
+            if low.endswith("id") or "item" in low:
+                continue
+            c = compact(v, depth + 1)
+            if c not in (None, {}, [], ""):
+                out[k] = c
+        return out
+    if isinstance(obj, list):
+        return [compact(x, depth + 1) for x in obj[:10]]
+    return obj
+
+
 def describe_keys(obj: Any, depth: int = 0) -> str:
     """처음 받은 응답의 구조를 기록에 남기기 위한 키 이름 요약."""
     if isinstance(obj, dict) and depth < 6:
@@ -129,6 +172,27 @@ class CyphersData:
         self.last_error = ""
         return True
 
+    def all_matches(self) -> list[dict]:
+        return [m for kind in ("rating", "normal") for m in (self.matches.get(kind) or [])]
+
+    def match_ids(self) -> set[str]:
+        return {str(m.get("matchId")) for m in self.all_matches() if m.get("matchId")}
+
+    def match_detail(self, match_id: str) -> Any:
+        return self._get(f"/matches/{match_id}")
+
+    def character_stats(self) -> list[tuple[str, int, int]]:
+        """받아 온 최근 판들의 캐릭터별 (이름, 판수, 승수), 많이 한 순."""
+        stats: dict[str, list[int]] = {}
+        for m in self.all_matches():
+            name = find_value(m, ("charactername",))
+            if not name:
+                continue
+            s = stats.setdefault(str(name), [0, 0])
+            s[0] += 1
+            s[1] += is_win(find_value(m, ("result",)))
+        return sorted(((n, g, w) for n, (g, w) in stats.items()), key=lambda x: (-x[1], -x[2]))
+
     def context_text(self, per_kind: int = 6) -> str:
         if self.fetched_at is None:
             return ""
@@ -141,6 +205,10 @@ class CyphersData:
             if rows:
                 lines.append(f"{label} 최근 {min(len(rows), per_kind)}판 (최신부터):")
                 lines += ["- " + json.dumps(shrink(m), ensure_ascii=False)[:700] for m in rows[:per_kind]]
+        stats = self.character_stats()
+        if stats:
+            lines.append("캐릭터별 최근 전적 (받아 온 공식전·일반전 판 기준): "
+                         + ", ".join(f"{n} {g}판 {w}승" for n, g, w in stats[:12]))
         return "\n".join(lines)
 
 

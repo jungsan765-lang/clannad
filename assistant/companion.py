@@ -33,7 +33,7 @@ REPLY_SCHEMA = {
     "additionalProperties": False,
 }
 
-SCENES = ["playing", "result", "menu", "loading", "cutscene", "other"]
+SCENES = ["playing", "result", "pick", "menu", "loading", "cutscene", "other"]
 
 JUDGE_SCHEMA = {
     "type": "object",
@@ -54,7 +54,10 @@ JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담
 - situation: 지금 화면이 무엇인지 한국어 한 문장. point: 말한다면 무엇을 짚을지 한국어 한 문장(말 안 하면 빈 문자열).
 - point 는 화면을 그대로 옮긴 말('전투 중', '영상을 보는 중')이 아니라, 주인님이 모를 만한 정보·판단·조언·생각거리여야 한다.
   그런 게 없으면 speak 는 false.
-- scene: playing(게임 플레이·작업 중), result(게임 결과 화면), menu(로비·메뉴·선택 화면), loading(로딩), cutscene(컷신·대화 장면), other.
+- scene: playing(게임 플레이·작업 중), result(게임 결과 화면), pick(대전 전 캐릭터 고르는 화면·밴픽), menu(로비·메뉴),
+  loading(로딩), cutscene(컷신·대화 장면), other.
+- scene 이 pick 이면 situation 에 화면에 글자로 보이는 캐릭터 이름을 '아군: …/상대: …/주인님: …' 처럼 나눠 모두 적는다
+  (이름 글자가 안 보이면 '안 보임'. 얼굴 그림만 보고 이름을 짐작하지 않는다).
 - urgent: 아래 '즉시 알릴 상황'에 해당할 때만 true (그때는 speak 도 true).
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다.
 - situation 에는 화면에 글자로 보이는 핵심 이름·용어(캐릭터·지명·적 이름, 大破·進撃 같은 게임 용어)를 원문 그대로 넣는다.
@@ -67,6 +70,31 @@ CHATTINESS = {
     "normal": "말 거는 정도: 보통. 화면에 반응할 거리가 하나라도 있으면 speak=true. 별일 없는 화면이 오래 이어져도 가끔은 짧게 한마디(근황·쉬자는 말 등).",
     "chatty": "말 거는 정도: 수다. 화면이 바뀌었으면 거의 항상 speak=true로 짧게 반응한다. 같은 내용만 반복하지 않으면 된다.",
 }
+
+RESULT_TASK = """[판이 끝남 — 깊게 되짚기]
+첨부한 이미지는 방금 끝난 판의 결과 화면(과 그 전 장면들)이다. '이번 판(세션) 기록'과 공식 전적 자료가 있으면 함께 근거로 삼아
+판 전체를 되짚는다. 시간을 들여 깊게 생각해도 된다(이미 끝난 판이라 급하지 않다).
+- summary: 이 판의 승패를 가른 것 한두 문장 (말풍선에 뜬다).
+- situation: 판의 흐름 (초반·중반·마지막 싸움).
+- points: 잘한 점과 고칠 점을 장면·숫자 근거와 함께 (몇 분쯤, 어떤 판단이었는지).
+- next_steps: 다음 판에 바로 해 볼 것 2~3개.
+- 결과 화면 숫자(킬·데스·딜량 등)는 보이는 것만 쓴다. 지어내지 않는다."""
+
+OFFICIAL_TASK = """[공식 기록으로 판 되짚기]
+아래는 조금 전에 끝난 판의 공식 기록(게임사 API 의 실제 숫자, 양 팀 전원)이다. 주인님이 누구인지는 닉네임으로 기록에서 찾는다.
+- 주인님 숫자(딜량·받은 피해·킬·데스·어시스트·회복·시야 등 기록에 있는 것)를 같은 팀·상대 팀과 비교해 승패를 가른 것을 찾는다.
+- 양 팀 조합(픽)도 본다: 역할이 비었는지, 상대 조합에 무엇이 약했는지.
+- summary: 한두 문장 (말풍선에 뜬다). points: 잘한 점·고칠 점을 숫자 근거와 함께. next_steps: 다음 판에 할 것 2~3개.
+- 결과 화면을 보고 이미 짧게 총평했을 수 있으니 같은 말을 되풀이하지 말고 숫자로 더 깊게 본다.
+- 숫자는 기록에 있는 것만 쓰고 지어내지 않는다. 시간을 들여 깊게 생각해도 된다."""
+
+PICK_TASK = """[캐릭터 선택 화면 — 픽 조언]
+첨부한 이미지는 대전 전 캐릭터 고르는 화면이다. 고를 시간이 짧으니 바로 쓸 수 있게 말한다(speak 는 true, important 는 true).
+- 근거: 화면에 글자로 보이는 아군·상대 픽, 아래 '관련 배경지식'의 캐릭터 정보(역할·상성), 주인님 공식 전적(캐릭터별 판수·승률).
+- 팀에 빠진 역할(예: 탱커·서포터)이 있으면 그걸 채우는 쪽을 먼저 본다. 주인님이 잘하는(전적이 좋은) 캐릭터가 맞으면 그걸 추천.
+- 추천 캐릭터 1~2개와 이유 한 줄. 이미 골랐으면 그 캐릭터로 이번 판에 할 일 하나(상대 픽 기준).
+- 화면에서 확실히 안 보이는 픽은 짐작하지 않는다. 배경지식·전적에 없는 상성은 지어내지 않는다.
+- 2~3문장, 짧게."""
 
 SCREEN_TASK = """[화면 보고 먼저 말 걸기]
 첨부한 이미지는 주인님의 모니터 화면이다. 판단 담당이 이미 '말 걸기'로 정했으니, 메모를 참고해 캐릭터답게 짧게 한마디 한다(speak 는 true).
@@ -668,14 +696,14 @@ class Companion:
     def screen_line(self, jpeg: bytes, title: str, note: dict | None, model: str | None = None,
                     question: str | None = None, now: datetime | None = None, mode=None,
                     session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None,
-                    focus: bytes | None = None, focus_label: str = "") -> Reply:
+                    focus: bytes | None = None, focus_label: str = "", pick: bool = False) -> Reply:
         """화면을 보고 캐릭터 말투로 한마디.
 
         question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
         """
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
-        task = SCREEN_TASK
+        task = PICK_TASK if pick else SCREEN_TASK
         if review:
             task = ("[이번 판 총평]\n첨부한 이미지는 방금 끝난 판의 결과 화면이다. 결과 화면과 '이번 판 기록'을 근거로 "
                     "잘한 점 하나와 고칠 점 하나를 2~3문장으로 말한다. speak 는 true.")
@@ -696,7 +724,8 @@ class Companion:
             lines.append(f"주인님이 지금 화면을 보고 말해 달라고 했다: {question} → speak 는 true.")
         seen = " ".join([title or "", getattr(mode, "name", "") or "", question or "",
                          (note or {}).get("situation", ""), (note or {}).get("point", "")] + list(session_notes or [])[-5:])
-        notes = self.lorebook.notes_for(seen)
+        # 픽 화면: 보이는 캐릭터 8명 + 조합 원칙까지 꺼내 본다
+        notes = self.lorebook.notes_for(seen, 9000, 10) if pick else self.lorebook.notes_for(seen)
         if notes:
             lines.append(notes)
         extra = self.extra_context(mode) if self.extra_context else ""
@@ -705,8 +734,8 @@ class Companion:
         content = [self._image_block(jpeg)] + self._focus_blocks(focus, focus_label) + [{"type": "text", "text": "\n".join(lines)}]
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,
-                                  schema=REPLY_SCHEMA, kind="screen", max_tokens=self.max_tokens, effort=self.effort,
-                                  fast=fast)
+                                  schema=REPLY_SCHEMA, kind="pick" if pick else "screen", max_tokens=self.max_tokens,
+                                  effort="low" if pick else self.effort, fast=fast)
         data = r.data
         if data and data["speak"] and data["message"] and not is_korean(data["message"]):
             log.warning("화면 대사가 한국어가 아님 → 표시하지 않음: %r", data["message"][:120])
@@ -717,7 +746,7 @@ class Companion:
         if not data or not data["speak"] or not data["message"].strip():
             return Reply(False, "", "normal", r.usd)
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
-        important = bool(data.get("important")) or bool(note and note.get("urgent")) or review
+        important = bool(data.get("important")) or bool(note and note.get("urgent")) or review or pick
         return Reply(True, self.memory.fix_words(data["message"].strip()), emotion, r.usd, important=important)
 
     # ------------------------------------------------------------ 게임 모드 만들기
@@ -742,8 +771,9 @@ class Companion:
 
     def analyze(self, frames: list[tuple[bytes, float]], title: str, mode=None, session_notes: list[str] | None = None,
                 note: dict | None = None, question: str | None = None, now: datetime | None = None,
-                review: bool = False, focus: bytes | None = None, focus_label: str = "") -> Analysis:
-        """최근 장면 여러 장(jpeg, 몇 초 전)을 보고 깊게 분석한다. 말풍선엔 summary, 분석 창엔 나머지."""
+                review: bool = False, focus: bytes | None = None, focus_label: str = "", deep: bool = False) -> Analysis:
+        """최근 장면 여러 장(jpeg, 몇 초 전)을 보고 깊게 분석한다. 말풍선엔 summary, 분석 창엔 나머지.
+        deep: 판이 끝난 결과 화면 → 오래 생각해서 판 전체를 되짚는다 (1~2분, 조금 더 비쌈)."""
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
         content: list[dict] = []
@@ -751,7 +781,8 @@ class Companion:
             content.append({"type": "text", "text": "(지금 화면)" if ago < 1 else f"({ago:.0f}초 전 화면)"})
             content.append(self._image_block(jpeg))
         content += self._focus_blocks(focus, focus_label)
-        lines = [f"[지금: {stamp}]", REVIEW_TASK if review else ANALYSIS_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
+        task = RESULT_TASK if deep else REVIEW_TASK if review else ANALYSIS_TASK
+        lines = [f"[지금: {stamp}]", task, f"맨 앞 창: {title or '(알 수 없음)'}"]
         rules = self.rules_text(mode)
         if rules:
             lines.append(rules.strip())
@@ -775,8 +806,9 @@ class Companion:
         content.append({"type": "text", "text": "\n".join(lines)})
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(), messages=messages,
-                                  schema=ANALYSIS_SCHEMA, kind="analysis", max_tokens=8000, effort=self.analysis_effort,
-                                  timeout=120)
+                                  schema=ANALYSIS_SCHEMA, kind="result_review" if deep else "analysis",
+                                  max_tokens=16000 if deep else 8000, effort="high" if deep else self.analysis_effort,
+                                  timeout=300 if deep else 120)
         d = r.data
         if not d or not d.get("speak") or not str(d.get("summary", "")).strip():
             return Analysis(False, "", usd=r.usd)
@@ -797,6 +829,44 @@ class Companion:
         a.summary, a.situation = fix(a.summary), fix(a.situation)
         a.points = [{k: fix(str(v)) for k, v in p.items()} if isinstance(p, dict) else p for p in a.points]
         a.next_steps = [fix(s) for s in a.next_steps]
+        return a
+
+    def game_review(self, record: str, mode=None, session_notes: list[str] | None = None, deep: bool = True,
+                    nickname: str = "", now: datetime | None = None) -> Analysis:
+        """게임사 공식 기록(글)으로 끝난 판을 되짚는다. 화면 이미지는 없음."""
+        now = now or datetime.now()
+        stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
+        lines = [f"[지금: {stamp}]", OFFICIAL_TASK]
+        if nickname:
+            lines.append(f"주인님 게임 닉네임: {nickname}")
+        if self.user_names:
+            lines.append(self.names_text())
+        mode_text = self._mode_text(mode, session_notes)
+        if mode_text:
+            lines.append(mode_text)
+        rules = self.rules_text(mode)
+        if rules:
+            lines.append(rules.strip())
+        notes = self.lorebook.notes_for(record, 9000, 10)
+        if notes:
+            lines.append(notes)
+        lines.append("## 공식 기록\n" + record)
+        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(),
+                                  messages=[{"role": "user", "content": [{"type": "text", "text": "\n".join(lines)}]}],
+                                  schema=ANALYSIS_SCHEMA, kind="official_review", max_tokens=16000 if deep else 8000,
+                                  effort="high" if deep else self.analysis_effort, timeout=300 if deep else 120)
+        d = r.data
+        if not d or not d.get("speak") or not str(d.get("summary", "")).strip():
+            return Analysis(False, "", usd=r.usd)
+        texts = [d["summary"], d.get("situation", "")] + [p.get("detail", "") for p in d.get("points", [])]
+        if not all(is_korean(t) for t in texts if t):
+            log.warning("공식 기록 총평이 한국어가 아님 → 표시하지 않음")
+            return Analysis(False, "", usd=r.usd)
+        a = self._fix_analysis(Analysis(
+            True, d["summary"].strip(), d.get("situation", "").strip(), list(d.get("points", []))[:6],
+            [str(x) for x in d.get("next_steps", [])][:4],
+            d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, f"{now:%H:%M} 공식 기록"))
+        self.memory.add_turn("(끝난 판의 공식 기록을 보고 되짚어 달라고 함)", a.summary, now)
         return a
 
     # ------------------------------------------------------------ 영상 복기

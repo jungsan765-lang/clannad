@@ -25,7 +25,7 @@ from PySide6.QtWidgets import QApplication, QFileDialog, QMenu, QMessageBox, QSy
 
 import organizer as org
 import re
-from gamedata.cyphers_data import CyphersData
+from gamedata.cyphers_data import CyphersData, compact
 from gamedata.genshin_data import GenshinData
 from screen_log import ScreenLog, recall_window
 from secret_store import SecretStore
@@ -137,11 +137,14 @@ class AssistantApp(QObject):
         self.watcher.status.connect(self._on_watch_status)
         self.watcher.activity.connect(self._on_watch_activity)
         self.watcher.new_game.connect(lambda p, t, seen: self.make_game_mode(p, t, seen, auto=True))
+        self.watcher.result_seen.connect(self._on_result_seen)
+        self._record_wait: dict | None = None  # 결과 화면 뒤 공식 기록이 올라오길 기다리는 중
         # 화면 기억: 바뀐 화면을 날짜별로 이 PC 에 (보관 기간·최대 용량을 넘으면 오래된 날부터 지움)
         self.screen_log = ScreenLog(settings.data_dir / "screens", int(self.pref("screen.memory_days", 180)),
                                     float(self.pref("screen.memory_gb", 100)), bool(self.pref("screen.memory", True)))
         self.watcher.screen_log = self.screen_log
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
+        self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
@@ -510,6 +513,8 @@ class AssistantApp(QObject):
             self.status.begin("screen", "할 말 고르는 중")
         elif what == "analyze":
             self.status.begin("screen", "분석하는 중")
+        elif what == "analyze_deep":
+            self.status.begin("screen", "이번 판 깊게 되짚는 중")
         else:
             self.status.end("screen")
 
@@ -668,6 +673,7 @@ class AssistantApp(QObject):
             "screen.memory": self.screen_log.enabled,
             "screen.read_windows": bool(self.pref("screen.read_windows", True)),
             "screen.auto_read": bool(self.watch_cfg.auto_read),
+            "screen.result_depth": "deep" if self.watch_cfg.deep_result else "quick",
             "screen.memory_days": self.screen_log.keep_days,
             "screen.memory_gb": int(self.screen_log.max_gb),
             "screen.overlay": str(self.pref("screen.overlay", "important")),
@@ -721,6 +727,8 @@ class AssistantApp(QObject):
             self._apply_bubble_time(str(changed["ui.bubble_time"]))
         if "screen.auto_read" in changed:
             self.watch_cfg.auto_read = bool(changed["screen.auto_read"])
+        if "screen.result_depth" in changed:
+            self.watch_cfg.deep_result = changed["screen.result_depth"] == "deep"
         if "screen.memory" in changed:
             self.screen_log.enabled = bool(changed["screen.memory"])
         if "screen.memory_days" in changed or "screen.memory_gb" in changed:
@@ -1124,6 +1132,81 @@ class AssistantApp(QObject):
         if name == "사이퍼즈":
             return self.cyphers.context_text()
         return ""
+
+    # 결과 화면을 본 뒤 공식 기록을 확인하는 때(분). 공식 기록은 늦으면 1시간쯤 뒤에 올라온다
+    RECORD_CHECKS = (2, 8, 20, 40, 65)
+
+    def _on_result_seen(self, mode_name: str) -> None:
+        """사이퍼즈 결과 화면 → 이 판 공식 기록이 올라오면 그 숫자로 한 번 더 깊게 되짚는다."""
+        if mode_name != "사이퍼즈" or not self.cyphers.ready:
+            return
+        s = self.watcher.session
+        self._record_wait = {"known": self.cyphers.match_ids(), "notes": list(s.notes) if s else [],
+                             "mode": self.watcher.mode, "checks": 0}
+        if self.cyphers.fetched_at is None:  # 아직 한 번도 안 받았으면 '이미 있던 판'을 모름 → 지금 받아 둔다
+            self._record_wait["known"] = None
+            QTimer.singleShot(1000, self.check_cyphers_record)
+        for minutes in self.RECORD_CHECKS:
+            QTimer.singleShot(minutes * 60_000, self.check_cyphers_record)
+
+    def check_cyphers_record(self) -> None:
+        wait, c = self._record_wait, self.cyphers
+        if not wait or self._cyphers_busy:
+            return
+        wait["checks"] += 1
+        self._cyphers_busy = True
+
+        def work():
+            if not c.refresh():
+                return None
+            if wait["known"] is None:  # 기준이 될 '이미 있던 판' 목록만 받아 둠
+                wait["known"] = c.match_ids()
+                return None
+            new = [m for m in c.all_matches() if str(m.get("matchId", "")) not in wait["known"]]
+            if not new:
+                return None
+            match = new[0]
+            try:
+                detail = c.match_detail(str(match["matchId"]))
+            except Exception as exc:  # noqa: BLE001 - 상세를 못 받으면 목록에 있는 내 기록만으로
+                log.warning("사이퍼즈 경기 상세 실패: %r", exc)
+                detail = match
+            return json.dumps(compact(detail), ensure_ascii=False)[:9000]
+
+        def done(record) -> None:
+            self._cyphers_busy = False
+            if record and self._record_wait is wait:
+                self._record_wait = None
+                self.review_official_record(record, wait["mode"], wait["notes"])
+            elif wait["checks"] >= len(self.RECORD_CHECKS) + 1 and self._record_wait is wait:
+                self._record_wait = None  # 끝내 안 올라옴
+
+        def fail(message: str) -> None:
+            self._cyphers_busy = False
+            log.warning("사이퍼즈 공식 기록 확인 실패: %s", message)
+
+        self._run(work, done, fail)
+
+    def review_official_record(self, record: str, mode=None, notes: list[str] | None = None) -> None:
+        self.status.begin("record", "공식 기록으로 되짚는 중")
+
+        def done(a) -> None:
+            self.status.end("record")
+            self._refresh_cost()
+            if not a.speak:
+                return
+            self.analysis_panel.show_analysis(a)
+            if not self.busy:
+                self.bubble.show_text("아까 그 판 공식 기록이 올라와서 다시 봤어요. " + a.summary, self.anchor(), seconds=12)
+                self.window.set_emotion(a.emotion)
+                self._start_talking()
+
+        def fail(message: str) -> None:
+            self.status.end("record")
+            log.warning("공식 기록 총평 실패: %s", message)
+
+        self._run(lambda: self.companion.game_review(record, mode, notes, deep=self.watch_cfg.deep_result,
+                                                     nickname=self.cyphers.nickname), done, fail)
 
     def refresh_cyphers(self, force: bool = False) -> None:
         c = self.cyphers

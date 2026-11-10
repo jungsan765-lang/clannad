@@ -58,17 +58,17 @@ class FakeCompanion:
         return {"speak": True, "urgent": False, "scene": "playing", "situation": "오류 창", "point": "경로 확인"}
 
     def analyze(self, frames, title, mode=None, session_notes=None, note=None, question=None, review=False, focus=None,
-                focus_label=""):
+                focus_label="", deep=False):
         from companion import Analysis
 
         self.analyses = getattr(self, "analyses", []) + [{"frames": frames, "note": note, "question": question,
-                                                          "review": review}]
+                                                          "review": review, "deep": deep}]
         return Analysis(True, "흐름을 보니 왼쪽이 비었습니다.", "교전 직후", [{"title": "위치", "detail": "근거"}], ["보급"])
 
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False,
-                    focus=None, focus_label=""):
+                    focus=None, focus_label="", pick=False, fast=None):
         self.lines.append({"note": note, "question": question, "mode": mode.name if mode else None,
-                           "notes": list(session_notes or []), "review": review})
+                           "notes": list(session_notes or []), "review": review, "pick": pick, "fast": fast})
         text = "총평입니다." if review else ("지금은 코드 편집 중이시네요." if question else "경로에 얼룩이 하나 있네요.")
         return Reply(True, text, "normal")
 
@@ -89,7 +89,8 @@ def _watcher(tmp_path, images=None, notes=None, modes=None, can_run=lambda: True
         except Exception as exc:  # noqa: BLE001
             fail(str(exc))
 
-    w = ScreenWatcher(comp, WatchConfig(interval_seconds=30, cooldown_seconds=120), run_job, modes=modes or [],
+    w = ScreenWatcher(comp, WatchConfig(interval_seconds=30, cooldown_seconds=120, deep_result=False), run_job,
+                      modes=modes or [],
                       can_run=can_run, grabber=lambda: next(imgs), window_info=lambda: state["window"],
                       monitor_rect=lambda: MON, clock=lambda: t["now"])
     said = []
@@ -579,3 +580,29 @@ def test_slow_screen_check_is_skipped_and_late_result_ignored(qapp, tmp_path):
     done2(fn2(*args2))
     assert not w.running_job and said == ["경로에 얼룩이 하나 있네요."]
     w.timer.stop()
+
+
+def test_pick_screen_gets_quick_advice_once(qapp, tmp_path):
+    cy = _game("cy", review_on_result=True, pick_advice=True)
+    pick = {"speak": False, "urgent": False, "scene": "pick", "situation": "아군: 카인, 레나 / 상대: 안 보임", "point": ""}
+    notes = [dict(pick), dict(pick), {"speak": False, "urgent": False, "scene": "playing", "situation": "교전", "point": ""}]
+    w, comp, said, t, _ = _watcher(tmp_path, notes=notes, modes=[cy], window=WindowInfo("C", "cy.exe", (0, 0, 1920, 1080)))
+    w.tick()
+    assert len(comp.lines) == 1 and comp.lines[0]["pick"] and comp.lines[0]["fast"] is True
+    t["now"] = 11
+    w.tick()  # 같은 픽 화면이 계속 보여도 또 말하지 않음
+    assert len(comp.lines) == 1
+
+
+def test_result_screen_gets_deep_review_and_signal(qapp, tmp_path):
+    cy = _game("cy", review_on_result=True)
+    notes = [{"speak": True, "urgent": False, "scene": "result", "situation": "패배 2킬 5데스", "point": ""}]
+    w, comp, said, t, _ = _watcher(tmp_path, notes=notes, modes=[cy], window=WindowInfo("C", "cy.exe", (0, 0, 1920, 1080)))
+    w.cfg.deep_result = True
+    seen = []
+    w.result_seen.connect(seen.append)
+    acts = []
+    w.activity.connect(acts.append)
+    w.tick()
+    assert comp.analyses[-1]["deep"] and seen == ["cy"] and "analyze_deep" in acts
+    assert said == ["흐름을 보니 왼쪽이 비었습니다."]

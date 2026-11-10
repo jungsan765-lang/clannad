@@ -112,3 +112,58 @@ def test_settings_dialog_scrolls_and_has_cyphers_fields():
     dlg = SettingsDialog(values, ["1"], [], neople_set=True)
     assert dlg.neople_key.echoMode() == dlg.neople_key.EchoMode.Password and "저장돼 있어요" in dlg.neople_key.placeholderText()
     assert dlg.values()["cyphers.nickname"] == "하늘고래" and "neople" not in json.dumps(dlg.values())
+
+
+def test_character_stats_from_recent_matches(tmp_path):
+    c = cd.CyphersData(tmp_path, api_key=lambda: "KEY", nickname="하늘고래", fetch=fake_fetch([]), clock=lambda: 1000.0)
+    assert c.refresh()
+    assert c.character_stats()[:2] == [("카인", 2, 2), ("레나", 2, 0)]  # 공식전·일반전 둘 다 같은 가짜 응답
+    assert "캐릭터별 최근 전적" in c.context_text() and "카인 2판 2승" in c.context_text()
+
+
+def test_result_screen_waits_for_official_record_then_reviews(tmp_path):
+    import main as app_main
+    from ai_client import AIClient
+    from test_app import _settings, _wait
+    from usage import UsageLedger
+    from watch.modes import Mode
+
+    app = QApplication.instance() or QApplication([])
+    s = _settings(tmp_path, "no_such_folder")
+    fake = FakeAnthropic([{"speak": True, "summary": "딜은 팀 1등이었지만 데스 6이 컸습니다.", "situation": "초반 우세 후 역전패",
+                           "points": [{"title": "데스", "detail": "6데스, 팀 평균 3"}], "next_steps": ["합류 먼저"],
+                           "emotion": "worried"}])
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.secrets.set("neople", "SECRET-KEY")
+    a.apply_settings({"cyphers.nickname": "하늘고래"})
+    calls = []
+    a.cyphers.fetch = fake_fetch(calls)
+    a.refresh_cyphers(force=True)
+    _wait(app, a)
+    a.watcher.mode = Mode("사이퍼즈", is_game=True)
+    a._on_result_seen("사이퍼즈")
+    a.check_cyphers_record()  # 아직 새 판 기록 없음
+    _wait(app, a)
+    assert a._record_wait is not None and not any("official_review" in str(c) for c in fake.calls)
+    new = json.loads(json.dumps(MATCHES))
+    new["matches"]["rows"].insert(0, {"date": "2026-11-10 21:00", "matchId": "m3",
+                                      "playInfo": {"result": "lose", "characterName": "카인", "killCount": 3}})
+    detail = {"matchId": "m3", "players": [{"playerId": "p-1", "nickname": "하늘고래", "playInfo": {
+        "characterName": "카인", "killCount": 3, "deathCount": 6, "attackPoint": 52000}, "items": [{"itemName": "x"}]}]}
+
+    def fetch(url):
+        if urllib.parse.urlparse(url).path.endswith("/cy/matches/m3"):
+            return detail
+        return fake_fetch([], new)(url)
+
+    a.cyphers.fetch = fetch
+    a.check_cyphers_record()
+    for _ in range(3):
+        _wait(app, a)
+    assert a._record_wait is None
+    sent = json.dumps(fake.calls[-1]["messages"], ensure_ascii=False)
+    assert "공식 기록" in sent and "52000" in sent and "하늘고래" in sent
+    assert "itemName" not in sent and "SECRET-KEY" not in sent  # 아이템 목록·키는 안 보냄
+    assert fake.calls[-1]["output_config"]["effort"] == "high"  # 깊게 (기본)
+    assert a.analysis_panel.isVisible() and a.bubble.text.startswith("아까 그 판 공식 기록")
+    a.quit()

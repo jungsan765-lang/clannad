@@ -32,6 +32,7 @@ class Mode:
     knowledge: str = NORMAL_KNOWLEDGE
     quiet_during_play: bool = False
     review_on_result: bool = False
+    pick_advice: bool = False  # 캐릭터 선택(픽) 화면이 보이면 바로 픽 조언
     urgent: str = ""
     is_game: bool = False
 
@@ -61,6 +62,7 @@ def load_modes(folder: Path) -> list[Mode]:
                 knowledge=str(d.get("knowledge", "")).strip(),
                 quiet_during_play=bool(d.get("quiet_during_play", False)),
                 review_on_result=bool(d.get("review_on_result", False)),
+                pick_advice=bool(d.get("pick_advice", False)),
                 urgent=str(d.get("urgent", "")).strip(),
                 is_game=True,
             ))
