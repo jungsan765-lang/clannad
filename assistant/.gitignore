@@ -1,0 +1,16 @@
+# 캐릭터 결과물·영상·모델·개인 설정은 절대 올리지 않음
+character/
+work/
+models/
+videos/
+*.mp4
+*.webm
+*.mov
+*.mkv
+*.onnx
+config.local.toml
+usage.json
+state.json
+__pycache__/
+*.pyc
+.venv/

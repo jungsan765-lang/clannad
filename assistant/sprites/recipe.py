@@ -1,0 +1,194 @@
+"""캐릭터 레시피(.toml)를 읽고 검사한다."""
+
+from __future__ import annotations
+
+import re
+import tomllib
+from dataclasses import dataclass, field
+from pathlib import Path
+
+from .matte import parse_color
+from .video import parse_time
+
+LOOP_MODES = ("loop", "pingpong", "once")
+MATTE_MODES = ("ai", "chroma", "alpha")
+EMOTIONS = ("normal", "happy", "worried", "surprised", "angry")
+NAME_RE = re.compile(r"^[A-Za-z0-9_\-]+$")
+
+
+class RecipeError(ValueError):
+    pass
+
+
+@dataclass
+class MotionSpec:
+    name: str
+    source: Path
+    start: float
+    end: float
+    fps: float
+    loop: str = "loop"
+    then: str | None = None
+    crop: tuple[int, int, int, int] | None = None
+    scale: float = 1.0
+    offset: tuple[int, int] = (0, 0)
+    blend: int = 0
+    loop_search: bool = True
+
+
+@dataclass
+class Recipe:
+    path: Path
+    name: str
+    height: int
+    fps: float
+    matte: str
+    key_color: tuple[int, int, int] | None
+    chroma_tol: float
+    chroma_soft: float
+    alpha_lo: float
+    alpha_hi: float
+    min_island: float
+    stabilize: bool
+    padding: int
+    image_format: str
+    motions: dict[str, MotionSpec] = field(default_factory=dict)
+    emotions: dict[str, str] = field(default_factory=dict)
+    default_motion: str = "idle"
+    talk_motion: str | None = None
+
+
+def _crop(value, where: str) -> tuple[int, int, int, int] | None:
+    if value is None:
+        return None
+    if not (isinstance(value, list) and len(value) == 4 and all(isinstance(v, int) for v in value)):
+        raise RecipeError(f"{where}: crop 은 [x, y, 너비, 높이] 정수 4개여야 해요.")
+    x, y, w, h = value
+    if w <= 0 or h <= 0 or x < 0 or y < 0:
+        raise RecipeError(f"{where}: crop 너비·높이는 0보다 크고 x, y는 0 이상이어야 해요.")
+    return (x, y, w, h)
+
+
+def _loop(value, where: str) -> str:
+    if value is True:
+        return "loop"
+    if value is False:
+        return "once"
+    if value not in LOOP_MODES:
+        raise RecipeError(f"{where}: loop 은 {', '.join(LOOP_MODES)} 중 하나여야 해요.")
+    return value
+
+
+def load_recipe(path: str | Path) -> Recipe:
+    path = Path(path).resolve()
+    try:
+        data = tomllib.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError as exc:
+        raise RecipeError(f"레시피 파일이 없어요: {path}") from exc
+    except tomllib.TOMLDecodeError as exc:
+        raise RecipeError(f"레시피 문법 오류: {exc}") from exc
+
+    base = path.parent
+
+    def source_path(value, where: str) -> Path:
+        if not value:
+            raise RecipeError(f"{where}: source(영상 경로)가 필요해요.")
+        p = Path(value).expanduser()
+        return (p if p.is_absolute() else base / p).resolve()
+
+    name = data.get("name") or path.stem
+    if not NAME_RE.match(name):
+        raise RecipeError("name 은 영문, 숫자, _, - 만 쓸 수 있어요.")
+
+    matte = data.get("matte", "ai")
+    if matte not in MATTE_MODES:
+        raise RecipeError(f"matte 는 {', '.join(MATTE_MODES)} 중 하나여야 해요.")
+    key = data.get("key_color")
+    try:
+        key_color = parse_color(key) if key else None
+    except ValueError as exc:
+        raise RecipeError(str(exc)) from exc
+
+    image_format = data.get("image_format", "png")
+    if image_format not in ("png", "webp"):
+        raise RecipeError("image_format 은 png 또는 webp 여야 해요.")
+
+    height = int(data.get("height", 480))
+    fps = float(data.get("fps", 24))
+    if not 64 <= height <= 2160:
+        raise RecipeError("height 는 64~2160 사이로 해주세요.")
+    if not 1 <= fps <= 60:
+        raise RecipeError("fps 는 1~60 사이로 해주세요.")
+
+    recipe = Recipe(
+        path=path,
+        name=name,
+        height=height,
+        fps=fps,
+        matte=matte,
+        key_color=key_color,
+        chroma_tol=float(data.get("chroma_tolerance", 18)),
+        chroma_soft=float(data.get("chroma_softness", 22)),
+        alpha_lo=float(data.get("alpha_low", 0.12)),
+        alpha_hi=float(data.get("alpha_high", 0.88)),
+        min_island=float(data.get("min_island", 0.02)),
+        stabilize=bool(data.get("stabilize", True)),
+        padding=int(data.get("padding", 8)),
+        image_format=image_format,
+    )
+
+    motions = data.get("motions") or {}
+    if not motions:
+        raise RecipeError("[motions.이름] 을 하나 이상 적어주세요 (예: [motions.idle]).")
+    default_source = data.get("source")
+    default_crop = _crop(data.get("crop"), "crop")
+    for mname, m in motions.items():
+        where = f"[motions.{mname}]"
+        if not NAME_RE.match(mname):
+            raise RecipeError(f"{where}: 동작 이름은 영문, 숫자, _, - 만 쓸 수 있어요.")
+        if "start" not in m or "end" not in m:
+            raise RecipeError(f"{where}: start 와 end 가 필요해요.")
+        try:
+            start, end = parse_time(m["start"]), parse_time(m["end"])
+        except ValueError as exc:
+            raise RecipeError(f"{where}: {exc}") from exc
+        if end <= start:
+            raise RecipeError(f"{where}: end 가 start 보다 커야 해요.")
+        offset = m.get("offset", [0, 0])
+        if not (isinstance(offset, list) and len(offset) == 2):
+            raise RecipeError(f"{where}: offset 은 [가로, 세로] 두 숫자여야 해요.")
+        recipe.motions[mname] = MotionSpec(
+            name=mname,
+            source=source_path(m.get("source", default_source), where),
+            start=start,
+            end=end,
+            fps=float(m.get("fps", fps)),
+            loop=_loop(m.get("loop", "loop"), where),
+            then=m.get("then"),
+            crop=_crop(m["crop"], where) if "crop" in m else default_crop,
+            scale=float(m.get("scale", 1.0)),
+            offset=(int(offset[0]), int(offset[1])),
+            blend=int(m.get("blend", 0)),
+            loop_search=bool(m.get("loop_search", True)),
+        )
+
+    for spec in recipe.motions.values():
+        if spec.then and spec.then not in recipe.motions:
+            raise RecipeError(f"[motions.{spec.name}]: then = {spec.then!r} 라는 동작이 없어요.")
+
+    recipe.default_motion = data.get("default", "idle" if "idle" in recipe.motions else next(iter(recipe.motions)))
+    if recipe.default_motion not in recipe.motions:
+        raise RecipeError(f"default = {recipe.default_motion!r} 라는 동작이 없어요.")
+    talk = data.get("talk", "talk" if "talk" in recipe.motions else None)
+    if talk and talk not in recipe.motions:
+        raise RecipeError(f"talk = {talk!r} 라는 동작이 없어요.")
+    recipe.talk_motion = talk
+
+    emotions = {e: recipe.default_motion for e in EMOTIONS}
+    emotions.update({e: e for e in EMOTIONS if e in recipe.motions})
+    for emotion, target in (data.get("emotions") or {}).items():
+        if target not in recipe.motions:
+            raise RecipeError(f"[emotions] {emotion} = {target!r} 라는 동작이 없어요.")
+        emotions[emotion] = target
+    recipe.emotions = emotions
+    return recipe
