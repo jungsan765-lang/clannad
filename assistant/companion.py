@@ -15,7 +15,7 @@ log = logging.getLogger("assistant.companion")
 
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
-ACTIONS = ["none", "organize_files", "web_search"]
+ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -64,7 +64,40 @@ SCREEN_TASK = """[화면 보고 먼저 말 걸기]
 - 게임이면 코칭: 이미 지나간 장면 기준으로 다음에 할 일 하나를 구체적으로.
 - 오류 창이면 원인 한 줄과 할 일 하나. 오래 작업 중이면 쉬자고. 영상·글이면 내용에 한마디.
 - 성격 파일의 '꼭 필요할 때만' 보다 이 지시가 우선한다. 다만 최근에 한 말과 똑같은 말이면 speak 는 false.
-- 확실히 보이지 않는 건 추측하지 않는다."""
+- 확실히 보이지 않는 건 추측하지 않는다.
+- 인물은 얼굴 생김새만으로 단정하지 않는다. 화면에 글자로 보이는 이름(파티 목록, 대화창 위 이름 등)으로 알아본다.
+- 화면에 이름이 보이는 인물·장소인데 네가 모르면 지어내지 말고 action 은 "web_search", target 은 "게임 이름 + 그 이름",
+  message 는 빈 문자열로 한다(조용히 찾아본 뒤 말한다). 배경지식이나 '찾아보고 알게 된 것'에 있으면 찾지 않는다."""
+
+MODE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "titles": {"type": "array", "items": {"type": "string"}},
+        "interval_seconds": {"type": "integer"},
+        "cooldown_seconds": {"type": "integer"},
+        "quiet_during_play": {"type": "boolean"},
+        "review_on_result": {"type": "boolean"},
+        "knowledge": {"type": "string"},
+        "urgent": {"type": "string"},
+        "intro": {"type": "string"},
+    },
+    "required": ["name", "titles", "interval_seconds", "cooldown_seconds", "quiet_during_play", "review_on_result",
+                 "knowledge", "urgent", "intro"],
+    "additionalProperties": False,
+}
+
+MODE_RULES = """# 할 일: 게임 모드 만들기
+주인님이 자주 하는 게임의 '게임 모드'를 만든다. 게임 모드는 네가 그 게임 화면을 볼 때 쓰는 기준이다.
+- name: 한국에서 부르는 짧은 게임 이름.
+- titles: 창 제목에 들어 있을 만한 글자 1~3개 (한국어 이름, 원래 이름).
+- interval_seconds: 화면 확인 간격 10~60. 빠른 게임일수록 짧게. cooldown_seconds: 먼저 말한 뒤 쉬는 시간 30~300.
+- quiet_during_play: 리듬 게임·대전 게임처럼 플레이 중 말을 걸면 방해되면 true.
+- review_on_result: 판이 끝나고 결과 화면이 있는 게임이면 true (총평).
+- knowledge: 이 게임 설명과 말 걸 기준을 한국어 글머리표 6~12줄. 게임 종류, 화면에서 읽을 것(체력·자원·미니맵 등),
+  자주 하는 실수와 짧은 팁, 조용히 있을 때(로딩·컷신), 한국 서버 공식 용어. 확인 안 된 건 쓰지 않는다.
+- urgent: 바로 경고해야 할 위험한 상황이 있으면 한 문장(없으면 빈 문자열).
+- intro: 모드를 만들었다고 주인님께 알리는 캐릭터 말투 한 문장."""
 
 ORGANIZE_SCHEMA = {
     "type": "object",
@@ -127,6 +160,10 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 파일 정리: 폴더 안 파일들을 종류별 하위 폴더로 나눠 옮기는 정리안을 만든다. 주인님이 미리보기에서 승인한 것만 옮기고, 지우지 않으며, 되돌릴 수 있다.
   주인님이 파일 정리를 부탁하면 action 은 "organize_files", target 은 폴더(다운로드·바탕화면·문서·사진·동영상·음악 중 하나, 또는 주인님이 말한 경로, 모르면 빈 문자열)로 하고,
   message 는 "정리안을 만들어서 보여드릴게요" 처럼 이제 시작한다는 말로 한다(이미 정리했다고 말하지 않는다).
+- 게임 모드 만들기: 주인님이 지금 하는 게임의 모드(그 게임에 맞춘 코칭·말 걸기 기준)를 만들어 달라고 하면
+  action 은 "make_game_mode", message 는 "이 게임에 맞춰 준비해 두겠습니다" 같은 시작하는 말. (자주 하는 게임은 알아서 만들기도 한다)
+- 개선 요청 메모: 주인님이 "이런 기능 있었으면" 하거나, 네가 못 하는 일을 부탁하면 못 한다고 솔직히 말하고
+  action 은 "note_request", target 에 바라는 기능을 한 문장으로 적는다. message 에서 개선 요청 메모에 적어 두겠다고 알린다.
 - 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
@@ -292,13 +329,20 @@ class Companion:
         return notes, r.usd
 
     def reply_after_search(self, query: str, notes: str, on_partial=None, fast: bool | None = None,
-                           now: datetime | None = None) -> Reply:
-        """찾아본 내용을 보고 방금 질문에 이어서 답한다 (다시 검색하지는 않음)."""
+                           now: datetime | None = None, about_screen: bool = False) -> Reply:
+        """찾아본 내용을 보고 방금 질문에 이어서 답한다 (다시 검색하지는 않음).
+        about_screen: 주인님 질문이 아니라 화면에 보인 이름을 찾아본 경우."""
         now = now or datetime.now()
+        if about_screen:
+            how = (f"방금 주인님 화면에 보인 '{query}'를 조용히 찾아본 내용이다. 화면 속 상황에 맞게, 네 경험과 생각을 섞어 "
+                   "한두 문장으로 먼저 말을 건다. 찾아봤다는 말은 하지 않는다. 쓸 만한 내용이 없으면 speak 는 false. action 은 none.")
+        else:
+            how = ("위 내용을 바탕으로 방금 주인님 말에 이어서 답한다. 찾아본 내용에 없는 건 지어내지 않는다. "
+                   "찾지 못했으면 솔직히 말한다. action 은 none.")
         content = [{"type": "text", "text": f"[찾아본 내용: {query}]\n" + (notes or "(쓸 만한 결과를 찾지 못했다)")},
-                   {"type": "text", "text": "위 내용을 바탕으로 방금 주인님 말에 이어서 답한다. 찾아본 내용에 없는 건 "
-                                            "지어내지 않는다. 찾지 못했으면 솔직히 말한다. action 은 none."}]
-        r = self._respond(content, f"(찾아본 내용을 보고 이어서 답함: {query})", now, on_partial, fast)
+                   {"type": "text", "text": how}]
+        label = f"(화면에서 본 '{query}'을 찾아보고 한 말)" if about_screen else f"(찾아본 내용을 보고 이어서 답함: {query})"
+        r = self._respond(content, label, now, on_partial, fast)
         r.action, r.target = "none", ""
         return r
 
@@ -421,10 +465,31 @@ class Companion:
         if data and data["speak"] and data["message"] and not is_korean(data["message"]):
             log.warning("화면 대사가 한국어가 아님 → 표시하지 않음: %r", data["message"][:120])
             data = None
+        if (data and data.get("action") == "web_search" and str(data.get("target", "")).strip()
+                and self.can_search and not review and not question):
+            return Reply(True, "", "normal", r.usd, "web_search", str(data["target"]).strip())  # 조용히 찾아보기
         if not data or not data["speak"] or not data["message"].strip():
             return Reply(False, "", "normal", r.usd)
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
         return Reply(True, data["message"].strip(), emotion, r.usd)
+
+    # ------------------------------------------------------------ 게임 모드 만들기
+
+    def make_mode(self, process: str, title: str, situations: list[str] | None = None) -> tuple[dict | None, float]:
+        """처음 보는 게임: 인터넷에서 찾아본 뒤 게임 모드(코칭 기준)를 만든다."""
+        usd = 0.0
+        notes = ""
+        if self.can_search:
+            notes, usd = self.search(f"{title} 게임 공략 기본", f"창 제목 '{title}', 실행 파일 {process}")
+        lines = [f"실행 파일: {process}", f"창 제목: {title}"]
+        if situations:
+            lines.append("화면에서 본 장면:\n" + "\n".join(f"- {s}" for s in situations[-10:]))
+        if notes:
+            lines.append("찾아본 내용:\n" + notes)
+        system = [{"type": "text", "text": self.persona + "\n\n" + MODE_RULES}]
+        r = self.ai.complete_json(model=self.chat_model, system=system, messages=[{"role": "user", "content": "\n".join(lines)}],
+                                  schema=MODE_SCHEMA, kind="mode", max_tokens=4000, effort="low")
+        return r.data, usd + r.usd
 
     # ------------------------------------------------------------ 파일 정리안
 

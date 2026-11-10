@@ -20,6 +20,11 @@ from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import WindowInfo, foreground_window
 
 log = logging.getLogger("assistant.watch")
+# 게임 화면처럼 보여도 게임이 아닌 프로그램 (브라우저 게임은 모드 파일의 창 제목으로 따로 잡는다)
+NOT_GAMES = {"chrome.exe", "msedge.exe", "firefox.exe", "whale.exe", "opera.exe", "brave.exe", "explorer.exe",
+             "code.exe", "discord.exe", "kakaotalk.exe", "obs64.exe", "vlc.exe", "potplayermini64.exe",
+             "steam.exe", "steamwebhelper.exe", "epicgameslauncher.exe", "battle.net.exe", "python.exe",
+             "pythonw.exe", "notepad.exe", "windowsterminal.exe", "cmd.exe", "powershell.exe"}
 
 
 @dataclass
@@ -37,6 +42,7 @@ class WatchConfig:
     review_gap_seconds: float = 120.0  # 총평 사이 최소 간격
     chattiness: str = "normal"  # quiet | normal | chatty
     max_skip_minutes: float = 3.0  # 화면이 그대로여도 이 시간마다 한 번은 판단
+    new_game_hits: int = 8  # 평소 모드에서 같은 프로그램이 게임 화면으로 이만큼 보이면 게임 모드를 만든다
 
 
 @dataclass
@@ -77,6 +83,7 @@ class ScreenWatcher(QObject):
     status = Signal(str)
     mode_changed = Signal(str)
     activity = Signal(str)  # "judge"(화면 확인 중) | "line"(할 말 고르는 중) | ""(끝)
+    new_game = Signal(str, str, list)  # 처음 보는 게임을 자주 함: (실행 파일, 창 제목, 본 장면들)
 
     def __init__(self, companion, cfg: WatchConfig, run_job: Callable, *, modes: list[Mode] | None = None,
                  can_run: Callable[[], bool] = lambda: True,
@@ -93,6 +100,10 @@ class ScreenWatcher(QObject):
                            knowledge=NORMAL_KNOWLEDGE)
         self.mode = self.normal
         self.title = ""
+        self.process = ""  # 맨 앞 창의 실행 파일 (보는 모니터에 있을 때)
+        self.window_title = ""
+        self.game_hits: dict[str, list[str]] = {}  # 모드 없는 프로그램에서 본 게임 장면
+        self.known_games: set[str] = set()  # 이미 모드를 만들었거나 만들지 않기로 한 프로그램
         self.session: GameSession | None = None
         self.can_run = can_run
         self.grabber = grabber or self._default_grab
@@ -157,6 +168,7 @@ class ScreenWatcher(QObject):
         # 맨 앞 창이 보는 모니터에 있을 때만 모드를 바꾼다 (다니카를 클릭해도 게임 모드 유지)
         if info and (area is None or _overlaps(info.rect, area)):
             self.title = f"{info.title} [{info.process}]"
+            self.process, self.window_title = (info.process or "").lower(), info.title or ""
             new = detect(info.process, info.title, self.modes) or self.normal
             if new is not self.mode:
                 self.mode = new
@@ -253,6 +265,8 @@ class ScreenWatcher(QObject):
                  "말함" if note.get("speak") or note.get("urgent") else "조용")
         now = self.clock()
         scene, urgent = note.get("scene", "other"), bool(note.get("urgent"))
+        if not mode.is_game:
+            self._count_game(scene, note.get("situation", ""))
         if session:
             session.add(now, note.get("situation", ""))
         if (mode.review_on_result and scene == "result" and session
@@ -271,6 +285,17 @@ class ScreenWatcher(QObject):
         return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                           session_notes=notes)
 
+    def _count_game(self, scene: str, situation: str) -> None:
+        """평소 모드인데 게임 화면이 자주 보이면 그 게임 모드를 만들자고 알린다."""
+        p = self.process
+        if scene not in ("playing", "result", "cutscene") or not p or p in self.known_games or p in NOT_GAMES:
+            return
+        hits = self.game_hits.setdefault(p, [])
+        hits.append(situation)
+        if len(hits) >= self.cfg.new_game_hits:
+            self.known_games.add(p)
+            self.new_game.emit(p, self.window_title, hits[-10:])
+
     def _say(self, *args, **kwargs):
         self.activity.emit("line")
         return self.companion.screen_line(*args, **kwargs)
@@ -283,9 +308,10 @@ class ScreenWatcher(QObject):
             return
         self.last_spoke = self.clock()
         self.stats["spoke"] += 1
-        self.companion.memory.add_spoken(reply.message)
-        if self.session:
-            self.session.add(self.last_spoke, "내가 한 말: " + reply.message)
+        if reply.message:  # 비어 있으면 '조용히 찾아보기' (찾아본 뒤 말한다)
+            self.companion.memory.add_spoken(reply.message)
+            if self.session:
+                self.session.add(self.last_spoke, "내가 한 말: " + reply.message)
         self.spoke.emit(reply)
 
     def _fail(self, message: str) -> None:

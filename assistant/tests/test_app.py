@@ -269,3 +269,57 @@ def test_chat_search_flow_shows_status_and_answers(qapp, tmp_path, built):
     assert fake.calls[1].get("tools") and not fake.calls[2].get("tools")
     assert a.companion.memory.knowledge[-1]["query"] == "원신 로노바"
     a.quit()
+
+
+def test_make_game_mode_and_note_request_from_chat(qapp, tmp_path, built):
+    from watch.windows import WindowInfo
+
+    mode = {"name": "엘든 링", "titles": ["ELDEN RING"], "interval_seconds": 20, "cooldown_seconds": 120,
+            "quiet_during_play": False, "review_on_result": False, "knowledge": "- 소울라이크 액션",
+            "urgent": "", "intro": "엘든 링에 맞춰 준비해 두었습니다."}
+    fake = FakeAnthropic([
+        {"speak": True, "message": "이 게임에 맞춰 준비해 두겠습니다.", "emotion": "normal", "action": "make_game_mode",
+         "target": ""},
+        "- 오픈월드 액션 RPG.", mode,
+        {"speak": True, "message": "그건 아직 못 합니다. 개선 요청 메모에 적어 두겠습니다.", "emotion": "normal",
+         "action": "note_request", "target": "알람을 맞춰 주는 기능"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.watcher.window_info = lambda: WindowInfo("ELDEN RING", "eldenring.exe", (0, 0, 100, 100))
+    a.watcher.monitor_rect = lambda: None
+    a.start()
+    a.ask("이 게임 모드 만들어줘")
+    for _ in range(3):
+        _wait(qapp, a)
+    assert (tmp_path / "data" / "modes" / "auto_eldenring.toml").is_file()
+    assert a.watcher.mode.name == "엘든 링" and a.bubble.text == "엘든 링에 맞춰 준비해 두었습니다."
+    assert "eldenring.exe" in a._load_state()["auto_mode_tried"]
+    a.ask("알람 맞춰줘")
+    _wait(qapp, a)
+    assert a.wishlist.items[-1]["text"] == "알람을 맞춰 주는 기능"
+    a.quit()
+
+
+def test_screen_name_lookup_is_quiet_and_rate_limited(qapp, tmp_path, built):
+    from companion import Reply
+
+    fake = FakeAnthropic(["- 로노바: 천리의 그림자.",
+                          {"speak": True, "message": "저 분이 로노바군요. 죽음의 그림자라 들었습니다.", "emotion": "normal"}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a._on_screen_line(Reply(True, "", "normal", 0, "web_search", "원신 로노바"))
+    assert a.busy and "찾아보는 중" in a.status.text and not a.bubble.isVisible()
+    _wait(qapp, a)
+    assert a.bubble.text.startswith("저 분이 로노바군요") and not a.busy
+    a._screen_searches = [time_now() for _ in range(6)]
+    a._on_screen_line(Reply(True, "", "normal", 0, "web_search", "원신 누군가"))
+    assert not a.busy  # 한 시간에 6번 넘으면 찾지 않음
+    a.quit()
+
+
+def time_now():
+    import time
+
+    return time.monotonic()

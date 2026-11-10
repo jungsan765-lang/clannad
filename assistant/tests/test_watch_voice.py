@@ -320,3 +320,38 @@ def test_watcher_reports_what_it_is_doing(qapp, tmp_path):
     seen.clear()
     w.ask_now()
     assert seen == ["line", ""]
+
+
+def test_unknown_game_seen_often_asks_for_a_mode(qapp, tmp_path):
+    quiet = {"speak": False, "urgent": False, "scene": "playing", "situation": "보스전", "point": ""}
+    w, comp, said, t, state = _watcher(tmp_path, notes=[dict(quiet) for _ in range(20)],
+                                       window=WindowInfo("Elden Ring", "eldenring.exe", (0, 0, 1900, 1000)))
+    asked = []
+    w.new_game.connect(lambda p, title, seen: asked.append((p, title, seen)))
+    for i in range(10):
+        t["now"] = i * 31
+        w.tick()
+    assert len(asked) == 1 and asked[0][0] == "eldenring.exe" and asked[0][1] == "Elden Ring"
+    assert asked[0][2][0] == "보스전" and "eldenring.exe" in w.known_games
+    w2, _, _, t2, _ = _watcher(tmp_path / "b", notes=[dict(quiet) for _ in range(20)])  # code.exe 는 게임 아님
+    seen2 = []
+    w2.new_game.connect(lambda *a: seen2.append(a))
+    for i in range(10):
+        t2["now"] = i * 31
+        w2.tick()
+    assert seen2 == []
+
+
+def test_saved_mode_is_valid_and_loads(tmp_path):
+    from watch.modes import save_mode
+
+    data = {"name": "엘든 링", "titles": ["ELDEN RING", "엘든"], "interval_seconds": 5, "cooldown_seconds": 9999,
+            "quiet_during_play": True, "review_on_result": False,
+            "knowledge": '- 보스 "말레니아" 패턴\n- 체력 낮으면 회복\\주의', "urgent": "", "intro": "준비했습니다."}
+    path = save_mode(tmp_path / "modes", "EldenRing.exe", data)
+    assert path.name == "auto_eldenring.toml"
+    m = load_modes(tmp_path / "modes")[0]
+    assert m.name == "엘든 링" and m.processes == ["eldenring.exe"] and m.titles == ["ELDEN RING", "엘든"]
+    assert m.interval_seconds == 10 and m.cooldown_seconds == 600 and m.quiet_during_play  # 범위 안으로
+    assert '"말레니아"' in m.knowledge and "\\주의" in m.knowledge
+    assert detect("eldenring.exe", "", [m]) is m

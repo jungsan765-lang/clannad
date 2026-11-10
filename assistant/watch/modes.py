@@ -67,6 +67,38 @@ def load_modes(folder: Path) -> list[Mode]:
     return modes
 
 
+def _toml_str(value: str) -> str:
+    import json
+
+    return json.dumps(str(value), ensure_ascii=False)  # JSON 문자열은 TOML 기본 문자열로도 그대로 읽힌다
+
+
+def save_mode(folder: Path, process: str, data: dict) -> Path:
+    """다니카가 만든 게임 모드를 파일로 저장한다 (data/modes/, 업데이트가 건드리지 않는 곳)."""
+    import re
+
+    titles = [t for t in data.get("titles", []) if str(t).strip()][:3]
+    lines = [
+        f"# {data.get('name', process)} — 다니카가 자동으로 만든 모드. 고쳐도 되고, 지우면 다시 만들지 않는다.",
+        f"name = {_toml_str(data.get('name') or process)}",
+        f"processes = [{_toml_str(process.lower())}]",
+        "titles = [" + ", ".join(_toml_str(t) for t in titles) + "]",
+        f"interval_seconds = {max(10, min(120, int(data.get('interval_seconds', 30))))}",
+        f"cooldown_seconds = {max(30, min(600, int(data.get('cooldown_seconds', 120))))}",
+        f"quiet_during_play = {'true' if data.get('quiet_during_play') else 'false'}",
+        f"review_on_result = {'true' if data.get('review_on_result') else 'false'}",
+        f"urgent = {_toml_str(data.get('urgent', ''))}",
+        f"knowledge = {_toml_str(data.get('knowledge', ''))}",
+    ]
+    text = "\n".join(lines) + "\n"
+    tomllib.loads(text)  # 깨진 파일은 만들지 않는다
+    folder.mkdir(parents=True, exist_ok=True)
+    stem = re.sub(r"[^a-z0-9_]+", "_", process.lower().removesuffix(".exe")).strip("_") or "game"
+    path = folder / f"auto_{stem}.toml"
+    path.write_text(text, encoding="utf-8")
+    return path
+
+
 def detect(process: str, title: str, modes: list[Mode]) -> Mode | None:
     for m in modes:
         if m.matches(process, title):

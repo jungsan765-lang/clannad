@@ -14,6 +14,7 @@ import logging.handlers
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 from typing import Callable
 
@@ -31,6 +32,7 @@ from ui.bubble import SpeechBubble
 from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
 from ui.organize_dialog import OrganizeDialog
+from ui.wishlist_dialog import WishlistDialog
 from ui.placeholder import make_placeholder
 from ui.status import StatusPill
 from ui.topmost import TopmostKeeper
@@ -39,7 +41,8 @@ from usage import UsageLedger
 from ui.settings_dialog import RESTART_KEYS, TALK_STYLES, SettingsDialog
 from voice.listener import VoiceListener, list_input_devices
 from voice.stt import Transcriber
-from watch.modes import load_modes
+from watch.modes import load_modes, save_mode
+from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
 
 log = logging.getLogger("assistant")
@@ -107,12 +110,17 @@ class AssistantApp(QObject):
             max_skip_minutes=float(g("screen.max_skip_minutes", 3)),
             change_threshold=float(g("screen.change_threshold", 0.015)),
             max_width=int(g("screen.max_width", 1920)), jpeg_quality=int(g("screen.jpeg_quality", 85)))
-        modes = load_modes(settings.root / "modes")
+        modes = self._load_modes()
         self.watcher = ScreenWatcher(companion, self.watch_cfg, self._run, modes=modes, can_run=self._screen_allowed)
         self.watcher.mode_changed.connect(lambda _: self._refresh_cost())
         self.watcher.spoke.connect(self._on_screen_line)
         self.watcher.status.connect(self._on_watch_status)
         self.watcher.activity.connect(self._on_watch_activity)
+        self.watcher.new_game.connect(lambda p, t, seen: self.make_game_mode(p, t, seen, auto=True))
+        self.watcher.known_games |= {p for m in modes for p in m.processes}
+        self.watcher.known_games |= set(self._load_state().get("auto_mode_tried", []))
+        self.wishlist = Wishlist(settings.data_dir / "requests.json")
+        self._screen_searches: list[float] = []
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
         self._last_watch_error = ""
 
@@ -241,18 +249,25 @@ class AssistantApp(QObject):
             QTimer.singleShot(400, lambda: self.organize_from_chat(reply.target))
         elif reply.action == "web_search" and reply.target.strip():
             self.search_and_answer(reply.target.strip())
+        elif reply.action == "make_game_mode":
+            self.make_game_mode_now()
+        elif reply.action == "note_request" and reply.target.strip():
+            if self.wishlist.add(reply.target):
+                self.status.flash("개선 요청 메모에 적었어요")
 
-    def search_and_answer(self, query: str) -> None:
-        """다니카가 '찾아보겠습니다' 라고 한 뒤: 검색 → 찾은 내용으로 이어서 답하기."""
+    def search_and_answer(self, query: str, about_screen: bool = False) -> None:
+        """다니카가 '찾아보겠습니다' 라고 한 뒤(또는 화면에서 모르는 이름을 봤을 때): 검색 → 찾은 내용으로 말하기."""
         self.busy = True
         self.voice.paused = True
         self._streamed = False
         self.status.begin("chat", f"'{query[:20]}' 찾아보는 중")
+        question = "" if about_screen else self._last_question
 
         def work(progress):
-            notes, _ = self.companion.search(query, self._last_question)
+            notes, _ = self.companion.search(query, question)
             progress(None)  # 다 찾았다
-            return self.companion.reply_after_search(query, notes, on_partial=progress)
+            return self.companion.reply_after_search(query, notes, on_partial=None if about_screen else progress,
+                                                     about_screen=about_screen)
 
         def on_progress(msg) -> None:
             if msg is None:
@@ -260,7 +275,15 @@ class AssistantApp(QObject):
             else:
                 self._on_partial(msg)
 
-        self._run(work, self._on_reply, self._on_error, on_progress=on_progress)
+        def done(reply) -> None:
+            if about_screen and reply.message in ("", "……"):  # 쓸 만한 게 없으면 조용히
+                self.busy = False
+                self.voice.paused = False
+                self.status.end("chat")
+                return
+            self._on_reply(reply)
+
+        self._run(work, done, self._on_error, on_progress=on_progress)
 
     def _on_error(self, message: str) -> None:
         self.busy = False
@@ -307,6 +330,13 @@ class AssistantApp(QObject):
 
     def _on_screen_line(self, reply) -> None:
         if self.busy:
+            return
+        if reply.action == "web_search":  # 화면에 모르는 이름 → 조용히 찾아보고 말하기 (한 시간에 6번까지)
+            now = time.monotonic()
+            self._screen_searches = [t for t in self._screen_searches if now - t < 3600]
+            if len(self._screen_searches) < int(self.settings.get("screen.searches_per_hour", 6)):
+                self._screen_searches.append(now)
+                self.search_and_answer(reply.target, about_screen=True)
             return
         self.bubble.show_text(reply.message, self.anchor())
         self.window.set_emotion(reply.emotion)
@@ -620,6 +650,12 @@ class AssistantApp(QObject):
         undo = QAction("마지막 정리 되돌리기", omenu)
         undo.triggered.connect(self.undo_organize)
         omenu.addAction(undo)
+        make_mode = QAction("지금 하는 게임 모드 만들기", menu)
+        make_mode.triggered.connect(self.make_game_mode_now)
+        menu.addAction(make_mode)
+        wishes = QAction("개선 요청 메모…", menu)
+        wishes.triggered.connect(self.open_wishlist)
+        menu.addAction(wishes)
         menu.addSeparator()
         show_mem = QAction("기억 보기", menu)
         show_mem.triggered.connect(self.show_memory)
@@ -745,6 +781,69 @@ class AssistantApp(QObject):
                 on_fail(message)
 
         self._run(self.companion.consolidate, done, fail)
+
+    # ------------------------------------------------------------ 게임 모드 만들기
+
+    def _load_modes(self) -> list:
+        """함께 온 모드(modes/) + 다니카가 만든 모드(data/modes/)."""
+        return load_modes(self.settings.root / "modes") + load_modes(self.settings.data_dir / "modes")
+
+    def make_game_mode_now(self) -> None:
+        """대화나 메뉴로: 지금 보는 모니터 맨 앞 프로그램으로 게임 모드를 만든다."""
+        self.watcher.update_mode()
+        if self.watcher.mode.is_game:
+            self.bubble.show_text(f"이미 '{self.watcher.mode.name}' 모드로 보고 있어요.", self.anchor(), system=True,
+                                  seconds=4)
+            return
+        if not self.watcher.process:
+            self.bubble.show_text("어떤 게임인지 찾지 못했어요. 게임 창을 보는 모니터 맨 앞에 두고 다시 말해 주세요.",
+                                  self.anchor(), system=True, seconds=6)
+            return
+        self.make_game_mode(self.watcher.process, self.watcher.window_title,
+                            self.watcher.game_hits.get(self.watcher.process, []), auto=False)
+
+    def make_game_mode(self, process: str, title: str, seen: list, auto: bool) -> None:
+        if self.status.active("mode"):
+            return
+        state = self._load_state()
+        tried = set(state.get("auto_mode_tried", [])) | {process}
+        state["auto_mode_tried"] = sorted(tried)  # 지워도 다시 자동으로 만들지 않게
+        self._write_state(state)
+        self.watcher.known_games.add(process)
+        self.status.begin("mode", f"'{(title or process)[:16]}' 게임 모드 만드는 중")
+
+        def done(result) -> None:
+            self.status.end("mode")
+            data, _ = result
+            if not data or not str(data.get("knowledge", "")).strip():
+                if not auto:
+                    self.bubble.show_text("게임 모드를 만들지 못했어요.", self.anchor(), system=True, seconds=5)
+                return
+            try:
+                path = save_mode(self.settings.data_dir / "modes", process, data)
+            except Exception as exc:  # noqa: BLE001
+                log.warning("게임 모드 저장 실패: %s", exc)
+                return
+            log.info("게임 모드를 만들었어요: %s", path)
+            self.watcher.modes = self._load_modes()
+            self.watcher.update_mode()
+            self._refresh_cost()
+            intro = str(data.get("intro", "")).strip() or f"'{data.get('name', process)}' 모드를 준비해 두었습니다."
+            if not self.busy:
+                self.bubble.show_text(intro, self.anchor())
+                self._start_talking()
+            self.companion.memory.add_spoken(intro)
+
+        def fail(message: str) -> None:
+            self.status.end("mode")
+            log.warning("게임 모드 만들기 실패: %s", message)
+            if not auto:
+                self.bubble.show_text(f"게임 모드를 만들지 못했어요: {message}", self.anchor(), system=True, seconds=6)
+
+        self._run(lambda: self.companion.make_mode(process, title, seen), done, fail)
+
+    def open_wishlist(self) -> None:
+        WishlistDialog(self.wishlist).exec()
 
     # ------------------------------------------------------------ 파일 정리
 

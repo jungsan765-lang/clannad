@@ -227,3 +227,38 @@ def test_search_rule_and_lore_in_system_prompt(tmp_path):
     comp.can_search = False
     comp.reply("안녕")
     assert "검색은 지금 꺼져 있다" in fake.calls[-1]["system"][0]["text"]
+
+
+# ---------------------------------------------------------------- 게임 모드 만들기·개선 요청 메모
+
+def test_make_mode_searches_then_writes_mode(tmp_path):
+    mode = {"name": "엘든 링", "titles": ["ELDEN RING"], "interval_seconds": 20, "cooldown_seconds": 120,
+            "quiet_during_play": False, "review_on_result": False, "knowledge": "- 소울라이크 액션",
+            "urgent": "", "intro": "엘든 링에 맞춰 준비해 두었습니다."}
+    comp, fake = _comp(tmp_path, ["- 프롬 소프트웨어의 오픈월드 액션 RPG.", mode])
+    data, usd = comp.make_mode("eldenring.exe", "ELDEN RING", ["보스전", "필드 탐색"])
+    assert data == mode and fake.calls[0].get("tools") and fake.calls[1]["output_config"]["format"]
+    sent = fake.calls[1]["messages"][0]["content"]
+    assert "eldenring.exe" in sent and "보스전" in sent and "오픈월드" in sent
+
+
+def test_wishlist_add_dedupe_and_text(tmp_path):
+    from wishlist import Wishlist
+
+    w = Wishlist(tmp_path / "requests.json")
+    assert "없어요" in w.text()
+    assert w.add("알람 맞춰 주는 기능") and not w.add("알람  맞춰 주는 기능")
+    w.add("유튜브 영상 요약")
+    text = Wishlist(tmp_path / "requests.json").text()  # 껐다 켜도 남음
+    assert "(2개)" in text and "1. [" in text and "유튜브 영상 요약" in text
+    w.clear()
+    assert w.items == []
+
+
+def test_screen_line_can_ask_to_look_up_a_name(tmp_path):
+    comp, fake = _comp(tmp_path, [{"speak": True, "message": "", "emotion": "normal", "action": "web_search",
+                                   "target": "원신 로노바"}])
+    r = comp.screen_line(b"jpg", "원신", None)
+    assert r.speak and r.message == "" and r.action == "web_search" and r.target == "원신 로노바"
+    assert "이름표" not in fake.calls[-1]["system"][0]["text"]  # 규칙은 화면 지시 쪽에
+    assert "얼굴 생김새만으로" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
