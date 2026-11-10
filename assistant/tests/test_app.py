@@ -104,3 +104,27 @@ def test_talk_still_pauses_breathing_until_bubble_closes(qapp, tmp_path, built):
     assert a.window.frozen and not a.window.talking  # 말하는 동안 멈춤
     a.bubble._timeout()
     assert not a.window.frozen  # 말풍선이 사라지면 다시 숨쉼
+
+
+def test_budget_in_usd_with_credit_notice(qapp, tmp_path, built, monkeypatch):
+    fake = FakeAnthropic([{"speak": True, "message": "네.", "emotion": "normal"}] * 3)
+    s = _settings(tmp_path, built["out"].as_posix())
+    s.data["budget"] = {"monthly_usd": 150, "credit_usd": 100, "warn_ratio": 0.8, "krw_per_usd": 1400}
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    assert a.budget_usd() == 150 and "/ $150)" in a.cost_text()
+    shown = []
+    a.bubble.show_text = lambda text, *args, **kw: shown.append(text)  # 말풍선 대신 기록
+    monkeypatch.setattr(app_main.QTimer, "singleShot", staticmethod(lambda ms, fn: fn()))  # 기다리지 않고 바로 (테스트 후 복구)
+    a.ledger.month_usd = lambda today=None: 105.0  # 크레딧을 막 넘김
+    a._budget_warning()
+    assert any("크레딧 $100" in t for t in shown) and a._screen_allowed()
+    a.ledger.month_usd = lambda today=None: 125.0  # 예산 80% 넘김
+    a._budget_warning()
+    assert any("83%" in t for t in shown)
+    a.ledger.month_usd = lambda today=None: 151.0  # 예산 초과 → 화면 보기 멈춤
+    a._budget_warning()
+    assert any("예산을 넘었어요" in t for t in shown) and not a._screen_allowed()
+    n = len(shown)
+    a._budget_warning()
+    assert len(shown) == n  # 같은 달에 같은 알림은 한 번만

@@ -199,8 +199,8 @@ class AssistantApp(QObject):
         if self.busy or self.bubble.isVisible():  # 대화 중이거나 말풍선이 떠 있으면 다음 기회에
             return False
         if settings_flag(self.settings, "screen.stop_when_over_budget", True):
-            budget = float(self.settings.get("budget.monthly_krw", 50000))
-            if budget and self.ledger.krw(self.ledger.month_usd()) >= budget:
+            budget = self.budget_usd()
+            if budget and self.ledger.month_usd() >= budget:
                 return False
         return True
 
@@ -377,10 +377,17 @@ class AssistantApp(QObject):
         menu.aboutToShow.connect(self._refresh_cost)
         return menu
 
+    def budget_usd(self) -> float:
+        """월 예산(달러). monthly_usd 가 있으면 그것, 없으면 monthly_krw 를 환율로 바꾼 값."""
+        usd = self.settings.get("budget.monthly_usd")
+        if usd is not None:
+            return float(usd)
+        return float(self.settings.get("budget.monthly_krw", 50000)) / max(self.ledger.krw_per_usd, 1)
+
     def cost_text(self) -> str:
         day, month = self.ledger.day_usd(), self.ledger.month_usd()
-        budget = int(self.settings.get("budget.monthly_krw", 50000))
-        return f"오늘 사용 {self.ledger.krw(day):,}원 · 이번 달 {self.ledger.krw(month):,}원 / {budget:,}원"
+        return (f"오늘 사용 {self.ledger.krw(day):,}원 · 이번 달 {self.ledger.krw(month):,}원 "
+                f"(${month:,.2f} / ${self.budget_usd():,.0f})")
 
     def _refresh_cost(self) -> None:
         text = self.cost_text()
@@ -392,17 +399,30 @@ class AssistantApp(QObject):
             self.tray.setToolTip(f"{self.window.sprites.name}\n{text}\n{mode}"[:120])
 
     def _budget_warning(self) -> None:
-        budget = float(self.settings.get("budget.monthly_krw", 50000))
-        used = self.ledger.krw(self.ledger.month_usd())
-        ratio = used / budget if budget else 0
+        """크레딧 소진·예산 80%·예산 초과를 달마다 한 번씩만 알린다."""
+        budget = self.budget_usd()
+        used = self.ledger.month_usd()
+        credit = float(self.settings.get("budget.credit_usd", 0) or 0)
+        month = self.ledger_month()
         state = self._load_state()
-        level = "over" if ratio >= 1 else ("warn" if ratio >= float(self.settings.get("budget.warn_ratio", 0.8)) else "")
-        if level and state.get("budget_warned") != f"{level}:{self.ledger_month()}":
-            state["budget_warned"] = f"{level}:{self.ledger_month()}"
-            self._write_state(state)
-            msg = (f"이번 달 예산을 넘었어요 ({used:,}원 / {int(budget):,}원)." if level == "over"
-                   else f"이번 달 예산의 {ratio:.0%}를 썼어요 ({used:,}원 / {int(budget):,}원).")
-            QTimer.singleShot(4000, lambda: self.bubble.show_text(msg, self.anchor(), system=True, seconds=8))
+        warned = set(state.get("budget_warned_list", []))
+        checks = [
+            ("over", budget and used >= budget,
+             f"이번 달 예산을 넘었어요 (${used:,.2f} / ${budget:,.0f}). 화면 보기는 멈추고 대화만 할게요."),
+            ("warn", budget and used >= budget * float(self.settings.get("budget.warn_ratio", 0.8)),
+             f"이번 달 예산의 {used / budget:.0%}를 썼어요 (${used:,.2f} / ${budget:,.0f})." if budget else ""),
+            ("credit", credit and used >= credit,
+             f"이번 달 크레딧 ${credit:,.0f}를 다 썼어요. 지금부터는 카드로 결제돼요 (예산 ${budget:,.0f})."),
+        ]
+        for level, hit, msg in checks:
+            key = f"{level}:{month}"
+            if hit and key not in warned:
+                # 더 큰 단계를 알렸으면 작은 단계는 생략 (예: 초과를 알렸으면 80% 경고는 안 함)
+                warned.update(f"{lv}:{month}" for lv, _, _ in checks[checks.index((level, hit, msg)):])
+                state["budget_warned_list"] = sorted(warned)
+                self._write_state(state)
+                QTimer.singleShot(4000, lambda m=msg: self.bubble.show_text(m, self.anchor(), system=True, seconds=8))
+                break
 
     @staticmethod
     def ledger_month() -> str:
