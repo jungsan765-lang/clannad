@@ -691,3 +691,22 @@ def test_second_start_closes_the_first(qapp, tmp_path):
         _t.sleep(0.02)
     assert quit_calls == [1]
     server.close()
+
+
+def test_chat_can_add_focus_and_block_window(qapp, tmp_path, built):
+    fake = FakeAnthropic([
+        {"speak": True, "message": "네, 챙겨 볼게요.", "emotion": "normal", "action": "add_focus",
+         "target": "전체: 레진이 넘칠 것 같으면 알려 주기"},
+        {"speak": True, "message": "그 창은 안 볼게요.", "emotion": "normal", "action": "block_window", "target": "국민은행"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.ask("레진 넘칠 것 같으면 말해 줘")
+    _wait(qapp, a)
+    a.ask("은행 사이트는 아예 보지 마")
+    _wait(qapp, a)
+    kinds = [(r.get("kind"), r["scope"], r["text"]) for r in a.companion.memory.rules]
+    assert kinds == [("do", "전체", "레진이 넘칠 것 같으면 알려 주기"), ("skip", "전체", "국민은행")]
+    assert a.watcher.blocked_word("chrome.exe", "국민은행 - 개인뱅킹") == "국민은행"
+    a.quit()

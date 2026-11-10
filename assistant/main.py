@@ -349,6 +349,14 @@ class AssistantApp(QObject):
             scope, text = self._rule_scope(reply.target)
             if self.companion.memory.add_rule(scope, text):
                 self.status.flash(f"금지 사항에 적었어요 ({scope})")
+        elif reply.action == "add_focus" and reply.target.strip():
+            scope, text = self._rule_scope(reply.target)
+            if self.companion.memory.add_rule(scope, text, kind="do"):
+                self.status.flash(f"챙겨 볼 것에 적었어요 ({scope})")
+        elif reply.action == "block_window" and reply.target.strip():
+            word = reply.target.strip().split(":")[-1].strip()
+            if self.companion.memory.add_rule("전체", word, kind="skip"):
+                self.status.flash(f"'{word}' 창은 이제 안 봐요")
         elif reply.action == "pin_fact" and reply.target.strip():
             if self.companion.memory.add_pinned(reply.target):
                 self.status.flash("꼭 기억할 것에 적었어요")
@@ -952,7 +960,7 @@ class AssistantApp(QObject):
         # 기억
         mem = menu.addMenu("기억")
         add(mem, "기억 보기", self.show_memory)
-        add(mem, "금지 사항 (하지 말라고 한 것)…", self.open_rules)
+        add(mem, "화면 보는 규칙 (하지 마·챙겨 봐·보지 마)…", self.open_rules)
         add(mem, "고친 말 (남과 → 호박 같은 것)…", self.open_terms)
         add(mem, "기억 지금 정리하기", self.consolidate_now)
         add(mem, "최근 대화 잊기 (장기기억은 유지)", self.companion.memory.clear_recent)

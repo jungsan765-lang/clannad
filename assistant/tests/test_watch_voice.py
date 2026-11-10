@@ -638,3 +638,33 @@ def test_requested_analysis_waits_instead_of_dropping(qapp, tmp_path):
     fn, done, fail, args = jobs[2]
     done(None)  # 부탁받은 게 말없이 끝나면 알림
     assert missed == [1]
+
+
+def test_blocked_window_is_never_captured(qapp, tmp_path):
+    w, comp, said, t, state = _watcher(tmp_path, window=WindowInfo("국민은행 - Chrome", "chrome.exe", (0, 0, 1900, 1000)))
+    comp.memory.add_rule("칸코레", "국민은행", kind="skip")  # 아예 안 보기는 항상 전체
+    assert comp.memory.rules[-1]["scope"] == "전체"
+    w.tick()
+    assert comp.judged == [] and not w.running_job  # 찍지도, 보내지도 않음
+    state["window"] = WindowInfo("main.py - VS Code", "code.exe", (0, 0, 1900, 1000))
+    t["now"] = 31
+    w.tick()
+    assert len(comp.judged) == 1
+    comp.memory.add_rule("전체", "카톡", kind="skip")  # 부르는 이름으로 적어도 실행 파일로 알아봄
+    assert w.blocked_word("kakaotalk.exe", "단톡방") == "카톡" and w.blocked_word("code.exe", "x") is None
+
+
+def test_focus_and_dont_rules_reach_the_judge(tmp_path):
+    from watch.modes import Mode
+
+    fake = FakeAnthropic([{"speak": False, "urgent": False, "scene": "playing", "situation": "x", "point": ""}])
+    mem = Memory(tmp_path / "d")
+    mem.add_rule("원신", "레진이 180 넘으면 알려 주기", kind="do")
+    mem.add_rule("원신", "풍경 얘기 하지 않기")
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), mem, None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    comp.judge(b"jpeg", "원신", "claude-haiku-5-5", None, mode=Mode("원신", is_game=True))
+    system = fake.calls[-1]["system"][0]["text"]
+    assert "챙겨 봐 달라고 한 것" in system and "레진이 180" in system and "풍경 얘기 하지 않기" in system
+    blocks = comp.system_blocks()[1]["text"]
+    assert "챙겨 봐 달라고 한 것" in blocks and "[원신] 레진이 180" in blocks

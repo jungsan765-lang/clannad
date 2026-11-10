@@ -22,7 +22,7 @@ from PySide6.QtCore import QObject, QTimer, Signal
 from . import capture as cap
 from .dxgi import DxgiGrabber
 from .modes import NORMAL_KNOWLEDGE, Mode, detect
-from .windows import MESSENGERS, WindowInfo, capture_window, foreground_window
+from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foreground_window
 
 # 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
 STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "line": 120.0, "analyze": 200.0, "analyze_deep": 330.0}
@@ -157,6 +157,7 @@ class ScreenWatcher(QObject):
         self._job_gen = 0  # 버린 확인의 결과가 뒤늦게 오면 무시하려고 매번 번호를 붙인다
         self._pending: tuple[Callable, object] | None = None  # 하던 확인이 끝나면 바로 할 부탁 (F8·F10·대화)
         self._requested_gen: int | None = None
+        self._blocked_logged = ""
         self._job_local = threading.local()
         self._stage_name, self._stage_at, self._stage_limit = "", None, STAGE_LIMITS["start"]
         self.dxgi = DxgiGrabber()
@@ -341,12 +342,31 @@ class ScreenWatcher(QObject):
             self.update_mode()
             self._launch(fn, arg, requested=True)
 
+    def blocked_word(self, process: str, title: str) -> str | None:
+        """주인님이 '아예 보지 마'라고 한 창·프로그램이면 그 말."""
+        memory = getattr(self.companion, "memory", None)
+        words = memory.rules_for(None, "skip") if memory is not None and hasattr(memory, "rules_for") else []
+        p, t = (process or "").lower(), (title or "").lower()
+        for w in words:
+            lw = w.lower()
+            exe = PROGRAMS.get(w) or PROGRAMS.get(lw) or next((e for e, n in MESSENGERS.items() if n == w), None)
+            if (lw and (lw in t or lw in p)) or (exe and exe == p):
+                return w
+        return None
+
     def tick(self) -> None:
         self.stats["ticks"] += 1
         self.check_stuck()
         self.update_mode()
         if self.running_job or not self.can_run():
             return
+        word = self.blocked_word(self.process, self.window_title)
+        if word:  # 보지 말라고 한 창이 앞에 있음 → 찍지도, 보내지도, 저장하지도 않는다
+            if self._blocked_logged != word:
+                log.info("보지 않기로 한 창이 앞에 있어서 화면을 안 봄: %s", word)
+            self._blocked_logged = word
+            return
+        self._blocked_logged = ""
         now = self.clock()
         mode = self.mode
         if self.last_check is not None and now - self.last_check < self.interval_for(mode):
@@ -439,6 +459,8 @@ class ScreenWatcher(QObject):
         except Exception:  # noqa: BLE001
             return
         if not info or info.process not in MESSENGERS or not info.hwnd:
+            return
+        if self.blocked_word(info.process, info.title):  # 보지 말라고 한 메신저
             return
         try:
             img = self.window_capture(info.hwnd)

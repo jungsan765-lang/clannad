@@ -52,7 +52,9 @@ class Memory:
         self.knowledge: list[dict] = self._read("knowledge.json", [])  # 찾아보고 알게 된 것
         self.pinned: list[str] = self._read("pinned.json", [])  # 주인님이 고정해 둔 것 (정리해도 안 지움)
         self.terms: list[dict] = self._read("terms.json", [])  # 고쳐 준 말: {"wrong": "남과", "right": "호박", "date"}
-        self.rules: list[dict] = self._read("rules.json", [])  # 금지 사항: {"scope": "전체"|게임 이름, "text", "date"}
+        # 화면 보는 규칙: {"scope": "전체"|게임 이름, "text", "date", "kind"}
+        # kind: dont(그런 말 하지 않기, 기본) | do(챙겨 봐 주기) | skip(이 창·프로그램은 아예 안 찍기)
+        self.rules: list[dict] = self._read("rules.json", [])
 
     # ------------------------------------------------------------ 저장
 
@@ -173,13 +175,15 @@ class Memory:
 
     # ------------------------------------------------------------ 금지 사항 (주인님이 하지 말라고 한 것)
 
-    def add_rule(self, scope: str, text: str, when: datetime | None = None) -> bool:
+    def add_rule(self, scope: str, text: str, when: datetime | None = None, kind: str = "dont") -> bool:
         text = " ".join(str(text).split())[:200]
-        scope = (scope or "전체").strip() or "전체"
-        if not text or any(r["scope"] == scope and r["text"] == text for r in self.rules):
+        scope = "전체" if kind == "skip" else ((scope or "전체").strip() or "전체")
+        if not text or any(r["scope"] == scope and r["text"] == text and r.get("kind", "dont") == kind
+                           for r in self.rules):
             return False
         with self._lock:
-            self.rules.append({"scope": scope, "text": text, "date": (when or datetime.now()).date().isoformat()})
+            self.rules.append({"scope": scope, "text": text, "date": (when or datetime.now()).date().isoformat(),
+                               "kind": kind})
             self._write("rules.json", self.rules)
         return True
 
@@ -189,9 +193,10 @@ class Memory:
                 del self.rules[index]
                 self._write("rules.json", self.rules)
 
-    def rules_for(self, mode_name: str | None) -> list[str]:
-        """지금 상황에 적용되는 금지 사항 (전체 + 지금 게임)."""
-        return [r["text"] for r in self.rules if r["scope"] in ("전체", mode_name or "")]
+    def rules_for(self, mode_name: str | None, kind: str = "dont") -> list[str]:
+        """지금 상황에 적용되는 규칙 (전체 + 지금 게임). kind: dont | do | skip"""
+        return [r["text"] for r in self.rules
+                if r.get("kind", "dont") == kind and r["scope"] in ("전체", mode_name or "")]
 
     # ------------------------------------------------------------ 고정해 둔 것
 
