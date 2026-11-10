@@ -946,3 +946,29 @@ def test_daily_screen_limit_pauses_watching(qapp, tmp_path, built):
     a.bubble.hide()  # '설정을 저장했어요' 말풍선
     assert a._screen_allowed() and "/" not in a.cost_text().split("(화면")[1].split(")")[0]
     a.quit()
+
+
+def test_chat_recalls_old_conversations_and_screens(qapp, tmp_path, built):
+    import json as _json
+
+    import test_recall
+
+    fake = FakeAnthropic([{"speak": True, "message": "아, 11월 3일에 말씀하신 민지 씨요. 홍대에서요.", "emotion": "normal"},
+                          {"speak": True, "message": "그때 카일록 체력이 30%였죠.", "emotion": "normal"}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    test_recall._logs(tmp_path / "data")
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.sync_recall()
+    _wait(qapp, a)
+    assert a.recall_index.count() == 5
+    a.ask("저번에 홍대에서 누구 만난다고 했지?")
+    _wait(qapp, a)
+    sent = _json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "떠오른 기억" in sent and "민지" in sent and "고등학교 친구" in sent
+    a.ask("그때 카일록 보스전 화면 기억나?")
+    _wait(qapp, a)
+    content = fake.calls[-1]["messages"][-1]["content"]
+    assert any(b.get("type") == "image" for b in content)  # 그때 화면 한 장
+    assert "그때 화면" in _json.dumps(content, ensure_ascii=False)
+    a.quit()

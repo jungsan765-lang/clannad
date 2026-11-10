@@ -60,6 +60,7 @@ from pc_monitor import status_text as pc_status_text
 from idle import idle_seconds
 from planner import Planner
 from progress import Progress
+from recall import EpisodeIndex, recall_block
 from tts import Speaker
 from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
@@ -188,6 +189,11 @@ class AssistantApp(QObject):
         companion.planner = self.planner
         self.progress = Progress(settings.data_dir)
         self._last_chores = -1e9
+        # 떠올리기: 모든 대화·화면 일지·분석을 이 PC 의 색인(data/memory.db)에 넣어 두고 "그때 그거"를 찾는다
+        self.recall_index = EpisodeIndex(settings.data_dir / "memory.db")
+        self.recall_timer = QTimer(self)
+        self.recall_timer.timeout.connect(self.sync_recall)
+        self._recall_busy = False
         self.planner_timer = QTimer(self)  # 알림 시각 확인 (내 PC, 비용 없음)
         self.planner_timer.timeout.connect(self.check_reminders)
         # 원신 계정 정보 (진열장·실시간 메모·기원 기록). 로그인 정보는 이 PC 사용자만 풀 수 있게 암호화
@@ -199,6 +205,7 @@ class AssistantApp(QObject):
                                    nickname=str(self.pref("cyphers.nickname", "") or ""))
         self._cyphers_busy = False
         companion.extra_context = self._game_context
+        companion.recaller = self.recall_for_screen
         self.genshin_timer = QTimer(self)
         self.genshin_timer.timeout.connect(lambda: self.refresh_genshin())
         self.genshin_timer.timeout.connect(lambda: self.refresh_cyphers() if self.watcher.mode.name == "사이퍼즈" else None)
@@ -283,6 +290,8 @@ class AssistantApp(QObject):
         self.genshin_timer.start(10 * 60 * 1000)  # 원신 실시간 메모는 10분마다
         self.cleanup_timer.start(6 * 3600 * 1000)
         self.planner_timer.start(20_000)
+        self.recall_timer.start(120_000)
+        QTimer.singleShot(3000, self.sync_recall)  # 예전 기록도 처음 한 번 색인
         self.away_timer.start(30_000)
         self.set_pc_monitor(bool(self.pref("pc.monitor", True)))
         QTimer.singleShot(5000, self.check_reminders)  # 꺼져 있던 동안 지난 알림
@@ -294,6 +303,7 @@ class AssistantApp(QObject):
         self.update_timer.stop()
         self.planner_timer.stop()
         self.pc_timer.stop()
+        self.recall_timer.stop()
         self.away_timer.stop()
         self.genshin_timer.stop()
         self.cleanup_timer.stop()
@@ -355,8 +365,70 @@ class AssistantApp(QObject):
                     "주인님이 지난 일을 물으면 이걸 근거로 답한다]\n" + diary)
             if at is not None:
                 images = [(f"({e.time:%H:%M} 화면)", e.file.read_bytes()) for e in self.screen_log.nearest(at)]
+        memory_text, recalled = self.recall_for(text, window)
+        if memory_text:
+            context = ((context + "\n") if context else "") + memory_text
+            if not images:  # 떠올린 일이 화면 장면이면 그때 화면 한 장 (자세히 기억나게)
+                images = self._recall_images(recalled)
         self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress, images=images),
                   self._on_reply, self._on_error, text, on_progress=self._on_partial)
+
+    # ------------------------------------------------------------ 떠올리기
+
+    def sync_recall(self) -> None:
+        """원본 기록(대화·화면 일지)의 새 줄을 색인에 넣는다 (뒤에서, 비용 없음)."""
+        if self._recall_busy:
+            return
+        self._recall_busy = True
+
+        def done(_n) -> None:
+            self._recall_busy = False
+
+        def fail(message: str) -> None:
+            self._recall_busy = False
+            log.warning("기억 색인 실패: %s", message)
+
+        self._run(lambda: self.recall_index.sync(self.settings.data_dir), done, fail)
+
+    def recall_for(self, text: str, window=None):
+        """주인님 말에 맞는 예전 일 (지금 대화 기록에 이미 있는 건 빼고)."""
+        try:
+            turns = self.companion.memory.recent[-self.companion.history_turns * 2:]
+            recent_since = turns[0]["time"] if turns else None
+            # 시간을 콕 집은 말(어제·오늘·3시·아까)일 때만 그 시간대로 좁힌다. '그때·전에'는 언제든
+            pinpoint = re.search(r"어제|그저께|그제|오늘|아까|방금|\d{1,2}\s*시", text)
+            span = (window[0], window[1]) if window and pinpoint else None
+            return recall_block(self.recall_index, text, datetime.now(), recent_since, span)
+        except Exception:  # noqa: BLE001 - 떠올리기가 안 돼도 대화는 된다
+            log.exception("떠올리기 실패")
+            return "", []
+
+    def recall_for_screen(self, seen: str) -> str:
+        """화면 대사용: 지금 상황과 이어지는 예전 일 (6시간보다 오래된 것, 아주 확실한 것 2개까지, 사진 없음)."""
+        try:
+            since = (datetime.now() - timedelta(hours=6)).isoformat(timespec="seconds")
+            text, _ = recall_block(self.recall_index, seen, datetime.now(), since, max_chars=700, for_screen=True,
+                                   min_score=8.0)
+            return text
+        except Exception:  # noqa: BLE001
+            log.exception("화면용 떠올리기 실패")
+            return ""
+
+    def _recall_images(self, episodes) -> list:
+        for e in episodes[:3]:
+            if e.kind == "screen" and e.ref and Path(e.ref).is_file():
+                try:
+                    return [(f"(그때 화면: {e.when()} {e.game})", Path(e.ref).read_bytes())]
+                except OSError:
+                    return []
+        return []
+
+    def remember_episode(self, kind: str, text: str, game: str = "", detail: str = "") -> None:
+        """분석·찾아본 것·게임 기록처럼 원본 기록 파일이 없는 일을 색인에 바로 넣는다."""
+        try:
+            self.recall_index.add(datetime.now().isoformat(timespec="seconds"), kind, text, detail, game)
+        except Exception:  # noqa: BLE001
+            log.exception("기억 색인 넣기 실패")
 
     def _on_partial(self, message: str) -> None:
         """답을 받는 대로 말풍선에 바로 보여준다 (다 받을 때까지 기다리지 않음)."""
@@ -535,6 +607,7 @@ class AssistantApp(QObject):
 
                 self.companion.lorebook.entries.extend(
                     save_lookup(self.settings.data_dir / "knowledge", game, query, notes, datetime.now()))
+                self.remember_episode("lookup", f"찾아봄: {query}", "" if game == "일반" else game, notes[:1500])
             progress(None)  # 다 찾았다
             return self.companion.reply_after_search(query, notes, on_partial=None if about_screen else progress,
                                                      about_screen=about_screen)
@@ -672,9 +745,15 @@ class AssistantApp(QObject):
             self.bubble.show_text("화면을 봤는데 제대로 못 읽었어요. 글씨를 읽어 달라는 거면 '외침 읽어줘'처럼 말씀해 주세요. "
                                   "확대해서 다시 볼게요.", self.anchor(), system=True, seconds=8)
 
+    def _index_analysis(self, a, kind: str = "analysis") -> None:
+        points = "; ".join(f"{p.get('title', '')}: {p.get('detail', '')}" for p in a.points if isinstance(p, dict))
+        self.remember_episode(kind, f"{a.when} {a.summary}", self.watcher.mode.name if self.watcher.mode.is_game else "",
+                              f"{a.situation} / {points} / 다음: {', '.join(a.next_steps)}")
+
     def _on_screen_line(self, reply) -> None:
         if isinstance(reply, Analysis) and reply.speak:  # 분석은 창에 남겨 두니 대화 중이어도 보여 준다
             self.analysis_panel.show_analysis(reply)
+            self._index_analysis(reply)
             if self.busy:
                 return
         if self.busy:
@@ -1331,6 +1410,7 @@ class AssistantApp(QObject):
                 self.bubble.show_text("정리할 기록이 부족했어요.", self.anchor(), system=True, seconds=5)
                 return
             self.analysis_panel.show_analysis(a)
+            self._index_analysis(a, "diary")
             if not self.busy:
                 self.bubble.show_text(a.summary, self.anchor(), seconds=10)
                 self.window.set_emotion(a.emotion)
@@ -1543,6 +1623,7 @@ class AssistantApp(QObject):
         """게임을 끔: 화면으로 본 기록으로 진행을 갱신 (싼 모델)."""
         self.progress.played(game)
         prev = self.progress.text_for(game)
+        self.remember_episode("game", f"{game} 약 {minutes:.0f}분 플레이", game, " / ".join(notes[-30:]))
 
         def done(text: str) -> None:
             if text and text != prev:
@@ -1656,6 +1737,7 @@ class AssistantApp(QObject):
             if not a.speak:
                 return
             self.analysis_panel.show_analysis(a)
+            self._index_analysis(a)
             if not self.busy:
                 self.bubble.show_text("아까 그 판 공식 기록이 올라와서 다시 봤어요. " + a.summary, self.anchor(), seconds=12)
                 self.window.set_emotion(a.emotion)

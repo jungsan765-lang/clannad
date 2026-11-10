@@ -481,6 +481,7 @@ class Companion:
         self.user_names: list[str] = []  # 주인님 아이디·닉네임 (설정 창, 내 PC 에만 저장)
         self.lorebook = LoreBook()  # 필요할 때 꺼내 보는 배경지식 사전
         self.extra_context = None  # 모드에 따라 화면 대사에 덧붙일 정보 (예: 원신 계정 정보). mode → 글
+        self.recaller = None  # 화면 상황 글 → 이어지는 예전 일 (main 이 넣어 줌)
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -792,6 +793,9 @@ class Companion:
         notes = self.lorebook.notes_for(seen, 9000, 10) if pick else self.lorebook.notes_for(seen)
         if notes:
             lines.append(notes)
+        old = self.recaller(seen) if self.recaller and not pick else ""
+        if old:
+            lines.append(old)
         extra = self.extra_context(mode) if self.extra_context else ""
         if extra:
             lines.append(extra)
