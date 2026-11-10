@@ -262,3 +262,17 @@ def test_screen_line_can_ask_to_look_up_a_name(tmp_path):
     assert r.speak and r.message == "" and r.action == "web_search" and r.target == "원신 로노바"
     assert "이름표" not in fake.calls[-1]["system"][0]["text"]  # 규칙은 화면 지시 쪽에
     assert "얼굴 생김새만으로" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+
+
+def test_user_names_and_pinned_facts_reach_prompts(tmp_path):
+    comp, fake = _comp(tmp_path, [])
+    comp.user_names = ["하늘고래", "SkyWhale"]
+    comp.memory.add_pinned("주인님은 민트초코를 싫어한다.")
+    assert not comp.memory.add_pinned("주인님은 민트초코를 싫어한다.")  # 같은 건 한 번만
+    comp.reply("안녕")
+    second = fake.calls[-1]["system"][1]["text"]
+    assert second.startswith("# 꼭 기억할 것") and "'하늘고래', 'SkyWhale'" in second and "민트초코" in second
+    comp.judge(b"jpg", "원신", "claude-haiku-5-5", None)
+    assert "'하늘고래'" in json.dumps(fake.calls[-1]["messages"][0]["content"][1], ensure_ascii=False)
+    from memory import Memory
+    assert Memory(tmp_path).pinned == ["주인님은 민트초코를 싫어한다."]  # 껐다 켜도 남음

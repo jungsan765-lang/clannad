@@ -163,6 +163,9 @@ class SettingsDialog(QDialog):
         self.show_status.setChecked(bool(v.get("ui.show_status", True)))
         self.web = QCheckBox("모르는 건 인터넷에서 찾아보기 (한 번에 약 30~70원, 찾은 건 기억해 둠)")
         self.web.setChecked(bool(v.get("ai.web_search", True)))
+        self.nick = QLineEdit(str(v.get("user.nickname", "")))
+        self.nick.setPlaceholderText("예) 하늘고래, SkyWhale  (여러 개면 쉼표로)")
+        g6 = group("주인님 (이 컴퓨터에만 저장)", [("아이디·닉네임", self.nick)])
         g5 = group("대답·표시", [("", self.web), ("", self.fast), ("", self.show_status)])
 
         # 비용
@@ -177,7 +180,7 @@ class SettingsDialog(QDialog):
         buttons.accepted.connect(self.accept)
         buttons.rejected.connect(self.reject)
         lay = QVBoxLayout(self)
-        for g in (g1, g5, g2, g3, g4):
+        for g in (g6, g1, g5, g2, g3, g4):
             lay.addWidget(g)
         lay.addWidget(self.note)
         lay.addWidget(buttons)
@@ -223,6 +226,7 @@ class SettingsDialog(QDialog):
             "budget.monthly_usd": self.budget.value(),
             "ai.fast": self.fast.isChecked(),
             "ai.web_search": self.web.isChecked(),
+            "user.nickname": ", ".join(n.strip() for n in self.nick.text().replace("，", ",").split(",") if n.strip()),
             "ui.show_status": self.show_status.isChecked(),
         }
 

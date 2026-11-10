@@ -15,7 +15,7 @@ log = logging.getLogger("assistant.companion")
 
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
-ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request"]
+ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -164,6 +164,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   action 은 "make_game_mode", message 는 "이 게임에 맞춰 준비해 두겠습니다" 같은 시작하는 말. (자주 하는 게임은 알아서 만들기도 한다)
 - 개선 요청 메모: 주인님이 "이런 기능 있었으면" 하거나, 네가 못 하는 일을 부탁하면 못 한다고 솔직히 말하고
   action 은 "note_request", target 에 바라는 기능을 한 문장으로 적는다. message 에서 개선 요청 메모에 적어 두겠다고 알린다.
+- 고정 기억: 주인님이 "고정해", "항상 기억해" 하며 알려 준 것은 action 은 "pin_fact", target 에 한 문장(주어는 '주인님')으로 적는다.
+  '꼭 기억할 것'에 들어가 절대 잊지 않는다.
 - 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
@@ -273,6 +275,7 @@ class Companion:
         self.lore = (lore or "").strip()  # 배경지식 (캐릭터가 원래 아는 세계관 등)
         self.search_model = search_model
         self.can_search = True  # 모르는 건 인터넷에서 찾아보기 (설정 창)
+        self.user_names: list[str] = []  # 주인님 아이디·닉네임 (설정 창, 내 PC 에만 저장)
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -293,7 +296,11 @@ class Companion:
         first = RULES + (SEARCH_ON if self.can_search else SEARCH_OFF) + "\n\n" + self.persona
         if self.lore:
             first += "\n\n# 배경지식 (네가 원래 아는 것. 아는 티를 길게 내지 않고 필요할 때 자연스럽게 쓴다)\n" + self.lore
-        second = "# 기억 (네가 적어 둔 메모)\n" + self.memory.notes_text()
+        second = ""
+        pinned = self.pinned_text()
+        if pinned:
+            second += "# 꼭 기억할 것 (주인님이 고정해 둔 것. 절대 잊지 않는다)\n" + pinned + "\n\n"
+        second += "# 기억 (네가 적어 둔 메모)\n" + self.memory.notes_text()
         known = self.memory.knowledge_text()
         if known:
             second += "\n\n# 찾아보고 알게 된 것 (예전에 검색해 둔 내용)\n" + known
@@ -301,6 +308,18 @@ class Companion:
             {"type": "text", "text": first, "cache_control": {"type": "ephemeral"}},
             {"type": "text", "text": second, "cache_control": {"type": "ephemeral"}},
         ]
+
+    def names_text(self) -> str:
+        if not self.user_names:
+            return ""
+        names = ", ".join(f"'{n}'" for n in self.user_names)
+        return (f"주인님의 아이디·닉네임은 {names} 이다. 화면(게임 파티·채팅·순위표·결과 화면 등)에 이 이름이 보이면 "
+                "주인님 본인(주인님의 캐릭터·계정)이다.")
+
+    def pinned_text(self) -> str:
+        lines = [f"- {self.names_text()}"] if self.user_names else []
+        lines += [f"- {p}" for p in self.memory.pinned]
+        return "\n".join(lines)
 
     def reply(self, user_text: str, now: datetime | None = None, context: str | None = None,
               on_partial=None, fast: bool | None = None) -> Reply:
@@ -420,7 +439,10 @@ class Companion:
         system = JUDGE_RULES + "\n" + CHATTINESS.get(chattiness, CHATTINESS["normal"])
         if mode is not None:
             system += "\n\n" + self._mode_text(mode, None)
-        info = [f"맨 앞 창: {title or '(알 수 없음)'}",
+        info = [f"맨 앞 창: {title or '(알 수 없음)'}"]
+        if self.user_names:
+            info.append(self.names_text())
+        info += [
                 f"마지막으로 먼저 말 건 지: {'처음' if minutes_since_spoke is None else f'{minutes_since_spoke:.0f}분 전'}",
                 "최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)")]
         if session_notes:

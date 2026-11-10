@@ -96,6 +96,7 @@ class AssistantApp(QObject):
         self._streamed = False
         companion.fast = bool(self.pref("ai.fast", False))
         companion.can_search = bool(self.pref("ai.web_search", True))
+        companion.user_names = split_names(self.pref("user.nickname", ""))
         self._last_question = ""
         self.organizer = org.Organizer(settings.data_dir / "organize_log.jsonl")
         self.organizing = False
@@ -251,6 +252,9 @@ class AssistantApp(QObject):
             self.search_and_answer(reply.target.strip())
         elif reply.action == "make_game_mode":
             self.make_game_mode_now()
+        elif reply.action == "pin_fact" and reply.target.strip():
+            if self.companion.memory.add_pinned(reply.target):
+                self.status.flash("꼭 기억할 것에 적었어요")
         elif reply.action == "note_request" and reply.target.strip():
             if self.wishlist.add(reply.target):
                 self.status.flash("개선 요청 메모에 적었어요")
@@ -480,6 +484,7 @@ class AssistantApp(QObject):
             "budget.monthly_usd": self.budget_usd(),
             "ai.fast": bool(self.companion.fast),
             "ai.web_search": bool(self.companion.can_search),
+            "user.nickname": ", ".join(self.companion.user_names),
             "ui.show_status": self.status.enabled,
         }
 
@@ -521,6 +526,8 @@ class AssistantApp(QObject):
             self.companion.fast = bool(changed["ai.fast"])
         if "ai.web_search" in changed:
             self.companion.can_search = bool(changed["ai.web_search"])
+        if "user.nickname" in changed:
+            self.companion.user_names = split_names(changed["user.nickname"])
         if "ui.show_status" in changed:
             self.status.set_enabled(bool(changed["ui.show_status"]))
         self._refresh_cost()
@@ -754,6 +761,9 @@ class AssistantApp(QObject):
     def show_memory(self) -> None:
         mem = self.companion.memory
         text = mem.notes_text() + (f"\n\n(정리 대기 중인 대화 {len(mem.pending)}개)" if mem.pending else "")
+        pinned = self.companion.pinned_text()
+        if pinned:
+            text = "[꼭 기억할 것]\n" + pinned + "\n\n" + text
         if mem.knowledge:
             text += "\n\n[찾아보고 알게 된 것] " + ", ".join(k["query"] for k in mem.knowledge[-30:])
         QMessageBox.information(None, "장기기억", text)
@@ -982,6 +992,11 @@ class AssistantApp(QObject):
         state = self._load_state()
         state["window_pos"] = [pos.x(), pos.y()]
         self._write_state(state)
+
+
+def split_names(value) -> list[str]:
+    """'하늘고래, SkyWhale' → ['하늘고래', 'SkyWhale']"""
+    return [n.strip() for n in str(value or "").replace("，", ",").split(",") if n.strip()][:5]
 
 
 def relaunch(root: Path) -> None:

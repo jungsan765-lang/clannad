@@ -28,6 +28,7 @@ class Memory:
         self.updated: str | None = mem.get("updated")
         self.pending: list[dict] = mem.get("pending", [])  # 아직 장기기억에 반영 안 된 대화
         self.knowledge: list[dict] = self._read("knowledge.json", [])  # 찾아보고 알게 된 것
+        self.pinned: list[str] = self._read("pinned.json", [])  # 주인님이 고정해 둔 것 (정리해도 안 지움)
 
     # ------------------------------------------------------------ 저장
 
@@ -101,6 +102,22 @@ class Memory:
         with self._lock:
             self.recent = []
             self._save()
+
+    # ------------------------------------------------------------ 고정해 둔 것
+
+    def add_pinned(self, text: str) -> bool:
+        text = " ".join(str(text).split())[:200]
+        if not text or text in self.pinned:
+            return False
+        with self._lock:
+            self.pinned.append(text)
+            self._write("pinned.json", self.pinned)
+        return True
+
+    def remove_pinned(self, text: str) -> None:
+        with self._lock:
+            self.pinned = [p for p in self.pinned if p != text]
+            self._write("pinned.json", self.pinned)
 
     # ------------------------------------------------------------ 찾아보고 알게 된 것
 

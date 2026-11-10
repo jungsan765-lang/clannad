@@ -323,3 +323,25 @@ def time_now():
     import time
 
     return time.monotonic()
+
+
+def test_nickname_setting_and_pin_from_chat(qapp, tmp_path, built):
+    from ui.settings_dialog import SettingsDialog
+
+    fake = FakeAnthropic([{"speak": True, "message": "고정해 두겠습니다.", "emotion": "normal", "action": "pin_fact",
+                           "target": "주인님은 밤에 게임을 한다."}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    dlg = SettingsDialog(a.settings_values(), ["1"], [])
+    dlg.nick.setText("하늘고래 ， SkyWhale")
+    a.apply_settings(dlg.changed())
+    assert a.companion.user_names == ["하늘고래", "SkyWhale"]
+    a.ask("나 밤에 게임해. 고정해")
+    _wait(qapp, a)
+    assert a.companion.memory.pinned == ["주인님은 밤에 게임을 한다."]
+    a.quit()
+    b = app_main.build(_settings(tmp_path, built["out"].as_posix()),
+                       ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    assert b.companion.user_names == ["하늘고래", "SkyWhale"]  # 다시 켜도 그대로
+    assert "하늘고래" in b.companion.pinned_text() and "밤에 게임" in b.companion.pinned_text()
