@@ -38,6 +38,7 @@ from settings import Settings
 from ui.bubble import SpeechBubble
 from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
+from ui.history_dialog import HistoryDialog
 from ui.hoyolab_login import HoyolabLogin, complete as cookies_complete
 from ui.analysis_panel import AnalysisPanel
 from ui.overlay import GameOverlay, screen_for
@@ -106,6 +107,7 @@ class AssistantApp(QObject):
                                    float(settings.get("ui.bubble_seconds_per_char", 0.12)))
         self.input = ChatInput()
         self.status = StatusPill(self.anchor)  # 캐릭터 아래 '지금 하는 일' 표시
+        self._apply_bubble_time(str(self.pref("ui.bubble_time", "normal")))  # 말풍선이 떠 있는 시간
         self.analysis_panel = AnalysisPanel(self.anchor)  # 분석 모드의 자세한 내용
         self.overlay = GameOverlay()  # 게임 모니터 위 자막 (입력은 그대로 게임으로)
         companion.analysis_effort = str(settings.get("ai.analysis_effort", "medium"))
@@ -652,6 +654,7 @@ class AssistantApp(QObject):
             "screen.cooldown_seconds": int(self.watch_cfg.cooldown_seconds),
             "screen.monitor": str(self.watch_cfg.monitor),
             "screen.coach": self.coach,
+            "ui.bubble_time": str(self.pref("ui.bubble_time", "normal")),
             "screen.memory": self.screen_log.enabled,
             "screen.read_windows": bool(self.pref("screen.read_windows", True)),
             "screen.auto_read": bool(self.watch_cfg.auto_read),
@@ -704,6 +707,8 @@ class AssistantApp(QObject):
             if key in changed:
                 setattr(cfg, attr, changed[key])
         self.watcher.apply_config()
+        if "ui.bubble_time" in changed:
+            self._apply_bubble_time(str(changed["ui.bubble_time"]))
         if "screen.auto_read" in changed:
             self.watch_cfg.auto_read = bool(changed["screen.auto_read"])
         if "screen.memory" in changed:
@@ -818,137 +823,97 @@ class AssistantApp(QObject):
     # ------------------------------------------------------------ 메뉴·비용
 
     def _build_menu(self) -> QMenu:
-        menu = QMenu()
-        talk = QAction("말 걸기", menu)
-        talk.triggered.connect(self.open_input)
-        menu.addAction(talk)
-        menu.addSeparator()
-        self.cost_action = QAction("", menu)
-        self.cost_action.setEnabled(False)
-        menu.addAction(self.cost_action)
-        menu.addSeparator()
+        """자주 쓰는 것만 위에, 나머지는 게임·도구·기억·더 보기 묶음으로."""
         g = self.settings.get
-        self.mode_action = QAction("", menu)
-        self.mode_action.setEnabled(False)
-        menu.addAction(self.mode_action)
-        self.watch_status_action = QAction("", menu)
-        self.watch_status_action.setEnabled(False)
-        menu.addAction(self.watch_status_action)
-        self.screen_action = QAction(f"화면 보기 (평소 {int(self.watch_cfg.interval_seconds)}초마다, {g('hotkeys.toggle_screen', 'F9')})", menu)
-        self.screen_action.setCheckable(True)
-        self.screen_action.triggered.connect(lambda on: self.set_screen_enabled(on))
-        menu.addAction(self.screen_action)
-        now = QAction(f"지금 화면 보고 말하기 ({g('hotkeys.ask_screen', 'F8')})", menu)
-        now.triggered.connect(self.ask_screen_now)
-        menu.addAction(now)
-        cmenu = menu.addMenu("코칭 (분석·복기)")
+        menu = QMenu()
+
+        def add(parent: QMenu, label: str, slot, checkable: bool = False) -> QAction:
+            act = QAction(label, parent)
+            act.setCheckable(checkable)
+            act.triggered.connect(slot)
+            parent.addAction(act)
+            return act
+
+        def info(parent: QMenu) -> QAction:
+            act = QAction("", parent)
+            act.setEnabled(False)
+            parent.addAction(act)
+            return act
+
+        add(menu, "말 걸기", self.open_input)
+        add(menu, "대화 기록 보기", self.show_history)
+        menu.addSeparator()
+        self.cost_action = info(menu)
+        self.screen_action = add(menu, f"화면 보기 ({g('hotkeys.toggle_screen', 'F9')})",
+                                 lambda on: self.set_screen_enabled(on), checkable=True)
+        add(menu, f"지금 화면 보고 말하기 ({g('hotkeys.ask_screen', 'F8')})", self.ask_screen_now)
+
+        # 게임: 코칭·복기·게임 정보
+        game = menu.addMenu("게임")
+        self.mode_action = info(game)
+        self.watch_status_action = info(game)
+        game.addSeparator()
+        cmenu = game.addMenu("코칭 (분석·복기)")
         cgroup = QActionGroup(cmenu)
         self.coach_actions = {}
         for key, label in self.COACH:
-            act = QAction(label, cmenu)
-            act.setCheckable(True)
-            act.triggered.connect(lambda _=False, k=key: self.set_coach(k))
+            act = add(cmenu, label, lambda _=False, k=key: self.set_coach(k), checkable=True)
             cgroup.addAction(act)
-            cmenu.addAction(act)
             self.coach_actions[key] = act
-        analyze = QAction(f"지금 자세히 분석·복기 ({g('hotkeys.analyze', 'F10')})", menu)
-        analyze.triggered.connect(lambda: self.analyze_now())
-        menu.addAction(analyze)
-        news = QAction("지금 하는 게임 최신 소식 확인", menu)
-        news.triggered.connect(lambda: self.refresh_game_news(force=True))
-        menu.addAction(news)
-        recent = QAction("지난 10분 복기 (저장된 화면으로)", menu)
-        recent.triggered.connect(lambda: self.review_recent(10))
-        menu.addAction(recent)
-        video = QAction("영상으로 복기…", menu)
-        video.triggered.connect(lambda: self.review_video_file())
-        menu.addAction(video)
-        panel = QAction("분석 창 보기", menu)
-        panel.triggered.connect(lambda: (self.analysis_panel.show(), self.analysis_panel.raise_()))
-        menu.addAction(panel)
-        vmenu = menu.addMenu("목소리로 말 걸기")
+        add(game, f"지금 자세히 분석·복기 ({g('hotkeys.analyze', 'F10')})", lambda: self.analyze_now())
+        add(game, "지난 10분 복기 (저장된 화면으로)", lambda: self.review_recent(10))
+        add(game, "영상으로 복기…", lambda: self.review_video_file())
+        add(game, "분석 창 보기", lambda: (self.analysis_panel.show(), self.analysis_panel.raise_()))
+        game.addSeparator()
+        add(game, "지금 하는 게임 최신 소식 확인", lambda: self.refresh_game_news(force=True))
+        add(game, "지금 하는 게임 모드 만들기", self.make_game_mode_now)
+        game.addSeparator()
+        add(game, "원신 정보 새로고침 (진열장·레진·기원)", lambda: self.refresh_genshin(force=True, wishes=True))
+        add(game, "받은 원신 정보 보기", self.show_genshin)
+        add(game, "사이퍼즈 전적 새로고침", lambda: self.refresh_cyphers(force=True))
+
+        # 도구: 파일 정리·목소리·메모
+        tools = menu.addMenu("도구")
+        omenu = tools.addMenu("파일 정리")
+        for label in org.KNOWN:
+            add(omenu, f"{label} 정리하기…", lambda _=False, lb=label: self.organize(org.known_folder(lb), lb))
+        add(omenu, "다른 폴더 고르기…", self.organize_pick)
+        omenu.addSeparator()
+        add(omenu, "마지막 정리 되돌리기", self.undo_organize)
+        vmenu = tools.addMenu("목소리로 말 걸기")
         group = QActionGroup(vmenu)
         self.voice_actions = {}
         for mode, label in (("always", "항상 듣기"), ("push", f"단축키로 듣기 ({g('hotkeys.voice', 'F7')})"), ("off", "듣지 않기")):
-            act = QAction(label, vmenu)
-            act.setCheckable(True)
-            act.triggered.connect(lambda _=False, m=mode: self.set_voice_mode(m))
+            act = add(vmenu, label, lambda _=False, m=mode: self.set_voice_mode(m), checkable=True)
             group.addAction(act)
-            vmenu.addAction(act)
             self.voice_actions[mode] = act
-        listen = QAction(f"지금 듣기 ({g('hotkeys.voice', 'F7')})", vmenu)
-        listen.triggered.connect(self.push_to_talk)
         vmenu.addSeparator()
-        vmenu.addAction(listen)
-        omenu = menu.addMenu("파일 정리")
-        for label in org.KNOWN:
-            act = QAction(f"{label} 정리하기…", omenu)
-            act.triggered.connect(lambda _=False, lb=label: self.organize(org.known_folder(lb), lb))
-            omenu.addAction(act)
-        pick = QAction("다른 폴더 고르기…", omenu)
-        pick.triggered.connect(self.organize_pick)
-        omenu.addAction(pick)
-        omenu.addSeparator()
-        undo = QAction("마지막 정리 되돌리기", omenu)
-        undo.triggered.connect(self.undo_organize)
-        omenu.addAction(undo)
-        gmenu = menu.addMenu("원신")
-        g_refresh = QAction("원신 정보 새로고침 (진열장·실시간 메모·기원 기록)", gmenu)
-        g_refresh.triggered.connect(lambda: self.refresh_genshin(force=True, wishes=True))
-        gmenu.addAction(g_refresh)
-        c_refresh = QAction("사이퍼즈 전적 새로고침", menu)
-        c_refresh.triggered.connect(lambda: self.refresh_cyphers(force=True))
-        g_show = QAction("받은 원신 정보 보기", gmenu)
-        g_show.triggered.connect(self.show_genshin)
-        gmenu.addAction(g_show)
-        menu.addAction(c_refresh)
-        screens = QAction("화면 기억 폴더 열기", menu)
-        screens.triggered.connect(self.open_screens_folder)
-        menu.addAction(screens)
-        make_mode = QAction("지금 하는 게임 모드 만들기", menu)
-        make_mode.triggered.connect(self.make_game_mode_now)
-        menu.addAction(make_mode)
-        wishes = QAction("개선 요청 메모…", menu)
-        wishes.triggered.connect(self.open_wishlist)
-        menu.addAction(wishes)
+        add(vmenu, f"지금 듣기 ({g('hotkeys.voice', 'F7')})", self.push_to_talk)
+        add(tools, "개선 요청 메모…", self.open_wishlist)
+        add(tools, "화면 기억 폴더 열기", self.open_screens_folder)
+
+        # 기억
+        mem = menu.addMenu("기억")
+        add(mem, "기억 보기", self.show_memory)
+        add(mem, "기억 지금 정리하기", self.consolidate_now)
+        add(mem, "최근 대화 잊기 (장기기억은 유지)", self.companion.memory.clear_recent)
+
         menu.addSeparator()
-        show_mem = QAction("기억 보기", menu)
-        show_mem.triggered.connect(self.show_memory)
-        menu.addAction(show_mem)
-        consolidate = QAction("기억 지금 정리하기", menu)
-        consolidate.triggered.connect(self.consolidate_now)
-        menu.addAction(consolidate)
-        forget = QAction("최근 대화 잊기 (장기기억은 유지)", menu)
-        forget.triggered.connect(self.companion.memory.clear_recent)
-        menu.addAction(forget)
-        tmenu = menu.addMenu("말할 때 움직임")
+        add(menu, "설정…", self.open_settings_dialog)
+        more = menu.addMenu("더 보기")
+        tmenu = more.addMenu("말할 때 움직임")
         tgroup = QActionGroup(tmenu)
         self.talk_actions = {}
         for style, label in TALK_STYLES:
-            act = QAction(label, tmenu)
-            act.setCheckable(True)
-            act.triggered.connect(lambda _=False, st=style: self.set_talk_style(st))
+            act = add(tmenu, label, lambda _=False, st=style: self.set_talk_style(st), checkable=True)
             tgroup.addAction(act)
-            tmenu.addAction(act)
             self.talk_actions[style] = act
         self._sync_talk_actions()
+        add(more, "설정 파일 열기 (고급)", self.open_settings)
+        add(more, "업데이트 확인", lambda: self.check_update(manual=True))
+        add(more, "다시 시작 (설정·업데이트 적용)", self.restart)
         menu.addSeparator()
-        settings_dialog = QAction("설정…", menu)
-        settings_dialog.triggered.connect(self.open_settings_dialog)
-        menu.addAction(settings_dialog)
-        settings_file = QAction("설정 파일 열기 (고급)", menu)
-        settings_file.triggered.connect(self.open_settings)
-        menu.addAction(settings_file)
-        update = QAction("업데이트 확인", menu)
-        update.triggered.connect(lambda: self.check_update(manual=True))
-        menu.addAction(update)
-        restart = QAction("다시 시작 (설정·업데이트 적용)", menu)
-        restart.triggered.connect(self.restart)
-        menu.addAction(restart)
-        menu.addSeparator()
-        quit_ = QAction("종료", menu)
-        quit_.triggered.connect(self.quit)
-        menu.addAction(quit_)
+        add(menu, "종료", self.quit)
         menu.aboutToShow.connect(self._refresh_cost)
         return menu
 
@@ -1379,6 +1344,14 @@ class AssistantApp(QObject):
             self.bubble.show_text(f"영상 복기 실패: {message}", self.anchor(), system=True, seconds=8)
 
         self._run(work, done, fail, on_progress=on_progress)
+
+    BUBBLE_TIMES = {"short": (4.0, 0.12), "normal": (6.0, 0.18), "long": (9.0, 0.26)}  # (최소 초, 글자당 초)
+
+    def _apply_bubble_time(self, key: str) -> None:
+        self.bubble.min_seconds, self.bubble.seconds_per_char = self.BUBBLE_TIMES.get(key, self.BUBBLE_TIMES["normal"])
+
+    def show_history(self) -> None:
+        HistoryDialog(self.settings.data_dir / "logs").exec()
 
     def open_wishlist(self) -> None:
         WishlistDialog(self.wishlist).exec()

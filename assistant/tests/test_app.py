@@ -139,9 +139,14 @@ def test_menu_has_settings_update_restart_and_screen_status(qapp, tmp_path, buil
     s = _settings(tmp_path, built["out"].as_posix())
     a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
     a.start()
-    labels = [act.text() for act in a.menu.actions()]
-    assert "설정…" in labels and "업데이트 확인" in labels and any(t.startswith("다시 시작") for t in labels)
-    assert "말할 때 움직임" in labels
+    labels = [act.text() for act in a.menu.actions() if act.text()]
+    assert len(labels) <= 12  # 위에는 자주 쓰는 것만
+    assert labels[:2] == ["말 걸기", "대화 기록 보기"] and "설정…" in labels and labels[-1] == "종료"
+    assert {"게임", "도구", "기억", "더 보기"} <= set(labels)
+    more = next(act.menu() for act in a.menu.actions() if act.text() == "더 보기")
+    more_labels = [act.text() for act in more.actions()]
+    assert "업데이트 확인" in more_labels and any(t.startswith("다시 시작") for t in more_labels)
+    assert "말할 때 움직임" in more_labels
     a._refresh_cost()
     assert a.watch_status_action.text().startswith("화면 보기:")
     assert not a.update_timer.isActive()  # 자동 업데이트 끔 설정이면 확인 안 함
@@ -518,3 +523,38 @@ def test_game_knowledge_folders_and_weekly_news(qapp, tmp_path, built, monkeypat
     _wait(qapp, a)
     assert len(fake.calls) == calls + 1
     a.quit()
+
+
+def test_history_window_shows_past_lines(qapp, tmp_path, built):
+    import json as _json
+
+    from ui.history_dialog import HistoryDialog, read_log
+
+    logs = tmp_path / "data" / "logs"
+    logs.mkdir(parents=True)
+    rows = [{"time": "2026-11-10T21:30:00", "user": "레진 얼마나 남았어?", "reply": "레진은 152입니다."},
+            {"time": "2026-11-10T21:31:00", "screen_line": "방금 그 한타, 합류가 늦었습니다."},
+            {"time": "2026-11-10T21:32:00", "user": "(알림: 레진이 곧 넘친다)", "reply": "레진이 곧 넘칩니다."}]
+    (logs / "2026-11-10.jsonl").write_text("\n".join(_json.dumps(r, ensure_ascii=False) for r in rows), encoding="utf-8")
+    (logs / "2026-11-09.jsonl").write_text(_json.dumps(rows[0], ensure_ascii=False), encoding="utf-8")
+    got = read_log(logs / "2026-11-10.jsonl")
+    assert [(r["who"], r["text"]) for r in got] == [("주인님", "레진 얼마나 남았어?"), ("다니카", "레진은 152입니다."),
+                                                   ("다니카(화면)", "방금 그 한타, 합류가 늦었습니다."),
+                                                   ("다니카", "레진이 곧 넘칩니다.")]  # 내부 표시는 빼고
+    dlg = HistoryDialog(logs)
+    assert dlg.day.currentText() == "2026-11-10" and dlg.day.count() == 2  # 최근 날짜부터
+    dlg.search.setText("한타")
+    assert dlg.text() == "21:31 다니카(화면): 방금 그 한타, 합류가 늦었습니다."
+    dlg.search.setText("")
+    dlg.only_danika.setChecked(True)
+    assert "주인님" not in dlg.text() and dlg.count.text() == "3개"
+
+
+def test_bubble_time_setting(qapp, tmp_path, built):
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    normal = a.bubble.duration_ms("가" * 40)
+    a.apply_settings({"ui.bubble_time": "long"})
+    long = a.bubble.duration_ms("가" * 40)
+    a.apply_settings({"ui.bubble_time": "short"})
+    assert a.bubble.duration_ms("가" * 40) < normal < long and a.pref("ui.bubble_time") == "short"

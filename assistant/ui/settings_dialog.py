@@ -17,6 +17,7 @@ TALK_STYLES = [("bounce", "살짝 움직임"), ("still", "멈춤"), ("breathe", 
 CHATTY = [("quiet", "조용히"), ("normal", "보통"), ("chatty", "자주")]
 VOICE_MODES = [("off", "듣지 않기"), ("push", "단축키 누를 때만"), ("always", "항상 듣기")]
 MODELS = [("small", "빠름"), ("medium", "보통 (추천)"), ("large-v3-turbo", "정확함 (느림)")]
+BUBBLE_TIMES = [("short", "짧게"), ("normal", "보통"), ("long", "길게")]
 MEMORY_DAYS = [("30", "30일"), ("90", "90일"), ("180", "180일"), ("365", "1년")]
 MEMORY_GB = [("20", "20GB"), ("50", "50GB"), ("100", "100GB"), ("300", "300GB")]
 COACH = [("off", "끔"), ("analysis", "분석"), ("review", "복기")]
@@ -112,7 +113,9 @@ class SettingsDialog(QDialog):
         # 캐릭터
         self.scale = Slider(30, 200, 5, float(v["character.scale"]) * 100, lambda x: f"{x}%")
         self.talk = Choice(TALK_STYLES, str(v["character.talk_motion"]))
-        g1 = group("캐릭터", [("크기 (다시 시작하면 적용)", self.scale), ("말할 때", self.talk)])
+        self.bubble_time = Choice(BUBBLE_TIMES, str(v.get("ui.bubble_time", "normal")))
+        g1 = group("캐릭터", [("크기 (다시 시작하면 적용)", self.scale), ("말할 때", self.talk),
+                               ("말풍선 보이는 시간", self.bubble_time)])
 
         # 화면 보기
         self.screen_on = QCheckBox("화면을 보고 먼저 말 걸기")
@@ -290,6 +293,7 @@ class SettingsDialog(QDialog):
             "screen.cooldown_seconds": self.cooldown.value(),
             "screen.monitor": self.monitor.value(),
             "screen.coach": self.coach.value(),
+            "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),
             "screen.read_windows": self.read_windows.isChecked(),
             "screen.auto_read": self.auto_read.isChecked(),
