@@ -182,7 +182,7 @@ class AssistantApp(QObject):
         self.voice.paused = False
         self.bubble.show_text(reply.message, self.anchor())
         self.window.set_emotion(reply.emotion)
-        self.window.set_talking(True)
+        self._start_talking()
         self._refresh_cost()
         self._budget_warning()
         if self.companion.should_consolidate():
@@ -227,7 +227,7 @@ class AssistantApp(QObject):
             return
         self.bubble.show_text(reply.message, self.anchor())
         self.window.set_emotion(reply.emotion)
-        self.window.set_talking(True)
+        self._start_talking()
         self._refresh_cost()
         self._budget_warning()
 
@@ -289,6 +289,10 @@ class AssistantApp(QObject):
         state = self._load_state()
         state.setdefault("prefs", {})[key] = value
         self._write_state(state)
+
+    def _start_talking(self) -> None:
+        if settings_flag(self.settings, "character.talk_motion", True):
+            self.window.set_talking(True)
 
     def _bubble_done(self) -> None:
         self.window.set_talking(False)

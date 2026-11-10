@@ -80,3 +80,14 @@ def test_topmost_keeper_reasserts_visible_windows(qapp, tmp_path, built, monkeyp
     assert calls == [a.window, a.bubble, a.input]  # 캐릭터 → 말풍선 → 입력창 순서 (뒤가 더 앞)
     a.quit()
     assert not a.topmost.timer.isActive()
+
+
+def test_talk_motion_can_be_turned_off(qapp, tmp_path, built):
+    fake = FakeAnthropic([{"speak": True, "message": "네.", "emotion": "normal"}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    s.data.setdefault("character", {})["talk_motion"] = False
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.ask("안녕")
+    _wait(qapp, a)
+    assert a.bubble.text == "네." and not a.window.talking  # 말풍선은 뜨지만 말하기 동작은 없음
