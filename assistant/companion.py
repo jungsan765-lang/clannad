@@ -15,14 +15,18 @@ log = logging.getLogger("assistant.companion")
 
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
+ACTIONS = ["none", "organize_files"]
+
 REPLY_SCHEMA = {
     "type": "object",
     "properties": {
         "speak": {"type": "boolean"},
         "message": {"type": "string"},
         "emotion": {"type": "string", "enum": EMOTIONS},
+        "action": {"type": "string", "enum": ACTIONS},
+        "target": {"type": "string"},
     },
-    "required": ["speak", "message", "emotion"],
+    "required": ["speak", "message", "emotion", "action", "target"],
     "additionalProperties": False,
 }
 
@@ -62,6 +66,32 @@ SCREEN_TASK = """[화면 보고 먼저 말 걸기]
 - 성격 파일의 '꼭 필요할 때만' 보다 이 지시가 우선한다. 다만 최근에 한 말과 똑같은 말이면 speak 는 false.
 - 확실히 보이지 않는 건 추측하지 않는다."""
 
+ORGANIZE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "summary": {"type": "string"},
+        "moves": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {"file": {"type": "string"}, "folder": {"type": "string"}, "reason": {"type": "string"}},
+                "required": ["file", "folder", "reason"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["summary", "moves"],
+    "additionalProperties": False,
+}
+
+ORGANIZE_RULES = """# 할 일: 파일 정리안 만들기
+주인님 폴더의 파일 목록(이름·크기·수정일만, 내용은 모름)을 보고, 같은 폴더 안 하위 폴더로 나눠 옮기는 정리안을 만든다.
+- 하위 폴더 이름은 한국어로 짧게: 예) 사진, 영상, 음악, 문서, 표·슬라이드, 압축파일, 설치파일, 코드, 게임. 비슷한 건 한 폴더로 묶는다.
+- 파일 이름에 뚜렷한 주제(프로젝트·게임 이름 등)가 여러 개 보이면 그 이름으로 묶어도 된다.
+- 어디로 갈지 애매한 파일, 이미 정리돼 보이는 파일은 moves 에 넣지 않는다. 지우라는 제안은 하지 않는다.
+- file 은 목록의 이름을 글자 하나 다르지 않게 그대로 쓴다. reason 은 아주 짧게(예: '사진 파일').
+- summary: 캐릭터 말투로 정리안을 한두 문장 요약 (예: '사진 40개, 설치파일 12개를 나눠 두려 합니다.')."""
+
 MEMORY_SCHEMA = {
     "type": "object",
     "properties": {
@@ -91,6 +121,14 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - emotion 은 normal, happy, worried, surprised, angry 중 하나. 대부분 normal.
 - 아래 '기억'은 네가 예전 대화에서 직접 적어 둔 메모다. 자연스럽게 활용하되 메모를 읽는 티를 내지 않는다.
 - 사용자 메시지 앞의 [지금: ...] 은 현재 시각 정보다. 필요할 때만 참고한다.
+
+# 네가 실제로 할 수 있는 일 (이것 말고는 했다고 말하지 않는다)
+- 대화, 주인님 화면을 보고 말 걸기(게임 코칭 포함), 대화 내용 기억하기.
+- 파일 정리: 폴더 안 파일들을 종류별 하위 폴더로 나눠 옮기는 정리안을 만든다. 주인님이 미리보기에서 승인한 것만 옮기고, 지우지 않으며, 되돌릴 수 있다.
+  주인님이 파일 정리를 부탁하면 action 은 "organize_files", target 은 폴더(다운로드·바탕화면·문서·사진·동영상·음악 중 하나, 또는 주인님이 말한 경로, 모르면 빈 문자열)로 하고,
+  message 는 "정리안을 만들어서 보여드릴게요" 처럼 이제 시작한다는 말로 한다(이미 정리했다고 말하지 않는다).
+- 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 인터넷 검색, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
+- 그 외에는 action 은 "none", target 은 빈 문자열.
 """
 
 DEFAULT_PERSONA = """# 캐릭터
@@ -134,12 +172,46 @@ def is_korean(text: str, max_latin_ratio: float = 0.3) -> bool:
     return True
 
 
+def partial_message(buf: str) -> str | None:
+    """실시간으로 받는 중인 JSON 에서 지금까지의 message 값만 꺼낸다."""
+    m = re.search(r'"message"\s*:\s*"', buf)
+    if not m:
+        return None
+    i, out = m.end(), []
+    escapes = {"n": "\n", "t": "\t", '"': '"', "\\": "\\", "/": "/", "r": "", "b": "", "f": ""}
+    while i < len(buf):
+        c = buf[i]
+        if c == '"':
+            break
+        if c == "\\":
+            if i + 1 >= len(buf):
+                break
+            n = buf[i + 1]
+            if n == "u":
+                if i + 6 > len(buf):
+                    break
+                try:
+                    out.append(chr(int(buf[i + 2:i + 6], 16)))
+                except ValueError:
+                    pass
+                i += 6
+                continue
+            out.append(escapes.get(n, n))
+            i += 2
+            continue
+        out.append(c)
+        i += 1
+    return "".join(out)
+
+
 @dataclass
 class Reply:
     speak: bool
     message: str
     emotion: str
     usd: float = 0.0
+    action: str = "none"
+    target: str = ""
 
 
 class Companion:
@@ -153,6 +225,7 @@ class Companion:
         self.memory_model = memory_model
         self.effort = effort
         self.max_tokens = max_tokens
+        self.fast = False  # 빠른 모드 (요금 2배). 설정 창에서 켬
         self.history_turns = history_turns
         self.consolidate_every = consolidate_every
         self.memory_max_chars = memory_max_chars
@@ -171,8 +244,11 @@ class Companion:
              "cache_control": {"type": "ephemeral"}},
         ]
 
-    def reply(self, user_text: str, now: datetime | None = None, context: str | None = None) -> Reply:
-        """context: 지금 하는 게임과 이번 판 기록 등 (게임 중 대화가 이어지게)."""
+    def reply(self, user_text: str, now: datetime | None = None, context: str | None = None,
+              on_partial=None, fast: bool | None = None) -> Reply:
+        """context: 지금 하는 게임과 이번 판 기록 등 (게임 중 대화가 이어지게).
+        on_partial: 답을 받는 대로 지금까지의 대사를 넘겨준다 (말풍선에 바로 보여주기).
+        fast: 빠른 모드 (요금 2배)."""
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
         content = [{"type": "text", "text": f"[지금: {stamp}]"}]
@@ -180,14 +256,27 @@ class Companion:
             content.append({"type": "text", "text": context})
         content.append({"type": "text", "text": user_text})
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
-        result = self._ask(messages)
-        total = result[1]
-        data = result[0]
+        fast = self.fast if fast is None else fast
+        shown = {"ok": True, "last": ""}
+
+        def stream_cb(buf: str) -> None:
+            msg = partial_message(buf)
+            if not msg or not shown["ok"] or msg == shown["last"]:
+                return
+            if not re.search(r"[가-힣]", msg) and len(msg) < 12:
+                return  # 첫 몇 글자로는 한국어인지 모르니 조금 더 받아 본다 ("……" 같은 것도)
+            if not is_korean(msg):
+                shown["ok"] = False  # 영어로 나오기 시작하면 보여주지 않는다 (끝나고 한국어로 다시 받음)
+                return
+            shown["last"] = msg
+            on_partial(msg)
+
+        data, total = self._ask(messages, on_text=stream_cb if on_partial else None, fast=fast)
         if data and data["message"] and not is_korean(data["message"]):
             log.warning("한국어가 아닌 답: %r → 다시 요청", data["message"][:120])
             retry = messages[:-1] + [{"role": "user", "content": content + [
                 {"type": "text", "text": "(방금 답에 영어가 섞였습니다. 같은 내용을 반드시 한국어로만 다시 답하십시오.)"}]}]
-            data2, usd2 = self._ask(retry)
+            data2, usd2 = self._ask(retry, fast=fast)
             total += usd2
             if data2 and is_korean(data2["message"]):
                 data = data2
@@ -198,12 +287,14 @@ class Companion:
             data = {"speak": True, "message": "……", "emotion": "normal"}
         message = data["message"].strip() or "……"
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
+        action = data.get("action") if data.get("action") in ACTIONS else "none"
         self.memory.add_turn(user_text, message, now)
-        return Reply(True, message, emotion, total)
+        return Reply(True, message, emotion, total, action, str(data.get("target", "") or ""))
 
-    def _ask(self, messages: list[dict]) -> tuple[dict | None, float]:
+    def _ask(self, messages: list[dict], on_text=None, fast: bool = False) -> tuple[dict | None, float]:
         r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(), messages=messages,
-                                  schema=REPLY_SCHEMA, kind="chat", max_tokens=self.max_tokens, effort=self.effort)
+                                  schema=REPLY_SCHEMA, kind="chat", max_tokens=self.max_tokens, effort=self.effort,
+                                  on_text=on_text, fast=fast)
         if r.data is None:
             return None, r.usd
         return r.data, r.usd
@@ -248,7 +339,7 @@ class Companion:
 
     def screen_line(self, jpeg: bytes, title: str, note: dict | None, model: str | None = None,
                     question: str | None = None, now: datetime | None = None, mode=None,
-                    session_notes: list[str] | None = None, review: bool = False) -> Reply:
+                    session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None) -> Reply:
         """화면을 보고 캐릭터 말투로 한마디.
 
         question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
@@ -274,7 +365,8 @@ class Companion:
         content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(lines)}]
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,
-                                  schema=REPLY_SCHEMA, kind="screen", max_tokens=self.max_tokens, effort=self.effort)
+                                  schema=REPLY_SCHEMA, kind="screen", max_tokens=self.max_tokens, effort=self.effort,
+                                  fast=fast)
         data = r.data
         if data and data["speak"] and data["message"] and not is_korean(data["message"]):
             log.warning("화면 대사가 한국어가 아님 → 표시하지 않음: %r", data["message"][:120])
@@ -283,6 +375,22 @@ class Companion:
             return Reply(False, "", "normal", r.usd)
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
         return Reply(True, data["message"].strip(), emotion, r.usd)
+
+    # ------------------------------------------------------------ 파일 정리안
+
+    def plan_organize(self, folder_label: str, files: list[dict], on_count=None) -> dict | None:
+        """파일 목록(이름·크기·날짜)만 보고 하위 폴더로 나누는 정리안. on_count: 지금까지 만든 항목 수."""
+        listing = "\n".join(f"{f['name']}\t{f['size_kb']}KB\t{f['modified']}" for f in files)
+        system = [{"type": "text", "text": self.persona + "\n\n" + ORGANIZE_RULES, "cache_control": {"type": "ephemeral"}}]
+        messages = [{"role": "user", "content": f"폴더: {folder_label}\n파일 {len(files)}개 (이름\t크기\t수정일):\n{listing}"}]
+
+        def count(buf: str) -> None:
+            if on_count:
+                on_count(buf.count('"file"'))
+
+        r = self.ai.complete_json(model=self.chat_model, system=system, messages=messages, schema=ORGANIZE_SCHEMA,
+                                  kind="organize", max_tokens=32000, effort="low", on_text=count)
+        return r.data
 
     # ------------------------------------------------------------ 장기기억 정리
 

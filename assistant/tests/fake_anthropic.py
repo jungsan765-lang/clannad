@@ -4,9 +4,30 @@ import json
 from types import SimpleNamespace
 
 
+class _Stream:
+    def __init__(self, message):
+        self.message = message
+        text = next(b.text for b in message.content if b.type == "text")
+        self.text_stream = [text[i:i + 5] for i in range(0, len(text), 5)]  # 다섯 글자씩 흘려보냄
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+    def get_final_message(self):
+        return self.message
+
+
 class _Messages:
     def __init__(self, owner, beta):
         self.owner, self.beta = owner, beta
+
+    def stream(self, **kwargs):
+        msg = self.create(**kwargs)
+        self.owner.calls[-1]["streamed"] = True
+        return _Stream(msg)
 
     def create(self, **kwargs):
         self.owner.calls.append({"beta": self.beta, **kwargs})

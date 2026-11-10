@@ -45,9 +45,14 @@ def test_click_talk_bubble_and_cost(qapp, tmp_path, built):
     assert a.input.isVisible()
     a.input.edit.setText("다니카")
     a.input.edit.returnPressed.emit()  # Enter
-    assert not a.input.isVisible() and a.bubble.text == "……"
+    assert not a.input.isVisible() and a.status.active("chat") and "생각 중" in a.status.text  # 말풍선은 안 가림
+    shown = []
+    real_show = a.bubble.show_text
+    a.bubble.show_text = lambda text, *args, **kw: (shown.append(text), real_show(text, *args, **kw))
     _wait(qapp, a)
     assert a.bubble.isVisible() and a.bubble.text == "부르셨어요, 주인님?"
+    assert fake.calls[-1].get("streamed") and len(shown) >= 2 and shown[0] != shown[-1]  # 받는 대로 보여줌
+    assert not a.status.active("chat")
     assert a.window.talking and a.window.current_motion == "happy"
     assert "오늘 사용 " in a.cost_action.text() and "오늘 사용 0원" not in a.cost_action.text()
     a.bubble._timeout()  # 말풍선이 사라지면 말하기도 끝
@@ -77,7 +82,7 @@ def test_topmost_keeper_reasserts_visible_windows(qapp, tmp_path, built, monkeyp
     assert a.topmost.timer.isActive()
     calls.clear()
     a.topmost.tick()
-    assert calls == [a.window, a.bubble, a.input]  # 캐릭터 → 말풍선 → 입력창 순서 (뒤가 더 앞)
+    assert calls == [a.window, a.bubble, a.status, a.input]  # 캐릭터 → 말풍선 → 하는 일 → 입력창 (뒤가 더 앞)
     a.quit()
     assert not a.topmost.timer.isActive()
 
@@ -174,3 +179,70 @@ def test_settings_dialog_applies_live_and_persists(qapp, tmp_path, built):
     s2 = _settings(tmp_path, built["out"].as_posix())  # 다시 켜도 그대로
     b = app_main.build(s2, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
     assert b.talk_style() == "still" and b.watch_cfg.interval_seconds == 60 and b.settings.get("character.scale") == 1.0
+
+
+def test_organize_from_chat_preview_move_and_undo(qapp, tmp_path, built, monkeypatch):
+    from ui.organize_dialog import OrganizeDialog
+
+    folder = tmp_path / "받은 파일"
+    folder.mkdir()
+    for n in ("a.jpg", "b.png", "c.pdf"):
+        (folder / n).write_bytes(b"x")
+    plan = {"summary": "사진은 사진끼리 모아 두겠습니다.", "moves": [
+        {"file": "a.jpg", "folder": "사진", "reason": "사진"}, {"file": "b.png", "folder": "사진", "reason": "사진"},
+        {"file": "c.pdf", "folder": "문서", "reason": "문서"}]}
+    fake = FakeAnthropic([{"speak": True, "message": "정리안을 만들어 보여드릴게요.", "emotion": "normal",
+                           "action": "organize_files", "target": str(folder)}, plan])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    seen = {}
+
+    def fake_exec(dlg):
+        seen["rows"] = dlg.table.rowCount()
+        dlg.table.item(2, 0).setCheckState(app_main.Qt.CheckState.Unchecked)  # pdf 는 빼고
+        dlg.table.item(0, 1).setText("사진 모음")  # 폴더 이름 고치기
+        return OrganizeDialog.DialogCode.Accepted
+
+    monkeypatch.setattr(OrganizeDialog, "exec", fake_exec)
+    a.ask("이 폴더 정리해줘")
+    _wait(qapp, a)
+    from PySide6.QtTest import QTest
+
+    for _ in range(100):  # 대답 → (0.4초 뒤) 정리안 → 옮기기
+        QTest.qWait(50)
+        _wait(qapp, a)
+        if not a.organizing and (folder / "사진").exists():
+            break
+    assert seen["rows"] == 3
+    assert (folder / "사진 모음" / "a.jpg").is_file() and (folder / "사진" / "b.png").is_file()
+    assert (folder / "c.pdf").is_file()  # 체크 안 한 건 그대로
+    assert "2개를 정리" in a.bubble.text and not a.status.active("organize")
+    monkeypatch.setattr(app_main.QMessageBox, "exec", lambda box: box.setProperty("x", 1))
+    monkeypatch.setattr(app_main.QMessageBox, "clickedButton", lambda box: box.buttons()[0])
+    a.undo_organize()
+    _wait(qapp, a)
+    assert (folder / "a.jpg").is_file() and (folder / "b.png").is_file() and not (folder / "사진 모음").exists()
+    assert "2개를 원래 자리로" in a.bubble.text
+    a.quit()
+
+
+def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
+    from ui.settings_dialog import SettingsDialog
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    assert a.watch_cfg.max_width == 1920 and a.watch_cfg.jpeg_quality == 85
+    dlg = SettingsDialog(a.settings_values(), ["1", "2"], [])
+    dlg.fast.setChecked(True)
+    dlg.show_status.setChecked(False)
+    dlg.sharp.group.button(2).setChecked(True)
+    changed = dlg.changed()
+    assert {k: changed.get(k) for k in ("ai.fast", "ui.show_status", "screen.max_width")} == \
+        {"ai.fast": True, "ui.show_status": False, "screen.max_width": 2560}
+    a.apply_settings(changed)
+    assert a.companion.fast and not a.status.enabled and a.watch_cfg.max_width == 2560
+    a.status.begin("x", "테스트")
+    assert not a.status.isVisible()
+    a.quit()

@@ -29,8 +29,8 @@ cooldown_seconds = 90                # 먼저 말을 건 뒤 다음 말까지 �
 chattiness = "normal"                # 말 거는 정도: quiet(분명할 때만) | normal | chatty(자주)
 max_skip_minutes = 3                 # 화면이 그대로여도 이 시간(분)마다 한 번은 판단
 change_threshold = 0.015             # 화면 변화가 이보다 작으면 판단 없이 건너뜀(비용 0)
-max_width = 1024                     # 보내는 스크린샷 가로 크기
-jpeg_quality = 70
+max_width = 1920                     # 보내는 스크린샷 가로 크기 (작으면 글자가 흐려서 못 읽음. 설정 창 '화면 선명도')
+jpeg_quality = 85
 stop_when_over_budget = true         # 월 예산을 넘으면 화면 보기만 멈춤 (대화는 계속)
 
 [voice]

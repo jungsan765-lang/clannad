@@ -309,3 +309,14 @@ def test_companion_prompts_carry_mode_session_and_context(tmp_path):
     comp.reply("방금 어땠어?", context="[지금 하고 있는 게임: 칸코레, 12분째]")
     blocks = [b["text"] for b in fake.calls[2]["messages"][-1]["content"]]
     assert blocks[1].startswith("[지금 하고 있는 게임: 칸코레") and blocks[2] == "방금 어땠어?"
+
+
+def test_watcher_reports_what_it_is_doing(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    seen = []
+    w.activity.connect(seen.append)
+    w.tick()
+    assert seen == ["judge", "line", ""]  # 화면 확인 → 할 말 고르기 → 끝
+    seen.clear()
+    w.ask_now()
+    assert seen == ["line", ""]

@@ -16,6 +16,7 @@ TALK_STYLES = [("bounce", "살짝 움직임"), ("still", "멈춤"), ("breathe", 
 CHATTY = [("quiet", "조용히"), ("normal", "보통"), ("chatty", "자주")]
 VOICE_MODES = [("off", "듣지 않기"), ("push", "단축키 누를 때만"), ("always", "항상 듣기")]
 MODELS = [("small", "빠름"), ("medium", "보통 (추천)"), ("large-v3-turbo", "정확함 (느림)")]
+SHARPNESS = [(1280, "보통"), (1920, "선명 (추천)"), (2560, "아주 선명 (비용 약 2배)")]
 
 # 다시 시작해야 적용되는 설정
 RESTART_KEYS = {"character.scale", "voice.model"}
@@ -115,8 +116,12 @@ class SettingsDialog(QDialog):
         if len(monitors) > 2:
             mon_items += [(m, f"{m}번") for m in monitors]
         self.monitor = Choice(mon_items, str(v["screen.monitor"]))
+        width = int(v.get("screen.max_width", 1920))
+        near = min(SHARPNESS, key=lambda s: abs(s[0] - width))[0]  # 예전 값(1024 등)은 가까운 칸으로
+        self.sharp = Choice([(str(w), label) for w, label in SHARPNESS], str(near))
         g2 = group("화면 보기", [("", self.screen_on), ("말 거는 정도", self.chatty), ("화면 확인 간격", self.interval),
-                                 ("한 번 말한 뒤 쉬는 시간", self.cooldown), ("볼 모니터", self.monitor)])
+                                 ("한 번 말한 뒤 쉬는 시간", self.cooldown), ("볼 모니터", self.monitor),
+                                 ("화면 선명도 (글자 읽기)", self.sharp)])
 
         # 목소리
         self.voice_mode = Choice(VOICE_MODES, str(v["voice.mode"]))
@@ -151,6 +156,13 @@ class SettingsDialog(QDialog):
         g3 = group("목소리로 말 걸기", [("듣는 방식", self.voice_mode), ("마이크", self.mic), ("소리 크기", meter),
                                         ("부르는 이름", wake), ("알아듣는 수준 (다시 시작하면 적용)", self.model)])
 
+        # 대답·표시
+        self.fast = QCheckBox("빠르게 대답 (답이 2배쯤 빨리 오지만 요금도 2배)")
+        self.fast.setChecked(bool(v.get("ai.fast", False)))
+        self.show_status = QCheckBox("하고 있는 일 표시 (캐릭터 아래 작은 글씨: 생각 중, 정리 중 …)")
+        self.show_status.setChecked(bool(v.get("ui.show_status", True)))
+        g5 = group("대답·표시", [("", self.fast), ("", self.show_status)])
+
         # 비용
         self.budget = Slider(10, 500, 10, float(v["budget.monthly_usd"]), lambda x: f"한 달 {x}달러")
         g4 = group("비용", [("월 예산", self.budget)])
@@ -163,7 +175,7 @@ class SettingsDialog(QDialog):
         buttons.accepted.connect(self.accept)
         buttons.rejected.connect(self.reject)
         lay = QVBoxLayout(self)
-        for g in (g1, g2, g3, g4):
+        for g in (g1, g5, g2, g3, g4):
             lay.addWidget(g)
         lay.addWidget(self.note)
         lay.addWidget(buttons)
@@ -201,11 +213,14 @@ class SettingsDialog(QDialog):
             "screen.interval_seconds": self.interval.value(),
             "screen.cooldown_seconds": self.cooldown.value(),
             "screen.monitor": self.monitor.value(),
+            "screen.max_width": int(self.sharp.value()),
             "voice.mode": self.voice_mode.value(),
             "voice.mic": self.mic.currentData(),
             "voice.wake_word": self.wake.text().strip() if self.wake_on.isChecked() else "",
             "voice.model": self.model.value(),
             "budget.monthly_usd": self.budget.value(),
+            "ai.fast": self.fast.isChecked(),
+            "ui.show_status": self.show_status.isChecked(),
         }
 
     def changed(self) -> dict:

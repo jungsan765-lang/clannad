@@ -30,8 +30,8 @@ class WatchConfig:
     line_model: str = "claude-opus-5-5"
     cooldown_seconds: float = 120.0  # 평소 모드 말 거는 최소 간격
     change_threshold: float = 0.015
-    max_width: int = 1024
-    jpeg_quality: int = 70
+    max_width: int = 1920
+    jpeg_quality: int = 85
     tick_seconds: float = 5.0  # 모드 확인 주기 (내 PC, 비용 없음)
     session_end_minutes: float = 3.0  # 게임 창이 이만큼 안 보이면 그 게임 세션 끝
     review_gap_seconds: float = 120.0  # 총평 사이 최소 간격
@@ -76,6 +76,7 @@ class ScreenWatcher(QObject):
     nothing = Signal()  # 확인했지만 할 말이 없었음
     status = Signal(str)
     mode_changed = Signal(str)
+    activity = Signal(str)  # "judge"(화면 확인 중) | "line"(할 말 고르는 중) | ""(끝)
 
     def __init__(self, companion, cfg: WatchConfig, run_job: Callable, *, modes: list[Mode] | None = None,
                  can_run: Callable[[], bool] = lambda: True,
@@ -233,7 +234,7 @@ class ScreenWatcher(QObject):
         shot = self._shot()
         if question is not None:
             self.last_thumb = shot.thumb
-            return self.companion.screen_line(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
+            return self._say(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
                                               mode=mode, session_notes=notes)
         stale = self.last_judged is not None and self.clock() - self.last_judged >= self.cfg.max_skip_minutes * 60
         if cap.change_amount(self.last_thumb, shot.thumb) < self.cfg.change_threshold and not stale:
@@ -242,6 +243,7 @@ class ScreenWatcher(QObject):
         self.last_thumb = shot.thumb
         self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
+        self.activity.emit("judge")
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes,
                                     chattiness=self.cfg.chattiness)
         self.stats["judged"] += 1
@@ -257,20 +259,25 @@ class ScreenWatcher(QObject):
                 and (session.last_review is None or now - session.last_review > self.cfg.review_gap_seconds)):
             session.last_review = now
             self.stats["reviews"] += 1
-            return self.companion.screen_line(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
+            return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                               session_notes=session.notes, review=True)
         if urgent and mode.urgent:
-            return self.companion.screen_line(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
+            return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                               session_notes=notes)
         if scene in ("loading", "cutscene") or (mode.quiet_during_play and scene == "playing"):
             return None
         if self.in_cooldown(mode) or not note.get("speak"):
             return None
-        return self.companion.screen_line(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
+        return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                           session_notes=notes)
+
+    def _say(self, *args, **kwargs):
+        self.activity.emit("line")
+        return self.companion.screen_line(*args, **kwargs)
 
     def _done(self, reply) -> None:
         self.running_job = False
+        self.activity.emit("")
         if reply is None or not reply.speak:
             self.nothing.emit()
             return
@@ -283,6 +290,7 @@ class ScreenWatcher(QObject):
 
     def _fail(self, message: str) -> None:
         self.running_job = False
+        self.activity.emit("")
         self.stats["errors"] += 1
         log.warning("화면 보기 실패: %s", message)
         self.status.emit(message)

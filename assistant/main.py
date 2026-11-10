@@ -17,10 +17,11 @@ import sys
 from pathlib import Path
 from typing import Callable
 
-from PySide6.QtCore import QObject, QPoint, QRunnable, QThreadPool, QTimer, Signal
+from PySide6.QtCore import QObject, QPoint, QRunnable, Qt, QThreadPool, QTimer, Signal
 from PySide6.QtGui import QAction, QActionGroup, QIcon, QPixmap
-from PySide6.QtWidgets import QApplication, QMenu, QMessageBox, QSystemTrayIcon
+from PySide6.QtWidgets import QApplication, QFileDialog, QMenu, QMessageBox, QSystemTrayIcon
 
+import organizer as org
 from ai_client import AIClient, AIError
 from companion import Companion
 from hotkeys import GlobalHotkeys
@@ -29,7 +30,9 @@ from settings import Settings
 from ui.bubble import SpeechBubble
 from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
+from ui.organize_dialog import OrganizeDialog
 from ui.placeholder import make_placeholder
+from ui.status import StatusPill
 from ui.topmost import TopmostKeeper
 from updater import Updater, confirm_started, count_start, rollback
 from usage import UsageLedger
@@ -45,6 +48,7 @@ log = logging.getLogger("assistant")
 class _Signals(QObject):
     done = Signal(object)
     failed = Signal(str)
+    progress = Signal(object)  # 하는 중간중간 소식 (받는 중인 대사, 옮긴 파일 수 등)
 
 
 class Job(QRunnable):
@@ -52,12 +56,12 @@ class Job(QRunnable):
 
     def __init__(self, fn: Callable, *args):
         super().__init__()
-        self.fn, self.args = fn, args
+        self.fn, self.args, self.kwargs = fn, args, {}
         self.signals = _Signals()
 
     def run(self) -> None:
         try:
-            result = self.fn(*self.args)
+            result = self.fn(*self.args, **self.kwargs)
         except AIError as exc:
             self.signals.failed.emit(str(exc))
         except Exception as exc:  # noqa: BLE001 - 예상 못 한 오류도 말풍선으로 알려주고 기록
@@ -84,6 +88,12 @@ class AssistantApp(QObject):
                                    float(settings.get("ui.bubble_min_seconds", 4.0)),
                                    float(settings.get("ui.bubble_seconds_per_char", 0.12)))
         self.input = ChatInput()
+        self.status = StatusPill(self.anchor)  # 캐릭터 아래 '지금 하는 일' 표시
+        self.status.set_enabled(bool(self.pref("ui.show_status", True)))
+        self._streamed = False
+        companion.fast = bool(self.pref("ai.fast", False))
+        self.organizer = org.Organizer(settings.data_dir / "organize_log.jsonl")
+        self.organizing = False
 
         # 화면 보기 (정해진 간격마다 모니터 하나를 보고 말 걸기)
         g = settings.get
@@ -94,12 +104,13 @@ class AssistantApp(QObject):
             chattiness=str(g("screen.chattiness", "normal")),
             max_skip_minutes=float(g("screen.max_skip_minutes", 3)),
             change_threshold=float(g("screen.change_threshold", 0.015)),
-            max_width=int(g("screen.max_width", 1024)), jpeg_quality=int(g("screen.jpeg_quality", 70)))
+            max_width=int(g("screen.max_width", 1920)), jpeg_quality=int(g("screen.jpeg_quality", 85)))
         modes = load_modes(settings.root / "modes")
         self.watcher = ScreenWatcher(companion, self.watch_cfg, self._run, modes=modes, can_run=self._screen_allowed)
         self.watcher.mode_changed.connect(lambda _: self._refresh_cost())
         self.watcher.spoke.connect(self._on_screen_line)
         self.watcher.status.connect(self._on_watch_status)
+        self.watcher.activity.connect(self._on_watch_activity)
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
         self._last_watch_error = ""
 
@@ -122,13 +133,14 @@ class AssistantApp(QObject):
         self.update_pending = False
 
         self.menu = self._build_menu()
-        # 캐릭터 → 말풍선 → 입력창 순서로 (뒤에 올린 것이 더 앞)
-        self.topmost = TopmostKeeper([self.window, self.bubble, self.input],
+        # 캐릭터 → 말풍선 → 하는 일 표시 → 입력창 순서로 (뒤에 올린 것이 더 앞)
+        self.topmost = TopmostKeeper([self.window, self.bubble, self.status, self.input],
                                      int(settings.get("character.topmost_interval_ms", 1500)), self)
 
         self.window.clicked.connect(self.open_input)
         self.window.menu_requested.connect(lambda pos: self.menu.exec(pos))
         self.window.moved.connect(self._save_position)
+        self.window.moved.connect(lambda _: self.status.refresh())
         self.input.submitted.connect(self.ask)
         self.bubble.hidden_by_timeout.connect(self._bubble_done)
 
@@ -162,7 +174,7 @@ class AssistantApp(QObject):
             QTimer.singleShot(3000, lambda: self.check_update(startup=True))
             self.update_timer.start(round(float(self.settings.get("update.check_hours", 6)) * 3600 * 1000))
         if self.companion.memory.pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
-            self._run(self.companion.consolidate, lambda _: log.info("시작 시 기억 정리 완료"), lambda m: log.warning(m))
+            self._consolidate()
 
     def quit(self) -> None:
         self.update_timer.stop()
@@ -192,24 +204,43 @@ class AssistantApp(QObject):
             return
         self.busy = True
         self.voice.paused = True  # 답을 기다리는 동안 들은 말은 무시
-        self.bubble.show_text("……", self.anchor(), seconds=0)
+        if self.bubble.isVisible():  # 지난 대사는 치운다 (말풍선 대신 아래 작은 표시로 '생각 중')
+            self.bubble.hide()
+            self._bubble_done()
+        self.status.begin("chat", "생각 중")
+        self._streamed = False
         context = self.watcher.chat_context()  # 게임 중이면 이번 판 기록을 함께 넘긴다
-        self._run(lambda t: self.companion.reply(t, context=context), self._on_reply, self._on_error, text)
+        self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress),
+                  self._on_reply, self._on_error, text, on_progress=self._on_partial)
+
+    def _on_partial(self, message: str) -> None:
+        """답을 받는 대로 말풍선에 바로 보여준다 (다 받을 때까지 기다리지 않음)."""
+        if not self.busy:
+            return
+        if not self._streamed:
+            self._streamed = True
+            self.status.end("chat")
+            self._start_talking()
+        self.bubble.show_text(message, self.anchor(), seconds=0)
 
     def _on_reply(self, reply) -> None:
         self.busy = False
         self.voice.paused = False
+        self.status.end("chat")
         self.bubble.show_text(reply.message, self.anchor())
         self.window.set_emotion(reply.emotion)
         self._start_talking()
         self._refresh_cost()
         self._budget_warning()
         if self.companion.should_consolidate():
-            self._run(self.companion.consolidate, lambda _: log.info("기억 정리 완료"), lambda m: log.warning(m))
+            self._consolidate()
+        if reply.action == "organize_files":
+            QTimer.singleShot(400, lambda: self.organize_from_chat(reply.target))
 
     def _on_error(self, message: str) -> None:
         self.busy = False
         self.voice.paused = False
+        self.status.end("chat")
         self.bubble.show_text(message, self.anchor(), system=True, seconds=8)
 
     # ------------------------------------------------------------ 화면 보기
@@ -238,8 +269,16 @@ class AssistantApp(QObject):
     def ask_screen_now(self) -> None:
         if self.busy:
             return
-        self.bubble.show_text("……", self.anchor(), seconds=0)
+        self.status.begin("screen", "화면 보는 중")
         self.watcher.ask_now()
+
+    def _on_watch_activity(self, what: str) -> None:
+        if what == "judge":
+            self.status.begin("screen", "화면 확인 중")
+        elif what == "line":
+            self.status.begin("screen", "할 말 고르는 중")
+        else:
+            self.status.end("screen")
 
     def _on_screen_line(self, reply) -> None:
         if self.busy:
@@ -275,25 +314,28 @@ class AssistantApp(QObject):
             return
         self.voice.push()
 
-    VOICE_BUBBLES = {
-        "listening": ("(듣고 있어요…)", 0),
-        "loading": ("(음성 인식 준비 중… 처음엔 모델을 내려받느라 몇 분 걸려요)", 0),
-        "ready": ("(이제 말을 알아들을 수 있어요)", 3),
-        "heard": ("(알아듣는 중…)", 0),
-        "unclear": ("(잘 못 알아들었어요)", 2),
-    }
-
     def _on_voice_state(self, state: str) -> None:
-        if self.busy and state in ("heard", "unclear"):
-            return  # 대답을 기다리는 중엔 "……" 말풍선을 그대로 둔다
-        if state in self.VOICE_BUBBLES:
-            text, seconds = self.VOICE_BUBBLES[state]
-            self.bubble.show_text(text, self.anchor(), system=True, seconds=seconds)
-        elif self.bubble.text in {t for t, _ in self.VOICE_BUBBLES.values()}:
-            self.bubble.hide()
+        """목소리 상태는 말풍선이 아니라 캐릭터 아래 작은 표시로 알린다."""
+        key = self.settings.get("hotkeys.voice", "F7")
+        if state == "loading":
+            self.status.begin("voice_load", "음성 인식 준비 중 (처음엔 내려받느라 몇 분)")
+        elif state == "ready":
+            self.status.end("voice_load")
+            self.status.flash("이제 목소리를 알아들을 수 있어요", 3)
+        elif state == "listening":
+            self.status.begin("voice", f"듣는 중 · 다 말하면 {key}")
+        elif state == "heard":
+            self.status.begin("voice", "알아듣는 중")
+        elif state == "unclear":
+            self.status.end("voice")
+            if self.voice.mode == "push":  # 항상 듣기에선 잡음마다 띄우지 않는다
+                self.status.flash("잘 못 알아들었어요", 2.5)
+        elif state in ("idle", "off") and self.status.tasks.get("voice", ("",))[0].startswith("듣는 중"):
+            self.status.end("voice")
 
     def _on_heard(self, text: str) -> None:
         log.info("들은 말: %s", text)
+        self.status.end("voice")
         self.ask(text)
 
     # ------------------------------------------------------------ 단축키
@@ -312,19 +354,34 @@ class AssistantApp(QObject):
     # ------------------------------------------------------------ 업데이트·다시 시작·설정 파일
 
     def check_update(self, startup: bool = False, manual: bool = False) -> None:
+        self.status.begin("update", "업데이트 확인 중")
+
+        def failed(message: str) -> None:
+            self.status.end("update")
+            if manual:
+                self._on_update_fail(message)
+            else:
+                log.warning("업데이트 확인 실패: %s", message)
+
         def done(result) -> None:
+            self.status.end("update")
             if not result.changed:
                 if manual:
                     self.bubble.show_text("최신 버전이에요.", self.anchor(), system=True, seconds=3)
                 return
             note = " (직접 고친 설정은 그대로 뒀어요)" if result.kept else ""
             if result.requirements_changed:
-                self.bubble.show_text("업데이트에 필요한 것을 설치하는 중이에요…", self.anchor(), system=True, seconds=0)
-                self._run(self._pip_install, lambda _: self._after_update(startup, note), self._on_update_fail)
+                self.status.begin("update", "업데이트에 필요한 것 설치 중")
+
+                def installed(_) -> None:
+                    self.status.end("update")
+                    self._after_update(startup, note)
+
+                self._run(self._pip_install, installed, lambda m: (self.status.end("update"), self._on_update_fail(m)))
             else:
                 self._after_update(startup, note)
 
-        self._run(self.updater.run, done, self._on_update_fail if manual else lambda m: log.warning("업데이트 확인 실패: %s", m))
+        self._run(self.updater.run, done, failed)
 
     def _pip_install(self) -> None:
         exe = Path(sys.executable)
@@ -360,11 +417,14 @@ class AssistantApp(QObject):
             "screen.interval_seconds": int(self.watch_cfg.interval_seconds),
             "screen.cooldown_seconds": int(self.watch_cfg.cooldown_seconds),
             "screen.monitor": str(self.watch_cfg.monitor),
+            "screen.max_width": int(self.watch_cfg.max_width),
             "voice.mode": self.voice.mode,
             "voice.mic": self.voice.device,
             "voice.wake_word": self.voice.wake_word,
             "voice.model": str(g("voice.model", "medium")),
             "budget.monthly_usd": self.budget_usd(),
+            "ai.fast": bool(self.companion.fast),
+            "ui.show_status": self.status.enabled,
         }
 
     def open_settings_dialog(self) -> None:
@@ -386,7 +446,8 @@ class AssistantApp(QObject):
             self.settings.set(key, value)
         cfg = self.watch_cfg
         for key, attr in (("screen.chattiness", "chattiness"), ("screen.interval_seconds", "interval_seconds"),
-                          ("screen.cooldown_seconds", "cooldown_seconds"), ("screen.monitor", "monitor")):
+                          ("screen.cooldown_seconds", "cooldown_seconds"), ("screen.monitor", "monitor"),
+                          ("screen.max_width", "max_width")):
             if key in changed:
                 setattr(cfg, attr, changed[key])
         self.watcher.apply_config()
@@ -400,6 +461,10 @@ class AssistantApp(QObject):
             self.set_voice_mode(str(changed["voice.mode"]), save=False)
         if "character.talk_motion" in changed:
             self._sync_talk_actions()
+        if "ai.fast" in changed:
+            self.companion.fast = bool(changed["ai.fast"])
+        if "ui.show_status" in changed:
+            self.status.set_enabled(bool(changed["ui.show_status"]))
         self._refresh_cost()
         if RESTART_KEYS & set(changed):
             self.bubble.show_text("저장했어요. 크기·인식 모델은 메뉴의 '다시 시작' 후 적용돼요.", self.anchor(),
@@ -458,9 +523,13 @@ class AssistantApp(QObject):
         self.window.set_talking(False)
         self.window.set_emotion("normal")
 
-    def _run(self, fn: Callable, on_done: Callable, on_fail: Callable, *args) -> None:
+    def _run(self, fn: Callable, on_done: Callable, on_fail: Callable, *args, on_progress: Callable | None = None) -> None:
+        """on_progress 를 주면 fn 에 progress=함수 를 넘겨, 뒤에서 일하는 중에도 화면에 소식을 보낼 수 있다."""
         job = Job(fn, *args)
         job.setAutoDelete(False)
+        if on_progress is not None:
+            job.kwargs["progress"] = job.signals.progress.emit
+            job.signals.progress.connect(on_progress)
         self.jobs.add(job)
 
         def finish(handler, value):
@@ -511,6 +580,18 @@ class AssistantApp(QObject):
         listen.triggered.connect(self.push_to_talk)
         vmenu.addSeparator()
         vmenu.addAction(listen)
+        omenu = menu.addMenu("파일 정리")
+        for label in org.KNOWN:
+            act = QAction(f"{label} 정리하기…", omenu)
+            act.triggered.connect(lambda _=False, lb=label: self.organize(org.known_folder(lb), lb))
+            omenu.addAction(act)
+        pick = QAction("다른 폴더 고르기…", omenu)
+        pick.triggered.connect(self.organize_pick)
+        omenu.addAction(pick)
+        omenu.addSeparator()
+        undo = QAction("마지막 정리 되돌리기", omenu)
+        undo.triggered.connect(self.undo_organize)
+        omenu.addAction(undo)
         menu.addSeparator()
         show_mem = QAction("기억 보기", menu)
         show_mem.triggered.connect(self.show_memory)
@@ -612,10 +693,150 @@ class AssistantApp(QObject):
         QMessageBox.information(None, "장기기억", text)
 
     def consolidate_now(self) -> None:
-        self._run(self.companion.consolidate,
-                  lambda ok: self.bubble.show_text("기억을 정리했어요." if ok else "정리할 새 대화가 없어요.",
-                                                   self.anchor(), system=True, seconds=4),
-                  lambda m: self.bubble.show_text(m, self.anchor(), system=True, seconds=8))
+        self._consolidate(lambda ok: self.bubble.show_text("기억을 정리했어요." if ok else "정리할 새 대화가 없어요.",
+                                                           self.anchor(), system=True, seconds=4),
+                          lambda m: self.bubble.show_text(m, self.anchor(), system=True, seconds=8))
+
+    def _consolidate(self, on_done: Callable | None = None, on_fail: Callable | None = None) -> None:
+        if self.status.active("memory"):
+            return
+        self.status.begin("memory", "기억 정리 중")
+
+        def done(ok) -> None:
+            self.status.end("memory")
+            log.info("기억 정리 %s", "완료" if ok else "할 것 없음")
+            if on_done:
+                on_done(ok)
+
+        def fail(message: str) -> None:
+            self.status.end("memory")
+            log.warning(message)
+            if on_fail:
+                on_fail(message)
+
+        self._run(self.companion.consolidate, done, fail)
+
+    # ------------------------------------------------------------ 파일 정리
+
+    def organize_from_chat(self, target: str) -> None:
+        found = org.resolve_target(target)
+        if found:
+            self.organize(*found)
+        else:
+            self.organize_pick()
+
+    def organize_pick(self) -> None:
+        path = QFileDialog.getExistingDirectory(None, "정리할 폴더를 골라주세요", str(org.known_folder("다운로드")))
+        if path:
+            self.organize(Path(path), Path(path).name or path)
+
+    def organize(self, folder: Path, label: str) -> None:
+        """폴더 목록 읽기 → 다니카가 정리안 만들기 → 미리보기에서 고르기 → 옮기기."""
+        if self.organizing:
+            self.status.flash("이미 파일 정리 중이에요")
+            return
+        reason = org.blocked_reason(folder)
+        if reason:
+            self.bubble.show_text(reason, self.anchor(), system=True, seconds=6)
+            return
+        self.organizing = True
+        self.status.begin("organize", f"{label} 파일 목록 읽는 중")
+
+        def work(progress):
+            files, total = org.scan(folder)
+            if not files:
+                return files, total, None
+            progress(("plan", 0))
+            last = [0]
+
+            def count(n: int) -> None:
+                if n != last[0]:
+                    last[0] = n
+                    progress(("plan", n))
+
+            return files, total, self.companion.plan_organize(label, files, on_count=count)
+
+        self._run(work, lambda r: self._organize_planned(folder, label, *r), self._organize_failed,
+                  on_progress=self._organize_progress)
+
+    def _organize_progress(self, info) -> None:
+        kind, n = info
+        if kind == "plan":
+            self.status.set_text("organize", "정리안 만드는 중" + (f" ({n}개째)" if n else ""))
+        elif kind == "move":
+            self.status.set_text("organize", f"파일 옮기는 중 {n[0]}/{n[1]}")
+        elif kind == "undo":
+            self.status.set_text("organize", f"되돌리는 중 {n[0]}/{n[1]}")
+
+    def _organize_planned(self, folder: Path, label: str, files: list, total: int, plan: dict | None) -> None:
+        self.status.end("organize")
+        if not files:
+            self.organizing = False
+            self.bubble.show_text(f"{label} 폴더엔 정리할 파일이 없네요. 이미 말끔합니다.", self.anchor())
+            return
+        moves = org.sanitize(plan, files)
+        if not moves:
+            self.organizing = False
+            self.bubble.show_text((plan or {}).get("summary") or "옮길 만한 파일이 없어요. 지금 그대로가 좋겠습니다.",
+                                  self.anchor())
+            return
+        dlg = OrganizeDialog(label, str((plan or {}).get("summary", "")), moves, total)
+        if dlg.exec() != OrganizeDialog.DialogCode.Accepted:
+            self.organizing = False
+            self.status.flash("정리를 취소했어요")
+            return
+        chosen = dlg.selected_moves()
+        self.status.begin("organize", f"파일 옮기는 중 0/{len(chosen)}")
+        self._run(lambda progress: self.organizer.apply(folder, chosen, lambda i, n: progress(("move", (i, n)))),
+                  lambda res: self._organized(label, res), self._organize_failed, on_progress=self._organize_progress)
+
+    def _organized(self, label: str, res) -> None:
+        self.organizing = False
+        self.status.end("organize")
+        n = len(res.moved)
+        msg = f"{label} 폴더 파일 {n}개를 정리해 두었습니다."
+        if res.failed:
+            msg += f" {len(res.failed)}개는 쓰는 중이거나 없어서 그대로 뒀어요."
+        self.bubble.show_text(msg, self.anchor())
+        self._start_talking()
+        if n:
+            self.companion.memory.add_spoken(f"(파일 정리) {label} 폴더 파일 {n}개를 종류별 하위 폴더로 옮겨 두었다.")
+
+    def _organize_failed(self, message: str) -> None:
+        self.organizing = False
+        self.status.end("organize")
+        self.bubble.show_text(f"파일 정리 실패: {message}", self.anchor(), system=True, seconds=8)
+
+    def undo_organize(self) -> None:
+        if self.organizing:
+            self.status.flash("이미 파일 정리 중이에요")
+            return
+        batch = self.organizer.last_batch()
+        if not batch:
+            self.bubble.show_text("되돌릴 파일 정리가 없어요.", self.anchor(), system=True, seconds=4)
+            return
+        box = QMessageBox(QMessageBox.Icon.Question, "마지막 정리 되돌리기",
+                          f"{batch['time']} 에 {batch['folder']} 에서 옮긴 파일 {len(batch['moves'])}개를 원래 자리로 돌릴까요?")
+        yes = box.addButton("되돌리기", QMessageBox.ButtonRole.AcceptRole)
+        box.addButton("취소", QMessageBox.ButtonRole.RejectRole)
+        box.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
+        box.exec()
+        if box.clickedButton() is not yes:
+            return
+        self.organizing = True
+        self.status.begin("organize", "되돌리는 중")
+
+        def done(result) -> None:
+            self.organizing = False
+            self.status.end("organize")
+            ok, bad = result
+            msg = f"{ok}개를 원래 자리로 돌려놓았습니다."
+            if bad:
+                msg += f" {bad}개는 이미 옮겨졌거나 같은 이름이 있어서 그대로 뒀어요."
+            self.bubble.show_text(msg, self.anchor())
+
+        self._run(lambda progress: self.organizer.undo_last(lambda i, n: progress(("undo", (i, n)))), done,
+                  self._organize_failed, on_progress=self._organize_progress)
 
     # ------------------------------------------------------------ 상태 저장
 

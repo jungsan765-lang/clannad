@@ -6,7 +6,7 @@ import json
 import logging
 import os
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Callable
 
 from usage import UsageLedger
 
@@ -15,6 +15,7 @@ log = logging.getLogger("assistant.ai")
 # 거절됐을 때 서버가 다른 모델로 다시 돌려주는 기능(fallbacks)을 받는 모델
 FALLBACK_MODELS = ("claude-opus-5-5", "claude-opus-5", "claude-sonnet-5-5", "claude-fable-5-2", "claude-fable-5-1")
 FALLBACK_BETA = "server-side-fallback-2026-07-01"
+FAST_MODELS = ("claude-opus-5-5", "claude-fable-5-2")  # speed="fast" 를 받는 모델 (요금 2배, 출력 최대 2.5배 빠름)
 KEYRING_SERVICE = "danika-assistant"
 
 
@@ -74,11 +75,15 @@ class AIClient:
         max_tokens: int = 2000,
         effort: str | None = "low",
         thinking_off: bool = False,
+        on_text: Callable[[str], None] | None = None,
+        fast: bool = False,
     ) -> AIResult:
         """정해진 JSON 형식으로만 답을 받는다 (structured outputs).
 
         thinking_off: 생각을 끈다. Haiku 5.5 처럼 끌 수 있는 모델에서만 쓴다
         (Opus 5.5 는 끌 수 없어서 effort 로만 조절).
+        on_text: 주면 답을 실시간으로 받으며 지금까지 받은 글 전체를 계속 넘겨준다(말풍선에 바로 보여주기용).
+        fast: 빠른 모드(요금 2배). 지원 안 하거나 막히면 보통 속도로 한 번 더 시도한다.
         """
         output_config: dict = {"format": {"type": "json_schema", "schema": schema}}
         if effort:
@@ -86,11 +91,15 @@ class AIClient:
         request = dict(model=model, max_tokens=max_tokens, system=system, messages=messages, output_config=output_config)
         if thinking_off:
             request["thinking"] = {"type": "disabled"}
+        use_fast = fast and model.startswith(FAST_MODELS)
         try:
-            if model.startswith(FALLBACK_MODELS):
-                response = self.client.beta.messages.create(betas=[FALLBACK_BETA], fallbacks="default", **request)
-            else:
-                response = self.client.messages.create(**request)
+            try:
+                response = self._send(model, request, on_text, use_fast)
+            except Exception as exc:  # noqa: BLE001
+                if not use_fast or not _is_fast_problem(exc):
+                    raise
+                log.warning("빠른 모드가 막혀서 보통 속도로 다시 시도: %s", exc)
+                response = self._send(model, request, on_text, False)
         except AIError:
             raise
         except Exception as exc:  # noqa: BLE001 - 아래에서 종류별로 한국어 메시지로 바꾼다
@@ -112,6 +121,37 @@ class AIClient:
             log.warning("JSON 읽기 실패 (%s): %r", kind, text[:200])
             data = None
         return AIResult(data, text, served, stop, usd)
+
+
+    def _send(self, model: str, request: dict, on_text: Callable[[str], None] | None, fast: bool):
+        args = dict(request)
+        if fast:
+            args["speed"] = "fast"
+        if model.startswith(FALLBACK_MODELS):
+            api, args = self.client.beta.messages, dict(args, betas=[FALLBACK_BETA], fallbacks="default")
+        else:
+            api = self.client.messages
+        if on_text is None:
+            return api.create(**args)
+        buf = ""
+        with api.stream(**args) as stream:
+            for piece in stream.text_stream:
+                buf += piece
+                try:
+                    on_text(buf)
+                except Exception:  # noqa: BLE001 - 화면 갱신 문제로 답 받기를 멈추지 않는다
+                    log.exception("실시간 표시 실패")
+            return stream.get_final_message()
+
+
+def _is_fast_problem(exc: Exception) -> bool:
+    try:
+        import anthropic
+    except ImportError:  # pragma: no cover
+        return False
+    if isinstance(exc, anthropic.RateLimitError):
+        return True  # 빠른 모드는 한도가 따로라 막힐 수 있음
+    return isinstance(exc, anthropic.BadRequestError) and "speed" in str(getattr(exc, "message", exc)).lower()
 
 
 def _usage_dict(usage: Any) -> dict:
