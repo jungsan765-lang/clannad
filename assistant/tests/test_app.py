@@ -746,3 +746,37 @@ def test_spoiler_entries_come_with_a_warning():
 
     book = LoreBook(LoreBook.parse("## 3장 결말 (스포일러)\n키워드: 검은곰\n- 누가 배신함\n\n## 검은곰 야영지\n키워드: 야영지\n- 위치\n"))
     assert "스포 주의" in book.notes_for("검은곰 이야기") and "스포 주의" not in book.notes_for("야영지 어디")
+
+
+def test_reminder_and_todo_from_chat_and_firing(qapp, tmp_path, built):
+    from datetime import datetime as _dt
+
+    from ui.planner_dialog import PlannerDialog
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "11시에 알려 드릴게요.", "emotion": "normal", "action": "set_reminder",
+         "target": "2026-11-10 23:00 | 자라고 말하기 | 없음"},
+        {"speak": True, "message": "적어 둘게요.", "emotion": "normal", "action": "add_todo", "target": "E3 甲 깨기 | "},
+        {"speak": True, "message": "주인님, 11시예요. 이제 주무실 시간입니다.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.ask("11시에 자라고 해줘")
+    _wait(qapp, a)
+    a.ask("할 일에 E3 甲 깨기 적어줘")
+    _wait(qapp, a)
+    assert [r["text"] for r in a.planner.reminders] == ["자라고 말하기"]
+    assert "[알림] 2026-11-10 23:00 자라고 말하기" in a.companion.system_blocks()[1]["text"]
+    assert "[할 일] E3 甲 깨기" in a.companion.system_blocks()[1]["text"]
+    a.planner.clock = lambda: _dt(2026, 11, 10, 23, 0, 30)
+    a.check_reminders()
+    _wait(qapp, a)
+    assert a.planner.reminders == [] and "11시예요" in a.bubble.text
+    assert "알림 시각이 됐다: 자라고 말하기" in str(fake.calls[-1]["messages"])
+    dlg = PlannerDialog(a.planner)
+    assert dlg.todo_list.count() == 1 and dlg.rem_list.count() == 0
+    dlg.rem_text.setText("물 마시기")
+    dlg._add_reminder()
+    assert [r["text"] for r in a.planner.reminders] == ["물 마시기"]
+    a.quit()

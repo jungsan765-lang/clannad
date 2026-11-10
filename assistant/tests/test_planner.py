@@ -1,0 +1,43 @@
+import os
+from datetime import datetime, timedelta
+
+os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+
+from planner import Planner, parse_when  # noqa: E402
+
+NOW = datetime(2026, 11, 10, 21, 30)
+
+
+def test_parse_when_forms():
+    assert parse_when("2026-11-10 23:00", NOW) == datetime(2026, 11, 10, 23, 0)
+    assert parse_when("30분 뒤", NOW) == NOW + timedelta(minutes=30)
+    assert parse_when("1시간 30분 후", NOW) == NOW + timedelta(minutes=90)
+    assert parse_when("9:00", NOW) == datetime(2026, 11, 11, 9, 0)  # 이미 지났으면 내일
+    assert parse_when("내일 23:00", NOW) == datetime(2026, 11, 11, 23, 0)
+    assert parse_when("언젠가", NOW) is None
+
+
+def test_reminders_fire_once_or_repeat(tmp_path):
+    t = {"now": NOW}
+    p = Planner(tmp_path, clock=lambda: t["now"])
+    assert p.add_from_target("2026-11-10 23:00 | 자라고 말하기")
+    assert p.add_from_target("2026-11-10 22:00 | 레진 쓰기 | 매일")["repeat"] == "daily"
+    assert p.add_from_target("엉터리") is None
+    assert p.due() == []
+    t["now"] = datetime(2026, 11, 10, 23, 5)
+    fired = p.due()
+    assert [f["text"] for f in fired] == ["레진 쓰기", "자라고 말하기"] and fired[1]["late_minutes"] == 5
+    assert [(r["text"], r["when"]) for r in p.reminders] == [("레진 쓰기", "2026-11-11T22:00")]  # 매일 → 내일로
+    assert Planner(tmp_path).reminders[0]["text"] == "레진 쓰기"  # 저장됨
+    assert [r["text"] for r in p.cancel("레진 알림 취소")] == ["레진 쓰기"] and p.reminders == []
+
+
+def test_todos(tmp_path):
+    p = Planner(tmp_path, clock=lambda: NOW)
+    assert p.add_todo_from_target("E3 甲 깨기 | 2026-11-12")
+    assert p.add_todo_from_target("E3 甲 깨기") is None  # 같은 건 한 번
+    p.add_todo("방 청소")
+    assert "기한 가까운 할 일: E3 甲 깨기(11-12)" in p.today_text()
+    assert p.done_todo("E3 깨기") is None and p.done_todo("E3 甲 깨기")["done"]
+    assert [t["text"] for t in p.open_todos()] == ["방 청소"]
+    assert "[할 일] 방 청소" in p.prompt_text()

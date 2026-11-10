@@ -54,6 +54,7 @@ from ui.settings_dialog import RESTART_KEYS, TALK_STYLES, SettingsDialog
 from voice.listener import VoiceListener, list_input_devices
 from voice.stt import Transcriber
 from watch.modes import load_modes, save_mode
+from planner import Planner
 from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
 
@@ -150,6 +151,10 @@ class AssistantApp(QObject):
         self.watcher.known_games |= {p for m in modes for p in m.processes}
         self.watcher.known_games |= set(self._load_state().get("auto_mode_tried", []))
         self.wishlist = Wishlist(settings.data_dir / "requests.json")
+        self.planner = Planner(settings.data_dir)
+        companion.planner = self.planner
+        self.planner_timer = QTimer(self)  # 알림 시각 확인 (내 PC, 비용 없음)
+        self.planner_timer.timeout.connect(self.check_reminders)
         # 원신 계정 정보 (진열장·실시간 메모·기원 기록). 로그인 정보는 이 PC 사용자만 풀 수 있게 암호화
         self.secrets = SecretStore(settings.data_dir / "secrets.bin")
         self.genshin = GenshinData(settings.data_dir / "genshin", uid=str(self.pref("genshin.uid", "") or ""),
@@ -241,6 +246,8 @@ class AssistantApp(QObject):
             self._consolidate()
         self.genshin_timer.start(10 * 60 * 1000)  # 원신 실시간 메모는 10분마다
         self.cleanup_timer.start(6 * 3600 * 1000)
+        self.planner_timer.start(20_000)
+        QTimer.singleShot(5000, self.check_reminders)  # 꺼져 있던 동안 지난 알림
         QTimer.singleShot(20_000, lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         QTimer.singleShot(8000, lambda: self.refresh_genshin())
 
@@ -345,6 +352,21 @@ class AssistantApp(QObject):
             pair = parse_correction(reply.target)
             if pair and self.companion.memory.add_term(*pair):
                 self.status.flash(f"고친 말을 적었어요 ({pair[0]} → {pair[1]})")
+        elif reply.action == "set_reminder":
+            r = self.planner.add_from_target(reply.target)
+            if r:
+                self.status.flash(f"알림 {r['when'][5:16].replace('T', ' ')} 에 맞췄어요")
+            else:
+                self.status.flash("알림 시각을 못 알아들었어요. 우클릭 → 도구 ▸ 알림·할 일에서 직접 넣을 수 있어요", 5)
+        elif reply.action == "cancel_reminder":
+            gone = self.planner.cancel(reply.target)
+            self.status.flash(f"알림 {len(gone)}개를 지웠어요" if gone else "그런 알림을 못 찾았어요")
+        elif reply.action == "add_todo":
+            if self.planner.add_todo_from_target(reply.target):
+                self.status.flash("할 일에 적었어요")
+        elif reply.action == "done_todo":
+            if self.planner.done_todo(reply.target):
+                self.status.flash("할 일을 끝냈다고 표시했어요")
         elif reply.action == "add_rule" and reply.target.strip():
             scope, text = self._rule_scope(reply.target)
             if self.companion.memory.add_rule(scope, text):
@@ -962,6 +984,7 @@ class AssistantApp(QObject):
             self.voice_actions[mode] = act
         vmenu.addSeparator()
         add(vmenu, f"지금 듣기 ({g('hotkeys.voice', 'F7')})", self.push_to_talk)
+        add(tools, "알림·할 일…", self.open_planner)
         add(tools, "개선 요청 메모…", self.open_wishlist)
         add(tools, "화면 기억 폴더 열기", self.open_screens_folder)
 
@@ -1119,6 +1142,26 @@ class AssistantApp(QObject):
             log.warning("원신 정보 받기 실패: %s", message)
 
         self._run(work, done, fail)
+
+    def check_reminders(self) -> None:
+        for r in self.planner.due():
+            late = r.get("late_minutes", 0)
+            text = r["text"]
+            log.info("알림: %s (%d분 늦음)", text, late)
+            self.show_overlay(f"알림: {text}", important=True)  # 게임 중이어도 보이게
+            QApplication.beep()
+            if self.busy:
+                self.bubble.show_text(f"⏰ {text}", self.anchor(), system=True, seconds=12)
+                continue
+            fact = f"주인님이 부탁한 알림 시각이 됐다: {text}" + (f" (꺼져 있던 동안 {late}분 지났다)" if late > 2 else "")
+            self.bubble.show_text(f"⏰ {text}", self.anchor(), system=True, seconds=6)  # 말이 나오기 전에도 바로 보이게
+            self._run(lambda f=fact: self.companion.remark(f), self._on_screen_line,
+                      lambda m: log.warning("알림 말하기 실패: %s", m))
+
+    def open_planner(self) -> None:
+        from ui.planner_dialog import PlannerDialog
+
+        PlannerDialog(self.planner).exec()
 
     def _announce(self, fact: str, tries: int = 0) -> None:
         """레진이 넘치기 직전 같은 일을 다니카가 먼저 말한다 (바쁘면 조금 뒤에)."""

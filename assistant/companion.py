@@ -17,7 +17,8 @@ log = logging.getLogger("assistant.companion")
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
-           "read_window", "add_rule", "correct_term", "zoom_screen", "add_focus", "block_window"]
+           "read_window", "add_rule", "correct_term", "zoom_screen", "add_focus", "block_window",
+           "set_reminder", "cancel_reminder", "add_todo", "done_todo"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -314,6 +315,11 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   target 은 "적용 범위: 하지 말 것" 한 문장으로 구체적으로 적는다. 적용 범위는 게임 중에 한 말이면 지금 게임 이름,
   "어디서든"·"항상"이면 "전체". 예) "칸코레: 원정 귀환 알림은 말하지 않기", "전체: 쉬라는 잔소리 하지 않기".
   방금 네가 한 말을 두고 하는 말이면 그 말의 주제를 금지 사항으로 적는다. message 는 "알겠습니다. 앞으로 그런 말은 하지 않겠습니다" 처럼 짧게.
+- 알림: "30분 뒤에 알려줘", "11시에 자라고 해줘", "매일 밤 12시에 레진 쓰라고 해줘"처럼 부탁하면 action 은 "set_reminder",
+  target 은 "YYYY-MM-DD HH:MM | 알릴 내용 | 반복" (반복은 없음·매일·매주). 시각은 [지금: …] 기준으로 계산한다.
+  message 는 "11시에 알려 드릴게요"처럼 짧게. 알림을 취소해 달라면 "cancel_reminder", target 은 그 알림 내용의 핵심 낱말.
+- 할 일: "할 일에 ○○ 적어줘", "이번 주 안에 ○○ 해야 돼"는 "add_todo", target 은 "내용 | 기한(YYYY-MM-DD, 없으면 빈칸)".
+  할 일 목록에 있는 걸 끝냈다고 하면 "done_todo", target 은 그 할 일 내용.
 - 챙겨 보기: 주인님이 화면을 볼 때 "이런 건 봐 줘", "레진 넘칠 것 같으면 말해 줘", "파티 구성 이상하면 짚어 줘"처럼
   챙겨 봐 달라고 하면 action 은 "add_focus", target 은 "적용 범위: 챙겨 볼 것" (범위는 add_rule 과 같은 방식).
 - 아예 안 보기: "은행 사이트는 보지 마", "카톡은 아예 보지 마"처럼 그 창·프로그램을 보지(찍지) 말라고 하면
@@ -486,6 +492,10 @@ class Companion:
         terms = self.memory.terms_text()
         if terms:
             second += terms + "\n\n"
+        planner = getattr(self, "planner", None)
+        plan = planner.prompt_text() if planner is not None else ""
+        if plan:
+            second += plan + "\n\n"
         for kind, head in (("dont", "주인님이 하지 말라고 한 것 (반드시 지킨다)"),
                            ("do", "주인님이 화면을 볼 때 챙겨 봐 달라고 한 것"),
                            ("skip", "주인님이 아예 보지 말라고 한 창·프로그램 (그 창이 앞에 있으면 화면을 찍지 않는다)")):
