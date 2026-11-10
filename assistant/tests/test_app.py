@@ -730,13 +730,15 @@ def test_lookups_pile_up_in_a_per_game_dictionary(qapp, tmp_path, built):
         _wait(qapp, a)
     path = tmp_path / "data" / "knowledge" / "찾아본것_붉은사막.md"
     text = path.read_text(encoding="utf-8")
-    assert text.startswith("## 붉은사막 회색갈기 퀘스트 (찾아본 것,") and "키워드: 회색갈기" in text
+    assert text.startswith("게임: 붉은사막\n\n## 붉은사막 회색갈기 퀘스트 (찾아본 것,") and "키워드: 회색갈기" in text
     assert "\n## 진행" not in text  # 찾은 글 속 제목 줄이 항목을 끊지 않음
-    assert [e.title.split(" (")[0] for e in a.companion.lorebook.find("회색갈기 야영지 화면")] == ["붉은사막 회색갈기 퀘스트"]
+    found = a.companion.lorebook.find("[지금 하고 있는 게임: 붉은사막] 회색갈기 야영지 화면")
+    assert [e.title.split(" (")[0] for e in found] == ["붉은사막 회색갈기 퀘스트"]
+    assert a.companion.lorebook.find("원신 회색갈기") == []  # 다른 게임 얘기 중엔 안 꺼냄
     a.quit()
     b = app_main.build(_settings(tmp_path, built["out"].as_posix()),
                        ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
-    assert b.companion.lorebook.find("회색갈기")  # 다시 켜도 남아 있음
+    assert b.companion.lorebook.find("붉은사막 회색갈기")  # 다시 켜도 남아 있음
 
 
 def test_spoiler_entries_come_with_a_warning():

@@ -1,3 +1,5 @@
+게임: 디맥, DJMAX, 디제이맥스
+
 ## DJMAX RESPECT V 개요
 키워드: DJMAX RESPECT V, 디맥, 디맥 리스펙트 V, 리스펙트 V, DMRV, RESPECT V, NEOWIZ, 네오위즈, ROCKY STUDIO, 록키 스튜디오, FREESTYLE, MISSION, COLLECTION, AIR
 - 장르: 키 입력형 리듬게임. 개발·운영 공지는 'ROCKY STUDIO'(네오위즈 산하) 명의, 퍼블리셔 NEOWIZ.

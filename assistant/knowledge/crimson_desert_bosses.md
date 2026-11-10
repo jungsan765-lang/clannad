@@ -1,3 +1,5 @@
+게임: 붉은사막, Crimson Desert, 파이웰
+
 ## 묘르딘 (프롤로그 1차전)
 키워드: 묘르딘, Myurdin, 검은곰, Black Bears, 술취한 검은곰, Hills of No Return, 녹아내린 열망
 - 위치: 에르난드 Hills of No Return(영문). 프롤로그 기습 전투로, 지도록 짜인 연출 전투라 이길 수 없음.

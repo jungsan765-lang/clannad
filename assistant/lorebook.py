@@ -14,6 +14,8 @@ from pathlib import Path
 
 log = logging.getLogger("assistant.lore")
 _KEYWORDS = re.compile(r"^\s*키워드\s*[:：]\s*(.+)$", re.MULTILINE)
+# 파일 맨 위(첫 '## ' 앞)에 '게임: 붉은사막, Crimson Desert' 가 있으면 그 파일 항목은 그 게임 얘기일 때만 꺼낸다
+_GAME = re.compile(r"^\s*게임\s*[:：]\s*(.+)$", re.MULTILINE)
 
 
 @dataclass
@@ -21,6 +23,7 @@ class Entry:
     title: str
     text: str
     keywords: list[str] = field(default_factory=list)
+    games: list[str] = field(default_factory=list)  # 비어 있으면 언제나, 있으면 이 이름이 보일 때만
 
 
 def _clean_title_words(title: str) -> list[str]:
@@ -55,7 +58,10 @@ class LoreBook:
     @staticmethod
     def parse(text: str) -> list[Entry]:
         out = []
-        for block in re.split(r"(?m)^## ", text)[1:]:
+        head, *blocks = re.split(r"(?m)^## ", text)
+        m = _GAME.search(head)
+        games = [g.strip() for g in re.split(r"[,，、]", m.group(1)) if g.strip()] if m else []
+        for block in blocks:
             title, _, body = block.partition("\n")
             title = title.strip()
             words = _clean_title_words(title)
@@ -65,7 +71,7 @@ class LoreBook:
                 body = _KEYWORDS.sub("", body, count=1)
             words = sorted({w for w in words if len(w) >= 2}, key=len, reverse=True)
             if words and body.strip():
-                out.append(Entry(title, body.strip(), words))
+                out.append(Entry(title, body.strip(), words, games))
         return out
 
     def find(self, text: str, max_chars: int = 3500, limit: int = 4) -> list[Entry]:
@@ -75,6 +81,8 @@ class LoreBook:
         low = text.lower()
         scored = []
         for i, e in enumerate(self.entries):
+            if e.games and not any(g.lower() in low for g in e.games):
+                continue  # 다른 게임 얘기 중엔 이 게임 사전을 안 꺼냄 ('심연'이 원신에도 붉은사막에도 있으니)
             hits = [w for w in e.keywords if w.lower() in low]
             if hits:
                 scored.append((len(hits), max(len(w) for w in hits), -i, e))
@@ -120,8 +128,9 @@ def lookup_entry(game: str, query: str, notes: str, when) -> str:
 
 def save_lookup(folder: Path, game: str, query: str, notes: str, when) -> list[Entry]:
     """data/knowledge/찾아본것_게임.md 에 쌓는다 (같은 검색어면 새 것으로). 새 항목을 돌려준다."""
+    header = f"게임: {game}\n\n" if game and game != "일반" else ""
     text = lookup_entry(game, query, notes, when)
-    found = LoreBook.parse(text)
+    found = LoreBook.parse(header + text)
     if not found:
         return []
     safe = re.sub(r'[\\/:*?"<>|\s]+', "_", game or "일반")
@@ -130,6 +139,8 @@ def save_lookup(folder: Path, game: str, query: str, notes: str, when) -> list[E
         folder.mkdir(parents=True, exist_ok=True)
         old = path.read_text(encoding="utf-8") if path.is_file() else ""
         blocks = [b for b in re.split(r"(?m)^(?=## )", old) if b.strip() and not b.startswith(f"## {query} (찾아본 것")]
+        if header and not old.startswith("게임:"):
+            blocks.insert(0, header)
         path.write_text("".join(blocks) + ("\n" if blocks and not blocks[-1].endswith("\n") else "") + text,
                         encoding="utf-8")
     except OSError as exc:

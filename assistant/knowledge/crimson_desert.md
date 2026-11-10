@@ -1,3 +1,5 @@
+게임: 붉은사막, Crimson Desert, 파이웰
+
 ## 붉은사막 개요·출시 정보
 키워드: 붉은사막, Crimson Desert, 붉은사막 Enhanced, Crimson Desert Enhanced, 펄어비스, Pearl Abyss, BlackSpace, 블랙스페이스 엔진, 출시일, 에디션, 체험판
 - 장르: 싱글플레이 오픈월드 액션 어드벤처. 개발·배급 펄어비스, 자체 BlackSpace 엔진.

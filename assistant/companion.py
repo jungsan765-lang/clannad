@@ -528,7 +528,8 @@ class Companion:
         for label, jpeg in images or []:  # 화면 기억에서 꺼낸 그때 화면
             content.append({"type": "text", "text": label})
             content.append(self._image_block(jpeg))
-        notes = self.lorebook.notes_for(user_text + "\n" + (context or "")[-600:])
+        ctx = context or ""  # 맨 앞 줄에 '[지금 하고 있는 게임: …]' 이 있어서 앞부분도 함께 (게임별 사전용)
+        notes = self.lorebook.notes_for(user_text + "\n" + ctx[:200] + "\n" + ctx[-600:])
         if notes:
             content.append({"type": "text", "text": notes})
         content.append({"type": "text", "text": user_text})
@@ -883,7 +884,7 @@ class Companion:
         rules = self.rules_text(mode)
         if rules:
             lines.append(rules.strip())
-        notes = self.lorebook.notes_for(record, 9000, 10)
+        notes = self.lorebook.notes_for(getattr(mode, "name", "") + "\n" + record, 9000, 10)
         if notes:
             lines.append(notes)
         lines.append("## 공식 기록\n" + record)
