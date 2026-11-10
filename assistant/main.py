@@ -333,6 +333,12 @@ class AssistantApp(QObject):
             self.read_window_and_answer(reply.target.strip())
         elif reply.action == "make_game_mode":
             self.make_game_mode_now()
+        elif reply.action == "correct_term":
+            from wording import parse_correction
+
+            pair = parse_correction(reply.target)
+            if pair and self.companion.memory.add_term(*pair):
+                self.status.flash(f"고친 말을 적었어요 ({pair[0]} → {pair[1]})")
         elif reply.action == "add_rule" and reply.target.strip():
             scope, text = self._rule_scope(reply.target)
             if self.companion.memory.add_rule(scope, text):
@@ -900,6 +906,7 @@ class AssistantApp(QObject):
         mem = menu.addMenu("기억")
         add(mem, "기억 보기", self.show_memory)
         add(mem, "금지 사항 (하지 말라고 한 것)…", self.open_rules)
+        add(mem, "고친 말 (남과 → 호박 같은 것)…", self.open_terms)
         add(mem, "기억 지금 정리하기", self.consolidate_now)
         add(mem, "최근 대화 잊기 (장기기억은 유지)", self.companion.memory.clear_recent)
 
@@ -1369,6 +1376,11 @@ class AssistantApp(QObject):
             if len(head) <= 15:  # 게임 이름을 조금 다르게 적었으면 (예: '칸타이 컬렉션') 지금 게임으로
                 return here, rest.strip()
         return here, target.strip()
+
+    def open_terms(self) -> None:
+        from ui.terms_dialog import TermsDialog
+
+        TermsDialog(self.companion.memory).exec()
 
     def open_rules(self) -> None:
         from ui.rules_dialog import RulesDialog

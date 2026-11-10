@@ -12,6 +12,8 @@ import threading
 from datetime import date, datetime
 from pathlib import Path
 
+from wording import apply_terms
+
 CATEGORIES = ["주인님 정보", "취향", "약속·할 일", "최근 있었던 일", "관계·호칭"]
 RECENT_KEEP = 60  # 디스크에 남겨두는 최근 대화 줄 수
 
@@ -49,6 +51,7 @@ class Memory:
         self.pending: list[dict] = mem.get("pending", [])  # 아직 장기기억에 반영 안 된 대화
         self.knowledge: list[dict] = self._read("knowledge.json", [])  # 찾아보고 알게 된 것
         self.pinned: list[str] = self._read("pinned.json", [])  # 주인님이 고정해 둔 것 (정리해도 안 지움)
+        self.terms: list[dict] = self._read("terms.json", [])  # 고쳐 준 말: {"wrong": "남과", "right": "호박", "date"}
         self.rules: list[dict] = self._read("rules.json", [])  # 금지 사항: {"scope": "전체"|게임 이름, "text", "date"}
 
     # ------------------------------------------------------------ 저장
@@ -101,7 +104,7 @@ class Memory:
             self._save()
 
     def spoken_lines(self, n: int = 5) -> list[str]:
-        return [m["text"] for m in self.recent if m.get("kind") == "screen"][-n:]
+        return [self.fix_words(m["text"]) for m in self.recent if m.get("kind") == "screen"][-n:]
 
     def api_messages(self, turns: int) -> list[dict]:
         """최근 대화를 API 형식으로. user/assistant 가 번갈아 나오고 user 로 시작하게 맞춘다.
@@ -114,6 +117,8 @@ class Memory:
                 text = "(화면을 보고 먼저 건넨 말) " + text
             if role == "user":
                 text = f"{_stamp(m.get('time'))}{text}"
+            else:  # 예전에 잘못 부른 말이 대화 기록에 남아 있으면 그걸 따라 하므로, 다니카 말은 고친 말로 바꿔서 보낸다
+                text = self.fix_words(text)
             if role == "assistant" and (not out or out[-1]["role"] == "assistant"):
                 out.append({"role": "user", "content": f"{_stamp(m.get('time'))}(주인님은 말없이 화면을 보고 있었다)"})
             if out and out[-1]["role"] == role:
@@ -135,6 +140,36 @@ class Memory:
         with self._lock:
             self.recent = []
             self._save()
+
+    # ------------------------------------------------------------ 고쳐 준 말 ('남과' 가 아니라 '호박')
+
+    def add_term(self, wrong: str, right: str, when: datetime | None = None) -> bool:
+        wrong, right = " ".join(str(wrong).split())[:40], " ".join(str(right).split())[:40]
+        if not wrong or not right or wrong == right:
+            return False
+        with self._lock:
+            self.terms = [t for t in self.terms if t["wrong"] != wrong]  # 같은 말을 다시 고치면 새 것으로
+            self.terms.append({"wrong": wrong, "right": right, "date": (when or datetime.now()).date().isoformat()})
+            self._write("terms.json", self.terms)
+        return True
+
+    def remove_term(self, index: int) -> None:
+        with self._lock:
+            if 0 <= index < len(self.terms):
+                del self.terms[index]
+                self._write("terms.json", self.terms)
+
+    def term_pairs(self) -> list[tuple[str, str]]:
+        return [(t["wrong"], t["right"]) for t in self.terms]
+
+    def fix_words(self, text: str) -> str:
+        return apply_terms(text, self.term_pairs()) if self.terms and text else text
+
+    def terms_text(self) -> str:
+        if not self.terms:
+            return ""
+        return ("# 주인님이 고쳐 준 말 (반드시 고친 말로만 쓴다. 화면에 원래 글자가 보여도 고친 말로 부른다)\n"
+                + "\n".join(f"- '{t['wrong']}' 가 아니라 '{t['right']}'" for t in self.terms))
 
     # ------------------------------------------------------------ 금지 사항 (주인님이 하지 말라고 한 것)
 

@@ -607,3 +607,45 @@ def test_rules_from_chat_apply_per_game(qapp, tmp_path, built):
     b = app_main.build(_settings(tmp_path, built["out"].as_posix()),
                        ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
     assert len(b.companion.memory.rules) == 2  # 다시 켜도 남아 있다
+
+
+def test_corrected_word_sticks_everywhere(qapp, tmp_path, built):
+    from companion import Reply
+
+    from ui.terms_dialog import TermsDialog
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "남과를 넣은 수프네요.", "emotion": "normal", "action": "none", "target": ""},
+        {"speak": True, "message": "네, 호박이요.", "emotion": "normal", "action": "correct_term", "target": "남과 → 호박"},
+        {"speak": False, "urgent": False, "scene": "playing", "situation": "南瓜(남과) 수프를 만드는 중", "point": ""},
+        {"speak": True, "message": "남과가 다 익었어요. 남과 비교해도 맛있겠네요.", "emotion": "happy"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.ask("이거 뭐야?")
+    _wait(qapp, a)
+    a.ask("남과가 아니라 호박이야")
+    _wait(qapp, a)
+    mem = a.companion.memory
+    assert mem.term_pairs() == [("남과", "호박")]
+    blocks = a.companion.system_blocks()
+    assert "'남과' 가 아니라 '호박'" in blocks[1]["text"]
+    history = mem.api_messages(10)
+    assert "호박을 넣은 수프" in history[1]["content"]  # 예전에 잘못 말한 것도 고친 말로 보내서 따라 하지 않게
+    assert "남과가 아니라 호박이야" in history[2]["content"]  # 주인님 말은 그대로
+    note = a.companion.judge(b"jpeg", "게임", "claude-haiku-5-5", None)
+    assert "남과" not in note["situation"] and "호박" in note["situation"]
+    system = fake.calls[-1]["system"][0]["text"]
+    assert "'호박'" in system and "南瓜(호박)" in system
+    r = a.companion.screen_line(b"jpeg", "게임", {"situation": "수프", "point": ""})
+    assert r.message == "호박이 다 익었어요. 남과 비교해도 맛있겠네요."  # '남과 비교' 같은 보통 말은 그대로
+    dlg = TermsDialog(mem)
+    assert dlg.list.count() == 1
+    dlg.wrong.setText("艦隊")
+    dlg.right.setText("함대")
+    dlg._add()
+    dlg.list.setCurrentRow(0)
+    dlg._remove()
+    assert mem.term_pairs() == [("艦隊", "함대")]
+    a.quit()

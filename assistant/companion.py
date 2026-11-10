@@ -17,7 +17,7 @@ log = logging.getLogger("assistant.companion")
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
-           "read_window", "add_rule"]
+           "read_window", "add_rule", "correct_term"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -58,6 +58,7 @@ JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담
 - urgent: 아래 '즉시 알릴 상황'에 해당할 때만 true (그때는 speak 도 true).
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다.
 - situation 에는 화면에 글자로 보이는 핵심 이름·용어(캐릭터·지명·적 이름, 大破·進撃 같은 게임 용어)를 원문 그대로 넣는다.
+  한자·일본어 일반 단어는 원문 옆 괄호에 뜻이 통하는 우리말을 붙인다(예: 南瓜(호박)). 한국어 한자음(남과)으로 옮기지 않는다.
 - 메신저(카카오톡 등) 대화가 보이면 흐름만 파악한다. 약속·일정, 주인님이 고민·질문하는 것, 도움이 될 정보가 있을 때만 speak=true.
   가벼운 수다나 남의 사적인 이야기에는 끼어들지 않는다."""
 
@@ -281,9 +282,14 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   target 은 "적용 범위: 하지 말 것" 한 문장으로 구체적으로 적는다. 적용 범위는 게임 중에 한 말이면 지금 게임 이름,
   "어디서든"·"항상"이면 "전체". 예) "칸코레: 원정 귀환 알림은 말하지 않기", "전체: 쉬라는 잔소리 하지 않기".
   방금 네가 한 말을 두고 하는 말이면 그 말의 주제를 금지 사항으로 적는다. message 는 "알겠습니다. 앞으로 그런 말은 하지 않겠습니다" 처럼 짧게.
+- 말 고치기: 주인님이 네가 쓴 말·이름을 고쳐 주면("남과가 아니라 호박이야", "그거 OO 말고 XX라고 해") action 은 "correct_term",
+  target 은 "틀린 말 → 맞는 말" (예: "남과 → 호박"). 다른 할 일보다 이것을 먼저 한다. message 는 고친 말을 써서 짧게 답하고,
+  앞으로는 맞는 말로만 부른다.
 - 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
+- 화면의 한자·일본어 일반 단어는 한국어 한자음으로 읽지 말고 뜻이 통하는 우리말로 옮긴다
+  (예: 南瓜 → 호박, '남과' 아님 / 艦隊 → 함대). 게임 고유 용어·이름은 한국 유저가 실제로 부르는 이름으로.
 """
 
 SEARCH_ON = """- 인터넷 검색: 원신 캐릭터·사건, 게임 정보, 사람, 최근 소식처럼 네가 확실히 모르는 걸 물으면 찾아본다.
@@ -438,6 +444,9 @@ class Companion:
         pinned = self.pinned_text()
         if pinned:
             second += "# 꼭 기억할 것 (주인님이 고정해 둔 것. 절대 잊지 않는다)\n" + pinned + "\n\n"
+        terms = self.memory.terms_text()
+        if terms:
+            second += terms + "\n\n"
         if self.memory.rules:
             second += ("# 주인님이 하지 말라고 한 것 (반드시 지킨다)\n"
                        + "\n".join(f"- [{r['scope']}] {r['text']}" for r in self.memory.rules) + "\n\n")
@@ -558,7 +567,7 @@ class Companion:
                 shown["ok"] = False  # 영어로 나오기 시작하면 보여주지 않는다 (끝나고 한국어로 다시 받음)
                 return
             shown["last"] = msg
-            on_partial(msg)
+            on_partial(self.memory.fix_words(msg))
 
         data, total = self._ask(messages, on_text=stream_cb if on_partial else None, fast=fast)
         if data and data["message"] and not is_korean(data["message"]):
@@ -574,7 +583,7 @@ class Companion:
                 data = {"speak": True, "message": "……", "emotion": "normal"}
         if data is None:
             data = {"speak": True, "message": "……", "emotion": "normal"}
-        message = data["message"].strip() or "……"
+        message = self.memory.fix_words(data["message"].strip()) or "……"
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
         action = data.get("action") if data.get("action") in ACTIONS else "none"
         if action == "web_search" and not self.can_search:
@@ -634,6 +643,8 @@ class Companion:
         style = (REVIEW_JUDGE if review else ANALYSIS_JUDGE if analysis
                  else CHATTINESS.get(chattiness, CHATTINESS["normal"]))
         system = JUDGE_RULES + "\n" + style + self.rules_text(mode)
+        if self.memory.terms:
+            system += "\n\n" + self.memory.terms_text()
         if mode is not None:
             system += "\n\n" + self._mode_text(mode, None)
         info = [f"맨 앞 창: {title or '(알 수 없음)'}"]
@@ -648,7 +659,11 @@ class Companion:
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                   messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
                                   kind="judge", max_tokens=400, effort="low", thinking_off=True, timeout=20)
-        return r.data
+        data = r.data
+        if data and self.memory.terms:  # 이번 판 기록에 틀린 말이 남지 않게
+            for key in ("situation", "point"):
+                data[key] = self.memory.fix_words(str(data.get(key, "")))
+        return data
 
     def screen_line(self, jpeg: bytes, title: str, note: dict | None, model: str | None = None,
                     question: str | None = None, now: datetime | None = None, mode=None,
@@ -703,7 +718,7 @@ class Companion:
             return Reply(False, "", "normal", r.usd)
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
         important = bool(data.get("important")) or bool(note and note.get("urgent")) or review
-        return Reply(True, data["message"].strip(), emotion, r.usd, important=important)
+        return Reply(True, self.memory.fix_words(data["message"].strip()), emotion, r.usd, important=important)
 
     # ------------------------------------------------------------ 게임 모드 만들기
 
@@ -769,9 +784,20 @@ class Companion:
         if not all(is_korean(t) for t in texts if t):
             log.warning("분석이 한국어가 아님 → 표시하지 않음")
             return Analysis(False, "", usd=r.usd)
-        return Analysis(True, d["summary"].strip(), d.get("situation", "").strip(), list(d.get("points", []))[:5],
-                        [str(x) for x in d.get("next_steps", [])][:4],
-                        d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, now.strftime("%H:%M"))
+        return self._fix_analysis(Analysis(
+            True, d["summary"].strip(), d.get("situation", "").strip(), list(d.get("points", []))[:5],
+            [str(x) for x in d.get("next_steps", [])][:4],
+            d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, now.strftime("%H:%M")))
+
+    def _fix_analysis(self, a: Analysis) -> Analysis:
+        """고쳐 준 말 반영 (분석 창·말풍선·자막 모두)."""
+        if not self.memory.terms:
+            return a
+        fix = self.memory.fix_words
+        a.summary, a.situation = fix(a.summary), fix(a.situation)
+        a.points = [{k: fix(str(v)) for k, v in p.items()} if isinstance(p, dict) else p for p in a.points]
+        a.next_steps = [fix(s) for s in a.next_steps]
+        return a
 
     # ------------------------------------------------------------ 영상 복기
 
@@ -817,9 +843,9 @@ class Companion:
                    "detail": m.get("detail", "") + (f" → {m['better']}" if m.get("better") else "")}
                   for m in d.get("moments", [])[:10]]
         self.memory.add_turn(f"(영상 복기를 부탁함: {name})", d["summary"].strip())
-        return Analysis(True, d["summary"].strip(), d.get("overall", "").strip(), points,
-                        [str(x) for x in d.get("next_steps", [])][:4],
-                        d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, f"영상 {name}")
+        return self._fix_analysis(Analysis(
+            True, d["summary"].strip(), d.get("overall", "").strip(), points, [str(x) for x in d.get("next_steps", [])][:4],
+            d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, f"영상 {name}"))
 
     # ------------------------------------------------------------ 파일 정리안
 
