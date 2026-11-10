@@ -27,7 +27,7 @@ import re
 from gamedata.genshin_data import GenshinData
 from secret_store import SecretStore
 from ai_client import AIClient, AIError
-from companion import Companion
+from companion import Analysis, Companion
 from lorebook import LoreBook
 from hotkeys import GlobalHotkeys
 from memory import Memory
@@ -36,6 +36,7 @@ from ui.bubble import SpeechBubble
 from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
 from ui.hoyolab_login import HoyolabLogin, complete as cookies_complete
+from ui.analysis_panel import AnalysisPanel
 from ui.organize_dialog import OrganizeDialog
 from ui.wishlist_dialog import WishlistDialog
 from ui.placeholder import make_placeholder
@@ -99,6 +100,8 @@ class AssistantApp(QObject):
                                    float(settings.get("ui.bubble_seconds_per_char", 0.12)))
         self.input = ChatInput()
         self.status = StatusPill(self.anchor)  # 캐릭터 아래 '지금 하는 일' 표시
+        self.analysis_panel = AnalysisPanel(self.anchor)  # 분석 모드의 자세한 내용
+        companion.analysis_effort = str(settings.get("ai.analysis_effort", "medium"))
         self.status.set_enabled(bool(self.pref("ui.show_status", True)))
         self._streamed = False
         companion.fast = bool(self.pref("ai.fast", False))
@@ -198,6 +201,7 @@ class AssistantApp(QObject):
             self.window.play("appear")
         self.set_screen_enabled(bool(self.pref("screen.enabled", True)), save=False)
         self.set_voice_mode(str(self.pref("voice.mode", "off")), save=False)
+        self.set_analysis(bool(self.pref("screen.analysis", False)), save=False)
         self._register_hotkeys()
         if settings_flag(self.settings, "update.auto", True):
             QTimer.singleShot(3000, lambda: self.check_update(startup=True))
@@ -275,6 +279,9 @@ class AssistantApp(QObject):
             QTimer.singleShot(400, lambda: self.organize_from_chat(reply.target))
         elif reply.action == "web_search" and reply.target.strip():
             self.search_and_answer(reply.target.strip())
+        elif reply.action == "analyze_screen":
+            question = self._last_question
+            QTimer.singleShot(300, lambda: self.analyze_now(question))
         elif reply.action == "make_game_mode":
             self.make_game_mode_now()
         elif reply.action == "pin_fact" and reply.target.strip():
@@ -338,6 +345,21 @@ class AssistantApp(QObject):
         if save:
             self.set_pref("screen.enabled", on)
 
+    def set_analysis(self, on: bool, save: bool = True) -> None:
+        self.watch_cfg.analysis = bool(on)
+        if hasattr(self, "analysis_action"):
+            self.analysis_action.setChecked(bool(on))
+        if save:
+            self.set_pref("screen.analysis", bool(on))
+
+    def analyze_now(self, question: str = "지금 화면을 자세히 분석해 줘") -> None:
+        """F10·메뉴·대화: 지금 화면을 최근 장면들과 함께 자세히 분석."""
+        if self.busy or self.watcher.running_job:
+            self.status.flash("하던 일이 끝나면 다시 눌러 주세요")
+            return
+        self.status.begin("screen", "분석하는 중")
+        self.watcher.ask_analysis(question)
+
     def toggle_screen(self) -> None:
         on = not self.watcher.enabled
         self.set_screen_enabled(on)
@@ -354,10 +376,16 @@ class AssistantApp(QObject):
             self.status.begin("screen", "화면 확인 중")
         elif what == "line":
             self.status.begin("screen", "할 말 고르는 중")
+        elif what == "analyze":
+            self.status.begin("screen", "분석하는 중")
         else:
             self.status.end("screen")
 
     def _on_screen_line(self, reply) -> None:
+        if isinstance(reply, Analysis) and reply.speak:  # 분석은 창에 남겨 두니 대화 중이어도 보여 준다
+            self.analysis_panel.show_analysis(reply)
+            if self.busy:
+                return
         if self.busy:
             return
         if reply.action == "web_search":  # 화면에 모르는 이름 → 조용히 찾아보고 말하기 (한 시간에 6번까지)
@@ -434,6 +462,7 @@ class AssistantApp(QObject):
         self.hotkeys.register(str(g("hotkeys.ask_screen", "F8") or ""), self.ask_screen_now)
         self.hotkeys.register(str(g("hotkeys.toggle_screen", "F9") or ""), self.toggle_screen)
         self.hotkeys.register(str(g("hotkeys.voice", "F7") or ""), self.push_to_talk)
+        self.hotkeys.register(str(g("hotkeys.analyze", "F10") or ""), lambda: self.analyze_now())
 
     # ------------------------------------------------------------ 업데이트·다시 시작·설정 파일
 
@@ -501,6 +530,7 @@ class AssistantApp(QObject):
             "screen.interval_seconds": int(self.watch_cfg.interval_seconds),
             "screen.cooldown_seconds": int(self.watch_cfg.cooldown_seconds),
             "screen.monitor": str(self.watch_cfg.monitor),
+            "screen.analysis": bool(self.watch_cfg.analysis),
             "screen.max_width": int(self.watch_cfg.max_width),
             "voice.mode": self.voice.mode,
             "voice.mic": self.voice.device,
@@ -539,6 +569,8 @@ class AssistantApp(QObject):
             if key in changed:
                 setattr(cfg, attr, changed[key])
         self.watcher.apply_config()
+        if "screen.analysis" in changed:
+            self.set_analysis(bool(changed["screen.analysis"]), save=False)
         if "screen.enabled" in changed:
             self.set_screen_enabled(bool(changed["screen.enabled"]), save=False)
         if "voice.mic" in changed:
@@ -662,6 +694,16 @@ class AssistantApp(QObject):
         now = QAction(f"지금 화면 보고 말하기 ({g('hotkeys.ask_screen', 'F8')})", menu)
         now.triggered.connect(self.ask_screen_now)
         menu.addAction(now)
+        self.analysis_action = QAction("분석 모드 (중요한 순간마다 자세히 분석)", menu)
+        self.analysis_action.setCheckable(True)
+        self.analysis_action.triggered.connect(lambda on: self.set_analysis(on))
+        menu.addAction(self.analysis_action)
+        analyze = QAction(f"지금 자세히 분석 ({g('hotkeys.analyze', 'F10')})", menu)
+        analyze.triggered.connect(lambda: self.analyze_now())
+        menu.addAction(analyze)
+        panel = QAction("분석 창 보기", menu)
+        panel.triggered.connect(lambda: (self.analysis_panel.show(), self.analysis_panel.raise_()))
+        menu.addAction(panel)
         vmenu = menu.addMenu("목소리로 말 걸기")
         group = QActionGroup(vmenu)
         self.voice_actions = {}

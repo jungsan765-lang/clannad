@@ -47,12 +47,18 @@ class FakeCompanion:
         self.judged = []
         self.lines = []
 
-    def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal"):
+    def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False):
         self.judged.append({"title": title, "model": model, "minutes": minutes, "mode": mode.name if mode else None,
                             "notes": list(session_notes or [])})
         if self.notes:
             return self.notes.pop(0)
         return {"speak": True, "urgent": False, "scene": "playing", "situation": "오류 창", "point": "경로 확인"}
+
+    def analyze(self, frames, title, mode=None, session_notes=None, note=None, question=None):
+        from companion import Analysis
+
+        self.analyses = getattr(self, "analyses", []) + [{"frames": frames, "note": note, "question": question}]
+        return Analysis(True, "흐름을 보니 왼쪽이 비었습니다.", "교전 직후", [{"title": "위치", "detail": "근거"}], ["보급"])
 
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False):
         self.lines.append({"note": note, "question": question, "mode": mode.name if mode else None,
@@ -450,3 +456,35 @@ def test_requirements_file_parses_for_pip():
     dx = next(r for r in reqs if r.name == "dxcam")
     assert str(dx.specifier) == "==0.3.0" and dx.marker.evaluate({"sys_platform": "win32"})
     assert not dx.marker.evaluate({"sys_platform": "linux"})
+
+
+def test_analysis_mode_uses_recent_frames_instead_of_one_liner(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    w.cfg.analysis = True
+    seen = []
+    w.activity.connect(seen.append)
+    for i, now in enumerate([0, 20, 40]):  # 쉬는 시간 없이 판단만 쌓이게
+        t["now"] = now
+        w.last_spoke = None
+        w.last_check = None
+        w.tick()
+    a = comp.analyses[-1]
+    assert [round(ago) for _, ago in a["frames"]] == [40, 20, 0]  # 오래된 것부터, 지금 화면이 마지막
+    assert a["note"]["scene"] == "playing" and said[-1] == "흐름을 보니 왼쪽이 비었습니다."
+    assert "analyze" in seen and comp.lines == []  # 한 줄 대사는 안 씀
+    assert comp.memory.spoken_lines()[-1] == "흐름을 보니 왼쪽이 비었습니다."
+
+
+def test_frames_for_analysis_spacing(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    t["now"] = 100
+    for at in (0, 50, 80, 90, 95):
+        w.frames.append((at, f"f{at}".encode()))
+    picked = w.frames_for_analysis(b"now")
+    assert [(j, round(a)) for j, a in picked] == [(b"f50", 50), (b"f80", 20), (b"now", 0)]
+
+
+def test_ask_analysis_skips_judge(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    w.ask_analysis("파티 어때?")
+    assert comp.judged == [] and comp.analyses[-1]["question"] == "파티 어때?" and len(comp.analyses[-1]["frames"]) == 1

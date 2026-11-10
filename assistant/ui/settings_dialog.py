@@ -120,7 +120,10 @@ class SettingsDialog(QDialog):
         width = int(v.get("screen.max_width", 1920))
         near = min(SHARPNESS, key=lambda s: abs(s[0] - width))[0]  # 예전 값(1024 등)은 가까운 칸으로
         self.sharp = Choice([(str(w), label) for w, label in SHARPNESS], str(near))
-        g2 = group("화면 보기", [("", self.screen_on), ("말 거는 정도", self.chatty), ("화면 확인 간격", self.interval),
+        self.analysis = QCheckBox("분석 모드: 중요한 순간마다 최근 장면들로 자세히 분석 (한 번에 약 50~150원, F10 은 언제든)")
+        self.analysis.setChecked(bool(v.get("screen.analysis", False)))
+        g2 = group("화면 보기", [("", self.screen_on), ("", self.analysis), ("말 거는 정도", self.chatty),
+                                 ("화면 확인 간격", self.interval),
                                  ("한 번 말한 뒤 쉬는 시간", self.cooldown), ("볼 모니터", self.monitor),
                                  ("화면 선명도 (글자 읽기)", self.sharp)])
 
@@ -239,6 +242,7 @@ class SettingsDialog(QDialog):
             "screen.interval_seconds": self.interval.value(),
             "screen.cooldown_seconds": self.cooldown.value(),
             "screen.monitor": self.monitor.value(),
+            "screen.analysis": self.analysis.isChecked(),
             "screen.max_width": int(self.sharp.value()),
             "voice.mode": self.voice_mode.value(),
             "voice.mic": self.mic.currentData(),

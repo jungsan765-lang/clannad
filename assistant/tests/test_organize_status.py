@@ -352,3 +352,36 @@ def test_lorebook_reads_files_next_to_persona_but_not_core_files(tmp_path):
     book = LoreBook.load(tmp_path, tmp_path / "lore")
     titles = [e.title for e in book.entries]
     assert "나샤 마을" in titles and "성격" not in titles and "스네즈나야" not in titles
+
+
+# ---------------------------------------------------------------- 분석 모드
+
+def test_analyze_sends_frames_in_order_with_context_and_parses(tmp_path):
+    from lorebook import LoreBook
+
+    data = {"speak": True, "summary": "파티의 원충이 모자랍니다.", "situation": "나선 비경 12층 전반 직후",
+            "points": [{"title": "원소 충전", "detail": "베스나 원충 110%라 원소폭발이 늦게 돎."}],
+            "next_steps": ["시계를 원충 시계로 바꾸기"], "emotion": "normal"}
+    comp, fake = _comp(tmp_path, [data, dict(data, summary="The party lacks energy recharge.")])
+    comp.lorebook = LoreBook(LoreBook.parse(LORE))
+    comp.extra_context = lambda mode: "[주인님 원신 계정 정보] 베스나 원충 110%"
+    a = comp.analyze([(b"old", 40.0), (b"now", 0.0)], "Genshin Impact", note={"situation": "라우마와 대화", "point": ""})
+    assert a.speak and a.summary == "파티의 원충이 모자랍니다." and a.points[0]["title"] == "원소 충전"
+    req = fake.calls[-1]
+    assert req["output_config"]["effort"] == "medium" and req["max_tokens"] == 8000
+    assert set(req["output_config"]["format"]["schema"]["required"]) >= {"summary", "points", "next_steps"}
+    content = req["messages"][-1]["content"]
+    assert [c["type"] for c in content] == ["text", "image", "text", "image", "text"]
+    assert content[0]["text"] == "(40초 전 화면)" and content[2]["text"] == "(지금 화면)"
+    tail = content[-1]["text"]
+    assert "[분석]" in tail and "원충 110%" in tail and "노드크라이의 성녀" in tail
+    assert not comp.analyze([(b"now", 0.0)], "x").speak  # 영어 분석은 보여 주지 않음
+
+
+def test_screen_rules_ask_for_substance_and_judge_switches_in_analysis(tmp_path):
+    comp, fake = _comp(tmp_path, [])
+    comp.judge(b"jpg", "x", "claude-haiku-5-5", None, analysis=True)
+    sys_text = fake.calls[-1]["system"][0]["text"]
+    assert "분석 모드" in sys_text and "결과·정산 화면" in sys_text and "화면을 그대로 옮긴 말" in sys_text
+    comp.screen_line(b"jpg", "x", None)
+    assert "그대로 읊지 않는다" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)

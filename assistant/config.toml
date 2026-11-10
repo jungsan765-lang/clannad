@@ -46,6 +46,7 @@ mic = ""                # 마이크 이름. 비우면 Windows 기본 마이크 (
 ask_screen = "F8"       # 지금 화면 보고 말하기
 toggle_screen = "F9"    # 화면 보기 켜기/끄기
 voice = "F7"            # (단축키 모드) 듣기 시작/끝
+analyze = "F10"         # 지금 화면을 최근 장면들과 함께 자세히 분석 (분석 창)
 
 [memory]
 consolidate_every = 20   # 대화가 이만큼 쌓이면 장기기억을 정리한다

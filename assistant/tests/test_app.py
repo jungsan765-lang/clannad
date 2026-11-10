@@ -369,3 +369,30 @@ def test_judge_does_not_wait_long(tmp_path):
                      chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
     comp.judge(b"jpg", "x", "claude-haiku-5-5", None)
     assert fake.options[-1] == {"timeout": 30, "max_retries": 1}
+
+
+def test_analysis_shows_panel_and_summary_and_chat_can_ask(qapp, tmp_path, built, monkeypatch):
+    from companion import Analysis
+
+    fake = FakeAnthropic([{"speak": True, "message": "살펴보겠습니다.", "emotion": "normal", "action": "analyze_screen",
+                           "target": ""}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.set_analysis(True)
+    assert a.watch_cfg.analysis and a.analysis_action.isChecked() and a.pref("screen.analysis") is True
+    an = Analysis(True, "원충이 모자랍니다.", "비경 직후", [{"title": "원충", "detail": "110%"}], ["시계 바꾸기"], when="21:30")
+    a._on_screen_line(an)
+    html = a.analysis_panel.view.toHtml()
+    assert a.analysis_panel.isVisible() and "원충" in html and "시계 바꾸기" in html and "21:30" in html
+    assert a.bubble.text == "원충이 모자랍니다."
+    asked = []
+    monkeypatch.setattr(a.watcher, "ask_analysis", lambda q: asked.append(q))
+    a.bubble.hide()
+    a.ask("지금 파티 분석해 줘")
+    _wait(qapp, a)
+    from PySide6.QtTest import QTest
+
+    QTest.qWait(400)
+    assert asked == ["지금 파티 분석해 줘"] and "분석하는 중" in a.status.text
+    a.quit()

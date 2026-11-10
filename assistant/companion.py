@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
@@ -16,7 +16,7 @@ log = logging.getLogger("assistant.companion")
 
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
-ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact"]
+ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -50,6 +50,8 @@ JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담
 - 화면에서 반응할 거리를 적극적으로 찾는다: 보고 있는 영상·글·이미지의 내용, 게임 장면(위치·타이밍·판단·결과), 작업 중인 코드·문서·오류, 쇼핑·검색 중인 것, 시간대(늦은 밤 등).
 - 말하지 않을 때: 로딩·빈 화면, 최근에 한 말과 같은 내용, 확실히 보이지 않아 추측해야만 하는 내용.
 - situation: 지금 화면이 무엇인지 한국어 한 문장. point: 말한다면 무엇을 짚을지 한국어 한 문장(말 안 하면 빈 문자열).
+- point 는 화면을 그대로 옮긴 말('전투 중', '영상을 보는 중')이 아니라, 주인님이 모를 만한 정보·판단·조언·생각거리여야 한다.
+  그런 게 없으면 speak 는 false.
 - scene: playing(게임 플레이·작업 중), result(게임 결과 화면), menu(로비·메뉴·선택 화면), loading(로딩), cutscene(컷신·대화 장면), other.
 - urgent: 아래 '즉시 알릴 상황'에 해당할 때만 true (그때는 speak 도 true).
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다."""
@@ -65,10 +67,50 @@ SCREEN_TASK = """[화면 보고 먼저 말 걸기]
 - 게임이면 코칭: 이미 지나간 장면 기준으로 다음에 할 일 하나를 구체적으로.
 - 오류 창이면 원인 한 줄과 할 일 하나. 오래 작업 중이면 쉬자고. 영상·글이면 내용에 한마디.
 - 성격 파일의 '꼭 필요할 때만' 보다 이 지시가 우선한다. 다만 최근에 한 말과 똑같은 말이면 speak 는 false.
+- 보이는 것을 그대로 읊지 않는다('전투 중이시네요', '영상을 보시네요' 금지). 주인님이 모를 만한 정보, 판단과 그 이유,
+  구체적인 조언, 네 경험에서 나온 생각 중 하나를 꼭 담는다. 담을 게 없으면 speak 는 false.
 - 확실히 보이지 않는 건 추측하지 않는다.
 - 인물은 얼굴 생김새만으로 단정하지 않는다. 화면에 글자로 보이는 이름(파티 목록, 대화창 위 이름 등)으로 알아본다.
 - 화면에 이름이 보이는 인물·장소인데 네가 모르면 지어내지 말고 action 은 "web_search", target 은 "게임 이름 + 그 이름",
   message 는 빈 문자열로 한다(조용히 찾아본 뒤 말한다). 배경지식이나 '찾아보고 알게 된 것'에 있으면 찾지 않는다."""
+
+ANALYSIS_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "speak": {"type": "boolean"},
+        "summary": {"type": "string"},
+        "situation": {"type": "string"},
+        "points": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {"title": {"type": "string"}, "detail": {"type": "string"}},
+                "required": ["title", "detail"],
+                "additionalProperties": False,
+            },
+        },
+        "next_steps": {"type": "array", "items": {"type": "string"}},
+        "emotion": {"type": "string", "enum": EMOTIONS},
+    },
+    "required": ["speak", "summary", "situation", "points", "next_steps", "emotion"],
+    "additionalProperties": False,
+}
+
+ANALYSIS_TASK = """[분석]
+첨부한 이미지들은 주인님 모니터의 최근 장면들이다(오래된 것부터, 각 이미지 앞에 몇 초 전인지 적혀 있다).
+보이는 것을 읊지 말고 분석한다. 그 분야(그 게임)를 깊이 아는 사람처럼:
+- situation: 지금 무슨 상황이고 흐름이 어떻게 흘러왔는지 한두 문장.
+- points: 짚을 점 2~4개. title 은 짧은 제목, detail 은 화면에서 본 근거(숫자·표시·장면)와 그게 왜 중요한지.
+  잘하고 있는 점이 있으면 하나는 그걸로. 게임이면 파티 구성·스탯·운용·위치·판단, 게임이 아니면 작업 방식·오류 원인·효율.
+  아래에 '주인님 계정 정보'가 있으면 그 실제 숫자를 근거로 쓴다.
+- next_steps: 우선순위대로 지금 할 일 1~3개, 구체적으로(무엇을, 어떻게).
+- summary: 말풍선용 1~2문장. 캐릭터 말투로 핵심만.
+- 확실하지 않은 건 '추측'이라고 밝힌다. 화면에 근거가 없는 내용은 지어내지 않는다.
+- 분석할 거리가 정말 없으면(로딩·빈 화면 등) speak 는 false."""
+
+ANALYSIS_JUDGE = """말 거는 정도: 분석 모드. 자세히 분석할 만한 순간에만 speak=true:
+결과·정산 화면, 판·전투가 막 끝났을 때, 파티·장비·스킬·성유물 화면, 눈에 띄는 실수나 위험한 상황, 오류 창, 중요한 선택지.
+평범한 이동·탐험·대화·메뉴 넘기기는 false."""
 
 MODE_SCHEMA = {
     "type": "object",
@@ -167,6 +209,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   action 은 "note_request", target 에 바라는 기능을 한 문장으로 적는다. message 에서 개선 요청 메모에 적어 두겠다고 알린다.
 - 고정 기억: 주인님이 "고정해", "항상 기억해" 하며 알려 준 것은 action 은 "pin_fact", target 에 한 문장(주어는 '주인님')으로 적는다.
   '꼭 기억할 것'에 들어가 절대 잊지 않는다.
+- 화면 분석: 주인님이 지금 화면(게임 상황·파티·작업)을 자세히 분석해 달라고 하면 action 은 "analyze_screen",
+  message 는 "살펴보겠습니다" 같은 짧은 말 (최근 장면들을 보고 분석 창에 자세히 정리한다).
 - 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
@@ -256,6 +300,24 @@ def partial_message(buf: str) -> str | None:
 
 
 @dataclass
+class Analysis:
+    speak: bool
+    summary: str
+    situation: str = ""
+    points: list = field(default_factory=list)  # [{"title", "detail"}]
+    next_steps: list = field(default_factory=list)
+    emotion: str = "normal"
+    usd: float = 0.0
+    when: str = ""
+    action: str = "none"
+    target: str = ""
+
+    @property
+    def message(self) -> str:  # 말풍선에는 요약
+        return self.summary
+
+
+@dataclass
 class Reply:
     speak: bool
     message: str
@@ -284,6 +346,7 @@ class Companion:
         self.effort = effort
         self.max_tokens = max_tokens
         self.fast = False  # 빠른 모드 (요금 2배). 설정 창에서 켬
+        self.analysis_effort = "medium"  # 분석할 때 생각 깊이
         self.history_turns = history_turns
         self.consolidate_every = consolidate_every
         self.memory_max_chars = memory_max_chars
@@ -448,10 +511,11 @@ class Companion:
         return "\n".join(p for p in parts if p)
 
     def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
-              mode=None, session_notes: list[str] | None = None, chattiness: str = "normal") -> dict | None:
+              mode=None, session_notes: list[str] | None = None, chattiness: str = "normal",
+              analysis: bool = False) -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔."""
         recent = self.memory.spoken_lines(5)
-        system = JUDGE_RULES + "\n" + CHATTINESS.get(chattiness, CHATTINESS["normal"])
+        system = JUDGE_RULES + "\n" + (ANALYSIS_JUDGE if analysis else CHATTINESS.get(chattiness, CHATTINESS["normal"]))
         if mode is not None:
             system += "\n\n" + self._mode_text(mode, None)
         info = [f"맨 앞 창: {title or '(알 수 없음)'}"]
@@ -535,6 +599,50 @@ class Companion:
         r = self.ai.complete_json(model=self.chat_model, system=system, messages=[{"role": "user", "content": "\n".join(lines)}],
                                   schema=MODE_SCHEMA, kind="mode", max_tokens=4000, effort="low")
         return r.data, usd + r.usd
+
+    # ------------------------------------------------------------ 분석
+
+    def analyze(self, frames: list[tuple[bytes, float]], title: str, mode=None, session_notes: list[str] | None = None,
+                note: dict | None = None, question: str | None = None, now: datetime | None = None) -> Analysis:
+        """최근 장면 여러 장(jpeg, 몇 초 전)을 보고 깊게 분석한다. 말풍선엔 summary, 분석 창엔 나머지."""
+        now = now or datetime.now()
+        stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
+        content: list[dict] = []
+        for jpeg, ago in frames:
+            content.append({"type": "text", "text": "(지금 화면)" if ago < 1 else f"({ago:.0f}초 전 화면)"})
+            content.append(self._image_block(jpeg))
+        lines = [f"[지금: {stamp}]", ANALYSIS_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
+        if self.user_names:
+            lines.append(self.names_text())
+        mode_text = self._mode_text(mode, session_notes)
+        if mode_text:
+            lines.append(mode_text)
+        if note:
+            lines.append(f"판단 메모: {note.get('situation', '')} / {note.get('point', '')}")
+        if question:
+            lines.append(f"주인님이 분석을 부탁했다: {question} → speak 는 true.")
+        seen = " ".join([title or "", question or "", (note or {}).get("situation", "")] + list(session_notes or [])[-8:])
+        notes = self.lorebook.notes_for(seen)
+        if notes:
+            lines.append(notes)
+        extra = self.extra_context(mode) if self.extra_context else ""
+        if extra:
+            lines.append(extra)
+        content.append({"type": "text", "text": "\n".join(lines)})
+        messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
+        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(), messages=messages,
+                                  schema=ANALYSIS_SCHEMA, kind="analysis", max_tokens=8000, effort=self.analysis_effort,
+                                  timeout=120)
+        d = r.data
+        if not d or not d.get("speak") or not str(d.get("summary", "")).strip():
+            return Analysis(False, "", usd=r.usd)
+        texts = [d["summary"], d.get("situation", "")] + [p.get("detail", "") for p in d.get("points", [])]
+        if not all(is_korean(t) for t in texts if t):
+            log.warning("분석이 한국어가 아님 → 표시하지 않음")
+            return Analysis(False, "", usd=r.usd)
+        return Analysis(True, d["summary"].strip(), d.get("situation", "").strip(), list(d.get("points", []))[:5],
+                        [str(x) for x in d.get("next_steps", [])][:4],
+                        d["emotion"] if d.get("emotion") in EMOTIONS else "normal", r.usd, now.strftime("%H:%M"))
 
     # ------------------------------------------------------------ 파일 정리안
 
