@@ -150,7 +150,8 @@ def test_build_outputs(built):
     ys = np.nonzero(rows)[0]
     assert 232 <= ys.max() - ys.min() + 1 <= 248
     assert (out / "previews" / "sheet.png").is_file()
-    assert (out / "previews" / "idle.gif").is_file()
+    assert (out / "previews" / "idle.mp4").stat().st_size > 0
+    assert (out / "previews" / "all.mp4").stat().st_size > 0
     assert json.loads((out / "manifest.json").read_text(encoding="utf-8")) == m
 
 

@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 import re
+import subprocess
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
@@ -282,19 +283,49 @@ def composite(rgba: np.ndarray, bg: np.ndarray) -> np.ndarray:
     return (rgba[..., :3] * a + bg * (1 - a)).astype(np.uint8)
 
 
-def write_previews(out_dir: Path, name: str, frames: list[np.ndarray], fps: float, loop: str, max_h: int = 320) -> Path:
+PREVIEW_BG = (172, 176, 186)  # 흰 옷과 검은 옷이 둘 다 잘 보이는 중간 회색
+
+
+def preview_sequence(frames: list[np.ndarray], loop: str, min_seconds: float, fps: float) -> list[np.ndarray]:
+    """미리보기용으로 반복 동작은 몇 바퀴 돌려 min_seconds 이상이 되게 한다."""
+    one = frames + frames[-2:0:-1] if loop == "pingpong" else list(frames)
+    if loop == "once":
+        return one
+    reps = max(1, math.ceil(min_seconds * fps / max(1, len(one))))
+    return one * reps
+
+
+def write_video(path: Path, frames: list[np.ndarray], fps: float, bg: tuple[int, int, int] = PREVIEW_BG) -> Path:
+    """폰에서도 바로 재생되는 원본 크기 MP4(H.264)로 저장한다."""
+    h, w = frames[0].shape[:2]
+    w2, h2 = w + (w % 2), h + (h % 2)  # H.264 는 짝수 크기만
+    back = np.zeros((h2, w2, 3), np.uint8)
+    back[:] = bg
+    proc = subprocess.Popen(
+        ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{w2}x{h2}",
+         "-r", f"{fps}", "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "16",
+         "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(path)],
+        stdin=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    assert proc.stdin is not None
+    try:
+        for f in frames:
+            canvas = back.copy()
+            canvas[:h, :w] = composite(f, back[:h, :w])
+            proc.stdin.write(canvas.tobytes())
+    finally:
+        proc.stdin.close()
+    if proc.wait() != 0:
+        raise RuntimeError(f"미리보기 영상 저장 실패: {proc.stderr.read().decode(errors='replace') if proc.stderr else ''}")
+    return path
+
+
+def write_previews(out_dir: Path, name: str, frames: list[np.ndarray], fps: float, loop: str) -> Path:
     prev = out_dir / "previews"
     prev.mkdir(exist_ok=True)
-    h, w = frames[0].shape[:2]
-    s = min(1.0, max_h / h)
-    pw, ph = max(1, round(w * s)), max(1, round(h * s))
-    bg = _checker(pw, ph)
-    seq = frames + frames[-2:0:-1] if loop == "pingpong" else frames
-    imgs = [Image.fromarray(composite(resize_rgba(f, pw, ph), bg)) for f in seq]
-    path = prev / f"{name}.gif"
-    imgs[0].save(path, save_all=True, append_images=imgs[1:], duration=max(20, round(1000 / fps)),
-                 loop=0, disposal=1, optimize=False)
-    return path
+    for old in prev.glob(f"{name}.gif"):
+        old.unlink()
+    return write_video(prev / f"{name}.mp4", preview_sequence(frames, loop, 4.0, fps), fps)
 
 
 def write_sheet(out_dir: Path, rows: list[tuple[str, list[np.ndarray]]], per_row: int = 8, cell_h: int = 200) -> Path:
@@ -320,6 +351,24 @@ def write_sheet(out_dir: Path, rows: list[tuple[str, list[np.ndarray]]], per_row
     path.parent.mkdir(exist_ok=True)
     Image.fromarray(sheet).save(path)
     return path
+
+
+def _concat_previews(out_dir: Path, order: list[str]) -> None:
+    """동작별 미리보기를 이어 붙여 all.mp4 하나로 만든다 (폰에서 한 번에 보기용)."""
+    prev = out_dir / "previews"
+    parts = [prev / f"{n}.mp4" for n in order if (prev / f"{n}.mp4").is_file()]
+    if not parts:
+        return
+    sizes = {(p.stat().st_size > 0) for p in parts}
+    if sizes != {True}:
+        return
+    lst = prev / "_concat.txt"
+    lst.write_text("".join(f"file '{p.name}'\n" for p in parts), encoding="utf-8")
+    try:
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
+                        "-c", "copy", "-movflags", "+faststart", str(prev / "all.mp4")], check=True)
+    finally:
+        lst.unlink(missing_ok=True)
 
 
 def _clear_frames(folder: Path) -> None:
@@ -401,6 +450,7 @@ def build(recipe: Recipe, out_dir: Path, work_dir: Path, models_dir: Path, log: 
         log(f"  {name}: {len(frames)}장 저장")
 
     write_sheet(out_dir, sheet_rows)
+    _concat_previews(out_dir, [recipe.default_motion] + [n for n in clips if n != recipe.default_motion])
     manifest = {
         "format": MANIFEST_FORMAT,
         "name": recipe.name,

@@ -100,7 +100,7 @@ def cmd_build(args) -> int:
     work = HERE / "work" / recipe.name
     build(recipe, out, work, HERE / "models")
     print(f"\n완료: {out}")
-    print(f"미리보기: {out / 'previews'}  (sheet.png, 동작별 GIF)")
+    print(f"미리보기: {out / 'previews'}  (all.mp4 = 전체 동작, 동작별 mp4, sheet.png)")
     print(f"바탕화면 확인: python preview_character.py {out}")
     return 0
 
