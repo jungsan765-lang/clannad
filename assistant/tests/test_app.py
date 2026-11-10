@@ -558,3 +558,52 @@ def test_bubble_time_setting(qapp, tmp_path, built):
     long = a.bubble.duration_ms("가" * 40)
     a.apply_settings({"ui.bubble_time": "short"})
     assert a.bubble.duration_ms("가" * 40) < normal < long and a.pref("ui.bubble_time") == "short"
+
+
+def test_rules_from_chat_apply_per_game(qapp, tmp_path, built):
+    from watch.modes import Mode
+
+    from ui.rules_dialog import RulesDialog
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "알겠습니다. 앞으로 그런 말은 하지 않겠습니다.", "emotion": "normal",
+         "action": "add_rule", "target": "칸타이 컬렉션: 원정 귀환 알림은 말하지 않기"},
+        {"speak": True, "message": "알겠습니다.", "emotion": "normal", "action": "add_rule",
+         "target": "어디서든: 쉬라는 잔소리 하지 않기"},
+        {"speak": False, "situation": "원정 귀환 화면", "point": ""},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    kc = Mode("칸코레", titles=["艦これ"], is_game=True)
+    a.watcher.mode = kc
+    a.ask("원정 얘기 좀 그만해")
+    _wait(qapp, a)
+    a.ask("어디서든 쉬라는 소리 하지 마")
+    _wait(qapp, a)
+    rules = a.companion.memory.rules
+    assert [(r["scope"], r["text"]) for r in rules] == [("칸코레", "원정 귀환 알림은 말하지 않기"),
+                                                       ("전체", "쉬라는 잔소리 하지 않기")]
+    # 다음부터 대화할 때도 알고 있다
+    assert "원정 귀환 알림은 말하지 않기" in a.companion.system_blocks()[1]["text"]
+    # 화면 판단 담당에게: 칸코레에서는 둘 다, 다른 게임에서는 '전체' 것만
+    a.companion.judge(b"jpeg", "艦これ", "claude-haiku-5-5", None, mode=kc)
+    system = fake.calls[-1]["system"]
+    text = system if isinstance(system, str) else " ".join(b["text"] for b in system)
+    assert "원정 귀환 알림은 말하지 않기" in text and "쉬라는 잔소리" in text and "speak=false" in text
+    assert a.companion.memory.rules_for("원신") == ["쉬라는 잔소리 하지 않기"]
+    # 창에서 보고, 지우고, 직접 적기
+    dlg = RulesDialog(a.companion.memory, ["전체", "칸코레"])
+    assert dlg.list.count() == 2 and "[칸코레]" in dlg.list.item(0).text()
+    dlg.list.setCurrentRow(0)
+    dlg._remove()
+    dlg.scope.setCurrentText("칸코레")
+    dlg.entry.setText("  보급 얘기 하지 않기 ")
+    dlg._add()
+    dlg._add()  # 같은 건 두 번 안 적힘 (빈 칸이라 무시)
+    assert [(r["scope"], r["text"]) for r in a.companion.memory.rules] == [("전체", "쉬라는 잔소리 하지 않기"),
+                                                                          ("칸코레", "보급 얘기 하지 않기")]
+    a.quit()
+    b = app_main.build(_settings(tmp_path, built["out"].as_posix()),
+                       ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    assert len(b.companion.memory.rules) == 2  # 다시 켜도 남아 있다

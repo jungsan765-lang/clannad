@@ -333,6 +333,10 @@ class AssistantApp(QObject):
             self.read_window_and_answer(reply.target.strip())
         elif reply.action == "make_game_mode":
             self.make_game_mode_now()
+        elif reply.action == "add_rule" and reply.target.strip():
+            scope, text = self._rule_scope(reply.target)
+            if self.companion.memory.add_rule(scope, text):
+                self.status.flash(f"금지 사항에 적었어요 ({scope})")
         elif reply.action == "pin_fact" and reply.target.strip():
             if self.companion.memory.add_pinned(reply.target):
                 self.status.flash("꼭 기억할 것에 적었어요")
@@ -895,6 +899,7 @@ class AssistantApp(QObject):
         # 기억
         mem = menu.addMenu("기억")
         add(mem, "기억 보기", self.show_memory)
+        add(mem, "금지 사항 (하지 말라고 한 것)…", self.open_rules)
         add(mem, "기억 지금 정리하기", self.consolidate_now)
         add(mem, "최근 대화 잊기 (장기기억은 유지)", self.companion.memory.clear_recent)
 
@@ -1349,6 +1354,26 @@ class AssistantApp(QObject):
 
     def _apply_bubble_time(self, key: str) -> None:
         self.bubble.min_seconds, self.bubble.seconds_per_char = self.BUBBLE_TIMES.get(key, self.BUBBLE_TIMES["normal"])
+
+    def _rule_scope(self, target: str) -> tuple[str, str]:
+        """'칸코레: 원정 얘기 하지 않기' → ('칸코레', '원정 얘기 하지 않기'). 범위가 없으면 지금 게임, 아니면 전체."""
+        names = {m.name for m in self.watcher.modes}
+        here = self.watcher.mode.name if self.watcher.mode.is_game else "전체"
+        head, sep, rest = target.partition(":")
+        head = head.strip()
+        if sep and rest.strip():
+            if head in ("전체", "어디서든", "항상", "모든 곳"):
+                return "전체", rest.strip()
+            if head in names:
+                return head, rest.strip()
+            if len(head) <= 15:  # 게임 이름을 조금 다르게 적었으면 (예: '칸타이 컬렉션') 지금 게임으로
+                return here, rest.strip()
+        return here, target.strip()
+
+    def open_rules(self) -> None:
+        from ui.rules_dialog import RulesDialog
+
+        RulesDialog(self.companion.memory, ["전체"] + [m.name for m in self.watcher.modes]).exec()
 
     def show_history(self) -> None:
         HistoryDialog(self.settings.data_dir / "logs").exec()

@@ -17,7 +17,7 @@ log = logging.getLogger("assistant.companion")
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
-           "read_window"]
+           "read_window", "add_rule"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -277,6 +277,10 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 창 읽기: 주인님이 카카오톡·디스코드·메모장 같은 다른 프로그램 창(또는 '이 창')을 읽어 달라고 하면 action 은 "read_window",
   target 에 프로그램 이름(예: "카카오톡", 지금 쓰던 창이면 빈 문자열), message 는 "확인해 보겠습니다" 같은 짧은 말.
   창을 찍어서 본 뒤에 이어서 답한다. 메시지를 보내거나 창을 조작하지는 못한다.
+- 금지 사항: 주인님이 "앞으로 ~하지 마", "그런 얘기 하지 마", "그건 쓸데없어"처럼 하지 말라고 하면 action 은 "add_rule",
+  target 은 "적용 범위: 하지 말 것" 한 문장으로 구체적으로 적는다. 적용 범위는 게임 중에 한 말이면 지금 게임 이름,
+  "어디서든"·"항상"이면 "전체". 예) "칸코레: 원정 귀환 알림은 말하지 않기", "전체: 쉬라는 잔소리 하지 않기".
+  방금 네가 한 말을 두고 하는 말이면 그 말의 주제를 금지 사항으로 적는다. message 는 "알겠습니다. 앞으로 그런 말은 하지 않겠습니다" 처럼 짧게.
 - 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
@@ -434,6 +438,9 @@ class Companion:
         pinned = self.pinned_text()
         if pinned:
             second += "# 꼭 기억할 것 (주인님이 고정해 둔 것. 절대 잊지 않는다)\n" + pinned + "\n\n"
+        if self.memory.rules:
+            second += ("# 주인님이 하지 말라고 한 것 (반드시 지킨다)\n"
+                       + "\n".join(f"- [{r['scope']}] {r['text']}" for r in self.memory.rules) + "\n\n")
         second += "# 기억 (네가 적어 둔 메모)\n" + self.memory.notes_text()
         known = self.memory.knowledge_text()
         if known:
@@ -593,6 +600,13 @@ class Companion:
         return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg",
                                             "data": base64.b64encode(jpeg).decode("ascii")}}
 
+    def rules_text(self, mode) -> str:
+        rules = self.memory.rules_for(getattr(mode, "name", None))
+        if not rules:
+            return ""
+        return ("\n\n# 주인님이 하지 말라고 한 것 (이런 내용이면 speak=false. 다른 말거리가 있을 때만 말한다)\n"
+                + "\n".join(f"- {r}" for r in rules))
+
     def _focus_blocks(self, focus: bytes | None, label: str = "") -> list[dict]:
         if not focus:
             return []
@@ -619,7 +633,7 @@ class Companion:
         recent = self.memory.spoken_lines(5)
         style = (REVIEW_JUDGE if review else ANALYSIS_JUDGE if analysis
                  else CHATTINESS.get(chattiness, CHATTINESS["normal"]))
-        system = JUDGE_RULES + "\n" + style
+        system = JUDGE_RULES + "\n" + style + self.rules_text(mode)
         if mode is not None:
             system += "\n\n" + self._mode_text(mode, None)
         info = [f"맨 앞 창: {title or '(알 수 없음)'}"]
@@ -656,6 +670,9 @@ class Companion:
             lines.append(mode_text)
         if note and note.get("urgent"):
             lines.append("즉시 알릴 상황이다. 짧고 분명하게 경고한다. speak 는 true.")
+        rules = self.rules_text(mode)
+        if rules:
+            lines.append(rules.strip())
         if note:
             lines.append(f"판단 메모: {note.get('situation', '')} / {note.get('point', '')}")
         recent = self.memory.spoken_lines(5)
@@ -720,6 +737,9 @@ class Companion:
             content.append(self._image_block(jpeg))
         content += self._focus_blocks(focus, focus_label)
         lines = [f"[지금: {stamp}]", REVIEW_TASK if review else ANALYSIS_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
+        rules = self.rules_text(mode)
+        if rules:
+            lines.append(rules.strip())
         if self.user_names:
             lines.append(self.names_text())
         mode_text = self._mode_text(mode, session_notes)

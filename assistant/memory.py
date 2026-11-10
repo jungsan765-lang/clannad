@@ -49,6 +49,7 @@ class Memory:
         self.pending: list[dict] = mem.get("pending", [])  # 아직 장기기억에 반영 안 된 대화
         self.knowledge: list[dict] = self._read("knowledge.json", [])  # 찾아보고 알게 된 것
         self.pinned: list[str] = self._read("pinned.json", [])  # 주인님이 고정해 둔 것 (정리해도 안 지움)
+        self.rules: list[dict] = self._read("rules.json", [])  # 금지 사항: {"scope": "전체"|게임 이름, "text", "date"}
 
     # ------------------------------------------------------------ 저장
 
@@ -134,6 +135,28 @@ class Memory:
         with self._lock:
             self.recent = []
             self._save()
+
+    # ------------------------------------------------------------ 금지 사항 (주인님이 하지 말라고 한 것)
+
+    def add_rule(self, scope: str, text: str, when: datetime | None = None) -> bool:
+        text = " ".join(str(text).split())[:200]
+        scope = (scope or "전체").strip() or "전체"
+        if not text or any(r["scope"] == scope and r["text"] == text for r in self.rules):
+            return False
+        with self._lock:
+            self.rules.append({"scope": scope, "text": text, "date": (when or datetime.now()).date().isoformat()})
+            self._write("rules.json", self.rules)
+        return True
+
+    def remove_rule(self, index: int) -> None:
+        with self._lock:
+            if 0 <= index < len(self.rules):
+                del self.rules[index]
+                self._write("rules.json", self.rules)
+
+    def rules_for(self, mode_name: str | None) -> list[str]:
+        """지금 상황에 적용되는 금지 사항 (전체 + 지금 게임)."""
+        return [r["text"] for r in self.rules if r["scope"] in ("전체", mode_name or "")]
 
     # ------------------------------------------------------------ 고정해 둔 것
 

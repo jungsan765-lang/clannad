@@ -518,3 +518,31 @@ def test_review_mode_keeps_watching_and_recaps_after_a_scene_ends(qapp, tmp_path
     t["now"] = 75.0
     w.tick()
     assert len(comp.analyses) == 2
+
+
+def test_rules_reach_screen_line_and_analysis(tmp_path):
+    from watch.modes import Mode
+
+    fake = FakeAnthropic([{"speak": False, "message": "", "emotion": "normal"},
+                          {"summary": "요약", "situation": "상황", "points": [], "next_steps": []}])
+    mem = Memory(tmp_path / "d")
+    mem.add_rule("디맥", "판정 얘기 하지 않기")
+    mem.add_rule("디맥", "판정 얘기 하지 않기")  # 같은 건 한 번만
+    mem.add_rule("원신", "레진 얘기 하지 않기")
+    assert len(mem.rules) == 2
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), mem, None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    dj = Mode("디맥", is_game=True)
+
+    def prompt(call):
+        return " ".join(b.get("text", "") for m in call["messages"] for b in (m["content"] if isinstance(m["content"], list) else [{"text": m["content"]}]))
+
+    comp.screen_line(b"jpeg", "DJMAX", {"situation": "곡 선택", "point": ""}, mode=dj)
+    assert "판정 얘기 하지 않기" in prompt(fake.calls[-1]) and "레진" not in prompt(fake.calls[-1])
+    try:
+        comp.analyze([(b"jpeg", 0.0)], "DJMAX", mode=dj)
+    except Exception:  # noqa: BLE001 - 가짜 응답 모양과 상관없이 보낸 내용만 본다
+        pass
+    assert "판정 얘기 하지 않기" in prompt(fake.calls[-1])
+    mem.remove_rule(0)
+    assert mem.rules_for("디맥") == [] and Memory(tmp_path / "d").rules_for("원신") == ["레진 얘기 하지 않기"]
