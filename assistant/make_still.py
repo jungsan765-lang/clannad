@@ -23,7 +23,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--name", default="danika_still", help="캐릭터 폴더 이름 (기본 danika_still)")
     ap.add_argument("--height", type=int, default=768, help="캐릭터 키(px), 기본 768")
     ap.add_argument("--breath", type=float, default=4.0, help="숨쉴 때 위로 올라가는 폭(px), 기본 4")
-    ap.add_argument("--bounce", type=float, default=3.5, help="말할 때 튀는 폭(px), 기본 3.5")
+    ap.add_argument("--bounce", type=float, default=1.5, help="말할 때 가슴 위쪽이 튀는 폭(px), 기본 1.5. 0 이면 안 튐")
     args = ap.parse_args(argv)
     image = Path(args.image)
     if not image.is_file():

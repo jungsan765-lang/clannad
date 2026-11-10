@@ -61,11 +61,15 @@ def trim_and_scale(rgba: np.ndarray, height: int, pad: int, headroom: int) -> np
     return out  # premultiplied float
 
 
-def _lift(p: np.ndarray, amount_px: float, chest: float) -> np.ndarray:
-    """맨 아래는 그대로, chest(위에서부터 비율) 위쪽은 amount_px 만큼 위로. 그 사이는 부드럽게."""
+def _lift(p: np.ndarray, amount_px: float, full: float, start: float = 1.0) -> np.ndarray:
+    """start(위에서부터 비율) 아래는 그대로, full 위쪽은 amount_px 만큼 위로. 그 사이는 부드럽게.
+
+    숨쉬기: start=1.0(맨 아래부터 서서히), 말할 때: start=가슴선(그 아래는 완전히 고정).
+    """
     h, w = p.shape[:2]
     y = np.arange(h, dtype=np.float32)
-    t = np.clip((h - 1 - y) / max((h - 1) * (1 - chest), 1), 0, 1)
+    y_start, y_full = (h - 1) * start, (h - 1) * full
+    t = np.clip((y_start - y) / max(y_start - y_full, 1), 0, 1)
     weight = t * t * (3 - 2 * t)
     src_y = y + amount_px * weight  # 출력 y 에 올 원본 위치 (위로 올리면 아래쪽 원본을 가져옴)
     map_y = np.repeat(src_y[:, None], w, axis=1).astype(np.float32)
@@ -81,8 +85,9 @@ def _to_u8(p: np.ndarray) -> np.ndarray:
 
 def make_still_character(image: Path, out_dir: Path, models_dir: Path, *, name: str, height: int = 768,
                          fps: float = 24, breath_px: float = 4.0, breath_seconds: float = 3.6,
-                         bounce_px: float = 3.5, bounce_seconds: float = 0.45, chest: float = 0.42,
-                         log=print) -> dict:
+                         bounce_px: float = 1.5, bounce_seconds: float = 0.45, chest: float = 0.42,
+                         bounce_from: float = 0.45, bounce_full: float = 0.22, log=print) -> dict:
+    """bounce_px <= 0 이면 말할 때 움직임 없음. bounce_from 아래(가슴선)는 고정, bounce_full 위(목·머리)가 다 움직임."""
     log(f"그림 불러오는 중: {image}")
     rgba = load_cutout(image, models_dir, log)
     pad = 6
@@ -91,12 +96,19 @@ def make_still_character(image: Path, out_dir: Path, models_dir: Path, *, name: 
     # 숨쉬기: 들이쉬는 반 주기만 만들고 앞뒤 왕복(pingpong)으로 재생 → 프레임 절반
     n = max(2, round(breath_seconds / 2 * fps))
     idle = [_to_u8(_lift(base, breath_px * (0.5 - 0.5 * math.cos(math.pi * i / (n - 1))), chest)) for i in range(n)]
-    # 말할 때: 숨 내쉰 자세(평소 첫 장면)에서 위로 통통
-    m = max(2, round(bounce_seconds * fps))
-    talk = [_to_u8(_lift(base, bounce_px * abs(math.sin(math.pi * i / m)), chest)) for i in range(m)]
-
     out_dir.mkdir(parents=True, exist_ok=True)
-    motions = {"idle": (idle, "pingpong"), "talk": (talk, "loop")}
+    motions = {"idle": (idle, "pingpong")}
+    if bounce_px > 0:
+        # 말할 때: 숨 내쉰 자세(평소 첫 장면)에서 가슴 위쪽만 살짝 위로
+        m = max(2, round(bounce_seconds * fps))
+        motions["talk"] = ([_to_u8(_lift(base, bounce_px * abs(math.sin(math.pi * i / m)), bounce_full, bounce_from))
+                            for i in range(m)], "loop")
+    else:
+        old_talk = out_dir / "talk"
+        if old_talk.is_dir():
+            for f in old_talk.iterdir():
+                if FRAME_RE.match(f.name):
+                    f.unlink()
     meta, rows = {}, []
     for mname, (frames, loop) in motions.items():
         folder = out_dir / mname
@@ -111,10 +123,10 @@ def make_still_character(image: Path, out_dir: Path, models_dir: Path, *, name: 
         rows.append((f"{mname} ({len(frames)}f, {loop})", frames))
         log(f"  {mname}: {len(frames)}장")
     write_sheet(out_dir, rows)
-    _concat_previews(out_dir, ["idle", "talk"])
+    _concat_previews(out_dir, list(motions))
     manifest = {
         "format": 1, "name": name, "size": [idle[0].shape[1], idle[0].shape[0]], "image_format": "png",
-        "default": "idle", "talk": "talk", "motions": meta,
+        "default": "idle", "talk": "talk" if "talk" in meta else None, "motions": meta,
         "emotions": {e: "idle" for e in EMOTIONS}, "fidgets": [], "fidget_every": [180, 420],
     }
     (out_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -211,3 +211,25 @@ def test_still_character_breathes_with_fixed_bottom(tmp_path):
     assert top(first) - top(last) >= 3  # 숨 들이쉬면 머리가 올라감
     assert first[:5, :5, 3].max() == 0  # 떨어진 점은 지워짐
     assert (out / "previews" / "all.mp4").stat().st_size > 0
+
+
+def test_still_talk_moves_only_upper_body_and_can_be_off(tmp_path):
+    from sprites.still import make_still_character
+
+    img = np.zeros((300, 160, 4), np.uint8)
+    img[40:300, 40:120] = (200, 210, 230, 255)
+    img[10:40, 60:100] = (240, 210, 200, 255)
+    img[150:160, 40:120] = (30, 30, 30, 255)  # 가슴선 아래 표시 줄
+    path = tmp_path / "c.png"
+    Image.fromarray(img).save(path)
+    m = make_still_character(path, tmp_path / "a", tmp_path / "models", name="a", height=200, log=lambda *_: None)
+    talk = [np.asarray(Image.open(tmp_path / "a" / "talk" / f"{i:04d}.png")).astype(int)
+            for i in range(m["motions"]["talk"]["frames"])]
+    h = talk[0].shape[0]
+    below = slice(int(h * 0.5), h)  # 가슴선 아래는 말할 때 전혀 안 움직임
+    assert max(np.abs(f[below] - talk[0][below]).max() for f in talk) <= 1
+    top = lambda f: np.nonzero((f[..., 3] > 128).any(1))[0].min()
+    assert 1 <= top(talk[0]) - min(top(f) for f in talk) <= 2  # 머리만 1~2px
+    m2 = make_still_character(path, tmp_path / "b", tmp_path / "models", name="b", height=200, bounce_px=0,
+                              log=lambda *_: None)
+    assert m2["talk"] is None and set(m2["motions"]) == {"idle"}
