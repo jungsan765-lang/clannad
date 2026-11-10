@@ -78,6 +78,7 @@ class _Signals(QObject):
 
 
 TTS_RATES = {"slow": -2, "normal": 0, "fast": 3}
+MOMENT_WORDS = re.compile(r"기억해|기억 ?해 ?둬|잊지 ?마|잊으면 안|중요한 거|중요해|메모해|적어 ?둬")
 # 화면 보기에 드는 호출 종류 (하루 화면 한도에 들어감). 주인님이 직접 부탁한 대화·분석은 한도와 상관없이 된다
 SCREEN_KINDS = ("judge", "screen", "pick", "analysis", "result_review", "official_review")
 
@@ -340,6 +341,7 @@ class AssistantApp(QObject):
         self.status.begin("chat", "생각 중")
         self._streamed = False
         self._last_question = text
+        self._moment_request = text if MOMENT_WORDS.search(text) else None
         context = self.watcher.chat_context()  # 게임 중이면 이번 판 기록을 함께 넘긴다
         mode = self.watcher.mode.name
         infos = []
@@ -418,7 +420,7 @@ class AssistantApp(QObject):
 
     def _recall_images(self, episodes) -> list:
         for e in episodes[:3]:
-            if e.kind == "screen" and e.ref and Path(e.ref).is_file():
+            if e.kind in ("screen", "moment") and e.ref and Path(e.ref).is_file():
                 try:
                     return [(f"(그때 화면: {e.when()} {e.game})", Path(e.ref).read_bytes())]
                 except OSError:
@@ -469,6 +471,29 @@ class AssistantApp(QObject):
 
         self._run(work, done, fail)
 
+    def save_moment(self, user_text: str, reply_text: str) -> None:
+        """주인님이 '기억해'라고 한 순간: 그때 화면 한 장 + 대화 + 최근 화면 흐름을 일화로 (떠올릴 때 더 잘 나옴)."""
+        ref = ""
+        if self.watcher.frames:
+            t, jpeg = self.watcher.frames[-1]
+            if self.watcher.clock() - t < 180:  # 3분 안의 화면이면
+                folder = self.settings.data_dir / "moments"
+                try:
+                    folder.mkdir(parents=True, exist_ok=True)
+                    path = folder / f"{time.strftime('%Y%m%d_%H%M%S')}.jpg"
+                    path.write_bytes(jpeg)
+                    ref = str(path)
+                except OSError as exc:
+                    log.warning("순간 화면 저장 실패: %s", exc)
+        mode = self.watcher.mode
+        flow = " / ".join(list(self.watcher.flow)[-5:]) if not mode.is_game else ""
+        try:
+            self.recall_index.add(datetime.now().isoformat(timespec="seconds"), "moment",
+                                  f"주인님: {user_text}\n다니카: {reply_text}", detail=flow,
+                                  game=mode.name if mode.is_game else "", ref=ref)
+        except Exception:  # noqa: BLE001
+            log.exception("순간 저장 실패")
+
     def remember_episode(self, kind: str, text: str, game: str = "", detail: str = "") -> None:
         """분석·찾아본 것·게임 기록처럼 원본 기록 파일이 없는 일을 색인에 바로 넣는다."""
         try:
@@ -490,6 +515,9 @@ class AssistantApp(QObject):
         self.busy = False
         self.voice.paused = False
         self.status.end("chat")
+        if getattr(self, "_moment_request", None):  # "이거 기억해" → 그 순간을 화면째 남김
+            self.save_moment(self._moment_request, reply.message)
+            self._moment_request = None
         remembered = getattr(self.companion, "last_remembered", []) or []
         if remembered:  # 대답과 함께 바로 적은 기억
             self.companion.last_remembered = []

@@ -93,7 +93,8 @@ class Episode:
             return self.time[:16]
 
 
-KIND_LABEL = {"chat": "대화", "screen": "화면", "said": "화면 보고 한 말", "analysis": "분석", "lookup": "찾아본 것",
+KIND_BOOST = {"moment": 1.6, "diary": 1.2, "fact": 1.2}  # 주인님이 '기억해' 한 순간은 더 잘 떠오르게
+KIND_LABEL = {"moment": "기억해 달라고 한 순간", "chat": "대화", "screen": "화면", "said": "화면 보고 한 말", "analysis": "분석", "lookup": "찾아본 것",
               "diary": "일기", "game": "게임 기록", "fact": "예전 기억"}
 
 
@@ -271,19 +272,20 @@ class EpisodeIndex:
             rows = self.db.execute(
                 "SELECT id, time, kind, game, text, detail, ref FROM episodes WHERE id IN (%s)" % ",".join("?" * len(top)),
                 [i for i, _ in top]).fetchall()
-        eps = [Episode(*r, score=scores[r[0]]) for r in rows if not kinds or r[2] in kinds]
+        eps = [Episode(*r, score=scores[r[0]] * KIND_BOOST.get(r[2], 1.0)) for r in rows if not kinds or r[2] in kinds]
         if before:
             eps = [e for e in eps if e.time < before]
         eps.sort(key=lambda e: (-e.score, e.time), reverse=False)
         return eps[:limit]
 
     def around(self, ep: Episode, n: int = 1) -> list[Episode]:
-        """같은 종류의 바로 앞뒤 일화 (그때 대화 흐름)."""
+        """같은 종류의 바로 앞뒤 일화 (그때 대화 흐름). '기억해' 한 순간이면 그 앞뒤 대화."""
+        kind = "chat" if ep.kind == "moment" else ep.kind
         with self._lock:
             before = self.db.execute("SELECT id, time, kind, game, text, detail, ref FROM episodes "
-                                     "WHERE kind=? AND time < ? ORDER BY time DESC LIMIT ?", (ep.kind, ep.time, n)).fetchall()
+                                     "WHERE kind=? AND time < ? ORDER BY time DESC LIMIT ?", (kind, ep.time, n)).fetchall()
             after = self.db.execute("SELECT id, time, kind, game, text, detail, ref FROM episodes "
-                                    "WHERE kind=? AND time > ? ORDER BY time ASC LIMIT ?", (ep.kind, ep.time, n)).fetchall()
+                                    "WHERE kind=? AND time > ? ORDER BY time ASC LIMIT ?", (kind, ep.time, n)).fetchall()
         return [Episode(*r) for r in reversed(before)] + [Episode(*r) for r in after]
 
     def recent(self, kinds: tuple[str, ...], since: str, until: str, limit: int = 400) -> list[Episode]:
@@ -350,7 +352,7 @@ def recall_block(index: EpisodeIndex, text: str, now: datetime, recent_since: st
         label = KIND_LABEL.get(e.kind, e.kind)
         game = f"({e.game})" if e.game and e.kind in ("screen", "game") else ""
         body = e.text.replace("\n", " / ")
-        if intent and e.kind == "chat":  # 그때 대화의 앞뒤도
+        if intent and e.kind in ("chat", "moment"):  # 그때 대화의 앞뒤도
             ctx = " … ".join(x.text.replace("\n", " / ")[:160] for x in index.around(e, 1))
             if ctx:
                 body += f"\n    (그때 앞뒤 대화: {ctx})"

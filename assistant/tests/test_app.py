@@ -1071,3 +1071,29 @@ def test_memory_window_tabs(qapp, tmp_path, built):
     dlg._add()
     assert any("오이" in f["text"] for f in mem.active_facts())
     a.quit()
+
+
+def test_remember_this_saves_the_moment_with_screen(qapp, tmp_path, built):
+    import json as _json
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "네, 다음 주 화요일 민지 씨 생일 꼭 기억할게요.", "emotion": "normal"},
+        {"speak": True, "message": "화요일이에요.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.watcher.frames.append((a.watcher.clock(), b"jpeg-now"))
+    a.ask("이거 기억해 다음 주 화요일이 민지 생일이야")
+    _wait(qapp, a)
+    moments = list((tmp_path / "data" / "moments").glob("*.jpg"))
+    assert len(moments) == 1 and moments[0].read_bytes() == b"jpeg-now"
+    hits = a.recall_index.search(["민지", "생일"])
+    assert hits[0].kind == "moment" and hits[0].ref.endswith(".jpg")
+    a.companion.memory.clear_recent()  # 지금 대화 기록에 없을 때 (며칠 뒤)
+    a.ask("저번에 민지 생일 언제라고 했지?")
+    _wait(qapp, a)
+    content = fake.calls[-1]["messages"][-1]["content"]
+    sent = _json.dumps(content, ensure_ascii=False)
+    assert "기억해 달라고 한 순간" in sent and any(b.get("type") == "image" for b in content)
+    a.quit()

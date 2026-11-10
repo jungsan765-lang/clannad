@@ -243,3 +243,17 @@ def test_history_carries_times_and_gap_after_a_while(tmp_path):
     msgs = fake.calls[-1]["messages"]
     assert "(마지막 대화로부터 2일 만이다)" in msgs[-1]["content"][0]["text"]
     assert any(m["content"] == "[11/12 09:00] (주인님은 말없이 화면을 보고 있었다)" for m in msgs if m["role"] == "user")
+
+
+def test_style_reminder_comes_last_in_the_dynamic_block(tmp_path):
+    from companion import style_reminder
+
+    persona = ("# 캐릭터\n## 0. 최우선 규칙\n- 한국어로만\n## 3. 성격\n- 조용함\n## 4. 말투 규칙\n- 존댓말, 짧게\n"
+               "## 7. 예시\n- 어쩌고\n")
+    s = style_reminder(persona)
+    assert "[0. 최우선 규칙]" in s and "존댓말, 짧게" in s and "조용함" not in s and "어쩌고" not in s
+    assert style_reminder("") == "" and len(style_reminder("## 말투\n" + "가" * 2000)) <= 900
+    comp, fake, mem = _companion(tmp_path, [])
+    comp.persona = persona
+    second = comp.system_blocks()[1]["text"]
+    assert second.rstrip().endswith("- 존댓말, 짧게") and "# 말투 다시 확인" in second

@@ -403,6 +403,19 @@ MEMORY_RULES = """# 할 일: 장기기억 정리
 - 늘 보는 기억은 {max_chars}자 안쪽만 들어가니, 덜 중요한 건 중요도 1~2로 두면 관련 있을 때만 꺼내진다.
 """
 
+def style_reminder(persona: str, max_chars: int = 900) -> str:
+    """성격 파일에서 말투·최우선 규칙 부분만 짧게 (제목에 '말투'·'최우선'·'호칭'·'말버릇'이 들어간 '## ' 절)."""
+    if not persona:
+        return ""
+    parts = []
+    for block in re.split(r"(?m)^## ", persona)[1:]:
+        title, _, body = block.partition("\n")
+        if any(k in title for k in ("말투", "최우선", "호칭", "말버릇")):
+            parts.append(f"[{title.strip()}]\n{body.strip()}")
+    text = "\n".join(parts)
+    return text if len(text) <= max_chars else text[:max_chars].rsplit("\n", 1)[0]
+
+
 _HANGUL = re.compile(r"[\uac00-\ud7a3\u3131-\u318e]")
 _LATIN = re.compile(r"[A-Za-z]")
 _EN_PHRASE = re.compile(r"[A-Za-z][A-Za-z']*(?:[ ,]+[A-Za-z][A-Za-z']*)+")
@@ -553,6 +566,10 @@ class Companion:
         known = self.memory.knowledge_text()
         if known:
             second += "\n\n# 찾아보고 알게 된 것 (예전에 검색해 둔 내용)\n" + known
+        style = style_reminder(self.persona)
+        if style:  # 기억이 길어져도 말투가 흐려지지 않게, 맨 끝에서 한 번 더
+            second += ("\n\n# 말투 다시 확인 (성격 파일에서 — 위 기억이 아무리 길어도 이 결을 지킨다. "
+                       "'다니카 자신' 기억과도 어긋나지 않게)\n" + style)
         return [
             # 규칙·성격·배경지식은 거의 안 바뀌니 1시간 보관 (띄엄띄엄 말해도 다시 쓰는 비용이 안 듦)
             {"type": "text", "text": first, "cache_control": {"type": "ephemeral", "ttl": "1h"}},

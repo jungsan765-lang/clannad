@@ -171,6 +171,7 @@ class ScreenWatcher(QObject):
         self._stage_name, self._stage_at, self._stage_limit = "", None, STAGE_LIMITS["start"]
         self.dxgi = DxgiGrabber()
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
+        self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
         self.window_capture = capture_window  # 창 하나만 찍기 (테스트에서 바꿔 끼움)
         self.last_focus_thumb = None
@@ -536,7 +537,7 @@ class ScreenWatcher(QObject):
     def _work(self, question: str | None):
         """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디/총평."""
         mode, session = self.mode, self.session
-        notes = list(session.notes) if session else None
+        notes = list(session.notes) if session else (list(self.flow) or None)
         shot = self._shot()
         if question is not None:
             self.last_thumb = shot.thumb
@@ -579,6 +580,12 @@ class ScreenWatcher(QObject):
             self._count_game(scene, note.get("situation", ""))
         if session:
             session.add(now, note.get("situation", ""))
+        elif note.get("situation"):
+            import time as _time
+
+            stamp = _time.strftime("%H:%M")
+            if not self.flow or not self.flow[-1].endswith(note["situation"]):
+                self.flow.append(f"{stamp} {note['situation']}")
         if (mode.review_on_result and scene == "result" and session
                 and (session.last_review is None or now - session.last_review > self.cfg.review_gap_seconds)):
             session.last_review = now
