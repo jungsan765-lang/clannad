@@ -64,6 +64,11 @@ start = "0:03"
 end = "0:04.5"
 loop = "pingpong"
 
+[motions.longidle]
+segments = [[0.0, 0.8], [1.1, 1.9], [2.0, 2.6]]
+length = 3.0
+join = 4
+
 [motions.happy]
 start = 5.0
 end = 6.0

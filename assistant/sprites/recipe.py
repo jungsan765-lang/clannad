@@ -34,6 +34,10 @@ class MotionSpec:
     offset: tuple[int, int] = (0, 0)
     blend: int = 0
     loop_search: bool = True
+    # 여러 구간을 이어 붙이는 동작: [(시작, 끝), ...]. 하나뿐이면 [(start, end)]
+    segments: list[tuple[float, float]] = field(default_factory=list)
+    length: float = 12.0  # 이어 붙인 동작의 목표 길이(초)
+    join: int = 6  # 이음새에 그려 넣는 중간 장면 최대 수
 
 
 @dataclass
@@ -148,14 +152,24 @@ def load_recipe(path: str | Path) -> Recipe:
         where = f"[motions.{mname}]"
         if not NAME_RE.match(mname):
             raise RecipeError(f"{where}: 동작 이름은 영문, 숫자, _, - 만 쓸 수 있어요.")
-        if "start" not in m or "end" not in m:
-            raise RecipeError(f"{where}: start 와 end 가 필요해요.")
+        if "segments" in m:
+            raw = m["segments"]
+            if not (isinstance(raw, list) and len(raw) >= 2 and all(isinstance(s, list) and len(s) == 2 for s in raw)):
+                raise RecipeError(f'{where}: segments 는 [["시작", "끝"], ["시작", "끝"], ...] 처럼 두 개 이상이어야 해요.')
+            if m.get("loop", "loop") not in ("loop", True):
+                raise RecipeError(f'{where}: segments 로 이어 붙인 동작은 loop = "loop" 만 돼요.')
+            pairs = raw
+        elif "start" in m and "end" in m:
+            pairs = [[m["start"], m["end"]]]
+        else:
+            raise RecipeError(f"{where}: start 와 end (또는 segments) 가 필요해요.")
         try:
-            start, end = parse_time(m["start"]), parse_time(m["end"])
+            segments = [(parse_time(a), parse_time(b)) for a, b in pairs]
         except ValueError as exc:
             raise RecipeError(f"{where}: {exc}") from exc
-        if end <= start:
+        if any(b <= a for a, b in segments):
             raise RecipeError(f"{where}: end 가 start 보다 커야 해요.")
+        start, end = segments[0]
         offset = m.get("offset", [0, 0])
         if not (isinstance(offset, list) and len(offset) == 2):
             raise RecipeError(f"{where}: offset 은 [가로, 세로] 두 숫자여야 해요.")
@@ -172,6 +186,9 @@ def load_recipe(path: str | Path) -> Recipe:
             offset=(int(offset[0]), int(offset[1])),
             blend=int(m.get("blend", 0)),
             loop_search=bool(m.get("loop_search", True)),
+            segments=segments,
+            length=float(m.get("length", 12.0)),
+            join=int(m.get("join", 6)),
         )
 
     for spec in recipe.motions.values():

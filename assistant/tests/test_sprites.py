@@ -114,6 +114,9 @@ def test_recipe_errors(tmp_path):
     p.write_text('source = "a.mp4"\n[motions.idle]\nstart = 0\nend = 1\nthen = "nope"\n', encoding="utf-8")
     with pytest.raises(RecipeError, match="nope"):
         load_recipe(p)
+    p.write_text('source = "a.mp4"\n[motions.idle]\nsegments = [[0, 1]]\n', encoding="utf-8")
+    with pytest.raises(RecipeError, match="두 개 이상"):
+        load_recipe(p)
     p.write_text('source = "a.mp4"\nfidgets = ["idle"]\n[motions.idle]\nstart = 0\nend = 1\n', encoding="utf-8")
     with pytest.raises(RecipeError, match="once"):
         load_recipe(p)
@@ -123,7 +126,8 @@ def test_build_outputs(built):
     m = built["manifest"]
     out = built["out"]
     assert m["default"] == "idle" and m["talk"] == "talk"
-    assert set(m["motions"]) == {"idle", "talk", "happy"}
+    assert set(m["motions"]) == {"idle", "talk", "happy", "longidle"}
+    assert m["motions"]["longidle"]["frames"] >= 60  # 3초 목표로 이어 붙임
     # 1초 주기로 흔들리므로 idle 루프는 24장 단위로 잘려야 한다
     assert m["motions"]["idle"]["frames"] % FPS == 0
     assert m["motions"]["happy"]["then"] == "idle"
@@ -158,7 +162,7 @@ def test_build_outputs(built):
 def test_build_reuses_cache(built):
     logs: list[str] = []
     build(load_recipe(built["recipe"]), built["out"], built["work"], built["out"].parent / "models", logs.append)
-    assert sum("재사용" in line for line in logs) == 3
+    assert sum("재사용" in line for line in logs) == 6  # 동작 3개 + 이어 붙인 동작의 구간 3개
 
 
 def test_ai_matter_shapes():

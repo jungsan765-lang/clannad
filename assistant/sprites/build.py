@@ -17,6 +17,9 @@ import numpy as np
 from PIL import Image
 
 from . import matte as mt
+from .compose import compose_sequence
+from .compose import frame_diff as _diff
+from .compose import small_rep as _small
 from .recipe import MotionSpec, Recipe
 from .video import iter_frames, probe
 
@@ -40,13 +43,13 @@ class MattedClip:
 # ---------------------------------------------------------------- 누끼 단계
 
 
-def _cache_key(recipe: Recipe, spec: MotionSpec) -> str:
+def _cache_key(recipe: Recipe, spec: MotionSpec, span: tuple[float, float]) -> str:
     src = spec.source
     stat = src.stat()
     payload = {
         "v": CACHE_VERSION,
         "src": str(src), "size": stat.st_size, "mtime": int(stat.st_mtime),
-        "start": spec.start, "end": spec.end, "fps": spec.fps, "crop": spec.crop,
+        "start": span[0], "end": span[1], "fps": spec.fps, "crop": spec.crop,
         "matte": recipe.matte, "key": recipe.key_color,
         "tol": recipe.chroma_tol, "soft": recipe.chroma_soft,
         "lo": recipe.alpha_lo, "hi": recipe.alpha_hi, "island": recipe.min_island,
@@ -62,20 +65,22 @@ def _bbox(alpha8: np.ndarray, threshold: int = 12) -> BBox | None:
     return int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1
 
 
-def matte_clip(recipe: Recipe, spec: MotionSpec, work_dir: Path, get_ai: Callable[[], mt.AiMatter], log: Log) -> MattedClip:
+def matte_clip(recipe: Recipe, spec: MotionSpec, span: tuple[float, float], work_dir: Path,
+               get_ai: Callable[[], mt.AiMatter], log: Log) -> MattedClip:
     if not spec.source.is_file():
         raise FileNotFoundError(f"[motions.{spec.name}] 영상 파일이 없어요: {spec.source}")
-    clip_dir = work_dir / f"{spec.name}-{_cache_key(recipe, spec)}"
+    label = spec.name if len(spec.segments) <= 1 else f"{spec.name}[{spec.segments.index(span) + 1}]"
+    clip_dir = work_dir / f"{spec.name}-{_cache_key(recipe, spec, span)}"
     meta_path = clip_dir / "meta.json"
     if meta_path.is_file():
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        log(f"  {spec.name}: 이전 누끼 결과 재사용 ({meta['count']}장)")
+        log(f"  {label}: 이전 누끼 결과 재사용 ({meta['count']}장)")
         return MattedClip(spec, clip_dir, meta["count"], [tuple(b) if b else None for b in meta["bboxes"]])
 
     clip_dir.mkdir(parents=True, exist_ok=True)
     for old in clip_dir.glob("*.png"):
         old.unlink()
-    expected = max(1, math.ceil((spec.end - spec.start) * spec.fps))
+    expected = max(1, math.ceil((span[1] - span[0]) * spec.fps))
     ai = get_ai() if recipe.matte == "ai" else None
     key = recipe.key_color
     bboxes: list[BBox | None] = []
@@ -92,7 +97,7 @@ def matte_clip(recipe: Recipe, spec: MotionSpec, work_dir: Path, get_ai: Callabl
         Image.fromarray(rgba).save(clip_dir / f"{idx:04d}.png", compress_level=3)
         bboxes.append(_bbox(rgba[..., 3]))
         if idx % 10 == 0 or idx + 1 == expected:
-            log(f"  {spec.name}: 누끼 {idx + 1}/{expected}")
+            log(f"  {label}: 누끼 {idx + 1}/{expected}")
 
     window: deque[tuple[np.ndarray, np.ndarray]] = deque()
     stab = recipe.stabilize
@@ -109,7 +114,7 @@ def matte_clip(recipe: Recipe, spec: MotionSpec, work_dir: Path, get_ai: Callabl
             finalize(rgb1, mt.stabilize([a0, a1, a2])[1])
             window.popleft()
 
-    for frame in iter_frames(spec.source, spec.start, spec.end, spec.fps, spec.crop,
+    for frame in iter_frames(spec.source, span[0], span[1], spec.fps, spec.crop,
                              rgba=recipe.matte == "alpha", max_side=WORK_MAX_SIDE):
         if recipe.matte == "alpha":
             push(frame[..., :3].copy(), frame[..., 3].astype(np.float32) / 255.0)
@@ -117,7 +122,7 @@ def matte_clip(recipe: Recipe, spec: MotionSpec, work_dir: Path, get_ai: Callabl
         if recipe.matte == "chroma":
             if key is None:
                 key = mt.guess_key_color(frame)
-                log(f"  {spec.name}: 배경색 추정 #{key[0]:02x}{key[1]:02x}{key[2]:02x}")
+                log(f"  {label}: 배경색 추정 #{key[0]:02x}{key[1]:02x}{key[2]:02x}")
             push(frame, mt.chroma_alpha(frame, key, recipe.chroma_tol, recipe.chroma_soft))
         else:
             push(frame, ai(frame))
@@ -130,7 +135,7 @@ def matte_clip(recipe: Recipe, spec: MotionSpec, work_dir: Path, get_ai: Callabl
             finalize(*window[-1])
 
     if not bboxes:
-        raise RuntimeError(f"[motions.{spec.name}] 프레임을 하나도 못 뽑았어요. 시간 구간을 확인해주세요.")
+        raise RuntimeError(f"[motions.{label}] 프레임을 하나도 못 뽑았어요. 시간 구간을 확인해주세요.")
     meta_path.write_text(json.dumps({"count": len(bboxes), "bboxes": bboxes}), encoding="utf-8")
     return MattedClip(spec, clip_dir, len(bboxes), bboxes)
 
@@ -157,10 +162,11 @@ class Placement:
     pos: tuple[int, int]  # 캔버스 안 왼쪽 위
 
 
-def plan_layout(recipe: Recipe, clips: dict[str, MattedClip]) -> tuple[tuple[int, int], dict[str, Placement]]:
+def plan_layout(recipe: Recipe, clips: dict[str, list[MattedClip]]) -> tuple[tuple[int, int], dict[str, Placement]]:
     groups: dict[tuple, BBox] = {}
-    for clip in clips.values():
-        boxes = [b for b in clip.bboxes if b]
+    for parts in clips.values():
+        clip = parts[0]
+        boxes = [b for part in parts for b in part.bboxes if b]
         if not boxes:
             raise RuntimeError(f"[motions.{clip.spec.name}] 캐릭터를 하나도 못 찾았어요. 구간이나 누끼 방식을 확인해주세요.")
         gk = (str(clip.spec.source), clip.spec.crop)
@@ -173,7 +179,8 @@ def plan_layout(recipe: Recipe, clips: dict[str, MattedClip]) -> tuple[tuple[int
 
     # 발밑 가운데를 (0, 0)으로 두고 각 동작의 사각형을 계산
     rects: dict[str, tuple[float, float, int, int, BBox]] = {}
-    for name, clip in clips.items():
+    for name, parts in clips.items():
+        clip = parts[0]
         g = groups[(str(clip.spec.source), clip.spec.crop)]
         gw, gh = g[2] - g[0], g[3] - g[1]
         s = recipe.height / gh * clip.spec.scale
@@ -217,17 +224,6 @@ def render_frames(clip: MattedClip, place: Placement, canvas: tuple[int, int]) -
 # ---------------------------------------------------------------- 루프 단계
 
 
-def _small(frame: np.ndarray) -> np.ndarray:
-    h, w = frame.shape[:2]
-    sw = 96
-    sh = max(1, round(h * sw / w))
-    f = cv2.resize(frame, (sw, sh), interpolation=cv2.INTER_AREA).astype(np.float32) / 255.0
-    f[..., :3] *= f[..., 3:4]
-    return f
-
-
-def _diff(a: np.ndarray, b: np.ndarray) -> float:
-    return float(np.abs(a - b).mean())
 
 
 def find_loop(frames: list[np.ndarray], min_fraction: float = 0.5) -> tuple[int, float]:
@@ -391,13 +387,17 @@ def build(recipe: Recipe, out_dir: Path, work_dir: Path, models_dir: Path, log: 
 
     for spec in recipe.motions.values():
         info = probe(spec.source)
-        if info.duration and spec.start >= info.duration:
-            raise ValueError(f"[motions.{spec.name}] start({spec.start:.2f}초)가 영상 길이({info.duration:.2f}초)보다 길어요.")
+        for a, _ in spec.segments:
+            if info.duration and a >= info.duration:
+                raise ValueError(f"[motions.{spec.name}] 시작({a:.2f}초)이 영상 길이({info.duration:.2f}초)보다 길어요.")
         if recipe.matte == "alpha" and not info.has_alpha:
             raise ValueError(f"{spec.source.name} 에는 투명 채널이 없어요. matte = \"ai\" 나 \"chroma\" 를 써주세요.")
 
     log("1/3 배경 제거")
-    clips = {name: matte_clip(recipe, spec, work_dir, get_ai, log) for name, spec in recipe.motions.items()}
+    clips = {
+        name: [matte_clip(recipe, spec, span, work_dir, get_ai, log) for span in spec.segments]
+        for name, spec in recipe.motions.items()
+    }
 
     log("2/3 크기·위치 맞추기")
     canvas, places = plan_layout(recipe, clips)
@@ -417,16 +417,22 @@ def build(recipe: Recipe, out_dir: Path, work_dir: Path, models_dir: Path, log: 
     sheet_rows = []
     warnings = []
     ext = recipe.image_format
-    for name, clip in clips.items():
-        spec = clip.spec
-        frames = render_frames(clip, places[name], canvas)
+    for name, parts in clips.items():
+        spec = parts[0].spec
         seam = None
-        if spec.loop == "loop" and spec.loop_search:
+        if len(parts) > 1:
+            pieces = [render_frames(p, places[name], canvas) for p in parts]
+            frames, joins = compose_sequence(pieces, round(spec.length * spec.fps), spec.join, log=log)
+            seam = max(joins)
+            log(f"  {name}: 구간 {len(parts)}개를 이어 {len(frames)}장 ({len(frames) / spec.fps:.1f}초)")
+        else:
+            frames = render_frames(parts[0], places[name], canvas)
+        if len(parts) == 1 and spec.loop == "loop" and spec.loop_search:
             cut, seam = find_loop(frames)
             if cut < len(frames):
                 log(f"  {name}: 루프 지점 {cut}/{len(frames)}장에서 자름")
             frames = frames[:cut]
-        if spec.loop == "loop":
+        if spec.loop == "loop" and len(parts) == 1:
             frames = blend_tail(frames, spec.blend)
             if seam is not None and seam > 3.0:
                 warnings.append(f"{name}: 끝→처음 이음새가 튈 수 있어요(점수 {seam:.1f}). loop = \"pingpong\" 이나 blend = 3 을 써보세요.")
