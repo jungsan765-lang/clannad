@@ -27,6 +27,7 @@ from ui.bubble import SpeechBubble
 from ui.character import CharacterWindow, SpriteSet
 from ui.chat_input import ChatInput
 from ui.placeholder import make_placeholder
+from ui.topmost import TopmostKeeper
 from usage import UsageLedger
 
 log = logging.getLogger("assistant")
@@ -75,6 +76,9 @@ class AssistantApp(QObject):
                                    float(settings.get("ui.bubble_seconds_per_char", 0.12)))
         self.input = ChatInput()
         self.menu = self._build_menu()
+        # 캐릭터 → 말풍선 → 입력창 순서로 (뒤에 올린 것이 더 앞)
+        self.topmost = TopmostKeeper([self.window, self.bubble, self.input],
+                                     int(settings.get("character.topmost_interval_ms", 1500)), self)
 
         self.window.clicked.connect(self.open_input)
         self.window.menu_requested.connect(lambda pos: self.menu.exec(pos))
@@ -101,12 +105,15 @@ class AssistantApp(QObject):
             screen = QApplication.primaryScreen().availableGeometry()
             self.window.move(screen.right() - self.window.width() - 40, screen.bottom() - self.window.height() - 20)
         self.window.show()
+        if settings_flag(self.settings, "character.always_on_top", True):
+            self.topmost.start()
         if "appear" in self.window.sprites.motions:
             self.window.play("appear")
         if self.companion.memory.pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
             self._run(self.companion.consolidate, lambda _: log.info("시작 시 기억 정리 완료"), lambda m: log.warning(m))
 
     def quit(self) -> None:
+        self.topmost.stop()
         self._save_position(self.window.pos())
         if self.tray:
             self.tray.hide()
@@ -245,6 +252,11 @@ class AssistantApp(QObject):
         state = self._load_state()
         state["window_pos"] = [pos.x(), pos.y()]
         self._write_state(state)
+
+
+def settings_flag(settings: Settings, key: str, default: bool) -> bool:
+    value = settings.get(key, default)
+    return value if isinstance(value, bool) else str(value).lower() in ("1", "true", "yes", "on")
 
 
 def setup_logging(folder: Path) -> None:

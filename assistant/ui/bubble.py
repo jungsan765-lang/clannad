@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from PySide6.QtCore import QPoint, QRect, QRectF, Qt, QTimer, Signal
-from PySide6.QtGui import QColor, QFont, QFontMetrics, QPainter, QPainterPath, QPen
+from PySide6.QtGui import QColor, QFont, QFontMetrics, QGuiApplication, QPainter, QPainterPath, QPen
 from PySide6.QtWidgets import QWidget
 
 
@@ -46,7 +46,8 @@ class SpeechBubble(QWidget):
         self.setFixedSize(w, h)
         x = anchor.center().x() - w // 2
         y = anchor.top() - h + 10
-        screen = self.screen().availableGeometry() if self.screen() else None
+        scr = QGuiApplication.screenAt(anchor.center()) or QGuiApplication.primaryScreen()
+        screen = scr.availableGeometry() if scr else None
         if screen is not None:
             x = max(screen.left() + 4, min(x, screen.right() - w - 4))
             if y < screen.top() + 4:  # 위가 모자라면 캐릭터 옆에

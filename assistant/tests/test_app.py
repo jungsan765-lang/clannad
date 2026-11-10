@@ -64,3 +64,19 @@ def test_missing_character_uses_placeholder_and_errors_show(qapp, tmp_path, monk
     a.ask("안녕")
     _wait(qapp, a)
     assert a.bubble.system and "API 키" in a.bubble.text and not a.busy
+
+
+def test_topmost_keeper_reasserts_visible_windows(qapp, tmp_path, built, monkeypatch):
+    import ui.topmost as tm
+
+    calls = []
+    monkeypatch.setattr(tm, "bring_to_top", lambda w: calls.append(w))
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    assert a.topmost.timer.isActive()
+    calls.clear()
+    a.topmost.tick()
+    assert calls == [a.window, a.bubble, a.input]  # 캐릭터 → 말풍선 → 입력창 순서 (뒤가 더 앞)
+    a.quit()
+    assert not a.topmost.timer.isActive()

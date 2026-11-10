@@ -7,6 +7,8 @@ folder = "character/danika_rig"            # manifest.json 이 있는 폴더. �
 persona = "character/danika/persona.md"   # 성격 파일. 없으면 기본 비서 말투
 scale = 0.8                               # 화면에 보이는 크기 배율
 max_fps = 30
+always_on_top = true                      # 모든 창(작업 표시줄·창모드 게임 포함)보다 앞에
+topmost_interval_ms = 1500                # 맨 앞으로 다시 올리는 간격
 
 [ai]
 chat_model = "claude-opus-5-5"     # 대화

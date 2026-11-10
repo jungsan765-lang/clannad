@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from PySide6.QtCore import QPoint, QRect, Qt, Signal
+from PySide6.QtGui import QGuiApplication
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLineEdit, QPushButton, QWidget
 
 
@@ -40,7 +41,8 @@ class ChatInput(QWidget):
     def open_near(self, anchor: QRect) -> None:
         x = anchor.center().x() - self.width() // 2
         y = anchor.bottom() + 6
-        screen = self.screen().availableGeometry() if self.screen() else None
+        scr = QGuiApplication.screenAt(anchor.center()) or QGuiApplication.primaryScreen()
+        screen = scr.availableGeometry() if scr else None
         if screen is not None:
             x = max(screen.left() + 4, min(x, screen.right() - self.width() - 4))
             if y + self.height() > screen.bottom():
