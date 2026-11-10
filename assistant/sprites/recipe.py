@@ -56,6 +56,8 @@ class Recipe:
     emotions: dict[str, str] = field(default_factory=dict)
     default_motion: str = "idle"
     talk_motion: str | None = None
+    fidgets: list[str] = field(default_factory=list)  # 가만히 있을 때 가끔 하는 동작
+    fidget_every: tuple[float, float] = (180.0, 420.0)  # 초 단위 최소~최대 간격
 
 
 def _crop(value, where: str) -> tuple[int, int, int, int] | None:
@@ -183,6 +185,20 @@ def load_recipe(path: str | Path) -> Recipe:
     if talk and talk not in recipe.motions:
         raise RecipeError(f"talk = {talk!r} 라는 동작이 없어요.")
     recipe.talk_motion = talk
+
+    fidgets = data.get("fidgets", [])
+    if not isinstance(fidgets, list):
+        raise RecipeError('fidgets 는 ["동작", ...] 목록이어야 해요.')
+    for f in fidgets:
+        if f not in recipe.motions:
+            raise RecipeError(f"fidgets 의 {f!r} 라는 동작이 없어요.")
+        if recipe.motions[f].loop != "once":
+            raise RecipeError(f'fidgets 의 {f!r} 는 loop = "once" 여야 해요 (끝나야 원래대로 돌아오니까).')
+    recipe.fidgets = list(fidgets)
+    every = data.get("fidget_every", [180, 420])
+    if not (isinstance(every, list) and len(every) == 2 and 5 <= every[0] <= every[1]):
+        raise RecipeError("fidget_every 는 [최소초, 최대초] 이고 최소는 5초 이상이어야 해요.")
+    recipe.fidget_every = (float(every[0]), float(every[1]))
 
     emotions = {e: recipe.default_motion for e in EMOTIONS}
     emotions.update({e: e for e in EMOTIONS if e in recipe.motions})

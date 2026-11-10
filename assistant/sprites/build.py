@@ -410,6 +410,8 @@ def build(recipe: Recipe, out_dir: Path, work_dir: Path, models_dir: Path, log: 
         "talk": recipe.talk_motion,
         "motions": motions_meta,
         "emotions": recipe.emotions,
+        "fidgets": recipe.fidgets,
+        "fidget_every": list(recipe.fidget_every),
     }
     old_manifest.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     for w in warnings:

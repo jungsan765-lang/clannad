@@ -68,3 +68,18 @@ def test_once_motion_finishes_before_talking(win):
     happy = win.sprites.motion("happy")
     win.advance((happy.count + 0.5) / happy.fps)
     assert win.current_motion == "idle"  # then = idle 이 우선
+
+
+def test_fidget_only_while_resting(win):
+    assert win.sprites.fidgets == ["happy"]
+    assert win.sprites.fidget_every == (5.0, 6.0)
+    assert win.is_resting()
+    assert win.play_fidget() and win.current_motion == "happy"
+    happy = win.sprites.motion("happy")
+    win.advance((happy.count + 0.5) / happy.fps)
+    assert win.current_motion == "idle"
+    win.set_talking(True)
+    assert not win.play_fidget()  # 말하는 중엔 안 함
+    win.set_talking(False)
+    win.set_emotion("worried")
+    assert not win.play_fidget()  # 감정 동작 중에도 안 함

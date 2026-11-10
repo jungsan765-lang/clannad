@@ -51,6 +51,8 @@ source = "{src}"
 height = 240
 fps = 24
 matte = "chroma"
+fidgets = ["happy"]
+fidget_every = [5, 6]
 
 [motions.idle]
 start = 0.0

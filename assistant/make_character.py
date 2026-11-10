@@ -30,6 +30,9 @@ fps = 24
 matte = "ai"           # ai(애니 캐릭터 AI 누끼) | chroma(단색 배경) | alpha(투명 영상)
 # key_color = "#00ff00"   # matte = "chroma" 일 때 배경색. 비우면 자동 추정
 # crop = [x, y, 너비, 높이] # 영상에서 캐릭터가 있는 영역만 쓰기 (다른 사람·UI 제외)
+# fidgets = ["happy"]       # 가만히 있을 때 가끔 하는 동작 (loop = "once" 인 동작)
+# fidget_every = [180, 420] # 그 간격(초)
+# 동작 이름이 appear 면 미리보기를 켤 때 처음 한 번 재생한다.
 
 # 동작마다 구간을 적는다. loop = "loop"(반복) | "pingpong"(앞뒤 왕복) | "once"(한 번)
 [motions.idle]

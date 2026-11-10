@@ -101,6 +101,8 @@ def main() -> int:
         win.move(geo.right() - win.width() - 40, geo.bottom() - win.height() - 40)
     win.show()
     win.activateWindow()
+    if "appear" in sprites.motions:  # 등장 동작이 있으면 처음에 한 번
+        win.play("appear")
     print(f"{sprites.name}: 동작 {', '.join(f'{i}={n}' for i, n in enumerate(win.order, 1))}")
     return app.exec()
 

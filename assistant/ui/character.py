@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import random
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -67,6 +68,9 @@ class SpriteSet:
         self.default: str = data.get("default") or next(iter(self.motions))
         self.talk: str | None = data.get("talk")
         self.emotions: dict[str, str] = data.get("emotions", {})
+        self.fidgets: list[str] = [f for f in data.get("fidgets", []) if f in self.motions]
+        lo, hi = data.get("fidget_every", [180, 420])
+        self.fidget_every: tuple[float, float] = (float(lo), float(hi))
 
     def motion(self, name: str) -> Motion:
         return self.motions[name]
@@ -132,7 +136,11 @@ class CharacterWindow(QWidget):
         self._press_global: QPoint | None = None
         self._press_pos = QPoint()
         self._dragging = False
+        self._fidget_timer = QTimer(self)
+        self._fidget_timer.setSingleShot(True)
+        self._fidget_timer.timeout.connect(self._on_fidget_timer)
         self.play(sprites.default)
+        self.set_fidgets_enabled(bool(sprites.fidgets))
 
     # ------------------------------------------------------------ 상태
 
@@ -191,6 +199,29 @@ class CharacterWindow(QWidget):
         self.setWindowFlag(Qt.WindowType.WindowTransparentForInput, enabled)
         if visible:
             self.show()  # 플래그를 바꾸면 창이 숨겨져서 다시 띄움
+
+    def set_fidgets_enabled(self, enabled: bool) -> None:
+        """가만히 있을 때 가끔 하는 행동(manifest 의 fidgets) 켜기/끄기."""
+        if enabled and self.sprites.fidgets:
+            lo, hi = self.sprites.fidget_every
+            self._fidget_timer.start(round(random.uniform(lo, hi) * 1000))
+        else:
+            self._fidget_timer.stop()
+
+    def is_resting(self) -> bool:
+        """말하지 않고, 감정 동작도 없이 기본 동작 중인지."""
+        return not self._talking and self._mood is None and self._current.name == self.sprites.default
+
+    def play_fidget(self) -> bool:
+        """쉬는 중이면 fidgets 중 하나를 재생한다. 재생했으면 True."""
+        if not self.sprites.fidgets or not self.is_resting():
+            return False
+        self.play(random.choice(self.sprites.fidgets))
+        return True
+
+    def _on_fidget_timer(self) -> None:
+        self.play_fidget()
+        self.set_fidgets_enabled(True)  # 다음 번 예약
 
     def advance(self, seconds: float) -> None:
         """테스트용: 시간을 직접 지정해 한 틱 진행."""

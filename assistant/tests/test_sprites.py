@@ -114,6 +114,9 @@ def test_recipe_errors(tmp_path):
     p.write_text('source = "a.mp4"\n[motions.idle]\nstart = 0\nend = 1\nthen = "nope"\n', encoding="utf-8")
     with pytest.raises(RecipeError, match="nope"):
         load_recipe(p)
+    p.write_text('source = "a.mp4"\nfidgets = ["idle"]\n[motions.idle]\nstart = 0\nend = 1\n', encoding="utf-8")
+    with pytest.raises(RecipeError, match="once"):
+        load_recipe(p)
 
 
 def test_build_outputs(built):
@@ -125,6 +128,7 @@ def test_build_outputs(built):
     assert m["motions"]["idle"]["frames"] % FPS == 0
     assert m["motions"]["happy"]["then"] == "idle"
     assert m["emotions"]["worried"] == "talk" and m["emotions"]["happy"] == "happy"
+    assert m["fidgets"] == ["happy"] and m["fidget_every"] == [5.0, 6.0]
     w, h = m["size"]
     for name, info in m["motions"].items():
         files = sorted((out / name).glob("*.png"))
