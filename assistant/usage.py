@@ -75,16 +75,19 @@ class UsageLedger:
 
     def day_kinds_usd(self, kinds: tuple[str, ...], today: date | None = None) -> float:
         """오늘 이 종류들(예: 화면 보기 관련)에 쓴 돈."""
-        by_kind = self.data["days"].get((today or date.today()).isoformat(), {}).get("by_kind", {})
+        with self._lock:  # 다른 스레드가 새 종류를 더하는 중일 수 있음
+            by_kind = dict(self.data["days"].get((today or date.today()).isoformat(), {}).get("by_kind", {}))
         return sum(v for k, v in by_kind.items() if k in kinds)
 
     def by_kind(self, today: date | None = None, month: bool = False) -> dict[str, float]:
         """종류별 비용 (오늘, 또는 이번 달 전체)."""
         key = (today or date.today()).isoformat()
         out: dict[str, float] = {}
-        for k, d in self.data["days"].items():
+        with self._lock:
+            days = {k: dict(d.get("by_kind", {})) for k, d in self.data["days"].items()}
+        for k, by_kind in days.items():
             if (month and k.startswith(key[:7])) or (not month and k == key):
-                for kind, usd in d.get("by_kind", {}).items():
+                for kind, usd in by_kind.items():
                     out[kind] = out.get(kind, 0.0) + usd
         return out
 

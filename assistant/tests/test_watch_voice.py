@@ -757,3 +757,22 @@ def test_quiet_screens_stretch_the_interval_outside_games(qapp, tmp_path):
     assert w.interval_for(w.mode) == base
     w._quiet_streak = 99
     assert w.interval_for(w.mode) == 300.0  # 최대 5분
+
+
+def test_small_changing_window_does_not_trigger_scene_checks(qapp, tmp_path):
+    from watch import capture as cap
+
+    imgs = [_img(50)] * 20
+    w, comp, said, t, state = _watcher(tmp_path, images=imgs, window=WindowInfo("player", "vlc.exe", (100, 100, 420, 300)))
+    n = {"v": 0}
+
+    def changing_window(_img_):  # 작은 창 속 영상: 매번 다름
+        n["v"] = (n["v"] + 60) % 250
+        return cap.to_jpeg(Image.new("RGB", (320, 200), (n["v"], 0, 0)), 80)
+
+    w._focus_crop = changing_window
+    for i in range(7):  # 10초마다 70초
+        t["now"] = i * 10.0
+        w.last_spoke = None
+        w.tick()
+    assert 2 <= len(comp.judged) <= 3 and comp.focus_seen  # 확인 간격(30초)대로만 (예전엔 10초마다)

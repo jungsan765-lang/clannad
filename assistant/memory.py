@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import re
 import threading
 import uuid
@@ -17,6 +18,8 @@ from datetime import date, datetime
 from pathlib import Path
 
 from wording import apply_terms
+
+log = logging.getLogger("assistant.memory")
 
 CATEGORIES = ["주인님 정보", "관계·호칭", "사람", "취향", "약속·할 일", "게임", "다니카 자신", "최근 있었던 일"]
 CORE_IMPORTANCE = {"주인님 정보": 3, "관계·호칭": 3}  # 예전 기억을 옮길 때 기본 중요도 (나머지는 2)
@@ -223,6 +226,11 @@ class Memory:
             self.pinned = [p for p in self.pinned if p != text]
             self._write("pinned.json", self.pinned)
 
+    def remove_knowledge(self, query: str) -> None:
+        with self._lock:
+            self.knowledge = [k for k in self.knowledge if k["query"] != query]
+            self._write("knowledge.json", self.knowledge)
+
     # ------------------------------------------------------------ 찾아보고 알게 된 것
 
     def add_knowledge(self, query: str, text: str, when: datetime | None = None, keep: int = 80) -> None:
@@ -253,7 +261,7 @@ class Memory:
     def notes_text(self) -> str:
         """시스템 프롬프트에 넣을 장기기억 (분류별, 항상 같은 순서 → 캐시가 깨지지 않음)."""
         core = self.core_facts(getattr(self, "max_chars", 4000))
-        if not core:
+        if not self.active_facts():
             return "(아직 기억해 둔 것이 없음)"
         lines = []
         for cat in CATEGORIES + sorted({f["category"] for f in core} - set(CATEGORIES)):
@@ -307,11 +315,12 @@ class Memory:
         with self._lock:
             same = self._similar(category, text)
             if same:
-                if len(text) > len(same["text"]):
+                if len(text) > len(same["text"]) and _norm(text) != _norm(same["text"]):
+                    same.setdefault("history", []).append({"text": same["text"], "date": same.get("date", "")})
+                    del same["history"][:-5]
                     same["text"] = text
                 same["importance"] = max(same["importance"], importance)
-                same["date"] = day
-                same["subject"] = subject or same.get("subject", "")
+                same["subject"] = subject or same.get("subject", "")  # 날짜(그 일이 있었던 날)는 그대로
                 f = same
             else:
                 f = {"id": "f" + uuid.uuid4().hex[:7], "category": category, "text": text, "date": day,
@@ -370,8 +379,8 @@ class Memory:
         for f in self.facts:
             if f["id"] in core_ids:
                 continue
-            hay = f"{f['text']} {f.get('subject', '')}"
-            hits = [w for w in words if w and w in hay]
+            hay = f"{f['text']} {f.get('subject', '')}".casefold()
+            hits = [w for w in words if w and w.casefold() in hay]
             if hits:
                 scored.append((len(hits), max(len(w) for w in hits), f.get("date", ""), f))
         scored.sort(key=lambda s: s[:3], reverse=True)
@@ -392,17 +401,30 @@ class Memory:
     def apply_ops(self, ops: list[dict], consumed: int) -> list[dict]:
         """정리 결과(추가·고침·보관)를 반영. 반영한 대화(consumed 개)는 대기 목록에서 뺀다. 보관된 사실들을 돌려준다."""
         archived = []
+        protected = {f["id"] for f in self.facts if f.get("importance", 2) >= 3}  # 정리 전에 ★3 이던 것
         for op in ops:
             kind = op.get("op")
-            fid = str(op.get("id", "") or "")
+            fid = str(op.get("id", "") or "").strip().strip("[]").strip()
             imp = op.get("importance") or CORE_IMPORTANCE.get(op.get("category", ""), 2)
-            if kind == "archive" and fid:
-                f = self.archive_fact(fid)
-                if f:
-                    archived.append(f)
-            elif kind == "update" and fid and self.fact(fid):
-                self.update_fact(fid, op.get("text"), imp, op.get("category"), op.get("date"), op.get("subject"))
-            elif op.get("text"):
+            if kind in ("archive", "update"):
+                old = self.fact(fid) if fid else None
+                if old is None:
+                    log.info("기억 정리: 모르는 번호 %r 의 %s 는 건너뜀", fid, kind)
+                    continue
+                if kind == "archive":
+                    if fid in protected and old["category"] != "약속·할 일":
+                        continue  # ★3 은 (약속이 아니면) 정리로 보관하지 않음
+                    f = self.archive_fact(fid)
+                    if f:
+                        archived.append(f)
+                    continue
+                cat = op.get("category")
+                if fid in protected:  # ★3 은 중요도를 낮추거나 약속으로 옮겨 보관되게 하지 않음
+                    imp = 3
+                    if cat == "약속·할 일" and old["category"] != "약속·할 일":
+                        cat = old["category"]
+                self.update_fact(fid, op.get("text"), imp, cat, op.get("date"), op.get("subject") or None)
+            elif kind == "add" and op.get("text"):
                 self.add_fact(op.get("category", ""), op["text"], imp, op.get("subject", ""), op.get("date"),
                               source="consolidate", save=False)
         with self._lock:
@@ -417,8 +439,12 @@ class Memory:
     def consolidation_input(self) -> str:
         today = date.today().isoformat()
         convo = "\n".join(f"[{p['time']}] 주인님: {p['user']}\n[{p['time']}] 나: {p['reply']}" for p in self.pending)
+        act = self.active_facts()
+        listed = [f for f in act if f["importance"] >= 2]
+        minor = sorted((f for f in act if f["importance"] < 2), key=lambda f: f.get("date", ""), reverse=True)
+        listed += minor[:40]  # ☆ 는 최근 40개만 보여 줌 (나머지는 그대로 남아 있음)
         facts = "\n".join(f"[{f['id']}] 중요도{f['importance']} [{f['category']}] {f['text']} ({f.get('date', '')})"
-                          + (f" {{{f['subject']}}}" if f.get("subject") else "") for f in self.active_facts())
+                          + (f" {{{f['subject']}}}" if f.get("subject") else "") for f in listed)
         return (f"오늘 날짜: {today}\n\n## 지금까지의 기억 (번호·중요도·분류)\n{facts or '(없음)'}\n\n"
                 f"## 기억에 아직 반영 안 된 대화\n{convo or '(없음)'}")
 

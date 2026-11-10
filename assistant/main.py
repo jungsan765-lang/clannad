@@ -491,15 +491,26 @@ class AssistantApp(QObject):
         from recall import diary_material
 
         def work():
-            self.recall_index.sync(self.settings.data_dir)
+            self.recall_index.sync(self.settings.data_dir)  # 다른 sync 가 돌고 있으면 건너뜀 (색인 잠금)
             written = []
             self._write_weekly(folder, now)
+            tries_path = folder / ".tries.json"
+            try:
+                tries = json.loads(tries_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                tries = {}
             for day in sorted(todo):
                 material = diary_material(self.recall_index, day)
                 folder.mkdir(parents=True, exist_ok=True)
                 if len(material) < 80:  # 그날 기록이 거의 없음
                     (folder / f"{day}.md").write_text(f"# {day}\n\n(기록이 거의 없는 날)\n", encoding="utf-8")
                     continue
+                if tries.get(day, 0) >= 2:  # 두 번 실패하면 더 부르지 않음 (2분마다 비용이 나가지 않게)
+                    (folder / f"{day}.md").write_text(f"# {day}\n\n(일기를 쓰지 못한 날 — 그날 기록은 기억 창 '찾아보기'에서)\n",
+                                                      encoding="utf-8")
+                    continue
+                tries[day] = tries.get(day, 0) + 1
+                tries_path.write_text(json.dumps(tries), encoding="utf-8")
                 diary = self.companion.write_diary(day, material, self.watch_cfg.judge_model)
                 if diary:
                     (folder / f"{day}.md").write_text(f"# {day}\n\n{diary}\n", encoding="utf-8")
@@ -511,7 +522,9 @@ class AssistantApp(QObject):
             self._diary_busy = False
             if written:
                 log.info("일기 씀: %s", ", ".join(written))
-            if self.companion.memory.pending:  # 하루가 지났으면 대화가 적어도 장기기억 정리
+            today = datetime.now().date().isoformat()  # 일기를 쓴 날 하루 한 번만, 대화가 적어도 장기기억 정리
+            if written and self.companion.memory.pending and self.pref("memory.consolidated_day", "") != today:
+                self.set_pref("memory.consolidated_day", today)
                 self._consolidate()
 
         def fail(message: str) -> None:

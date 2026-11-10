@@ -40,7 +40,13 @@ _STOP = {
     "그래", "그러니까", "근데", "그런데", "그리고", "하는", "하던", "해줘", "알려줘", "말해줘", "있어", "없어", "같은데", "같아",
     "보면", "보니까", "그러면", "그럼", "이번", "다음", "처음", "마지막", "하나", "둘", "정도", "때문", "생각", "생각나", "맞아",
     "아니", "아냐", "있던", "봤던", "봤어", "봤지", "했나", "였나", "이었나", "몇시", "몇", "시쯤", "쯤"}
-RECALL_INTENT = re.compile(r"기억|저번|지난번|그때|그 때|예전에|전에|아까|말했|했던|봤던|있잖아|뭐였|뭐더라|얘기했|이야기했|떠올")
+# '충전에'·'아까워' 같은 말에 걸리지 않게 짧은 말은 낱말 경계로
+RECALL_INTENT = re.compile(r"기억|저번|지난번|\b그때\b|그 때|예전에|\b전에\b|\b아까\b|말했|했던|봤던|있잖아|뭐였|뭐더라|"
+                           r"얘기했|이야기했|떠올")
+# 동사·형용사 말끝 ('했지', '언제였지', '갈까') — 이름('민지'·'수지'·'모니카')은 걸리지 않게 분명한 꼴만
+_VERB_END = re.compile(r"(했|했어|했지|했던|했나|했니|했냐|했었|한다|한데|하는|하던|하냐|하자|할까|하지|해서|해줘|해요|되냐|될까|됐|"
+                       r"였|였지|였어|였나|였던|이었|있어|있지|있었|있던|없어|없었|같아|싶어|봤|봤어|봤지|보자|볼까|갈까|가자|왔어|"
+                       r"줘|주라|할래|하래|더라|던가|잖아|(갔|왔|샀|먹었|봤|됐|졌|났)(어|지|다|나|니)?)$")
 
 
 def strip_particles(word: str) -> str:
@@ -60,17 +66,22 @@ def cues(text: str, limit: int = 8) -> list[str]:
     for q in re.findall(r"['\"“‘「『]([^'\"”’」』]{2,30})['\"”’」』]", text or ""):
         out.append(q.strip())
     for tok in re.findall(r"[0-9A-Za-z가-힣ぁ-んァ-ヶ一-龥ー]+", text or ""):
-        w = strip_particles(tok)
-        if len(w) < 2 or w in _STOP or tok in _STOP or w.isdigit():
+        if tok in _STOP or tok.isdigit() or len(tok) < 2:
             continue
-        if re.fullmatch(r"[가-힣]+(했|하|해|됐|되|돼|었|았|겠|니|냐|까|지|요|죠)[가-힣]{0,2}", w) and len(w) <= 4:
-            continue  # '했었지', '되냐' 같은 말끝
-        out.append(w)
-    seen: dict[str, None] = {}
+        if re.fullmatch(r"[가-힣]+", tok) and ((_VERB_END.search(tok) and len(tok) <= 6)
+                                               or (tok.endswith("던") and len(tok) <= 3)):
+            continue  # '뭐했지', '언제였지', '갈까', '졌던' 같은 말끝
+        w = strip_particles(tok)
+        if w in _STOP:  # '저번에' → '저번'
+            continue
+        if len(w) >= 2:
+            out.append(w)
+        if w != tok:  # '타이가' 처럼 조사로 보였던 게 이름 끝일 수도 → 원래 낱말도
+            out.append(tok)
+    seen: dict[str, str] = {}
     for w in out:
-        if w.lower() not in seen:
-            seen[w.lower()] = None
-    return [w for w in seen][:limit]
+        seen.setdefault(w.lower(), w)  # 대소문자는 원래대로 (Valorant)
+    return list(seen.values())[:limit]
 
 
 # ---------------------------------------------------------------- 색인
@@ -93,6 +104,7 @@ class Episode:
             return self.time[:16]
 
 
+RECENT_KINDS = ("chat", "said", "moment")  # 지금 대화 기록(최근 몇 턴)에 들어 있는 종류
 KIND_BOOST = {"moment": 1.6, "diary": 1.2, "fact": 1.2}  # 주인님이 '기억해' 한 순간은 더 잘 떠오르게
 KIND_LABEL = {"moment": "기억해 달라고 한 순간", "chat": "대화", "screen": "화면", "said": "화면 보고 한 말", "analysis": "분석", "lookup": "찾아본 것",
               "diary": "일기", "game": "게임 기록", "fact": "예전 기억"}
@@ -104,6 +116,7 @@ class EpisodeIndex:
         path.parent.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
         self._batch = False  # sync 중엔 한 줄마다 저장하지 않고 끝에서 한 번
+        self._sync_lock = threading.Lock()  # sync 는 한 번에 하나만
         try:
             self._open()
         except sqlite3.DatabaseError as exc:  # 색인이 깨졌으면 옆으로 치우고 새로 (원본 기록에서 다시 만들어짐)
@@ -170,7 +183,8 @@ class EpisodeIndex:
 
     # ------------------------------------------------------------ 원본 기록에서 새 줄만 읽어 넣기
 
-    def _new_lines(self, path: Path) -> list[str]:
+    def _new_lines(self, path: Path) -> tuple[list[str], int]:
+        """새로 써진 줄과, 다 읽었을 때의 위치. 위치는 줄을 다 넣은 뒤에 _set_offset 으로 저장한다."""
         key = str(path)
         with self._lock:
             row = self.db.execute("SELECT pos FROM offsets WHERE file = ?", (key,)).fetchone()
@@ -180,22 +194,25 @@ class EpisodeIndex:
             if size < pos:
                 pos = 0  # 파일이 새로 만들어짐
             if size == pos:
-                return []
+                return [], pos
             with open(path, "rb") as f:
                 f.seek(pos)
                 data = f.read()
         except OSError:
-            return []
+            return [], pos
         end = data.rfind(b"\n") + 1  # 다 써진 줄까지만
         if end <= 0:
-            return []
+            return [], pos
+        return data[:end].decode("utf-8", "replace").splitlines(), pos + end
+
+    def _set_offset(self, path: Path, pos: int) -> None:
         with self._lock:
-            self.db.execute("INSERT OR REPLACE INTO offsets(file, pos) VALUES (?, ?)", (key, pos + end))
-            self.db.commit()
-        return data[:end].decode("utf-8", "replace").splitlines()
+            self.db.execute("INSERT OR REPLACE INTO offsets(file, pos) VALUES (?, ?)", (str(path), pos))
 
     def sync(self, data_dir: Path) -> int:
-        """data/logs 와 data/screens 의 새 줄을 색인에 넣는다. 넣은 수."""
+        """data/logs 와 data/screens 의 새 줄을 색인에 넣는다. 넣은 수. 다른 곳에서 이미 하고 있으면 건너뜀."""
+        if not self._sync_lock.acquire(blocking=False):
+            return 0
         self._batch = True
         try:
             return self._sync(data_dir)
@@ -203,11 +220,13 @@ class EpisodeIndex:
             self._batch = False
             with self._lock:
                 self.db.commit()
+            self._sync_lock.release()
 
     def _sync(self, data_dir: Path) -> int:
         added = 0
         for path in sorted((data_dir / "logs").glob("????-??-??.jsonl")):
-            for i, line in enumerate(self._new_lines(path)):
+            lines, end = self._new_lines(path)
+            for line in lines:
                 try:
                     row = json.loads(line)
                 except json.JSONDecodeError:
@@ -223,9 +242,12 @@ class EpisodeIndex:
                 elif "screen_line" in row:
                     added += bool(self.add(t, "said", f"다니카(화면 보고): {row['screen_line']}",
                                            source=f"said:{path.stem}:{t}"))
+            if lines:
+                self._set_offset(path, end)
         for index in sorted((data_dir / "screens").glob("????-??-??/index.jsonl")):
             day = index.parent
-            for line in self._new_lines(index):
+            lines, end = self._new_lines(index)
+            for line in lines:
                 try:
                     row = json.loads(line)
                 except json.JSONDecodeError:
@@ -239,7 +261,7 @@ class EpisodeIndex:
                         text = old[2]
                         if row.get("situation") and row["situation"] not in text:
                             text += f" / {row['situation']}"
-                        if row.get("said"):
+                        if row.get("said") and f"(내가 한 말: {row['said']})" not in text:
                             text += f" (내가 한 말: {row['said']})"
                         self.add(old[0], "screen", text, old[3], old[1], old[4], source=src)
                     continue
@@ -249,6 +271,8 @@ class EpisodeIndex:
                 added += bool(self.add(str(row.get("time", "")), "screen", text, detail=str(row.get("title", "")),
                                        game=str(row.get("mode", "")), ref=str(day / row.get("file", "")),
                                        source=f"screen:{day.name}:{row.get('file', '')}"))
+            if lines:
+                self._set_offset(index, end)
         if added:
             log.info("기억 색인: %d개 더함 (전체 %d)", added, self.count())
         return added
@@ -287,7 +311,7 @@ class EpisodeIndex:
         total = max(1, self.count())
         scores: dict[int, float] = {}
         for w in words:
-            ids = self._ids_for(w, since, until or before)
+            ids = self._ids_for(w, since, until)
             if not ids or len(ids) > total * 0.5 and total > 20:
                 continue  # 너무 흔한 말
             idf = math.log(1 + total / len(ids)) * (1.0 + min(len(w), 6) / 6)
@@ -301,8 +325,8 @@ class EpisodeIndex:
                 "SELECT id, time, kind, game, text, detail, ref FROM episodes WHERE id IN (%s)" % ",".join("?" * len(top)),
                 [i for i, _ in top]).fetchall()
         eps = [Episode(*r, score=scores[r[0]] * KIND_BOOST.get(r[2], 1.0)) for r in rows if not kinds or r[2] in kinds]
-        if before:
-            eps = [e for e in eps if e.time < before]
+        if before:  # 지금 대화 기록에 이미 있는 건 대화류만 (화면·일기·분석은 그대로)
+            eps = [e for e in eps if not (e.kind in RECENT_KINDS and e.time >= before)]
         eps.sort(key=lambda e: (-e.score, e.time), reverse=False)
         return eps[:limit]
 
@@ -329,7 +353,12 @@ class EpisodeIndex:
 def diary_material(index: EpisodeIndex, day: str, max_chars: int = 14000) -> str:
     """그날 일화들 → 일기 재료 글 (화면 일지는 같은 상황이 이어지면 하나로)."""
     start, end = f"{day}T00:00:00", f"{day}T23:59:59"
-    rows = index.recent(("chat", "said", "screen", "analysis", "game", "lookup"), start, end, limit=3000)
+    talk = index.recent(("chat", "said", "analysis", "game", "lookup", "moment"), start, end, limit=100000)
+    screens = index.recent(("screen",), start, end, limit=100000)
+    if len(screens) > 400:  # 복기 모드로 하루 수천 장이어도 저녁까지 골고루
+        step = len(screens) / 400
+        screens = [screens[int(i * step)] for i in range(400)]
+    rows = sorted(talk + screens, key=lambda e: e.time)
     lines, last = [], ""
     for e in rows:
         body = e.text.replace("\n", " / ")

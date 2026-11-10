@@ -89,3 +89,47 @@ def test_broken_index_is_rebuilt(tmp_path):
     idx = EpisodeIndex(tmp_path / "memory.db")
     assert idx.add("2026-11-10T10:00:00", "chat", "주인님: 안녕") and idx.count() == 1
     assert (tmp_path / "memory.broken.db").exists()
+
+
+def test_review_fixes_for_cues_and_recall_window(tmp_path):
+    assert "민지" in cues("저번에 민지랑 뭐 했지?") and cues("민지 생일 언제였지?") == ["민지", "생일"]
+    assert {"수지", "제니", "윤하", "모니카"} <= set(cues("수지랑 제니 윤하 모니카"))
+    assert "타이가" in cues("타이가 어디 갔어") and cues("Valorant 했던 거 기억나?") == ["Valorant"]
+    from recall import RECALL_INTENT
+
+    assert not RECALL_INTENT.search("충전에 아까워") and RECALL_INTENT.search("아까 그거") and RECALL_INTENT.search("전에 말한 거")
+    idx = EpisodeIndex(tmp_path / "memory.db")
+    idx.add("2026-11-09T21:00:00", "screen", "쪼개진뿔 카일록 보스전", game="붉은사막")
+    idx.add("2026-11-09T23:59:00", "diary", "2026-11-09 일기: 카일록을 잡으셨다.")
+    idx.add("2026-11-09T21:05:00", "chat", "주인님: 카일록 어렵다")
+    # 대화 기록이 11/07 부터라도 화면·일기는 빼지 않음 (대화만 뺌)
+    eps = idx.search(["카일록"], before="2026-11-07T00:00:00")
+    assert {e.kind for e in eps} == {"screen", "diary"}
+
+
+def test_index_offset_saved_only_after_lines_are_added(tmp_path, monkeypatch):
+    import json as _json
+
+    logs = tmp_path / "logs"
+    logs.mkdir()
+    rows = [{"time": f"2026-11-10T10:{i:02d}:00", "user": f"말 {i}", "reply": "네"} for i in range(10)]
+    (logs / "2026-11-10.jsonl").write_text("\n".join(_json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
+                                           encoding="utf-8")
+    idx = EpisodeIndex(tmp_path / "memory.db")
+    real = idx.add
+    calls = {"n": 0}
+
+    def flaky(*a, **kw):
+        calls["n"] += 1
+        if calls["n"] == 4:
+            raise RuntimeError("꺼짐")
+        return real(*a, **kw)
+
+    monkeypatch.setattr(idx, "add", flaky)
+    try:
+        idx.sync(tmp_path)
+    except RuntimeError:
+        pass
+    monkeypatch.setattr(idx, "add", real)
+    idx.sync(tmp_path)  # 중간에 멈췄어도 다음엔 나머지까지 (같은 줄은 겹치지 않음)
+    assert idx.count() == 10

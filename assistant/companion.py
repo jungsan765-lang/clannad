@@ -403,6 +403,13 @@ MEMORY_RULES = """# 할 일: 장기기억 정리
 - 늘 보는 기억은 {max_chars}자 안쪽만 들어가니, 덜 중요한 건 중요도 1~2로 두면 관련 있을 때만 꺼내진다.
 """
 
+def mostly_korean(text: str) -> bool:
+    """일기처럼 영어 인용('nice try', git push)이 섞일 수 있는 글: 한글이 글자의 40% 이상이면 된다."""
+    hangul = len(re.findall(r"[가-힣]", text))
+    latin = len(re.findall(r"[A-Za-z]", text))
+    return hangul > 0 and hangul / (hangul + latin) >= 0.4
+
+
 def style_reminder(persona: str, max_chars: int = 900) -> str:
     """성격 파일에서 말투·최우선 규칙 부분만 짧게 (제목에 '말투'·'최우선'·'호칭'·'말버릇'이 들어간 '## ' 절)."""
     if not persona:
@@ -1085,7 +1092,7 @@ class Companion:
                                   messages=[{"role": "user", "content": text}], schema=schema, kind="diary",
                                   max_tokens=1500, effort="low", thinking_off=True, timeout=60)
         out = str((r.data or {}).get("diary", "")).strip()
-        return self.memory.fix_words(out) if out and is_korean(out) else ""
+        return self.memory.fix_words(out) if out and mostly_korean(out) else ""
 
     def extract_dates(self, game: str, news: str, today: str, model: str = "claude-haiku-5-5") -> list[dict]:
         """게임 최신 소식 글 → 끝나는 날짜가 있는 이벤트·기원·점검 목록 (알림 자동 등록용, 싼 모델)."""

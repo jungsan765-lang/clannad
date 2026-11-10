@@ -30,6 +30,7 @@ class MemoryDialog(QDialog):
         self.resize(820, 600)
         self.tabs = QTabWidget()
         self.tabs.addTab(self._facts_tab(), "기억")
+        self.tabs.addTab(self._pinned_tab(), "꼭 기억할 것·찾아본 것")
         self.tabs.addTab(self._archive_tab(), "보관된 기억")
         self.tabs.addTab(self._search_tab(), "찾아보기")
         self.tabs.addTab(self._diary_tab(), "일기")
@@ -126,6 +127,51 @@ class MemoryDialog(QDialog):
         text = self.new_text.text().strip()
         if text and self.memory.add_fact(self.new_cat.currentText(), text, self.new_imp.currentData(), source="manual"):
             self.new_text.clear()
+            self.refresh()
+
+    # ------------------------------------------------------------ 꼭 기억할 것 (고정) · 찾아본 것
+
+    def _pinned_tab(self) -> QWidget:
+        w = QWidget()
+        self.pinned = QListWidget()
+        unpin = QPushButton("고정 풀기")
+        unpin.clicked.connect(self._unpin)
+        self.pin_text = QLineEdit()
+        self.pin_text.setPlaceholderText("늘 기억할 것 직접 적기 (예: 주인님 생일은 3월 2일)")
+        pin = QPushButton("고정")
+        pin.clicked.connect(self._pin)
+        self.pin_text.returnPressed.connect(self._pin)
+        self.knowledge = QListWidget()
+        forget = QPushButton("고른 찾아본 것 지우기")
+        forget.clicked.connect(self._forget_knowledge)
+        row = QHBoxLayout()
+        row.addWidget(self.pin_text, 1)
+        row.addWidget(pin)
+        row.addWidget(unpin)
+        lay = QVBoxLayout(w)
+        lay.addWidget(QLabel("꼭 기억할 것 ('고정해'라고 한 것 — 정리해도 안 지워지고 늘 기억)"))
+        lay.addWidget(self.pinned, 1)
+        lay.addLayout(row)
+        lay.addWidget(QLabel("찾아보고 알게 된 것 (검색 결과, 최근 것부터)"))
+        lay.addWidget(self.knowledge, 1)
+        lay.addWidget(forget, 0, Qt.AlignmentFlag.AlignLeft)
+        return w
+
+    def _pin(self) -> None:
+        if self.memory.add_pinned(self.pin_text.text()):
+            self.pin_text.clear()
+            self.refresh()
+
+    def _unpin(self) -> None:
+        item = self.pinned.currentItem()
+        if item:
+            self.memory.remove_pinned(item.text())
+            self.refresh()
+
+    def _forget_knowledge(self) -> None:
+        item = self.knowledge.currentItem()
+        if item:
+            self.memory.remove_knowledge(item.data(Qt.ItemDataRole.UserRole))
             self.refresh()
 
     # ------------------------------------------------------------ 보관된 기억
@@ -262,6 +308,14 @@ class MemoryDialog(QDialog):
                 self.table.setItem(r, c, item)
             if f["id"] == select:
                 self.table.selectRow(r)
+        self.pinned.clear()
+        for text in self.memory.pinned:
+            self.pinned.addItem(text)
+        self.knowledge.clear()
+        for k in reversed(self.memory.knowledge):
+            item = QListWidgetItem(f"{k.get('date', '')} {k['query']}")
+            item.setData(Qt.ItemDataRole.UserRole, k["query"])
+            self.knowledge.addItem(item)
         self.archived.clear()
         for f in sorted(self.memory.archived_facts(), key=lambda f: f.get("archived", ""), reverse=True):
             item = QListWidgetItem(f"{f.get('date', '')} [{f['category']}] {f['text']}  (보관 {f.get('archived', '')})")

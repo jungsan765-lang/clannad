@@ -1167,3 +1167,28 @@ def test_memory_files_are_backed_up_daily(qapp, tmp_path, built):
     a.backup_memory(keep=2)
     assert len(list((tmp_path / "data" / "backup").iterdir())) == 2
     a.quit()
+
+
+def test_failed_diary_is_not_retried_every_two_minutes(qapp, tmp_path, built):
+    import json as _json
+    from datetime import datetime as _dt
+    from datetime import timedelta as _td
+
+    if _dt.now().hour < 5:
+        return
+    day = (_dt.now() - _td(days=1)).date().isoformat()
+    logs = tmp_path / "data" / "logs"
+    logs.mkdir(parents=True)
+    rows = [{"time": f"{day}T21:{m:02d}:00", "user": f"게임 {m}판 했다", "reply": "수고하셨어요."} for m in range(5)]
+    (logs / f"{day}.jsonl").write_text("\n".join(_json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
+                                       encoding="utf-8")
+    fake = FakeAnthropic([{"diary": "Nice try man, it was a long night of gaming and fun."}] * 5)  # 영어 → 실패
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.set_pref("memory.diary", True)
+    for _ in range(4):
+        a.write_diaries()
+        _wait(qapp, a)
+    assert len(fake.calls) == 2  # 두 번까지만 시도
+    assert "쓰지 못한 날" in (tmp_path / "data" / "diary" / f"{day}.md").read_text(encoding="utf-8")
+    a.quit()

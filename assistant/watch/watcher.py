@@ -553,13 +553,15 @@ class ScreenWatcher(QObject):
         now = self.clock()
         since = None if self.last_judged is None else now - self.last_judged
         stale = since is not None and since >= self.cfg.max_skip_minutes * 60
-        changed = cap.change_amount(self.last_thumb, shot.thumb)
-        if shot.focus_thumb is not None:  # 메신저 창에 새 메시지가 오면 큰 화면이 그대로여도 다시 본다
+        changed_main = cap.change_amount(self.last_thumb, shot.thumb)
+        changed = changed_main
+        if shot.focus_thumb is not None:  # 메신저 창에 새 메시지가 오면 큰 화면이 그대로여도 다시 본다 (확인 간격마다)
             changed = max(changed, cap.change_amount(self.last_focus_thumb, shot.focus_thumb))
         settled = cap.change_amount(self._prev_sample, shot.thumb) < self.cfg.change_threshold * 2
         self._prev_sample = shot.thumb
         due = since is None or since >= self.interval_for(mode)  # 확인 간격이 지남
-        scene = changed >= self.cfg.scene_change and settled and (since is None or since >= self.cfg.event_gap)
+        # 장면 전환은 큰 화면이 크게 바뀌고 멈췄을 때만 (작은 창 속 영상·채팅이 계속 바뀌는 건 확인 간격대로)
+        scene = changed_main >= self.cfg.scene_change and settled and (since is None or since >= self.cfg.event_gap)
         if not stale and not (changed >= self.cfg.change_threshold and (due or scene)):
             self.stats["skipped_same"] += 1  # 그대로이거나, 바뀌었지만 아직 확인 간격 전 (다음 살펴보기 때 다시)
             return None

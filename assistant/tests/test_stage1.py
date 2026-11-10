@@ -257,3 +257,30 @@ def test_style_reminder_comes_last_in_the_dynamic_block(tmp_path):
     comp.persona = persona
     second = comp.system_blocks()[1]["text"]
     assert second.rstrip().endswith("- 존댓말, 짧게") and "# 말투 다시 확인" in second
+
+
+def test_review_fixes_for_fact_ops(tmp_path):
+    mem = Memory(tmp_path)
+    friend = mem.add_fact("사람", "민지는 주인님의 고등학교 친구다.", 3, "민지")
+    game = mem.add_fact("게임", "주인님은 발로란트를 즐긴다.", 2, "발로란트")
+    promise = mem.add_fact("약속·할 일", "주인님은 민지와 홍대에서 만난다.", 3, "민지", "2026-11-15")
+    archived = mem.apply_ops([
+        {"op": "update", "id": friend["id"], "text": friend["text"], "importance": 1, "category": "약속·할 일",
+         "subject": ""},
+        {"op": "archive", "id": friend["id"]},  # 같은 결과 안에서 낮추고 보관해도 ★3 은 보관 안 됨
+        {"op": "update", "id": f"[{game['id']}]", "text": "주인님은 발로란트를 자주 한다.", "importance": 2, "subject": ""},
+        {"op": "archive", "id": "", "text": "치과 예약"},  # 번호 없는 보관은 무시 (새로 더하지 않음)
+        {"op": "update", "id": "f_unknown", "text": "엉뚱한 사실"},
+    ], 0)
+    assert archived == [] and mem.fact(friend["id"])["status"] == "active"
+    assert mem.fact(friend["id"])["importance"] == 3 and mem.fact(friend["id"])["category"] == "사람"
+    assert mem.fact(game["id"])["subject"] == "발로란트" and "자주" in mem.fact(game["id"])["text"]
+    assert not any("치과" in f["text"] or "엉뚱" in f["text"] for f in mem.facts)
+    # 다시 말해도 그 일이 있었던 날짜는 그대로, 바뀐 글은 history 에
+    again = mem.add_fact("약속·할 일", "주인님은 민지와 홍대에서 만난다. 저녁 7시에.", 2, "민지", "2026-11-10")
+    assert again["id"] == promise["id"] and again["date"] == "2026-11-15" and again["history"][0]["text"].endswith("만난다.")
+    # ☆ 만 있어도 '없음' 이 아님, 대소문자 상관없이 찾음
+    mem2 = Memory(tmp_path / "b")
+    mem2.add_fact("게임", "주인님은 Valorant 를 한다.", 1)
+    assert "아직 기억해 둔 것이 없음" not in mem2.notes_text()
+    assert mem2.relevant_facts(["valorant"])
