@@ -83,3 +83,15 @@ def test_fidget_only_while_resting(win):
     win.set_talking(False)
     win.set_emotion("worried")
     assert not win.play_fidget()  # 감정 동작 중에도 안 함
+
+
+def test_freeze_holds_frame_and_resumes(win):
+    idle = win.sprites.motion("idle")
+    win.advance(3.5 / idle.fps)
+    held = win.frame_index
+    win.set_frozen(True)
+    assert win.frozen and not win._timer.isActive()
+    win._tick()  # 멈춘 동안 시간이 흘러도
+    assert win.frame_index == held
+    win.set_frozen(False)
+    assert win._timer.isActive() and win.frame_index == held  # 멈춘 장면부터 이어감

@@ -136,6 +136,8 @@ class CharacterWindow(QWidget):
         self._press_global: QPoint | None = None
         self._press_pos = QPoint()
         self._dragging = False
+        self._time_offset = 0.0  # 멈췄다가 이어갈 때 그 장면부터
+        self._frozen = False
         self._fidget_timer = QTimer(self)
         self._fidget_timer.setSingleShot(True)
         self._fidget_timer.timeout.connect(self._on_fidget_timer)
@@ -166,8 +168,10 @@ class CharacterWindow(QWidget):
         self._current = motion
         self._pixmaps = self.sprites.frames(name)
         self._index = 0
+        self._time_offset = 0.0
         self._clock.restart()
-        self._timer.start(max(1, round(1000 / min(motion.fps, self.max_fps))))
+        if not self._frozen:
+            self._timer.start(max(1, round(1000 / min(motion.fps, self.max_fps))))
         self.update()
         self.motion_changed.emit(name)
 
@@ -187,6 +191,22 @@ class CharacterWindow(QWidget):
         self._talking = talking
         if self._current.loop != "once" and self._current.name != self.base_motion():
             self.play(self.base_motion())
+
+    @property
+    def frozen(self) -> bool:
+        return self._frozen
+
+    def set_frozen(self, frozen: bool) -> None:
+        """움직임을 지금 장면에서 멈추거나(말하는 동안 등), 멈춘 장면부터 다시 이어간다."""
+        if frozen == self._frozen:
+            return
+        self._frozen = frozen
+        if frozen:
+            self._time_offset += self._clock.elapsed() / 1000.0
+            self._timer.stop()
+        else:
+            self._clock.restart()
+            self._timer.start(max(1, round(1000 / min(self._current.fps, self.max_fps))))
 
     def set_max_fps(self, fps: float) -> None:
         """게임 중엔 15 정도로 낮춘다."""
@@ -230,7 +250,9 @@ class CharacterWindow(QWidget):
     # ------------------------------------------------------------ 재생
 
     def _tick(self) -> None:
-        self._step(self._clock.elapsed() / 1000.0)
+        if self._frozen:  # 멈춘 동안은 장면을 바꾸지 않는다
+            return
+        self._step(self._time_offset + self._clock.elapsed() / 1000.0)
 
     def _step(self, seconds: float) -> None:
         index, finished = self._current.frame_at(seconds)

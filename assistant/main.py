@@ -290,11 +290,23 @@ class AssistantApp(QObject):
         state.setdefault("prefs", {})[key] = value
         self._write_state(state)
 
+    def talk_style(self) -> str:
+        """말할 때: bounce(살짝 튐) | still(숨쉬기 멈춤) | breathe(숨쉬기 계속)."""
+        value = self.settings.get("character.talk_motion", "bounce")
+        if isinstance(value, bool):  # 예전 설정 true/false
+            return "bounce" if value else "breathe"
+        value = str(value).lower()
+        return value if value in ("bounce", "still", "breathe") else "bounce"
+
     def _start_talking(self) -> None:
-        if settings_flag(self.settings, "character.talk_motion", True):
+        style = self.talk_style()
+        if style == "bounce":
             self.window.set_talking(True)
+        elif style == "still":
+            self.window.set_frozen(True)
 
     def _bubble_done(self) -> None:
+        self.window.set_frozen(False)
         self.window.set_talking(False)
         self.window.set_emotion("normal")
 

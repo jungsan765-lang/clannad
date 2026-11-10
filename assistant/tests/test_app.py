@@ -85,9 +85,22 @@ def test_topmost_keeper_reasserts_visible_windows(qapp, tmp_path, built, monkeyp
 def test_talk_motion_can_be_turned_off(qapp, tmp_path, built):
     fake = FakeAnthropic([{"speak": True, "message": "네.", "emotion": "normal"}])
     s = _settings(tmp_path, built["out"].as_posix())
-    s.data.setdefault("character", {})["talk_motion"] = False
+    s.data.setdefault("character", {})["talk_motion"] = False  # 예전 설정값도 동작 (= breathe)
     a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
     a.start()
     a.ask("안녕")
     _wait(qapp, a)
-    assert a.bubble.text == "네." and not a.window.talking  # 말풍선은 뜨지만 말하기 동작은 없음
+    assert a.bubble.text == "네." and not a.window.talking and not a.window.frozen  # 숨쉬기만 계속
+
+
+def test_talk_still_pauses_breathing_until_bubble_closes(qapp, tmp_path, built):
+    fake = FakeAnthropic([{"speak": True, "message": "네.", "emotion": "normal"}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    s.data.setdefault("character", {})["talk_motion"] = "still"
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.ask("안녕")
+    _wait(qapp, a)
+    assert a.window.frozen and not a.window.talking  # 말하는 동안 멈춤
+    a.bubble._timeout()
+    assert not a.window.frozen  # 말풍선이 사라지면 다시 숨쉼
