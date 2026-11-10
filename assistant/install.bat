@@ -1,9 +1,8 @@
 @echo off
-chcp 65001 >nul
 cd /d "%~dp0"
 where py >nul 2>nul && (py -3.12 -m pip install -r requirements.txt) || (python -m pip install -r requirements.txt)
 echo.
-echo Л└╓Л╧≤Й╟─ К│²К┌╛Л√╢Л ■.
-echo API М┌╓К╔╪ Л∙└Л╖│ Л∙┬ К└ёЛ≈┬Л°╪К╘╢:  setx ANTHROPIC_API_KEY "М┌╓"   (Л┐┬ К╙┘К═╧ М■└К║╛М■└М┼╦ Л╟╫К╤─М└╟ Л═│Л ╘)
-echo Й╥╦К▀╓Л²▄ run.bat Л²└ К█■К╦■М│╢К╕╜М∙≤К╘╢ К▀╓К▀┬Л╧╢Й╟─ К┌≤Л≥─Л ■.
+echo ╪Ёд║╟║ Ё║Ё╣╬Н©Д.
+echo API е╟╦╕ ╬фаВ ╬х Ёж╬Зю╦╦И: setx ANTHROPIC_API_KEY "е╟"  - ╩У ╦М╥и га╥ргаф╝ ц╒╨нем юШ©К
+echo ╠в╢ыю╫ run.bat ю╩ ╢У╨Ме╛╦╞го╦И ╢ы╢од╚╟║ Ё╙©м©Д.
 pause
