@@ -218,6 +218,10 @@ class AssistantApp(QObject):
             self.window.play("appear")
         self.set_screen_enabled(bool(self.pref("screen.enabled", True)), save=False)
         self.set_voice_mode(str(self.pref("voice.mode", "off")), save=False)
+        if not self.pref("screen.overlay_v2", False):  # 자막 기본값이 '중요한 것만'으로 바뀜 (예전 기본 game → important)
+            if self.pref("screen.overlay", "important") == "game":
+                self.set_pref("screen.overlay", "important")
+            self.set_pref("screen.overlay_v2", True)
         coach = self.pref("screen.coach", None)
         if coach is None:  # 예전 설정(분석 모드 켜기/끄기)
             coach = "analysis" if self.pref("screen.analysis", False) else "off"
@@ -308,7 +312,7 @@ class AssistantApp(QObject):
         self.voice.paused = False
         self.status.end("chat")
         self.bubble.show_text(reply.message, self.anchor())
-        self.show_overlay(reply.message)
+        self.show_overlay(reply.message, important=True)  # 주인님이 직접 말을 건 것의 대답
         self.window.set_emotion(reply.emotion)
         self._start_talking()
         self._refresh_cost()
@@ -454,12 +458,13 @@ class AssistantApp(QObject):
         self.status.begin("screen", "복기하는 중" if self.watcher.reviewing(self.watcher.mode) else "분석하는 중")
         self.watcher.ask_analysis(question)
 
-    def show_overlay(self, text: str) -> None:
-        """게임 모니터 위에 자막으로도 (설정: game=게임 중일 때만, always=그 모니터를 쓸 때 항상, off)."""
-        how = str(self.pref("screen.overlay", "game"))
-        if how == "off" or not text or text == "……":
+    def show_overlay(self, text: str, important: bool = True) -> None:
+        """게임 모니터 위에 자막으로도. 설정: important=게임 중 중요한 말만(기본), game=게임 중 모두,
+        always=그 모니터를 쓸 때 항상, off."""
+        how = str(self.pref("screen.overlay", "important"))
+        if how == "off" or not text or text == "……" or (how == "important" and not important):
             return
-        if not self.watcher.foreground_on_watched() or (how == "game" and not self.watcher.mode.is_game):
+        if not self.watcher.foreground_on_watched() or (how in ("game", "important") and not self.watcher.mode.is_game):
             return
         ranks = None
         if str(self.watch_cfg.monitor).isdigit():
@@ -510,7 +515,7 @@ class AssistantApp(QObject):
                 self.search_and_answer(reply.target, about_screen=True)
             return
         self.bubble.show_text(reply.message, self.anchor())
-        self.show_overlay(reply.message)
+        self.show_overlay(reply.message, important=bool(getattr(reply, "important", False)))
         self.window.set_emotion(reply.emotion)
         self._start_talking()
         self._refresh_cost()
@@ -650,7 +655,7 @@ class AssistantApp(QObject):
             "screen.read_windows": bool(self.pref("screen.read_windows", True)),
             "screen.memory_days": self.screen_log.keep_days,
             "screen.memory_gb": int(self.screen_log.max_gb),
-            "screen.overlay": str(self.pref("screen.overlay", "game")),
+            "screen.overlay": str(self.pref("screen.overlay", "important")),
             "screen.overlay_pos": str(self.pref("screen.overlay_pos", "top")),
             "screen.max_width": int(self.watch_cfg.max_width),
             "voice.mode": self.voice.mode,

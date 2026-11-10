@@ -27,8 +27,9 @@ REPLY_SCHEMA = {
         "emotion": {"type": "string", "enum": EMOTIONS},
         "action": {"type": "string", "enum": ACTIONS},
         "target": {"type": "string"},
+        "important": {"type": "boolean"},
     },
-    "required": ["speak", "message", "emotion", "action", "target"],
+    "required": ["speak", "message", "emotion", "action", "target", "important"],
     "additionalProperties": False,
 }
 
@@ -250,6 +251,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 주인님이 직접 말을 걸었으면 speak 는 true. 화면을 보고 먼저 말 거는 상황에서 할 말이 없으면 speak 는 false, message 는 빈 문자열.
 - message 는 보통 1~2문장, 길어도 4문장. 말풍선에 들어갈 만큼 짧게.
 - emotion 은 normal, happy, worried, surprised, angry 중 하나. 대부분 normal.
+- important: 주인님이 게임 화면을 보고 있어도 자막으로 띄울 만큼 중요한 말이면 true — 위험 경고, 지금 바로 알아야 할 것,
+  주인님이 직접 물은 것에 대한 답. 감상·잡담·가벼운 말은 false.
 - 아래 '기억'은 네가 예전 대화에서 직접 적어 둔 메모다. 자연스럽게 활용하되 메모를 읽는 티를 내지 않는다.
 - 사용자 메시지 앞의 [지금: ...] 은 현재 시각 정보다. 지난 대화 앞의 [11/10 21:30] 같은 표시는 그 말을 한 시각이다.
   "아까", "몇 시에" 같은 말이나 오랜만에 돌아왔을 때 필요하면 참고한다(시각을 일일이 읽어 주지는 않는다).
@@ -370,6 +373,7 @@ class Analysis:
     when: str = ""
     action: str = "none"
     target: str = ""
+    important: bool = True  # 분석·복기 요약은 게임 화면 자막으로도
 
     @property
     def message(self) -> str:  # 말풍선에는 요약
@@ -384,6 +388,7 @@ class Reply:
     usd: float = 0.0
     action: str = "none"
     target: str = ""
+    important: bool = False  # 게임 화면 자막으로도 띄울 만큼 중요한가
 
 
 class Companion:
@@ -564,7 +569,8 @@ class Companion:
         if action == "web_search" and not self.can_search:
             action = "none"
         self.memory.add_turn(memory_text, message, now)
-        return Reply(True, message, emotion, total, action, str(data.get("target", "") or ""))
+        return Reply(True, message, emotion, total, action, str(data.get("target", "") or ""),
+                     bool(data.get("important", False)))
 
     def _ask(self, messages: list[dict], on_text=None, fast: bool = False) -> tuple[dict | None, float]:
         r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(), messages=messages,
@@ -673,7 +679,8 @@ class Companion:
         if not data or not data["speak"] or not data["message"].strip():
             return Reply(False, "", "normal", r.usd)
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
-        return Reply(True, data["message"].strip(), emotion, r.usd)
+        important = bool(data.get("important")) or bool(note and note.get("urgent")) or review
+        return Reply(True, data["message"].strip(), emotion, r.usd, important=important)
 
     # ------------------------------------------------------------ 게임 모드 만들기
 

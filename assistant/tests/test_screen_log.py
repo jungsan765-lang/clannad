@@ -163,3 +163,33 @@ def test_window_reading_flow(tmp_path, monkeypatch):
     a.read_window_and_answer("카카오톡")
     assert "꺼져 있어요" in a.bubble.text and not a.busy
     a.quit()
+
+
+def test_overlay_picks_readable_colors_for_any_background():
+    from PySide6.QtCore import QRect
+    from PySide6.QtGui import QColor, QImage
+
+    from ui.overlay import GameOverlay, background_stats, pick_palette
+
+    app = QApplication.instance() or QApplication([])  # noqa: F841
+
+    def solid(rgb):
+        img = QImage(64, 16, QImage.Format.Format_RGB32)
+        img.fill(QColor(*rgb))
+        return img
+
+    bright = pick_palette(background_stats(solid((240, 240, 230))))  # 눈 덮인 배경
+    dark = pick_palette(background_stats(solid((10, 12, 20))))  # 밤·동굴
+    assert bright.box.lightness() < 60 and bright.text.lightness() > 200  # 어두운 상자 + 흰 글씨
+    assert dark.box.lightness() > 200 and dark.text.lightness() < 60  # 밝은 상자 + 검은 글씨
+    red = pick_palette(background_stats(solid((200, 30, 30))))
+    assert abs(red.name.hueF() - 0.5) < 0.1  # 빨간 배경이면 이름표는 반대색(청록 계열)
+    backs = {"now": solid((10, 10, 10))}
+    ov = GameOverlay(sampler=lambda rect: backs["now"])
+    ov.show_on(QRect(0, 0, 1920, 1080), "대파 진격 금지!", 3)
+    assert ov.palette_.text.lightness() < 60  # 뜨기 전 배경(어두움)에 맞춤
+    backs["now"] = solid((245, 245, 245))  # 장면이 바뀌어 밝아짐
+    ov._adapt_while_visible()
+    assert ov.palette_.text.lightness() > 200 and ov.recolor.isActive()
+    ov._finish()
+    assert not ov.isVisible() and not ov.recolor.isActive()

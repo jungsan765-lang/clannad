@@ -413,7 +413,14 @@ def test_coach_modes_and_game_overlay(qapp, tmp_path, built, monkeypatch):
     monkeypatch.setattr(a.watcher, "foreground_on_watched", lambda: True)
     a.watcher.mode = game
     a._on_screen_line(Analysis(True, "방금 그 싸움, 아군을 기다렸으면 이겼습니다.", "교전 직후", [], [], when="21:00"))
-    assert a.overlay.isVisible() and "아군을 기다렸으면" in a.overlay.text
+    assert a.overlay.isVisible() and "아군을 기다렸으면" in a.overlay.text  # 복기 요약은 중요
+    a.overlay.hide()
+    a.bubble.hide()
+    a._on_screen_line(Reply(True, "풍경이 예쁘네요.", "normal"))  # 가벼운 말은 게임 화면에 안 띄움
+    assert not a.overlay.isVisible() and a.bubble.text == "풍경이 예쁘네요."
+    a.bubble.hide()
+    a._on_screen_line(Reply(True, "대파 상태입니다. 철수하세요!", "worried", important=True))
+    assert a.overlay.isVisible()
     a.overlay.hide()
     monkeypatch.setattr(a.watcher, "foreground_on_watched", lambda: False)  # 다니카 쪽 모니터를 보는 중
     a.bubble.hide()

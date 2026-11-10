@@ -20,7 +20,7 @@ MODELS = [("small", "빠름"), ("medium", "보통 (추천)"), ("large-v3-turbo",
 MEMORY_DAYS = [("30", "30일"), ("90", "90일"), ("180", "180일"), ("365", "1년")]
 MEMORY_GB = [("20", "20GB"), ("50", "50GB"), ("100", "100GB"), ("300", "300GB")]
 COACH = [("off", "끔"), ("analysis", "분석"), ("review", "복기")]
-OVERLAY = [("game", "게임 중일 때만"), ("always", "항상"), ("off", "끔")]
+OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
 OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
 SHARPNESS = [(1280, "보통"), (1920, "선명 (추천)"), (2560, "아주 선명 (비용 약 2배)")]
 
@@ -132,7 +132,7 @@ class SettingsDialog(QDialog):
                             "싸움·판이 끝나면 '이랬으면 좋았을 것'을 짚음 (게임 1시간에 약 1,000~3,000원).  F10 은 언제든.")
         coach_note.setWordWrap(True)
         coach_note.setStyleSheet("color: #555;")
-        self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "game")))
+        self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "important")))
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         g2 = group("화면 보기", [("", self.screen_on), ("코칭", self.coach), ("", coach_note),
                                  ("게임 화면 자막", self.overlay), ("자막 위치", self.overlay_pos), ("말 거는 정도", self.chatty),
