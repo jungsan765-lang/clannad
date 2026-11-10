@@ -24,6 +24,7 @@ from PySide6.QtWidgets import QApplication, QFileDialog, QMenu, QMessageBox, QSy
 
 import organizer as org
 import re
+from gamedata.cyphers_data import CyphersData
 from gamedata.genshin_data import GenshinData
 from secret_store import SecretStore
 from ai_client import AIClient, AIError
@@ -53,6 +54,7 @@ from watch.watcher import ScreenWatcher, WatchConfig
 
 log = logging.getLogger("assistant")
 # 대화에 이런 말이 나오면 원신 계정 정보를 함께 넘긴다
+CYPHERS_WORDS = re.compile(r"사이퍼즈|전적|공식전|일반전|킬뎃|딜량|승률|판수|티어|랭크")
 GENSHIN_WORDS = re.compile(r"원신|레진|기원|뽑기|천장|픽업|성유물|진열장|파티|일퀘|일일 ?의뢰|파견|주전자|나선|비경|환상극|돌파|특성")
 
 
@@ -135,10 +137,14 @@ class AssistantApp(QObject):
         self.secrets = SecretStore(settings.data_dir / "secrets.bin")
         self.genshin = GenshinData(settings.data_dir / "genshin", uid=str(self.pref("genshin.uid", "") or ""),
                                    cookies=lambda: self.secrets.get("hoyolab"))
-        companion.extra_context = lambda mode: (self.genshin.context_text()
-                                                if mode is not None and mode.name == "원신" else "")
+        # 사이퍼즈 전적 (네오플 공식 API). API 키도 이 PC 사용자만 풀 수 있게 암호화
+        self.cyphers = CyphersData(settings.data_dir / "cyphers", api_key=lambda: self.secrets.get("neople"),
+                                   nickname=str(self.pref("cyphers.nickname", "") or ""))
+        self._cyphers_busy = False
+        companion.extra_context = self._game_context
         self.genshin_timer = QTimer(self)
         self.genshin_timer.timeout.connect(lambda: self.refresh_genshin())
+        self.genshin_timer.timeout.connect(lambda: self.refresh_cyphers() if self.watcher.mode.name == "사이퍼즈" else None)
         self._genshin_busy = False
         self._last_mode = "평소"
         self.watcher.mode_changed.connect(self._on_mode_changed)
@@ -247,8 +253,13 @@ class AssistantApp(QObject):
         self._streamed = False
         self._last_question = text
         context = self.watcher.chat_context()  # 게임 중이면 이번 판 기록을 함께 넘긴다
-        if self.genshin.has_uid and (self.watcher.mode.name == "원신" or GENSHIN_WORDS.search(text)):
-            info = self.genshin.context_text()
+        mode = self.watcher.mode.name
+        infos = []
+        if self.genshin.has_uid and (mode == "원신" or GENSHIN_WORDS.search(text)):
+            infos.append(self.genshin.context_text())
+        if self.cyphers.ready and (mode == "사이퍼즈" or CYPHERS_WORDS.search(text)):
+            infos.append(self.cyphers.context_text())
+        for info in infos:
             if info:
                 context = (context + "\n" if context else "") + info
         self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress),
@@ -540,6 +551,7 @@ class AssistantApp(QObject):
             "ai.fast": bool(self.companion.fast),
             "ai.web_search": bool(self.companion.can_search),
             "genshin.uid": self.genshin.uid,
+            "cyphers.nickname": self.cyphers.nickname,
             "user.nickname": ", ".join(self.companion.user_names),
             "ui.show_status": self.status.enabled,
         }
@@ -553,8 +565,14 @@ class AssistantApp(QObject):
             monitors = []
         dlg = SettingsDialog(self.settings_values(), monitors, list_input_devices(), voice_level=lambda: self.voice.level,
                              meter=(self.voice.start_meter, self.voice.stop_meter),
-                             hoyolab=(self.hoyolab_status, self.hoyolab_login, self.hoyolab_logout))
+                             hoyolab=(self.hoyolab_status, self.hoyolab_login, self.hoyolab_logout),
+                             neople_set=bool(self.secrets.get("neople")))
         if dlg.exec() == SettingsDialog.DialogCode.Accepted:
+            key = dlg.neople_key.text().strip()
+            if key:  # API 키는 설정 값(state.json)이 아니라 암호화 저장소에만
+                self.secrets.set("neople", key)
+                self.cyphers.fetched_at = None
+                QTimer.singleShot(800, lambda: self.refresh_cyphers(force=True))
             self.apply_settings(dlg.changed())
 
     def apply_settings(self, changed: dict) -> None:
@@ -585,6 +603,10 @@ class AssistantApp(QObject):
             self.companion.fast = bool(changed["ai.fast"])
         if "ai.web_search" in changed:
             self.companion.can_search = bool(changed["ai.web_search"])
+        if "cyphers.nickname" in changed:
+            self.cyphers.nickname = str(changed["cyphers.nickname"]).strip()
+            self.cyphers.player_id = ""
+            self.cyphers.fetched_at = None
         if "genshin.uid" in changed:
             self.genshin.uid = str(changed["genshin.uid"])
             self.genshin.showcase_next = 0
@@ -734,9 +756,12 @@ class AssistantApp(QObject):
         g_refresh = QAction("원신 정보 새로고침 (진열장·실시간 메모·기원 기록)", gmenu)
         g_refresh.triggered.connect(lambda: self.refresh_genshin(force=True, wishes=True))
         gmenu.addAction(g_refresh)
+        c_refresh = QAction("사이퍼즈 전적 새로고침", menu)
+        c_refresh.triggered.connect(lambda: self.refresh_cyphers(force=True))
         g_show = QAction("받은 원신 정보 보기", gmenu)
         g_show.triggered.connect(self.show_genshin)
         gmenu.addAction(g_show)
+        menu.addAction(c_refresh)
         make_mode = QAction("지금 하는 게임 모드 만들기", menu)
         make_mode.triggered.connect(self.make_game_mode_now)
         menu.addAction(make_mode)
@@ -925,7 +950,45 @@ class AssistantApp(QObject):
             QTimer.singleShot(5000, lambda: self.refresh_genshin(wishes=True))
         elif name == "원신":
             QTimer.singleShot(3000, lambda: self.refresh_genshin())
+        elif name == "사이퍼즈":
+            QTimer.singleShot(3000, lambda: self.refresh_cyphers())
         self._last_mode = name
+
+    def _game_context(self, mode) -> str:
+        """화면 대사·분석에 덧붙일 실제 게임 데이터 (지금 모드에 맞는 것만)."""
+        name = getattr(mode, "name", "")
+        if name == "원신":
+            return self.genshin.context_text()
+        if name == "사이퍼즈":
+            return self.cyphers.context_text()
+        return ""
+
+    def refresh_cyphers(self, force: bool = False) -> None:
+        c = self.cyphers
+        if self._cyphers_busy or not c.ready:
+            if force and not c.ready:
+                self.bubble.show_text("설정 창 '사이퍼즈 연결'에 API 키와 닉네임을 먼저 넣어 주세요.", self.anchor(),
+                                      system=True, seconds=6)
+            return
+        if not force and c.fetched_at and c.clock() - c.fetched_at < 30 * 60:  # 공식 기록은 1시간마다 갱신
+            return
+        self._cyphers_busy = True
+        if force:
+            self.status.begin("cyphers", "사이퍼즈 전적 받는 중")
+
+        def done(ok) -> None:
+            self._cyphers_busy = False
+            self.status.end("cyphers")
+            if force:
+                self.bubble.show_text("사이퍼즈 전적을 받아 왔어요." if ok else c.last_error, self.anchor(), system=True,
+                                      seconds=6)
+
+        def fail(message: str) -> None:
+            self._cyphers_busy = False
+            self.status.end("cyphers")
+            log.warning("사이퍼즈 전적 실패: %s", message)
+
+        self._run(c.refresh, done, fail)
 
     def hoyolab_status(self) -> str:
         if not self.genshin.has_login:

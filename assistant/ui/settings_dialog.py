@@ -8,9 +8,10 @@ from __future__ import annotations
 from typing import Callable
 
 from PySide6.QtCore import Qt, QTimer
+from PySide6.QtGui import QGuiApplication
 from PySide6.QtWidgets import (QButtonGroup, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QGridLayout,
                                QGroupBox, QHBoxLayout, QLabel, QLineEdit, QProgressBar, QPushButton, QRadioButton,
-                               QSlider, QVBoxLayout, QWidget)
+                               QScrollArea, QSlider, QVBoxLayout, QWidget)
 
 TALK_STYLES = [("bounce", "살짝 움직임"), ("still", "멈춤"), ("breathe", "숨쉬기 계속")]
 CHATTY = [("quiet", "조용히"), ("normal", "보통"), ("chatty", "자주")]
@@ -80,7 +81,8 @@ def _seconds(v: int) -> str:
 class SettingsDialog(QDialog):
     def __init__(self, values: dict, monitors: list[str], mics: list[str], voice_level: Callable[[], float] | None = None,
                  meter: tuple[Callable[[], bool], Callable[[], None]] | None = None,
-                 hoyolab: tuple[Callable[[], str], Callable[[], str], Callable[[], str]] | None = None, parent=None):
+                 hoyolab: tuple[Callable[[], str], Callable[[], str], Callable[[], str]] | None = None,
+                 neople_set: bool = False, parent=None):
         super().__init__(parent)
         self.setWindowTitle("다니카 설정")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
@@ -190,6 +192,15 @@ class SettingsDialog(QDialog):
         wish_note = QLabel("기원 기록은 게임 안에서 기원 → 기록을 한 번 열어 두면, 게임을 끌 때 알아서 받아요.")
         wish_note.setWordWrap(True)
         g7 = group("원신 연결", [("UID (진열장)", self.uid), ("HoYoLAB (레진·의뢰)", hoyo), ("", wish_note)])
+
+        # 사이퍼즈 연결 (네오플 공식 API)
+        self.neople_key = QLineEdit()
+        self.neople_key.setEchoMode(QLineEdit.EchoMode.Password)
+        self.neople_key.setPlaceholderText("저장돼 있어요 (바꿀 때만 새로 넣기)" if neople_set
+                                           else "네오플 개발자센터 → 마이페이지 → 애플리케이션 등록 → API Key")
+        self.cy_nick = QLineEdit(str(v.get("cyphers.nickname", "")))
+        self.cy_nick.setPlaceholderText("사이퍼즈 닉네임")
+        g8 = group("사이퍼즈 연결 (이 컴퓨터에만 저장)", [("API 키", self.neople_key), ("닉네임", self.cy_nick)])
         g5 = group("대답·표시", [("", self.web), ("", self.fast), ("", self.show_status)])
 
         # 비용
@@ -203,11 +214,23 @@ class SettingsDialog(QDialog):
         buttons.button(QDialogButtonBox.StandardButton.Cancel).setText("취소")
         buttons.accepted.connect(self.accept)
         buttons.rejected.connect(self.reject)
+        # 칸이 많아 화면보다 길어질 수 있으니 안쪽만 스크롤 (저장·취소 버튼은 늘 보이게)
+        content = QWidget()
+        inner = QVBoxLayout(content)
+        for g in (g6, g7, g8, g1, g5, g2, g3, g4):
+            inner.addWidget(g)
+        inner.addStretch(1)
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QScrollArea.Shape.NoFrame)
+        scroll.setWidget(content)
         lay = QVBoxLayout(self)
-        for g in (g6, g7, g1, g5, g2, g3, g4):
-            lay.addWidget(g)
+        lay.addWidget(scroll, 1)
         lay.addWidget(self.note)
         lay.addWidget(buttons)
+        screen = QGuiApplication.primaryScreen()
+        height = screen.availableGeometry().height() if screen else 900
+        self.resize(max(560, content.sizeHint().width() + 40), min(content.sizeHint().height() + 120, int(height * 0.85)))
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self._update_level)
@@ -252,6 +275,7 @@ class SettingsDialog(QDialog):
             "ai.fast": self.fast.isChecked(),
             "ai.web_search": self.web.isChecked(),
             "genshin.uid": "".join(ch for ch in self.uid.text() if ch.isdigit()),
+            "cyphers.nickname": self.cy_nick.text().strip(),
             "user.nickname": ", ".join(n.strip() for n in self.nick.text().replace("，", ",").split(",") if n.strip()),
             "ui.show_status": self.show_status.isChecked(),
         }
