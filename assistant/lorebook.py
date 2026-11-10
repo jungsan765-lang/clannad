@@ -84,8 +84,14 @@ class LoreBook:
             if e.games and not any(g.lower() in low for g in e.games):
                 continue  # 다른 게임 얘기 중엔 이 게임 사전을 안 꺼냄 ('심연'이 원신에도 붉은사막에도 있으니)
             hits = [w for w in e.keywords if w.lower() in low]
-            if hits:
-                scored.append((len(hits), max(len(w) for w in hits), -i, e))
+            games = {g.lower() for g in e.games}
+            topical = [w for w in hits if w.lower() not in games]  # 게임 이름은 '어느 게임인지'일 뿐 주제가 아님
+            if topical:
+                scored.append((len(topical), max(len(w) for w in topical), -i, e))
+            elif hits:
+                scored.append((0, 0, -i, e))  # 게임 이름만 맞음 → 다른 항목이 하나도 없을 때만
+        if any(s[0] for s in scored):
+            scored = [s for s in scored if s[0]]
         scored.sort(reverse=True, key=lambda s: s[:3])
         picked, size = [], 0
         for *_, e in scored[:limit]:
