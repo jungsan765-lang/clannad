@@ -743,3 +743,17 @@ def test_screen_line_can_remember_but_caps_importance(tmp_path):
                      chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
     r = comp.screen_line(b"jpeg", "카카오톡", {"situation": "약속 잡는 대화", "point": ""})
     assert r.speak and [(f["importance"], f["category"]) for f in mem.active_facts()] == [(2, "약속·할 일")]
+
+
+def test_quiet_screens_stretch_the_interval_outside_games(qapp, tmp_path):
+    quiet = {"speak": False, "urgent": False, "scene": "other", "situation": "영상 시청", "point": ""}
+    w, comp, said, t, _ = _watcher(tmp_path, notes=[dict(quiet) for _ in range(10)])
+    base = w.interval_for(w.mode)
+    for i in range(6):
+        t["now"] = i * 301.0  # 간격이 늘어나도 매번 확인 시점이 지나게
+        w.tick()
+    assert w._quiet_streak == 6 and w.interval_for(w.mode) == base * 4
+    w._quiet_streak = 0
+    assert w.interval_for(w.mode) == base
+    w._quiet_streak = 99
+    assert w.interval_for(w.mode) == 300.0  # 최대 5분

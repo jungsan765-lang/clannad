@@ -176,6 +176,7 @@ class ScreenWatcher(QObject):
         self.window_capture = capture_window  # 창 하나만 찍기 (테스트에서 바꿔 끼움)
         self.last_focus_thumb = None
         self._prev_sample = None  # 바로 전 살펴보기 때 화면 (장면이 멈췄는지 보려고)
+        self._quiet_streak = 0  # 게임 밖에서 '말할 것 없음' 판단이 이어진 수 (간격 늘리기)
         self._black_warned = -1e9
         self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
@@ -278,9 +279,14 @@ class ScreenWatcher(QObject):
         return f"화면 보기: {age} · 판단 {s['judged']}번 · 먼저 말 건 {s['spoke']}번 · 변화 없어 건너뜀 {s['skipped_same']}번"
 
     def interval_for(self, mode: Mode) -> float:
-        """설정 창의 '화면 확인 간격'이 게임 모드 값보다 짧으면 그걸 따른다. 복기 모드 게임 중엔 더 자주."""
+        """설정 창의 '화면 확인 간격'이 게임 모드 값보다 짧으면 그걸 따른다. 복기 모드 게임 중엔 더 자주.
+        게임이 아닐 때 별일 없는 판단이 이어지면(영상 오래 보기 등) 간격을 2배씩 늘린다 (최대 5분, 장면 전환이면 바로 봄)."""
         base = min(mode.interval_seconds, self.cfg.interval_seconds)
-        return min(base, self.cfg.review_interval) if self.reviewing(mode) else base
+        if self.reviewing(mode):
+            return min(base, self.cfg.review_interval)
+        if not mode.is_game and self._quiet_streak >= 3:
+            return min(max(base, 300.0), base * 2 ** min(5, self._quiet_streak // 3))
+        return base
 
     def reviewing(self, mode: Mode) -> bool:
         return self.cfg.review and mode.is_game
@@ -574,6 +580,8 @@ class ScreenWatcher(QObject):
             return None
         log.info("화면 판단 [%s] %s / %s → %s", mode.name, note.get("scene"), note.get("situation"),
                  "말함" if note.get("speak") or note.get("urgent") else "조용")
+        calm = not (note.get("speak") or note.get("urgent") or mode.is_game) and note.get("scene") in ("other", "menu", "loading")
+        self._quiet_streak = self._quiet_streak + 1 if calm else 0  # 게임 같은 장면이면 늘리지 않음 (모르는 게임 알아보기)
         now = self.clock()
         scene, urgent = note.get("scene", "other"), bool(note.get("urgent"))
         if not mode.is_game:
