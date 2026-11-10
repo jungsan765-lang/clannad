@@ -2,6 +2,31 @@
 
 혼자 쓰는 Windows 바탕화면 캐릭터 비서. 배포하지 않음. 계획은 Claude 문서 "캐릭터 비서 개발 계획".
 
+## 실행하기 (1단계: 대화)
+
+1. Python 3.12 설치 후 이 폴더에서 `pip install -r requirements.txt`
+2. API 키 설정 (둘 중 하나, 코드·설정 파일에는 쓰지 않음)
+   - 환경 변수: `setx ANTHROPIC_API_KEY "키"` 후 새 터미널
+   - Windows 자격 증명 관리자: `pip install keyring` 후
+     `python -c "import keyring; keyring.set_password('danika-assistant', 'anthropic', '키')"`
+3. `python main.py` (콘솔 창 없이: `pythonw main.py`)
+
+- 캐릭터 클릭 → 입력창, Enter 로 보내면 말풍선으로 답한다. 드래그로 이동(위치 기억).
+- 오른쪽 클릭·트레이 메뉴: 오늘/이번 달 사용 금액, 기억 보기, 기억 지금 정리하기, 최근 대화 잊기, 종료.
+- 설정은 `config.toml`, 내 설정은 같은 키로 `config.local.toml` 에 (git 제외).
+- 성격 파일: `config.toml` 의 `character.persona` (기본 `character/danika/persona.md`). 없으면 기본 말투.
+- 캐릭터 그림: `character.folder` 의 `manifest.json` (make_character.py / make_rig.py 결과). 없으면 임시 원형 캐릭터.
+- 기록은 `data/` 에만 저장 (git 제외): `usage.json` 비용, `memory.json` 장기기억, `recent.json` 최근 대화,
+  `logs/날짜.jsonl` 대화 원문, `logs/app.log` 오류 기록.
+
+### 대화가 동작하는 방식
+- 모든 API 호출은 `ai_client.py` 하나로 모인다. 모델은 `config.toml` 의 `ai.chat_model` / `ai.memory_model`.
+- 답은 JSON(`speak`, `message`, `emotion`) 형식으로만 받는다 (structured outputs).
+- 한국어 강제: 규칙을 프롬프트 맨 앞에 두고, 답에 영어가 섞이면 한 번 다시 요청, 그래도 영어면 표시하지 않는다.
+- 장기기억: 대화가 `memory.consolidate_every` 번 쌓이거나 다음에 켤 때, 캐릭터 본인 시점의 짧은 한국어 메모로
+  다시 정리해 프롬프트에 넣는다. 성격 부분과 기억 부분은 따로 캐시해서 비용을 줄인다.
+- 비용: 응답의 실제 토큰 수로 계산해 `data/usage.json` 에 쌓고, 월 예산의 80%·100% 에서 한 번씩 알린다.
+
 ## 캐릭터 만들기 (영상 → 바탕화면 캐릭터)
 
 준비: Python 3.12, ffmpeg (`winget install Gyan.FFmpeg`), `pip install -r requirements.txt`
@@ -16,6 +41,12 @@ python preview_character.py character/이름              # 바탕화면에 띄�
 
 - 누끼: 기본은 애니 캐릭터 AI 분할 모델(처음 한 번 약 170MB 자동 다운로드). 단색 배경은 `matte = "chroma"`.
 - 결과물(`character/`), 영상, 모델, 작업 폴더는 `.gitignore`로 저장소에 올라가지 않는다.
+
+## 캐릭터 만들기 (분리 파츠 → 리깅)
+
+```
+python make_rig.py character/이름_rig.toml   # 숨쉬기·고개·머리카락·깜빡임, 끄덕임, 갸웃 → character/이름/
+```
 
 ## 테스트
 

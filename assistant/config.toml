@@ -1,0 +1,31 @@
+# 캐릭터 비서 기본 설정.
+# 바꾸고 싶은 값은 같은 이름으로 config.local.toml 에 적으면 이 파일보다 우선한다 (git에 안 올라감).
+# API 키는 여기 쓰지 않는다: 환경 변수 ANTHROPIC_API_KEY 또는 Windows 자격 증명 관리자(keyring).
+
+[character]
+folder = "character/danika_rig"            # manifest.json 이 있는 폴더. 없으면 임시 원형 캐릭터
+persona = "character/danika/persona.md"   # 성격 파일. 없으면 기본 비서 말투
+scale = 0.8                               # 화면에 보이는 크기 배율
+max_fps = 30
+
+[ai]
+chat_model = "claude-opus-5-5"     # 대화
+memory_model = "claude-opus-5-5"   # 장기기억 정리 (하루 몇 번뿐)
+effort = "low"                     # 생각 깊이: low | medium | high
+max_tokens = 2000                  # 생각 토큰 포함 상한. 요금은 실제로 쓴 만큼만 나간다
+history_turns = 10                 # 대화할 때 함께 보내는 최근 대화 수
+timeout_seconds = 60
+
+[memory]
+consolidate_every = 20   # 대화가 이만큼 쌓이면 장기기억을 정리한다
+max_chars = 4000         # 장기기억 길이 상한(글자 수)
+
+[budget]
+monthly_krw = 50000      # 월 예산
+warn_ratio = 0.8         # 이 비율을 넘으면 경고
+krw_per_usd = 1400       # 환율 (원/달러). 실제 환율에 맞게 바꾸면 된다
+
+[ui]
+bubble_min_seconds = 4.0       # 말풍선 최소 표시 시간
+bubble_seconds_per_char = 0.12 # 글자 수에 비례해 더 오래 보여줌
+bubble_max_width = 320
