@@ -9,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 from ai_client import AIClient, AIError
+from lorebook import LoreBook
 from memory import CATEGORIES, Memory
 
 log = logging.getLogger("assistant.companion")
@@ -276,6 +277,7 @@ class Companion:
         self.search_model = search_model
         self.can_search = True  # 모르는 건 인터넷에서 찾아보기 (설정 창)
         self.user_names: list[str] = []  # 주인님 아이디·닉네임 (설정 창, 내 PC 에만 저장)
+        self.lorebook = LoreBook()  # 필요할 때 꺼내 보는 배경지식 사전
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -332,6 +334,9 @@ class Companion:
         content = [{"type": "text", "text": f"[지금: {stamp}]"}]
         if context:
             content.append({"type": "text", "text": context})
+        notes = self.lorebook.notes_for(user_text + "\n" + (context or "")[-600:])
+        if notes:
+            content.append({"type": "text", "text": notes})
         content.append({"type": "text", "text": user_text})
         return self._respond(content, user_text, now, on_partial, fast)
 
@@ -479,6 +484,11 @@ class Companion:
         lines.append("최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)"))
         if question:
             lines.append(f"주인님이 지금 화면을 보고 말해 달라고 했다: {question} → speak 는 true.")
+        seen = " ".join([title or "", question or "", (note or {}).get("situation", ""), (note or {}).get("point", "")]
+                        + list(session_notes or [])[-5:])
+        notes = self.lorebook.notes_for(seen)
+        if notes:
+            lines.append(notes)
         content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(lines)}]
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,

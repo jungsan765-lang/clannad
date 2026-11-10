@@ -294,3 +294,61 @@ def test_stable_prompt_part_is_cached_for_an_hour_and_priced(tmp_path):
     d = _usage_dict(u)
     assert d["cache_creation_1h_input_tokens"] == 600_000 and d["cache_creation_input_tokens"] == 400_000
     assert cost_usd("claude-opus-5-5", d) == pytest.approx(0.6 * 8 + 0.4 * 5)
+
+
+# ---------------------------------------------------------------- 필요할 때 꺼내 보는 사전
+
+LORE = """# 노드크라이 사전
+
+## 나샤 마을
+키워드: 나샤, Nasha
+- 노드크라이의 중심 마을.
+
+## 라우마 (달의 륜 · 풀)
+키워드: 라우마, Lauma
+- 노드크라이의 성녀.
+
+## 키워드 없는 항목
+- 제목만으로 찾는다.
+"""
+
+
+def test_lorebook_finds_entries_by_name(tmp_path):
+    from lorebook import LoreBook
+
+    (tmp_path / "lore").mkdir()
+    (tmp_path / "lore" / "nodkrai.md").write_text(LORE, encoding="utf-8")
+    book = LoreBook.load(tmp_path / "lore")
+    assert [e.title for e in book.entries][:2] == ["나샤 마을", "라우마 (달의 륜 · 풀)"]
+    assert "라우마" in book.entries[1].keywords and "키워드:" not in book.entries[1].text
+    assert [e.title for e in book.find("라우마랑 나샤 마을 갔어")] == ["나샤 마을", "라우마 (달의 륜 · 풀)"] or \
+        {e.title for e in book.find("라우마랑 나샤 마을 갔어")} == {"나샤 마을", "라우마 (달의 륜 · 풀)"}
+    assert book.find("오늘 날씨 좋다") == []
+    assert book.find("키워드 없는 항목 알아?")[0].title == "키워드 없는 항목"
+    assert book.find("lauma")[0].title.startswith("라우마")  # 영어 이름도 (대소문자 무시)
+    assert LoreBook.load(tmp_path / "없음").entries == []
+
+
+def test_lorebook_notes_go_into_chat_and_screen_prompts(tmp_path):
+    from lorebook import LoreBook
+
+    comp, fake = _comp(tmp_path, [{"speak": True, "message": "라우마 님 말씀이군요.", "emotion": "normal"},
+                                  {"speak": True, "message": "나샤 마을이군요.", "emotion": "normal"}])
+    comp.lorebook = LoreBook(LoreBook.parse(LORE))
+    comp.reply("라우마 알아?")
+    sent = json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "관련 배경지식" in sent and "노드크라이의 성녀" in sent and "중심 마을" not in sent
+    comp.screen_line(b"jpg", "Genshin Impact [genshinimpact.exe]", {"situation": "나샤 마을 광장 탐험 중", "point": ""})
+    sent = json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "중심 마을" in sent
+
+
+def test_lorebook_reads_files_next_to_persona_but_not_core_files(tmp_path):
+    from lorebook import LoreBook
+
+    (tmp_path / "persona.md").write_text("## 성격\n키워드: 성격\n- x", encoding="utf-8")
+    (tmp_path / "lore.md").write_text("## 스네즈나야\n키워드: 스네즈나야\n- 늘 아는 것", encoding="utf-8")
+    (tmp_path / "nodkrai.md").write_text(LORE, encoding="utf-8")
+    book = LoreBook.load(tmp_path, tmp_path / "lore")
+    titles = [e.title for e in book.entries]
+    assert "나샤 마을" in titles and "성격" not in titles and "스네즈나야" not in titles

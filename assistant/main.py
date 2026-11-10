@@ -25,6 +25,7 @@ from PySide6.QtWidgets import QApplication, QFileDialog, QMenu, QMessageBox, QSy
 import organizer as org
 from ai_client import AIClient, AIError
 from companion import Companion
+from lorebook import LoreBook
 from hotkeys import GlobalHotkeys
 from memory import Memory
 from settings import Settings
@@ -1118,6 +1119,12 @@ def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> 
         lore=lore,
         search_model=settings.get("ai.search_model", "claude-haiku-5-5"),
     )
+    # 자세한 사전: character.lore_dir, 없으면 성격 파일이 있는 폴더와 그 안의 lore/ 폴더 (persona.md·lore.md 제외)
+    lore_dir = settings.path("character.lore_dir")
+    if lore_dir is None and persona_path is not None:
+        companion.lorebook = LoreBook.load(persona_path.parent, persona_path.parent / "lore")
+    else:
+        companion.lorebook = LoreBook.load(lore_dir)
     folder = settings.path("character.folder")
     if not folder or not (folder / "manifest.json").is_file():
         log.warning("캐릭터 폴더가 없어 임시 캐릭터를 씁니다: %s", folder)
