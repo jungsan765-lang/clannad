@@ -52,8 +52,9 @@ JUDGE_SCHEMA = {
         "scene": {"type": "string", "enum": SCENES},
         "situation": {"type": "string"},
         "point": {"type": "string"},
+        "read_box": {"type": "array", "items": {"type": "number"}},
     },
-    "required": ["speak", "urgent", "scene", "situation", "point"],
+    "required": ["speak", "urgent", "scene", "situation", "point", "read_box"],
     "additionalProperties": False,
 }
 
@@ -71,6 +72,8 @@ JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다.
 - situation 에는 화면에 글자로 보이는 핵심 이름·용어(캐릭터·지명·적 이름, 大破·進撃 같은 게임 용어)를 원문 그대로 넣는다.
   한자·일본어 일반 단어는 원문 옆 괄호에 뜻이 통하는 우리말을 붙인다(예: 南瓜(호박)). 한국어 한자음(남과)으로 옮기지 않는다.
+- read_box: 말할 거리가 화면 속 작은 글씨(대사·자막·퀘스트 설명·채팅·아이템 설명 등)에 있는데 이 크기로는 읽기 어려우면,
+  그 부분 위치를 [왼쪽, 위, 오른쪽, 아래] 로 적는다 (화면 전체를 0~1 로 본 비율, 예: [0.05, 0.7, 0.6, 0.95]). 아니면 빈 배열.
 - 메신저(카카오톡 등) 대화가 보이면 흐름만 파악한다. 약속·일정, 주인님이 고민·질문하는 것, 도움이 될 정보가 있을 때만 speak=true.
   가벼운 수다나 남의 사적인 이야기에는 끼어들지 않는다."""
 
@@ -122,6 +125,8 @@ SCREEN_TASK = """[화면 보고 먼저 말 걸기]
 - 확실히 보이지 않는 건 추측하지 않는다.
 - 메신저(카카오톡 등) 대화가 보이면: 남의 메시지를 그대로 읽어 주지 않고, 대화 상대를 평가하지 않는다. 약속·일정을 챙기거나,
   주인님이 고민하는 것에 도움이 되는 한마디만 한다. 사적인 내용은 언급을 아낀다.
+- remember: 화면에서 본 것 중 주인님에 대한 오래 기억할 일(약속·일정, 게임 목표 달성·중요한 결과)만 적는다.
+  남의 메시지 내용이나 사적인 이야기는 적지 않는다. 없으면 빈 배열.
 - 인물은 얼굴 생김새만으로 단정하지 않는다. 화면에 글자로 보이는 이름(파티 목록, 대화창 위 이름 등)으로 알아본다.
 - 화면에 이름이 보이는 인물·장소인데 네가 모르면 지어내지 말고 action 은 "web_search", target 은 "게임 이름 + 그 이름",
   message 는 빈 문자열로 한다(조용히 찾아본 뒤 말한다). 배경지식이나 '찾아보고 알게 된 것'에 있으면 찾지 않는다."""
@@ -858,6 +863,9 @@ class Companion:
             return Reply(True, "", "normal", r.usd, "web_search", str(data["target"]).strip())  # 조용히 찾아보기
         if not data or not data["speak"] or not data["message"].strip():
             return Reply(False, "", "normal", r.usd)
+        if data.get("remember"):  # 화면에서 본 주인님 일(약속·목표 달성 등)도 바로 기억 (화면 것은 중요도 2까지)
+            self.remember_now([dict(x, importance=min(2, int(x.get("importance", 2) or 2)))
+                               for x in data["remember"] if isinstance(x, dict)], now)
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
         important = bool(data.get("important")) or bool(note and note.get("urgent")) or review or pick
         return Reply(True, self.memory.fix_words(data["message"].strip()), emotion, r.usd, important=important)
@@ -930,6 +938,9 @@ class Companion:
         notes = self.lorebook.notes_for(seen)
         if notes:
             lines.append(notes)
+        old = self.recaller(seen) if self.recaller else ""
+        if old:
+            lines.append(old)
         extra = self.extra_context(mode) if self.extra_context else ""
         if extra:
             lines.append(extra)

@@ -460,6 +460,8 @@ class AssistantApp(QObject):
             self._diary_busy = False
             if written:
                 log.info("일기 씀: %s", ", ".join(written))
+            if self.companion.memory.pending:  # 하루가 지났으면 대화가 적어도 장기기억 정리
+                self._consolidate()
 
         def fail(message: str) -> None:
             self._diary_busy = False

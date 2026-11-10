@@ -91,6 +91,7 @@ class Shot:
     focus: bytes | None = None  # 맨 앞 창이 화면보다 작으면 그 창만 원래 크기로 (작은 글씨 읽기)
     focus_label: str = ""  # 확대한 창이 무엇인지 (예: 카카오톡 — 단톡방)
     focus_thumb: object = None
+    native: object = None  # 줄이기 전 원래 화면 (작은 글씨 확대용, 이번 확인 동안만)
 
 
 @dataclass
@@ -451,6 +452,7 @@ class ScreenWatcher(QObject):
         img = self.grabber()
         small = cap.shrink(img, self.cfg.max_width)
         shot = Shot(cap.to_jpeg(small, self.cfg.jpeg_quality), cap.thumb(small), self.title)
+        shot.native = img
         if self.cfg.focus_crop:
             shot.focus = self._focus_crop(img)
             if shot.focus:
@@ -486,6 +488,31 @@ class ScreenWatcher(QObject):
             img = img.resize((round(img.width * k), round(img.height * k)), Image.Resampling.LANCZOS)
         shot.focus = cap.to_jpeg(img, 90)
         shot.focus_label = f"{MESSENGERS[info.process]} — {info.title}"[:80]
+
+    def _zoom_text(self, shot: Shot, note: dict | None) -> None:
+        """판단 담당이 '이 부분 글씨가 작다'(read_box)고 하면 그 부분을 원래 해상도로 잘라 대사·분석에 함께 보낸다."""
+        box = (note or {}).get("read_box") or []
+        if shot.focus is not None or shot.native is None or len(box) != 4:
+            return
+        try:
+            x0, y0, x1, y1 = (min(1.0, max(0.0, float(v))) for v in box)
+        except (TypeError, ValueError):
+            return
+        if x1 - x0 < 0.02 or y1 - y0 < 0.02 or (x1 - x0) * (y1 - y0) > 0.6:
+            return  # 너무 작거나(잘못 짚음) 화면 대부분이면 확대할 필요 없음
+        img = shot.native
+        pad_x, pad_y = 0.03 * img.width, 0.03 * img.height
+        crop = img.crop((max(0, int(x0 * img.width - pad_x)), max(0, int(y0 * img.height - pad_y)),
+                         min(img.width, int(x1 * img.width + pad_x)), min(img.height, int(y1 * img.height + pad_y))))
+        if crop.width < 700:  # 작으면 키워서 (글자가 또렷하게)
+            k = min(2.0, 1400 / max(1, crop.width))
+            crop = crop.resize((round(crop.width * k), round(crop.height * k)), Image.Resampling.LANCZOS)
+        if max(crop.size) > 1568:
+            k = 1568 / max(crop.size)
+            crop = crop.resize((round(crop.width * k), round(crop.height * k)), Image.Resampling.LANCZOS)
+        shot.focus = cap.to_jpeg(crop, 92)
+        shot.focus_label = "판단 담당이 짚은 작은 글씨 부분"
+        self._current_focus = (shot.focus, shot.focus_label)
 
     def _focus_crop(self, img: Image.Image) -> bytes | None:
         """맨 앞 창(보는 모니터 위)이 화면의 70%보다 작으면 그 부분만 원래 크기로 잘라 낸다 (카톡 같은 작은 글씨)."""
@@ -541,6 +568,7 @@ class ScreenWatcher(QObject):
                                     review=self.reviewing(mode))
         self.stats["judged"] += 1
         self._remember(shot, mode, note)
+        self._zoom_text(shot, note)
         if not note:
             return None
         log.info("화면 판단 [%s] %s / %s → %s", mode.name, note.get("scene"), note.get("situation"),

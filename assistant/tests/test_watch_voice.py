@@ -707,3 +707,39 @@ def test_routine_lines_use_economy_model_and_review_uses_contact_sheet(tmp_path)
     comp.analyze([(jpeg, 25.0), (jpeg, 20.0), (jpeg, 15.0), (jpeg, 10.0), (jpeg, 5.0), (jpeg, 0.0)], "게임", review=True)
     content = fake.calls[-1]["messages"][-1]["content"]
     assert sum(1 for b in content if b.get("type") == "image") == 2  # 지난 5장은 한 장으로 + 지금 화면
+
+
+def test_judge_read_box_zooms_small_text_for_the_line(qapp, tmp_path):
+    note = {"speak": True, "urgent": False, "scene": "cutscene", "situation": "대사 장면", "point": "대사 내용",
+            "read_box": [0.1, 0.8, 0.5, 0.95]}
+    w, comp, said, t, _ = _watcher(tmp_path, notes=[dict(note, scene="playing")])
+    seen = {}
+    real = comp.screen_line
+
+    def capture(*args, **kw):
+        seen["focus"], seen["label"] = kw.get("focus"), kw.get("focus_label")
+        return real(*args, **kw)
+
+    comp.screen_line = capture
+    w.tick()
+    assert seen["focus"] and "작은 글씨" in seen["label"]
+    from io import BytesIO
+
+    crop = Image.open(BytesIO(seen["focus"]))
+    assert crop.width >= 700  # 원래 해상도(1920)에서 잘라 키움
+    # 엉뚱한 상자는 무시
+    w2, comp2, _, _, _ = _watcher(tmp_path / "b", notes=[dict(note, scene="playing", read_box=[0, 0, 1, 1])])
+    w2.tick()
+    assert getattr(w2, "_current_focus", (None, ""))[0] is None
+
+
+def test_screen_line_can_remember_but_caps_importance(tmp_path):
+    fake = FakeAnthropic([{"speak": True, "message": "토요일 약속 잡으셨네요.", "emotion": "happy", "action": "none",
+                           "target": "", "important": False,
+                           "remember": [{"category": "약속·할 일", "text": "주인님은 토요일 7시에 강남에서 약속이 있다.",
+                                         "importance": 3, "subject": ""}]}])
+    mem = Memory(tmp_path / "d")
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), mem, None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    r = comp.screen_line(b"jpeg", "카카오톡", {"situation": "약속 잡는 대화", "point": ""})
+    assert r.speak and [(f["importance"], f["category"]) for f in mem.active_facts()] == [(2, "약속·할 일")]
