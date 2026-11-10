@@ -41,3 +41,22 @@ def test_todos(tmp_path):
     assert p.done_todo("E3 깨기") is None and p.done_todo("E3 甲 깨기")["done"]
     assert [t["text"] for t in p.open_todos()] == ["방 청소"]
     assert "[할 일] 방 청소" in p.prompt_text()
+
+
+def test_find_program_and_media_parse(tmp_path):
+    from pc_control import find_program, parse_media
+
+    menu = tmp_path / "Start Menu" / "Programs"
+    (menu / "Discord Inc").mkdir(parents=True)
+    (menu / "Discord Inc" / "Discord.lnk").write_text("x")
+    (menu / "Discord Inc" / "Uninstall Discord.lnk").write_text("x")
+    (menu / "Genshin Impact.lnk").write_text("x")
+    (menu / "카카오톡.lnk").write_text("x")
+    (tmp_path / "notes.txt").write_text("x")
+    assert find_program("디스코드", [menu]).name == "Discord.lnk"
+    assert find_program("원신", [menu]).name == "Genshin Impact.lnk"
+    assert find_program("카톡", [menu]).name == "카카오톡.lnk"
+    assert find_program("notes", [tmp_path]) is None  # 바로가기만
+    assert find_program("없는프로그램", [menu]) is None
+    assert parse_media("vol_down 5") == ("vol_down", 5) and parse_media("next") == ("next", 1)
+    assert parse_media("rm -rf") is None and parse_media("vol_up 999") == ("vol_up", 25)

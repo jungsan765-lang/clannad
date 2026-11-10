@@ -352,6 +352,14 @@ class AssistantApp(QObject):
             pair = parse_correction(reply.target)
             if pair and self.companion.memory.add_term(*pair):
                 self.status.flash(f"고친 말을 적었어요 ({pair[0]} → {pair[1]})")
+        elif reply.action == "run_program" and reply.target.strip():
+            self.run_program(reply.target.strip())
+        elif reply.action == "media":
+            from pc_control import MEDIA_LABEL, parse_media, press_media
+
+            cmd = parse_media(reply.target)
+            if cmd and press_media(*cmd):
+                self.status.flash(MEDIA_LABEL[cmd[0]] + (f" ×{cmd[1]}" if cmd[1] > 1 else ""))
         elif reply.action == "set_reminder":
             r = self.planner.add_from_target(reply.target)
             if r:
@@ -1157,6 +1165,24 @@ class AssistantApp(QObject):
             self.bubble.show_text(f"⏰ {text}", self.anchor(), system=True, seconds=6)  # 말이 나오기 전에도 바로 보이게
             self._run(lambda f=fact: self.companion.remark(f), self._on_screen_line,
                       lambda m: log.warning("알림 말하기 실패: %s", m))
+
+    def run_program(self, name: str) -> None:
+        """시작 메뉴·바탕화면 바로가기에서 찾아 켠다 (찾기는 뒤에서)."""
+        import pc_control
+
+        def work():
+            path = pc_control.find_program(name)
+            return path, (pc_control.launch(path) if path else False)
+
+        def done(result) -> None:
+            path, ok = result
+            if ok:
+                self.status.flash(f"'{path.stem}' 켰어요")
+            else:
+                self.bubble.show_text(f"'{name}' 바로가기를 시작 메뉴·바탕화면에서 못 찾았어요." if path is None
+                                      else f"'{path.stem}'을(를) 켜지 못했어요.", self.anchor(), system=True, seconds=6)
+
+        self._run(work, done, lambda m: log.warning("프로그램 켜기 실패: %s", m))
 
     def open_planner(self) -> None:
         from ui.planner_dialog import PlannerDialog

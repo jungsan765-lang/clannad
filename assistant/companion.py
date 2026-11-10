@@ -18,7 +18,7 @@ EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
            "read_window", "add_rule", "correct_term", "zoom_screen", "add_focus", "block_window",
-           "set_reminder", "cancel_reminder", "add_todo", "done_todo"]
+           "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -315,6 +315,10 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   target 은 "적용 범위: 하지 말 것" 한 문장으로 구체적으로 적는다. 적용 범위는 게임 중에 한 말이면 지금 게임 이름,
   "어디서든"·"항상"이면 "전체". 예) "칸코레: 원정 귀환 알림은 말하지 않기", "전체: 쉬라는 잔소리 하지 않기".
   방금 네가 한 말을 두고 하는 말이면 그 말의 주제를 금지 사항으로 적는다. message 는 "알겠습니다. 앞으로 그런 말은 하지 않겠습니다" 처럼 짧게.
+- 프로그램 켜기: "디스코드 켜줘", "원신 실행해줘"처럼 부탁하면 action 은 "run_program", target 은 프로그램 이름 하나.
+  시작 메뉴·바탕화면 바로가기에 있는 것만 켤 수 있다. 끄기·삭제는 못 한다.
+- 음악·소리: "다음 곡", "멈춰", "소리 줄여", "음소거"는 action 은 "media", target 은 play_pause·next·prev·stop·vol_up·vol_down·mute 중
+  하나와, 소리면 몇 단계인지(한 단계 2%, 예: "vol_down 5" = 10% 줄이기). message 는 아주 짧게.
 - 알림: "30분 뒤에 알려줘", "11시에 자라고 해줘", "매일 밤 12시에 레진 쓰라고 해줘"처럼 부탁하면 action 은 "set_reminder",
   target 은 "YYYY-MM-DD HH:MM | 알릴 내용 | 반복" (반복은 없음·매일·매주). 시각은 [지금: …] 기준으로 계산한다.
   message 는 "11시에 알려 드릴게요"처럼 짧게. 알림을 취소해 달라면 "cancel_reminder", target 은 그 알림 내용의 핵심 낱말.
@@ -328,7 +332,7 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 말 고치기: 주인님이 네가 쓴 말·이름을 고쳐 주면("남과가 아니라 호박이야", "그거 OO 말고 XX라고 해") action 은 "correct_term",
   target 은 "틀린 말 → 맞는 말" (예: "남과 → 호박"). 다른 할 일보다 이것을 먼저 한다. message 는 고친 말을 써서 짧게 답하고,
   앞으로는 맞는 말로만 부른다.
-- 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
+- 그 밖의 일(프로그램 끄기, 파일 삭제·이름 바꾸기, 메시지 보내기, 결제, 게임 자동 조작 등)은 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
 - 스포 주의: 게임 스토리의 앞으로의 전개·반전·결말은 주인님이 직접 묻지 않으면 먼저 말하지 않는다(화면에 이미 나온 데까지는 괜찮다).
