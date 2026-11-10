@@ -73,12 +73,19 @@ class AIClient:
         kind: str,
         max_tokens: int = 2000,
         effort: str | None = "low",
+        thinking_off: bool = False,
     ) -> AIResult:
-        """정해진 JSON 형식으로만 답을 받는다 (structured outputs)."""
+        """정해진 JSON 형식으로만 답을 받는다 (structured outputs).
+
+        thinking_off: 생각을 끈다. Haiku 5.5 처럼 끌 수 있는 모델에서만 쓴다
+        (Opus 5.5 는 끌 수 없어서 effort 로만 조절).
+        """
         output_config: dict = {"format": {"type": "json_schema", "schema": schema}}
         if effort:
             output_config["effort"] = effort
         request = dict(model=model, max_tokens=max_tokens, system=system, messages=messages, output_config=output_config)
+        if thinking_off:
+            request["thinking"] = {"type": "disabled"}
         try:
             if model.startswith(FALLBACK_MODELS):
                 response = self.client.beta.messages.create(betas=[FALLBACK_BETA], fallbacks="default", **request)

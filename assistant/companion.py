@@ -26,6 +26,29 @@ REPLY_SCHEMA = {
     "additionalProperties": False,
 }
 
+JUDGE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "speak": {"type": "boolean"},
+        "situation": {"type": "string"},
+        "point": {"type": "string"},
+    },
+    "required": ["speak", "situation", "point"],
+    "additionalProperties": False,
+}
+
+JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담당이다. 사용자의 모니터 화면을 보고, 캐릭터가 지금 먼저 한마디 할 만한지만 정한다.
+- 말할 만한 때: 오류·경고 창, 게임에서 고칠 점이 분명히 보일 때(위치·타이밍·판단), 오래 같은 작업 중, 영상·글에 짧게 반응할 거리가 있을 때, 결과 화면(승리·패배·완료).
+- 말하지 않을 때: 로딩·로비·빈 화면, 별일 없는 평범한 화면, 최근에 한 말과 비슷한 내용, 확실히 보이지 않아 추측해야 하는 내용.
+- 망설여지면 speak 는 false. 너무 자주 말하는 것보다 조용한 편이 낫다.
+- situation: 지금 화면이 무엇인지 한국어 한 문장. point: 말한다면 무엇을 짚을지 한국어 한 문장(말 안 하면 빈 문자열)."""
+
+SCREEN_TASK = """[화면 보고 먼저 말 걸기]
+첨부한 이미지는 주인님의 모니터 화면이다. 판단 담당이 남긴 메모를 참고해, 캐릭터답게 짧게 한마디 한다.
+- 게임이면 코칭: 이미 지나간 장면 기준으로 다음에 할 일 하나를 구체적으로.
+- 오류 창이면 원인 한 줄과 할 일 하나. 오래 작업 중이면 쉬자고. 영상·글이면 내용에 한마디.
+- 최근에 한 말과 겹치면 speak 는 false. 확실히 보이지 않는 건 추측하지 않는다."""
+
 MEMORY_SCHEMA = {
     "type": "object",
     "properties": {
@@ -167,6 +190,52 @@ class Companion:
         if r.data is None:
             return None, r.usd
         return r.data, r.usd
+
+    # ------------------------------------------------------------ 화면 보고 말 걸기
+
+    @staticmethod
+    def _image_block(jpeg: bytes) -> dict:
+        import base64
+
+        return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg",
+                                            "data": base64.b64encode(jpeg).decode("ascii")}}
+
+    def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None) -> dict | None:
+        """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔."""
+        recent = self.memory.spoken_lines(5)
+        info = [f"맨 앞 창: {title or '(알 수 없음)'}",
+                f"마지막으로 먼저 말 건 지: {'처음' if minutes_since_spoke is None else f'{minutes_since_spoke:.0f}분 전'}",
+                "최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)")]
+        content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(info)}]
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": JUDGE_RULES}],
+                                  messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
+                                  kind="judge", max_tokens=400, effort="low", thinking_off=True)
+        return r.data
+
+    def screen_line(self, jpeg: bytes, title: str, note: dict | None, model: str | None = None,
+                    question: str | None = None, now: datetime | None = None) -> Reply:
+        """화면을 보고 캐릭터 말투로 한마디. question 이 있으면 주인님이 지금 화면에 대해 물은 것."""
+        now = now or datetime.now()
+        stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
+        lines = [f"[지금: {stamp}]", SCREEN_TASK, f"맨 앞 창: {title or '(알 수 없음)'}"]
+        if note:
+            lines.append(f"판단 메모: {note.get('situation', '')} / {note.get('point', '')}")
+        recent = self.memory.spoken_lines(5)
+        lines.append("최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)"))
+        if question:
+            lines.append(f"주인님이 지금 화면을 보고 말해 달라고 했다: {question} → speak 는 true.")
+        content = [self._image_block(jpeg), {"type": "text", "text": "\n".join(lines)}]
+        messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
+        r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,
+                                  schema=REPLY_SCHEMA, kind="screen", max_tokens=self.max_tokens, effort=self.effort)
+        data = r.data
+        if data and data["speak"] and data["message"] and not is_korean(data["message"]):
+            log.warning("화면 대사가 한국어가 아님 → 표시하지 않음: %r", data["message"][:120])
+            data = None
+        if not data or not data["speak"] or not data["message"].strip():
+            return Reply(False, "", "normal", r.usd)
+        emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
+        return Reply(True, data["message"].strip(), emotion, r.usd)
 
     # ------------------------------------------------------------ 장기기억 정리
 

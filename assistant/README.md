@@ -19,6 +19,22 @@
 - 기록은 `data/` 에만 저장 (git 제외): `usage.json` 비용, `memory.json` 장기기억, `recent.json` 최근 대화,
   `logs/날짜.jsonl` 대화 원문, `logs/app.log` 오류 기록.
 
+### 화면 보기 (2단계)
+- `screen.interval_seconds`(기본 30초)마다 `screen.monitor`(기본 왼쪽 모니터)를 캡처한다. 다니카는 오른쪽 모니터에 두면 된다.
+- 화면이 거의 그대로면 판단 없이 건너뛴다(비용 0). 바뀌었으면 Haiku 가 말 걸지 판단(생각 끔),
+  말하기로 했을 때만 Opus 가 화면을 보고 다니카 말투로 한마디 한다. 최소 간격은 `screen.cooldown_seconds`.
+- 켜고 끄기: `screen.enabled`, 메뉴 체크, F9. 메뉴에서 바꾼 값은 다음에 켤 때도 유지된다(`data/state.json`).
+- F8: 판단·간격 없이 지금 화면을 보고 말하게 한다. 먼저 건넨 말에 대답하면 그 말을 기억한 채 이어서 대화한다.
+- 스크린샷은 디스크에 저장하지 않는다. 월 예산을 넘으면 화면 보기만 멈춘다(`screen.stop_when_over_budget`).
+
+### 목소리로 말 걸기
+- `voice.mode`: `always`(항상 듣기) | `push`(F7·메뉴로 그때만 듣기) | `off`. 메뉴의 "목소리로 말 걸기"에서도 바꾼다.
+- 음성은 PC 안에서 Whisper(`voice.model`)로 글자가 된 뒤 일반 대화처럼 보내진다. 처음 쓸 때 모델을 내려받는다.
+- 항상 듣기는 게임 음성 채팅 같은 말에도 반응한다. `voice.wake_word = "다니카"` 로 하면 이름을 부른 말에만 반응한다.
+
+### 단축키
+- `hotkeys` 의 F7(듣기)·F8(지금 화면)·F9(화면 보기 켜고 끄기). 등록한 키는 다른 프로그램으로 전달되지 않으니 게임 키와 겹치면 바꾼다.
+
 ### 대화가 동작하는 방식
 - 모든 API 호출은 `ai_client.py` 하나로 모인다. 모델은 `config.toml` 의 `ai.chat_model` / `ai.memory_model`.
 - 답은 JSON(`speak`, `message`, `emotion`) 형식으로만 받는다 (structured outputs).

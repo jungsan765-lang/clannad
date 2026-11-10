@@ -58,12 +58,34 @@ class Memory:
             with open(self.folder / "logs" / f"{when.date().isoformat()}.jsonl", "a", encoding="utf-8") as f:
                 f.write(json.dumps({"time": stamp, "user": user_text, "reply": reply_text}, ensure_ascii=False) + "\n")
 
+    def add_spoken(self, line: str, when: datetime | None = None) -> None:
+        """화면을 보고 캐릭터가 먼저 한 말. 장기기억 정리 대상은 아니다."""
+        when = when or datetime.now()
+        stamp = when.isoformat(timespec="seconds")
+        with self._lock:
+            self.recent.append({"role": "assistant", "text": line, "time": stamp, "kind": "screen"})
+            self._save()
+            with open(self.folder / "logs" / f"{when.date().isoformat()}.jsonl", "a", encoding="utf-8") as f:
+                f.write(json.dumps({"time": stamp, "screen_line": line}, ensure_ascii=False) + "\n")
+
+    def spoken_lines(self, n: int = 5) -> list[str]:
+        return [m["text"] for m in self.recent if m.get("kind") == "screen"][-n:]
+
     def api_messages(self, turns: int) -> list[dict]:
-        """최근 turns 번의 주고받기를 API 형식으로 (항상 user 로 시작)."""
+        """최근 대화를 API 형식으로. user/assistant 가 번갈아 나오고 user 로 시작하게 맞춘다."""
         items = self.recent[-turns * 2:]
-        while items and items[0]["role"] != "user":
-            items = items[1:]
-        return [{"role": m["role"], "content": m["text"]} for m in items]
+        out: list[dict] = []
+        for m in items:
+            role, text = m["role"], m["text"]
+            if m.get("kind") == "screen":
+                text = "(화면을 보고 먼저 건넨 말) " + text
+            if role == "assistant" and (not out or out[-1]["role"] == "assistant"):
+                out.append({"role": "user", "content": "(주인님은 말없이 화면을 보고 있었다)"})
+            if out and out[-1]["role"] == role:
+                out[-1]["content"] += "\n" + text
+            else:
+                out.append({"role": role, "content": text})
+        return out
 
     def clear_recent(self) -> None:
         with self._lock:

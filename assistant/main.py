@@ -16,11 +16,12 @@ from pathlib import Path
 from typing import Callable
 
 from PySide6.QtCore import QObject, QPoint, QRunnable, QThreadPool, QTimer, Signal
-from PySide6.QtGui import QAction, QIcon, QPixmap
+from PySide6.QtGui import QAction, QActionGroup, QIcon, QPixmap
 from PySide6.QtWidgets import QApplication, QMenu, QMessageBox, QSystemTrayIcon
 
 from ai_client import AIClient, AIError
 from companion import Companion
+from hotkeys import GlobalHotkeys
 from memory import Memory
 from settings import Settings
 from ui.bubble import SpeechBubble
@@ -29,6 +30,9 @@ from ui.chat_input import ChatInput
 from ui.placeholder import make_placeholder
 from ui.topmost import TopmostKeeper
 from usage import UsageLedger
+from voice.listener import VoiceListener
+from voice.stt import Transcriber
+from watch.watcher import ScreenWatcher, WatchConfig
 
 log = logging.getLogger("assistant")
 
@@ -75,6 +79,30 @@ class AssistantApp(QObject):
                                    float(settings.get("ui.bubble_min_seconds", 4.0)),
                                    float(settings.get("ui.bubble_seconds_per_char", 0.12)))
         self.input = ChatInput()
+
+        # 화면 보기 (정해진 간격마다 모니터 하나를 보고 말 걸기)
+        g = settings.get
+        self.watch_cfg = WatchConfig(
+            interval_seconds=float(g("screen.interval_seconds", 30)), monitor=str(g("screen.monitor", "left")),
+            judge_model=g("screen.judge_model", "claude-haiku-5-5"), line_model=g("screen.line_model", "claude-opus-5-5"),
+            cooldown_seconds=float(g("screen.cooldown_seconds", 120)),
+            change_threshold=float(g("screen.change_threshold", 0.015)),
+            max_width=int(g("screen.max_width", 1024)), jpeg_quality=int(g("screen.jpeg_quality", 70)))
+        self.watcher = ScreenWatcher(companion, self.watch_cfg, self._run, can_run=self._screen_allowed)
+        self.watcher.spoke.connect(self._on_screen_line)
+        self.watcher.status.connect(self._on_watch_status)
+        self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
+        self._last_watch_error = ""
+
+        # 목소리로 말 걸기 (항상 듣기 / 단축키로 듣기 / 듣지 않기)
+        stt = Transcriber(g("voice.model", "small"), g("voice.device", "cpu"),
+                          download_root=str(settings.data_dir / "whisper"))
+        self.voice = VoiceListener(stt, wake_word=str(g("voice.wake_word", "") or ""))
+        self.voice.heard.connect(self._on_heard)
+        self.voice.state.connect(self._on_voice_state)
+        self.voice.error.connect(lambda m: self.bubble.show_text(m, self.anchor(), system=True, seconds=8))
+        self.hotkeys: GlobalHotkeys | None = None
+
         self.menu = self._build_menu()
         # 캐릭터 → 말풍선 → 입력창 순서로 (뒤에 올린 것이 더 앞)
         self.topmost = TopmostKeeper([self.window, self.bubble, self.input],
@@ -109,10 +137,17 @@ class AssistantApp(QObject):
             self.topmost.start()
         if "appear" in self.window.sprites.motions:
             self.window.play("appear")
+        self.set_screen_enabled(bool(self.pref("screen.enabled", True)), save=False)
+        self.set_voice_mode(str(self.pref("voice.mode", "off")), save=False)
+        self._register_hotkeys()
         if self.companion.memory.pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
             self._run(self.companion.consolidate, lambda _: log.info("시작 시 기억 정리 완료"), lambda m: log.warning(m))
 
     def quit(self) -> None:
+        self.watcher.set_enabled(False)
+        self.voice.shutdown()
+        if self.hotkeys:
+            self.hotkeys.unregister_all()
         self.topmost.stop()
         self._save_position(self.window.pos())
         if self.tray:
@@ -134,11 +169,13 @@ class AssistantApp(QObject):
         if self.busy:
             return
         self.busy = True
+        self.voice.paused = True  # 답을 기다리는 동안 들은 말은 무시
         self.bubble.show_text("……", self.anchor(), seconds=0)
         self._run(self.companion.reply, self._on_reply, self._on_error, text)
 
     def _on_reply(self, reply) -> None:
         self.busy = False
+        self.voice.paused = False
         self.bubble.show_text(reply.message, self.anchor())
         self.window.set_emotion(reply.emotion)
         self.window.set_talking(True)
@@ -149,7 +186,105 @@ class AssistantApp(QObject):
 
     def _on_error(self, message: str) -> None:
         self.busy = False
+        self.voice.paused = False
         self.bubble.show_text(message, self.anchor(), system=True, seconds=8)
+
+    # ------------------------------------------------------------ 화면 보기
+
+    def _screen_allowed(self) -> bool:
+        if self.busy or self.bubble.isVisible():  # 대화 중이거나 말풍선이 떠 있으면 다음 기회에
+            return False
+        if settings_flag(self.settings, "screen.stop_when_over_budget", True):
+            budget = float(self.settings.get("budget.monthly_krw", 50000))
+            if budget and self.ledger.krw(self.ledger.month_usd()) >= budget:
+                return False
+        return True
+
+    def set_screen_enabled(self, on: bool, save: bool = True) -> None:
+        self.watcher.set_enabled(on)
+        if hasattr(self, "screen_action"):
+            self.screen_action.setChecked(on)
+        if save:
+            self.set_pref("screen.enabled", on)
+
+    def toggle_screen(self) -> None:
+        on = not self.watcher.enabled
+        self.set_screen_enabled(on)
+        self.bubble.show_text("화면 보기를 켰어요." if on else "화면 보기를 껐어요.", self.anchor(), system=True, seconds=2.5)
+
+    def ask_screen_now(self) -> None:
+        if self.busy:
+            return
+        self.bubble.show_text("……", self.anchor(), seconds=0)
+        self.watcher.ask_now()
+
+    def _on_screen_line(self, reply) -> None:
+        if self.busy:
+            return
+        self.bubble.show_text(reply.message, self.anchor())
+        self.window.set_emotion(reply.emotion)
+        self.window.set_talking(True)
+        self._refresh_cost()
+        self._budget_warning()
+
+    def _on_watch_status(self, message: str) -> None:
+        if message.startswith("화면 보기"):
+            return
+        if self.bubble.text == "……":
+            self.bubble.hide()
+        if message != self._last_watch_error:  # 같은 오류를 30초마다 띄우지 않게
+            self._last_watch_error = message
+            self.bubble.show_text(message, self.anchor(), system=True, seconds=8)
+
+    # ------------------------------------------------------------ 목소리
+
+    def set_voice_mode(self, mode: str, save: bool = True) -> None:
+        self.voice.set_mode(mode)
+        for m, act in getattr(self, "voice_actions", {}).items():
+            act.setChecked(m == self.voice.mode)
+        if save:
+            self.set_pref("voice.mode", self.voice.mode)
+
+    def push_to_talk(self) -> None:
+        if self.voice.mode != "push":
+            self.bubble.show_text("목소리 설정이 '단축키로 듣기'가 아니에요. 메뉴에서 바꿀 수 있어요.",
+                                  self.anchor(), system=True, seconds=4)
+            return
+        self.voice.push()
+
+    def _on_voice_state(self, state: str) -> None:
+        if state == "listening":
+            self.bubble.show_text("(듣고 있어요…)", self.anchor(), system=True, seconds=0)
+        elif self.bubble.text == "(듣고 있어요…)":
+            self.bubble.hide()
+
+    def _on_heard(self, text: str) -> None:
+        log.info("들은 말: %s", text)
+        self.ask(text)
+
+    # ------------------------------------------------------------ 단축키
+
+    def _register_hotkeys(self) -> None:
+        app = QApplication.instance()
+        if app is None or sys.platform != "win32":
+            return
+        self.hotkeys = GlobalHotkeys(int(self.window.winId()))
+        app.installNativeEventFilter(self.hotkeys)
+        g = self.settings.get
+        self.hotkeys.register(str(g("hotkeys.ask_screen", "F8") or ""), self.ask_screen_now)
+        self.hotkeys.register(str(g("hotkeys.toggle_screen", "F9") or ""), self.toggle_screen)
+        self.hotkeys.register(str(g("hotkeys.voice", "F7") or ""), self.push_to_talk)
+
+    # ------------------------------------------------------------ 설정 기억 (메뉴에서 바꾼 값)
+
+    def pref(self, key: str, default=None):
+        prefs = self._load_state().get("prefs", {})
+        return prefs[key] if key in prefs else self.settings.get(key, default)
+
+    def set_pref(self, key: str, value) -> None:
+        state = self._load_state()
+        state.setdefault("prefs", {})[key] = value
+        self._write_state(state)
 
     def _bubble_done(self) -> None:
         self.window.set_talking(False)
@@ -179,6 +314,29 @@ class AssistantApp(QObject):
         self.cost_action = QAction("", menu)
         self.cost_action.setEnabled(False)
         menu.addAction(self.cost_action)
+        menu.addSeparator()
+        g = self.settings.get
+        self.screen_action = QAction(f"{int(self.watch_cfg.interval_seconds)}초마다 화면 보기 ({g('hotkeys.toggle_screen', 'F9')})", menu)
+        self.screen_action.setCheckable(True)
+        self.screen_action.triggered.connect(lambda on: self.set_screen_enabled(on))
+        menu.addAction(self.screen_action)
+        now = QAction(f"지금 화면 보고 말하기 ({g('hotkeys.ask_screen', 'F8')})", menu)
+        now.triggered.connect(self.ask_screen_now)
+        menu.addAction(now)
+        vmenu = menu.addMenu("목소리로 말 걸기")
+        group = QActionGroup(vmenu)
+        self.voice_actions = {}
+        for mode, label in (("always", "항상 듣기"), ("push", f"단축키로 듣기 ({g('hotkeys.voice', 'F7')})"), ("off", "듣지 않기")):
+            act = QAction(label, vmenu)
+            act.setCheckable(True)
+            act.triggered.connect(lambda _=False, m=mode: self.set_voice_mode(m))
+            group.addAction(act)
+            vmenu.addAction(act)
+            self.voice_actions[mode] = act
+        listen = QAction(f"지금 듣기 ({g('hotkeys.voice', 'F7')})", vmenu)
+        listen.triggered.connect(self.push_to_talk)
+        vmenu.addSeparator()
+        vmenu.addAction(listen)
         menu.addSeparator()
         show_mem = QAction("기억 보기", menu)
         show_mem.triggered.connect(self.show_memory)
