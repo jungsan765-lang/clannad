@@ -16,6 +16,26 @@ CATEGORIES = ["주인님 정보", "취향", "약속·할 일", "최근 있었던
 RECENT_KEEP = 60  # 디스크에 남겨두는 최근 대화 줄 수
 
 
+def _stamp(iso: str | None) -> str:
+    try:
+        t = datetime.fromisoformat(iso or "")
+    except ValueError:
+        return ""
+    return f"[{t.month}/{t.day} {t:%H:%M}] "
+
+
+def gap_text(last: datetime | None, now: datetime) -> str:
+    """마지막 대화 뒤로 얼마나 지났는지 (한 시간 넘었을 때만)."""
+    if last is None:
+        return ""
+    minutes = int((now - last).total_seconds() // 60)
+    if minutes < 60:
+        return ""
+    if minutes < 24 * 60:
+        return f"(마지막 대화로부터 {minutes // 60}시간 {minutes % 60}분 만이다)"
+    return f"(마지막 대화로부터 {minutes // (24 * 60)}일 만이다)"
+
+
 class Memory:
     def __init__(self, folder: Path):
         self.folder = folder
@@ -83,20 +103,32 @@ class Memory:
         return [m["text"] for m in self.recent if m.get("kind") == "screen"][-n:]
 
     def api_messages(self, turns: int) -> list[dict]:
-        """최근 대화를 API 형식으로. user/assistant 가 번갈아 나오고 user 로 시작하게 맞춘다."""
+        """최근 대화를 API 형식으로. user/assistant 가 번갈아 나오고 user 로 시작하게 맞춘다.
+        주인님 말 앞에는 그 말을 한 시각을 [11/10 21:30] 처럼 붙인다 (언제 한 말인지 기억하게)."""
         items = self.recent[-turns * 2:]
         out: list[dict] = []
         for m in items:
             role, text = m["role"], m["text"]
             if m.get("kind") == "screen":
                 text = "(화면을 보고 먼저 건넨 말) " + text
+            if role == "user":
+                text = f"{_stamp(m.get('time'))}{text}"
             if role == "assistant" and (not out or out[-1]["role"] == "assistant"):
-                out.append({"role": "user", "content": "(주인님은 말없이 화면을 보고 있었다)"})
+                out.append({"role": "user", "content": f"{_stamp(m.get('time'))}(주인님은 말없이 화면을 보고 있었다)"})
             if out and out[-1]["role"] == role:
                 out[-1]["content"] += "\n" + text
             else:
                 out.append({"role": role, "content": text})
         return out
+
+    def last_time(self) -> datetime | None:
+        """마지막으로 대화(또는 먼저 건넨 말)가 있었던 시각."""
+        for m in reversed(self.recent):
+            try:
+                return datetime.fromisoformat(m["time"])
+            except (KeyError, ValueError):
+                continue
+        return None
 
     def clear_recent(self) -> None:
         with self._lock:

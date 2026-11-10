@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from datetime import date, datetime
 
 import pytest
@@ -130,7 +131,8 @@ def test_history_is_sent_and_consolidation_updates_memory(tmp_path):
     comp.reply("난 꿀 넣은 우유가 좋아")
     comp.reply("내일 9시에 면접 있어")
     second = fake.calls[1]["messages"]
-    assert second[0] == {"role": "user", "content": "난 꿀 넣은 우유가 좋아"} and second[1]["role"] == "assistant"
+    assert second[0]["role"] == "user" and second[1]["role"] == "assistant"
+    assert re.fullmatch(r"\[\d+/\d+ \d\d:\d\d\] 난 꿀 넣은 우유가 좋아", second[0]["content"])  # 언제 한 말인지
     assert comp.should_consolidate()
     assert comp.consolidate()
     assert mem.pending == [] and len(mem.facts) == 2  # 영어 메모는 버림
@@ -187,3 +189,19 @@ def test_old_saved_mic_name_moves_to_mic_setting(tmp_path):
     s = Settings.load(tmp_path)
     apply_saved_prefs(s)
     assert s.get("voice.device") == "cpu" and s.get("voice.mic") == "USB 마이크"
+
+
+def test_history_carries_times_and_gap_after_a_while(tmp_path):
+    comp, fake, mem = _companion(tmp_path, [])
+    comp.reply("세 시에 산책 갈 거야", now=datetime(2026, 11, 10, 15, 0))
+    comp.reply("다녀왔어", now=datetime(2026, 11, 10, 18, 25))
+    sent = fake.calls[-1]["messages"]
+    assert sent[0]["content"] == "[11/10 15:00] 세 시에 산책 갈 거야"
+    assert sent[-1]["content"][0]["text"] == "[지금: 2026-11-10 (화) 18:25] (마지막 대화로부터 3시간 25분 만이다)"
+    comp.reply("또 왔어", now=datetime(2026, 11, 10, 18, 40))
+    assert fake.calls[-1]["messages"][-1]["content"][0]["text"] == "[지금: 2026-11-10 (화) 18:40]"  # 한 시간 안이면 생략
+    mem.add_spoken("화면 보고 한 말", datetime(2026, 11, 12, 9, 0))
+    comp.reply("안녕", now=datetime(2026, 11, 14, 9, 0))
+    msgs = fake.calls[-1]["messages"]
+    assert "(마지막 대화로부터 2일 만이다)" in msgs[-1]["content"][0]["text"]
+    assert any(m["content"] == "[11/12 09:00] (주인님은 말없이 화면을 보고 있었다)" for m in msgs if m["role"] == "user")

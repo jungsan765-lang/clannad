@@ -10,7 +10,7 @@ from pathlib import Path
 
 from ai_client import AIClient, AIError
 from lorebook import LoreBook
-from memory import CATEGORIES, Memory
+from memory import CATEGORIES, Memory, gap_text
 
 log = logging.getLogger("assistant.companion")
 
@@ -196,7 +196,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - message 는 보통 1~2문장, 길어도 4문장. 말풍선에 들어갈 만큼 짧게.
 - emotion 은 normal, happy, worried, surprised, angry 중 하나. 대부분 normal.
 - 아래 '기억'은 네가 예전 대화에서 직접 적어 둔 메모다. 자연스럽게 활용하되 메모를 읽는 티를 내지 않는다.
-- 사용자 메시지 앞의 [지금: ...] 은 현재 시각 정보다. 필요할 때만 참고한다.
+- 사용자 메시지 앞의 [지금: ...] 은 현재 시각 정보다. 지난 대화 앞의 [11/10 21:30] 같은 표시는 그 말을 한 시각이다.
+  "아까", "몇 시에" 같은 말이나 오랜만에 돌아왔을 때 필요하면 참고한다(시각을 일일이 읽어 주지는 않는다).
 
 # 네가 실제로 할 수 있는 일 (이것 말고는 했다고 말하지 않는다)
 - 대화, 주인님 화면을 보고 말 걸기(게임 코칭 포함), 대화 내용 기억하기.
@@ -395,7 +396,8 @@ class Companion:
         fast: 빠른 모드 (요금 2배)."""
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
-        content = [{"type": "text", "text": f"[지금: {stamp}]"}]
+        gap = gap_text(self.memory.last_time(), now)
+        content = [{"type": "text", "text": f"[지금: {stamp}]" + (f" {gap}" if gap else "")}]
         if context:
             content.append({"type": "text", "text": context})
         notes = self.lorebook.notes_for(user_text + "\n" + (context or "")[-600:])
