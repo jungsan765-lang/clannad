@@ -95,11 +95,22 @@ def _chroma(rgb: np.ndarray) -> np.ndarray:
 
 
 def chroma_alpha(rgb: np.ndarray, key: tuple[int, int, int], tol: float = 18.0, soft: float = 22.0) -> np.ndarray:
-    """키 색과의 색상 거리로 알파를 만든다. tol 안쪽은 투명, tol+soft 바깥은 불투명."""
+    """키 색과의 색상 거리로 알파를 만든다.
+
+    색상(Cr, Cb)은 RGB의 일차식이라, 캐릭터 색과 배경색이 a:(1-a)로 섞인 픽셀의
+    거리는 정확히 a × (캐릭터 색의 거리)가 된다. 그래서 가장자리 픽셀은
+    가까운 '확실한 캐릭터' 픽셀들의 거리로 나눠 실제 섞인 비율을 구한다.
+    """
     key_px = np.array([[key]], np.uint8)
     diff = _chroma(rgb) - _chroma(key_px)[0, 0]
-    dist = np.sqrt((diff**2).sum(-1))
-    return np.clip((dist - tol) / max(soft, 1e-3), 0.0, 1.0).astype(np.float32)
+    dist = np.sqrt((diff**2).sum(-1)).astype(np.float32)
+    solid_at = tol + soft
+    core = (dist > solid_at).astype(np.float32)
+    k = 9
+    local = cv2.blur(dist * core, (k, k)) / np.maximum(cv2.blur(core, (k, k)), 1e-4)
+    ref = np.where(cv2.blur(core, (k, k)) > 0.01, np.maximum(local, solid_at), solid_at)
+    alpha = (dist - tol) / np.maximum(ref - tol, 1e-3)
+    return np.clip(alpha, 0.0, 1.0).astype(np.float32)
 
 
 def despill(rgb: np.ndarray, alpha: np.ndarray, key: tuple[int, int, int]) -> np.ndarray:
@@ -113,8 +124,9 @@ def despill(rgb: np.ndarray, alpha: np.ndarray, key: tuple[int, int, int]) -> np
     elif kb >= max(kr, kg):  # 파랑 배경
         limit = np.maximum(r, g)
         out[..., 2] = np.where(b > limit, limit + (b - limit) * 0.15, b)
-    near_edge = (alpha < 0.999)[..., None]
-    return np.where(near_edge, out, rgb.astype(np.float32)).clip(0, 255).astype(np.uint8)
+    # 가장자리 근처(몇 픽셀 안쪽까지)만 고친다. 캐릭터 안쪽의 진짜 초록색은 건드리지 않음
+    band = cv2.dilate((alpha < 0.999).astype(np.uint8), np.ones((7, 7), np.uint8)) > 0
+    return np.where(band[..., None], out, rgb.astype(np.float32)).clip(0, 255).astype(np.uint8)
 
 
 def refine_alpha(alpha: np.ndarray, lo: float = 0.12, hi: float = 0.88, min_island: float = 0.02) -> np.ndarray:

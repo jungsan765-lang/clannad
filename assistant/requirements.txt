@@ -1,0 +1,6 @@
+PySide6>=6.8
+numpy>=1.26
+opencv-python-headless>=4.9
+Pillow>=10.0
+onnxruntime>=1.18   # NVIDIA GPU로 돌리려면 대신 onnxruntime-gpu 또는 onnxruntime-directml
+anthropic>=2.0
