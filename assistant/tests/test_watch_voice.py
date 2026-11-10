@@ -47,7 +47,7 @@ class FakeCompanion:
         self.judged = []
         self.lines = []
 
-    def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None):
+    def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal"):
         self.judged.append({"title": title, "model": model, "minutes": minutes, "mode": mode.name if mode else None,
                             "notes": list(session_notes or [])})
         if self.notes:

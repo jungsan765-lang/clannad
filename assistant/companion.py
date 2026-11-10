@@ -41,20 +41,26 @@ JUDGE_SCHEMA = {
     "additionalProperties": False,
 }
 
-JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담당이다. 사용자의 모니터 화면을 보고, 캐릭터가 지금 먼저 한마디 할 만한지만 정한다.
-- 말할 만한 때: 오류·경고 창, 게임에서 고칠 점이 분명히 보일 때(위치·타이밍·판단), 오래 같은 작업 중, 영상·글에 짧게 반응할 거리가 있을 때, 결과 화면(승리·패배·완료).
-- 말하지 않을 때: 로딩·로비·빈 화면, 별일 없는 평범한 화면, 최근에 한 말과 비슷한 내용, 확실히 보이지 않아 추측해야 하는 내용.
-- 망설여지면 speak 는 false. 너무 자주 말하는 것보다 조용한 편이 낫다.
+JUDGE_RULES = """너는 바탕화면 캐릭터 비서의 '말 걸지 판단' 담당이다. 사용자의 모니터 화면을 보고, 캐릭터가 지금 먼저 한마디 할 만한지 정한다.
+- 화면에서 반응할 거리를 적극적으로 찾는다: 보고 있는 영상·글·이미지의 내용, 게임 장면(위치·타이밍·판단·결과), 작업 중인 코드·문서·오류, 쇼핑·검색 중인 것, 시간대(늦은 밤 등).
+- 말하지 않을 때: 로딩·빈 화면, 최근에 한 말과 같은 내용, 확실히 보이지 않아 추측해야만 하는 내용.
 - situation: 지금 화면이 무엇인지 한국어 한 문장. point: 말한다면 무엇을 짚을지 한국어 한 문장(말 안 하면 빈 문자열).
 - scene: playing(게임 플레이·작업 중), result(게임 결과 화면), menu(로비·메뉴·선택 화면), loading(로딩), cutscene(컷신·대화 장면), other.
 - urgent: 아래 '즉시 알릴 상황'에 해당할 때만 true (그때는 speak 도 true).
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다."""
 
+CHATTINESS = {
+    "quiet": "말 거는 정도: 조용히. 오류·결과 화면처럼 분명히 짚을 게 있을 때만 speak=true. 망설여지면 false.",
+    "normal": "말 거는 정도: 보통. 화면에 반응할 거리가 하나라도 있으면 speak=true. 별일 없는 화면이 오래 이어져도 가끔은 짧게 한마디(근황·쉬자는 말 등).",
+    "chatty": "말 거는 정도: 수다. 화면이 바뀌었으면 거의 항상 speak=true로 짧게 반응한다. 같은 내용만 반복하지 않으면 된다.",
+}
+
 SCREEN_TASK = """[화면 보고 먼저 말 걸기]
-첨부한 이미지는 주인님의 모니터 화면이다. 판단 담당이 남긴 메모를 참고해, 캐릭터답게 짧게 한마디 한다.
+첨부한 이미지는 주인님의 모니터 화면이다. 판단 담당이 이미 '말 걸기'로 정했으니, 메모를 참고해 캐릭터답게 짧게 한마디 한다(speak 는 true).
 - 게임이면 코칭: 이미 지나간 장면 기준으로 다음에 할 일 하나를 구체적으로.
 - 오류 창이면 원인 한 줄과 할 일 하나. 오래 작업 중이면 쉬자고. 영상·글이면 내용에 한마디.
-- 최근에 한 말과 겹치면 speak 는 false. 확실히 보이지 않는 건 추측하지 않는다."""
+- 성격 파일의 '꼭 필요할 때만' 보다 이 지시가 우선한다. 다만 최근에 한 말과 똑같은 말이면 speak 는 false.
+- 확실히 보이지 않는 건 추측하지 않는다."""
 
 MEMORY_SCHEMA = {
     "type": "object",
@@ -223,10 +229,10 @@ class Companion:
         return "\n".join(p for p in parts if p)
 
     def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
-              mode=None, session_notes: list[str] | None = None) -> dict | None:
+              mode=None, session_notes: list[str] | None = None, chattiness: str = "normal") -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔."""
         recent = self.memory.spoken_lines(5)
-        system = JUDGE_RULES
+        system = JUDGE_RULES + "\n" + CHATTINESS.get(chattiness, CHATTINESS["normal"])
         if mode is not None:
             system += "\n\n" + self._mode_text(mode, None)
         info = [f"맨 앞 창: {title or '(알 수 없음)'}",

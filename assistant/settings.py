@@ -46,6 +46,13 @@ class Settings:
             node = node[part]
         return node
 
+    def set(self, dotted: str, value: Any) -> None:
+        node = self.data
+        parts = dotted.split(".")
+        for part in parts[:-1]:
+            node = node.setdefault(part, {})
+        node[parts[-1]] = value
+
     def path(self, dotted: str, default: str | None = None) -> Path | None:
         value = self.get(dotted, default)
         if not value:

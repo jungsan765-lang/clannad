@@ -135,7 +135,8 @@ def test_menu_has_settings_update_restart_and_screen_status(qapp, tmp_path, buil
     a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
     a.start()
     labels = [act.text() for act in a.menu.actions()]
-    assert "설정 파일 열기" in labels and "업데이트 확인" in labels and any(t.startswith("다시 시작") for t in labels)
+    assert "설정…" in labels and "업데이트 확인" in labels and any(t.startswith("다시 시작") for t in labels)
+    assert "말할 때 움직임" in labels
     a._refresh_cost()
     assert a.watch_status_action.text().startswith("화면 보기:")
     assert not a.update_timer.isActive()  # 자동 업데이트 끔 설정이면 확인 안 함
@@ -144,3 +145,32 @@ def test_menu_has_settings_update_restart_and_screen_status(qapp, tmp_path, buil
 
 def test_wait_for_exit_returns_for_missing_pid():
     app_main.wait_for_exit(999999, seconds=0.5)
+
+
+def test_settings_dialog_applies_live_and_persists(qapp, tmp_path, built):
+    from ui.settings_dialog import SettingsDialog
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    dlg = SettingsDialog(a.settings_values(), ["1", "2"], ["USB 마이크"])
+    dlg.talk.group.button(1).setChecked(True)  # 말할 때: 멈춤
+    dlg.chatty.group.button(2).setChecked(True)  # 자주
+    dlg.interval.slider.setValue(60)
+    dlg.screen_on.setChecked(False)
+    dlg.mic.setCurrentIndex(1)
+    dlg.wake_on.setChecked(True)
+    dlg.scale.slider.setValue(100)
+    changed = dlg.changed()
+    assert changed["character.talk_motion"] == "still" and changed["screen.interval_seconds"] == 60
+    assert changed["voice.wake_word"] == "다니카" and changed["voice.device"] == "USB 마이크"
+    assert dlg.interval.label.text() == "1분"
+    a.apply_settings(changed)
+    assert a.talk_style() == "still" and a.talk_actions["still"].isChecked()
+    assert a.watch_cfg.chattiness == "chatty" and a.watcher.normal.interval_seconds == 60
+    assert not a.watcher.enabled and a.voice.device == "USB 마이크" and a.voice.wake_word == "다니카"
+    assert "다시 시작" in a.bubble.text  # 크기는 다시 시작 후 적용
+    a.quit()
+    s2 = _settings(tmp_path, built["out"].as_posix())  # 다시 켜도 그대로
+    b = app_main.build(s2, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    assert b.talk_style() == "still" and b.watch_cfg.interval_seconds == 60 and b.settings.get("character.scale") == 1.0

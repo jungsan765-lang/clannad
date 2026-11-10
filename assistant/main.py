@@ -33,7 +33,8 @@ from ui.placeholder import make_placeholder
 from ui.topmost import TopmostKeeper
 from updater import Updater
 from usage import UsageLedger
-from voice.listener import VoiceListener
+from ui.settings_dialog import RESTART_KEYS, TALK_STYLES, SettingsDialog
+from voice.listener import VoiceListener, list_input_devices
 from voice.stt import Transcriber
 from watch.modes import load_modes
 from watch.watcher import ScreenWatcher, WatchConfig
@@ -89,7 +90,9 @@ class AssistantApp(QObject):
         self.watch_cfg = WatchConfig(
             interval_seconds=float(g("screen.interval_seconds", 30)), monitor=str(g("screen.monitor", "left")),
             judge_model=g("screen.judge_model", "claude-haiku-5-5"), line_model=g("screen.line_model", "claude-opus-5-5"),
-            cooldown_seconds=float(g("screen.cooldown_seconds", 120)),
+            cooldown_seconds=float(g("screen.cooldown_seconds", 90)),
+            chattiness=str(g("screen.chattiness", "normal")),
+            max_skip_minutes=float(g("screen.max_skip_minutes", 3)),
             change_threshold=float(g("screen.change_threshold", 0.015)),
             max_width=int(g("screen.max_width", 1024)), jpeg_quality=int(g("screen.jpeg_quality", 70)))
         modes = load_modes(settings.root / "modes")
@@ -103,7 +106,8 @@ class AssistantApp(QObject):
         # 목소리로 말 걸기 (항상 듣기 / 단축키로 듣기 / 듣지 않기)
         stt = Transcriber(g("voice.model", "small"), g("voice.device", "cpu"),
                           download_root=str(settings.data_dir / "whisper"))
-        self.voice = VoiceListener(stt, wake_word=str(g("voice.wake_word", "") or ""))
+        self.voice = VoiceListener(stt, wake_word=str(g("voice.wake_word", "") or ""),
+                                   device=str(g("voice.device", "") or ""))
         self.voice.heard.connect(self._on_heard)
         self.voice.state.connect(self._on_voice_state)
         self.voice.error.connect(lambda m: self.bubble.show_text(m, self.anchor(), system=True, seconds=8))
@@ -271,10 +275,21 @@ class AssistantApp(QObject):
             return
         self.voice.push()
 
+    VOICE_BUBBLES = {
+        "listening": ("(듣고 있어요…)", 0),
+        "loading": ("(음성 인식 준비 중… 처음엔 모델을 내려받느라 몇 분 걸려요)", 0),
+        "ready": ("(이제 말을 알아들을 수 있어요)", 3),
+        "heard": ("(알아듣는 중…)", 0),
+        "unclear": ("(잘 못 알아들었어요)", 2),
+    }
+
     def _on_voice_state(self, state: str) -> None:
-        if state == "listening":
-            self.bubble.show_text("(듣고 있어요…)", self.anchor(), system=True, seconds=0)
-        elif self.bubble.text == "(듣고 있어요…)":
+        if self.busy and state in ("heard", "unclear"):
+            return  # 대답을 기다리는 중엔 "……" 말풍선을 그대로 둔다
+        if state in self.VOICE_BUBBLES:
+            text, seconds = self.VOICE_BUBBLES[state]
+            self.bubble.show_text(text, self.anchor(), system=True, seconds=seconds)
+        elif self.bubble.text in {t for t, _ in self.VOICE_BUBBLES.values()}:
             self.bubble.hide()
 
     def _on_heard(self, text: str) -> None:
@@ -336,6 +351,70 @@ class AssistantApp(QObject):
         subprocess.Popen([sys.executable, str(main_py), "--after", str(os.getpid())], cwd=str(self.settings.root),
                          creationflags=getattr(subprocess, "DETACHED_PROCESS", 0))
         self.quit()
+
+    def settings_values(self) -> dict:
+        g = self.settings.get
+        return {
+            "character.scale": float(g("character.scale", 1.0)),
+            "character.talk_motion": self.talk_style(),
+            "screen.enabled": self.watcher.enabled,
+            "screen.chattiness": self.watch_cfg.chattiness,
+            "screen.interval_seconds": int(self.watch_cfg.interval_seconds),
+            "screen.cooldown_seconds": int(self.watch_cfg.cooldown_seconds),
+            "screen.monitor": str(self.watch_cfg.monitor),
+            "voice.mode": self.voice.mode,
+            "voice.device": self.voice.device,
+            "voice.wake_word": self.voice.wake_word,
+            "voice.model": str(g("voice.model", "medium")),
+            "budget.monthly_usd": self.budget_usd(),
+        }
+
+    def open_settings_dialog(self) -> None:
+        try:
+            from watch.capture import list_monitors
+
+            monitors = [str(m.index) for m in list_monitors()]
+        except Exception:  # noqa: BLE001
+            monitors = []
+        dlg = SettingsDialog(self.settings_values(), monitors, list_input_devices(), voice_level=lambda: self.voice.level,
+                             meter=(self.voice.start_meter, self.voice.stop_meter))
+        if dlg.exec() == SettingsDialog.DialogCode.Accepted:
+            self.apply_settings(dlg.changed())
+
+    def apply_settings(self, changed: dict) -> None:
+        """설정 창에서 바꾼 값을 저장하고, 바로 적용할 수 있는 건 바로 적용한다."""
+        for key, value in changed.items():
+            self.set_pref(key, value)
+            self.settings.set(key, value)
+        cfg = self.watch_cfg
+        for key, attr in (("screen.chattiness", "chattiness"), ("screen.interval_seconds", "interval_seconds"),
+                          ("screen.cooldown_seconds", "cooldown_seconds"), ("screen.monitor", "monitor")):
+            if key in changed:
+                setattr(cfg, attr, changed[key])
+        self.watcher.apply_config()
+        if "screen.enabled" in changed:
+            self.set_screen_enabled(bool(changed["screen.enabled"]), save=False)
+        if "voice.device" in changed:
+            self.voice.set_device(str(changed["voice.device"]))
+        if "voice.wake_word" in changed:
+            self.voice.wake_word = str(changed["voice.wake_word"])
+        if "voice.mode" in changed:
+            self.set_voice_mode(str(changed["voice.mode"]), save=False)
+        if "character.talk_motion" in changed:
+            self._sync_talk_actions()
+        self._refresh_cost()
+        if RESTART_KEYS & set(changed):
+            self.bubble.show_text("저장했어요. 크기·인식 모델은 메뉴의 '다시 시작' 후 적용돼요.", self.anchor(),
+                                  system=True, seconds=5)
+        elif changed:
+            self.bubble.show_text("설정을 저장했어요.", self.anchor(), system=True, seconds=2.5)
+
+    def set_talk_style(self, style: str) -> None:
+        self.apply_settings({"character.talk_motion": style})
+
+    def _sync_talk_actions(self) -> None:
+        for style, act in getattr(self, "talk_actions", {}).items():
+            act.setChecked(style == self.talk_style())
 
     def open_settings(self) -> None:
         path = self.settings.root / "config.toml"
@@ -444,8 +523,22 @@ class AssistantApp(QObject):
         forget = QAction("최근 대화 잊기 (장기기억은 유지)", menu)
         forget.triggered.connect(self.companion.memory.clear_recent)
         menu.addAction(forget)
+        tmenu = menu.addMenu("말할 때 움직임")
+        tgroup = QActionGroup(tmenu)
+        self.talk_actions = {}
+        for style, label in TALK_STYLES:
+            act = QAction(label, tmenu)
+            act.setCheckable(True)
+            act.triggered.connect(lambda _=False, st=style: self.set_talk_style(st))
+            tgroup.addAction(act)
+            tmenu.addAction(act)
+            self.talk_actions[style] = act
+        self._sync_talk_actions()
         menu.addSeparator()
-        settings_file = QAction("설정 파일 열기", menu)
+        settings_dialog = QAction("설정…", menu)
+        settings_dialog.triggered.connect(self.open_settings_dialog)
+        menu.addAction(settings_dialog)
+        settings_file = QAction("설정 파일 열기 (고급)", menu)
         settings_file.triggered.connect(self.open_settings)
         menu.addAction(settings_file)
         update = QAction("업데이트 확인", menu)
@@ -559,7 +652,18 @@ def setup_logging(folder: Path) -> None:
         root.addHandler(logging.StreamHandler())
 
 
+def apply_saved_prefs(settings: Settings) -> None:
+    """설정 창·메뉴에서 바꿔 저장한 값(data/state.json)을 config.toml 위에 덮는다."""
+    try:
+        prefs = json.loads((settings.data_dir / "state.json").read_text(encoding="utf-8")).get("prefs", {})
+    except (OSError, json.JSONDecodeError):
+        prefs = {}
+    for key, value in prefs.items():
+        settings.set(key, value)
+
+
 def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> AssistantApp:
+    apply_saved_prefs(settings)
     data = settings.data_dir
     ledger = UsageLedger(data / "usage.json", float(settings.get("budget.krw_per_usd", 1400)))
     ai = ai or AIClient(ledger, float(settings.get("ai.timeout_seconds", 60)))

@@ -35,6 +35,8 @@ class WatchConfig:
     tick_seconds: float = 5.0  # 모드 확인 주기 (내 PC, 비용 없음)
     session_end_minutes: float = 3.0  # 게임 창이 이만큼 안 보이면 그 게임 세션 끝
     review_gap_seconds: float = 120.0  # 총평 사이 최소 간격
+    chattiness: str = "normal"  # quiet | normal | chatty
+    max_skip_minutes: float = 3.0  # 화면이 그대로여도 이 시간마다 한 번은 판단
 
 
 @dataclass
@@ -98,6 +100,7 @@ class ScreenWatcher(QObject):
         self._monitor_cache: tuple[float, tuple | None] = (-1e9, None)
         self.clock = clock
         self.last_thumb = None
+        self.last_judged: float | None = None
         self.last_spoke: float | None = None
         self.last_check: float | None = None
         self.running_job = False
@@ -138,6 +141,13 @@ class ScreenWatcher(QObject):
             self.status.emit("화면 보기 꺼짐")
 
     # ------------------------------------------------------------ 모드·세션
+
+    def apply_config(self) -> None:
+        """설정 창에서 바꾼 값(간격·쉬는 시간 등)을 바로 반영."""
+        self.normal.interval_seconds = self.cfg.interval_seconds
+        self.normal.cooldown_seconds = self.cfg.cooldown_seconds
+        self._monitor_cache = (-1e9, None)
+        self.last_thumb = None
 
     def update_mode(self) -> None:
         now = self.clock()
@@ -225,12 +235,15 @@ class ScreenWatcher(QObject):
             self.last_thumb = shot.thumb
             return self.companion.screen_line(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
                                               mode=mode, session_notes=notes)
-        if cap.change_amount(self.last_thumb, shot.thumb) < self.cfg.change_threshold:
+        stale = self.last_judged is not None and self.clock() - self.last_judged >= self.cfg.max_skip_minutes * 60
+        if cap.change_amount(self.last_thumb, shot.thumb) < self.cfg.change_threshold and not stale:
             self.stats["skipped_same"] += 1
             return None
         self.last_thumb = shot.thumb
+        self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
-        note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes)
+        note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes,
+                                    chattiness=self.cfg.chattiness)
         self.stats["judged"] += 1
         if not note:
             return None

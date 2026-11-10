@@ -58,6 +58,10 @@ class Transcriber:
                                        download_root=self.download_root)
         return self._model
 
+    def preload(self) -> None:
+        with self._lock:
+            self._load()
+
     def transcribe(self, audio: np.ndarray) -> str:
         if audio.size < 16000 * 0.3:
             return ""

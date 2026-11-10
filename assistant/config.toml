@@ -25,7 +25,9 @@ interval_seconds = 30                # 화면 확인 간격(초)
 monitor = "left"                     # 볼 모니터: left | right | primary | 번호(1, 2 …)
 judge_model = "claude-haiku-5-5"     # 말 걸지 판단 (싸고 빠름)
 line_model = "claude-opus-5-5"       # 말하기로 했을 때 캐릭터 말투로 한마디
-cooldown_seconds = 120               # 먼저 말을 건 뒤 다음 말까지 최소 간격(초)
+cooldown_seconds = 90                # 먼저 말을 건 뒤 다음 말까지 최소 간격(초)
+chattiness = "normal"                # 말 거는 정도: quiet(분명할 때만) | normal | chatty(자주)
+max_skip_minutes = 3                 # 화면이 그대로여도 이 시간(분)마다 한 번은 판단
 change_threshold = 0.015             # 화면 변화가 이보다 작으면 판단 없이 건너뜀(비용 0)
 max_width = 1024                     # 보내는 스크린샷 가로 크기
 jpeg_quality = 70
@@ -36,6 +38,7 @@ mode = "off"            # always(항상 듣기) | push(단축키·메뉴로 그�
 model = "medium"        # 음성 인식 모델: small | medium | large-v3-turbo (클수록 한국어가 정확하고 느림). 처음 쓸 때 한 번 다운로드
 device = "cpu"          # cpu | cuda (그래픽카드)
 wake_word = ""          # 비우면 들은 말 전부에 반응. 예: "다니카" → 이름을 불렀을 때만
+device = ""             # 마이크 이름. 비우면 Windows 기본 마이크 (설정 창에서 고르는 게 편함)
 
 [hotkeys]               # 등록한 키는 다른 프로그램(게임)으로 전달되지 않음. 겹치면 바꾸기. 비우면 안 씀
 ask_screen = "F8"       # 지금 화면 보고 말하기
