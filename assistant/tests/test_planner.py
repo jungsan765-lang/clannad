@@ -60,3 +60,27 @@ def test_find_program_and_media_parse(tmp_path):
     assert find_program("없는프로그램", [menu]) is None
     assert parse_media("vol_down 5") == ("vol_down", 5) and parse_media("next") == ("next", 1)
     assert parse_media("rm -rf") is None and parse_media("vol_up 999") == ("vol_up", 25)
+
+
+def test_pc_monitor_alerts_once_per_half_hour():
+    from pc_monitor import PcMonitor, PcStatus, read_status, status_text
+
+    t = {"now": 0.0}
+    m = PcMonitor(clock=lambda: t["now"])
+    ok = PcStatus(cpu=20, ram_pct=50, ram_used_gb=16, ram_total_gb=32, disk_free_gb=300,
+                  gpus=[{"name": "RTX", "temp": 70, "util": 90, "mem_used": 6000, "mem_total": 12000}])
+    assert m.check(ok) == []
+    hot = PcStatus(cpu=99, ram_pct=95, ram_used_gb=30, ram_total_gb=32, disk_free_gb=3, top_mem=[("chrome.exe", 6.2)],
+                   top_cpu=[("game.exe", 80)], gpus=[{"name": "RTX", "temp": 88, "util": 99, "mem_used": 1, "mem_total": 2}])
+    alerts = m.check(hot)
+    assert len(alerts) == 3 and any("88도" in a for a in alerts) and any("chrome.exe" in a for a in alerts)
+    t["now"] = 60
+    assert m.check(hot) == []  # 같은 문제는 30분 동안 다시 안 알림
+    t["now"] = 120
+    assert any("CPU" in a for a in m.check(hot))  # CPU 는 3분 넘게 계속일 때만
+    t["now"] = 31 * 60
+    assert len(m.check(hot)) == 3
+    text = status_text(hot)
+    assert "그래픽카드 RTX: 88도" in text and "chrome.exe 6.2GB" in text
+    real = read_status()  # 이 PC 에서 실제로 읽어 봄 (nvidia-smi 없으면 그래픽카드는 비어 있음)
+    assert real.ram_total_gb > 0 and "메모리" in status_text(real)

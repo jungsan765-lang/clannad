@@ -5,6 +5,7 @@ Pillow>=10.0
 onnxruntime>=1.18   # NVIDIA GPU로 돌리려면 대신 onnxruntime-gpu 또는 onnxruntime-directml
 anthropic>=2.0
 mss>=10.0              # 화면 캡처
+psutil>=5.9            # PC 상태 감시 (CPU·메모리·저장 공간)
 sounddevice>=0.5       # 마이크 (목소리로 말 걸기)
 faster-whisper>=1.2    # 음성 → 글자 (내 PC에서 처리)
 # keyring          # 선택: Windows 자격 증명 관리자에 API 키 저장

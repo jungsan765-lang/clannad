@@ -233,6 +233,12 @@ class SettingsDialog(QDialog):
                                                           ("", self.auto_read)])
         g5 = group("대답·표시", [("", self.web), ("", self.fast), ("", self.show_status)])
 
+        # 비서 기능
+        self.pc_monitor = QCheckBox("PC 상태 감시 (그래픽카드 온도·메모리·저장 공간에 문제가 생기면 알려 주기)")
+        self.pc_monitor.setChecked(bool(v.get("pc.monitor", True)))
+        self.assist_rows = [("", self.pc_monitor)]
+        g10 = group("비서 기능", self.assist_rows)
+
         # 비용
         self.budget = Slider(10, 500, 10, float(v["budget.monthly_usd"]), lambda x: f"한 달 {x}달러")
         g4 = group("비용", [("월 예산", self.budget)])
@@ -247,7 +253,7 @@ class SettingsDialog(QDialog):
         # 칸이 많아 화면보다 길어질 수 있으니 안쪽만 스크롤 (저장·취소 버튼은 늘 보이게)
         content = QWidget()
         inner = QVBoxLayout(content)
-        for g in (g6, g7, g8, g1, g5, g2, g9, g3, g4):
+        for g in (g6, g7, g8, g1, g5, g10, g2, g9, g3, g4):
             inner.addWidget(g)
         inner.addStretch(1)
         scroll = QScrollArea()
@@ -317,6 +323,7 @@ class SettingsDialog(QDialog):
             "cyphers.nickname": self.cy_nick.text().strip(),
             "user.nickname": ", ".join(n.strip() for n in self.nick.text().replace("，", ",").split(",") if n.strip()),
             "ui.show_status": self.show_status.isChecked(),
+            "pc.monitor": self.pc_monitor.isChecked(),
         }
 
     def changed(self) -> dict:

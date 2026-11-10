@@ -54,6 +54,9 @@ from ui.settings_dialog import RESTART_KEYS, TALK_STYLES, SettingsDialog
 from voice.listener import VoiceListener, list_input_devices
 from voice.stt import Transcriber
 from watch.modes import load_modes, save_mode
+from pc_monitor import PC_WORDS, PcMonitor
+from pc_monitor import read_status as read_pc_status
+from pc_monitor import status_text as pc_status_text
 from planner import Planner
 from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
@@ -113,6 +116,10 @@ class AssistantApp(QObject):
         self.overlay = GameOverlay()  # 게임 모니터 위 자막 (입력은 그대로 게임으로)
         companion.analysis_effort = str(settings.get("ai.analysis_effort", "medium"))
         self.status.set_enabled(bool(self.pref("ui.show_status", True)))
+        self.pc_monitor = PcMonitor()
+        self.pc_timer = QTimer(self)  # PC 상태 (내 PC, 비용 없음)
+        self.pc_timer.timeout.connect(self.check_pc)
+        self._pc_busy = False
         self._streamed = False
         companion.fast = bool(self.pref("ai.fast", False))
         companion.can_search = bool(self.pref("ai.web_search", True))
@@ -247,12 +254,15 @@ class AssistantApp(QObject):
         self.genshin_timer.start(10 * 60 * 1000)  # 원신 실시간 메모는 10분마다
         self.cleanup_timer.start(6 * 3600 * 1000)
         self.planner_timer.start(20_000)
+        self.set_pc_monitor(bool(self.pref("pc.monitor", True)))
         QTimer.singleShot(5000, self.check_reminders)  # 꺼져 있던 동안 지난 알림
         QTimer.singleShot(20_000, lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         QTimer.singleShot(8000, lambda: self.refresh_genshin())
 
     def quit(self) -> None:
         self.update_timer.stop()
+        self.planner_timer.stop()
+        self.pc_timer.stop()
         self.genshin_timer.stop()
         self.cleanup_timer.stop()
         self.watcher.set_enabled(False)
@@ -294,6 +304,8 @@ class AssistantApp(QObject):
             infos.append(self.genshin.context_text())
         if self.cyphers.ready and (mode == "사이퍼즈" or CYPHERS_WORDS.search(text)):
             infos.append(self.cyphers.context_text())
+        if PC_WORDS.search(text) and self.pc_monitor.last is not None:  # "컴퓨터 왜 이렇게 느려?"
+            infos.append(pc_status_text(self.pc_monitor.last))
         for info in infos:
             if info:
                 context = (context + "\n" if context else "") + info
@@ -775,6 +787,7 @@ class AssistantApp(QObject):
             "cyphers.nickname": self.cyphers.nickname,
             "user.nickname": ", ".join(self.companion.user_names),
             "ui.show_status": self.status.enabled,
+            "pc.monitor": self.pc_timer.isActive(),
         }
 
     def open_settings_dialog(self) -> None:
@@ -848,6 +861,8 @@ class AssistantApp(QObject):
             self.companion.user_names = split_names(changed["user.nickname"])
         if "ui.show_status" in changed:
             self.status.set_enabled(bool(changed["ui.show_status"]))
+        if "pc.monitor" in changed:
+            self.set_pc_monitor(bool(changed["pc.monitor"]))
         self._refresh_cost()
         if RESTART_KEYS & set(changed):
             self.bubble.show_text("저장했어요. 크기·인식 모델은 메뉴의 '다시 시작' 후 적용돼요.", self.anchor(),
@@ -1183,6 +1198,32 @@ class AssistantApp(QObject):
                                       else f"'{path.stem}'을(를) 켜지 못했어요.", self.anchor(), system=True, seconds=6)
 
         self._run(work, done, lambda m: log.warning("프로그램 켜기 실패: %s", m))
+
+    def set_pc_monitor(self, on: bool) -> None:
+        if on and not self.pc_timer.isActive():
+            self.pc_timer.start(60_000)
+            QTimer.singleShot(15_000, self.check_pc)
+        elif not on:
+            self.pc_timer.stop()
+
+    def check_pc(self) -> None:
+        """1분마다: PC 상태를 읽고 문제가 있으면 다니카가 알린다 (같은 문제는 30분에 한 번)."""
+        if self._pc_busy:
+            return
+        self._pc_busy = True
+
+        def done(status) -> None:
+            self._pc_busy = False
+            for problem in self.pc_monitor.check(status):
+                log.info("PC 상태 알림: %s", problem)
+                self._announce(f"PC 상태 문제: {problem} 주인님께 짧게 알리고 할 수 있는 일 하나를 말한다.")
+
+        def fail(message: str) -> None:
+            self._pc_busy = False
+            log.warning("PC 상태를 읽지 못함 → 감시 끔: %s", message)
+            self.pc_timer.stop()
+
+        self._run(read_pc_status, done, fail)
 
     def open_planner(self) -> None:
         from ui.planner_dialog import PlannerDialog
