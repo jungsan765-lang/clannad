@@ -161,7 +161,9 @@ class SettingsDialog(QDialog):
         self.fast.setChecked(bool(v.get("ai.fast", False)))
         self.show_status = QCheckBox("하고 있는 일 표시 (캐릭터 아래 작은 글씨: 생각 중, 정리 중 …)")
         self.show_status.setChecked(bool(v.get("ui.show_status", True)))
-        g5 = group("대답·표시", [("", self.fast), ("", self.show_status)])
+        self.web = QCheckBox("모르는 건 인터넷에서 찾아보기 (한 번에 약 30~70원, 찾은 건 기억해 둠)")
+        self.web.setChecked(bool(v.get("ai.web_search", True)))
+        g5 = group("대답·표시", [("", self.web), ("", self.fast), ("", self.show_status)])
 
         # 비용
         self.budget = Slider(10, 500, 10, float(v["budget.monthly_usd"]), lambda x: f"한 달 {x}달러")
@@ -220,6 +222,7 @@ class SettingsDialog(QDialog):
             "voice.model": self.model.value(),
             "budget.monthly_usd": self.budget.value(),
             "ai.fast": self.fast.isChecked(),
+            "ai.web_search": self.web.isChecked(),
             "ui.show_status": self.show_status.isChecked(),
         }
 

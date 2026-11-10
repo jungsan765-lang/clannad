@@ -180,3 +180,50 @@ def test_plan_organize_counts_progress(tmp_path):
                                          {"name": "b.png", "size_kb": 3, "modified": "2026-11-02"}], on_count=counts.append)
     assert data == plan and counts[-1] == 2 and fake.calls[-1].get("streamed")
     assert "a.jpg\t3KB\t2026-11-01" in fake.calls[-1]["messages"][0]["content"]
+
+
+# ---------------------------------------------------------------- 인터넷 검색·배경지식
+
+def test_search_then_answer_and_remember(tmp_path):
+    from types import SimpleNamespace
+
+    comp, fake = _comp(tmp_path, ["- 로노바는 천리의 네 그림자 중 '죽음의 그림자'다.\n- 나타 마신 임무에 나온다.",
+                                  {"speak": True, "message": "로노바 말씀이시군요. 죽음의 그림자입니다.",
+                                   "emotion": "normal"}])
+    real_create = fake.messages.create
+
+    def create_with_search(**kw):  # 검색 전 말 + 검색 블록 + 결과 글을 흉내
+        r = real_create(**kw)
+        if kw.get("tools"):
+            r.content = [SimpleNamespace(type="text", text="검색해 볼게요."),
+                         SimpleNamespace(type="server_tool_use", name="web_search"),
+                         SimpleNamespace(type="web_search_tool_result", content=[])] + r.content
+            r.usage.server_tool_use = SimpleNamespace(web_search_requests=2)
+        return r
+
+    fake.messages.create = create_with_search
+    notes, usd = comp.search("원신 로노바", "로노바 알아?")
+    req = fake.calls[0]
+    assert req["model"] == "claude-haiku-5-5" and req["tools"][0]["type"] == "web_search_20250305"
+    assert req["thinking"] == {"type": "disabled"} and "output_config" not in req or "format" not in req["output_config"]
+    assert notes.startswith("- 로노바는") and "검색해 볼게요" not in notes
+    assert usd >= 0.02  # 검색 2번 = 0.02달러 + 토큰
+    assert "원신 로노바" in comp.memory.knowledge_text() and comp.memory.knowledge[-1]["text"] == notes
+    r = comp.reply_after_search("원신 로노바", notes)
+    assert r.message.startswith("로노바 말씀") and r.action == "none"
+    sent = fake.calls[-1]
+    assert "죽음의 그림자" in json.dumps(sent["messages"][-1], ensure_ascii=False)
+    assert "찾아보고 알게 된 것" in sent["system"][1]["text"]  # 다음부터는 검색 없이 앎
+    from memory import Memory
+    assert Memory(tmp_path).knowledge[-1]["query"] == "원신 로노바"  # 껐다 켜도 남음
+
+
+def test_search_rule_and_lore_in_system_prompt(tmp_path):
+    comp, fake = _comp(tmp_path, [])
+    comp.lore = "## 스네즈나야\n- 얼음의 여황이 다스리는 나라."
+    comp.reply("안녕")
+    first = fake.calls[-1]["system"][0]["text"]
+    assert "web_search" in first and "배경지식" in first and "얼음의 여황" in first
+    comp.can_search = False
+    comp.reply("안녕")
+    assert "검색은 지금 꺼져 있다" in fake.calls[-1]["system"][0]["text"]

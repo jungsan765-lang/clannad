@@ -5,6 +5,7 @@
 [character]
 folder = "character/danika_still"          # manifest.json 이 있는 폴더 (make_still.py / make_rig.py 결과). 없으면 임시 원형 캐릭터
 persona = "character/danika/persona.md"   # 성격 파일. 없으면 기본 비서 말투
+lore = "character/danika/lore.md"         # 배경지식 (원신 세계관 등). 없으면 넘어감
 scale = 0.8                               # 화면에 보이는 크기 배율 (768px 그림 → 약 614px)
 max_fps = 30
 talk_motion = "bounce"                    # 말풍선이 떠 있는 동안: bounce(가슴 위만 살짝 튐) | still(숨쉬기 멈춤) | breathe(숨쉬기 계속)
@@ -14,6 +15,7 @@ topmost_interval_ms = 1500                # 맨 앞으로 다시 올리는 간�
 [ai]
 chat_model = "claude-opus-5-5"     # 대화
 memory_model = "claude-opus-5-5"   # 장기기억 정리 (하루 몇 번뿐)
+search_model = "claude-haiku-5-5"  # 모르는 걸 인터넷에서 찾아 정리 (싸고 빠름). 끄기는 설정 창
 effort = "low"                     # 생각 깊이: low | medium | high
 max_tokens = 2000                  # 생각 토큰 포함 상한. 요금은 실제로 쓴 만큼만 나간다
 history_turns = 10                 # 대화할 때 함께 보내는 최근 대화 수

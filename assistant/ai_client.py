@@ -144,6 +144,41 @@ class AIClient:
             return stream.get_final_message()
 
 
+    def complete_text(self, *, model: str, system: list[dict], messages: list[dict], kind: str,
+                      max_tokens: int = 2000, effort: str | None = "low", thinking_off: bool = False,
+                      tools: list[dict] | None = None) -> AIResult:
+        """형식 없이 글로 답을 받는다. 웹 검색 같은 서버 도구를 쓸 때 (검색 결과의 출처 표시는
+        정해진 JSON 형식과 같이 쓸 수 없어서 따로 부른다). 서버가 중간에 멈추면(pause_turn) 이어서 받는다."""
+        request: dict = dict(model=model, max_tokens=max_tokens, system=system, messages=list(messages))
+        if effort:
+            request["output_config"] = {"effort": effort}
+        if thinking_off:
+            request["thinking"] = {"type": "disabled"}
+        if tools:
+            request["tools"] = tools
+        usd = 0.0
+        for _ in range(4):
+            try:
+                response = self._send(model, request, None, False)
+            except Exception as exc:  # noqa: BLE001
+                raise AIError(_friendly_error(exc)) from exc
+            served = getattr(response, "model", model) or model
+            usd += self.ledger.record(served, _usage_dict(response.usage), kind)
+            if getattr(response, "stop_reason", None) != "pause_turn":
+                break
+            request["messages"] = request["messages"] + [{"role": "assistant", "content": response.content}]
+        blocks = list(response.content)
+        # 검색 전에 한 말("찾아볼게요")은 빼고, 마지막 검색 결과 뒤의 글만
+        last_tool = max((i for i, b in enumerate(blocks) if getattr(b, "type", "") in
+                         ("server_tool_use", "web_search_tool_result")), default=-1)
+        text = "".join(b.text for b in blocks[last_tool + 1:] if getattr(b, "type", "") == "text")
+        stop = getattr(response, "stop_reason", None)
+        if stop == "refusal":
+            log.warning("거절됨 (%s)", kind)
+            text = ""
+        return AIResult(None, text, served, stop, usd)
+
+
 def _is_fast_problem(exc: Exception) -> bool:
     try:
         import anthropic
@@ -156,7 +191,11 @@ def _is_fast_problem(exc: Exception) -> bool:
 
 def _usage_dict(usage: Any) -> dict:
     keys = ("input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens")
-    return {k: int(getattr(usage, k, 0) or 0) for k in keys}
+    out = {k: int(getattr(usage, k, 0) or 0) for k in keys}
+    searches = int(getattr(getattr(usage, "server_tool_use", None), "web_search_requests", 0) or 0)
+    if searches:
+        out["web_search_requests"] = searches
+    return out
 
 
 def _friendly_error(exc: Exception) -> str:

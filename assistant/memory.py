@@ -27,6 +27,7 @@ class Memory:
         self.facts: list[dict] = mem.get("facts", [])
         self.updated: str | None = mem.get("updated")
         self.pending: list[dict] = mem.get("pending", [])  # 아직 장기기억에 반영 안 된 대화
+        self.knowledge: list[dict] = self._read("knowledge.json", [])  # 찾아보고 알게 된 것
 
     # ------------------------------------------------------------ 저장
 
@@ -100,6 +101,31 @@ class Memory:
         with self._lock:
             self.recent = []
             self._save()
+
+    # ------------------------------------------------------------ 찾아보고 알게 된 것
+
+    def add_knowledge(self, query: str, text: str, when: datetime | None = None, keep: int = 80) -> None:
+        """검색해서 알게 된 것을 남긴다. 같은 검색어면 새 것으로 바꾼다."""
+        text = text.strip()
+        if not text:
+            return
+        with self._lock:
+            self.knowledge = [k for k in self.knowledge if k["query"] != query]
+            self.knowledge.append({"query": query, "text": text,
+                                   "date": (when or datetime.now()).date().isoformat()})
+            self.knowledge = self.knowledge[-keep:]
+            self._write("knowledge.json", self.knowledge)
+
+    def knowledge_text(self, max_chars: int = 8000) -> str:
+        """최근에 찾아본 것부터 max_chars 까지. 순서가 일정해서 새로 찾기 전엔 캐시가 유지된다."""
+        out, size = [], 0
+        for k in reversed(self.knowledge):
+            block = f"## {k['query']} ({k['date']})\n{k['text']}"
+            if size + len(block) > max_chars:
+                break
+            out.append(block)
+            size += len(block)
+        return "\n\n".join(reversed(out))
 
     # ------------------------------------------------------------ 장기기억
 

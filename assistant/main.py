@@ -92,6 +92,8 @@ class AssistantApp(QObject):
         self.status.set_enabled(bool(self.pref("ui.show_status", True)))
         self._streamed = False
         companion.fast = bool(self.pref("ai.fast", False))
+        companion.can_search = bool(self.pref("ai.web_search", True))
+        self._last_question = ""
         self.organizer = org.Organizer(settings.data_dir / "organize_log.jsonl")
         self.organizing = False
 
@@ -209,6 +211,7 @@ class AssistantApp(QObject):
             self._bubble_done()
         self.status.begin("chat", "생각 중")
         self._streamed = False
+        self._last_question = text
         context = self.watcher.chat_context()  # 게임 중이면 이번 판 기록을 함께 넘긴다
         self._run(lambda t, progress: self.companion.reply(t, context=context, on_partial=progress),
                   self._on_reply, self._on_error, text, on_progress=self._on_partial)
@@ -236,6 +239,28 @@ class AssistantApp(QObject):
             self._consolidate()
         if reply.action == "organize_files":
             QTimer.singleShot(400, lambda: self.organize_from_chat(reply.target))
+        elif reply.action == "web_search" and reply.target.strip():
+            self.search_and_answer(reply.target.strip())
+
+    def search_and_answer(self, query: str) -> None:
+        """다니카가 '찾아보겠습니다' 라고 한 뒤: 검색 → 찾은 내용으로 이어서 답하기."""
+        self.busy = True
+        self.voice.paused = True
+        self._streamed = False
+        self.status.begin("chat", f"'{query[:20]}' 찾아보는 중")
+
+        def work(progress):
+            notes, _ = self.companion.search(query, self._last_question)
+            progress(None)  # 다 찾았다
+            return self.companion.reply_after_search(query, notes, on_partial=progress)
+
+        def on_progress(msg) -> None:
+            if msg is None:
+                self.status.set_text("chat", "찾은 내용 읽는 중")
+            else:
+                self._on_partial(msg)
+
+        self._run(work, self._on_reply, self._on_error, on_progress=on_progress)
 
     def _on_error(self, message: str) -> None:
         self.busy = False
@@ -424,6 +449,7 @@ class AssistantApp(QObject):
             "voice.model": str(g("voice.model", "medium")),
             "budget.monthly_usd": self.budget_usd(),
             "ai.fast": bool(self.companion.fast),
+            "ai.web_search": bool(self.companion.can_search),
             "ui.show_status": self.status.enabled,
         }
 
@@ -463,6 +489,8 @@ class AssistantApp(QObject):
             self._sync_talk_actions()
         if "ai.fast" in changed:
             self.companion.fast = bool(changed["ai.fast"])
+        if "ai.web_search" in changed:
+            self.companion.can_search = bool(changed["ai.web_search"])
         if "ui.show_status" in changed:
             self.status.set_enabled(bool(changed["ui.show_status"]))
         self._refresh_cost()
@@ -690,6 +718,8 @@ class AssistantApp(QObject):
     def show_memory(self) -> None:
         mem = self.companion.memory
         text = mem.notes_text() + (f"\n\n(정리 대기 중인 대화 {len(mem.pending)}개)" if mem.pending else "")
+        if mem.knowledge:
+            text += "\n\n[찾아보고 알게 된 것] " + ", ".join(k["query"] for k in mem.knowledge[-30:])
         QMessageBox.information(None, "장기기억", text)
 
     def consolidate_now(self) -> None:
@@ -896,9 +926,15 @@ def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> 
     ai = ai or AIClient(ledger, float(settings.get("ai.timeout_seconds", 60)))
     ai.ledger = ledger
     memory = Memory(data)
-    persona = Companion.read_persona(settings.path("character.persona"))
+    persona_path = settings.path("character.persona")
+    persona = Companion.read_persona(persona_path)
     if persona is None:
         log.warning("성격 파일이 없어 기본 말투를 씁니다: %s", settings.get("character.persona"))
+    # 배경지식: character.lore, 없으면 성격 파일 옆의 lore.md
+    lore_path = settings.path("character.lore") or (persona_path.with_name("lore.md") if persona_path else None)
+    lore = Companion.read_persona(lore_path)
+    if lore:
+        log.info("배경지식 %d자: %s", len(lore), lore_path)
     companion = Companion(
         ai, memory, persona,
         chat_model=settings.get("ai.chat_model", "claude-opus-5-5"),
@@ -908,6 +944,8 @@ def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> 
         history_turns=int(settings.get("ai.history_turns", 10)),
         consolidate_every=int(settings.get("memory.consolidate_every", 20)),
         memory_max_chars=int(settings.get("memory.max_chars", 4000)),
+        lore=lore,
+        search_model=settings.get("ai.search_model", "claude-haiku-5-5"),
     )
     folder = settings.path("character.folder")
     if not folder or not (folder / "manifest.json").is_file():

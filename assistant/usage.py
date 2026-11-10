@@ -18,6 +18,7 @@ PRICES: dict[str, tuple[float, float, float, float]] = {
     "claude-fable-5-2": (8.00, 40.00, 0.20, 10.00),
 }
 UNKNOWN_PRICE = PRICES["claude-opus-5-5"]
+WEB_SEARCH_USD = 0.01  # 웹 검색 1번 (1,000번에 10달러) + 결과 글은 입력 토큰으로 따로
 
 
 def price_for(model: str) -> tuple[float, float, float, float]:
@@ -34,7 +35,7 @@ def cost_usd(model: str, usage: dict) -> float:
         + usage.get("output_tokens", 0) * pout
         + usage.get("cache_read_input_tokens", 0) * pread
         + usage.get("cache_creation_input_tokens", 0) * pwrite
-    ) / 1_000_000
+    ) / 1_000_000 + usage.get("web_search_requests", 0) * WEB_SEARCH_USD
 
 
 class UsageLedger:

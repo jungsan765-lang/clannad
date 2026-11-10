@@ -246,3 +246,26 @@ def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
     a.status.begin("x", "테스트")
     assert not a.status.isVisible()
     a.quit()
+
+
+def test_chat_search_flow_shows_status_and_answers(qapp, tmp_path, built):
+    fake = FakeAnthropic([
+        {"speak": True, "message": "잠시만요, 찾아보겠습니다.", "emotion": "normal", "action": "web_search",
+         "target": "원신 로노바"},
+        "- 로노바는 천리의 그림자 중 하나.",
+        {"speak": True, "message": "로노바는 천리의 그림자 중 하나입니다.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    statuses = []
+    real_begin = a.status.begin
+    a.status.begin = lambda key, text, elapsed=True: (statuses.append(text), real_begin(key, text, elapsed))
+    a.ask("로노바 알아?")
+    _wait(qapp, a)
+    _wait(qapp, a)
+    assert any("찾아보는 중" in t for t in statuses)
+    assert a.bubble.text == "로노바는 천리의 그림자 중 하나입니다." and not a.busy
+    assert fake.calls[1].get("tools") and not fake.calls[2].get("tools")
+    assert a.companion.memory.knowledge[-1]["query"] == "원신 로노바"
+    a.quit()

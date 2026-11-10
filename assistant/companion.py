@@ -15,7 +15,7 @@ log = logging.getLogger("assistant.companion")
 
 EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 
-ACTIONS = ["none", "organize_files"]
+ACTIONS = ["none", "organize_files", "web_search"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -127,9 +127,20 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 파일 정리: 폴더 안 파일들을 종류별 하위 폴더로 나눠 옮기는 정리안을 만든다. 주인님이 미리보기에서 승인한 것만 옮기고, 지우지 않으며, 되돌릴 수 있다.
   주인님이 파일 정리를 부탁하면 action 은 "organize_files", target 은 폴더(다운로드·바탕화면·문서·사진·동영상·음악 중 하나, 또는 주인님이 말한 경로, 모르면 빈 문자열)로 하고,
   message 는 "정리안을 만들어서 보여드릴게요" 처럼 이제 시작한다는 말로 한다(이미 정리했다고 말하지 않는다).
-- 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 인터넷 검색, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
+- 그 밖의 일(프로그램 실행, 파일 삭제·이름 바꾸기, 알람, 메시지 보내기 등)은 아직 못 한다. 부탁받으면 아직 못 한다고 솔직히 말한다.
 - 그 외에는 action 은 "none", target 은 빈 문자열.
+- 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
 """
+
+SEARCH_ON = """- 인터넷 검색: 원신 캐릭터·사건, 게임 정보, 사람, 최근 소식처럼 네가 확실히 모르는 걸 물으면 찾아본다.
+  action 은 "web_search", target 은 짧은 한국어 검색어(예: "원신 로노바"), message 는 "잠시만요, 찾아보겠습니다" 같은 아주 짧은 말.
+  배경지식이나 '찾아보고 알게 된 것'에 이미 있으면 검색하지 않는다. 인사·잡담·감정 이야기에는 검색하지 않는다."""
+SEARCH_OFF = """- 인터넷 검색은 지금 꺼져 있다. 모르는 건 모른다고 솔직히 말한다."""
+
+SEARCH_SYSTEM = """너는 검색 담당이다. 주어진 검색어로 인터넷을 찾아보고, 질문에 답하는 데 필요한 사실만 한국어로 정리한다.
+- 한국어 자료(나무위키, 공식 사이트, 인벤 등)를 먼저 본다. 게임 용어·이름은 한국 서버 공식 번역을 쓴다.
+- 확인된 사실만 쓴다. 자료끼리 다르면 공식 쪽을 따르고 '(자료마다 다름)'이라고 적는다. 유출·루머는 '(미확정)'이라고 적는다.
+- 글머리표 5~10줄, 전체 800자 안쪽. 인사말·서론 없이 사실만."""
 
 DEFAULT_PERSONA = """# 캐릭터
 - 이름 없는 바탕화면 비서. 사용자를 "주인님"이라고 부르고 해요체로 짧고 담백하게 말한다."""
@@ -217,10 +228,14 @@ class Reply:
 class Companion:
     def __init__(self, ai: AIClient, memory: Memory, persona: str | None, *, chat_model: str,
                  memory_model: str, effort: str = "low", max_tokens: int = 2000, history_turns: int = 10,
-                 consolidate_every: int = 20, memory_max_chars: int = 4000):
+                 consolidate_every: int = 20, memory_max_chars: int = 4000, lore: str | None = None,
+                 search_model: str = "claude-haiku-5-5"):
         self.ai = ai
         self.memory = memory
         self.persona = (persona or DEFAULT_PERSONA).strip()
+        self.lore = (lore or "").strip()  # 배경지식 (캐릭터가 원래 아는 세계관 등)
+        self.search_model = search_model
+        self.can_search = True  # 모르는 건 인터넷에서 찾아보기 (설정 창)
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -237,11 +252,17 @@ class Companion:
         return None
 
     def system_blocks(self) -> list[dict]:
-        # 성격(자주 안 바뀜)과 기억(가끔 바뀜)을 따로 캐시해서, 기억이 바뀌어도 성격 부분은 재사용
+        # 성격·배경지식(자주 안 바뀜)과 기억·찾아본 것(가끔 바뀜)을 따로 캐시해서, 기억이 바뀌어도 앞부분은 재사용
+        first = RULES + (SEARCH_ON if self.can_search else SEARCH_OFF) + "\n\n" + self.persona
+        if self.lore:
+            first += "\n\n# 배경지식 (네가 원래 아는 것. 아는 티를 길게 내지 않고 필요할 때 자연스럽게 쓴다)\n" + self.lore
+        second = "# 기억 (네가 적어 둔 메모)\n" + self.memory.notes_text()
+        known = self.memory.knowledge_text()
+        if known:
+            second += "\n\n# 찾아보고 알게 된 것 (예전에 검색해 둔 내용)\n" + known
         return [
-            {"type": "text", "text": RULES + "\n" + self.persona, "cache_control": {"type": "ephemeral"}},
-            {"type": "text", "text": "# 기억 (네가 적어 둔 메모)\n" + self.memory.notes_text(),
-             "cache_control": {"type": "ephemeral"}},
+            {"type": "text", "text": first, "cache_control": {"type": "ephemeral"}},
+            {"type": "text", "text": second, "cache_control": {"type": "ephemeral"}},
         ]
 
     def reply(self, user_text: str, now: datetime | None = None, context: str | None = None,
@@ -255,6 +276,33 @@ class Companion:
         if context:
             content.append({"type": "text", "text": context})
         content.append({"type": "text", "text": user_text})
+        return self._respond(content, user_text, now, on_partial, fast)
+
+    def search(self, query: str, question: str = "") -> tuple[str, float]:
+        """인터넷 검색 → 한국어 사실 메모 (싼 모델이 찾아서 정리). 찾은 건 기억해 두고 다음엔 다시 찾지 않는다."""
+        tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 3,
+                  "user_location": {"type": "approximate", "country": "KR", "timezone": "Asia/Seoul"}}]
+        ask = f"검색어: {query}" + (f"\n주인님이 한 말: {question}" if question else "")
+        r = self.ai.complete_text(model=self.search_model, system=[{"type": "text", "text": SEARCH_SYSTEM}],
+                                  messages=[{"role": "user", "content": ask}], kind="search", tools=tools,
+                                  max_tokens=2000, effort="low", thinking_off=True)
+        notes = r.text.strip()[:1500]
+        if notes:
+            self.memory.add_knowledge(query, notes)
+        return notes, r.usd
+
+    def reply_after_search(self, query: str, notes: str, on_partial=None, fast: bool | None = None,
+                           now: datetime | None = None) -> Reply:
+        """찾아본 내용을 보고 방금 질문에 이어서 답한다 (다시 검색하지는 않음)."""
+        now = now or datetime.now()
+        content = [{"type": "text", "text": f"[찾아본 내용: {query}]\n" + (notes or "(쓸 만한 결과를 찾지 못했다)")},
+                   {"type": "text", "text": "위 내용을 바탕으로 방금 주인님 말에 이어서 답한다. 찾아본 내용에 없는 건 "
+                                            "지어내지 않는다. 찾지 못했으면 솔직히 말한다. action 은 none."}]
+        r = self._respond(content, f"(찾아본 내용을 보고 이어서 답함: {query})", now, on_partial, fast)
+        r.action, r.target = "none", ""
+        return r
+
+    def _respond(self, content: list[dict], memory_text: str, now: datetime, on_partial, fast: bool | None) -> Reply:
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         fast = self.fast if fast is None else fast
         shown = {"ok": True, "last": ""}
@@ -288,7 +336,9 @@ class Companion:
         message = data["message"].strip() or "……"
         emotion = data["emotion"] if data["emotion"] in EMOTIONS else "normal"
         action = data.get("action") if data.get("action") in ACTIONS else "none"
-        self.memory.add_turn(user_text, message, now)
+        if action == "web_search" and not self.can_search:
+            action = "none"
+        self.memory.add_turn(memory_text, message, now)
         return Reply(True, message, emotion, total, action, str(data.get("target", "") or ""))
 
     def _ask(self, messages: list[dict], on_text=None, fast: bool = False) -> tuple[dict | None, float]:
