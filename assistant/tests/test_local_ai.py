@@ -39,6 +39,11 @@ class FakeOllama:
             self.models.append(body["model"])
             return iter([{"status": "pulling manifest"}, {"status": "downloading", "total": 100, "completed": 40},
                          {"status": "downloading", "total": 100, "completed": 100}, {"status": "success"}])
+        if path == "/api/ps":
+            return {"models": [{"name": m} for m in getattr(self, "loaded", [])]}
+        if path == "/api/generate":
+            self.loaded = [m for m in getattr(self, "loaded", []) if m != body["model"]]
+            return {}
         if path == "/api/embed":
             return {"embeddings": [self.vector(x) for x in body["input"]]}
         if path == "/api/chat":
@@ -121,6 +126,8 @@ def test_helpers_use_my_pc_first_and_cloud_when_it_fails(tmp_path):
 def test_pulls_every_needed_model_one_after_another():
     fake = FakeOllama(models=["gemma3:4b"])
     ai = LocalAI(http=fake)
+    assert ai.models() == ["gemma3:4b", "bge-m3"]  # 맥락 담당은 같은 모델 (메모리에 하나만)
+    ai.context_model = "gemma3:12b"  # 따로 고르면 그것도 받음
     assert ai.models() == ["gemma3:4b", "bge-m3", "gemma3:12b"]
     assert ai.check(pull=False) == "ready" and not ai.has("bge-m3")
     ai.pull_all(["bge-m3", "gemma3:12b"])
@@ -237,3 +244,26 @@ def test_real_connection_is_cut_when_urgent_work_arrives():
     th.join(5)
     server.shutdown()
     assert "err" in box and box["took"] < 2  # 3초를 기다리지 않고 바로 끊김
+
+
+def test_memory_is_kept_light_for_the_game():
+    t = {"now": 0.0}
+    mem = {"pct": 96.0}
+    fake = FakeOllama(replies=[{"ok": 1}, {"ok": 2}])
+    fake.loaded = ["gemma3:12b", "bge-m3"]  # 예전 기본값이던 큰 모델이 메모리에 9GB 넘게 올라가 있음
+    ai = LocalAI(http=fake, clock=lambda: t["now"])
+    ai.memory_percent = lambda: mem["pct"]
+    ai.check(pull=False)
+    assert fake.loaded == ["bge-m3"]  # 안 쓰는 큰 모델은 바로 내림
+    assert ai.chat_json("규칙", "적어 줘", {"type": "object"}) is None  # 메모리 96%: 모델을 새로 올리지 않음 (클라우드로)
+    assert "메모리가 빠듯해서 쉬는 중" in ai.status_text()
+    assert ai.embed(["밑장"]) is None
+    mem["pct"] = 80.0
+    assert ai.chat_json("규칙", "적어 줘", {"type": "object"}) == {"ok": 1}
+    body = fake.calls[-1][2]
+    assert body["keep_alive"] == "10m" and body["options"]["num_ctx"] == 3072
+    mem["pct"] = 96.0
+    t["now"] = 60  # 이미 올라가 있는 모델은 메모리가 더 안 드니 계속 씀
+    assert ai.chat_json("규칙", "또", {"type": "object"}) == {"ok": 2}
+    t["now"] = 60 + 10 * 60  # 10분 지나 내려갔으면 다시 따짐
+    assert ai.chat_json("규칙", "또", {"type": "object"}) is None

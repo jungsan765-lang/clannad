@@ -833,6 +833,16 @@ def test_moment_face_comes_first_then_resets(qapp, tmp_path, built):
     a.quit()
 
 
+def test_old_big_context_model_setting_is_dropped(qapp, tmp_path, built):
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.set_pref("local.context_model", "gemma3:12b")  # 예전 기본값이 저장돼 있던 사람
+    a.quit()
+    b = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    assert b.local_ai.context_model == "" and b.local_ai.models() == ["gemma3:4b", "bge-m3"]  # 메모리 때문에 접음
+    b.quit()
+
+
 def test_lookups_pile_up_in_a_per_game_dictionary(qapp, tmp_path, built):
     from watch.modes import Mode
 

@@ -26,8 +26,21 @@ log = logging.getLogger("assistant.local")
 
 DEFAULT_MODEL = "gemma3:4b"
 EMBED_MODEL = "bge-m3"  # 기억을 뜻으로 찾기 (여러 나라 말, 한국어 됨, 약 1.2GB)
-CONTEXT_MODEL = "gemma3:12b"  # 맥락 담당 (뒤에서 천천히 해도 되니 더 큰 모델, 약 8GB)
+CONTEXT_MODEL = ""  # 맥락 담당 모델 — 비우면 눈 담당 모델을 같이 씀 (gemma3:12b 는 메모리를 9GB 넘게 써서 게임과 같이 못 씀)
+OLD_BIG_MODELS = ("gemma3:12b",)  # 예전 기본값: 메모리에 올라가 있으면 내린다
+KEEP_ALIVE = "10m"  # 안 쓰면 이만큼 뒤에 메모리에서 내림 (게임 끝나면 메모리를 돌려줌)
+EMBED_KEEP_ALIVE = "5m"
+MEMORY_TIGHT = 93.0  # 메모리를 이만큼(%) 넘게 쓰면 모델을 새로 올리지 않고 쉰다 (게임이 먼저)
 CPU_LEVELS = {"little": 4, "half": 2, "most": 1}  # 논리 코어 ÷ 이 값 (little 은 최대 4개)
+
+
+def _memory_percent() -> float:
+    try:
+        import psutil
+
+        return float(psutil.virtual_memory().percent)
+    except Exception:  # noqa: BLE001
+        return 0.0
 
 
 def threads_for(level: str, cores: int | None = None) -> int:
@@ -45,6 +58,9 @@ class LocalAI:
         self.model = model or DEFAULT_MODEL
         self.embed_model = EMBED_MODEL
         self.context_model = CONTEXT_MODEL
+        self.memory_percent: Callable[[], float] = _memory_percent
+        self.short_on_memory = False
+        self._last_used: dict[str, float] = {}  # 모델 → 마지막으로 쓴 때 (최근에 썼으면 이미 메모리에 있음)
         self.have: set[str] = set()  # Ollama 에 있는 모델
         self.pulling = ""  # 지금 받는 모델
         self.cpu = cpu
@@ -78,16 +94,56 @@ class LocalAI:
         if not lock.acquire(blocking=not background, timeout=timeout if not background else -1):
             return None
         try:
-            body = {"model": self.embed_model, "input": list(texts), "keep_alive": "30m",
+            if not self._room_for(self.embed_model):
+                return None
+            body = {"model": self.embed_model, "input": list(texts), "keep_alive": EMBED_KEEP_ALIVE,
                     "options": {"num_thread": self.threads}}
             r = self.http("POST", "/api/embed", body, timeout=max(timeout, 60.0) if background else timeout)
             vecs = (r or {}).get("embeddings") or []
+            self._last_used[self.embed_model] = self.clock()
             return vecs if len(vecs) == len(texts) else None
         except Exception as exc:  # noqa: BLE001 - 못 하면 낱말로만 찾음
             log.debug("뜻 좌표 실패: %r", exc)
             return None
         finally:
             lock.release()
+
+    def _room_for(self, model: str) -> bool:
+        """모델을 새로 메모리에 올려도 되나. 최근에 썼으면(이미 올라가 있음) 괜찮고, 아니면 메모리가 빠듯하면 쉰다."""
+        used = self._last_used.get(model)
+        if used is not None and self.clock() - used < 9 * 60:
+            return True
+        try:
+            tight = self.memory_percent() >= MEMORY_TIGHT
+        except Exception:  # noqa: BLE001
+            tight = False
+        if tight and not self.short_on_memory:
+            log.info("메모리가 빠듯해서 내 PC AI 는 쉬어요 (%s)", model)
+        self.short_on_memory = tight
+        return not tight
+
+    def unload(self, model: str) -> bool:
+        """그 모델을 지금 메모리에서 내린다."""
+        try:
+            self.http("POST", "/api/generate", {"model": model, "keep_alive": 0}, timeout=10)
+            self._last_used.pop(model, None)
+            log.info("내 PC AI 모델을 메모리에서 내림: %s", model)
+            return True
+        except Exception as exc:  # noqa: BLE001
+            log.debug("모델 내리기 실패 (%s): %r", model, exc)
+            return False
+
+    def unload_unused(self) -> list[str]:
+        """지금 안 쓰는 모델(예전 기본값이던 큰 모델 등)이 메모리에 올라가 있으면 내린다."""
+        try:
+            loaded = [m.get("name") or m.get("model", "") for m in (self.http("GET", "/api/ps") or {}).get("models", [])]
+        except Exception:  # noqa: BLE001
+            return []
+        keep = set(self.models()) | {m + ":latest" for m in self.models() if ":" not in m}
+        gone = [m for m in loaded if m and m not in keep]
+        for m in gone:
+            self.unload(m)
+        return gone
 
     @property
     def threads(self) -> int:
@@ -108,7 +164,8 @@ class LocalAI:
             "ready": f"준비됨 — {self.model}, CPU 스레드 {self.threads}개, 지금까지 {self.calls}번 처리"
                      + (f" (마지막 {self.last_seconds:.0f}초)" if self.last_seconds else "")
                      + (f". {self.pulling} 받는 중 {self.progress * 100:.0f}%" if self.pulling and self.pulling != self.model
-                        else ""),
+                        else "")
+                     + (". 지금은 메모리가 빠듯해서 쉬는 중 (게임이 먼저)" if self.short_on_memory else ""),
             "error": "문제가 있어서 잠시 클라우드로 해요.",
         }.get(self.state, self.state)
 
@@ -171,6 +228,7 @@ class LocalAI:
         self.state = "ready" if self.has(self.model) else "no_model"
         if self.state == "ready":
             self.lower_priority()
+            self.unload_unused()  # 예전 기본값이던 큰 모델(맥락 담당 12b)이 올라가 있으면 내림
         missing = [m for m in self.models() if not self.has(m)]
         if missing and pull:
             threading.Thread(target=self.pull_all, args=(missing,), daemon=True, name="local-ai-pull").start()
@@ -251,6 +309,8 @@ class LocalAI:
             return None
         if model and not self.has(model):
             model = None  # 아직 못 받았으면 기본 모델로
+        if not self._room_for(model or self.model):
+            return None  # 메모리가 빠듯함 → 이번 건 클라우드로 (뒤에서 하는 일은 건너뜀)
         if background:
             if self._waiting or not self._lock.acquire(blocking=False):
                 return None
@@ -272,9 +332,9 @@ class LocalAI:
             msg = {"role": "user", "content": text}
             if images:
                 msg["images"] = [base64.b64encode(b).decode("ascii") for b in images]
-            body = {"model": model or self.model, "stream": False, "format": schema, "keep_alive": "30m",
+            body = {"model": model or self.model, "stream": False, "format": schema, "keep_alive": KEEP_ALIVE,
                     "messages": [{"role": "system", "content": system}, msg],
-                    "options": {"num_gpu": 0, "num_thread": self.threads, "temperature": 0.2, "num_ctx": 4096,
+                    "options": {"num_gpu": 0, "num_thread": self.threads, "temperature": 0.2, "num_ctx": 3072,
                                 "num_predict": max_tokens}}
             if background and self.http == self._http:
                 r = self._http("POST", "/api/chat", body, timeout=timeout, abortable=True)
@@ -282,6 +342,7 @@ class LocalAI:
                 r = self.http("POST", "/api/chat", body, timeout=timeout)
             content = ((r or {}).get("message") or {}).get("content", "")
             data = json.loads(content)
+            self._last_used[model or self.model] = self.clock()
             self.calls += 1
             self.fails = 0
             return data if isinstance(data, dict) else None

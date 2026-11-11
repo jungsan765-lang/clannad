@@ -350,9 +350,10 @@ class SettingsDialog(QDialog):
         self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "half")))
         self.local_model = QLineEdit(str(v.get("local.model", "gemma3:4b")))
         self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨).")
-        self.local_context_model = QLineEdit(str(v.get("local.context_model", "gemma3:12b")))
-        self.local_context_model.setToolTip("맥락 담당만 쓰는 모델. 뒤에서 천천히 해도 되니 더 크고 정확한 모델 "
-                                            "(gemma3:12b 약 8GB, 한 번 보는 데 30초~1분). 비우면 위 모델을 같이 써요.")
+        self.local_context_model = QLineEdit(str(v.get("local.context_model", "")))
+        self.local_context_model.setPlaceholderText("비우면 위 모델을 같이 써요 (메모리 절약, 추천)")
+        self.local_context_model.setToolTip("맥락 담당만 따로 쓸 모델. 더 큰 모델(gemma3:12b)은 더 정확하지만 메모리를 9GB 넘게 써서 "
+                                            "게임과 같이 쓰면 메모리가 꽉 차요.")
         self.local_status = QLabel(local[0]() if local else "")
         self.local_status.setWordWrap(True)
         status_row = QWidget()
@@ -366,7 +367,8 @@ class SettingsDialog(QDialog):
         sr.addWidget(get_btn)
         sr.addWidget(again_btn)
         setup = _hint("처음 한 번: 'Ollama 받기'로 설치 → 켜 두면(작업 표시줄 오른쪽 아래 라마 아이콘) 다니카가 알아서 연결하고 "
-                      "모델을 차례로 받아요 (눈 담당용 약 3GB → 기억 검색용 약 1.2GB → 맥락 담당용 약 8GB, 한 번만). "
+                      "모델을 차례로 받아요 (눈 담당·맥락 담당용 약 3GB → 기억 검색용 약 1.2GB, 한 번만). "
+                      "메모리를 93% 넘게 쓰면 새로 모델을 올리지 않고 쉬어요(게임이 먼저), 10분 안 쓰면 메모리에서 내려요. "
                       "맥락 담당이 생각하는 중에 급한 일(눈 담당)이 오면 끊고 먼저 해요.")
         local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("", self.local_context), ("", self.ears_on),
                                              ("CPU 쓰는 정도", self.local_cpu),

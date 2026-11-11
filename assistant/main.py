@@ -202,7 +202,8 @@ class AssistantApp(QObject):
         # 내 PC AI: 남는 CPU 로 눈 담당·둘러보기 확대·판정 (Ollama, 그래픽카드 안 씀). 켤 때와 10분마다 연결 확인
         self.local_ai = LocalAI(model=str(self.pref("local.model", DEFAULT_MODEL)), cpu=str(self.pref("local.cpu", "half")))
         self.local_ai.enabled = bool(self.pref("local.enabled", True))
-        self.local_ai.context_model = str(self.pref("local.context_model", self.local_ai.context_model))
+        ctx_model = str(self.pref("local.context_model", ""))
+        self.local_ai.context_model = "" if ctx_model in ("gemma3:12b",) else ctx_model  # 예전 기본값(12b)은 메모리 때문에 접음
         companion.local = self.local_ai
         self._local_timer = QTimer(self)
         self._local_timer.timeout.connect(self.check_local_ai)
