@@ -205,6 +205,8 @@ class FrameSampler:
             self._read_box(img, name, box, frame.t)
         if self.hud is not None:
             try:
+                if self.spike_at == frame.t:  # 확 바뀐 순간이면 가운데 큰 글자도 (배너)
+                    self.hud.banner(img, frame.t)
                 self.hud.feed(img, frame.t)
             except Exception as exc:  # noqa: BLE001 - 화면 정보를 못 읽어도 찍기는 계속
                 log.debug("화면 정보 읽기 실패: %r", exc)

@@ -205,6 +205,8 @@ class SettingsDialog(QDialog):
         self.rush = check("확 바뀐 순간엔 판단 결과를 기다리지 않고 바로 말하기 시작", "screen.rush", True,
                           "죽음·암전·퀘스트 완료처럼 확 바뀐 순간엔 판단과 말하기를 동시에 시작해 2초쯤 빨라요. 45초에 한 번까지, "
                           "판단이 컷신·결과·픽이면 버려요. 시간당 수백 원 더 들 수 있어요.")
+        self.moment_face = check("확 바뀐 순간엔 말보다 먼저 표정으로 반응", "screen.moment_face", True,
+                                 "죽음·암전 같은 순간 다니카가 바로 놀란 표정을 지어요 (돈 안 듦). 말은 몇 초 뒤에 와요.")
         self.fast_opus = check("Opus 가 말할 땐 빠른 모드 (요금 2배)", "screen.fast_opus", True,
                                "물어볼 때·중요한 걸 찾았을 때처럼 Opus 가 말할 때 2배쯤 빨리 써요.")
         self.scan = check("둘러보기", "screen.scan", True,
@@ -226,7 +228,7 @@ class SettingsDialog(QDialog):
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         screen = page(group("말 걸기", [("", self.screen_on), ("말 거는 정도", self.chatty),
                                         ("말하는 방식", self.line_quality), ("눈 담당", self.eye), ("", self.rush),
-                                        ("", self.fast_opus), ("", self.scan), ("", scan_hint)]),
+                                        ("", self.moment_face), ("", self.fast_opus), ("", self.scan), ("", scan_hint)]),
                       group("보는 방법", [("촘촘히 보기", self.dense), ("볼 모니터", self.monitor),
                                           ("선명도 (글자 읽기)", self.sharp), ("확인 간격", self.interval),
                                           ("말한 뒤 쉬는 시간", self.cooldown)]),
@@ -436,6 +438,7 @@ class SettingsDialog(QDialog):
             "screen.scan": self.scan.isChecked(),
             "screen.eye": self.eye.value(),
             "screen.rush": self.rush.isChecked(),
+            "screen.moment_face": self.moment_face.isChecked(),
             "screen.fast_opus": self.fast_opus.isChecked(),
             "local.enabled": self.local_on.isChecked(),
             "local.cpu": self.local_cpu.value(),

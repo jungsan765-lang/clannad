@@ -149,6 +149,16 @@ class HudReader:
             if alert:
                 self.alert_at = t
 
+    def banner(self, img: Image.Image, t: float) -> None:
+        """확 바뀐 순간: 화면 가운데 큰 글자(사망·승리·퀘스트 완료 같은 배너)를 읽어 둔다 (뒤 스레드, 공짜)."""
+        if self.ocr is None:
+            return
+        w, h = img.size
+        crop = img.crop((int(w * 0.15), int(h * 0.25), int(w * 0.85), int(h * 0.75)))
+        if crop.width > 1200:
+            crop = crop.resize((1200, round(crop.height * 1200 / crop.width)), Image.Resampling.BILINEAR)
+        self._submit("화면 가운데 큰 글자", crop, t)
+
     # ------------------------------------------------------------ 글자 인식 (뒤 스레드)
 
     def _submit(self, name: str, crop: Image.Image, t: float) -> None:

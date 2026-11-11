@@ -283,6 +283,8 @@ class AssistantApp(QObject):
         self._screen_searches: list[float] = []
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
         self.watcher.partial.connect(self._on_screen_partial)  # 화면 대사가 나오는 대로 말풍선에 (1초라도 빨리)
+        self.watcher.moment.connect(self._on_moment)  # 확 바뀐 순간: 말보다 먼저 표정으로
+        self._moment_seq = 0
         self.watcher.partial_cancel.connect(self._on_screen_partial_cancel)
         self._screen_partial = ""
         self.watcher.missed.connect(self._on_screen_missed)
@@ -508,17 +510,18 @@ class AssistantApp(QObject):
             log.exception("떠올리기 실패")
             return "", []
 
-    def _embed(self, texts: list[str]):
+    def _embed(self, texts: list[str], timeout: float = 6.0):
         """기억을 뜻으로 찾을 때 쓰는 뜻 좌표 (내 PC 기억 검색 모델, 없으면 None → 낱말로만 찾음)."""
         ai = getattr(self, "local_ai", None)
-        return ai.embed(texts, timeout=6) if ai is not None else None
+        return ai.embed(texts, timeout=timeout) if ai is not None else None
 
     def recall_for_screen(self, seen: str) -> str:
         """화면 대사용: 지금 상황과 이어지는 예전 일 (6시간보다 오래된 것, 아주 확실한 것 2개까지, 사진 없음)."""
         try:
             since = (datetime.now() - timedelta(hours=6)).isoformat(timespec="seconds")
+            # 화면 대사는 1초라도 빨리: 뜻으로 찾기는 0.8초 안에 못 하면 낱말로만
             text, _ = recall_block(self.recall_index, seen, datetime.now(), since, max_chars=700, for_screen=True,
-                                   min_score=8.0, embed=self._embed)
+                                   min_score=8.0, embed=lambda t: self._embed(t, timeout=0.8))
             return text
         except Exception:  # noqa: BLE001
             log.exception("화면용 떠올리기 실패")
@@ -1045,6 +1048,15 @@ class AssistantApp(QObject):
         self.remember_episode(kind, f"{a.when} {a.summary}", self.watcher.mode.name if self.watcher.mode.is_game else "",
                               f"{a.situation} / {points} / 다음: {', '.join(a.next_steps)}")
 
+    def _on_moment(self, kind: str) -> None:
+        """확 바뀐 순간 다니카가 먼저 놀란 표정 (말은 몇 초 뒤). 말이 안 오면 4초 뒤 원래대로."""
+        if self.busy or not self.pref("screen.moment_face", True):
+            return
+        self._moment_seq += 1
+        seq = self._moment_seq
+        self.window.set_emotion("surprised")
+        QTimer.singleShot(4000, lambda: self.window.set_emotion("normal") if seq == self._moment_seq else None)
+
     def _on_screen_partial(self, message: str) -> None:
         if self.busy or not message:  # 대화 중이면 대화가 먼저
             return
@@ -1058,6 +1070,7 @@ class AssistantApp(QObject):
 
     def _on_screen_line(self, reply) -> None:
         self._screen_partial = ""
+        self._moment_seq += 1  # 말이 왔으니 표정 되돌리기는 취소 (말의 표정으로)
         if isinstance(reply, Analysis) and reply.speak:  # 분석은 창에 남겨 두니 대화 중이어도 보여 준다
             self.analysis_panel.show_analysis(reply)
             self._index_analysis(reply)
@@ -1230,6 +1243,7 @@ class AssistantApp(QObject):
             "screen.scan": self.watch_cfg.scan,
             "screen.eye": self.watch_cfg.eye,
             "screen.rush": self.watch_cfg.rush,
+            "screen.moment_face": bool(self.pref("screen.moment_face", True)),
             "screen.fast_opus": self.watch_cfg.fast_opus,
             "local.enabled": self.local_ai.enabled,
             "local.cpu": self.local_ai.cpu,
@@ -2005,7 +2019,10 @@ class AssistantApp(QObject):
         """게임을 끔: 화면으로 본 기록으로 진행을 갱신 (싼 모델)."""
         self.progress.played(game)
         prev = self.progress.text_for(game)
-        self.remember_episode("game", f"{game} 약 {minutes:.0f}분 플레이", game, " / ".join(notes[-30:]))
+        keeper = getattr(self, "context_keeper", None)  # 맥락 담당이 적은 '지금까지 흐름'도 오래 기억에 (다음에 '저번 판에서…')
+        story = keeper.story if keeper is not None and keeper.game == game and keeper.story else ""
+        detail = (f"흐름: {story} / " if story else "") + " / ".join(notes[-30:])
+        self.remember_episode("game", f"{game} 약 {minutes:.0f}분 플레이", game, detail)
 
         def done(text: str) -> None:
             if text and text != prev:

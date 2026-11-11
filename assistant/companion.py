@@ -1236,12 +1236,10 @@ class Companion:
             task = ("[이번 판 총평]\n첨부한 이미지는 방금 끝난 판의 결과 화면이다. 결과 화면과 '이번 판 기록'을 근거로 "
                     "잘한 점 하나와 고칠 점 하나를 2~3문장으로 말한다. speak 는 true.")
         lines = [f"[지금: {stamp}]", task, f"맨 앞 창: {title or '(알 수 없음)'}"]
-        mode_text = self._mode_text(mode, session_notes)
-        if mode_text:
-            lines.append(mode_text)
-        layout = self._layout_text(mode)
-        if layout:
-            lines.append(layout)
+        # 게임마다 안 바뀌는 것(모드 설명·화면 배치)은 캐시해 두는 앞부분으로, 판 기록처럼 매번 바뀌는 것만 여기에
+        stable = "\n\n".join(p for p in (self._mode_text(mode, None), self._layout_text(mode)) if p)
+        if session_notes:
+            lines.append("## 이번 판(세션) 기록\n" + "\n".join(f"- {n}" for n in session_notes[-20:]))
         if note and note.get("urgent"):
             lines.append("즉시 알릴 상황이다. 짧고 분명하게 경고한다. speak 는 true.")
         elif age is not None and not question:
@@ -1301,7 +1299,10 @@ class Companion:
             shown["last"] = msg
             on_partial(self.memory.fix_words(msg))
 
-        r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,
+        system = self.system_blocks()
+        if stable:
+            system = system + [{"type": "text", "text": stable, "cache_control": {"type": "ephemeral", "ttl": "1h"}}]
+        r = self.ai.complete_json(model=model or self.chat_model, system=system, messages=messages,
                                   schema=REPLY_SCHEMA, kind="pick" if pick else "screen", max_tokens=self.max_tokens,
                                   effort=effort, fast=fast, on_text=stream_cb if on_partial else None)
         data = r.data

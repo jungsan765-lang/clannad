@@ -816,6 +816,23 @@ def test_screen_line_shows_as_it_streams_and_eye_setting(qapp, tmp_path, built):
     a.quit()
 
 
+def test_moment_face_comes_first_then_resets(qapp, tmp_path, built):
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    faces = []
+    a.window.set_emotion = faces.append
+    a.watcher.moment.emit("screen")
+    qapp.processEvents()
+    assert faces == ["surprised"]  # 말보다 먼저
+    seq = a._moment_seq
+    from companion import Reply
+
+    a._on_screen_line(Reply(True, "헉, 방금 그거 봤어요?", "surprised"))
+    assert a._moment_seq == seq + 1  # 말이 왔으니 4초 뒤 되돌리기는 취소
+    a.quit()
+
+
 def test_lookups_pile_up_in_a_per_game_dictionary(qapp, tmp_path, built):
     from watch.modes import Mode
 

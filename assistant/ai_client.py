@@ -62,7 +62,12 @@ class AIClient:
                     "API 키가 없어요. 환경 변수 ANTHROPIC_API_KEY 를 설정하거나 "
                     f"keyring 에 '{KEYRING_SERVICE}' / 'anthropic' 으로 저장해주세요."
                 )
-            self._client = anthropic.Anthropic(api_key=key, timeout=self.timeout, max_retries=2)
+            import httpx
+
+            # 연결을 5분까지 살려 둔다 (기본 5초면 5초마다 판단할 때도 매번 새로 연결해서 조금씩 늦어짐)
+            http = anthropic.DefaultHttpxClient(limits=httpx.Limits(max_connections=50, max_keepalive_connections=10,
+                                                                     keepalive_expiry=300))
+            self._client = anthropic.Anthropic(api_key=key, timeout=self.timeout, max_retries=2, http_client=http)
         return self._client
 
     def complete_json(

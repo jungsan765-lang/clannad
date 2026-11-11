@@ -156,6 +156,7 @@ class ScreenWatcher(QObject):
     missed = Signal()  # 주인님이 부탁한 화면 보기·분석이 할 말 없이 끝남 (말없이 끝나지 않게 알려 준다)
     result_seen = Signal(str)
     partial = Signal(str)  # 화면 대사가 나오는 대로 (말풍선에 바로)
+    moment = Signal(str)  # 확 바뀐 순간 (말보다 먼저 표정으로 반응하게): screen · hud
     partial_cancel = Signal()  # 나오다가 안 하기로 한 말 (말풍선에서 지움)
     session_started = Signal(str)  # 게임을 켬 (모드 이름)
     session_ended = Signal(str, float, list)  # 게임을 끔: (모드 이름, 분, 화면으로 본 기록)  # 게임 결과 화면을 봤음 (모드 이름) → 공식 기록이 있으면 나중에 기록으로 다시 본다
@@ -215,6 +216,8 @@ class ScreenWatcher(QObject):
         self._spike_kind = ""  # 마지막으로 바로 보게 한 것: screen(화면이 확 바뀜) · hud(화면 정보) · line(대사)
         self._rush = None  # 판단과 동시에 먼저 시작한 말하기 (future, 판단 결과 기다리는 표시)
         self._last_rush: float | None = None
+        self.timings: deque = deque(maxlen=20)  # 최근 한마디 걸린 시간 (장면 찍은 때부터): 판단·첫 글자·끝
+        self._timing: dict = {}
         self.context = None  # 맥락 담당 (watch.context.ContextKeeper, main 이 넣어 줌)
         self.hud = HudReader(None, clock)  # 화면 정보 상시 읽기 (글자 인식은 main 이 넣어 줌)
         self.ears = None  # 게임 소리 듣기 (watch.ears.GameEars, main 이 넣어 줌)
@@ -501,7 +504,19 @@ class ScreenWatcher(QObject):
             return "화면 보기: 꺼져 있음"
         age = "아직 안 봄" if self.last_check is None else f"마지막 확인 {self.clock() - self.last_check:.0f}초 전"
         s = self.stats
-        return f"화면 보기: {age} · 판단 {s['judged']}번 · 먼저 말 건 {s['spoke']}번 · 변화 없어 건너뜀 {s['skipped_same']}번"
+        text = f"화면 보기: {age} · 판단 {s['judged']}번 · 먼저 말 건 {s['spoke']}번 · 변화 없어 건너뜀 {s['skipped_same']}번"
+        return text + self.speed_text()
+
+    def speed_text(self) -> str:
+        """최근 한마디가 장면을 찍은 뒤 얼마 만에 나왔는지 (평균)."""
+        if not self.timings:
+            return ""
+        n = len(self.timings)
+        avg = {k: sum(t.get(k, 0.0) for t in self.timings) / n for k in ("judge", "first", "done")}
+        last = self.timings[-1]
+        return (f"\n최근 한마디 걸린 시간(장면 찍은 뒤): 판단 {last.get('judge', 0):.1f}초 · 첫 글자 {last['first']:.1f}초 · "
+                f"끝 {last['done']:.1f}초  /  최근 {n}번 평균: 판단 {avg['judge']:.1f} · 첫 글자 {avg['first']:.1f} · "
+                f"끝 {avg['done']:.1f}초")
 
     def interval_for(self, mode: Mode) -> float:
         """설정 창의 '화면 확인 간격'이 게임 모드 값보다 짧으면 그걸 따른다. 복기 모드 게임 중엔 더 자주.
@@ -533,6 +548,8 @@ class ScreenWatcher(QObject):
     def _check_spike(self) -> None:
         """0.5초마다: 확 바뀌었으면 다음 박자(5초)를 기다리지 않고 바로 확인한다."""
         if self.sampler.active and not self.running_job and self._spiked():
+            if self._spike_kind in ("screen", "hud") and self.mode.is_game:
+                self.moment.emit(self._spike_kind)  # 말이 나오기 전에 표정부터 (0초)
             self.last_check = None
             self.tick()
 
@@ -813,6 +830,7 @@ class ScreenWatcher(QObject):
         notes = list(session.notes) if session else (list(self.flow) or None)
         shot = self._shot()
         self._shot_at = self.clock()  # 이 장면을 찍은 때 (말이 나갈 때쯤 얼마나 지났는지 알려 주려고)
+        self._timing = {}
         if question is not None:
             self.last_thumb = shot.thumb
             self._remember(shot, mode)
@@ -863,6 +881,7 @@ class ScreenWatcher(QObject):
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
                                     review=self.reviewing(mode), **extra)
         self.stats["judged"] += 1
+        self._timing["judge"] = self.clock() - self._shot_at
         self._remember(shot, mode, note)
         self._zoom_text(shot, note)
         if not note:
@@ -1036,15 +1055,27 @@ class ScreenWatcher(QObject):
         self._streamed = False
         held = {"msg": ""}
 
+        timing = self._timing
+        timing["rush"] = hold is not None
+
         def show(message: str) -> None:
             if hold is not None and not hold.is_set():
                 held["msg"] = message  # 판단 결과를 기다리는 중
                 return
+            if "first" not in timing and at is not None:
+                timing["first"] = self.clock() - at
             self._streamed = True
             self.partial.emit(message)  # 뒤 스레드에서 보내도 화면 쪽에서 차례로 받는다
 
         kwargs.setdefault("on_partial", show)
-        return self.companion.screen_line(*args, **kwargs)
+        reply = self.companion.screen_line(*args, **kwargs)
+        if at is not None and getattr(reply, "speak", False):
+            timing["done"] = self.clock() - at
+            timing.setdefault("first", timing["done"])
+            self.timings.append(dict(timing))
+            log.info("한마디 걸린 시간 (장면부터): 판단 %.1f초 · 첫 글자 %.1f초 · 끝 %.1f초%s", timing.get("judge", 0),
+                     timing["first"], timing["done"], " (판단과 동시 출발)" if timing.get("rush") else "")
+        return reply
 
     def _done(self, reply) -> None:
         self.running_job = False

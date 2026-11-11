@@ -1165,7 +1165,10 @@ def test_judge_and_line_get_layout_and_subtitles(tmp_path):
     comp.screen_line(shot, "CD", {"situation": "협박", "point": "긴장"}, model="claude-haiku-5-5", mode=game, captions=caps)
     content = fake.calls[-1]["messages"][-1]["content"]
     assert any("(자막) 0.5초 전" == b.get("text") for b in content)
-    assert "붉은사막 화면 배치" in content[-1]["text"]
+    stable = fake.calls[-1]["system"][-1]  # 게임마다 안 바뀌는 건 캐시해 두는 앞부분으로 (빨라지고 싸짐)
+    assert "붉은사막 화면 배치" in stable["text"] and "## 지금 모드: 붉은사막" in stable["text"]
+    assert stable["cache_control"] == {"type": "ephemeral", "ttl": "1h"}
+    assert "붉은사막 화면 배치" not in content[-1]["text"]
 
 
 def test_brain_mode_lets_helpers_look_first_and_opus_speak_last(qapp, tmp_path):
@@ -1640,6 +1643,12 @@ def test_rushed_line_is_dropped_when_judge_says_cutscene(qapp, tmp_path):
     w.partial.connect(shown.append)
     t["now"] = 3.0
     w._check_spike()
+    import time as _t
+
+    for _ in range(100):  # 먼저 출발한 말하기는 다른 스레드라 끝날 때까지 잠깐 기다림
+        if comp.lines:
+            break
+        _t.sleep(0.02)
     assert w._last_rush == 3.0 and comp.lines  # 동시에 출발은 했지만
     assert said == [] and shown == []  # 판단이 컷신이면 먼저 출발한 말은 버리고, 글자도 안 띄움
     assert w._rush is None
@@ -1656,3 +1665,46 @@ def test_opus_lines_use_fast_mode(qapp, tmp_path):
     w.cfg.fast_opus = False
     w.ask_now("또?")
     assert comp.lines[-1]["fast"] is None
+
+
+def test_speed_is_measured_and_shown(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    clock = {"n": 0}
+
+    def ticking():  # 부를 때마다 0.5초씩 흐르는 시계
+        clock["n"] += 1
+        return clock["n"] * 0.5
+
+    w.clock = ticking
+    w.tick()
+    assert said and w.timings
+    last = w.timings[-1]
+    assert 0 < last["judge"] <= last["first"] <= last["done"]
+    text = w.speed_text()  # 메뉴의 '화면 보기 상태'에 붙음
+    assert "최근 한마디 걸린 시간(장면 찍은 뒤): 판단" in text and "첫 글자" in text and "평균" in text
+
+
+def test_sudden_change_shows_a_face_first_and_reads_center_banner(qapp, tmp_path):
+    from watch.hud import HudReader
+    from watch.sampler import FrameSampler
+
+    w, comp, said, t = _rush_watcher(tmp_path)
+    faces = []
+    w.moment.connect(faces.append)
+    t["now"] = 3.0
+    w._check_spike()
+    assert faces == ["screen"]  # 말보다 먼저 표정 신호
+
+    t2 = {"now": 0.0}
+    read = []
+    hud = HudReader(lambda img: read.append(img.size) or "사망했습니다", clock=lambda: t2["now"])
+    hud._submit = lambda name, crop, tt: hud.read_now(name, crop, tt)
+    shade = {"v": 20}
+    s = FrameSampler(lambda: _img(shade["v"]), clock=lambda: t2["now"])
+    s.hud = hud
+    s.capture_once()
+    shade["v"] = 230  # 화면이 확 바뀜 (암전·사망 화면 같은)
+    t2["now"] = 0.5
+    s.capture_once()
+    assert read and read[0][0] == 1200  # 가운데 큰 글자 자리를 읽음
+    assert hud.recent()[-1][1:] == ("화면 가운데 큰 글자", "사망했습니다") and hud.alert_at == 0.5
