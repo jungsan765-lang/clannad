@@ -132,11 +132,11 @@ def test_screen_lines_rotate_reaction_angles_from_the_persona(tmp_path):
     for _ in range(5):
         comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로 그리기", "point": ""})
         sent = json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
-        picked.append(next(a for a in ("자랑", "투덜", "놀리기") if f"이번 한마디의 결(제안): {a}" in sent))
+        picked.append(next(a for a in ("자랑", "투덜", "놀리기") if f"결: {a} —" in sent))
     assert all(picked[i] != picked[i + 1] for i in range(4))  # 연달아 같은 결은 안 나옴
     assert all(len(set(picked[i:i + 3])) == 3 for i in range(3))  # 최근 두 번과도 다름
     comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로", "point": ""}, question="저거 뭐야?")
-    assert "이번 한마디의 결" not in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)  # 물어본 답엔 안 붙음
+    assert "이번 한마디" not in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)  # 물어본 답엔 안 붙음
 
 
 def test_screen_line_writes_three_drafts_then_picks_one(tmp_path):
@@ -165,3 +165,43 @@ def test_screen_line_writes_three_drafts_then_picks_one(tmp_path):
     # 실시간 표시는 후보가 아니라 고른 말부터
     assert partial_message('{"drafts":["하, 몇 분째야."],"speak":true,"message":"이 정도 손') == "이 정도 손"
     assert partial_message('{"drafts":["하, 몇 분') is None
+
+
+def test_mood_lasts_a_while_and_topics_and_forms_mix_in(tmp_path):
+    from ai_client import AIClient
+    from companion import Companion
+    from fake_anthropic import FakeAnthropic
+    from usage import UsageLedger
+
+    persona = ("# 산드로네\n## 9. 반응의 결\n- 자랑: 자랑한다\n- 투덜: 투덜거린다\n"
+               "## 10. 기분 (한동안)\n- 시큰둥: 말이 짧다\n- 장난기: 놀리고 싶다\n"
+               "## 11. 화제\n- 티타임: 오늘 마실 차\n- 파지오: 새 조수\n- 콜롬비나\n"
+               "## 12. 말 모양\n- 혼잣말: 중얼거린다\n- 되묻기: 질문으로 끝낸다\n")
+    line = {"speak": True, "message": "흥.", "emotion": "normal"}
+    fake = FakeAnthropic([dict(line) for _ in range(40)])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), persona,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    t = {"now": 0.0}
+    comp.clock = lambda: t["now"]
+    sent = []
+    for _ in range(20):
+        comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로", "point": ""})
+        sent.append(json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False))
+    moods = {m for m in ("시큰둥", "장난기") for x in sent if f"지금 기분: {m}" in x}
+    assert len(moods) == 1  # 기분은 한동안 그대로
+    assert any("떠올릴 거리: " in x for x in sent) and not all("떠올릴 거리: " in x for x in sent)  # 화제는 가끔
+    assert any("모양: 혼잣말" in x for x in sent) and any("모양: 되묻기" in x for x in sent)
+    before = comp.mood()
+    t["now"] += 41 * 60  # 40분 넘게 지나면 다른 기분
+    assert comp.mood() != before
+    comp.reply("뭐 해?")  # 대화에도 같은 기분이 이어짐
+    assert f"[지금 네 기분: {comp.mood()[0]}" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+
+
+def test_overused_words_are_named_so_the_next_line_avoids_them():
+    from companion import overused_words
+
+    lines = ["흥, 채팅은 또 빼빼로 얘기네.", "흥, 채팅이 시끄럽군.", "채팅은 만족한 눈치야.", "하, 몇 분째야."]
+    worn = overused_words(lines)
+    assert "흥(말 시작 2번)" in worn and "채팅(3번)" in worn  # '채팅은·채팅이'도 같은 말로 센다
+    assert overused_words(["오늘은 맑네.", "디저트 먹고 싶다."]) == []

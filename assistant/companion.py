@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import random
 import re
+import time
 from collections import deque
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -51,7 +52,7 @@ DRAFT_SCHEMA = {
     "properties": {"drafts": {"type": "array", "items": {"type": "string"}}, **REPLY_SCHEMA["properties"]},
     "required": ["drafts", *REPLY_SCHEMA["required"]],
 }
-DRAFT_TASK = ("[먼저 drafts 에 서로 다른 결의 짧은 후보 3개(각 40자 안쪽)를 쓴다 — 하나는 위에 제안된 결, 나머지 둘은 성격 파일의 "
+DRAFT_TASK = ("[먼저 drafts 에 서로 다른 결의 짧은 후보 3개(각 40자 안쪽)를 쓴다 — 하나는 위 '이번 한마디' 그대로, 나머지 둘은 성격 파일의 "
               "'반응의 결'(없으면 감탄·내 얘기·취향·장난·의견·질문·공감)에서 다른 것. 그다음 셋 중 성격(말투·태도·자존심·취향)에 "
               "가장 잘 맞고 '최근에 먼저 한 말'과 꼴이 안 겹치는 것을 하나 골라 다듬어 message 에 쓴다. 셋 다 별로면 speak 는 false]")
 
@@ -654,16 +655,66 @@ DEFAULT_ANGLES = [
 ]
 
 
-def persona_angles(persona: str | None) -> list[tuple[str, str]]:
-    """성격 파일의 '반응의 결' 절 (- 이름: 설명). 없으면 기본."""
+# 말 모양 (성격 파일에 '## … 말 모양' 절이 없으면 이걸로)
+DEFAULT_FORMS = [
+    ("툭 한마디", "다섯 단어 안팎으로 아주 짧게"),
+    ("혼잣말", "주인님한테 하는 말인지 아닌지 모르게 중얼거리듯"),
+    ("되묻기", "주인님에게 툭 던지는 질문으로 끝낸다"),
+    ("감탄사로 시작", "네 말버릇 감탄사 하나로 시작해서 짧게"),
+    ("두 문장", "반응 하나 + 네 얘기 하나"),
+]
+
+
+# 화면에서 꽂힐 곳 (성격 파일에 '## … 꽂힐 곳' 절이 없으면 이걸로) — 늘 같은 데만 보고 말하지 않게
+DEFAULT_FOCUS = [
+    ("분위기", "화면 전체 분위기"), ("작은 디테일", "남들이 안 볼 작은 부분 하나"), ("색", "색감·색 조합"),
+    ("표정", "사람·캐릭터의 표정이나 몸짓"), ("손놀림", "손동작·움직임·조작"), ("글자 하나", "화면 글자 중 눈에 띄는 단어 하나"),
+    ("소리", "들리는 소리·음악·대사 (들린 게 있을 때만)"), ("시간", "얼마나 오래 이러고 있는지"),
+    ("주인님", "화면 너머 주인님의 상태·행동"), ("결과", "결과·숫자·성패"), ("배경", "뒤쪽 배경·주변"),
+    ("아까 장면", "조금 전에 지나간 장면"),
+]
+
+_JOSA = re.compile(r"(은|는|이|가|을|를|에|에서|도|의|로|으로|만|랑|이랑|와|과|이야|야|요)$")
+
+
+def overused_words(lines: list[str], top: int = 6) -> list[str]:
+    """최근 한 말들에서 너무 자주 쓴 말 (시작 말 2번+, 낱말 3번+) — 이번엔 피하라고 알려 준다."""
+    from collections import Counter
+
+    starts = Counter()
+    words = Counter()
+    for line in lines:
+        toks = re.findall(r"[가-힣A-Za-z]+", line)
+        if toks:
+            starts[toks[0]] += 1
+        for t in set(toks):
+            base = _JOSA.sub("", t) if len(t) > 2 else t
+            if len(base) >= 2:
+                words[base] += 1
+    out = [f"{w}(말 시작 {n}번)" for w, n in starts.most_common() if n >= 2]
+    out += [f"{w}({n}번)" for w, n in words.most_common() if n >= 3 and not any(o.startswith(w + "(") for o in out)]
+    return out[:top]
+
+
+def persona_items(persona: str | None, key: str) -> list[tuple[str, str]]:
+    """성격 파일에서 제목에 key 가 든 '## ' 절의 목록 (- 이름: 설명 / - 이름). 없으면 빈 목록."""
     for block in re.split(r"(?m)^## ", persona or "")[1:]:
         title, _, body = block.partition("\n")
-        if "반응의 결" in title:
-            found = [(m.group(1).strip(), m.group(2).strip())
-                     for m in re.finditer(r"(?m)^-\s*\**([^:：*\n]{1,12}?)\**\s*[:：]\s*(.+)$", body)]
-            if found:
-                return found
-    return DEFAULT_ANGLES
+        if key not in title:
+            continue
+        items = []
+        for m in re.finditer(r"(?m)^-\s*(.+)$", body):
+            line = m.group(1).strip()
+            mm = re.match(r"\**([^:：*\n]{1,14}?)\**\s*[:：]\s*(.+)$", line)
+            items.append((mm.group(1).strip(), mm.group(2).strip()) if mm else (line.strip("* "), ""))
+        if items:
+            return items
+    return []
+
+
+def persona_angles(persona: str | None) -> list[tuple[str, str]]:
+    """성격 파일의 '반응의 결' 절 (- 이름: 설명). 없으면 기본."""
+    return persona_items(persona, "반응의 결") or DEFAULT_ANGLES
 
 
 def style_reminder(persona: str, max_chars: int = 2000) -> str:
@@ -782,7 +833,13 @@ class Companion:
         # 평소 화면 한마디(Sonnet)를 생각 없이 바로 (첫 글자가 빨라짐). 써 봤더니 화면에 없는 동료를 '떠 있다'고 말해서
         # 기본은 끔 (주인님과 정한 대로 문제 생겨서 되돌림). 설정 '평소 한마디는 생각 없이 바로'로 켤 수 있다
         self.quick_lines = False
-        self._angles_recent: deque[str] = deque(maxlen=2)  # 최근에 제안한 반응의 결 (연달아 같은 결이 안 나오게)
+        self._angles_recent: deque[str] = deque(maxlen=6)  # 최근에 제안한 반응의 결 (한동안 같은 결이 안 나오게)
+        self._forms_recent: deque[str] = deque(maxlen=3)
+        self._topics_recent: deque[str] = deque(maxlen=6)
+        self._focus_recent: deque[str] = deque(maxlen=3)
+        self._mood: tuple[str, str] | None = None  # 한동안 이어지는 기분 (성격 파일의 '기분' 절)
+        self._mood_until = 0.0
+        self.clock = time.monotonic
         self.drafts = True  # 화면 한마디: 후보 3개 중 성격에 맞는 걸 골라서 (설정 '후보 중 고르기')
         self._rng = random.Random()
         self.can_search = True  # 모르는 건 인터넷에서 찾아보기 (설정 창)
@@ -887,6 +944,10 @@ class Companion:
         notes = self.lorebook.notes_for(user_text + "\n" + ctx[:200] + "\n" + ctx[-600:])
         if notes:
             content.append({"type": "text", "text": notes})
+        mood = self.mood()
+        if mood:  # 화면 한마디와 같은 기분이 대화에도 이어지게
+            content.append({"type": "text", "text": f"[지금 네 기분: {mood[0]}" + (f" — {mood[1]}" if mood[1] else "")
+                            + ". 말투의 온도에만 살짝 묻어나게]"})
         content.append({"type": "text", "text": user_text})
         return self._respond(content, user_text, now, on_partial, fast)
 
@@ -1204,13 +1265,54 @@ class Companion:
                                   timeout=20)
         return r.data, r.usd
 
+    def _pick(self, items: list[tuple[str, str]], recent: deque) -> tuple[str, str]:
+        """최근에 쓴 것을 되도록 많이 피해서 하나 (목록이 짧으면 가장 최근 것들만 피함)."""
+        options = items
+        for k in range(len(recent), 0, -1):
+            last = list(recent)[-k:]
+            avoid = [a for a in items if a[0] not in last]
+            if avoid:
+                options = avoid
+                break
+        item = self._rng.choice(options)
+        recent.append(item[0])
+        return item
+
     def pick_angle(self) -> tuple[str, str]:
         """이번 화면 한마디의 결 (최근 두 번과 다른 것 중 하나)."""
-        angles = persona_angles(self.persona)
-        options = [a for a in angles if a[0] not in self._angles_recent] or angles
-        angle = self._rng.choice(options)
-        self._angles_recent.append(angle[0])
-        return angle
+        return self._pick(persona_angles(self.persona), self._angles_recent)
+
+    def mood(self) -> tuple[str, str] | None:
+        """지금 기분 (성격 파일에 '기분' 절이 있을 때만). 15~40분쯤 이어지다 다른 기분으로."""
+        moods = persona_items(self.persona, "기분")
+        if not moods:
+            return None
+        now = self.clock()
+        if self._mood is None or now >= self._mood_until or self._mood not in moods:
+            options = [m for m in moods if m != self._mood] or moods
+            self._mood = self._rng.choice(options)
+            self._mood_until = now + self._rng.uniform(15, 40) * 60
+        return self._mood
+
+    def flavor(self) -> str:
+        """화면 한마디 재료: 결 × 말 모양 × 기분 × 떠올릴 거리 (조합이 수천 가지라 매번 신선하게)."""
+        angle, how = self.pick_angle()
+        form, shape = self._pick(persona_items(self.persona, "말 모양") or DEFAULT_FORMS, self._forms_recent)
+        focus, where = self._pick(persona_items(self.persona, "꽂힐 곳") or DEFAULT_FOCUS, self._focus_recent)
+        parts = [f"결: {angle} — {how}", f"모양: {form}" + (f" — {shape}" if shape else ""),
+                 f"꽂힐 곳: {focus}" + (f" — {where}" if where else "")]
+        mood = self.mood()
+        if mood:
+            parts.append(f"지금 기분: {mood[0]}" + (f" — {mood[1]}" if mood[1] else "") + " (한동안 이어지는 기분, 말투 온도에 묻어나게)")
+        topics = persona_items(self.persona, "화제")
+        if topics and self._rng.random() < 0.45:
+            topic, about = self._pick(topics, self._topics_recent)
+            parts.append(f"떠올릴 거리: {topic}" + (f" — {about}" if about else "") + " (자연스러우면만 엮는다. 억지로 끼우지 않는다)")
+        worn = overused_words(self.memory.spoken_lines(10))
+        if worn:
+            parts.append("요즘 너무 자주 쓴 말(이번엔 피한다): " + ", ".join(worn))
+        return "[이번 한마디 — " + " / ".join(parts) + ". 화면과 영 안 맞으면 결은 바꿔도 되지만 최근에 한 말들과 같은 꼴" \
+            "(화면 묘사 + 채팅 반응 요약)은 피한다. 화면에 보이는 걸 설명하는 말로 시작하지 않는다]"
 
     @property
     def name(self) -> str:
@@ -1365,10 +1467,8 @@ class Companion:
                          scene.get("me", ""), scene.get("others", ""), scene.get("place", ""), scene.get("happened", ""),
                          " ".join(heard.get("lines", [])[:8])] + list(session_notes or [])[-5:])
         routine = not (pick or review or question or (note and note.get("urgent")))
-        if routine:  # 매번 같은 꼴이 되지 않게 이번 한마디의 결을 돌아가며 제안 (캐릭터 성격 파일의 '반응의 결')
-            angle, how = self.pick_angle()
-            lines.append(f"[이번 한마디의 결(제안): {angle} — {how}. 화면과 영 안 맞으면 다른 결로 해도 되지만, "
-                         "최근에 한 말들과 같은 꼴(화면 묘사 + 채팅 반응 요약)은 피한다. 화면에 보이는 걸 설명하는 말로 시작하지 않는다]")
+        if routine:  # 매번 같은 꼴이 되지 않게: 결·말 모양·기분·떠올릴 거리를 돌아가며 (캐릭터 성격 파일의 절들)
+            lines.append(self.flavor())
             if self.drafts:
                 lines.append(DRAFT_TASK)
         # 픽 화면: 보이는 캐릭터 8명 + 조합 원칙까지 꺼내 본다. 평범한 반응 한마디엔 짧게만
