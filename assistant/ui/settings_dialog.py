@@ -32,8 +32,11 @@ DAILY_LIMITS = [("1000", "1,000원"), ("3000", "3,000원"), ("5000", "5,000원")
 DENSE = [("game", "게임할 때만", "0.5초마다 찍어 두고 5초마다 그 흐름을 모아 판단해요. 판단만 시간당 400~600원."),
          ("always", "항상", "게임이 아닐 때도 촘촘히 봐요. 비용이 늘어요."),
          ("off", "끔", "확인 간격마다 한 장씩만 봐요. 가장 싸지만 흐름을 놓쳐요.")]
-LINE_QUALITY = [("brain", "나눠 보기 (추천)",
-                 "눈·대사·기억·지식 담당이 먼저 보고, Opus 가 화면과 맞춰 본 뒤 말해요. 한마디 70~100원, 10초쯤 늦어요."),
+LINE_QUALITY = [("brain_lite", "나눠 보기 · 절약 (추천)",
+                 "담당들이 먼저 보고 평소엔 Sonnet 이, 물어볼 때·중요한 걸 찾았을 때만 Opus 가 화면과 맞춰 본 뒤 말해요. "
+                 "한마디 30~45원 (Opus 일 땐 60~80원), 10초쯤 늦어요."),
+                ("brain", "나눠 보기 · Opus",
+                 "담당들이 먼저 보고 늘 Opus 가 화면과 맞춰 본 뒤 말해요. 한마디 60~80원, 10초쯤 늦어요."),
                 ("auto", "가볍게", "가장 싼 모델이 바로 한마디 해요. 한마디 몇 원. 잘못 볼 때가 있어요."),
                 ("sonnet", "보통", "중간 모델이 혼자 보고 말해요. 한마디 수십 원."),
                 ("best", "최고", "Opus 가 혼자 보고 말해요. 나눠 보기보다 빠르지만 덜 꼼꼼해요.")]
@@ -190,7 +193,7 @@ class SettingsDialog(QDialog):
         self.screen_on = QCheckBox("화면을 보고 먼저 말 걸기")
         self.screen_on.setChecked(bool(v["screen.enabled"]))
         self.chatty = Choice(CHATTY, str(v["screen.chattiness"]))
-        self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "brain")))
+        self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "brain_lite")))
         self.scan = check("둘러보기", "screen.scan", True,
                           "표시가 뜬 인물·이름표·빛나는 물건을 하나씩 확대해 알아보고, 보상이 좋은 것처럼 중요한 것만 알려요.")
         scan_hint = _hint("표시 뜬 인물·물건을 확대해 알아보고 중요한 것만 알려요. 하나에 1원도 안 들어요. 알아본 건 기억해 둬요.")

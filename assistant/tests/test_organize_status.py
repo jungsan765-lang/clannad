@@ -288,7 +288,7 @@ def test_stable_prompt_part_is_cached_for_an_hour_and_priced(tmp_path):
     comp.reply("안녕")
     sys_blocks = fake.calls[-1]["system"]
     assert sys_blocks[0]["cache_control"] == {"type": "ephemeral", "ttl": "1h"}
-    assert sys_blocks[1]["cache_control"] == {"type": "ephemeral"}
+    assert sys_blocks[1]["cache_control"] == {"type": "ephemeral", "ttl": "1h"}  # 기억 부분도 (게임 중 띄엄띄엄 말해도)
     u = SimpleNamespace(input_tokens=0, output_tokens=0, cache_read_input_tokens=0, cache_creation_input_tokens=1_000_000,
                         cache_creation=SimpleNamespace(ephemeral_1h_input_tokens=600_000, ephemeral_5m_input_tokens=400_000))
     d = _usage_dict(u)

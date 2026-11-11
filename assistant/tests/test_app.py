@@ -251,8 +251,8 @@ def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
     dlg.scan.setChecked(False)
     assert dlg.tabs.count() == 7 and dlg.tabs.tabText(0) == "화면 보기"
     dlg.line_quality.group.button(0).setChecked(True)
-    assert "Opus" in dlg.line_quality.hint.text()  # 고른 방식의 설명만 아래에 짧게
-    dlg.line_quality.group.button(1).setChecked(True)
+    assert "Sonnet" in dlg.line_quality.hint.text()  # 고른 방식의 설명만 아래에 짧게
+    dlg.line_quality.group.button(2).setChecked(True)
     assert "가장 싼 모델" in dlg.line_quality.hint.text()
     changed = dlg.changed()
     assert {k: changed.get(k) for k in ("ai.fast", "ui.show_status", "screen.max_width", "screen.scan")} == \
@@ -752,18 +752,18 @@ def test_old_light_line_setting_moves_to_brain_mode_once(qapp, tmp_path, built):
     fake = FakeAnthropic([])
     a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
     state = a._load_state()
-    state.setdefault("prefs", {}).update({"screen.line_quality": "auto"})
-    state["prefs"].pop("screen.brain_offered", None)
+    state.setdefault("prefs", {}).update({"screen.line_quality": "brain"})
+    state["prefs"].pop("screen.lite_offered", None)
     a._write_state(state)  # 예전에 기본값('가볍게')으로 저장해 둔 사람
     path = a.state_path
     a.quit()
     b = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
-    assert b.watch_cfg.line_quality == "brain"  # 한 번만 나눠 보기로
+    assert b.watch_cfg.line_quality == "brain_lite"  # 한 번만 나눠 보기 · 절약으로
     b.set_pref("screen.line_quality", "auto")  # 그 뒤에 다시 '가볍게'를 고르면
     b.quit()
     c = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
     assert c.watch_cfg.line_quality == "auto"  # 그대로 둔다
-    assert json.loads(path.read_text(encoding="utf-8"))["prefs"]["screen.brain_offered"] is True
+    assert json.loads(path.read_text(encoding="utf-8"))["prefs"]["screen.lite_offered"] is True
     c.quit()
 
 

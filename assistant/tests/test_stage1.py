@@ -99,7 +99,7 @@ def test_reply_uses_persona_memory_cache_and_time(tmp_path):
     r = comp.reply("안녕 다니카", now=datetime(2026, 11, 10, 21, 30))
     assert (r.message, r.emotion) == ("알겠습니다, 주인님.", "happy")
     call = fake.calls[0]
-    assert [b.get("cache_control") for b in call["system"]] == [{"type": "ephemeral", "ttl": "1h"}, {"type": "ephemeral"}]
+    assert [b.get("cache_control") for b in call["system"]] == [{"type": "ephemeral", "ttl": "1h"}, {"type": "ephemeral", "ttl": "1h"}]
     assert "한국어로만" in call["system"][0]["text"] and "다니카" in call["system"][0]["text"]
     assert call["messages"][-1]["content"][0]["text"] == "[지금: 2026-11-10 (화) 21:30]"
     assert mem.recent[-1]["text"] == "알겠습니다, 주인님." and len(mem.pending) == 1

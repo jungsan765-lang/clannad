@@ -881,7 +881,7 @@ def test_routine_lines_use_economy_model_and_review_uses_contact_sheet(tmp_path)
 
     w_cfg = WatchConfig()
     assert w_cfg.economy_line_model == "claude-haiku-5-5"  # '가볍게'의 반응 한마디는 가장 싼 모델
-    assert w_cfg.line_quality == "brain"  # 기본은 나눠 보고 Opus 가 말함
+    assert w_cfg.line_quality == "brain_lite" and w_cfg.calm_backoff  # 기본은 나눠 보기 · 절약
     assert w_cfg.mid_line_model.startswith("claude-sonnet")
     frames = [(cap.to_jpeg(_Image.new("RGB", (1920, 1080), (i * 40, 0, 0))), f"-{30 - i * 10}s") for i in range(3)]
     sheet = _Image.open(__import__("io").BytesIO(cap.contact_sheet(frames)))
@@ -1227,7 +1227,7 @@ def test_opus_gets_helper_notes_and_checks_against_the_screen(tmp_path):
     import io
 
     img = next(b for b in call["messages"][-1]["content"] if b.get("type") == "image")
-    assert Image.open(io.BytesIO(base64.b64decode(img["source"]["data"]))).width == 1920  # 최종 확인은 원본 화면으로
+    assert Image.open(io.BytesIO(base64.b64decode(img["source"]["data"]))).width == 1280  # 자세한 건 눈 담당이 원본으로
 
 
 def test_scan_zooms_into_marked_things_and_tells_only_good_ones(qapp, tmp_path):
@@ -1312,3 +1312,99 @@ def test_inspect_and_weigh_use_cheap_model_with_knowledge(tmp_path):
     assert comp.weigh_spots([], game, "claude-haiku-5-5") == (None, 0.0)
     text = Companion.brain_text({"found": [{"name": "로안", "info": "느낌표", "say": "보상 좋음"}]})
     assert "둘러보기 담당(확대해서 알아본 것, 알릴 만하다고 판정): 로안: 느낌표 → 보상 좋음" in text
+
+
+def test_local_ocr_reads_subtitles_so_ai_gets_text_not_pictures(tmp_path):
+    import local_ocr
+    from watch.layout import DEFAULT_TEXT_BOX
+    from watch.sampler import FrameSampler
+
+    assert local_ocr.read_text(Image.new("RGB", (10, 10))) is None or __import__("sys").platform == "win32"
+    world = _world()
+    t = {"now": 0.0}
+    state = {"img": None, "ocr": "도박사: 밑장 빼다 걸렸네"}
+    s = FrameSampler(lambda: state["img"], clock=lambda: t["now"])
+    s.set_text_boxes([DEFAULT_TEXT_BOX])
+    s.ocr = lambda img: state["ocr"]
+    state["img"] = _subtitle(Image.fromarray(world[:, :1920].copy()), "You were dealing from the bottom.")
+    s.capture_once()
+    assert s.captions(5) == [("(자막·대사 자리) 0.0초 전", "도박사: 밑장 빼다 걸렸네")]  # 사진 대신 글
+    state["ocr"] = ""  # 글자 인식이 '글자 없음' → 글자처럼 보였던 풍경이라 버림
+    t["now"] = 0.5
+    state["img"] = _subtitle(Image.fromarray(world[:, 300:2220].copy()), "Then I'll take that hand of yours.")
+    s.capture_once()
+    assert len(s.captions(5)) == 1
+    state["ocr"] = None  # 글자 인식을 못 쓰면 사진으로
+    t["now"] = 1.0
+    s.capture_once()
+    assert isinstance(s.captions(5)[-1][1], bytes) and s.latest_caption_at() == 1.0
+
+
+def test_caption_text_skips_the_dialogue_ai(tmp_path):
+    from watch import capture as cap
+
+    fake = FakeAnthropic([{"lines": ["로안: 짐을 찾아 주게"], "summary": "부탁"}])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    heard, usd = comp.read_captions([("(자막) 1.0초 전", "도박사: 밑장 빼다 걸렸네")], "claude-haiku-5-5")
+    assert heard == {"lines": ["(자막) 1.0초 전: 도박사: 밑장 빼다 걸렸네"], "summary": ""} and usd == 0 and not fake.calls
+    pic = cap.to_jpeg(Image.new("RGB", (600, 80)), 80)
+    heard, _ = comp.read_captions([("(자막) 2.0초 전", "도박사: 밑장"), ("(자막) 1.0초 전", pic)], "claude-haiku-5-5")
+    content = fake.calls[-1]["messages"][-1]["content"]
+    assert sum(1 for b in content if b.get("type") == "image") == 1  # 못 읽은 것만 사진으로
+    assert heard["lines"] == ["(자막) 2.0초 전: 도박사: 밑장", "로안: 짐을 찾아 주게"]
+    blocks = comp._caption_blocks([("(자막) 1.0초 전", "도박사: 밑장"), ("(자막) 0.5초 전", pic)])
+    assert {"type": "text", "text": "(자막) 1.0초 전: 도박사: 밑장"} in blocks and blocks[-1]["type"] == "image"
+
+
+def test_calm_walking_slows_judging_but_new_lines_and_spikes_do_not_wait(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+    from watch.sampler import Caption
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    calm = {"speak": False, "urgent": False, "scene": "playing", "situation": "이동", "point": "", "read_box": [], "look": []}
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 7) for i in range(30)], modes=[game],
+                                   notes=[dict(calm) for _ in range(8)],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    w.cfg.dense = "game"
+    w.sampler.set_active = lambda on: None
+    w.update_mode()
+    assert w.interval_for(game) == 5
+    for i in range(3):
+        t["now"] = i * 5
+        w.tick()
+    assert w._calm == 3 and w.interval_for(game) == 10  # 그냥 돌아다니는 중이면 10초
+    w._calm = 6
+    assert w.interval_for(game) == 15  # 오래가면 15초
+    w.last_judged = 100.0
+    t["now"] = 101.0
+    assert not w._spiked()
+    w.sampler._captions.append(Caption(100.5, "자막", b"x", None))  # 새 대사가 뜨면
+    t["now"] = 102.5
+    assert w._spiked()  # 15초를 기다리지 않고 바로
+    w._calm = 0
+    w.cfg.calm_backoff = False
+    w._calm = 9
+    assert w.interval_for(game) == 5
+
+
+def test_lite_brain_uses_sonnet_for_routine_and_opus_when_it_matters(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    w.cfg.line_quality = "brain_lite"
+    w.update_mode()
+    w.tick()
+    assert comp.line_model == "claude-sonnet-5-5" and comp.perceived  # 평소 한마디: 나눠 보고 Sonnet 마무리
+    w._finds = [(t["now"], {"name": "로안", "info": "느낌표", "say": "보상 좋음", "importance": 3})]
+    t["now"] = 100
+    w.tick()
+    assert comp.line_model == "claude-opus-5-5" and comp.line_brain["found"][0]["name"] == "로안"  # 중요한 걸 찾으면 Opus
+    w.ask_now("저 사람 뭐야?")
+    assert comp.line_model == "claude-opus-5-5"  # 물어볼 때도 Opus
+    w.cfg.line_quality = "brain"
+    t["now"] = 200
+    w.tick()
+    assert comp.line_model == "claude-opus-5-5"  # 'Opus' 를 고르면 늘 Opus

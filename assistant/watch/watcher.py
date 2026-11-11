@@ -26,6 +26,7 @@ from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foreground_window
 
 # 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
+BRAIN = ("brain", "brain_lite")  # 나눠 보기 (Opus 마무리 / 절약: 평소엔 Sonnet 마무리)
 STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "scan": 45.0, "perceive": 60.0, "line": 120.0, "analyze": 200.0,
                 "analyze_deep": 330.0}
 
@@ -83,9 +84,11 @@ class WatchConfig:
     event_gap: float = 8.0  # 장면 전환 판단 사이 최소 간격(초)
     economy_line_model: str = "claude-haiku-5-5"  # 평범한 화면 대사(한두 마디 반응)는 이 모델 — 한 마디 몇 원
     mid_line_model: str = "claude-sonnet-5-5"
-    # brain: 여럿이 나눠 보고(눈 담당 Sonnet·대사 담당 Haiku·기억·지식) 마지막에 line_model(Opus)이 화면과 맞춰 보고 말함
+    # brain_lite: 여럿이 나눠 보고(눈 담당 Sonnet·대사 담당·기억·지식) 평소 한마디는 Sonnet, 물어볼 때·중요한 걸 찾았을 때만
+    #   Opus 가 화면과 맞춰 보고 말함 / brain: 늘 Opus 마무리
     # auto: 가장 싼 모델 / sonnet: 중간 모델 / best: 항상 line_model (경고·픽·총평·대화는 늘 line_model)
-    line_quality: str = "brain"
+    line_quality: str = "brain_lite"
+    calm_backoff: bool = True  # 게임 중 별일 없는 판단이 이어지면 판단 간격을 5→10→15초로 (확 바뀜·새 대사면 바로)
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
     dense_interval: float = 0.5
@@ -194,6 +197,7 @@ class ScreenWatcher(QObject):
         self._last_scan: float | None = None
         self._scanned: deque = deque(maxlen=30)  # (시각, 상자, 작은 그림) — 방금 본 이름 모를 것은 다시 안 봄
         self._finds: list[tuple[float, dict]] = []  # 알릴 만하다고 판정됐는데 아직 못 알린 것 (쉬는 시간 중이었음)
+        self._calm = 0  # 게임 중 별일 없는 판단이 이어진 수 (판단 간격 늘리기)
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
@@ -445,6 +449,8 @@ class ScreenWatcher(QObject):
             return min(base, self.cfg.review_interval)
         if self.dense_active(mode):  # 촘촘히 보기: 흐름을 모아서 5초마다
             base = min(base, self.cfg.dense_batch)
+            if mode.is_game and self.cfg.calm_backoff and self._calm >= 3:  # 그냥 돌아다니는 중: 10초, 오래가면 15초
+                base = min(mode.interval_seconds, self.cfg.dense_batch * (2 if self._calm < 6 else 3))
         if not mode.is_game and self._quiet_streak >= 3:
             return min(max(base, 300.0), base * 2 ** min(5, self._quiet_streak // 3))
         return base
@@ -452,6 +458,9 @@ class ScreenWatcher(QObject):
     def _spiked(self) -> bool:
         """판단한 뒤로 화면이 확 바뀐 적이 있고, 판단 사이 최소 간격이 지났는가."""
         at = self.sampler.spike_at
+        said = self.sampler.latest_caption_at()  # 새 대사가 떠도 바로 (간격을 늘려 둔 동안에도 이야기는 놓치지 않게)
+        if said is not None and (at is None or said > at):
+            at = said
         if at is None or (self.last_judged is not None and at <= self.last_judged):
             return False
         return self.last_judged is None or self.clock() - self.last_judged >= self.cfg.spike_gap
@@ -735,7 +744,7 @@ class ScreenWatcher(QObject):
         if question is not None:
             self.last_thumb = shot.thumb
             self._remember(shot, mode)
-            if self.cfg.line_quality == "brain":  # 물어본 것도 여럿이 나눠 본 뒤 대답
+            if self.cfg.line_quality in BRAIN:  # 물어본 것도 여럿이 나눠 본 뒤 대답
                 return self._brain_say(shot, None, mode, notes, session, question=question)
             return self._say(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
                                               mode=mode, session_notes=notes)
@@ -779,6 +788,9 @@ class ScreenWatcher(QObject):
         self._zoom_text(shot, note)
         if not note:
             return None
+        quiet = (not note.get("speak") and not note.get("urgent") and not note.get("look")
+                 and note.get("scene") == "playing" and not self._current_captions)
+        self._calm = self._calm + 1 if quiet else 0
         learn = self._layout_due(mode, note, shot)
         if learn:  # 처음 보는 게임 화면: 조용한 순간에 UI 자리를 한 번 익힌다
             self._learn_layout(shot, mode, learn)
@@ -834,7 +846,7 @@ class ScreenWatcher(QObject):
             return None
         if self.cfg.analysis and not finds:
             return self._analyze(shot, note, mode, notes)
-        if self.cfg.line_quality == "brain":
+        if self.cfg.line_quality in BRAIN:
             return self._brain_say(shot, note, mode, notes, session, finds=finds)
         model = {"auto": self.cfg.economy_line_model, "sonnet": self.cfg.mid_line_model}.get(self.cfg.line_quality,
                                                                                               self.cfg.line_model)
@@ -866,8 +878,11 @@ class ScreenWatcher(QObject):
         if scene and scene.get("happened") and session is not None:  # 판 기록엔 자세히 본 것도 (작은 사진 판단보다 정확)
             session.add(self.clock(), "자세히 본 장면: " + " / ".join(
                 str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300])
-        # 말하기 담당은 흐름 사진·자막 사진 대신 담당들이 정리한 글 + 지금 화면 원본으로 확인한다 (비용 절약)
-        return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode, session_notes=notes,
+        # 말하기 담당은 흐름 사진·자막 사진 대신 담당들이 정리한 글 + 지금 화면으로 확인한다 (비용 절약).
+        # 절약이면 평소 한마디는 Sonnet, 물어볼 때·둘러보기에서 중요한 걸 찾았을 때만 Opus
+        best = question is not None or bool(finds) or self.cfg.line_quality == "brain"
+        model = self.cfg.line_model if best else self.cfg.mid_line_model
+        return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes,
                          question=question, brain=brain, history=None, captions=None)
 
     def _count_game(self, scene: str, situation: str) -> None:

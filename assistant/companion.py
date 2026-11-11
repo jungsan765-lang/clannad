@@ -768,7 +768,8 @@ class Companion:
         return [
             # 규칙·성격·배경지식은 거의 안 바뀌니 1시간 보관 (띄엄띄엄 말해도 다시 쓰는 비용이 안 듦)
             {"type": "text", "text": first, "cache_control": {"type": "ephemeral", "ttl": "1h"}},
-            {"type": "text", "text": second, "cache_control": {"type": "ephemeral"}},
+            # 기억·할 일 부분도 1시간 (5분이면 게임 중 띄엄띄엄 말할 때마다 다시 써서 한마디에 수십 원씩 더 들었음)
+            {"type": "text", "text": second, "cache_control": {"type": "ephemeral", "ttl": "1h"}},
         ]
 
     def names_text(self) -> str:
@@ -992,11 +993,14 @@ class Companion:
         if not captions:
             return []
         blocks: list[dict] = [{"type": "text", "text": (
-            f"[자막·대사: 최근 몇 초 동안 자막·대화창 자리에 새로 뜬 글 {len(captions)}개를 원래 크기로 잘라 시간 순서대로 보낸다. "
-            "장면을 이해하는 데 쓴다 (그대로 읽어 주지 않는다). 글자가 아닌 게 찍혔으면 무시한다]")}]
-        for label, jpeg in captions:
-            blocks.append({"type": "text", "text": label})
-            blocks.append(self._image_block(jpeg))
+            f"[자막·대사: 최근 몇 초 동안 자막·대화창 자리에 새로 뜬 글 {len(captions)}개, 시간 순서대로 (글로 읽힌 것은 글, "
+            "아니면 원래 크기로 자른 사진). 장면을 이해하는 데 쓴다 (그대로 읽어 주지 않는다). 글자가 아닌 게 있으면 무시한다]")}]
+        for label, item in captions:
+            if isinstance(item, str):  # 이 PC 글자 인식으로 읽은 글
+                blocks.append({"type": "text", "text": f"{label}: {item}"})
+            else:
+                blocks.append({"type": "text", "text": label})
+                blocks.append(self._image_block(item))
         return blocks
 
     def _layout_text(self, mode) -> str:
@@ -1030,14 +1034,20 @@ class Companion:
         """대사 담당: 잘라 둔 자막·대화창 글을 받아 적는다 (원래 크기라 싼 모델로도 읽힌다)."""
         if not captions:
             return None, 0.0
-        content = []
-        for label, jpeg in captions:
+        read = [f"{label}: {item}" for label, item in captions if isinstance(item, str)]
+        pictures = [(label, item) for label, item in captions if not isinstance(item, str)]
+        if not pictures:  # 이 PC 글자 인식으로 다 읽었으면 AI 를 부르지 않는다 (흐름 요약은 말하기 담당이)
+            return {"lines": read, "summary": ""}, 0.0
+        content = [{"type": "text", "text": "이미 읽은 것:\n" + "\n".join(read)}] if read else []
+        for label, jpeg in pictures:
             content += [{"type": "text", "text": label}, self._image_block(jpeg)]
         content.append({"type": "text", "text": "이 자막·대사를 받아 적어 줘."})
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": TRANSCRIPT_TASK}],
                                   messages=[{"role": "user", "content": content}], schema=TRANSCRIPT_SCHEMA,
                                   kind="captions", max_tokens=600, effort="low", thinking_off=model.startswith("claude-haiku"),
                                   timeout=25)
+        if r.data and read:
+            r.data["lines"] = read + list(r.data.get("lines", []))
         return r.data, r.usd
 
     def inspect_spot(self, jpeg: bytes, what: str, mode, model: str) -> tuple[dict | None, float]:
@@ -1224,8 +1234,8 @@ class Companion:
         extra = self.extra_context(mode) if self.extra_context else ""
         if extra:
             lines.append(extra)
-        # 반응 한마디엔 지금 화면을 조금 작게 (글씨는 확대 사진으로). 여럿이 나눠 볼 때는 최종 확인이라 그대로
-        now_img = _shrink_jpeg(jpeg, 1280) if routine and not brain else jpeg
+        # 반응 한마디엔 지금 화면을 조금 작게 (글씨는 확대 사진으로, 자세한 건 눈 담당이 원본으로 이미 봄)
+        now_img = _shrink_jpeg(jpeg, 1280) if routine else jpeg
         content = self._history_blocks(history) + [self._image_block(now_img)] + self._focus_blocks(focus, focus_label) \
             + self._caption_blocks(captions) + [{"type": "text", "text": "\n".join(lines)}]
         turns = min(self.history_turns, 4) if routine else self.history_turns  # 반응 한마디엔 최근 대화 4번만

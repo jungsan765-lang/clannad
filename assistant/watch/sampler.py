@@ -48,6 +48,7 @@ class Caption:
     name: str  # 어느 자리 (자막·대화창 …)
     jpeg: bytes  # 원래 크기로 자른 그 자리
     mask: object  # 글자 획 자리 (같은 줄인지 비교용)
+    text: str = ""  # 이 PC 글자 인식으로 읽은 글 (읽었으면 AI 에게 사진 대신 글만)
 
 
 SPIKE_LEVEL = {"color": 0.35, "pixel": 0.05}  # 게임 모드에 spike_level 이 없을 때 기준 (pixel: 화면 1/5 만한 창이 떠도 걸림)
@@ -137,6 +138,7 @@ class FrameSampler:
         self.text_boxes: list[tuple[str, tuple[float, float, float, float]]] = []  # 자막·대화창 자리 (화면 비율)
         self.text_min = 0.012  # text_score 가 이보다 높아야 글자가 있다고 본다
         self._captions: deque[Caption] = deque()
+        self.ocr: Callable | None = None  # 이 PC 글자 인식 (그림 → 글, 못 쓰면 None 을 돌려줌)
 
     def configure(self, by: str = "color", level: float = 0.0, busy: int = 3) -> None:
         """게임마다 '확 바뀜' 기준 (게임 모드의 spike·spike_level·spike_busy)."""
@@ -224,7 +226,16 @@ class FrameSampler:
             if last is not None and same_text(last.mask, mask):
                 return  # 같은 대사가 떠 있는 중
             grew = last is not None and last is self._captions[-1] and grew_from(last.mask, mask)
-        caption = Caption(t, name, cap.to_jpeg(crop, 80), mask)
+        text = ""
+        if self.ocr is not None:
+            try:
+                got = self.ocr(crop)
+            except Exception:  # noqa: BLE001 - 못 읽으면 사진으로
+                got = None
+            if got == "":
+                return  # 글자 인식이 '글자 없음'이라고 하면 글자처럼 보였던 풍경
+            text = got or ""
+        caption = Caption(t, name, cap.to_jpeg(crop, 80), mask, text)
         with self._lock:
             if grew and self._captions and self._captions[-1] is last:
                 self._captions.pop()  # 한 글자씩 써지는 중이면 다 써진 것만 남긴다
@@ -232,12 +243,17 @@ class FrameSampler:
             while self._captions and t - self._captions[0].t > self.keep_seconds:
                 self._captions.popleft()
 
-    def captions(self, seconds: float, max_items: int = 4) -> list[tuple[str, bytes]]:
-        """최근 새로 뜬 자막·대사 (오래된 것부터, 최대 max_items 개): [('(자막) 3.5초 전', jpeg), …]."""
+    def captions(self, seconds: float, max_items: int = 4) -> list[tuple[str, bytes | str]]:
+        """최근 새로 뜬 자막·대사 (오래된 것부터, 최대 max_items 개): [('(자막) 3.5초 전', jpeg 또는 읽은 글), …].
+        이 PC 글자 인식으로 읽었으면 사진 대신 글 (AI 비용이 거의 안 듦)."""
         now = self.clock()
         with self._lock:
             items = [c for c in self._captions if now - c.t <= seconds][-max_items:]
-        return [(f"({c.name}) {now - c.t:.1f}초 전", c.jpeg) for c in items]
+        return [(f"({c.name}) {now - c.t:.1f}초 전", c.text or c.jpeg) for c in items]
+
+    def latest_caption_at(self) -> float | None:
+        with self._lock:
+            return self._captions[-1].t if self._captions else None
 
     def recent(self, seconds: float) -> list[Frame]:
         now = self.clock()

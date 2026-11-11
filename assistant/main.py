@@ -199,11 +199,14 @@ class AssistantApp(QObject):
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
         saved = self._load_state().get("prefs", {})
-        if not saved.get("screen.brain_offered"):
-            if saved.get("screen.line_quality") == "auto":  # 예전 기본값으로 저장돼 있던 것: 한 번만 '나눠 보기'로 (주인님 요청)
-                self.set_pref("screen.line_quality", "brain")
-            self.set_pref("screen.brain_offered", True)  # 그 뒤에 다시 고르면 그대로 둔다
-        self.watch_cfg.line_quality = str(self.pref("screen.line_quality", "brain"))
+        if not saved.get("screen.lite_offered"):
+            if saved.get("screen.line_quality") in ("auto", "brain"):  # 예전 기본값: 한 번만 '나눠 보기 · 절약'으로 (주인님 요청)
+                self.set_pref("screen.line_quality", "brain_lite")
+            self.set_pref("screen.lite_offered", True)  # 그 뒤에 다시 고르면 그대로 둔다
+        self.watch_cfg.line_quality = str(self.pref("screen.line_quality", "brain_lite"))
+        import local_ocr
+
+        self.watcher.sampler.ocr = local_ocr.read_text  # 자막·대사는 이 PC 글자 인식으로 먼저 (공짜)
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
