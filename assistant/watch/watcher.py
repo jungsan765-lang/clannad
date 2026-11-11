@@ -80,8 +80,9 @@ class WatchConfig:
     sample_seconds: float = 10.0  # 이 PC 에서 화면이 바뀌었는지 살피는 간격 (비용 없음)
     scene_change: float = 0.08  # 이만큼 크게 바뀌고(장면 전환) 멈춰 있으면 확인 간격 전이라도 판단
     event_gap: float = 8.0  # 장면 전환 판단 사이 최소 간격(초)
-    economy_line_model: str = "claude-sonnet-5-5"  # 평범한 화면 대사는 이 모델 (중요한 말·대화는 line_model)
-    line_quality: str = "auto"  # auto: 평범한 화면 대사는 economy_line_model / best: 항상 line_model
+    economy_line_model: str = "claude-haiku-5-5"  # 평범한 화면 대사(한두 마디 반응)는 이 모델 — 한 마디 몇 원
+    mid_line_model: str = "claude-sonnet-5-5"
+    line_quality: str = "auto"  # auto: 가장 싼 모델 / sonnet: 중간 모델 / best: 항상 line_model (경고·픽·총평·대화는 늘 line_model)
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
     dense_interval: float = 0.5
@@ -587,7 +588,7 @@ class ScreenWatcher(QObject):
             self.stats["skipped_same"] += 1  # 그대로이거나, 바뀌었지만 아직 확인 간격 전 (다음 살펴보기 때 다시)
             return None
         self._stage("judge")  # 이미 버린 확인이면 여기서 멈춤 (아래 상태를 바꾸지 않게)
-        history = self.sampler.sheet(recent) if len(recent) >= 3 else None
+        history = self.sampler.sheet(recent, cell_width=360) if len(recent) >= 3 else None  # 작게 (판단엔 흐름만 보면 됨)
         self._current_history = history
         shot.history = history
         self.last_thumb = shot.thumb
@@ -652,7 +653,8 @@ class ScreenWatcher(QObject):
             return None
         if self.cfg.analysis:
             return self._analyze(shot, note, mode, notes)
-        model = self.cfg.economy_line_model if self.cfg.line_quality == "auto" else self.cfg.line_model
+        model = {"auto": self.cfg.economy_line_model, "sonnet": self.cfg.mid_line_model}.get(self.cfg.line_quality,
+                                                                                              self.cfg.line_model)
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes)
 
     def _count_game(self, scene: str, situation: str) -> None:

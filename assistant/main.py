@@ -847,9 +847,11 @@ class AssistantApp(QObject):
             if self.pref("screen.daily_limit_told", "") != today:
                 self.set_pref("screen.daily_limit_told", today)
                 self._update_pause_status()
-                self.bubble.show_text(f"오늘 화면 보기 한도({limit:,}원)를 다 써서 내일까지 화면 보기는 쉴게요. 대화와 F8·F10 은 "
-                                      "그대로 돼요. 한도는 설정 창 '화면 보기'에서 바꿀 수 있어요.", self.anchor(), system=True,
-                                      seconds=12)
+                top = sorted(((k, v) for k, v in self.ledger.by_kind().items() if k in SCREEN_KINDS), key=lambda x: -x[1])
+                where = ", ".join(f"{KIND_KO.get(k, k)} {self.ledger.krw(v):,}원" for k, v in top[:3])
+                self.bubble.show_text(f"오늘 화면 보기 한도({limit:,}원)를 다 써서 내일까지 화면 보기는 쉴게요 (많이 쓴 곳: {where}). "
+                                      "대화와 F8·F10 은 그대로 돼요. 한도는 설정 창 '화면 보기'에서 바꿀 수 있어요.", self.anchor(),
+                                      system=True, seconds=15)
             return False
         if settings_flag(self.settings, "screen.stop_when_over_budget", True):
             budget = self.budget_usd()

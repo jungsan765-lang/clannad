@@ -425,6 +425,24 @@ def narrates_screen(text: str) -> bool:
     return bool(_NARRATION.search(text or ""))
 
 
+def _shrink_jpeg(jpeg: bytes, width: int) -> bytes:
+    """보내는 사진을 가로 width 로 줄인다 (이미지 비용 절약). 못 읽으면 그대로."""
+    try:
+        import io
+
+        from PIL import Image
+
+        img = Image.open(io.BytesIO(jpeg))
+        if img.width <= width:
+            return jpeg
+        img = img.convert("RGB").resize((width, round(img.height * width / img.width)), Image.Resampling.LANCZOS)
+        buf = io.BytesIO()
+        img.save(buf, "JPEG", quality=82, optimize=True)
+        return buf.getvalue()
+    except Exception:  # noqa: BLE001
+        return jpeg
+
+
 def mostly_korean(text: str) -> bool:
     """일기처럼 영어 인용('nice try', git push)이 섞일 수 있는 글: 한글이 글자의 40% 이상이면 된다."""
     hangul = len(re.findall(r"[가-힣]", text))
@@ -852,7 +870,8 @@ class Companion:
                 "최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)")]
         if session_notes:
             info.append("이번 판(세션) 기록: " + " / ".join(session_notes[-8:]))
-        content = self._history_blocks(history) + [self._image_block(jpeg)] + self._focus_blocks(focus, focus_label) \
+        main_img = _shrink_jpeg(jpeg, 1280) if history else jpeg  # 흐름 모음이 있으면 지금 화면은 조금 작게
+        content = self._history_blocks(history) + [self._image_block(main_img)] + self._focus_blocks(focus, focus_label) \
             + [{"type": "text", "text": "\n".join(info)}]
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                   messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
@@ -895,8 +914,10 @@ class Companion:
             lines.append(f"주인님이 지금 화면을 보고 말해 달라고 했다: {question} → speak 는 true.")
         seen = " ".join([title or "", getattr(mode, "name", "") or "", question or "",
                          (note or {}).get("situation", ""), (note or {}).get("point", "")] + list(session_notes or [])[-5:])
-        # 픽 화면: 보이는 캐릭터 8명 + 조합 원칙까지 꺼내 본다
-        notes = self.lorebook.notes_for(seen, 9000, 10) if pick else self.lorebook.notes_for(seen)
+        routine = not (pick or review or question or (note and note.get("urgent")))
+        # 픽 화면: 보이는 캐릭터 8명 + 조합 원칙까지 꺼내 본다. 평범한 반응 한마디엔 짧게만
+        notes = (self.lorebook.notes_for(seen, 9000, 10) if pick
+                 else self.lorebook.notes_for(seen, 1500, 2) if routine else self.lorebook.notes_for(seen))
         if notes:
             lines.append(notes)
         old = self.recaller(seen) if self.recaller and not pick else ""
@@ -905,10 +926,11 @@ class Companion:
         extra = self.extra_context(mode) if self.extra_context else ""
         if extra:
             lines.append(extra)
-        content = self._history_blocks(history) + [self._image_block(jpeg)] + self._focus_blocks(focus, focus_label) \
+        now_img = _shrink_jpeg(jpeg, 1280) if routine else jpeg  # 반응 한마디엔 지금 화면을 조금 작게 (글씨는 확대 사진으로)
+        content = self._history_blocks(history) + [self._image_block(now_img)] + self._focus_blocks(focus, focus_label) \
             + [{"type": "text", "text": "\n".join(lines)}]
-        messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
-        routine = not (pick or review or question or (note and note.get("urgent")))
+        turns = min(self.history_turns, 4) if routine else self.history_turns  # 반응 한마디엔 최근 대화 4번만
+        messages = self.memory.api_messages(turns) + [{"role": "user", "content": content}]
         # 평범한 화면 대사는 한 번 더 생각하고(보탤 게 있는지) 말하게 effort 를 한 단계 올린다
         effort = "low" if pick else ("medium" if routine and self.effort == "low" else self.effort)
         r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,

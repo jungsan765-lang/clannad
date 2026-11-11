@@ -697,7 +697,8 @@ def test_routine_lines_use_economy_model_and_review_uses_contact_sheet(tmp_path)
     from watch import capture as cap
 
     w_cfg = WatchConfig()
-    assert w_cfg.economy_line_model.startswith("claude-sonnet") and w_cfg.line_quality == "auto"
+    assert w_cfg.economy_line_model == "claude-haiku-5-5" and w_cfg.line_quality == "auto"  # 반응 한마디는 가장 싼 모델
+    assert w_cfg.mid_line_model.startswith("claude-sonnet")
     frames = [(cap.to_jpeg(_Image.new("RGB", (1920, 1080), (i * 40, 0, 0))), f"-{30 - i * 10}s") for i in range(3)]
     sheet = _Image.open(__import__("io").BytesIO(cap.contact_sheet(frames)))
     assert sheet.width == 3 * 640 and sheet.height < 1080 // 2
@@ -801,7 +802,7 @@ def test_dense_watching_sends_the_last_seconds_as_one_sheet(qapp, tmp_path):
     from io import BytesIO
 
     sheet = Image.open(BytesIO(comp.history_seen))
-    assert sheet.width == 4 * 480  # 4칸씩
+    assert sheet.width == 4 * 360  # 4칸씩, 작게
     assert comp.line_history == comp.history_seen  # 대사에도 같이
     w.cfg.dense = "off"
     assert not w.dense_active(w.mode) and w.interval_for(w.mode) == 20
@@ -820,3 +821,25 @@ def test_sampler_keeps_recent_seconds_and_measures_motion(tmp_path):
     frames = s.recent(2.0)
     assert len(frames) == 5 and s.motion(frames) > 0.03
     assert s.sheet(frames[:1]) is None and s.sheet(frames)
+
+
+def test_routine_screen_line_is_lightweight(tmp_path):
+    from PIL import Image as _Image
+
+    from watch import capture as cap
+
+    fake = FakeAnthropic([{"speak": True, "message": "와, 방금 그 회피 소름 돋았습니다.", "emotion": "surprised"}])
+    mem = Memory(tmp_path / "d")
+    for i in range(12):
+        mem.add_turn(f"말 {i}", f"대답 {i}")
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), mem, None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    big = cap.to_jpeg(_Image.new("RGB", (1920, 1080), (20, 40, 60)), 85)
+    comp.screen_line(big, "붉은사막", {"situation": "보스전", "point": "감탄"}, model="claude-haiku-5-5")
+    call = fake.calls[-1]
+    assert call["model"] == "claude-haiku-5-5" and len(call["messages"]) <= 9  # 최근 대화 4번만 (+ 지금)
+    import base64
+    import io
+
+    img = next(b for b in call["messages"][-1]["content"] if b.get("type") == "image")
+    assert _Image.open(io.BytesIO(base64.b64decode(img["source"]["data"]))).width == 1280
