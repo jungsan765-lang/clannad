@@ -239,14 +239,14 @@
 - 다음 버전(4.8 등) 일정은 (확인 못 함). 지스타 2026(11/19~22, 부산 벡스코) 참가.
 
 ## 4.x 신규 캐릭터
-키워드: 효광, Yao Guang, 스파키, Sparxie, 얘쉬베일, Ashveil, 은랑 LV.999, Silver Wolf LV.999, 에바네시아, Evanescia, 천야•블레이드, Mortenax Blade, 히메코•노바, Himeko • Nova, 토오사카 린, Rin Tohsaka, 길가메시, Gilgamesh, 로빈•서머레토, Robin • Summeretto, 어벤츄린•웨이브, Aventurine • Waveflair, 펄, Pearl, 에이언즈★아하, Aeon ★ Aha, 개척자 환락
-- 4.0 효광(물리·환락), 스파키(화염·환락). 4.1 얘쉬베일(Ashveil, 번개·수렵).
+키워드: 효광, Yao Guang, 스파키, Sparxie, 애쉬베일, Ashveil, 은랑 LV.999, Silver Wolf LV.999, 에바네시아, Evanescia, 천야•블레이드, Mortenax Blade, 히메코•노바, Himeko • Nova, 토오사카 린, Rin Tohsaka, 길가메시, Gilgamesh, 로빈•서머레토, Robin • Summeretto, 어벤츄린•웨이브, Aventurine • Waveflair, 펄, Pearl, 에이언즈★아하, Aeon ★ Aha, 개척자 환락
+- 4.0 효광(물리·환락), 스파키(화염·환락). 4.1 애쉬베일(Ashveil, 번개·수렵).
 - 4.2 은랑 LV.999(허수·환락), 에바네시아(물리·환락), 개척자·환락(번개).
 - 4.3 천야•블레이드(Mortenax Blade, 화염·공허).
 - 4.4 히메코•노바(화염·지식). Fate 콜라보 토오사카 린(양자·지식)·길가메시(번개·파멸)는 콜라보 워프.
 - 4.5 로빈•서머레토(바람·기억), 어벤츄린•웨이브(Waveflair, 양자·환락). 4.6 펄(얼음·환락). 4.7 에이언즈★아하(양자·환락).
 - 판단: 4.x 신규 캐릭터 상당수가 환락이라 아하 타임 시너지가 파티 구성의 중심. 성능 평가는 버전마다 달라지므로 단정하지 말 것.
-- 한국어 표기는 위키의 한국어 명칭 기준이며 얘쉬베일 등 일부는 공식 표기 재확인 필요.
+- 한국어 표기는 위키의 한국어 명칭 기준(애쉬베일은 주인님이 고쳐 줌). 일부는 공식 표기 재확인 필요.
 
 ## 4.7 스토리 전제 (스포일러)
 키워드: 스타프로스터, Starfroster, 환월 게임, 최후의 환월 게임, 알현자
