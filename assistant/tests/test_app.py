@@ -122,9 +122,15 @@ def test_budget_in_usd_with_credit_notice(qapp, tmp_path, built, monkeypatch):
     shown = []
     a.bubble.show_text = lambda text, *args, **kw: shown.append(text)  # 말풍선 대신 기록
     monkeypatch.setattr(app_main.QTimer, "singleShot", staticmethod(lambda ms, fn: fn()))  # 기다리지 않고 바로 (테스트 후 복구)
+    assert a.companion.speak_cap == ""  # 크레딧 전에는 말하는 모델 그대로
     a.ledger.month_usd = lambda today=None: 105.0  # 크레딧을 막 넘김
     a._budget_warning()
-    assert any("크레딧 $100" in t for t in shown) and a._screen_allowed()
+    assert any("크레딧 $100" in t and "Sonnet" in t for t in shown) and a._screen_allowed()
+    assert a.companion.speak_cap == "claude-sonnet-5-5" and "말하기는 Sonnet" in a.cost_text()
+    a.apply_settings({"budget.after_credit": "haiku"})
+    assert a.companion.speak_cap == "claude-haiku-5-5"
+    a.apply_settings({"budget.after_credit": "keep"})
+    assert a.companion.speak_cap == ""
     a.ledger.month_usd = lambda today=None: 125.0  # 예산 80% 넘김
     a._budget_warning()
     assert any("83%" in t for t in shown)

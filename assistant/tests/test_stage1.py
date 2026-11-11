@@ -105,6 +105,21 @@ def test_reply_uses_persona_memory_cache_and_time(tmp_path):
     assert mem.recent[-1]["text"] == "알겠습니다, 주인님." and len(mem.pending) == 1
 
 
+def test_speak_cap_lowers_only_pricier_speaking_models(tmp_path):
+    from companion import model_rank
+
+    assert model_rank("claude-haiku-5-5") < model_rank("claude-sonnet-5-5") < model_rank("claude-opus-5-5")
+    comp, fake, _ = _companion(tmp_path, [{"speak": True, "message": "네, 주인님.", "emotion": "normal"}])
+    assert comp.speak_model("claude-opus-5-5") == "claude-opus-5-5"  # 상한이 없으면 그대로
+    comp.speak_cap = "claude-sonnet-5-5"
+    assert comp.speak_model("claude-opus-5-5") == "claude-sonnet-5-5"
+    assert comp.speak_model("claude-haiku-5-5") == "claude-haiku-5-5"  # 더 싼 건 올리지 않는다
+    comp.reply("안녕")
+    assert fake.calls[-1]["model"] == "claude-sonnet-5-5"  # 대화도 상한을 따른다
+    comp.speak_cap = "claude-haiku-5-5"
+    assert comp.speak_model("claude-sonnet-5-5") == "claude-haiku-5-5"
+
+
 def test_english_reply_is_retried_in_korean(tmp_path):
     comp, fake, _ = _companion(tmp_path, [
         {"speak": True, "message": "Of course, Master. I'll prepare tea.", "emotion": "normal"},

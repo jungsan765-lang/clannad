@@ -69,6 +69,8 @@ from wishlist import Wishlist
 from watch.watcher import ScreenWatcher, WatchConfig
 
 log = logging.getLogger("assistant")
+# 이번 달 크레딧을 다 쓴 뒤 말하는 일(대화·화면 한마디·분석·총평)에 쓸 모델 (판단·검색·기억 정리는 그대로)
+AFTER_CREDIT = {"sonnet": "claude-sonnet-5-5", "haiku": "claude-haiku-5-5", "keep": ""}
 # 대화에 이런 말이 나오면 원신 계정 정보를 함께 넘긴다
 CYPHERS_WORDS = re.compile(r"사이퍼즈|전적|공식전|일반전|킬뎃|딜량|승률|판수|티어|랭크")
 # 주인님이 지금 화면 속 무언가를 가리키는 말 (게임 밖이어도 대화에 지금 화면을 붙인다)
@@ -384,6 +386,7 @@ class AssistantApp(QObject):
             self.topmost.start()
         if "appear" in self.window.sprites.motions:
             self.window.play("appear")
+        self._apply_speak_cap()  # 이번 달 크레딧을 이미 다 썼으면 말하는 모델부터 낮춰 둔다
         self.set_screen_enabled(bool(self.pref("screen.enabled", True)), save=False)
         self.set_voice_mode(str(self.pref("voice.mode", "off")), save=False)
         if not self.pref("screen.overlay_v2", False):  # 자막 기본값이 '중요한 것만'으로 바뀜 (예전 기본 game → important)
@@ -1403,6 +1406,8 @@ class AssistantApp(QObject):
             "voice.wake_word": self.voice.wake_word,
             "voice.model": str(g("voice.model", "medium")),
             "budget.monthly_usd": self.budget_usd(),
+            "budget.after_credit": str(self.pref("budget.after_credit", "sonnet")),
+            "budget.credit_usd": float(self.settings.get("budget.credit_usd", 0) or 0),
             "ai.fast": bool(self.companion.fast),
             "ai.web_search": bool(self.companion.can_search),
             "genshin.uid": self.genshin.uid,
@@ -1520,6 +1525,9 @@ class AssistantApp(QObject):
             self._sync_talk_actions()
         if "ai.fast" in changed:
             self.companion.fast = bool(changed["ai.fast"])
+        if "budget.after_credit" in changed:
+            self._apply_speak_cap()
+            self._refresh_cost()
         if "ai.web_search" in changed:
             self.companion.can_search = bool(changed["ai.web_search"])
         if "cyphers.nickname" in changed:
@@ -1735,6 +1743,16 @@ class AssistantApp(QObject):
         menu.aboutToShow.connect(self._refresh_cost)
         return menu
 
+    def _apply_speak_cap(self) -> str:
+        """이번 달 크레딧을 다 썼으면 말하는 모델을 설정대로 낮춘다. 다음 달이 되면 저절로 원래대로."""
+        credit = float(self.settings.get("budget.credit_usd", 0) or 0)
+        over = bool(credit) and self.ledger.month_usd() >= credit
+        cap = AFTER_CREDIT.get(str(self.pref("budget.after_credit", "sonnet")), "") if over else ""
+        if cap != self.companion.speak_cap:
+            log.info("말하는 모델 상한: %s", cap or "없음")
+        self.companion.speak_cap = cap
+        return cap
+
     def budget_usd(self) -> float:
         """월 예산(달러). monthly_usd 가 있으면 그것, 없으면 monthly_krw 를 환율로 바꾼 값."""
         usd = self.settings.get("budget.monthly_usd")
@@ -1746,8 +1764,10 @@ class AssistantApp(QObject):
         day, month = self.ledger.day_usd(), self.ledger.month_usd()
         screen = self.ledger.krw(self.ledger.day_kinds_usd(SCREEN_KINDS))
         limit = int(self.pref("screen.daily_krw", 3000) or 0)
+        cap = self.companion.speak_cap
         return (f"오늘 사용 {self.ledger.krw(day):,}원 (화면 {screen:,}원" + (f"/{limit:,}원" if limit else "") + ") · "
-                f"이번 달 {self.ledger.krw(month):,}원 (${month:,.2f} / ${self.budget_usd():,.0f})")
+                f"이번 달 {self.ledger.krw(month):,}원 (${month:,.2f} / ${self.budget_usd():,.0f})"
+                + (f" · 크레딧 다 써서 말하기는 {cap.split('-')[1].capitalize()}" if cap else ""))
 
     def cost_details(self) -> str:
         """어디에 얼마 썼는지 (오늘·이번 달, 많이 쓴 것부터)."""
@@ -1776,6 +1796,7 @@ class AssistantApp(QObject):
                                 "'하루 화면 비용 한도' 안에서만 써요 (설정 창 '화면 보기').")
 
     def _refresh_cost(self) -> None:
+        self._apply_speak_cap()
         text = self.cost_text()
         self.cost_action.setText(text)
         mode = f"지금 모드: {self.watcher.mode.name}" + (f" · 맨 앞: {self.watcher.title[:60]}" if self.watcher.title else "")
@@ -1787,6 +1808,7 @@ class AssistantApp(QObject):
 
     def _budget_warning(self) -> None:
         """크레딧 소진·예산 80%·예산 초과를 달마다 한 번씩만 알린다."""
+        cap = self._apply_speak_cap()
         budget = self.budget_usd()
         used = self.ledger.month_usd()
         credit = float(self.settings.get("budget.credit_usd", 0) or 0)
@@ -1800,7 +1822,8 @@ class AssistantApp(QObject):
             ("warn", budget and used >= budget * float(self.settings.get("budget.warn_ratio", 0.8)),
              f"이번 달 예산의 {used / budget:.0%}를 썼어요 (${used:,.2f} / ${budget:,.0f})." if budget else ""),
             ("credit", credit and used >= credit,
-             f"이번 달 크레딧 ${credit:,.0f}를 다 썼어요. 지금부터는 카드로 결제돼요 (예산 ${budget:,.0f})."),
+             f"이번 달 크레딧 ${credit:,.0f}를 다 썼어요. 지금부터는 카드로 결제돼요 (예산 ${budget:,.0f})."
+             + (f" 말하는 건 이제 {cap.split('-')[1].capitalize()}로 할게요 (설정 '비용'에서 바꿔요)." if cap else "")),
         ]
         for level, hit, msg in checks:
             key = f"{level}:{month}"

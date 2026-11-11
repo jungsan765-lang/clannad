@@ -25,6 +25,14 @@ ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_reque
            "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media", "make_recap",
            "save_clip", "set_progress", "learn_layout"]
 
+def model_rank(model: str) -> int:
+    """싼 모델일수록 작은 수: Haiku 0 < Sonnet 1 < Opus 2 < 그 밖(Fable 등) 3."""
+    for prefix, rank in (("claude-haiku", 0), ("claude-sonnet", 1), ("claude-opus", 2)):
+        if model.startswith(prefix):
+            return rank
+    return 3
+
+
 REPLY_SCHEMA = {
     "type": "object",
     "properties": {
@@ -881,6 +889,7 @@ class Companion:
         self.effort = effort
         self.max_tokens = max_tokens
         self.fast = False  # 빠른 모드 (요금 2배). 설정 창에서 켬
+        self.speak_cap = ""  # 이번 달 크레딧을 다 쓴 뒤 말하는 모델 상한 (main 이 넣어 줌). 비어 있으면 그대로
         self.analysis_effort = "medium"  # 분석할 때 생각 깊이
         self.history_turns = history_turns
         self.consolidate_every = consolidate_every
@@ -1120,8 +1129,14 @@ class Companion:
         self.last_remembered = saved
         return saved
 
+    def speak_model(self, model: str) -> str:
+        """말하는 일(대화·화면 한마디·분석·총평)에 쓸 모델. 크레딧을 다 써서 상한이 있으면 그보다 비싼 모델은 상한으로.
+        판단·검색·기억 정리 같은 보조 일은 이걸 거치지 않는다."""
+        cap = self.speak_cap
+        return cap if cap and model_rank(model) > model_rank(cap) else model
+
     def _ask(self, messages: list[dict], on_text=None, fast: bool = False) -> tuple[dict | None, float]:
-        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(), messages=messages,
+        r = self.ai.complete_json(model=self.speak_model(self.chat_model), system=self.system_blocks(), messages=messages,
                                   schema=REPLY_SCHEMA, kind="chat", max_tokens=self.max_tokens, effort=self.effort,
                                   on_text=on_text, fast=fast)
         if r.data is None:
@@ -1565,7 +1580,7 @@ class Companion:
         system = self.system_blocks()
         if stable:
             system = system + [{"type": "text", "text": stable, "cache_control": {"type": "ephemeral", "ttl": "1h"}}]
-        use = model or self.chat_model
+        use = self.speak_model(model or self.chat_model)
         quick = self.quick_lines and routine and use.startswith("claude-sonnet-5-5")
         schema = DRAFT_SCHEMA if routine and self.drafts else REPLY_SCHEMA
         r = self.ai.complete_json(model=use, system=system, messages=messages,
@@ -1673,7 +1688,7 @@ class Companion:
             lines.append(extra)
         content.append({"type": "text", "text": "\n".join(lines)})
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
-        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(), messages=messages,
+        r = self.ai.complete_json(model=self.speak_model(self.chat_model), system=self.system_blocks(), messages=messages,
                                   schema=ANALYSIS_SCHEMA, kind="result_review" if deep else "analysis",
                                   max_tokens=16000 if deep else 8000, effort="high" if deep else self.analysis_effort,
                                   timeout=300 if deep else 120)
@@ -1719,7 +1734,7 @@ class Companion:
         if notes:
             lines.append(notes)
         lines.append("## 공식 기록\n" + record)
-        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(),
+        r = self.ai.complete_json(model=self.speak_model(self.chat_model), system=self.system_blocks(),
                                   messages=[{"role": "user", "content": [{"type": "text", "text": "\n".join(lines)}]}],
                                   schema=ANALYSIS_SCHEMA, kind="official_review", max_tokens=16000 if deep else 8000,
                                   effort="high" if deep else self.analysis_effort, timeout=300 if deep else 120)
@@ -1742,7 +1757,7 @@ class Companion:
         now = now or datetime.now()
         stamp = now.strftime("%Y-%m-%d") + f" ({'월화수목금토일'[now.weekday()]}) " + now.strftime("%H:%M")
         text = f"[지금: {stamp}]\n{RECAP_TASK}\n## 기간: {label}\n{facts or '(남은 기록이 거의 없다)'}"
-        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(),
+        r = self.ai.complete_json(model=self.speak_model(self.chat_model), system=self.system_blocks(),
                                   messages=[{"role": "user", "content": [{"type": "text", "text": text}]}],
                                   schema=ANALYSIS_SCHEMA, kind="recap", max_tokens=8000, effort=self.analysis_effort,
                                   timeout=120)
@@ -1846,7 +1861,7 @@ class Companion:
             if on_count:
                 on_count(buf.count('"better"'))
 
-        r = self.ai.complete_json(model=self.chat_model, system=self.system_blocks(),
+        r = self.ai.complete_json(model=self.speak_model(self.chat_model), system=self.system_blocks(),
                                   messages=[{"role": "user", "content": content}], schema=VIDEO_SCHEMA, kind="video",
                                   max_tokens=16000, effort=self.analysis_effort, timeout=600, on_text=count)
         d = r.data
