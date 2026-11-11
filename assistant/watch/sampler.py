@@ -29,7 +29,7 @@ class Frame:
 
 class FrameSampler:
     def __init__(self, grab: Callable[[], Image.Image], interval: float = 0.5, keep_seconds: float = 15.0,
-                 width: int = 480, clock: Callable[[], float] = time.monotonic):
+                 width: int = 480, clock: Callable[[], float] = time.monotonic, spike: float = 0.12):
         self.grab = grab
         self.interval = interval
         self.keep_seconds = keep_seconds
@@ -41,6 +41,8 @@ class FrameSampler:
         self._thread: threading.Thread | None = None
         self._stop = threading.Event()
         self.errors = 0
+        self.spike = spike  # 0.5초 사이에 이만큼 확 바뀌면 '무슨 일이 났다' (죽음·폭발·장면 전환)
+        self.spike_at: float | None = None  # 마지막으로 확 바뀐 때
 
     # ------------------------------------------------------------ 켜고 끄기
 
@@ -78,6 +80,8 @@ class FrameSampler:
         small = cap.shrink(img, self.width)
         frame = Frame(self.clock(), cap.to_jpeg(small, 70), cap.thumb(small))
         with self._lock:
+            if self._frames and cap.change_amount(self._frames[-1].thumb, frame.thumb) >= self.spike:
+                self.spike_at = frame.t
             self._frames.append(frame)
             while self._frames and frame.t - self._frames[0].t > self.keep_seconds:
                 self._frames.popleft()
@@ -94,6 +98,15 @@ class FrameSampler:
         for a, b in zip(frames, frames[1:]):
             best = max(best, cap.change_amount(a.thumb, b.thumb))
         return best
+
+    def ordered(self, frames: list[Frame], max_frames: int = 10) -> list[tuple[str, bytes]]:
+        """AI 에게 보낼 순서 있는 장면들: '(1/10) 4.5초 전' … (오래된 것부터). 한 장에 붙이면 순서를 헷갈려서 따로 보낸다."""
+        if len(frames) > max_frames:
+            step = len(frames) / max_frames
+            frames = [frames[int(i * step)] for i in range(max_frames - 1)] + [frames[-1]]
+        now = self.clock()
+        n = len(frames)
+        return [(f"({i}/{n}) {now - f.t:.1f}초 전", f.jpeg) for i, f in enumerate(frames, 1)]
 
     def sheet(self, frames: list[Frame], cols: int = 4, cell_width: int = 480) -> bytes | None:
         """모아 보기 한 장 (왼쪽 위부터 시간 순, 칸 아래 '-4.5s')."""

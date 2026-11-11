@@ -782,7 +782,7 @@ def test_small_changing_window_does_not_trigger_scene_checks(qapp, tmp_path):
 
 
 
-def test_dense_watching_sends_the_last_seconds_as_one_sheet(qapp, tmp_path):
+def test_dense_watching_sends_the_last_seconds_in_order(qapp, tmp_path):
     from watch.modes import Mode as _Mode
 
     game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
@@ -798,14 +798,38 @@ def test_dense_watching_sends_the_last_seconds_as_one_sheet(qapp, tmp_path):
     w.sampler.set_active = lambda on: None  # 테스트에선 뒤 스레드를 켜지 않음
     t["now"] = 5.0
     w.tick()
-    assert comp.history_seen and comp.judged  # 판단에 흐름 모음이 같이 감
-    from io import BytesIO
-
-    sheet = Image.open(BytesIO(comp.history_seen))
-    assert sheet.width == 4 * 360  # 4칸씩, 작게
-    assert comp.line_history == comp.history_seen  # 대사에도 같이
+    hist = comp.history_seen
+    assert [label.split(")")[0] for label, _ in hist] == [f"({i}/10" for i in range(1, 11)]  # 순서대로 번호
+    assert hist[0][0].endswith("5.0초 전") and hist[-1][0].endswith("0.5초 전")
+    assert comp.line_history == hist  # 대사에도 같이
     w.cfg.dense = "off"
     assert not w.dense_active(w.mode) and w.interval_for(w.mode) == 20
+
+
+def test_sudden_change_is_judged_without_waiting(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+
+    game = _Mode("사이퍼즈", processes=["cy.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40)] * 30, modes=[game],
+                                   window=WindowInfo("C", "cy.exe", (0, 0, 1900, 1000)))
+    w.cfg.dense = "game"
+    w.sampler.set_active = lambda on: None
+    w.sampler.active = True
+    vals = iter([40, 40, 40, 200, 200, 200])
+    w.sampler.grab = lambda: _img(next(vals))
+    w.update_mode()
+    w.tick()  # 처음 판단 (t=0)
+    assert len(comp.judged) == 1
+    for i in range(1, 4):  # 0.5초마다, 1.5초째에 확 바뀜
+        t["now"] = i * 0.5
+        w.sampler.capture_once()
+    w._check_spike()  # 아직 판단 뒤 2초가 안 됨
+    assert len(comp.judged) == 1
+    t["now"] = 2.5
+    w.sampler.capture_once()
+    w._check_spike()  # 5초를 기다리지 않고 바로 (말을 쉬는 중이어도 흐름은 봄)
+    assert len(comp.judged) == 2
+
 
 
 def test_sampler_keeps_recent_seconds_and_measures_motion(tmp_path):

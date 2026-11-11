@@ -77,7 +77,8 @@ JUDGE_RULES = """너는 바탕화면 캐릭터의 '말 걸지 판단' 담당이�
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다.
 - situation 에는 화면에 글자로 보이는 핵심 이름·용어(캐릭터·지명·적 이름, 大破·進撃 같은 게임 용어)를 원문 그대로 넣는다.
   한자·일본어 일반 단어는 원문 옆 괄호에 뜻이 통하는 우리말을 붙인다(예: 南瓜(호박)). 한국어 한자음(남과)으로 옮기지 않는다.
-- '지난 몇 초 흐름' 사진이 함께 오면 그걸로 방금 벌어진 일(피함·맞음·죽음·처치·연출)을 본다. 지금 화면 한 장만 보고 짐작하지 않는다.
+- '지난 몇 초 흐름' 사진들이 함께 오면 번호 순서((1)이 먼저, 마지막이 최근 → 그다음 지금 화면)대로 이어 보고 방금 벌어진 일
+  (피함·맞음·죽음·처치·연출)을 판단한다. 순서를 거꾸로 읽지 않는다. 지금 화면 한 장만 보고 짐작하지 않는다.
 - read_box: 말할 거리가 화면 속 작은 글씨(대사·자막·퀘스트 설명·채팅·아이템 설명 등)에 있는데 이 크기로는 읽기 어려우면,
   그 부분 위치를 [왼쪽, 위, 오른쪽, 아래] 로 적는다 (화면 전체를 0~1 로 본 비율, 예: [0.05, 0.7, 0.6, 0.95]). 아니면 빈 배열.
 - 메신저(카카오톡 등) 대화가 보이면 흐름만 파악한다. 약속·일정, 주인님이 고민·질문하는 것, 도움이 될 정보가 있을 때만 speak=true.
@@ -823,12 +824,21 @@ class Companion:
                          + "\n".join(f"- {r}" for r in dont))
         return ("\n\n" + "\n\n".join(parts)) if parts else ""
 
-    def _history_blocks(self, history: bytes | None) -> list[dict]:
+    def _history_blocks(self, history) -> list[dict]:
+        """촘촘히 보기의 지난 몇 초: [(라벨, jpeg), …] 오래된 것부터 (예전 형식: 한 장에 모은 사진 bytes)."""
         if not history:
             return []
-        return [{"type": "text", "text": "(지난 몇 초 흐름 — 0.5초 간격으로 찍은 것을 왼쪽 위부터 시간 순으로 모음, 칸 아래 '-4.5s' = 4.5초 전. "
-                                         "'방금' 무슨 일이 있었는지는 여기서 본다. 다음 사진이 지금 화면)"},
-                self._image_block(history)]
+        if isinstance(history, (bytes, bytearray)):
+            return [{"type": "text", "text": "(지난 몇 초 흐름 — 왼쪽 위부터 시간 순으로 모은 한 장. 다음 사진이 지금 화면)"},
+                    self._image_block(bytes(history))]
+        blocks: list[dict] = [{"type": "text", "text": (
+            f"[지난 몇 초 흐름: 0.5초쯤 간격으로 찍은 {len(history)}장을 시간 순서대로 보낸다. (1)이 가장 먼저, "
+            f"({len(history)})이 가장 최근이고, 그다음에 오는 큰 사진이 '지금 화면'이다. 번호 순서대로 무슨 일이 이어졌는지 본다]")}]
+        for label, jpeg in history:
+            blocks.append({"type": "text", "text": label})
+            blocks.append(self._image_block(jpeg))
+        blocks.append({"type": "text", "text": "(지금 화면)"})
+        return blocks
 
     def _focus_blocks(self, focus: bytes | None, label: str = "") -> list[dict]:
         if not focus:

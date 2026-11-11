@@ -87,6 +87,7 @@ class WatchConfig:
     dense: str = "game"
     dense_interval: float = 0.5
     dense_batch: float = 5.0
+    spike_gap: float = 2.0  # 화면이 확 바뀌면 5초를 기다리지 않고 바로 판단 (판단 사이 최소 간격)
 
 
 @dataclass
@@ -190,6 +191,8 @@ class ScreenWatcher(QObject):
         self.stats = {"ticks": 0, "skipped_same": 0, "judged": 0, "spoke": 0, "reviews": 0, "errors": 0}
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.tick)
+        self.fast_timer = QTimer(self)  # 촘촘히 보기: 0.5초마다 '확 바뀌었나'만 보고 바로 판단 (비용 없음)
+        self.fast_timer.timeout.connect(self._check_spike)
 
     # ------------------------------------------------------------ 캡처 대상
 
@@ -225,9 +228,11 @@ class ScreenWatcher(QObject):
     def set_enabled(self, on: bool) -> None:
         if on and not self.timer.isActive():
             self.timer.start(round(self.cfg.tick_seconds * 1000))
+            self.fast_timer.start(500)
             self.status.emit("화면 보기 켜짐")
         elif not on and self.timer.isActive():
             self.timer.stop()
+            self.fast_timer.stop()
             self.sampler.set_active(False)
             self.status.emit("화면 보기 꺼짐")
 
@@ -299,6 +304,19 @@ class ScreenWatcher(QObject):
         if not mode.is_game and self._quiet_streak >= 3:
             return min(max(base, 300.0), base * 2 ** min(5, self._quiet_streak // 3))
         return base
+
+    def _spiked(self) -> bool:
+        """판단한 뒤로 화면이 확 바뀐 적이 있고, 판단 사이 최소 간격이 지났는가."""
+        at = self.sampler.spike_at
+        if at is None or (self.last_judged is not None and at <= self.last_judged):
+            return False
+        return self.last_judged is None or self.clock() - self.last_judged >= self.cfg.spike_gap
+
+    def _check_spike(self) -> None:
+        """0.5초마다: 확 바뀌었으면 다음 박자(5초)를 기다리지 않고 바로 확인한다."""
+        if self.sampler.active and not self.running_job and self._spiked():
+            self.last_check = None
+            self.tick()
 
     def dense_active(self, mode: Mode) -> bool:
         return self.cfg.dense == "always" or (self.cfg.dense == "game" and mode.is_game)
@@ -410,7 +428,9 @@ class ScreenWatcher(QObject):
         if self.last_check is not None and now - self.last_check < sample:
             return
         # 긴급 경고·총평이 없는 모드는 쉬는 시간 동안 아예 보지 않는다 (판단 비용도 0). 복기 모드는 장면을 계속 모은다
-        if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result or self.reviewing(mode)):
+        # 촘촘히 보기 중엔 말을 쉬는 동안에도 흐름은 계속 본다 (판 기록·위험 경고용, 말은 쉬는 시간이 지나야)
+        if self.in_cooldown(mode) and not (mode.urgent or mode.review_on_result or self.reviewing(mode)
+                                           or self.dense_active(mode)):
             return
         self.last_check = now
         self._launch(self._work, None)
@@ -581,16 +601,17 @@ class ScreenWatcher(QObject):
         recent = self.sampler.recent(self.cfg.dense_batch + 0.6) if self.dense_active(mode) else []
         if len(recent) >= 2:  # 그 사이 움직임도 변화로 친다 (지금 화면이 처음과 같아도 중간에 일이 있었을 수 있음)
             changed = max(changed, self.sampler.motion(recent))
-        due = since is None or since >= self.interval_for(mode)  # 확인 간격이 지남
+        due = since is None or since >= self.interval_for(mode) or (bool(recent) and self._spiked())  # 확인 간격이 지남·확 바뀜
         # 장면 전환은 큰 화면이 크게 바뀌고 멈췄을 때만 (작은 창 속 영상·채팅이 계속 바뀌는 건 확인 간격대로)
         scene = changed_main >= self.cfg.scene_change and settled and (since is None or since >= self.cfg.event_gap)
         if not stale and not (changed >= self.cfg.change_threshold and (due or scene)):
             self.stats["skipped_same"] += 1  # 그대로이거나, 바뀌었지만 아직 확인 간격 전 (다음 살펴보기 때 다시)
             return None
         self._stage("judge")  # 이미 버린 확인이면 여기서 멈춤 (아래 상태를 바꾸지 않게)
-        history = self.sampler.sheet(recent, cell_width=360) if len(recent) >= 3 else None  # 작게 (판단엔 흐름만 보면 됨)
+        # AI 에겐 순서가 분명하게 '(1/10) 4.5초 전'… 따로따로, 화면 기억엔 한 장으로 모아 저장
+        history = self.sampler.ordered(recent) if len(recent) >= 3 else None
         self._current_history = history
-        shot.history = history
+        shot.history = self.sampler.sheet(recent, cell_width=360) if history else None
         self.last_thumb = shot.thumb
         self.last_focus_thumb = shot.focus_thumb
         self.frames.append((self.clock(), shot.jpeg))
