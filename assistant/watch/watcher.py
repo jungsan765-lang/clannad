@@ -770,6 +770,7 @@ class ScreenWatcher(QObject):
         self._current_captions = self.sampler.captions(self.cfg.dense_batch + 3) if self.dense_active(mode) else []
         notes = list(session.notes) if session else (list(self.flow) or None)
         shot = self._shot()
+        self._shot_at = self.clock()  # 이 장면을 찍은 때 (말이 나갈 때쯤 얼마나 지났는지 알려 주려고)
         if question is not None:
             self.last_thumb = shot.thumb
             self._remember(shot, mode)
@@ -939,6 +940,9 @@ class ScreenWatcher(QObject):
             kwargs.setdefault("history", self._current_history)
         if self._current_captions:
             kwargs.setdefault("captions", self._current_captions)
+        at = getattr(self, "_shot_at", None)
+        if at is not None:
+            kwargs.setdefault("age", max(0.0, self.clock() - at))
         return self.companion.screen_line(*args, **kwargs)
 
     def _done(self, reply) -> None:

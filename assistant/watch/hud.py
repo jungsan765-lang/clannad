@@ -2,8 +2,10 @@
 체력 막대는 길이를 재서 '크게 깎임·위험'을 바로 알아챈다 (돈 안 듦).
 
 - 0.5초마다 찍을 때 같이 불린다. 글자 자리는 1.5초마다 바뀌었는지만 보고, 바뀌었으면 글자 인식을 뒤 스레드에서.
-- 새 글에 '완료·획득·처치·레벨…' 같은 말이 있거나 체력이 확 깎이면 alert_at 을 찍어 5초를 기다리지 않고 바로 판단하게 한다.
-- 막대는 채도 높은 색이 칠해진 칸의 비율을 재고, 그 게임에서 본 가장 긴 길이를 100% 로 본다 (틀릴 수 있다고 함께 적는다).
+- 새 글에 '완료·획득·처치·레벨…' 같은 말이 있으면 alert_at 을 찍어 5초를 기다리지 않고 바로 판단하게 한다.
+- 막대는 채도 높은 색이 왼쪽부터 이어서 칠해진 길이를 재고, 그 게임에서 본 가장 긴 길이를 100% 로 본다.
+  체력은 몇 초 만에 바뀌어서 다니카가 말할 때쯤이면 이미 지나 있다 → 판단을 부르지 않고 '참고'로만 붙인다
+  ('방금 크게 깎였다' 정도). 막대가 숨으면(붉은사막처럼 평소엔 안 보이는 게임) 0% 가 아니라 '안 보임'으로 본다.
 """
 
 from __future__ import annotations
@@ -28,15 +30,20 @@ ALERT = re.compile(r"완료|달성|획득|처치|격파|처형|레벨|승급|사
                    r"complete|acquired|obtained|defeat|slain|level ?up|unlock|legendary|epic|rare|victory|new", re.I)
 
 
-def bar_fill(img: Image.Image) -> float:
-    """막대처럼 보이는 자리에서 색이 칠해진 칸의 비율 (0~1). 가운데 줄들만 본다."""
+def bar_fill(img: Image.Image) -> float | None:
+    """막대에서 왼쪽부터 이어서 색이 칠해진 길이 (0~1). 막대처럼 안 보이면(숨었거나 풍경) None. 가운데 줄들만 본다."""
     small = img.convert("RGB").resize((200, max(4, round(img.height * 200 / max(1, img.width)))),
                                       Image.Resampling.BILINEAR)
     hsv = np.asarray(small.convert("HSV"), dtype=np.int16)
     h = hsv.shape[0]
     band = hsv[int(h * 0.3): max(int(h * 0.3) + 1, int(h * 0.7))]
-    colored = (band[..., 1] > 90) & (band[..., 2] > 80)
-    return float((colored.mean(axis=0) >= 0.5).mean())
+    cols = ((band[..., 1] > 90) & (band[..., 2] > 80)).mean(axis=0) >= 0.5
+    if not cols.any():
+        return None  # 색이 하나도 없음: 막대가 숨었거나 정말 바닥 (구분 못 하니 '안 보임')
+    first, last = int(np.argmax(cols)), len(cols) - 1 - int(np.argmax(cols[::-1]))
+    if first > len(cols) * 0.12 or cols[first:last + 1].mean() < 0.85:
+        return None  # 왼쪽부터 이어서 칠해진 게 아님 → 막대가 아니라 풍경·다른 것
+    return (last + 1) / len(cols)
 
 
 class _Bar:
@@ -44,8 +51,15 @@ class _Bar:
         self.max_raw = 0.0
         self.raws: deque[float] = deque(maxlen=3)
         self.history: deque[tuple[float, float]] = deque(maxlen=40)  # (시각, 0~1)
+        self.hidden_since: float | None = None  # 막대가 안 보이기 시작한 때
 
-    def update(self, raw: float, t: float) -> float | None:
+    def update(self, raw: float | None, t: float) -> float | None:
+        if raw is None:
+            if self.hidden_since is None:
+                self.hidden_since = t
+            self.raws.clear()
+            return None
+        self.hidden_since = None
         self.raws.append(raw)
         smooth = sorted(self.raws)[len(self.raws) // 2]
         self.max_raw = max(self.max_raw, smooth)
@@ -56,7 +70,7 @@ class _Bar:
         return level
 
     def level(self) -> float | None:
-        return self.history[-1][1] if self.history else None
+        return self.history[-1][1] if self.history and self.hidden_since is None else None
 
     def before(self, t: float, seconds: float) -> float | None:
         old = [lv for tt, lv in self.history if t - seconds - 0.6 <= tt <= t - seconds + 0.6]
@@ -121,12 +135,9 @@ class HudReader:
             return
         two_ago = bar.before(t, 2.0)
         who = "보스·적 체력" if "적" in name or "보스" in name else name
+        # 참고로만: 판단을 부르지 않는다 (말할 때쯤이면 이미 지나간 값)
         if two_ago is not None and two_ago - level >= 0.25 and not self._recent(name, "확 깎임", t, 3):
-            self._event(t, name, f"{who} 확 깎임 (약 {two_ago * 100:.0f}% → {level * 100:.0f}%)", alert=True)
-        elif before > 0.2 >= level and not self._recent(name, "위험", t, 10):
-            self._event(t, name, f"{who} 위험 (약 {level * 100:.0f}%)", alert=True)
-        elif before > 0.03 >= level and not self._recent(name, "바닥", t, 10):
-            self._event(t, name, f"{who} 바닥남 (쓰러짐·처치일 수 있음)", alert=True)
+            self._event(t, name, f"{who} 확 깎였었음 (약 {two_ago * 100:.0f}% → {level * 100:.0f}%)")
 
     def _recent(self, name: str, word: str, t: float, seconds: float) -> bool:
         with self._lock:
@@ -178,10 +189,13 @@ class HudReader:
         for name, bar in self.bars.items():
             lv = bar.level()
             if lv is not None:
-                parts.append(f"{name} 지금 약 {lv * 100:.0f}%")
+                parts.append(f"{name} 마지막으로 잰 값 약 {lv * 100:.0f}%")
+            elif bar.history:
+                parts.append(f"{name} 지금 안 보임")
         if not parts:
             return ""
-        return "[화면 정보 (이 PC 가 글자 인식·막대 길이로 읽은 것, 틀릴 수 있음)] " + " / ".join(parts)
+        return ("[화면 정보 — 참고용 (이 PC 가 글자 인식·막대 길이로 읽은 것, 틀릴 수 있음. 체력 같은 값은 몇 초 만에 바뀌니 "
+                "말할 때의 상태로 여기지 않는다)] " + " / ".join(parts))
 
 
 def _crop(img: Image.Image, box) -> Image.Image | None:

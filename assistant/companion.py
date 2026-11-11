@@ -77,6 +77,8 @@ JUDGE_RULES = """너는 바탕화면 캐릭터의 '말 걸지 판단' 담당이�
   할 말이 '화면 글자 읽어 주기'나 '이거 하세요' 밖에 없을 때, 최근에 한 말과 비슷할 때, 확실히 안 보여서 추측해야 할 때.
 - situation: 지금 화면이 무엇인지 한국어 한 문장(기록용이니 구체적으로). point: 말한다면 어떤 반응을 할지 한 문장 —
   감정(놀람·감탄·안타까움·웃음)·의견·장난·공감·질문 중 하나. 할 일 지시나 화면 글자 옮기기는 point 가 될 수 없다.
+  체력·쿨타임·위치처럼 몇 초 만에 바뀌는 '지금 상태'에 대한 경고('체력이 얼마 남았으니 조심')도 point 가 될 수 없다 —
+  말이 나갈 때쯤이면 이미 지나 있다. 이미 벌어진 일(크게 맞음, 아슬아슬하게 살아남음)에 대한 반응만 (즉시 알릴 상황은 urgent 로).
 - 모드 설명의 '조언·코칭' 기준은 코칭(분석·복기)을 켰을 때만 조언 거리로 쓴다. 평소엔 반응할 순간을 고르는 참고로만.
 - scene: playing(게임 플레이·작업 중), result(게임 결과 화면), pick(대전 전 캐릭터 고르는 화면·밴픽), menu(로비·메뉴),
   loading(로딩), cutscene(컷신·대화 장면), other.
@@ -151,7 +153,8 @@ SCREEN_TASK = """[화면 보고 말 걸기 — 옆에서 같이 보는 말동무
 - 하지 않는 것: 화면 글자·퀘스트 목표·안내·거리·수치·버튼을 읽어 주기('~하라는 안내가 떠 있네요', '438m 남았네요'),
   할 일 지시·조언('~부터 처리해 두시죠', '~하세요'), 뻔한 상황 설명('전투 중이시네요', '영상을 보시네요').
 - 정보·조언은 주인님이 물었을 때만 한다(코칭·경고는 따로 부른다). 주인님이 '챙겨 봐 달라'고 한 것은 물은 것과 같다.
-  진짜 위험한 순간의 짧은 경고도 해도 된다.
+- 네 말은 장면보다 늦게 나간다(아래 '이 장면은 약 N초 전'). 체력·쿨타임·위치처럼 몇 초 만에 바뀌는 지금 상태를 전제로 한
+  경고·지시('체력 얼마 안 남았어요, 조심하세요')는 하지 않는다 — 이미 지나 있다. 지나간 일로 말한다('방금 그거 아슬아슬했네요').
 - 한 문장, 길어도 두 문장. 말투는 성격 파일 그대로 캐릭터답게, 분위기는 채팅처럼 가볍고 솔직하게. 같은 말버릇·감탄을 반복하지 않는다.
 - 최근에 한 말과 비슷하면 speak 는 false. 성격 파일의 '꼭 필요할 때만'보다 이 지시가 우선한다.
 - 확실히 보이지 않는 건 추측하지 않는다.
@@ -1220,7 +1223,8 @@ class Companion:
                     question: str | None = None, now: datetime | None = None, mode=None,
                     session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None,
                     focus: bytes | None = None, focus_label: str = "", pick: bool = False,
-                    history: bytes | None = None, captions=None, brain: dict | None = None) -> Reply:
+                    history: bytes | None = None, captions=None, brain: dict | None = None,
+                    age: float | None = None) -> Reply:
         """화면을 보고 캐릭터 말투로 한마디.
 
         question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
@@ -1240,6 +1244,9 @@ class Companion:
             lines.append(layout)
         if note and note.get("urgent"):
             lines.append("즉시 알릴 상황이다. 짧고 분명하게 경고한다. speak 는 true.")
+        elif age is not None and not question:
+            lines.append(f"[이 장면은 약 {age:.0f}초 전 것이다 — 네 말이 나갈 땐 {age + 5:.0f}초쯤 지나 있다. 지나간 일로 말하고, "
+                         "지금 상태를 전제로 한 경고·지시는 하지 않는다]")
         rules = self.rules_text(mode)
         if rules:
             lines.append(rules.strip())

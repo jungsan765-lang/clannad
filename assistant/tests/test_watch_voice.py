@@ -78,7 +78,9 @@ class FakeCompanion:
         return {"lines": ["도박사: 밑장 빼다 걸렸네"], "summary": "속임수가 들통남"}, 0.001
 
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False,
-                    focus=None, focus_label="", pick=False, fast=None, history=None, captions=None, brain=None):
+                    focus=None, focus_label="", pick=False, fast=None, history=None, captions=None, brain=None,
+                    age=None):
+        self.line_age = age
         self.line_history = history
         self.line_captions = captions
         self.line_brain = brain
@@ -1507,3 +1509,23 @@ def test_story_reaches_judge_and_speaker(qapp, tmp_path):
     assert comp.context_seen == "[맥락 담당] 도박판 속임수가 들통남"
     assert comp.line_brain["context"] == "[맥락 담당] 도박판 속임수가 들통남"
     assert "- [맥락 담당] 도박판 속임수가 들통남" in Companion.brain_text(comp.line_brain)
+
+
+def test_late_lines_talk_about_the_past_not_current_hp(qapp, tmp_path):
+    from watch import capture as cap
+
+    w, comp, said, t, _ = _watcher(tmp_path)
+    w.tick()
+    assert comp.line_age is not None and comp.line_age >= 0  # 대사 담당에게 장면이 몇 초 전 것인지
+    fake = FakeAnthropic([{"speak": True, "message": "방금 그거 아슬아슬했네요.", "emotion": "surprised"}])
+    c = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), None,
+                  chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    shot = cap.to_jpeg(Image.new("RGB", (640, 360)), 80)
+    c.screen_line(shot, "사이퍼즈", {"situation": "교전", "point": "감탄"}, model="claude-sonnet-5-5", age=14.0)
+    text = fake.calls[-1]["messages"][-1]["content"][-1]["text"]
+    assert "이 장면은 약 14초 전 것이다" in text and "19초쯤 지나 있다" in text
+    assert "몇 초 만에 바뀌는 지금 상태를 전제로 한" in fake.calls[-1]["messages"][-1]["content"][-1]["text"] or \
+        "몇 초 만에 바뀌는" in "".join(b["text"] for b in fake.calls[-1]["system"])
+    from companion import JUDGE_RULES
+
+    assert "'체력이 얼마 남았으니 조심'" in JUDGE_RULES

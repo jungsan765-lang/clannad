@@ -24,12 +24,12 @@ def _screen(hp: float, quest_shade: int = 40):
 
 
 def test_bar_fill_measures_colored_length():
-    for hp in (1.0, 0.5, 0.2):
+    for hp in (1.0, 0.5, 0.2, 0.05):
         img = _screen(hp).crop((38, 972, 518, 1015))
         assert abs(bar_fill(img) - hp) < 0.08
 
 
-def test_hp_drop_and_danger_trigger_right_away():
+def test_hp_is_only_a_note_and_hidden_bar_is_not_zero():
     t = {"now": 0.0}
     hud = HudReader(None, clock=lambda: t["now"])
     hud.set_regions([{"name": "체력바", "kind": "hp", "box": HP_BOX}, {"name": "미니맵", "kind": "minimap", "box": [0.8, 0, 1, 0.2]}])
@@ -38,11 +38,32 @@ def test_hp_drop_and_danger_trigger_right_away():
         t["now"] = i * 0.5
         hud.feed(_screen(hp), t["now"])
     texts = [x for _, _, x in hud.recent(100)]
-    assert any("확 깎임" in x for x in texts)  # 2초 안에 25% 넘게
-    assert any("위험" in x for x in texts) and hud.alert_at is not None
+    assert any("확 깎였었음" in x for x in texts)  # 참고로 적기만
+    assert hud.alert_at is None  # 체력으로는 판단을 부르지 않음 (말할 때쯤이면 이미 지나 있음)
+    assert not any("위험" in x or "바닥" in x for x in texts)
     import re
 
-    assert 12 <= int(re.search(r"체력바 지금 약 (\d+)%", hud.text()).group(1)) <= 18
+    text = hud.text()
+    assert "참고용" in text and "말할 때의 상태로 여기지 않는다" in text
+    assert 12 <= int(re.search(r"체력바 마지막으로 잰 값 약 (\d+)%", text).group(1)) <= 18
+    plain = Image.new("RGB", (1920, 1080), (60, 70, 60))  # 붉은사막처럼 평소엔 막대가 숨음
+    for i in range(14, 20):
+        t["now"] = i * 0.5
+        hud.feed(plain, t["now"])
+    assert hud.bars["체력바"].level() is None and "체력바 지금 안 보임" in hud.text()
+    assert not any("바닥" in x for _, _, x in hud.recent(100))  # 숨은 걸 0% 로 보지 않음
+    t["now"] = 10.5
+    hud.feed(_screen(0.8), t["now"])  # 다시 보이면 다시 잼
+    assert hud.bars["체력바"].level() is not None
+
+
+def test_scenery_is_not_mistaken_for_a_bar():
+    img = Image.new("RGB", (480, 40), (20, 20, 20))
+    d = ImageDraw.Draw(img)
+    d.rectangle((150, 0, 200, 40), fill=(200, 40, 40))  # 가운데 빨간 덩어리 (꽃·불빛)
+    d.rectangle((300, 0, 330, 40), fill=(40, 200, 40))
+    assert bar_fill(img) is None
+    assert bar_fill(Image.new("RGB", (480, 40), (20, 20, 20))) is None  # 색이 없음 → 안 보임
 
 
 def test_quest_and_notice_text_is_read_when_it_changes():
