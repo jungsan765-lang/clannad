@@ -25,6 +25,13 @@ persona = "character/sandrone/persona.md"
 lore = "character/sandrone/lore.md"
 lore_dirs = ["character/sandrone", "character/danika"]   # 원신 사전(캐릭터 일람·노드크라이)은 다니카 것을 같이
 
+[characters.ronova]
+name = "로노바"
+folder = "character/ronova_still"
+persona = "character/ronova/persona.md"
+lore = "character/ronova/lore.md"
+lore_dirs = ["character/ronova", "character/danika"]
+
 [ai]
 chat_model = "claude-opus-5-5"     # 대화
 memory_model = "claude-opus-5-5"   # 장기기억 정리 (하루 몇 번뿐)
