@@ -219,6 +219,7 @@ class AssistantApp(QObject):
         self._genshin_busy = False
         self._last_mode = "평소"
         self.watcher.mode_changed.connect(self._on_mode_changed)
+        self.watcher.mode_changed.connect(lambda _: self.check_away() if self._away_since is not None else None)
         self._screen_searches: list[float] = []
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
         self.watcher.missed.connect(self._on_screen_missed)
@@ -358,6 +359,11 @@ class AssistantApp(QObject):
         for game in self.progress.games:  # 하는 중이거나 말에 나온 게임의 진행 (스포일러 경계)
             if (mode == game or game in text) and self.progress.text_for(game):
                 infos.append(self.progress.prompt_text(game))
+        if "화면" in text:
+            reason = self.screen_pause_reason()
+            state = ("꺼져 있음" if not self.watcher.enabled else f"쉬는 중 — {reason}" if reason
+                     else f"켜져 있음 ({self.watcher.status_text()})")
+            infos.append(f"[지금 네 화면 보기 상태: {state}. 주인님이 화면을 왜 안 보냐고 하면 이걸로 설명한다]")
         if PC_WORDS.search(text) and self.pc_monitor.last is not None:  # "컴퓨터 왜 이렇게 느려?"
             infos.append(pc_status_text(self.pc_monitor.last))
         for info in infos:
@@ -804,6 +810,32 @@ class AssistantApp(QObject):
 
     # ------------------------------------------------------------ 화면 보기
 
+    def screen_pause_reason(self) -> str:
+        """화면 보기를 켜 놨는데 지금 쉬는 이유 (없으면 빈 문자열). 캐릭터 아래 표시·대화에 쓴다."""
+        if not self.watcher.enabled:
+            return ""
+        if self._away_since is not None:
+            return "자리 비움 — 마우스나 키보드를 만지면 다시 봐요"
+        limit = int(self.pref("screen.daily_krw", 3000) or 0)
+        used = self.ledger.krw(self.ledger.day_kinds_usd(SCREEN_KINDS))
+        if limit and used >= limit:
+            return f"오늘 화면 한도({limit:,}원)를 다 씀 ({used:,}원) — 설정 '화면 보기'에서 올리면 바로 다시 봐요"
+        if settings_flag(self.settings, "screen.stop_when_over_budget", True):
+            budget = self.budget_usd()
+            if budget and self.ledger.month_usd() >= budget:
+                return f"이번 달 예산(${budget:,.0f})을 넘음 — 설정 '비용'에서 올리면 다시 봐요"
+        word = self.watcher.blocked_word(self.watcher.process, self.watcher.window_title)
+        if word:
+            return f"보지 않기로 한 창('{word}')이 앞에 있음"
+        return ""
+
+    def _update_pause_status(self) -> None:
+        reason = self.screen_pause_reason()
+        if reason:
+            self.status.begin("screen_pause", "화면 쉼: " + reason.split(" — ")[0], elapsed=False)
+        else:
+            self.status.end("screen_pause")
+
     def _screen_allowed(self) -> bool:
         if self.busy or self.bubble.isVisible():  # 대화 중이거나 말풍선이 떠 있으면 다음 기회에
             return False
@@ -814,6 +846,7 @@ class AssistantApp(QObject):
             today = datetime.now().date().isoformat()
             if self.pref("screen.daily_limit_told", "") != today:
                 self.set_pref("screen.daily_limit_told", today)
+                self._update_pause_status()
                 self.bubble.show_text(f"오늘 화면 보기 한도({limit:,}원)를 다 써서 내일까지 화면 보기는 쉴게요. 대화와 F8·F10 은 "
                                       "그대로 돼요. 한도는 설정 창 '화면 보기'에서 바꿀 수 있어요.", self.anchor(), system=True,
                                       seconds=12)
@@ -1154,6 +1187,7 @@ class AssistantApp(QObject):
         if "screen.daily_krw" in changed:
             self.set_pref("screen.daily_krw", int(changed["screen.daily_krw"]))
             self.set_pref("screen.daily_limit_told", "")
+            self._update_pause_status()
         if "screen.memory" in changed:
             self.screen_log.enabled = bool(changed["screen.memory"])
         if "screen.memory_days" in changed or "screen.memory_gb" in changed:
@@ -1615,19 +1649,27 @@ class AssistantApp(QObject):
     LONG_AWAY_HOURS = 3  # 이만큼 비웠다 돌아오면 (자고 일어남) 오늘 브리핑
 
     def check_away(self) -> None:
-        """30초마다: 자리 비움이면 화면 보기를 쉬고, 오래 비웠다 돌아오면 그때 브리핑한다."""
+        """30초마다: 자리 비움이면 화면 보기를 쉬고, 오래 비웠다 돌아오면 그때 브리핑한다. 쉬는 이유 표시도 갱신."""
+        self._update_pause_status()
         idle = self.idle_seconds()
         now = self.clock()
+        if self._away_since is not None and self.watcher.mode.is_game:  # 패드로만 게임해도 자리 비움 아님
+            log.info("게임 중이라 자리 비움을 풂")
+            self._away_since = None
+            self._update_pause_status()
+            return
         if self._away_since is None:
             if (idle >= self.AWAY_MINUTES * 60 and not self.watcher.mode.is_game
                     and self.pref("assist.pause_when_away", True)):
                 self._away_since = now - idle
                 log.info("자리 비움 (%.0f분째 입력 없음) → 화면 보기 쉼", idle / 60)
+                self._update_pause_status()
             return
         if idle < 60:  # 돌아옴
             hours = (now - self._away_since) / 3600
             self._away_since = None
             log.info("돌아옴 (%.1f시간 비움)", hours)
+            self._update_pause_status()
             if hours >= self.LONG_AWAY_HOURS:
                 self.briefing(away_hours=hours)
 

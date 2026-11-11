@@ -1192,3 +1192,26 @@ def test_failed_diary_is_not_retried_every_two_minutes(qapp, tmp_path, built):
     assert len(fake.calls) == 2  # 두 번까지만 시도
     assert "쓰지 못한 날" in (tmp_path / "data" / "diary" / f"{day}.md").read_text(encoding="utf-8")
     a.quit()
+
+
+def test_away_clears_when_gaming_and_pause_reason_is_shown(qapp, tmp_path, built):
+    from watch.modes import Mode
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    t = {"now": 0.0, "idle": 25 * 60}
+    a.clock = lambda: t["now"]
+    a.idle_seconds = lambda: t["idle"]
+    a.check_away()
+    assert a._away_since is not None and "자리 비움" in a.screen_pause_reason()
+    assert "화면 쉼: 자리 비움" in a.status.current_text()
+    a.watcher.mode = Mode("붉은사막", is_game=True)  # 패드로만 게임 (마우스·키보드 입력 없음)
+    a.check_away()
+    assert a._away_since is None and a.screen_pause_reason() == ""
+    assert "화면 쉼" not in a.status.current_text()
+    a.ledger.record("claude-haiku-5-5", {"input_tokens": 30_000_000}, "judge")  # 3달러 ≈ 4,200원
+    assert "오늘 화면 한도(3,000원)" in a.screen_pause_reason()
+    a.apply_settings({"screen.daily_krw": "5000"})
+    assert a.screen_pause_reason() == ""
+    a.quit()
