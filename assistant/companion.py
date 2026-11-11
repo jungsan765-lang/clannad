@@ -1113,7 +1113,7 @@ class Companion:
 
     def _respond(self, content: list[dict], memory_text: str, now: datetime, on_partial, fast: bool | None,
                  coins_ok: bool = False) -> Reply:
-        messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
+        messages = self.memory.api_messages(self.history_turns, cache=True) + [{"role": "user", "content": content}]
         fast = self.fast if fast is None else fast
         shown = {"ok": True, "last": ""}
 
@@ -1614,7 +1614,7 @@ class Companion:
         content = self._history_blocks(history) + [self._image_block(now_img)] + self._focus_blocks(focus, focus_label) \
             + self._caption_blocks(captions) + [{"type": "text", "text": "\n".join(lines)}]
         turns = min(self.history_turns, 4) if routine else self.history_turns  # 반응 한마디엔 최근 대화 4번만
-        messages = self.memory.api_messages(turns) + [{"role": "user", "content": content}]
+        messages = self.memory.api_messages(turns, cache=True) + [{"role": "user", "content": content}]
         # 평범한 화면 대사는 한 번 더 생각하고(보탤 게 있는지) 말하게 effort 를 한 단계 올린다.
         # 나눠 보기면 담당들이 이미 정리해 줬으니 짧게 생각하고 바로 (1초라도 빨리)
         effort = "low" if pick or (routine and brain is not None) else (
@@ -1743,7 +1743,7 @@ class Companion:
         if extra:
             lines.append(extra)
         content.append({"type": "text", "text": "\n".join(lines)})
-        messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
+        messages = self.memory.api_messages(self.history_turns, cache=True) + [{"role": "user", "content": content}]
         r = self.ai.complete_json(model=self.speak_model(self.chat_model), system=self.system_blocks(), messages=messages,
                                   schema=ANALYSIS_SCHEMA, kind="result_review" if deep else "analysis",
                                   max_tokens=16000 if deep else 8000, effort="high" if deep else self.analysis_effort,

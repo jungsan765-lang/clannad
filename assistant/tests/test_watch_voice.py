@@ -254,7 +254,7 @@ def test_screen_line_quiet_and_history_alternates(tmp_path):
     msgs = fake.calls[1]["messages"]
     roles = [m["role"] for m in msgs]
     assert roles == ["user", "assistant", "user"]  # 먼저 건넨 말 앞에 자리표시 user 가 들어감
-    assert "먼저 건넨 말" in msgs[1]["content"]
+    assert "먼저 건넨 말" in msgs[1]["content"][0]["text"]
 
 
 # ---------------------------------------------------------------- 목소리

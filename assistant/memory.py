@@ -66,6 +66,7 @@ class Memory:
         self.self_category = f"{name} 자신"
         self._recent_file = "recent.json" if who == DEFAULT_WHO else f"recent_{who}.json"
         self.recent: list[dict] = self._read(self._recent_file, [])
+        self._window_start: dict[int, tuple] = {}  # 보내는 최근 대화 묶음이 어디서 시작하는지 (캐시가 맞게 가끔만 옮김)
         mem = self._read("memory.json", {})
         self.facts: list[dict] = [self._upgrade(f) for f in mem.get("facts", [])]
         self.updated: str | None = mem.get("updated")
@@ -131,10 +132,33 @@ class Memory:
     def spoken_lines(self, n: int = 5) -> list[str]:
         return [self.fix_words(m["text"]) for m in self.recent if m.get("kind") == "screen"][-n:]
 
-    def api_messages(self, turns: int) -> list[dict]:
+    @staticmethod
+    def _key(m: dict) -> tuple:
+        return m.get("time"), m.get("role"), str(m.get("text", ""))[:40]
+
+    def _window(self, turns: int) -> list[dict]:
+        """보낼 최근 대화. 한 줄 늘 때마다 앞을 한 칸씩 밀면 매번 내용이 달라져 캐시가 안 맞으니,
+        시작점을 그대로 두고 (turns 줄쯤 더 쌓이면) 그때 한 번에 옮긴다. 보내는 양은 turns*2 ~ turns*3 줄."""
+        want = turns * 2
+        n = len(self.recent)
+        if n <= want:
+            return self.recent[:]
+        key = self._window_start.get(turns)
+        if key is not None:
+            for i in range(n - 1, -1, -1):
+                if self._key(self.recent[i]) == key:
+                    if n - i <= want + max(2, turns):
+                        return self.recent[i:]
+                    break
+        start = n - want
+        self._window_start[turns] = self._key(self.recent[start])
+        return self.recent[start:]
+
+    def api_messages(self, turns: int, cache: bool = False) -> list[dict]:
         """최근 대화를 API 형식으로. user/assistant 가 번갈아 나오고 user 로 시작하게 맞춘다.
-        주인님 말 앞에는 그 말을 한 시각을 [11/10 21:30] 처럼 붙인다 (언제 한 말인지 기억하게)."""
-        items = self.recent[-turns * 2:]
+        주인님 말 앞에는 그 말을 한 시각을 [11/10 21:30] 처럼 붙인다 (언제 한 말인지 기억하게).
+        cache: 최근 대화도 캐시 (1시간) — 같은 역할이 이어진 말은 합치지 않고 칸을 나눠서, 새 말이 붙어도 앞부분이 그대로 맞게."""
+        items = self._window(turns) if turns > 0 else []
         out: list[dict] = []
         for m in items:
             role, text = m["role"], m["text"]
@@ -145,11 +169,17 @@ class Memory:
             else:  # 예전에 잘못 부른 말이 대화 기록에 남아 있으면 그걸 따라 하므로, 다니카 말은 고친 말로 바꿔서 보낸다
                 text = self.fix_words(text)
             if role == "assistant" and (not out or out[-1]["role"] == "assistant"):
-                out.append({"role": "user", "content": f"{_stamp(m.get('time'))}(주인님은 말없이 화면을 보고 있었다)"})
+                quiet = f"{_stamp(m.get('time'))}(주인님은 말없이 화면을 보고 있었다)"
+                out.append({"role": "user", "content": [{"type": "text", "text": quiet}] if cache else quiet})
             if out and out[-1]["role"] == role:
-                out[-1]["content"] += "\n" + text
+                if cache:
+                    out[-1]["content"].append({"type": "text", "text": text})
+                else:
+                    out[-1]["content"] += "\n" + text
             else:
-                out.append({"role": role, "content": text})
+                out.append({"role": role, "content": [{"type": "text", "text": text}] if cache else text})
+        if cache and out:  # 마지막 칸까지 캐시 (다음 말에선 여기까지를 싸게 읽는다)
+            out[-1]["content"][-1] = dict(out[-1]["content"][-1], cache_control={"type": "ephemeral", "ttl": "1h"})
         return out
 
     def last_time(self) -> datetime | None:
