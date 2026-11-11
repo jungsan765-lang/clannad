@@ -267,6 +267,7 @@ class AssistantApp(QObject):
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
         self.watch_cfg.eye = str(self.pref("screen.eye", "fast"))
         self.watch_cfg.rush = bool(self.pref("screen.rush", True))
+        self.watch_cfg.pick_advice = bool(self.pref("screen.pick_advice", False))  # 픽 조언 (주인님 결정: 기본 끔)
         if not self.pref("screen.fast_off_done", False):  # 주인님 결정: 빠른 모드는 효과가 작아 끔 (한 번만, 다시 켜면 그대로)
             self.set_pref("screen.fast_opus", False)
             self.set_pref("screen.fast_off_done", True)
@@ -1364,6 +1365,7 @@ class AssistantApp(QObject):
             "screen.rush": self.watch_cfg.rush,
             "screen.moment_face": bool(self.pref("screen.moment_face", True)),
             "screen.fast_opus": self.watch_cfg.fast_opus,
+            "screen.pick_advice": self.watch_cfg.pick_advice,
             "screen.sonnet_quick": self.companion.quick_lines,
             "screen.drafts": self.companion.drafts,
             "local.enabled": self.local_ai.enabled,
@@ -1452,7 +1454,7 @@ class AssistantApp(QObject):
             self.watch_cfg.scan = bool(changed["screen.scan"])
         if "screen.eye" in changed:
             self.watch_cfg.eye = str(changed["screen.eye"])
-        for key, attr in (("screen.rush", "rush"), ("screen.fast_opus", "fast_opus")):
+        for key, attr in (("screen.rush", "rush"), ("screen.fast_opus", "fast_opus"), ("screen.pick_advice", "pick_advice")):
             if key in changed:
                 setattr(self.watch_cfg, attr, bool(changed[key]))
         if "screen.sonnet_quick" in changed:

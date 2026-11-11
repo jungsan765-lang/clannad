@@ -640,7 +640,9 @@ def test_users_shorter_interval_wins_over_game_mode(qapp, tmp_path):
     w, comp, said, t, state = _watcher(tmp_path, modes=[slow],
                                        window=WindowInfo("slow", "slow.exe", (0, 0, 100, 100)))
     w.cfg.interval_seconds, w.cfg.cooldown_seconds = 10, 90
-    assert w.interval_for(slow) == 10 and w.cooldown_for(slow) == 90
+    assert w.interval_for(slow) == 10 and w.cooldown_for(slow) == 150  # 쉬는 시간은 긴 쪽 (게임 모드가 더 길면 그대로)
+    w.cfg.cooldown_seconds = 300
+    assert w.cooldown_for(slow) == 300  # 설정으로 늘리면 게임 중에도 먹힘
     w.cfg.interval_seconds = 60
     assert w.interval_for(slow) == 25  # 모드가 더 짧으면 모드 값
 
@@ -784,6 +786,16 @@ def test_pick_screen_gets_quick_advice_once(qapp, tmp_path):
     t["now"] = 11
     w.tick()  # 같은 픽 화면이 계속 보여도 또 말하지 않음
     assert len(comp.lines) == 1
+
+
+def test_pick_advice_can_be_turned_off(qapp, tmp_path):
+    cy = _game("cy", review_on_result=True, pick_advice=True)
+    pick = {"speak": False, "urgent": False, "scene": "pick", "situation": "아군: 카인, 레나 / 상대: 안 보임", "point": ""}
+    w, comp, said, t, _ = _watcher(tmp_path, notes=[dict(pick)], modes=[cy],
+                                   window=WindowInfo("C", "cy.exe", (0, 0, 1920, 1080)))
+    w.cfg.pick_advice = False  # 설정 '픽 조언' 끔
+    w.tick()
+    assert comp.lines == []  # 픽 화면이어도 조언하지 않음 (판단 담당이 말하라고 할 때만 평소처럼)
 
 
 def test_result_screen_gets_deep_review_and_signal(qapp, tmp_path):
@@ -1183,6 +1195,7 @@ def test_brain_mode_lets_helpers_look_first_and_opus_speak_last(qapp, tmp_path):
     w.cfg.eye = "careful"  # 꼼꼼히: 눈 담당이 먼저
     w.cfg.dense = "game"
     w.sampler.set_active = lambda on: None
+    w.cfg.cooldown_seconds = 60  # 쉬는 시간은 설정·모드 중 긴 쪽이라 모드와 같게
     w.update_mode()
     for i in range(11):
         t["now"] = i * 0.5
@@ -1406,6 +1419,7 @@ def test_lite_brain_uses_sonnet_for_routine_and_opus_when_it_matters(qapp, tmp_p
     w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game],
                                    window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
     w.cfg.line_quality = "brain_lite"
+    w.cfg.cooldown_seconds = 60  # 쉬는 시간은 설정·모드 중 긴 쪽이라 모드와 같게
     w.update_mode()
     w.tick()
     assert comp.line_model == "claude-sonnet-5-5" and not hasattr(comp, "perceived")  # 바로: 눈 담당 없이 Sonnet

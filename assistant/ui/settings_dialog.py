@@ -213,6 +213,8 @@ class SettingsDialog(QDialog):
         self.sonnet_quick = check("평소 한마디는 생각 없이 바로 (빨라지지만 잘못 볼 수 있음)", "screen.sonnet_quick", False,
                                   "켜면 평소 한마디(Sonnet)를 생각 없이 바로 써서 첫 글자가 빨라져요. 대신 화면에 없는 걸 "
                                   "있다고 말하는 일이 생겼어요. 물어볼 때(Opus)는 늘 생각해요.")
+        self.pick_advice = check("캐릭터 선택 화면에서 픽 조언 (사이퍼즈, 한 번에 100원쯤)", "screen.pick_advice", False,
+                                 "픽 화면이 보이면 바로 조합 추천 1~2개와 이유를 말해요. 끄면 픽 화면에서도 평소처럼만 말해요.")
         self.drafts = check("한마디 전에 후보 3개 중 성격에 맞는 걸 고르기 (조금 늦어짐)", "screen.drafts", True,
                             "화면 보고 먼저 거는 한마디를 서로 다른 결(자랑·투덜·놀리기 …)로 세 개 떠올린 뒤 캐릭터에 가장 맞는 걸 골라요. "
                             "말이 한결같지 않게 돼요. 첫 글자가 1초쯤 늦어질 수 있어요.")
@@ -235,11 +237,11 @@ class SettingsDialog(QDialog):
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         screen = page(group("말 걸기", [("", self.screen_on), ("말 거는 정도", self.chatty),
                                         ("말하는 방식", self.line_quality), ("눈 담당", self.eye), ("", self.rush),
-                                        ("", self.moment_face), ("", self.fast_opus), ("", self.sonnet_quick), ("", self.drafts),
+                                        ("", self.moment_face), ("", self.fast_opus), ("", self.sonnet_quick), ("", self.drafts), ("", self.pick_advice),
                                         ("", self.scan), ("", scan_hint)]),
                       group("보는 방법", [("촘촘히 보기", self.dense), ("볼 모니터", self.monitor),
                                           ("선명도 (글자 읽기)", self.sharp), ("확인 간격", self.interval),
-                                          ("말한 뒤 쉬는 시간", self.cooldown)]),
+                                          ("말한 뒤 쉬는 시간 (게임 중에도)", self.cooldown)]),
                       group("코칭", [("방식", self.coach), ("판 끝난 뒤 총평", self.result_depth)]),
                       group("게임 화면 위 자막", [("보일 때", self.overlay), ("위치", self.overlay_pos)]))
 
@@ -465,6 +467,7 @@ class SettingsDialog(QDialog):
             "screen.fast_opus": self.fast_opus.isChecked(),
             "screen.sonnet_quick": self.sonnet_quick.isChecked(),
             "screen.drafts": self.drafts.isChecked(),
+            "screen.pick_advice": self.pick_advice.isChecked(),
             "local.enabled": self.local_on.isChecked(),
             "local.cpu": self.local_cpu.value(),
             "local.model": self.local_model.text().strip() or "gemma3:4b",

@@ -98,6 +98,7 @@ class WatchConfig:
     rush_gap: float = 45.0
     fast_opus: bool = False  # Opus 가 말할 땐 빠른 모드 (요금 2배 — 짧은 말은 효과가 작아서 기본은 끔)
     drop_stale: bool = True  # 말이 나가기 전에 새 사건(화면 확 바뀜·화면 정보)이 생겼으면 옛 장면 얘기는 버림
+    pick_advice: bool = True  # 캐릭터 선택 화면 픽 조언 (모드가 pick_advice 일 때만, 설정에서 끔 — 주인님 기본 끔)
     calm_backoff: bool = True  # 게임 중 별일 없는 판단이 이어지면 판단 간격을 5→10→15초로 (확 바뀜·새 대사면 바로)
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
@@ -584,7 +585,9 @@ class ScreenWatcher(QObject):
         return bool(info and area and _overlaps(info.rect, area))
 
     def cooldown_for(self, mode: Mode) -> float:
-        return min(mode.cooldown_seconds, self.cfg.cooldown_seconds)
+        """말한 뒤 쉬는 시간: 설정값과 게임 모드 값 중 긴 쪽 (설정으로 늘리면 게임 중에도 먹힘 — 비용 때문에 2026-11-11 바꿈).
+        위험 경고·판 끝 총평·픽 조언·물어본 답은 쉬는 시간과 상관없이 나간다."""
+        return max(mode.cooldown_seconds, self.cfg.cooldown_seconds)
 
     def in_cooldown(self, mode: Mode) -> bool:
         return self.last_spoke is not None and self.clock() - self.last_spoke < self.cooldown_for(mode)
@@ -963,7 +966,7 @@ class ScreenWatcher(QObject):
                 return self._analyze(shot, note, mode, session.notes)
             return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode,
                                               session_notes=session.notes, review=True)
-        if (mode.pick_advice and scene == "pick" and session
+        if (self.cfg.pick_advice and mode.pick_advice and scene == "pick" and session
                 and (session.last_pick is None or now - session.last_pick > self.cfg.pick_gap)):
             session.last_pick = now  # 픽 시간은 짧으니 빠른 모드로 바로
             return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode, session_notes=notes,
