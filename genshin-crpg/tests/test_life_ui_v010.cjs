@@ -1,11 +1,11 @@
 'use strict';
 // Execute the shipped UI helpers with the real runtime; the DOM only records output.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'..'),db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json')));
+const root=path.resolve(process.env.UI_SOURCE_ROOT||path.join(__dirname,'..')),db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json')));
 let now=1900000000000,sequence=0,frame=0,restoreCalls=0,ordinaryCalls=0;
 const cancelled=[],actions=[];
 class Element {
- constructor(tag,cls='',text=''){this.tag=tag;this.className=cls;this.textContent=text;this.children=[];this.style={};this.attributes={};this.isConnected=true;this.classList={add(){},remove(){},toggle(){}};}
+ constructor(tag,cls='',text=''){this.tag=tag;this.className=cls;this.textContent=text;this.children=[];this.style={setProperty(k,v){this[k]=v;}};this.attributes={};this.isConnected=true;this.classList={add(){},remove(){},toggle(){}};}
  append(...children){this.children.push(...children);} prepend(...children){this.children.unshift(...children);} replaceChildren(...children){this.children=children;}
  setAttribute(k,v){this.attributes[k]=v;} remove(){this.isConnected=false;} focus(){} setPointerCapture(){} scrollIntoView(){}
  querySelector(){return null;}
@@ -30,25 +30,26 @@ function fresh(map='MAP_MOND_CITY'){const r=new R(db);r.newGame({name:'UI 회귀
 function test(name,fn){try{fn();results.push({name,ok:true});console.log('PASS '+name);}catch(error){results.push({name,ok:false,error:error.stack});console.error('FAIL '+name+'\n'+error.stack);}}
 
 test('actual guest and off-party combatant growth appears once in the earned-reward summary',()=>{
- const r=fresh(),gate='UI_GUEST_GATE';r.unlockCharacter('MOND_KAEYA');assert(!r.s.party.some(p=>p.active&&p.source==='MOND_KAEYA'));
+ const r=fresh(),gate='UI_GUEST_GATE';r.adminApply({op:'recruit',char:'MOND_KAEYA'});assert(!r.s.party.some(p=>p.active&&p.source==='MOND_KAEYA'));
  const guest=r.character('MOND_AMBER');r.s.guestSnapshots={[gate]:{MOND_AMBER:{...guest,level:1}}};
  r.s.runtime={id:'UI_BATTLE',storyConfig:{node_id:gate},actors:[r.player(),r.character('MOND_KAEYA'),{...guest,guest:true}]};
  const before=ctx.adventureSnapshot(),snapshot=copy(before.growth);assert.equal(snapshot['GUEST:MOND_AMBER'].guestGate,gate);assert.equal(snapshot.MOND_KAEYA.level,1);
- const permanentAmber=r.s.chars.MOND_AMBER.level;r.addXp('MOND_KAEYA',300);r.s.guestSnapshots[gate].MOND_AMBER.level=2;r.s.runtime=null;
+ const permanentAmber=r.s.chars.MOND_AMBER.level;r.addXp('MOND_KAEYA',ctx.CRPGRuntime.growthV01522.xpNext(1));r.s.guestSnapshots[gate].MOND_AMBER.level=2;r.s.runtime=null;
  const loot=ctx.receivedLoot(before,'COMBAT');assert.equal(loot.title,'레벨 업!');assert.deepEqual(copy(loot.levelUps).map(x=>[x.owner,x.from,x.to]).sort(),[['GUEST:MOND_AMBER',1,2],['MOND_KAEYA',1,2]]);
  assert.equal(r.s.chars.MOND_AMBER.level,permanentAmber);assert.equal(snapshot['GUEST:MOND_AMBER'].level,1);assert.equal(ctx.receivedLoot(ctx.adventureSnapshot(),'COMBAT'),null);
 });
 
-test('XP book level-up produces a notice with full HP; sub-threshold XP does not invent one',()=>{
+test('XP book level-up keeps existing wounds; sub-threshold XP does not invent a level notice',()=>{
  const r=fresh();r.giveItem('MAT_CHAR_EXP_WANDERER',2);r.s.global.PLAYER_HP_CURRENT=1;let before=ctx.adventureSnapshot();
  ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});let loot=ctx.receivedLoot(before,'USE_ITEM');assert.equal(loot.levelUps.length,0);assert.equal(r.s.global.PLAYER_HP_CURRENT,1);
- r.s.global.PLAYER_XP_STATE=299;before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});loot=ctx.receivedLoot(before,'USE_ITEM');
- assert.deepEqual(copy(loot.levelUps).map(x=>[x.from,x.to]),[[1,2]]);assert.equal(r.s.global.PLAYER_HP_CURRENT,r.s.global.PLAYER_HP_MAX);
+ r.s.global.PLAYER_XP_STATE=ctx.CRPGRuntime.growthV01522.xpNext(1)-1;const missing=r.s.global.PLAYER_HP_MAX-r.s.global.PLAYER_HP_CURRENT;before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});loot=ctx.receivedLoot(before,'USE_ITEM');
+ assert.deepEqual(copy(loot.levelUps).map(x=>[x.from,x.to]),[[1,2]]);assert.equal(r.s.global.PLAYER_HP_MAX-r.s.global.PLAYER_HP_CURRENT,missing);
 });
 
 test('restoring the same fishing cast clears unsaved input and delegates to the normal restore hook',()=>{
  const r=fresh('MAP_CRPG_CIDER_BANK');r.giveItem('TRPG_FISHING_ROD',1);r.giveItem(ctx.CRPGRuntime.lifeCatalog.bait,2);r.action('LIFE_START',{kind:'FISH'});now+=2200;
- ctx.updateLifeUI();const hold=walk(content).find(n=>n.tag==='button'&&n.textContent==='길게 눌러 당기기');assert(hold);hold.onpointerdown({preventDefault(){},pointerId:1});
+ // 0.16.2: fishing is a window over the page (app_life.js lifeWindow) with one «당기기» button.
+ ctx.updateLifeUI();const hold=walk(ctx.document.body).find(n=>n.tag==='button'&&n.textContent==='당기기');assert(hold);hold.onpointerdown({preventDefault(){},pointerId:1});
  assert.equal(run('fishingSession.controls.length'),1);assert.equal(run('fishingSession.holding'),true);const previousFrame=run('fishingFrame'),previousRestores=restoreCalls,job=copy(r.s.lifeJob),bait=r.itemCount(ctx.CRPGRuntime.lifeCatalog.bait);
  ctx.game=new R(db,JSON.parse(r.serialize()));ctx.restoreUIState();assert.equal(restoreCalls,previousRestores+1);assert(cancelled.includes(previousFrame));assert.equal(run('fishingSession'),null);assert.equal(run('fishingFrame'),null);
  ctx.updateLifeUI();assert.equal(run('fishingSession.id'),job.id);assert.equal(run('fishingSession.controls.length'),0);assert.equal(run('fishingSession.holding'),false);assert.equal(ctx.game.s.lifeJob.startedAt,job.startedAt);assert.equal(ctx.game.itemCount(ctx.CRPGRuntime.lifeCatalog.bait),bait);assert.equal(actions.length,0);
@@ -63,7 +64,7 @@ test('Katheryne resolves her schedule from a profile with no playable owner even
 test('Kaeya resolves his authored field contact and active party location takes precedence',()=>{
  const r=fresh('MAP_MOND_CITY'),event=r.rows('51_EVENT_DB').map(row=>ctx.parseUI(row[13])).find(d=>d.kind==='personal_event'&&d.profile_id==='PROFILE_MOND_KAEYA'&&d.map_id);
  assert(event);const meeting=ctx.characterMeetingPlace('PROFILE_MOND_KAEYA',[]);assert.equal(meeting.map,event.map_id);assert.equal(meeting.label,'현장 대화 장소');
- r.unlockCharacter('MOND_KAEYA');r.action('PARTY',{char:'MOND_KAEYA',slot:2});const together=ctx.characterMeetingPlace('PROFILE_MOND_KAEYA',[]);assert.equal(together.map,'MAP_MOND_CITY');assert.match(together.label,/함께 이동/);
+ r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.action('PARTY',{char:'MOND_KAEYA',slot:2});const together=ctx.characterMeetingPlace('PROFILE_MOND_KAEYA',[]);assert.equal(together.map,'MAP_MOND_CITY');assert.match(together.label,/함께 이동/);
 });
 
 test('save labels resolve old and new maps both during a game and on the title screen',()=>{
@@ -71,4 +72,21 @@ test('save labels resolve old and new maps both during a game and on the title s
  assert(!db['32_MAP_DB'].some(row=>row[0]==='MAP_CRPG_CIDER_BANK'));
 });
 
+test('book XP receipt names and counts active and bench recipients without player XP',()=>{
+ for(const active of [false,true]){const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});if(active)r.s.party[1]={slot:'PARTY_2',type:'CHAR',source:'MOND_KAEYA',active:true,control:'AI',tactic:'균형'};r.giveItem('MAT_CHAR_EXP_WANDERER',1);const before=ctx.adventureSnapshot(),player=copy(r.growth());ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_KAEYA'});const loot=ctx.receivedLoot(before,'USE_ITEM');assert(loot);assert.equal(loot.xpOwner,'MOND_KAEYA');assert.equal(loot.xp,50);assert.deepEqual(copy(r.growth()),player);}
+});
+test('bench companion multi-level book XP includes consumed level thresholds exactly',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.giveItem('MAT_CHAR_EXP_HERO',1);const before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_HERO',quantity:1,owner:'MOND_KAEYA'});const loot=ctx.receivedLoot(before,'USE_ITEM');assert.equal(loot.xp,1000);assert.equal(loot.xpOwner,'MOND_KAEYA');assert.equal(loot.levelUps.length,1);assert.equal(loot.levelUps[0].owner,'MOND_KAEYA');assert(loot.levelUps[0].to>2);
+});
+test('book display discards cap overflow instead of copying nominal book XP',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.s.chars.MOND_KAEYA.level=9;r.s.chars.MOND_KAEYA.xp=ctx.CRPGRuntime.growthV01522.xpNext(9)-7;r.recalculate();r.giveItem('MAT_CHAR_EXP_HERO',1);const before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_HERO',quantity:1,owner:'MOND_KAEYA'});const loot=ctx.receivedLoot(before,'USE_ITEM');assert.equal(ctx.lastResult.result.xp,1000);assert.equal(loot.xp,7);assert.equal(loot.xpOwner,'MOND_KAEYA');assert.equal(r.growth('MOND_KAEYA').level,10);
+});
+test('the shipped earned-reward renderer prints the companion name on its existing XP line',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.giveItem('MAT_CHAR_EXP_WANDERER',1);const before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_KAEYA'});ctx.ownerName=owner=>r.growth(owner).name;ctx.showModal=(title,box)=>ctx.modal={title,box};ctx.showReceivedLoot(ctx.receivedLoot(before,'USE_ITEM'));const text=walk(ctx.modal.box).map(n=>n.textContent).join(' ');assert(text.includes(r.growth('MOND_KAEYA').name+' 경험치 획득 +50'));assert(!text.includes(r.s.global.PLAYER_NAME+' 경험치 획득'));
+});
+test('an unchanged snapshot after a book receipt never invents a second XP gain',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.giveItem('MAT_CHAR_EXP_WANDERER',1);ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_KAEYA'});assert.equal(ctx.receivedLoot(ctx.adventureSnapshot(),'USE_ITEM'),null);
+});
+
 console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.ok).length,results},null,2));if(results.some(r=>!r.ok))process.exitCode=1;
+

@@ -185,3 +185,120 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 - 새 WebP 합계 1,445,240바이트(약 1.38MiB).
 - 한국어 이름·아이템 ID·요리 재료는 Project Amber API(`gi.yatta.moe/api/v2/kr`)로 대조했다. 접촉 시트로 전체를 육안 확인했다.
 - 시스템 전용 행(SYS_*, 간이 회복식·파티 식사), 스토리 전용 신의 심장, 스네즈나야 특별 보상 2종은 계속 분류 아이콘을 쓴다.
+
+# v0.14.11 기원·운명의 자리 자산
+
+- 재화 아이콘 5개(`item-icons.json`의 `CUR_PRIMOGEM`·`CUR_STARGLITTER`·`CUR_STARDUST`·`CUR_INTERTWINED_FATE`·`CUR_ACQUAINT_FATE`): 원석(201)·스타라이트(221)·스타더스트(222)·뒤얽힌 인연(223)·만남의 인연(224). 공개 원본 게임 텍스처 보관본에서 받아 256px 이내 WebP로 변환.
+- 운명의 자리 아이콘 270개(`assets/icons/constellations/`, 목록·출처·해시는 `content/genshin-ui-assets.json`): 플레이할 수 있는 동료 43명과 여행자(바람·바위)의 1~6번째 운명의 자리. 파일명은 genshin-db 한국어 데이터의 `images.filename_c1~c6`을 따른다. 35명과 여행자는 위 보관본에서, 보관본에 없는 8명(달리아·미카·백출·가명·한운·남연·요요·자백)은 원본 파일명 그대로 원신 UI 텍스처를 제공하는 공개 미러(https://enka.network/ui/)에서 받았다. 128px 이내 WebP.
+- 기원 연출 배경(`assets/icons/wish/`): 원소별 캐릭터 등장 배경 7장과 무기·기본 배경(GachaShowPanel), 결과 화면 배경(GachaSettlement Bg2), 등급 배지 2장(AvatarQuality 4·5). 위 보관본.
+- 이세계인의 표류자리는 CRPG 원작이므로 원신 아이콘을 쓰지 않는다.
+
+이 기록은 출처와 일치 여부를 남기기 위한 것이며, 재배포 사용 조건 전체를 검토했다고 주장하지 않는다.
+
+# v0.14.15 보물상자 아이콘
+
+`assets/icons/chests/`의 3개. 원신 위키(Genshin Impact Wiki) 파일 페이지의 원작 상자 그림을 그대로 받아 WebP로 바꿨다. 상자 등급 이름도 원작과 같다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `chest_common.webp` | 평범한 보물상자 `Item_Common_Chest.png` | `f79809fe…d7ed2995` |
+| `chest_exquisite.webp` | 정교한 보물상자 `Item_Exquisite_Chest.png` | `ce0ae4e5…ac49a5a7` |
+| `chest_luxurious.webp` | 화려한 보물상자 `Item_Luxurious_Chest.png` | `a5b416bc…1c3ac31f` |
+
+원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Common_Chest.png (나머지 둘도 같은 형식의 파일 페이지).
+
+0.16.33 `chest_precious.webp` (진귀한 보물상자): 위키에는 같은 형식의 그림이 없어(`Item_Precious_Chest.png`는 다른 이벤트 상자로 넘어간다) HoYoLAB 공식 티바트 지도의 「진귀한 보물상자」 표시 그림을 받았다. 이름도 그 지도의 공식 한국어 이름이다. 투명 배경을 잘라 다른 셋과 같은 240×240 WebP(q90)로 맞췄다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `chest_precious.webp` | HoYoLAB 지도 표시 「진귀한 보물상자」 (label 45) | `45bff044…63824d1b` |
+
+원본 위치: https://act-webstatic.hoyoverse.com/map_manage/20240726/1556afa613e0cb0e8c8f93222ad504da_4646723101390558864.png (`sg-public-api-static.hoyolab.com/common/map_user/ys_obc/v1/map/label/tree?map_id=2&lang=ko-kr`의 id 45).
+
+# v0.15.1 운명의 별 아이콘
+
+`item-icons.json`의 `STELLA_FORTUNA_4`·`STELLA_FORTUNA_5` 2개. 원신 위키(Genshin Impact Wiki) 파일 페이지의 원작 그림(Stella Fortuna, 4성·5성)을 받아 256px 이내 WebP(q90)로 바꿨다. 기원 결과·교환소·운명의 자리 화면에서 쓴다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `UI_ItemIcon_StellaFortuna4.webp` | 운명의 별(4★) `Item_Stella_Fortuna_(4_Star).png` | `06614b8a…c6f7b3a0` |
+| `UI_ItemIcon_StellaFortuna5.webp` | 운명의 별(5★) `Item_Stella_Fortuna_(5_Star).png` | `3bb77dd3…3eb20e72` |
+
+원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Stella_Fortuna_(5_Star).png (4성도 같은 형식의 파일 페이지).
+
+# v0.15.21 원소 · 무기 종류 · 특성 아이콘
+
+사용자 요청 「아이콘이 저게 맞아? 그냥 딴데서 에셋을 가져오는게 맞지 않아?」로 자체 선 그림을 원작 UI 텍스처로 바꿨다. 107개, 원본 PNG 459,170바이트 → 128px 이내 무손실 WebP 290,224바이트. `assets/icons/ui/`에 원본 파일 이름 그대로 두고, `content/genshin-ui-assets.json`(빌드 뒤 `MANIFEST.uiAssets`)의 `elements` · `weaponTypes` · `normalAttacks` · `skills`에 파일별 출처 URL, 원본 · 변환본 SHA-256, 원본 크기를 기록했다.
+
+- 원소 7개 `UI_Buff_Element_{Fire,Water,Ice,Electric,Wind,Rock,Grass}`: 캐릭터 · 적의 원소, 원소 부착, 퍼즐 구슬 속 문양.
+- 무기 종류 5개 `UI_GachaTypeIcon_{Sword,Claymore,Pole,Bow,Catalyst}`: 편성 · 캐릭터 화면.
+- 일반 공격 5개 `Skill_A_01`(한손검) · `Skill_A_04`(양손검) · `Skill_A_03`(장병기) · `Skill_A_02`(활) · `Skill_A_Catalyst_MD`(법구).
+- 원소전투 스킬 · 원소폭발 90개 `Skill_S_*` · `Skill_E_*`: 동료 43명과 여행자(바람 · 바위). 이세계인은 원작 그림이 없어 글자 표시를 유지한다.
+
+## 출처
+
+- 원본 PNG: https://enka.network/ui/ (`original_game_texture_mirror`). 그곳에 없는 `UI_Buff_Element_Ice` 1개는 https://gi.yatta.moe/assets/UI/ (`original_game_texture_mirror_reencoded`).
+- 캐릭터와 특성 아이콘의 짝: Project Amber API https://gi.yatta.moe/api/v2/kr/avatar 의 캐릭터별 `talent` 목록. 캐릭터는 운명의 자리 아이콘 파일 이름에 든 원작 내부 이름(예: 엠버 = Ambor)으로 대조했다(45명 전원 일치).
+
+이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.
+# v0.15.24 튜토리얼 말풍선 얼굴
+
+사용자 승인(2026-10-06)으로 튜토리얼 안내 말풍선에 쓰는 원작 동그란 얼굴 아이콘 2개를 받았다. 원본 PNG(256×256)를 192px 이내 WebP(q90)로 바꿨고, `content/genshin-ui-assets.json`의 `avatars`에 출처 · 지문을 적었다.
+
+| 파일 | 인물 | 원본 크기 → WebP |
+|---|---|---|
+| `ui/UI_AvatarIcon_Paimon.webp` | 페이몬 | 66,663 → 15,214바이트 |
+| `ui/UI_AvatarIcon_Ambor.webp` | 엠버 | 62,853 → 13,900바이트 |
+
+출처: https://enka.network/ui/ (`original_game_texture_mirror`). 이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.
+
+# v0.15.25 성장 재료 아이콘
+
+사용자 승인(2026-10-06, 「10개 모두 받기」)으로 비경 보상 · 가방 · 돌파 · 특성 창의 임시 표시를 원작 재료 그림으로 바꿨다. 원본 PNG(256×256) 10개 252,040바이트 → WebP(q90) 65,722바이트. `content/item-icons.json`의 `icons`에 출처 · 지문을 적었다(`matchType: crpg_visual_mapping`). 이 게임의 재료는 한 단계짜리 자체 재료라서 **원작의 같은 이름 아이템이 아니라 그 그림을 빌려 표시**한다.
+
+| 파일 | 원작 그림 | 이 게임의 재료 |
+|---|---|---|
+| `UI_ItemIcon_104301.webp` | 「자유」의 가르침 | 몬드 특성 수련서 |
+| `UI_ItemIcon_104310.webp` | 「번영」의 가르침 | 리월 특성 수련서 |
+| `UI_ItemIcon_104101.webp` | 휘황찬란한 다이아몬드 파편 | 돌파 재료(주인공) |
+| `UI_ItemIcon_104111.webp` | 불타오르는 마노 가루 | 불 원소 돌파 재료 |
+| `UI_ItemIcon_104121.webp` | 순수한 청금석 가루 | 물 원소 돌파 재료 |
+| `UI_ItemIcon_104151.webp` | 자유로운 터키석 가루 | 바람 원소 돌파 재료 |
+| `UI_ItemIcon_104141.webp` | 승리의 자수정 가루 | 번개 원소 돌파 재료 |
+| `UI_ItemIcon_104161.webp` | 서늘한 빙옥 가루 | 얼음 원소 돌파 재료 |
+| `UI_ItemIcon_104171.webp` | 단단한 황옥 가루 | 바위 원소 돌파 재료 |
+| `UI_ItemIcon_104131.webp` | 자라나는 비취 가루 | 풀 원소 돌파 재료 |
+
+출처: https://enka.network/ui/ (`original_game_texture_mirror`). 그림과 이름의 짝은 Project Amber API https://gi.yatta.moe/api/v2/kr/material/{번호} 의 한국어 이름으로 확인했다. 이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.
+
+# v0.16.31 음식 효과 아이콘
+
+요리 칸 모서리의 효과 표시. 사용자 승인(2026-10-12) 뒤 받았다.
+
+| 파일 | 뜻 |
+|---|---|
+| `ui/UI_Buff_Item_Recovery_HpAdd.webp` | 회복 |
+| `ui/UI_Buff_Item_Recovery_HpAddAll.webp` | 파티 회복 |
+| `ui/UI_Buff_Item_Recovery_Revive.webp` | 부활 |
+| `ui/UI_Buff_Item_Atk_Add.webp` | 공격 |
+| `ui/UI_Buff_Item_Atk_CritRate.webp` | 치명타 |
+| `ui/UI_Buff_Item_Def_Add.webp` | 방어 |
+| `ui/UI_Buff_Item_Other_SPReduceConsume.webp` | 스태미나 절약(이 게임의 속도 요리) |
+| `ui/UI_Buff_Item_Other_SPAdd.webp` | 스태미나 |
+| `ui/UI_Buff_Item_SpecialEffect.webp` | 특수(이 게임의 상태 저항 요리) |
+
+출처: https://gi.yatta.moe/assets/UI/ (`original_game_texture_mirror`). 음식마다 원작이 쓰는 아이콘은 https://gi.yatta.moe/api/v2/kr/food 의 `effectIcon`으로 확인했다. 해시는 `content/genshin-ui-assets.json`의 `foodEffects`에 있다.
+
+# v0.16.31 여행자 얼굴
+
+`faces/traveler_aether.webp`, `faces/traveler_lumine.webp`: 게임에 이미 있던 이야기 그림(`assets/traveler_aitr_1.webp`, `assets/traveler_rmn_1.webp`)에서 얼굴만 잘라 256×256으로 줄였다. 새로 받은 파일이 아니다.
+
+# v0.16.32 이세계인 주인공 얼굴
+
+`faces/isekai.webp`(256×256, 얼굴), `faces/isekai_full.webp`(512×512, 전신): 사용자가 보내 준 실루엣 그림(2026-10-12)을 잘라 옅은 배경에 짙은 색으로 다시 칠했다. 여행자가 아직 모습을 고르기 전에도 이 그림을 쓴다.
+
+## 0.16.56 돌파 보석·특성 책
+
+- 사용자 승인(2026-10-16) 후 받은 원작 아이콘 40개: 원소 보석 8종의 조각·덩이·원석(`UI_ItemIcon_1041x2`~`x4`, 24개)과 특성 책 6종(「자유」·「투쟁」·「시문」·「번영」·「근면」·「황금」)의 가르침·인도·철학 중 없던 16개(`UI_ItemIcon_1043xx`).
+- 출처: https://github.com/ylyking/GenshinTextures-full (`Texture2D/UI/ItemIcon/`). 256px 투명 PNG를 WebP로 줄였다. 원본·최적화 SHA-256은 `content/item-icons.json`과 `content/item-icon-sources.json`에 있다.
+- 이름은 Yatta 공식 한국어 게임 문자열(https://gi.yatta.moe/api/v2/kr/material)과 대조했다. 가루와 가르침(1단계)은 0.15.25에 받은 같은 그림을 쓴다.

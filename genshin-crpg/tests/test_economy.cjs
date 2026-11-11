@@ -9,7 +9,7 @@ let count = 0;
 const test = (name, fn) => { fn(); count++; console.log('PASS', name); };
 const fresh = () => { const r = new R(db); r.newGame({ name: '테스트', route: 'ROUTE_TRAVELER', seed: 12345, saveId: 'ECONOMY_TEST' }); r.s.global.CURRENT_MAP_ID = 'MAP_MOND_CITY'; r.s.global.SCREEN_MODE = 'MAIN_MENU'; return r; };
 const rejectAtomic = (r, type, data, code) => { const before = r.serialize(); assert.throws(() => r.action(type, data), e => !code || e.code === code); assert.equal(r.serialize(), before); };
-const join = (r, char, slot) => { r.unlockCharacter(char); r.action('PARTY', { char, slot }); };
+const join = (r, char, slot) => { r.adminApply({op:'recruit',char:char}); r.action('PARTY', { char, slot }); };
 
 test('single meal consumes one serving, heals capped HP, and costs exactly ten minutes', () => {
   const r = fresh(); r.s.global.PLAYER_HP_CURRENT = 5; r.s.global.WORLD_TIME = '08:55'; r.giveItem('FOOD_TEA_BREAK_PANCAKE', 2);

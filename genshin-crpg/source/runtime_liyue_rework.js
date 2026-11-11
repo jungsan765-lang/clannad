@@ -118,11 +118,12 @@ P.finishBattle=function(win){
  }
  return result;
 };
-P.character=function(id){const a=old.character.call(this,id),profile=this.rows('04_CHAR_DB').find(r=>r[1]===id)?.[0],r=this.s?.relations?.[profile];const score=Number(r?.BOND_SCORE??r?.bondScore??(20*(r?.HEART_STATE??r?.heart??0)));const hearts=Math.min(5,Math.max(0,Math.floor(score/20)));a.bondHearts=hearts;a.bondBonusPercent=hearts;a.atk=Math.round(a.atk*(1+hearts/100)*100)/100;a.def=Math.round(a.def*(1+hearts/100)*100)/100;return a;};
+P.character=function(id){const a=old.character.call(this,id),profile=this.rows('04_CHAR_DB').find(r=>r[1]===id)?.[0];const hearts=this.rows('58_MOND_AFFECTION_DB').filter(r=>r[1]===profile&&/_H0[1-5]$/.test(r[0])&&(!r[15]||r[15]===this.s.global.STORY_ROUTE_ID)&&this.storyDone(r[0])).reduce((set,r)=>set.add(r[0].match(/H0[1-5]$/)[0]),new Set()).size;a.bondHearts=hearts;a.bondBonusPercent=hearts;a.atk=Math.round(a.atk*(1+hearts/100)*100)/100;a.def=Math.round(a.def*(1+hearts/100)*100)/100;return a;};
 P.storyEntryReason=function(def){
  if(def?.id==='LEG_ISK_MOND_VENTI'){
   const eligibility=JSON.parse(this.s.global.COMPANION_ELIGIBILITY_JSON||'{}');
-  if(eligibility.MOND_VENTI?.state!=='JOINED')return '몬드 곳곳의 바람 신의 눈동자를 모아 거목 아래에 바치고, 몬드 본편을 마친 뒤 벤티와 동행을 약속하면 이어지는 이야기입니다.';
+  // 0.16.30: companions come from wishes only, so Venti's own story opens once he is met in a wish.
+  if(eligibility.MOND_VENTI?.state!=='JOINED')return '기원에서 벤티를 만나면 이어지는 개인 이야기입니다.';
  }
  return old.storyEntryReason.call(this,def);
 };

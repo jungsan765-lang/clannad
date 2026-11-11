@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..'),source=process.env.CRPG_SOURCE||path.joi
 const files=[...fs.readFileSync(path.join(source,'index.html'),'utf8').matchAll(/<script\s+src="([^"]+)"/g)].map(x=>x[1]).filter(x=>/^runtime[^/]*\.js$/.test(x));
 const ctx=vm.createContext({console}),hashes={};for(const file of files){const code=fs.readFileSync(path.join(source,file),'utf8');hashes[file]=crypto.createHash('sha256').update(code).digest('hex');vm.runInContext(code,ctx,{filename:file});}
 const db=JSON.parse(fs.readFileSync(dbPath,'utf8')),api=ctx.CRPGRuntime;
-ctx.CRPGRelationships.install(api,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+ctx.CRPGRelationships.install(api,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db)});
 const cp=x=>JSON.parse(JSON.stringify(x));const history=[];
 function snap(r){return {route:r.s.global.STORY_ROUTE_ID,cursor:r.storyActiveNodeId(),phase:r.playPhase(),map:r.s.global.CURRENT_MAP_ID,screen:r.s.global.SCREEN_MODE,mora:r.s.global.MORA,cloth:r.itemCount('TRPG_STURDY_CLOTH'),main:r.mainStoryEntries(),chapters:r.storyChapterEntries(),next:r.s.global.STORY_NEXT_PREPARED,waiting:r.s.global.STORY_WAITING};}
 function act(r,type,params={}){let result;try{result=r.action(type,params);history.push({route:r.s.global.STORY_ROUTE_ID,type,params,result:cp(result),cursor:r.storyActiveNodeId()});return result;}catch(e){history.push({type,params,error:{code:e.code,message:e.message}});throw e;}}

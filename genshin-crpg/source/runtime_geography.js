@@ -11,7 +11,6 @@ P.installGeography=function(){
  for(const fix of C.definitionChanges){const rows=table(fix.table),row=rows.find(r=>r[0]===fix.id);row[rows[0].indexOf(fix.column)]=fix.to;}
  for(const fix of C.edgeChanges){const rows=table('47_MAP_EDGE_DB'),row=rows.find(r=>r[0]===fix.id);if(row){row[8]='N';row[11]='INACTIVE';}}
  const quests=table('22_QUEST_DB'),q=quests.find(r=>r[0]==='Q_ISK_MOND_03');if(q){const p=JSON.parse(q[10]);if(p.entry_maps){p.entry_maps.K='MAP_CRPG_SKYFROST_NAIL';p.entry_maps.B='MAP_CRPG_DRAGONSPINE_CAMP';q[10]=JSON.stringify(p);}}
- for(const id of ['TRV_M02_N270','TRV_M02_N277']){const r=table('55_MAIN_STORY_DB').find(r=>r[0]==='ROUTE_TRAVELER'&&r[4]===id);if(r)r[9]=r[9].replaceAll('다다우파 협곡','타타우파 협곡');}
  for(const [name,rows]of changed){this.db[name]=rows;this.tables[name]=new Map(rows.slice(1).filter(r=>r[0]).map(r=>[r[0],r]));}
  this._sharedStoryIndex=null;this._explorationTravelDefinitions=null;this._geographyInstalled=true;
 };

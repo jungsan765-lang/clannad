@@ -58,7 +58,7 @@ P.useItem=function(id,n,owner){
 P.cardReason=function(a,c){
  const why=prior.cardReason.call(this,a,c),b=this.s.runtime;
  if(!b||!a||c.target==='SELF'||c.kind==='지원')return why;
- if(!this.cardTargets(a,c).length&&b.actors.some(t=>t.side!==a.side&&t.hp>0&&t.airborne)&&(!why||/사거리|대상/.test(why)))return b.actors.some(t=>t.source==='BOSS_DVALIN'&&t.hp>0)?'공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.':'공중의 적에게 닿지 않습니다. 원거리·대공 공격이나 공중 접근 효과가 필요합니다.';
+ if(!this.cardTargets(a,c).length&&b.actors.some(t=>t.side!==a.side&&t.hp>0&&t.airborne)&&(!why||/사거리|대상/.test(why)))return b.actors.some(t=>t.source==='BOSS_DVALIN'&&t.hp>0)?b.mondBossBalance?.rematchNoWindRevision===1?'공중의 드발린에게 닿지 않습니다. 원거리·대공 공격이나 부유 효과를 사용하세요.':'공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.':'공중의 적에게 닿지 않습니다. 원거리·대공 공격이나 공중 접근 효과가 필요합니다.';
  if(c.id==='PLAYER_BASIC_ATTACK'&&!this.cardTargets(a,c).length&&!why)return '지금 공격할 수 있는 적이 없습니다.';
  return why;
 };

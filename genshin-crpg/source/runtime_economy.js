@@ -11,7 +11,87 @@
   const tactics = ['균형', '공격우선', '생존우선', '지원우선', '연계우선'];
   const foodStatuses = ['STATUS_FOOD_ATK', 'STATUS_FOOD_FEAST', 'STATUS_FOOD_RESIST', 'STATUS_FOOD_SPEED', 'STATUS_FOOD_DEF', 'STATUS_FOOD_CRIT'];
   const shiftedRecipes = new Set(['REC_PROCESS_BUTTER', 'REC_PROCESS_CHEESE', 'REC_PROCESS_HAM', 'REC_PROCESS_SAUSAGE', 'REC_ALCH_HEALING_POTION', 'REC_MEDICAL_BANDAGE']);
+  // Fixed per-craft charges: cooking early or on another account has the same
+  // cost. Recovery strength, ingredients, unlocks and non-recovery recipes stay
+  // under their existing definitions.
+  const recoveryCookingMora = Object.fromEntries(Object.entries({
+    TEA_BREAK_PANCAKE: 4, SWEET_MADAME: 4, HASH_BROWN: 2, MATSUTAKE_ROLL: 2,
+    UNIVERSAL_PEACE: 3, PIZZA: 4, SAKURA_MOCHI: 3, TAHCHIN: 3,
+    SNEZ_GLUPOV_RYE_BREAD: 3, SNEZ_BERRY_ICE_CREAM: 3, SNEZ_OLD_GARDEN_SAUSAGE: 4,
+    SNEZ_MEDOVIK: 3, SNEZ_ZHARKOYE: 3, STEAK: 4, CHICKEN_SKEWER: 3,
+    MOND_GRILLED_FISH: 3, RADISH_SOUP: 4, MINT_JELLY: 4, PANCAKE_TEA_BREAK: 3,
+    BOLOGNESE: 4, APPLE_STEW: 3, CHICKEN_BURGER: 4, MORA_MEAT: 4,
+    STIR_FRIED_FILET: 3, CRYSTAL_SHRIMP: 4, VEGETARIAN_ABALONE: 2,
+    SQUIRREL_FISH: 3, SHRIMP_BALLS: 3, BAMBOO_SOUP: 3, PERCH_STEW: 2,
+    CRAB_HAM_BAKE: 3, POTATO_SHRIMP_PLATTER: 4, GRILLED_TIGER_FISH: 3,
+    RICE_BUNS: 3, FINE_TEA_FULL_MOON: 3, JADEVEIN_TEA_EGGS: 3,
+    TEA_SMOKED_SQUAB: 3, CHENYU_BREW: 3, CRAB_ROE_TOFU: 3, FULLMOON_EGG: 3,
+    FISH_NOODLES: 3, HUMBLY_ENOUGH: 3, HONEY_CHAR_SIU: 3,
+    LUCKY_SNOW_DELIGHT: 2, GOLDEN_TEMPERED_JADE: 4
+  }).map(([id, mora]) => ['FOOD_' + id, mora]));
+  // Existing dishes: reward actual gathering/processing effort without changing
+  // recipes, recipient growth, Barbara's 10% lot bonus or cooking charges.
+  const recoveryFoodBaseV01620 = Object.freeze({
+    FOOD_TEA_BREAK_PANCAKE: [90, 90], FOOD_SWEET_MADAME: [180, 180],
+    FOOD_HASH_BROWN: [220, 340], FOOD_MATSUTAKE_ROLL: [240, 300],
+    FOOD_UNIVERSAL_PEACE: [160, 280], FOOD_PIZZA: [130, 260],
+    FOOD_SAKURA_MOCHI: [170, 190], FOOD_TAHCHIN: [145, 240],
+    FOOD_SNEZ_GLUPOV_RYE_BREAD: [200, 200], FOOD_SNEZ_BERRY_ICE_CREAM: [200, 200],
+    FOOD_SNEZ_OLD_GARDEN_SAUSAGE: [120, 250], FOOD_SNEZ_MEDOVIK: [220, 280],
+    FOOD_SNEZ_ZHARKOYE: [260, 320], FOOD_STEAK: [110, 110],
+    FOOD_CHICKEN_SKEWER: [100, 120], FOOD_MOND_GRILLED_FISH: [100, 120],
+    FOOD_RADISH_SOUP: [90, 110], FOOD_MINT_JELLY: [90, 110],
+    FOOD_PANCAKE_TEA_BREAK: [170, 240], FOOD_BOLOGNESE: [180, 210],
+    FOOD_APPLE_STEW: [240, 380], FOOD_CHICKEN_BURGER: [250, 320],
+    FOOD_MORA_MEAT: [100, 120], FOOD_STIR_FRIED_FILET: [110, 180],
+    FOOD_CRYSTAL_SHRIMP: [190, 220], FOOD_VEGETARIAN_ABALONE: [170, 360],
+    FOOD_SQUIRREL_FISH: [250, 380], FOOD_SHRIMP_BALLS: [240, 340],
+    FOOD_BAMBOO_SOUP: [240, 400], FOOD_PERCH_STEW: [260, 440],
+    FOOD_CRAB_HAM_BAKE: [230, 400], FOOD_POTATO_SHRIMP_PLATTER: [230, 340],
+    FOOD_GRILLED_TIGER_FISH: [100, 120], FOOD_RICE_BUNS: [100, 110],
+    FOOD_FINE_TEA_FULL_MOON: [240, 280], FOOD_JADEVEIN_TEA_EGGS: [90, 100],
+    FOOD_TEA_SMOKED_SQUAB: [180, 210], FOOD_CHENYU_BREW: [90, 90],
+    FOOD_CRAB_ROE_TOFU: [170, 280], FOOD_FULLMOON_EGG: [230, 420],
+    FOOD_FISH_NOODLES: [170, 360], FOOD_HUMBLY_ENOUGH: [230, 340],
+    FOOD_HONEY_CHAR_SIU: [90, 120], FOOD_LUCKY_SNOW_DELIGHT: [270, 440],
+    FOOD_GOLDEN_TEMPERED_JADE: [170, 180]
+  });
+  // Anchor each existing SKU to its old price: installing a cloned runtime DB
+  // or loading another save must not apply the price ratio a second time.
+  const preparedFoodPricesV01620 = Object.freeze({
+    STK_MOND_SARA_POTATO: 105, STK_LY_WANMIN_MATSUTAKE: 120,
+    STK_LY_WANMIN_PEACE: 180, STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA: 65
+  });
+  const preparedFoodSaleCapsV01620 = Object.freeze({
+    FOOD_TEA_BREAK_PANCAKE: 8, FOOD_SWEET_MADAME: 20, FOOD_HASH_BROWN: 26,
+    FOOD_MATSUTAKE_ROLL: 30, FOOD_UNIVERSAL_PEACE: 45, FOOD_PIZZA: 16
+  });
   const old = Object.fromEntries(['apply', 'useItem', 'buy', 'finishBattle', 'bossRoute', 'move', 'equip', 'setParty', 'validateSave'].map(k => [k, P[k]]));
+
+  P.installFoodBalance = function () {
+    if (this._foodBalanceInstalledV01620) return;
+    const stocks = this.db['19_SHOP_STOCK_DB'].map(row => {
+      if (!own(preparedFoodPricesV01620, row[0])) return row;
+      const policy = recoveryFoodBaseV01620[row[3]];
+      if (row[2] !== 'ITEM' || !policy) return row;
+      const updated = row.slice();
+      updated[5] = Math.ceil(preparedFoodPricesV01620[row[0]] * policy[1] / policy[0]);
+      return updated;
+    });
+    const items = this.db['14_ITEM_DB'].map(row => {
+      if (!own(recoveryFoodBaseV01620, row[0])) return row;
+      const updated = row.slice(); updated[8] = recoveryFoodBaseV01620[row[0]][1];
+      if (own(preparedFoodSaleCapsV01620, row[0])) {
+        updated[14] = Math.min(Number(row[14]), preparedFoodSaleCapsV01620[row[0]]);
+        const prices = stocks.filter(stock => stock[2] === 'ITEM' && stock[3] === row[0] && Number(stock[5]) > 0 && !/SYSTEM_DISABLED|레거시|사용 금지/.test(stock[8] || '')).map(stock => Number(stock[5]));
+        if (prices.length) updated[15] = Math.min(...prices);
+      }
+      return updated;
+    });
+    this.db = { ...this.db, '14_ITEM_DB': items, '19_SHOP_STOCK_DB': stocks };
+    for (const [key, rows] of [['14_ITEM_DB', items], ['19_SHOP_STOCK_DB', stocks]]) this.tables[key] = new Map(rows.slice(1).filter(row => row?.[0]).map(row => [row[0], row]));
+    this._foodBalanceInstalledV01620 = true;
+  };
 
   P.apply = function (a) {
     switch (a.type) {
@@ -53,6 +133,15 @@
     return { item: id, heal, status };
   };
 
+  // Recovery meals keep their Lv.1 strength as the recipient grows. Percentage
+  // combat medicine and ordinary economyHeal callers already scale themselves.
+  P.foodHealingAmount = function (amount, owner = 'PLAYER_CUSTOM') {
+    const growth = this.growth?.(owner);
+    if (!growth || !api.growthV01522) return Math.round(amount);
+    const five = owner !== 'PLAYER_CUSTOM' && this.rarityOf?.(owner) === 5;
+    return Math.round(amount * api.growthV01522.hpCurve(growth.level) * (1 + (five ? .24 : .16) * growth.phase));
+  };
+
   P.economyHeal = function (owner, amount) {
     const a = this.economyOwner(owner), statuses = clone(a.statuses);
     let left = amount, absorbed = 0;
@@ -91,7 +180,8 @@
     for (const [id, n] of Object.entries(needed)) if (this.itemCount(id) < n) fail('QUANTITY', '식사에 필요한 음식이 부족합니다.');
     // Public action transactions make the whole multi-person meal atomic, including healing restrictions.
     const results = entries.map(e => {
-      const result = e.heal ? this.economyHeal(e.owner, e.heal) : { healed: 0, absorbed: 0 };
+      const requestedHealing = this.foodHealingAmount(e.heal, e.owner);
+      const result = e.heal ? this.economyHeal(e.owner, requestedHealing) : { healed: 0, absorbed: 0 };
       if (e.heal) {
         if (e.owner === 'PLAYER_CUSTOM') this.s.global.LAST_RECOVERY_MEAL_ITEM_ID = e.item;
         else this.s.chars[e.owner].lastRecoveryMeal = e.item;
@@ -103,7 +193,7 @@
         const index = list.findIndex(x => x.id === e.status);
         if (index < 0) list.push(effect); else list[index] = effect;
       }
-      return { item: e.item, owner: e.owner, quantity: 1, status: e.status, ...result };
+      return { item: e.item, owner: e.owner, quantity: 1, status: e.status, requestedHealing, ...result };
     });
     this.consumeMealFoods(entries, needed);
     this.advanceTime(10); // LIFE_MEAL / CE_091 / CE_095, one shared meal.
@@ -161,10 +251,18 @@
   };
 
   P.recipeDefinition = function (id) {
-    const r = this.row('17_RECIPE_DB', id);
+    let r = this.row('17_RECIPE_DB', id);
+    // The snow materials are paid by this recipe's own ingredient requirements.
+    // Its explanatory suffix is not a condition-language expression.
+    if (id === 'REC_ARMOR_FROST' && r[18] === 'LEVEL>=5 / 설산 소재 확보') {
+      r = r.slice(); r[18] = 'LEVEL>=5';
+    }
     // Six audited source rows contain one extra blank at column P. Adapt only the exact known shape.
     if (shiftedRecipes.has(id) && r[15] == null && Number.isFinite(r[16]) && /^\d+(분|시간)$/.test(r[20] || '') && Number(r[21]) === 100) {
-      const fixed = r.slice(); fixed.splice(15, 1); return fixed;
+      const fixed = r.slice(); fixed.splice(15, 1); r = fixed;
+    }
+    if (r[1] === '요리' && r[2] === 'ITEM' && own(recoveryCookingMora, r[3])) {
+      r = r.slice(); r[15] = recoveryCookingMora[r[3]];
     }
     return r;
   };
@@ -224,6 +322,7 @@
     return { recipe: id, result: r[3], quantity: r[4] * quantity, crafts: quantity, minutes, cost };
   };
   P.recipeCost = function (r, quantity = 1) {
+    r = this.recipeDefinition(r[0]);
     const ingredients = this.rows('48_RECIPE_INGREDIENT_DB').filter(i => i[1] === r[0]).sort((a, b) => a[2] - b[2]);
     const seq = new Set(), cost = { mora: r[15] * quantity, items: {} };
     if (!ingredients.length) fail('RECIPE', '제작 재료 정의가 없습니다.');

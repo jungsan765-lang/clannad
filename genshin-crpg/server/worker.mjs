@@ -62,7 +62,7 @@ return env.DB.prepare('INSERT INTO ranking SELECT account_id,?,?,?,?,?,? FROM ga
 async function route(request,env,ctx){
  const perfStart=performance.now(),receivedAt=now(),url=new URL(request.url),path=url.pathname;
  if(path==='/health')return json({ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,storage:env.GAME_STATE_BACKEND||'d1',configured:!!env.PASSWORD_PEPPER});
- if(path==='/ranking'&&request.method==='GET'){const q=await env.DB.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').bind('ABYSS_01').all();return json({season:'ABYSS_01',entries:q.results.map((r,i)=>({rank:i+1,...r}))});}
+ if(path==='/ranking'&&request.method==='GET'){const season=globalThis.CRPGRuntime?.abyssSeason?.of(Date.now())||'ABYSS_01';const q=await env.DB.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').bind(season).all();return json({season,entries:q.results.map((r,i)=>({rank:i+1,...r}))});}
  if(!env.PASSWORD_PEPPER||env.PASSWORD_PEPPER.length<32)throw error(503,'계정 서버의 운영 설정이 아직 완료되지 않았습니다.');
  if(['/register','/login'].includes(path)&&request.method==='POST'){
   const b=await body(request),username=String(b.username||'').normalize('NFKC').trim().toLowerCase(),password=String(b.password||'');

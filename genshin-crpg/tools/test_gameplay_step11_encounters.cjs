@@ -6,7 +6,7 @@ function fresh(map='MAP_LIYUE_PLAINS',level=12,count=1){
  const r=new R(db);r.newGame({name:'step11',route:'ROUTE_TRAVELER',seed:1329+seq,saveId:'STEP11-'+(++seq)});
  Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:map,WORLD_TIME:'12:00',STORY_MENU_POLICY:'',SCREEN_MODE:'LOCATION',MORA:999999,PLAYER_LEVEL_STATE:level,PLAYER_BASE_HP:100000});
  delete r.s.storyJourney;delete r.s.storyBreak;try{r.prepareStory();}catch{}r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;
- for(const [i,id]of ['MOND_AMBER','MOND_KAEYA','MOND_LISA'].slice(0,Math.max(0,count-1)).entries()){r.unlockCharacter(id);r.action('PARTY',{char:id,slot:i+2});}
+ for(const [i,id]of ['MOND_AMBER','MOND_KAEYA','MOND_LISA'].slice(0,Math.max(0,count-1)).entries()){r.adminApply({op:'recruit',char:id});r.action('PARTY',{char:id,slot:i+2});}
  return r;
 }
 function resetBattle(r){r.s.runtime=null;delete r.s.battlePreparation;Object.assign(r.s.global,{MODE:'NORMAL',ACTIVE_BATTLE_ID:'',COMBAT_ACTION_PHASE:'NONE',SCREEN_MODE:'LOCATION'});}

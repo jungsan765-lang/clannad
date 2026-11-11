@@ -5,7 +5,7 @@ for (const file of ['source/runtime.js', 'source/runtime_extensions.js', 'source
 const db = JSON.parse(fs.readFileSync(path.join(base, 'content/db.json'))), R = ctx.CRPGRuntime.Runtime;
 const clone = x => JSON.parse(JSON.stringify(x));
 const fresh = (data = db) => { const r = new R(data); r.newGame({ name: '시험', route: 'ROUTE_TRAVELER', seed: 99, saveId: 'PASSIVES_TEST' }); r.s.global.CURRENT_MAP_ID = 'MAP_MOND_CITY'; r.s.global.WORLD_TIME = '12:00'; r.s.global.SCREEN_MODE = 'HUB'; r.s.global.MORA = 10000; return r; };
-const join = (r, id, slot = 2) => { r.unlockCharacter(id); r.action('PARTY', { char: id, slot }); };
+const join = (r, id, slot = 2) => { r.adminApply({op:'recruit',char:id}); r.action('PARTY', { char: id, slot }); };
 const rejectAtomic = (r, type, data, code) => { const before = r.serialize(); assert.throws(() => r.action(type, data), e => e.code === code); assert.equal(r.serialize(), before); };
 const egg = 'FOOD_TEA_BREAK_PANCAKE', cookEgg = (r, n = 1) => { r.giveItem('ING_BIRD_EGG', n); return r.action('CRAFT', { recipe: 'REC_FOOD_EGG_FRY', quantity: n }).result; };
 let passed = 0;

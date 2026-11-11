@@ -495,6 +495,26 @@ globalThis.CRPGLiyueAreas={
       "safe": false,
       "anchorKind": "PATH",
       "anchorFeature": "층암거연 동쪽 지상 광구길"
+    },
+    {
+      "id": "MAP_LY_DETAIL_WUWANG",
+      "name": "무망의 언덕",
+      "zone": "벽수원",
+      "parent": "MAP_LIYUE_PLAINS",
+      "point": [
+        468,
+        96
+      ],
+      "kind": null,
+      "resource": "",
+      "feature": "안개 낀 숲과 무망 인구 밀궁",
+      "description": "경책 산장과 석문 사이의 언덕. 안개 낀 숲에 푸른 빛이 떠다니고, 무망 인구 밀궁의 입구가 있다.",
+      "observe": "나무 사이로 옅은 안개가 깔려 있고, 푸른 빛이 떠다닌다. 서쪽으로는 경책 산장, 남동쪽으로는 석문 갈림길이 이어진다.",
+      "anchor": "경책 산장 동쪽 · 석문 북서쪽 언덕 (0.16.2 추가). 비경 입구의 정확한 좌표가 아니라 언덕의 대표 위치.",
+      "safe": false,
+      "encounters": false,
+      "anchorKind": "FEATURE",
+      "anchorFeature": "무망의 언덕"
     }
   ],
   "links": [
@@ -731,6 +751,18 @@ globalThis.CRPGLiyueAreas={
       "MAP_LY_DETAIL_GUYUN",
       60,
       "SEA_TRANSIT"
+    ],
+    [
+      "MAP_LY_DETAIL_SHIMEN",
+      "MAP_LY_DETAIL_WUWANG",
+      20,
+      "WORLD_MOVE"
+    ],
+    [
+      "MAP_LY_DETAIL_WUWANG",
+      "MAP_LIYUE_QINGCE",
+      20,
+      "WORLD_MOVE"
     ]
   ],
   "notes": [

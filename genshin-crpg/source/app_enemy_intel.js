@@ -1,6 +1,6 @@
 /* Enemy inspection is a view: no action(), random(), mutation or save calls. */
 const EnemyIntel={
- cache:new Map(),battleId:null,selected:null,pinned:false,lastSkill:null,toast:null,toastTimer:null,panel:null,dialog:null,resumeToken:null,
+ cache:new Map(),battleId:null,selected:null,pinned:false,lastSkill:null,toast:null,toastTimer:null,panel:null,dialog:null,resumeToken:null,liveUnsubscribe:null,
  small(){return matchMedia('(max-width: 1100px)').matches;},
  capture(){
   const b=game?.s.runtime;if(!b)return;
@@ -8,10 +8,24 @@ const EnemyIntel={
   this.cache=new Map(b.actors.filter(a=>a.side==='ENEMY').map(a=>[a.id,game.enemyIntel(a.id)]));
   if(!this.cache.has(this.selected))this.selected=b.actors.find(a=>a.side==='ENEMY'&&a.hp>0)?.id||this.cache.keys().next().value;
  },
+ visibleInfo(info){
+  const actor=info&&globalThis.ActorPlayback?.currentActor?.(info.id);if(!actor)return info;
+  const shields=(actor.shields||[]).filter(s=>Number(s.value)>0);
+  return {...info,hp:actor.hp,maxHp:actor.maxHp,shield:shields.reduce((n,s)=>n+Number(s.value),0),shields:shields.map(s=>({name:game.tables['12_ENEMY_CARD_DB']?.get(s.source)?.[2]||game.tables['08_SKILL_CARD_DB']?.get(s.source)?.[3]||'보호막',value:Math.round(s.value),element:s.element||'',weakness:Object.entries(s.damageMultipliers||{}).filter(([,m])=>m>1).map(([e,m])=>e+' ×'+m)})),statuses:battleStatusList(actor),airborne:!!actor.airborne};
+ },
+ refreshLive(){
+  if(!this.dialog?.open)return;const info=this.visibleInfo(this.cache.get(this.selected));if(!info)return;
+  const stats=this.dialog.querySelectorAll('.intel-stats dd');if(stats[0])stats[0].textContent=Math.ceil(info.hp)+' / '+Math.ceil(info.maxHp);if(stats[5])stats[5].textContent=String(Math.ceil(info.shield));
+  let status=this.dialog.querySelector('.intel-status');if(!status){status=el('p','intel-status');this.dialog.querySelector('.intel-stats')?.after(status);}
+  if(status){status.textContent=info.statuses.length?'상태 · '+info.statuses.map(s=>s.name+(Number.isFinite(s.rounds)?' '+s.rounds+'R':'')).join(' / '):'현재 적용된 효과가 없습니다.';}
+  for(const old of this.dialog.querySelectorAll('.intel-shield'))old.remove();
+  for(const shield of info.shields||[]){const line=el('p','intel-shield');line.append(el('strong','',shield.element+' 보호막 '+shield.value));if(info.grade!=='보스'&&shield.weakness.length)line.append(el('span','','보호막 추가 피해 · '+shield.weakness.join(' / ')));status?.before(line);}
+ },
  detail(info,{compact=false,skill=null,replay=false}={}){
+  info=this.visibleInfo(info);
   const box=el('div','enemy-intel-content');if(!info){box.append(el('p','muted','적의 이름에 마우스를 올리거나 정보 버튼을 누르세요.'));return box;}
   box.append(el('small','eyebrow','적 정보 · '+(info.grade||'')+' · Lv.'+info.level),el('h2','enemy-intel-name',info.name));
-  if(replay)box.append(el('p','intel-replay-note','재생 시작 시점의 상태입니다. 이번 행동은 아래 기술 알림으로 확인하세요. 다음 조작 차례에 상태가 갱신됩니다.'));
+  if(replay)box.append(el('p','intel-replay-note','전투는 계속 진행됩니다. 효과는 현재 표시된 상태를 기준으로 확인합니다.'));
   const stats=el('dl','intel-stats');for(const [key,value]of [['HP',Math.ceil(info.hp)+' / '+Math.ceil(info.maxHp)],['공격',Math.round(info.atk)],['방어',Math.round(info.def)],['속도',Math.round(info.spd)],['사거리',info.range],['보호막',Math.ceil(info.shield)]]){const pair=el('div');pair.append(el('dt','',key),el('dd','',String(value||0)));stats.append(pair);}box.append(stats);
   if(info.airborne&&info.grade!=='보스')box.append(el('p','intel-cue warning','공중 목표 · 원거리·대공 또는 명시적 접근 기술이 필요합니다.'));
   for(const cue of (info.grade==='보스'?[]:info.cues||[])){const line=el('div','intel-cue '+cue.kind);line.append(el('strong','',cue.text),el('small','',cue.detail));box.append(line);}
@@ -39,7 +53,7 @@ const EnemyIntel={
   if(!this.panel?.isConnected)return;
   const info=this.cache.get(this.selected);this.panel.replaceChildren();
   const top=el('div','intel-panel-top');top.append(el('h2','','적 기술 정보'),button(this.pinned?'고정 해제':'정보 고정',()=>{this.pinned=!this.pinned;this.refreshPanel();}));
-  this.panel.append(top,el('p','intel-help',this.pinned?'정보 고정 중 · 다른 적은 정보 버튼으로 선택':'적 이름에 마우스를 올리면 미리보기 · 클릭하면 고정'));
+  this.panel.append(top,el('p','intel-help',this.pinned?'정보 고정 중 · 다른 적은 정보 버튼으로 선택':(window.matchMedia?.('(hover:hover)').matches?'적 이름에 마우스를 올리면 미리보기 · 클릭하면 고정':'적 카드의 정보 버튼을 누르면 고정')));
   const body=el('div','intel-panel-scroll');body.append(this.detail(info));this.panel.append(body);this.highlight();
  },
  highlight(){for(const n of root.querySelectorAll('.combatant-row[data-side="ENEMY"]'))n.classList.toggle('intel-selected',n.dataset.actorId===this.selected);},
@@ -47,34 +61,35 @@ const EnemyIntel={
  open(id=this.selected,skill=null){
   this.select(id,true);const info=this.cache.get(id);if(!info)return;
   if(!this.dialog){const dialog=el('dialog','enemy-intel-dialog');dialog.id='enemy-intel-dialog';dialog.setAttribute('aria-labelledby','enemy-intel-dialog-title');document.body.append(dialog);this.dialog=dialog;dialog.addEventListener('close',()=>this.restorePlayback());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});}
-  if(GameEffects.active&&!this.dialog.open){this.resumeToken={generation:GameEffects.generation,wasPaused:GameEffects.paused};GameEffects.paused=true;CombatFX.pause(true);GameEffects.reschedule();}
+  // A read-only information window never changes playback pause or its timers.
   const head=el('header','intel-dialog-head'),title=el('h2','','적 정보');title.id='enemy-intel-dialog-title';const close=button('닫기',()=>this.dialog.close());close.setAttribute('aria-label','적 정보 닫기');head.append(title,close);
   const content=el('div','intel-dialog-scroll');content.append(this.detail(info,{skill,replay:GameEffects.active}));this.dialog.replaceChildren(head,content);
   if(!this.dialog.open)this.dialog.showModal();close.focus({preventScroll:true});
+  this.liveUnsubscribe?.();this.liveUnsubscribe=globalThis.ActorPlayback?.subscribe?.(()=>this.refreshLive())||null;
   if(skill)requestAnimationFrame(()=>content.querySelector('[data-skill-id="'+CSS.escape(skill)+'"]')?.scrollIntoView({block:'nearest'}));
  },
- restorePlayback(){const token=this.resumeToken;this.resumeToken=null;if(token&&GameEffects.active&&token.generation===GameEffects.generation&&!token.wasPaused){GameEffects.paused=false;CombatFX.pause(false);GameEffects.reschedule();}},
+ restorePlayback(){this.resumeToken=null;this.liveUnsubscribe?.();this.liveUnsubscribe=null;},
  attach(p){
   const stage=p.querySelector('.compact-battle-stage');if(!stage)return;stage.classList.remove('with-enemy-intel');this.panel=null;
  },
  hideToast(){clearTimeout(this.toastTimer);this.toast?.remove();this.toast=null;},
  showSkill(frame){
-  if(!this.cache.has(frame.actorId)){this.hideToast();return;}
+  if(!this.cache.has(frame.actorId)||frame.sourceKind==='STATUS_APPLY'||(frame.events||[frame]).every(e=>e.kind==='status'||e.kind==='state')){this.hideToast();return;}
   const info=this.cache.get(frame.actorId),events=frame.events||[frame],cardId=events.find(e=>e.cardId)?.cardId,card=info.cards.find(c=>c.id===cardId);
   const state=events.some(e=>e.interrupted)?'기술 중단':events.some(e=>e.charging)?'기술 준비':events.some(e=>e.released)?'준비 기술 발동':'적 기술';
   this.lastSkill={id:frame.actorId,card:cardId};this.hideToast();
   const toast=el('section','enemy-skill-toast');toast.setAttribute('aria-label','현재 적 기술');toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');
   const caption=el('div','enemy-skill-caption');caption.append(el('small','',state+' · '+info.name),el('strong','',frame.cardName||card?.name||'기본 공격'));
   const summary=events.find(e=>e.charging||e.interrupted)?.skillText||[card?.element,card?.target,card?.cooldown?'재사용 '+card.cooldown+'차례':''].filter(Boolean).join(' · ');
-  caption.append(el('span','',summary));toast.append(caption,button('기술 확인',()=>this.open(frame.actorId,cardId)),button('×',()=>this.hideToast()));toast.lastChild.setAttribute('aria-label','기술 알림 닫기');document.body.append(toast);this.toast=toast;
+  caption.append(el('span','',summary));const inspect=button('기술 확인',()=>this.open(frame.actorId,cardId));inspect.dataset.battleInspection='enemy';toast.append(caption,inspect,button('×',()=>this.hideToast()));toast.lastChild.setAttribute('aria-label','기술 알림 닫기');document.body.append(toast);this.toast=toast;
   const updatePosition=()=>{if(!this.toast)return;const dock=GameEffects.dock,r=dock?.getBoundingClientRect();if(r)this.toast.style.bottom=(innerHeight-r.top+10)+'px';};updatePosition();
   const dismiss=()=>{if(this.toast!==toast)return;if(GameEffects.paused||toast.matches(':hover')||toast.contains(document.activeElement))this.toastTimer=setTimeout(dismiss,400);else this.hideToast();};this.toastTimer=setTimeout(dismiss,2300/(settings.combatSpeed||1));
-  if(GameEffects.dock&&!GameEffects.dock.querySelector('.playback-enemy-info')){const btn=button('적 기술 확인',()=>this.open(this.lastSkill?.id||this.selected,this.lastSkill?.card));btn.classList.add('playback-enemy-info');GameEffects.dock.querySelector('.playback-buttons')?.append(btn);}
+  if(GameEffects.dock&&!GameEffects.dock.querySelector('.playback-enemy-info')){const btn=button('적 기술 확인',()=>this.open(this.lastSkill?.id||this.selected,this.lastSkill?.card));btn.dataset.battleInspection='enemy';btn.classList.add('playback-enemy-info');GameEffects.dock.querySelector('.playback-buttons')?.append(btn);}
  }
 };
 const intelActorRow=battleActorRow;
 battleActorRow=function(a,...args){const row=intelActorRow(a,...args);if(a.side!=='ENEMY')return row;
- const info=button('정보',()=>EnemyIntel.open(a.id));info.classList.add('enemy-info-button');info.setAttribute('aria-label',a.name+' 정보 열기');row.append(info);
+ const info=button('정보',()=>EnemyIntel.open(a.id));info.dataset.battleInspection='enemy';info.classList.add('enemy-info-button');info.setAttribute('aria-label',a.name+' 정보 열기');row.append(info);
  if(a.enemyCharge){const cue=el('small','enemy-charge-chip','준비 중 · '+a.enemyCharge.name);row.querySelector('.combatant-copy')?.append(cue);}
  return row;
 };

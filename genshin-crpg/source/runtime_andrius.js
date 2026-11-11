@@ -79,7 +79,7 @@
       * this.andriusIncomingDamageMultiplier(t) * Number(options.andriusFinalMultiplier || 1);
   };
   P.damage = function (a, t, coefficient, el, options = {}) {
-    if (t && this.hasElementImmunity(t, el)) {
+    if (t && this.hasElementImmunity(t, el) && !this.nativeSlimeElement?.(t)) {
       this.s.runtime?.log.push({ actor: a.name, target: t.name, card: options.card || null, immune: true, damage: 0, element: element(el), sourceKind: options.sourceKind || null });
       return false; // No hit RNG, aura, reaction, status, or positive-hit trigger.
     }

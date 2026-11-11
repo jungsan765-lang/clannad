@@ -51,7 +51,9 @@ for(let i=0;i<120;i++){
  if(rows.length){choices++;if(rows.length===1)singletons++;}if(preview.boundary){boundary=true;break;}
 }
 assert(choices>0);assert(journal.length>5);assert(boundary,'the real opening must reach a conversation boundary');
-const savedConversation=await f.action('STORY_READ',{}, {reading:journal});assert.equal(savedConversation.status,200,savedConversation.error);assert.deepEqual(JSON.parse(f.read().state),expected.s);
+// the server takes at most 64 lines at a time; the client sends a longer scene in parts (app_online.js), and so does this (the opening is 70 lines since 0.16.68)
+for(let i=0;i<journal.length;i+=64){const savedConversation=await f.action('STORY_READ',{}, {reading:journal.slice(i,i+64)});assert.equal(savedConversation.status,200,savedConversation.error);}
+assert.deepEqual(JSON.parse(f.read().state),expected.s);
 // There are real one-response conversation nodes in both story tables; probe those with actual prerequisites.
 let singletonChecked=0;
 for(const route of ['ROUTE_ISEKAI','ROUTE_TRAVELER']){

@@ -6,7 +6,7 @@ function costChips(parent,e){
  const box=el('div','scene-chips');
  if(e.minutes)box.append(el('span','scene-chip time','⏱ '+e.minutes+'분 경과'));
  if(e.hp)box.append(el('span','scene-chip loss','♥ 체력 −'+e.hp+(e.hpPct?' (최대 체력의 '+e.hpPct+'%)':'')));
- if(e.mora)box.append(el('span','scene-chip loss','◈ 보상 모라 −'+e.mora));
+ if(e.mora){const chip=el('span','scene-chip loss'),ic=typeof currencyIcon==='function'&&currencyIcon('MORA','reward-cur');if(ic)chip.append(ic,'보상 모라 −'+e.mora);else chip.textContent='◈ 보상 모라 −'+e.mora;box.append(chip);}
  if(box.children.length)parent.append(box);
 }
 function bonusText(b){
@@ -17,35 +17,47 @@ function bonusText(b){
 function paimonLine(parent,text){
  if(!text)return;const line=el('p','scene-paimon');line.append(el('strong','','페이몬'),el('span','',text));parent.append(line);
 }
+// 0.16.42 (user: 「이 현장의뢰 이거 ㅅㅂ 이어져있지도 않고 글도 밀리고」): the commission's card in the narrow column keeps its steps,
+// its goal and one 「현장 살피기」 button; the scene itself (its words, Paimon and the choices) opens in a window. On the page it
+// was split from its commission onto another page, and the 💬 drawn over each choice covered its first letters.
+function stepBox(q,s){
+ const box=el('div','scene-step scene-step-window');
+ box.append(el('h4','',s.step.title),el('p','story',s.step.text));
+ paimonLine(box,s.step.paimon);
+ const opts=el('div','scene-options');
+ for(const o of s.step.options){
+  const b=actionButton('“'+o.say+'”','COMMISSION_PUZZLE',{quest:q.row[0],answer:o.index,step:s.index});
+  b.classList.add('scene-option');if(o.battle)b.classList.add('battle');if(o.tried)b.classList.add('tried');
+  b.prepend(el('span','scene-option-mark',o.battle?'⚔':'💬'));
+  opts.append(b);
+ }
+ box.append(opts);
+ // A choice closes this window first; its result opens in a window of its own (showResult).
+ box.addEventListener('click',e=>{if(e.target.closest?.('button.scene-option'))document.getElementById('modal')?.close?.();},true);
+ return box;
+}
+function logBox(s){
+ const box=el('div','scene-log scene-log-window');
+ for(const e of s.log){
+  const row=el('div','scene-log-row '+(e.ok?'ok':'miss'));
+  row.append(el('strong','',(e.ok?'✓ ':'✗ ')+e.title),el('p','scene-say','“'+e.say+'”'),el('p','',e.text));
+  costChips(row,e);box.append(row);
+ }
+ return box;
+}
 function render(card,q){
  const s=q.scene;card.classList.add('field-scene-card');
  const steps=el('ol','scene-steps');
  s.titles.forEach((t,i)=>steps.append(el('li',i<s.index?'done':i===s.index?'current':'',t)));
  card.append(steps);
  const bonus=bonusText(s.bonus);
- if(s.perfect)card.append(el('p','scene-goal',bonus?'실수 없이 마치면 보고할 때 추가 보상 · '+bonus:'실수 없이 마쳐 보자.'));
+ if(s.perfect)card.append(el('p','scene-goal',bonus?'실수 없이 마치면 추가 보상 · '+bonus:'실수 없이 마쳐 보자.'));
  else card.append(el('p','scene-goal missed','실수 '+s.mistakes+'회 · 추가 보상은 놓쳤다'+(s.penalty?' · 보고할 때 보상 모라 −'+s.penalty:'')));
- if(s.step){
-  const box=el('div','scene-step');
-  box.append(el('h4','',s.step.title),el('p','story',s.step.text));
-  paimonLine(box,s.step.paimon);
-  const opts=el('div','scene-options');
-  for(const o of s.step.options){
-   const b=actionButton('“'+o.say+'”','COMMISSION_PUZZLE',{quest:q.row[0],answer:o.index,step:s.index});
-   b.classList.add('scene-option');if(o.battle)b.classList.add('battle');if(o.tried)b.classList.add('tried');
-   opts.append(b);
-  }
-  box.append(opts);card.append(box);
- }
- if(s.log.length){
-  const log=el('details','scene-log');log.append(el('summary','','현장 기록 · '+s.log.length+'건'));
-  for(const e of s.log){
-   const row=el('div','scene-log-row '+(e.ok?'ok':'miss'));
-   row.append(el('strong','',(e.ok?'✓ ':'✗ ')+e.title),el('p','scene-say','“'+e.say+'”'),el('p','',e.text));
-   costChips(row,e);log.append(row);
-  }
-  card.append(log);
- }
+ const row=el('div','scene-actions');
+ const title=q.row[1]+' · '+(s.index+1)+' / '+s.titles.length;
+ if(s.step){const b=button('',()=>showModal(title,stepBox(q,s)),false,true);b.classList.add('scene-open');b.append(el('span','','현장 살피기'),el('small','',s.step.title));row.append(b);}
+ if(s.log.length){const b=button('현장 기록 · '+s.log.length,()=>showModal(q.row[1]+' · 현장 기록',logBox(s)));b.classList.add('scene-log-open');row.append(b);}
+ card.append(row);
 }
 function showResult(res,title){
  const box=el('div','scene-result '+(res.ok?'ok':res.pass?'pass':'miss'));

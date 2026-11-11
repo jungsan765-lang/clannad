@@ -3,8 +3,12 @@
 const copy=x=>JSON.parse(JSON.stringify(x));
 const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
 const cap=(n,min,max)=>Math.max(min,Math.min(max,n));
+// 0.16.69: 호감도는 0~100(하트 5개)이 전부다. 100을 넘는 단계와 성인 관련 경로는 모두 지웠다.
+const BOND_MAX=100;
 const HEART_THRESHOLDS=[20,40,60,80,100];
-const STATE_COLUMNS={FIRST_ADULT_EVENT_DONE:'FIRST_ADULT_EVENT_DONE_STATE',ADULT_REPEAT_COUNT:'ADULT_REPEAT_COUNT_STATE',ADULT_ROUTE_LOCKED:'ADULT_ROUTE_LOCKED_STATE',POST_ADULT_MOOD:'POST_ADULT_MOOD_STATE',HEART:'HEART_STATE'};
+const STATE_COLUMNS={HEART:'HEART_STATE'};
+// The fields a relationship record holds. Anything else an earlier version wrote is dropped on load.
+const RECORD_FIELDS=new Set(['saveId','routeId','profileId','relationSchemaVersion','BOND_SCORE','heart','HEART_STATE','firstContact','unlocked','events','companion','activityReceipts','eventCompletedAt']);
 class RelationshipError extends Error {constructor(code,message){super(message);this.name='RelationshipError';this.code=code;}}
 const fail=(code,message)=>{throw new RelationshipError(code,message)};
 const numeric=(v,fallback=0)=>v===null||v===''||v===undefined?fallback:(Number.isFinite(Number(v))?Number(v):fail('RELATION_SCORE','관계 점수가 올바르지 않습니다.'));
@@ -13,9 +17,8 @@ function catalogFromDB(db){
  const rows=db['58_MOND_AFFECTION_DB']||[],header=rows[0]||[],out={};
  for(const row of rows.slice(1)){
   const r=Object.fromEntries(header.map((k,i)=>[k,row[i]]));if(r.STATUS!=='ACTIVE')continue;
-  const mature=['PERSONAL_BOND_ADULT_FIRST','PERSONAL_BOND_ADULT_OPTIONAL'].includes(r.RELATION_KIND);
-  const general=['PERSONAL_BOND','PERSONAL_BOND_NON_SEXUAL','FRIENDSHIP_CHILD_SAFE'].includes(r.RELATION_KIND);
-  out[r.EVENT_ID]={id:r.EVENT_ID,profileId:r.PROFILE_ID,route:r.ROUTE_SCOPE,category:mature?'MATURE_ROMANCE':general?'GENERAL':'UNVERIFIED',verifiedClassification:mature||general,stage:r.EVENT_ID.match(/_(H0[1-5])$/)?.[1],entryNode:r.ENTRY_NODE_ID,generalScore:Number(r.BOND_SCORE_MIN)||Math.min(5,Number(r.HEART_MIN)||0)*20,heartMin:Math.min(5,Number(r.HEART_MIN)||0),requires:r.PREV_EVENT_ID?[r.PREV_EVENT_ID]:[],requiredQuest:r.REQUIRED_QUEST_ID,requiredFlags:r.REQUIRED_FLAGS,condition:r.REQUIRED_FLAGS||null,source:{table:'58_MOND_AFFECTION_DB',id:r.EVENT_ID},assetsPolicy:r.ADULT_SCENE_POLICY||'DEFAULT_PORTRAIT'};
+  const general=['PERSONAL_BOND','FRIENDSHIP_CHILD_SAFE'].includes(r.RELATION_KIND);
+  out[r.EVENT_ID]={id:r.EVENT_ID,profileId:r.PROFILE_ID,route:r.ROUTE_SCOPE,category:general?'GENERAL':'UNVERIFIED',verifiedClassification:general,stage:r.EVENT_ID.match(/_(H0[1-5])$/)?.[1],entryNode:r.ENTRY_NODE_ID,generalScore:Number(r.BOND_SCORE_MIN)||Math.min(5,Number(r.HEART_MIN)||0)*20,heartMin:Math.min(5,Number(r.HEART_MIN)||0),requires:r.PREV_EVENT_ID?[r.PREV_EVENT_ID]:[],requiredQuest:r.REQUIRED_QUEST_ID,requiredFlags:r.REQUIRED_FLAGS,condition:r.REQUIRED_FLAGS||null,source:{table:'58_MOND_AFFECTION_DB',id:r.EVENT_ID},assetsPolicy:'DEFAULT_PORTRAIT'};
  }
  return out;
 }
@@ -24,7 +27,6 @@ function activitiesFromDB(db){
  const definitions=objects('51_EVENT_DB'),aff=objects('58_MOND_AFFECTION_DB'),out={};
  const baseForRoute={ROUTE_TRAVELER:'EVT_MOND_DAILY_BOND',ROUTE_ISEKAI:'EVT_ISK_DAILY_BOND'};
  const decode=id=>{const row=definitions.find(e=>e.EVENT_ID===id&&e.ACTIVE==='Y');if(!row)return null;try{return {row,payload:JSON.parse(row.EXEC_PAYLOAD_JSON)}}catch{return null}};
- const upper=decode('EVT_MOND_BOND_SCORE_DAILY');
  for(const legend of objects('56_MOND_LEGEND_DB')){
   const base=decode(baseForRoute[legend.ROUTE_SCOPE]);if(!base||legend.STATUS!=='ACTIVE'||!legend.DAILY_ACTIVITY)continue;
   const payload=base.payload;if(payload.minutes!==30||!Number.isFinite(payload.bond_score_delta)||!Array.isArray(payload.allowed_transitions))continue;
@@ -33,7 +35,7 @@ function activitiesFromDB(db){
   if(!transitions.length)continue;
   const h05=related.find(a=>a.EVENT_ID.endsWith('_H05'))?.EVENT_ID;
   const id='DAILY:'+legend.LEGEND_ID;
-  out[id]={id,profileId:legend.PROFILE_ID,route:legend.ROUTE_SCOPE,title:legend.DAILY_ACTIVITY,dialogue:legend.DAILY_DIALOGUE_KO||'',name:legend.DISPLAY_NAME,completeFlag:legend.COMPLETE_FLAG_ID,legendQuest:legend.QUEST_ID,bondDelta:payload.bond_score_delta,minutes:payload.minutes,transitions,h05,upper:upper&&h05&&related.some(a=>Number(a.BOND_SCORE_CAP)===120)?{delta:upper.payload.delta,minutes:upper.payload.minutes,minimum:100,cap:120}:null,sourceId:base.row.EVENT_ID};
+  out[id]={id,profileId:legend.PROFILE_ID,route:legend.ROUTE_SCOPE,title:legend.DAILY_ACTIVITY,dialogue:legend.DAILY_DIALOGUE_KO||'',name:legend.DISPLAY_NAME,completeFlag:legend.COMPLETE_FLAG_ID,legendQuest:legend.QUEST_ID,bondDelta:payload.bond_score_delta,minutes:payload.minutes,transitions,h05,sourceId:base.row.EVENT_ID};
  }
  return out;
 }
@@ -41,19 +43,15 @@ function normalizeRecord(record,identity){
  const r=record||{};
  if(r.saveId&&r.saveId!==identity.saveId||r.routeId&&r.routeId!==identity.routeId||r.profileId&&r.profileId!==identity.profileId)fail('RELATION_IDENTITY','다른 저장 또는 루트의 관계 기록입니다.');
  if(!own(r,'BOND_SCORE'))r.BOND_SCORE=own(r,'bondScore')?numeric(r.bondScore):20*Math.max(0,numeric(r.HEART_STATE??r.heart));
- r.BOND_SCORE=cap(numeric(r.BOND_SCORE),0,120);
+ r.BOND_SCORE=cap(numeric(r.BOND_SCORE),0,BOND_MAX);
  // These aliases are compatibility projections, never independent currencies.
  r.heart=heart(r.BOND_SCORE);r.HEART_STATE=r.heart;delete r.bondScore;
  r.relationSchemaVersion=1;Object.assign(r,identity);
  r.events=r.events||{};r.unlocked=r.unlocked||[];
  if(!own(r,'firstContact'))r.firstContact=null;
  r.companion=r.companion||'LOCKED';
- r.activityReceipts=r.activityReceipts||{};r.matureReceipts=r.matureReceipts||{};r.eventCompletedAt=r.eventCompletedAt||{};
- if(own(r,'matureBondScore'))r.matureBondScore=cap(numeric(r.matureBondScore),100,120);
- else if(r.explicitMatureProgress?.validated===true&&Number.isFinite(Number(r.explicitMatureProgress.score)))r.matureBondScore=cap(Number(r.explicitMatureProgress.score),100,120);
- // Neither general B110/B120 nor image numbers establish mature progress.
- r.ADULT_REPEAT_COUNT_STATE=Math.max(0,Math.floor(numeric(r.ADULT_REPEAT_COUNT_STATE??r.adultRepeatCount)));
- r.FIRST_ADULT_EVENT_DONE_STATE=r.FIRST_ADULT_EVENT_DONE_STATE===true||r.firstAdultEventDone===true;
+ r.activityReceipts=r.activityReceipts||{};r.eventCompletedAt=r.eventCompletedAt||{};
+ for(const k of Object.keys(r))if(!RECORD_FIELDS.has(k))delete r[k];
  return r;
 }
 function migrateState(input){
@@ -67,19 +65,14 @@ function migrateState(input){
  if(changes.length){state.relationshipMigration=state.relationshipMigration||{from:'LEGACY_HEARTS',to:1,originalRelations:before,changes};}
  return state;
 }
-function verified(entry){return entry?.verifiedAdult===true&&entry?.appearanceVerifiedAdult===true&&typeof entry.evidence==='string'&&entry.evidence.trim().length>0;}
 function install(api,options={}){
  const Runtime=api.Runtime||api, P=Runtime.prototype;
  if(P.__relationshipsInstalled)return api;
  Object.defineProperty(P,'__relationshipsInstalled',{value:true});
- const sessions=new WeakMap(), modes=new WeakMap();
- const defaults={adultModeEnabled:false,...options.preferences};
- const policy=options.eligibility||{profiles:{},protagonists:{}};
  const eventCatalog=options.events||{}, activities=options.activities||{};
- const getSession=rt=>sessions.get(rt)||null;
  const oldValidate=P.validateSave, oldNew=P.newGame, oldContact=P.markContact, oldPersonal=P.personal, oldApply=P.apply, oldReason=P.actionReason;
  P.validateSave=function(s){const m=migrateState(s);Object.assign(s,m);return oldValidate.call(this,s);};
- P.newGame=function(o){sessions.delete(this);modes.set(this,defaults.adultModeEnabled===true);oldNew.call(this,o);this.s=migrateState(this.s);return copy(this.s);};
+ P.newGame=function(o){oldNew.call(this,o);this.s=migrateState(this.s);return copy(this.s);};
  P.relation=function(profileId){
   if(!this.s)fail('NO_SAVE','새 게임을 시작해 주세요.');
   this.row('04_CHAR_DB',profileId);
@@ -89,7 +82,7 @@ function install(api,options={}){
  P.markContact=function(id){const r=oldContact.call(this,id);return this.relation(id);};
  P.changeBond=function(profileId,delta,meta={}){
   if(!Number.isFinite(delta))fail('RELATION_DELTA','호감도 변화량이 올바르지 않습니다.');
-  const r=this.relation(profileId),before=r.BOND_SCORE;r.BOND_SCORE=cap(before+delta,0,120);r.heart=heart(r.BOND_SCORE);r.HEART_STATE=r.heart;
+  const r=this.relation(profileId),before=r.BOND_SCORE;r.BOND_SCORE=cap(before+delta,0,BOND_MAX);r.heart=heart(r.BOND_SCORE);r.HEART_STATE=r.heart;
   return {profileId,previous:before,score:r.BOND_SCORE,heart:r.heart,change:r.BOND_SCORE-before,source:meta.source||null};
  };
  // v0.14.0: every companion in the battle party whose personal mission is done gains 1 per victory (formerly slot 2 only).
@@ -121,7 +114,6 @@ function install(api,options={}){
   const event=eventCatalog[eventId]||context;
   const profileId=context.profileId||event.profileId;
   if(!profileId)fail('AFFECTION_PROFILE','사건의 인물 연결이 없습니다.');
-  if(event.category==='MATURE_ROMANCE')fail('MATURE_COMMIT','전용 사건은 현재 장면의 동의와 커밋을 거쳐야 합니다.');
   const r=this.relation(profileId);r.events[eventId]='COMPLETE';if(!r.eventCompletedAt[eventId])r.eventCompletedAt[eventId]={day:this.s.global.WORLD_DAY,turn:this.s.global.TURN};
   // No intermediate stage is synthesized from completing a higher stage.
   if(event.stage&&/^H0[1-5]$/.test(event.stage))r.events[event.stage]='COMPLETE';
@@ -142,46 +134,16 @@ function install(api,options={}){
   }
   return out;
  };
- P.adultModeEnabled=function(){return modes.has(this)?modes.get(this):defaults.adultModeEnabled===true;};
- P.matureEligibility=function(profileId){
-  const r=this.relation(profileId),route=this.s.global.STORY_ROUTE_ID;
-  if(!verified(policy.protagonists?.[route])||!verified(policy.profiles?.[profileId]))return {allowed:false,reason:'ELIGIBILITY_UNVERIFIED'};
-  if(policy.allowedRoutes?.[profileId]?.includes(route)!==true)return {allowed:false,reason:'RELATION_PATH_LOCKED'};
-  const h05=Object.values(eventCatalog).find(e=>e.profileId===profileId&&e.stage==='H05'&&e.category==='GENERAL'&&(!e.route||e.route===route));
-  if(r.BOND_SCORE<100||!(r.events.H05==='COMPLETE'||h05&&r.events[h05.id]==='COMPLETE'))return {allowed:false,reason:'GENERAL_RELATION_REQUIRED'};
-  if(r.ADULT_ROUTE_LOCKED_STATE===true)return {allowed:false,reason:'RELATION_PATH_LOCKED'};
-  return {allowed:true,reason:'VERIFIED'};
- };
- P.effectiveMatureBond=function(profileId){const r=this.relation(profileId);return this.adultModeEnabled()&&this.matureEligibility(profileId).allowed?(r.matureBondScore??100):100;};
- P.invalidateRelationshipConsent=function(reason='SCENE_CHANGED'){
-  const s=getSession(this);sessions.delete(this);return s?{interrupted:true,committed:!!s.committed,eventId:s.eventId,returnNode:s.returnNode||null,reason}:null;
- };
- P.setAdultMode=function(enabled){
-  if(typeof enabled!=='boolean')fail('PREFERENCE','설정 값이 올바르지 않습니다.');modes.set(this,enabled);
-  const interruption=this.invalidateRelationshipConsent(enabled?'MODE_CHANGED':'MODE_OFF');
-  if(interruption&&!enabled){
-   if(interruption.returnNode){this.s.global.CURRENT_STORY_NODE_ID=interruption.returnNode;this.s.global.STORY_CURSOR_NODE_ID=interruption.returnNode;this.s.global.SCREEN_MODE='STORY';}
-   else {this.s.global.SCREEN_MODE='SYSTEM';this.s.relationshipInterrupted={eventId:interruption.eventId,committed:interruption.committed,reason:'MODE_OFF'};}
-  }
-  if(options.onExposureChanged)options.onExposureChanged(this,{enabled,interruption});
-  return {enabled,interruption};
- };
- P.canExposeRelationshipContent=function(item,profileId){
-  if(item?.category==='GENERAL')return true;
-  if(item?.category!=='MATURE_ROMANCE'||item.verifiedClassification!==true||!profileId)return false;
-  return this.adultModeEnabled()&&this.matureEligibility(profileId).allowed;
- };
  P.dailyRelationshipActivity=function(profileId,{bondDelta=0,sourceId,minutes=30}={}){
   if(!sourceId||!Number.isFinite(bondDelta)||minutes!==30)fail('ACTIVITY_DEFINITION','확인된 일상 활동 정의가 필요합니다.');
   if(this.s.runtime)fail('COMBAT','전투 중에는 교류할 수 없습니다.');
   const r=this.relation(profileId);if(r.firstContact===null)fail('FIRST_CONTACT','먼저 만난 인물과 교류할 수 있습니다.');
   const g=this.s.global,key=[g.SAVE_ID,g.STORY_ROUTE_ID,profileId,g.WORLD_DAY].join('|');
   if(r.activityReceipts[key])return {...copy(r.activityReceipts[key]),duplicate:true};
-  const previousMature=r.matureBondScore??null;
   const general=this.changeBond(profileId,0,{source:sourceId});
-  // Daily activities preserve both score currencies; only their narrative/time receipt advances.
+  // Daily activities keep the score; only their narrative/time receipt advances.
   this.advanceTime(30);
-  const receipt={key,sourceId,minutes:30,day:Number(key.split('|').at(-1)),turn:g.TURN,general,matureBefore:previousMature,matureAfter:r.matureBondScore??null};r.activityReceipts[key]=receipt;return copy(receipt);
+  const receipt={key,sourceId,minutes:30,day:Number(key.split('|').at(-1)),turn:g.TURN,general};r.activityReceipts[key]=receipt;return copy(receipt);
  };
  P.lastRelationshipActivity=function(profileId){return Object.values(this.relation(profileId).activityReceipts).sort((a,b)=>(b.day-a.day)||(b.turn-a.turn))[0]||null;};
  P.relationshipActivityReason=function(def){
@@ -196,26 +158,6 @@ function install(api,options={}){
  };
  // v0.14.0: daily "교류 활동" chores were removed; relationships grow through personal missions and affection scenes.
  P.relationshipActivityEntries=function(){return [];};
- P.beginMatureRelationshipEvent=function(eventId,{replay=false}={}){
-  this.invalidateRelationshipConsent('SCENE_CHANGED');
-  const def=eventCatalog[eventId];if(!def||def.category!=='MATURE_ROMANCE'||def.verifiedClassification!==true)fail('MATURE_DEFINITION','확인되지 않은 전용 사건입니다.');
-  if(!this.canExposeRelationshipContent(def,def.profileId))fail('MATURE_LOCKED','관계 확장 조건이 충족되지 않았습니다.');
-  const r=this.relation(def.profileId);
-  if(r.BOND_SCORE<(def.generalScore??100)||this.effectiveMatureBond(def.profileId)<(def.matureScore??100)||(def.requires||[]).some(id=>!this.relationshipEventComplete(id))||!def.condition||options.testCondition?.(this,def.condition)!==true)fail('MATURE_PREREQUISITE','이 사건의 선행 조건과 현재 상황을 확인해야 합니다.');
-  sessions.set(this,{eventId,profileId:def.profileId,consent:false,committed:false,replay,returnNode:def.safeReturnNode||null,sceneId:def.entryNode});
-  return {eventId,requiresConsent:true,replay};
- };
- P.confirmRelationshipConsent=function(eventId,accepted){const s=getSession(this);if(!s||s.eventId!==eventId)fail('CONSENT_SCENE','현재 사건을 다시 확인해 주세요.');if(accepted!==true)return this.invalidateRelationshipConsent('DECLINED');s.consent=true;return {accepted:true};};
- P.commitMatureRelationshipEvent=function(eventId,commitId){
-  const s=getSession(this),def=eventCatalog[eventId];
-  if(!s||s.eventId!==eventId||!s.consent||!this.canExposeRelationshipContent(def,def.profileId))fail('CONSENT_REQUIRED','현재 장면에서 명시적으로 동의해야 합니다.');
-  if(s.replay)fail('REPLAY_READONLY','회상에서는 진행과 보상을 변경하지 않습니다.');
-  if(typeof commitId!=='string'||!commitId.startsWith(this.s.global.SAVE_ID+':'))fail('COMMIT_ID','유효한 사건 커밋 식별자가 필요합니다.');
-  const r=this.relation(s.profileId);if(r.matureReceipts[commitId])return {...copy(r.matureReceipts[commitId]),duplicate:true};
-  if(s.committed)fail('EVENT_COMMITTED','이 장면은 이미 확정됐습니다.');
-  const receipt={eventId,commitId,turn:this.s.global.TURN};r.matureReceipts[commitId]=receipt;r.events[eventId]='COMPLETE';r.FIRST_ADULT_EVENT_DONE_STATE=true;r.ADULT_REPEAT_COUNT_STATE++;s.committed=true;
-  return copy(receipt);
- };
  // Legacy dialogue may still author heart changes; preserve narrative without adding bond.
  if(oldPersonal)P.personal=function(id,choice){
   const raw=this.row('51_EVENT_DB',id),def=JSON.parse(raw[13]||'{}'),r=this.relation(def.profile_id),before=r.BOND_SCORE;
@@ -228,6 +170,6 @@ function install(api,options={}){
  };
  return api;
 }
-const api={install,heart,migrateState,normalizeRecord,catalogFromDB,activitiesFromDB,RelationshipError,HEART_THRESHOLDS,STATE_COLUMNS};
+const api={install,heart,migrateState,normalizeRecord,catalogFromDB,activitiesFromDB,RelationshipError,HEART_THRESHOLDS,STATE_COLUMNS,BOND_MAX};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;root.CRPGRelationships=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

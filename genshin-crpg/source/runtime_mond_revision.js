@@ -39,7 +39,6 @@ P.storyIndex=function(){
  edit('ISK_M05_B_057',{9:'드발린이 공격하지 않을 거라고 전했어. 그런데 진은 축하할 시간이 없더라. 돌아오는 사람들 이름을 먼저 찾고 있었거든. 나도 명단을 같이 봤어.'});
  edit('ISK_M05_B_061',{9:'벤티 씨가 이송로를 확인해 주셨습니다. 서로 맡을 일이 있으니 지금은 나눠서 하죠. 당신도 산에서 본 일을 들려주시면 됩니다. 토벌대의 일까지 대신 설명하실 필요는 없어요.'});
  // Editorial/internals belong in metadata, never in the story window.
- for(const row of ix.byTable['57_MOND_STORY_SCENE_DB'])if(String(row[1]).includes('MOND')&&row[5]!=='META')row[9]=String(row[9]||'').replace(/\s*기존 성인 루트 허용 여부를 변경하지 않는다\./g,'');
  Object.defineProperty(ix,'mondEditorial44',{value:true});return ix;
 };
 api.mondEditorialVersion=44;

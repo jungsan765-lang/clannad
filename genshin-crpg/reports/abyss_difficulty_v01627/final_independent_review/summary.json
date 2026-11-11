@@ -1,0 +1,4035 @@
+{
+  "schema": 1,
+  "scope": "Independent final source/policy/save/admin/supply review. No difficulty or natural-acquisition guarantee, forced wins, enemy modification or product edits.",
+  "beforeFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "currentFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "sourceHashes": {
+    "source/runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+    "source/runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+    "source/runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+    "source/runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+    "source/runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9",
+    "source/runtime_growth_v01522.js": "5280d8c6a32e8a7424c1a76b835cb345d264a8cec8c675b11b74a44737b5872d",
+    "source/runtime_balance_admin_v01623.js": "0c2e4c4c57e6fb2b40f5c9a7d83e18a7f0463c30437619008850d440acf67b6c"
+  },
+  "changed": [
+    "source/runtime_economy.js",
+    "source/runtime_rules.js",
+    "source/runtime_mond_boss_balance.js",
+    "source/runtime_field_bosses.js",
+    "source/runtime_local_revision.js",
+    "source/runtime_growth_v01522.js",
+    "source/runtime_balance_admin_v01623.js"
+  ],
+  "rawDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "expectedExp60": 24000,
+  "total": 28,
+  "passed": 28,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "authored_database_and_protected_sources_unchanged",
+      "passed": true,
+      "evidence": {
+        "changed": [
+          "source/runtime_economy.js",
+          "source/runtime_rules.js",
+          "source/runtime_mond_boss_balance.js",
+          "source/runtime_field_bosses.js",
+          "source/runtime_local_revision.js",
+          "source/runtime_growth_v01522.js",
+          "source/runtime_balance_admin_v01623.js"
+        ],
+        "protectedPaths": [
+          "source/runtime_raid_v0152.js",
+          "source/runtime_abyss.js",
+          "source/runtime_liyue_combat.js",
+          "source/runtime_operator.js",
+          "source/runtime_enhancement.js",
+          "source/runtime_liyue_artifacts.js",
+          "source/runtime_gear_traits.js",
+          "source/runtime_combat_v0148.js"
+        ],
+        "rawDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da"
+      }
+    },
+    {
+      "id": "native_abyss_public_scope_1",
+      "passed": true,
+      "evidence": {
+        "floor": 1,
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 15,
+            "hp": 2673,
+            "maxHp": 2673,
+            "atk": 474,
+            "def": 235,
+            "spd": 62,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 15,
+            "hp": 2859,
+            "maxHp": 2859,
+            "atk": 435.59999999999997,
+            "def": 274.8,
+            "spd": 74,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 15,
+            "hp": 3045,
+            "maxHp": 3197,
+            "atk": 484.79999999999995,
+            "def": 309.59999999999997,
+            "spd": 78,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 15,
+            "hp": 3493,
+            "maxHp": 3493,
+            "atk": 454.8,
+            "def": 446.4,
+            "spd": 55,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_ABYSS_WARDEN#1",
+            "source": "MON_ABYSS_WARDEN",
+            "side": "ENEMY",
+            "level": 15,
+            "hp": 3390,
+            "maxHp": 3390,
+            "atk": 588,
+            "def": 320,
+            "spd": 28,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "MON_ABYSS_WARDEN#2",
+            "source": "MON_ABYSS_WARDEN",
+            "side": "ENEMY",
+            "level": 15,
+            "hp": 3390,
+            "maxHp": 3390,
+            "atk": 588,
+            "def": 320,
+            "spd": 28,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_abyss_public_scope_6",
+      "passed": true,
+      "evidence": {
+        "floor": 6,
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 8649,
+            "maxHp": 8649,
+            "atk": 1635.6,
+            "def": 816,
+            "spd": 67,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 9324,
+            "maxHp": 9324,
+            "atk": 1540.8000000000002,
+            "def": 979.2,
+            "spd": 79,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 9997,
+            "maxHp": 10497,
+            "atk": 1740.8000000000002,
+            "def": 1128,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 11617,
+            "maxHp": 11617,
+            "atk": 1587.2,
+            "def": 1644.8000000000002,
+            "spd": 60,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_ABYSS_WARDEN#1",
+            "source": "MON_ABYSS_WARDEN",
+            "side": "ENEMY",
+            "level": 40,
+            "hp": 10494,
+            "maxHp": 10494,
+            "atk": 7464,
+            "def": 1977,
+            "spd": 38,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "MON_ABYSS_WARDEN#2",
+            "source": "MON_ABYSS_WARDEN",
+            "side": "ENEMY",
+            "level": 40,
+            "hp": 10494,
+            "maxHp": 10494,
+            "atk": 7464,
+            "def": 1977,
+            "spd": 38,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "MON_ABYSS_WARDEN#3",
+            "source": "MON_ABYSS_WARDEN",
+            "side": "ENEMY",
+            "level": 40,
+            "hp": 10494,
+            "maxHp": 10494,
+            "atk": 7464,
+            "def": 1977,
+            "spd": 38,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_abyss_public_scope_9",
+      "passed": true,
+      "evidence": {
+        "floor": 9,
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 15638,
+            "maxHp": 15638,
+            "atk": 3122.4,
+            "def": 1558,
+            "spd": 70,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 16886,
+            "maxHp": 16886,
+            "atk": 2956,
+            "def": 1884,
+            "spd": 82,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 18131,
+            "maxHp": 19038,
+            "atk": 3348,
+            "def": 2176,
+            "spd": 86,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 55,
+            "hp": 21125,
+            "maxHp": 21125,
+            "atk": 3038,
+            "def": 3180,
+            "spd": 63,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_ABYSS_WARDEN#1",
+            "source": "MON_ABYSS_WARDEN",
+            "side": "ENEMY",
+            "level": 55,
+            "hp": 30508,
+            "maxHp": 30508,
+            "atk": 19775,
+            "def": 3693,
+            "spd": 44,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "MON_ABYSS_WARDEN#2",
+            "source": "MON_ABYSS_WARDEN",
+            "side": "ENEMY",
+            "level": 55,
+            "hp": 30508,
+            "maxHp": 30508,
+            "atk": 19775,
+            "def": 3693,
+            "spd": 44,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_raid_public_scope_MON_RAID_GRADER",
+      "passed": true,
+      "evidence": {
+        "origin": "RAID:RAID_627",
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654,
+            "atk": 3685.0000000000005,
+            "def": 2349.6000000000004,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 23294,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 25862,
+            "maxHp": 25862,
+            "atk": 3786.2000000000003,
+            "def": 3973.2000000000003,
+            "spd": 64,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_RAID_GRADER#1",
+            "source": "MON_RAID_GRADER",
+            "side": "ENEMY",
+            "level": 10,
+            "hp": 1000000,
+            "maxHp": 1000000,
+            "atk": 208,
+            "def": 132,
+            "spd": 52,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_raid_public_scope_MON_RAID_FROSTLORD",
+      "passed": true,
+      "evidence": {
+        "origin": "RAID:RAID_627",
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654,
+            "atk": 3685.0000000000005,
+            "def": 2349.6000000000004,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 23294,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 25862,
+            "maxHp": 25862,
+            "atk": 3786.2000000000003,
+            "def": 3973.2000000000003,
+            "spd": 64,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_RAID_FROSTLORD#1",
+            "source": "MON_RAID_FROSTLORD",
+            "side": "ENEMY",
+            "level": 10,
+            "hp": 1000000,
+            "maxHp": 1000000,
+            "atk": 203,
+            "def": 114,
+            "spd": 52,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_raid_public_scope_MON_RAID_HERALD",
+      "passed": true,
+      "evidence": {
+        "origin": "RAID:RAID_627",
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654,
+            "atk": 3685.0000000000005,
+            "def": 2349.6000000000004,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 23294,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 25862,
+            "maxHp": 25862,
+            "atk": 3786.2000000000003,
+            "def": 3973.2000000000003,
+            "spd": 64,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_RAID_HERALD#1",
+            "source": "MON_RAID_HERALD",
+            "side": "ENEMY",
+            "level": 10,
+            "hp": 1000000,
+            "maxHp": 1000000,
+            "atk": 196,
+            "def": 100,
+            "spd": 78,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_raid_public_scope_MON_RAID_MAIDEN",
+      "passed": true,
+      "evidence": {
+        "origin": "RAID:RAID_627",
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654,
+            "atk": 3685.0000000000005,
+            "def": 2349.6000000000004,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 23294,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 25862,
+            "maxHp": 25862,
+            "atk": 3786.2000000000003,
+            "def": 3973.2000000000003,
+            "spd": 64,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_RAID_MAIDEN#1",
+            "source": "MON_RAID_MAIDEN",
+            "side": "ENEMY",
+            "level": 10,
+            "hp": 1000000,
+            "maxHp": 1000000,
+            "atk": 196,
+            "def": 105,
+            "spd": 70,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_raid_public_scope_MON_RAID_SERPENT",
+      "passed": true,
+      "evidence": {
+        "origin": "RAID:RAID_627",
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654,
+            "atk": 3685.0000000000005,
+            "def": 2349.6000000000004,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 23294,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 25862,
+            "maxHp": 25862,
+            "atk": 3786.2000000000003,
+            "def": 3973.2000000000003,
+            "spd": 64,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_RAID_SERPENT#1",
+            "source": "MON_RAID_SERPENT",
+            "side": "ENEMY",
+            "level": 10,
+            "hp": 1000000,
+            "maxHp": 1000000,
+            "atk": 208,
+            "def": 118,
+            "spd": 52,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_raid_public_scope_MON_RAID_HUNTER",
+      "passed": true,
+      "evidence": {
+        "origin": "RAID:RAID_627",
+        "actors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122,
+            "atk": 3889.2,
+            "def": 1943,
+            "spd": 71,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654,
+            "atk": 3685.0000000000005,
+            "def": 2349.6000000000004,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 23294,
+            "atk": 4177.8,
+            "def": 2714.8,
+            "spd": 87,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 60,
+            "hp": 25862,
+            "maxHp": 25862,
+            "atk": 3786.2000000000003,
+            "def": 3973.2000000000003,
+            "spd": 64,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MON_RAID_HUNTER#1",
+            "source": "MON_RAID_HUNTER",
+            "side": "ENEMY",
+            "level": 10,
+            "hp": 1000000,
+            "maxHp": 1000000,
+            "atk": 203,
+            "def": 110,
+            "spd": 78,
+            "shields": [],
+            "statuses": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "native_osial_public_and_future_waves_ROUTE_TRAVELER",
+      "passed": true,
+      "evidence": {
+        "route": "ROUTE_TRAVELER",
+        "waves": [
+          {
+            "round": 3,
+            "actors": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 19122,
+                "maxHp": 19122,
+                "atk": 3889.2,
+                "def": 1943,
+                "spd": 71,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_AMBER",
+                "source": "MOND_AMBER",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 20654,
+                "maxHp": 20654,
+                "atk": 3685.0000000000005,
+                "def": 2349.6000000000004,
+                "spd": 83,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_KAEYA",
+                "source": "MOND_KAEYA",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 22185,
+                "maxHp": 23294,
+                "atk": 4177.8,
+                "def": 2714.8,
+                "spd": 87,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 25862,
+                "maxHp": 25862,
+                "atk": 3786.2000000000003,
+                "def": 3973.2000000000003,
+                "spd": 64,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "BOSS_OSIAL#1",
+                "source": "BOSS_OSIAL",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 87659,
+                "maxHp": 87659,
+                "atk": 8453,
+                "def": 739,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_CRYO#W1",
+                "source": "MON_FATUI_CRYO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [
+                  {
+                    "source": "ECARD_FATUI_CRYO_ARMOR",
+                    "value": 14572,
+                    "initialValue": 11226,
+                    "rounds": null,
+                    "createdRound": 1,
+                    "element": "얼음",
+                    "damageMultipliers": {
+                      "불": 2
+                    }
+                  }
+                ],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_PYRO#W1",
+                "source": "MON_FATUI_PYRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ELECTRO#W3",
+                "source": "MON_FATUI_ELECTRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_HYDRO#W3",
+                "source": "MON_FATUI_HYDRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "actors": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 19122,
+                "maxHp": 19122,
+                "atk": 3889.2,
+                "def": 1943,
+                "spd": 71,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_AMBER",
+                "source": "MOND_AMBER",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 20654,
+                "maxHp": 20654,
+                "atk": 3685.0000000000005,
+                "def": 2349.6000000000004,
+                "spd": 83,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_KAEYA",
+                "source": "MOND_KAEYA",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 22185,
+                "maxHp": 23294,
+                "atk": 4177.8,
+                "def": 2714.8,
+                "spd": 87,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 25862,
+                "maxHp": 25862,
+                "atk": 3786.2000000000003,
+                "def": 3973.2000000000003,
+                "spd": 64,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "BOSS_OSIAL#1",
+                "source": "BOSS_OSIAL",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 87659,
+                "maxHp": 87659,
+                "atk": 8453,
+                "def": 739,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_CRYO#W1",
+                "source": "MON_FATUI_CRYO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [
+                  {
+                    "source": "ECARD_FATUI_CRYO_ARMOR",
+                    "value": 14572,
+                    "initialValue": 11226,
+                    "rounds": null,
+                    "createdRound": 1,
+                    "element": "얼음",
+                    "damageMultipliers": {
+                      "불": 2
+                    }
+                  }
+                ],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_PYRO#W1",
+                "source": "MON_FATUI_PYRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ELECTRO#W3",
+                "source": "MON_FATUI_ELECTRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_HYDRO#W3",
+                "source": "MON_FATUI_HYDRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_GEO#W5",
+                "source": "MON_FATUI_GEO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ANEMO#W5",
+                "source": "MON_FATUI_ANEMO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 71,
+                "shields": [],
+                "statuses": []
+              }
+            ]
+          },
+          {
+            "round": 7,
+            "actors": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 19122,
+                "maxHp": 19122,
+                "atk": 3889.2,
+                "def": 1943,
+                "spd": 71,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_AMBER",
+                "source": "MOND_AMBER",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 20654,
+                "maxHp": 20654,
+                "atk": 3685.0000000000005,
+                "def": 2349.6000000000004,
+                "spd": 83,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_KAEYA",
+                "source": "MOND_KAEYA",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 22185,
+                "maxHp": 23294,
+                "atk": 4177.8,
+                "def": 2714.8,
+                "spd": 87,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 25862,
+                "maxHp": 25862,
+                "atk": 3786.2000000000003,
+                "def": 3973.2000000000003,
+                "spd": 64,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "BOSS_OSIAL#1",
+                "source": "BOSS_OSIAL",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 87659,
+                "maxHp": 87659,
+                "atk": 8453,
+                "def": 739,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_CRYO#W1",
+                "source": "MON_FATUI_CRYO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [
+                  {
+                    "source": "ECARD_FATUI_CRYO_ARMOR",
+                    "value": 14572,
+                    "initialValue": 11226,
+                    "rounds": null,
+                    "createdRound": 1,
+                    "element": "얼음",
+                    "damageMultipliers": {
+                      "불": 2
+                    }
+                  }
+                ],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_PYRO#W1",
+                "source": "MON_FATUI_PYRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ELECTRO#W3",
+                "source": "MON_FATUI_ELECTRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_HYDRO#W3",
+                "source": "MON_FATUI_HYDRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_GEO#W5",
+                "source": "MON_FATUI_GEO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ANEMO#W5",
+                "source": "MON_FATUI_ANEMO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 71,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_AGENT#W7",
+                "source": "MON_FATUI_AGENT",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 83927,
+                "maxHp": 83927,
+                "atk": 10976,
+                "def": 616,
+                "spd": 89,
+                "shields": [],
+                "statuses": []
+              }
+            ]
+          }
+        ],
+        "probe": "native future-wave construction; no victory claim"
+      }
+    },
+    {
+      "id": "native_osial_public_and_future_waves_ROUTE_ISEKAI",
+      "passed": true,
+      "evidence": {
+        "route": "ROUTE_ISEKAI",
+        "waves": [
+          {
+            "round": 3,
+            "actors": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 17897,
+                "maxHp": 17897,
+                "atk": 3252,
+                "def": 1331,
+                "spd": 74,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_AMBER",
+                "source": "MOND_AMBER",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 20654,
+                "maxHp": 20654,
+                "atk": 3685.0000000000005,
+                "def": 2349.6000000000004,
+                "spd": 83,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_KAEYA",
+                "source": "MOND_KAEYA",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 22185,
+                "maxHp": 23294,
+                "atk": 4177.8,
+                "def": 2714.8,
+                "spd": 87,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 25862,
+                "maxHp": 25862,
+                "atk": 3786.2000000000003,
+                "def": 3973.2000000000003,
+                "spd": 64,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "BOSS_ISK_L04_OSIAL#1",
+                "source": "BOSS_ISK_L04_OSIAL",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 87659,
+                "maxHp": 87659,
+                "atk": 8453,
+                "def": 739,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_CRYO#W1",
+                "source": "MON_FATUI_CRYO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [
+                  {
+                    "source": "ECARD_FATUI_CRYO_ARMOR",
+                    "value": 14572,
+                    "initialValue": 11226,
+                    "rounds": null,
+                    "createdRound": 1,
+                    "element": "얼음",
+                    "damageMultipliers": {
+                      "불": 2
+                    }
+                  }
+                ],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_PYRO#W1",
+                "source": "MON_FATUI_PYRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ELECTRO#W3",
+                "source": "MON_FATUI_ELECTRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_HYDRO#W3",
+                "source": "MON_FATUI_HYDRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "actors": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 17897,
+                "maxHp": 17897,
+                "atk": 3252,
+                "def": 1331,
+                "spd": 74,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_AMBER",
+                "source": "MOND_AMBER",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 20654,
+                "maxHp": 20654,
+                "atk": 3685.0000000000005,
+                "def": 2349.6000000000004,
+                "spd": 83,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_KAEYA",
+                "source": "MOND_KAEYA",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 22185,
+                "maxHp": 23294,
+                "atk": 4177.8,
+                "def": 2714.8,
+                "spd": 87,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 25862,
+                "maxHp": 25862,
+                "atk": 3786.2000000000003,
+                "def": 3973.2000000000003,
+                "spd": 64,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "BOSS_ISK_L04_OSIAL#1",
+                "source": "BOSS_ISK_L04_OSIAL",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 87659,
+                "maxHp": 87659,
+                "atk": 8453,
+                "def": 739,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_CRYO#W1",
+                "source": "MON_FATUI_CRYO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [
+                  {
+                    "source": "ECARD_FATUI_CRYO_ARMOR",
+                    "value": 14572,
+                    "initialValue": 11226,
+                    "rounds": null,
+                    "createdRound": 1,
+                    "element": "얼음",
+                    "damageMultipliers": {
+                      "불": 2
+                    }
+                  }
+                ],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_PYRO#W1",
+                "source": "MON_FATUI_PYRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ELECTRO#W3",
+                "source": "MON_FATUI_ELECTRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_HYDRO#W3",
+                "source": "MON_FATUI_HYDRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_GEO#W5",
+                "source": "MON_FATUI_GEO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ANEMO#W5",
+                "source": "MON_FATUI_ANEMO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 71,
+                "shields": [],
+                "statuses": []
+              }
+            ]
+          },
+          {
+            "round": 7,
+            "actors": [
+              {
+                "id": "PLAYER_CUSTOM",
+                "source": "PLAYER_CUSTOM",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 17897,
+                "maxHp": 17897,
+                "atk": 3252,
+                "def": 1331,
+                "spd": 74,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_AMBER",
+                "source": "MOND_AMBER",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 20654,
+                "maxHp": 20654,
+                "atk": 3685.0000000000005,
+                "def": 2349.6000000000004,
+                "spd": 83,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_KAEYA",
+                "source": "MOND_KAEYA",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 22185,
+                "maxHp": 23294,
+                "atk": 4177.8,
+                "def": 2714.8,
+                "spd": 87,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "MOND_NOELLE",
+                "source": "MOND_NOELLE",
+                "side": "ALLY",
+                "level": 60,
+                "hp": 25862,
+                "maxHp": 25862,
+                "atk": 3786.2000000000003,
+                "def": 3973.2000000000003,
+                "spd": 64,
+                "shields": [],
+                "statuses": [
+                  {
+                    "id": "FORMATION",
+                    "rounds": null,
+                    "createdRound": 1,
+                    "mods": {
+                      "atk": {
+                        "pct": 6,
+                        "flat": 0
+                      },
+                      "hit": {
+                        "pct": 0,
+                        "flat": 10
+                      }
+                    },
+                    "taken": 1,
+                    "reactionOut": 1,
+                    "supportOut": 1,
+                    "formation": "DOUBLE_LINE"
+                  }
+                ]
+              },
+              {
+                "id": "BOSS_ISK_L04_OSIAL#1",
+                "source": "BOSS_ISK_L04_OSIAL",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 87659,
+                "maxHp": 87659,
+                "atk": 8453,
+                "def": 739,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_CRYO#W1",
+                "source": "MON_FATUI_CRYO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [
+                  {
+                    "source": "ECARD_FATUI_CRYO_ARMOR",
+                    "value": 14572,
+                    "initialValue": 11226,
+                    "rounds": null,
+                    "createdRound": 1,
+                    "element": "얼음",
+                    "damageMultipliers": {
+                      "불": 2
+                    }
+                  }
+                ],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_PYRO#W1",
+                "source": "MON_FATUI_PYRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 48572,
+                "maxHp": 48572,
+                "atk": 9925,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ELECTRO#W3",
+                "source": "MON_FATUI_ELECTRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 63,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_HYDRO#W3",
+                "source": "MON_FATUI_HYDRO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_GEO#W5",
+                "source": "MON_FATUI_GEO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 81,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_ANEMO#W5",
+                "source": "MON_FATUI_ANEMO",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 37421,
+                "maxHp": 37421,
+                "atk": 7532,
+                "def": 492,
+                "spd": 71,
+                "shields": [],
+                "statuses": []
+              },
+              {
+                "id": "MON_FATUI_AGENT#W7",
+                "source": "MON_FATUI_AGENT",
+                "side": "ENEMY",
+                "level": 58,
+                "hp": 83927,
+                "maxHp": 83927,
+                "atk": 10976,
+                "def": 616,
+                "spd": 89,
+                "shields": [],
+                "statuses": []
+              }
+            ]
+          }
+        ],
+        "probe": "native future-wave construction; no victory claim"
+      }
+    },
+    {
+      "id": "genuine_026_EXP_promise_native_reload_and_action_PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "oldXp": 10000,
+        "reloadedXp": 10000,
+        "entry": {
+          "id": "LOST_VALLEY:60",
+          "key": "LOST_VALLEY",
+          "kind": "EXP",
+          "name": "암중협곡",
+          "trial": "경험치",
+          "region": "리월",
+          "level": 60,
+          "levels": [
+            60
+          ],
+          "map": "MAP_CHASM_DEEP",
+          "reason": "",
+          "lock": ""
+        },
+        "nativeActionCompared": true
+      }
+    },
+    {
+      "id": "genuine_026_EXP_promise_native_reload_and_action_STARTED",
+      "passed": true,
+      "evidence": {
+        "boundary": "STARTED",
+        "oldXp": 10000,
+        "reloadedXp": 10000,
+        "entry": {
+          "id": "LOST_VALLEY:60",
+          "key": "LOST_VALLEY",
+          "kind": "EXP",
+          "name": "암중협곡",
+          "trial": "경험치",
+          "region": "리월",
+          "level": 60,
+          "levels": [
+            60
+          ],
+          "map": "MAP_CHASM_DEEP",
+          "reason": "",
+          "lock": ""
+        },
+        "nativeActionCompared": true
+      }
+    },
+    {
+      "id": "new_EXP_entry_preview_reward_catalog_and_exact_admin_override",
+      "passed": true,
+      "evidence": {
+        "newAmount": 24000,
+        "catalogBase": 24000,
+        "exactAdminAmount": 12345,
+        "genuineOldAdminAmount": 12345,
+        "probe": "reward projection only; no forced or actual victory"
+      }
+    },
+    {
+      "id": "current_domain_entries_mark_only_EXP_and_material_rewards_preserved",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "id": "FORSAKEN_RIFT:5",
+            "kind": "TALENT",
+            "oldXp": 40,
+            "newXp": 40,
+            "oldItems": {
+              "GROWTH_TALENT_MOND": 1
+            },
+            "newItems": {
+              "GROWTH_TALENT_MOND": 1
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:10",
+            "kind": "TALENT",
+            "oldXp": 90,
+            "newXp": 90,
+            "oldItems": {
+              "GROWTH_TALENT_MOND": 2
+            },
+            "newItems": {
+              "GROWTH_TALENT_MOND": 2
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:15",
+            "kind": "TALENT",
+            "oldXp": 90,
+            "newXp": 90,
+            "oldItems": {
+              "GROWTH_TALENT_MOND": 10
+            },
+            "newItems": {
+              "GROWTH_TALENT_MOND": 10
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:20",
+            "kind": "TALENT",
+            "oldXp": 220,
+            "newXp": 220,
+            "oldItems": {
+              "GROWTH_TALENT_MOND": 20
+            },
+            "newItems": {
+              "GROWTH_TALENT_MOND": 20
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:25",
+            "kind": "TALENT",
+            "oldXp": 220,
+            "newXp": 220,
+            "oldItems": {
+              "GROWTH_TALENT_MOND": 32
+            },
+            "newItems": {
+              "GROWTH_TALENT_MOND": 32
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "VALLEY_OF_REMEMBRANCE:5",
+            "kind": "ASCENSION",
+            "oldXp": 40,
+            "newXp": 40,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 1
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 1
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "VALLEY_OF_REMEMBRANCE:10",
+            "kind": "ASCENSION",
+            "oldXp": 90,
+            "newXp": 90,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 2
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 2
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "VALLEY_OF_REMEMBRANCE:15",
+            "kind": "ASCENSION",
+            "oldXp": 90,
+            "newXp": 90,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 3
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 3
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "MIDSUMMER_COURTYARD:5",
+            "kind": "EXP",
+            "oldXp": 200,
+            "newXp": 200,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "MIDSUMMER_COURTYARD:10",
+            "kind": "EXP",
+            "oldXp": 450,
+            "newXp": 450,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "MIDSUMMER_COURTYARD:15",
+            "kind": "EXP",
+            "oldXp": 1000,
+            "newXp": 1000,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "CECILIA_GARDEN:20",
+            "kind": "ASCENSION",
+            "oldXp": 220,
+            "newXp": 220,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 10
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 10
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "CECILIA_GARDEN:25",
+            "kind": "ASCENSION",
+            "oldXp": 220,
+            "newXp": 220,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 32
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 32
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "PEAK_OF_VINDAGNYR:20",
+            "kind": "EXP",
+            "oldXp": 1100,
+            "newXp": 1100,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "PEAK_OF_VINDAGNYR:25",
+            "kind": "EXP",
+            "oldXp": 1250,
+            "newXp": 1250,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "RIDGE_WATCH:30",
+            "kind": "EXP",
+            "oldXp": 1500,
+            "newXp": 1500,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "ZHOU_FORMULA:35",
+            "kind": "EXP",
+            "oldXp": 1800,
+            "newXp": 1800,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "ZHOU_FORMULA:40",
+            "kind": "EXP",
+            "oldXp": 2100,
+            "newXp": 2100,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "LIANSHAN_FORMULA:30",
+            "kind": "ASCENSION",
+            "oldXp": 360,
+            "newXp": 360,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 47
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 47
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "LIANSHAN_FORMULA:35",
+            "kind": "ASCENSION",
+            "oldXp": 360,
+            "newXp": 360,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 105
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 105
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "LIANSHAN_FORMULA:40",
+            "kind": "ASCENSION",
+            "oldXp": 500,
+            "newXp": 500,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 153
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 153
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "LIANSHAN_FORMULA:45",
+            "kind": "ASCENSION",
+            "oldXp": 500,
+            "newXp": 500,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 318
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 318
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "LIANSHAN_FORMULA:50",
+            "kind": "ASCENSION",
+            "oldXp": 900,
+            "newXp": 900,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 642
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 642
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "LIANSHAN_FORMULA:55",
+            "kind": "ASCENSION",
+            "oldXp": 900,
+            "newXp": 900,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 1932
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 1932
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "LIANSHAN_FORMULA:60",
+            "kind": "ASCENSION",
+            "oldXp": 1600,
+            "newXp": 1600,
+            "oldItems": {
+              "GROWTH_GEM_NEUTRAL": 5400
+            },
+            "newItems": {
+              "GROWTH_GEM_NEUTRAL": 5400
+            },
+            "expMarker": null,
+            "talentMarker": null
+          },
+          {
+            "id": "TAISHAN_MANSION:30",
+            "kind": "TALENT",
+            "oldXp": 360,
+            "newXp": 360,
+            "oldItems": {
+              "GROWTH_TALENT_LIYUE": 3
+            },
+            "newItems": {
+              "GROWTH_TALENT_LIYUE": 3
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:35",
+            "kind": "TALENT",
+            "oldXp": 360,
+            "newXp": 360,
+            "oldItems": {
+              "GROWTH_TALENT_LIYUE": 4
+            },
+            "newItems": {
+              "GROWTH_TALENT_LIYUE": 4
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:40",
+            "kind": "TALENT",
+            "oldXp": 500,
+            "newXp": 500,
+            "oldItems": {
+              "GROWTH_TALENT_LIYUE": 7
+            },
+            "newItems": {
+              "GROWTH_TALENT_LIYUE": 7
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:45",
+            "kind": "TALENT",
+            "oldXp": 500,
+            "newXp": 500,
+            "oldItems": {
+              "GROWTH_TALENT_LIYUE": 9
+            },
+            "newItems": {
+              "GROWTH_TALENT_LIYUE": 9
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:50",
+            "kind": "TALENT",
+            "oldXp": 900,
+            "newXp": 900,
+            "oldItems": {
+              "GROWTH_TALENT_LIYUE": 19
+            },
+            "newItems": {
+              "GROWTH_TALENT_LIYUE": 19
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:55",
+            "kind": "TALENT",
+            "oldXp": 900,
+            "newXp": 900,
+            "oldItems": {
+              "GROWTH_TALENT_LIYUE": 28
+            },
+            "newItems": {
+              "GROWTH_TALENT_LIYUE": 28
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:60",
+            "kind": "TALENT",
+            "oldXp": 1600,
+            "newXp": 1600,
+            "oldItems": {
+              "GROWTH_TALENT_LIYUE": 80
+            },
+            "newItems": {
+              "GROWTH_TALENT_LIYUE": 90
+            },
+            "expMarker": null,
+            "talentMarker": 4
+          },
+          {
+            "id": "CLEAR_POOL:45",
+            "kind": "EXP",
+            "oldXp": 4500,
+            "newXp": 4500,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "DOMAIN_OF_GUYUN:50",
+            "kind": "EXP",
+            "oldXp": 5400,
+            "newXp": 5400,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "DOMAIN_OF_GUYUN:55",
+            "kind": "EXP",
+            "oldXp": 8000,
+            "newXp": 8000,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          },
+          {
+            "id": "LOST_VALLEY:60",
+            "kind": "EXP",
+            "oldXp": 10000,
+            "newXp": 24000,
+            "oldItems": {},
+            "newItems": {},
+            "expMarker": 1,
+            "talentMarker": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "TALENT90_export_entry_preview_catalog_requirements_and_invalid_revision",
+      "passed": true,
+      "evidence": {
+        "old": 80,
+        "current": 90,
+        "version": 4,
+        "xp": 1600,
+        "requirementsUnchanged": true,
+        "catalogBase": 90,
+        "unsupportedMarkerAndScopeRejected": true
+      }
+    },
+    {
+      "id": "genuine_026_TALENT80_promise_native_reload_and_action_PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "oldAmount": 80,
+        "savedRewardVersion": 3,
+        "nativeActionCompared": true
+      }
+    },
+    {
+      "id": "genuine_026_TALENT80_promise_native_reload_and_action_STARTED",
+      "passed": true,
+      "evidence": {
+        "boundary": "STARTED",
+        "oldAmount": 80,
+        "savedRewardVersion": 3,
+        "nativeActionCompared": true
+      }
+    },
+    {
+      "id": "native_TALENT60_old80_and_new90_actual_win_ledgers",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "engine": "genuine_026",
+            "amount": 80,
+            "rounds": 2,
+            "inputs": 2,
+            "actualLedgerAdded": 80,
+            "marker": 3
+          },
+          {
+            "engine": "current",
+            "amount": 90,
+            "rounds": 5,
+            "inputs": 4,
+            "actualLedgerAdded": 90,
+            "marker": 4
+          }
+        ],
+        "fixture": "Owned Diluc/Jean/Zhongli C0 + protagonist Lv60, ordinary craft+10/cap10, legal max base talents, no artifacts/food/exclusive/boss gear. One initial HP; native COMBAT and AI; no enemy edits or forced wins. This is a two-ledger proof, not a broad clear-rate or natural acquisition claim."
+      }
+    },
+    {
+      "id": "Dvalin_rematch_no_wind_is_fresh_only_and_invalid_action_atomic",
+      "passed": true,
+      "evidence": {
+        "marker": 1,
+        "newRematchHasWind": false,
+        "nonrematchHasWind": true,
+        "rejectedActionAtomic": true
+      }
+    },
+    {
+      "id": "genuine_026_Dvalin_rematch_wind_save_and_native_resume_false",
+      "passed": true,
+      "evidence": {
+        "used": false,
+        "windRoute": false,
+        "nativeResumeMatches": true
+      }
+    },
+    {
+      "id": "genuine_026_Dvalin_rematch_wind_save_and_native_resume_true",
+      "passed": true,
+      "evidence": {
+        "used": true,
+        "windRoute": true,
+        "nativeResumeMatches": true
+      }
+    },
+    {
+      "id": "genuine_026_field_future_summon_policy_FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "id": "FB_GEO_HYPOSTASIS",
+        "kind": "FB_SUMMON_PILLAR",
+        "actorStats": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 45,
+            "hp": 11040,
+            "maxHp": 11040,
+            "atk": 2140.7999999999997,
+            "def": 1067,
+            "spd": 68,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 45,
+            "hp": 11910,
+            "maxHp": 11910,
+            "atk": 2019.6000000000001,
+            "def": 1285.2,
+            "spd": 80,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 45,
+            "hp": 12777,
+            "maxHp": 13416,
+            "atk": 2284.2000000000003,
+            "def": 1481.4,
+            "spd": 84,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 45,
+            "hp": 14862,
+            "maxHp": 14862,
+            "atk": 2079,
+            "def": 2161.8,
+            "spd": 61,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "FB_GEO_HYPOSTASIS#1",
+            "source": "FB_GEO_HYPOSTASIS",
+            "side": "ENEMY",
+            "level": 45,
+            "hp": 52113,
+            "maxHp": 52113,
+            "atk": 4117,
+            "def": 508,
+            "spd": 67,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "FB_SUMMON_PILLAR#S1",
+            "source": "FB_SUMMON_PILLAR",
+            "side": "ENEMY",
+            "level": 45,
+            "hp": 3648,
+            "maxHp": 3648,
+            "atk": 0,
+            "def": 907,
+            "spd": 1,
+            "shields": [],
+            "statuses": []
+          }
+        ],
+        "nativeFutureSummonMatches": true
+      }
+    },
+    {
+      "id": "genuine_026_field_future_summon_policy_FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "id": "FB_OCEANID",
+        "kind": "FB_MIMIC_CRANE",
+        "actorStats": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 8649,
+            "maxHp": 8649,
+            "atk": 1635.6,
+            "def": 816,
+            "spd": 67,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_AMBER",
+            "source": "MOND_AMBER",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 9324,
+            "maxHp": 9324,
+            "atk": 1540.8000000000002,
+            "def": 979.2,
+            "spd": 79,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_KAEYA",
+            "source": "MOND_KAEYA",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 9997,
+            "maxHp": 10497,
+            "atk": 1740.8000000000002,
+            "def": 1128,
+            "spd": 83,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "MOND_NOELLE",
+            "source": "MOND_NOELLE",
+            "side": "ALLY",
+            "level": 40,
+            "hp": 11617,
+            "maxHp": 11617,
+            "atk": 1587.2,
+            "def": 1644.8000000000002,
+            "spd": 60,
+            "shields": [],
+            "statuses": [
+              {
+                "id": "FORMATION",
+                "rounds": null,
+                "createdRound": 1,
+                "mods": {
+                  "atk": {
+                    "pct": 6,
+                    "flat": 0
+                  },
+                  "hit": {
+                    "pct": 0,
+                    "flat": 10
+                  }
+                },
+                "taken": 1,
+                "reactionOut": 1,
+                "supportOut": 1,
+                "formation": "DOUBLE_LINE"
+              }
+            ]
+          },
+          {
+            "id": "FB_OCEANID#1",
+            "source": "FB_OCEANID",
+            "side": "ENEMY",
+            "level": 40,
+            "hp": 40457,
+            "maxHp": 40457,
+            "atk": 4000,
+            "def": 430,
+            "spd": 68,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "FB_MIMIC_BOAR#S1",
+            "source": "FB_MIMIC_BOAR",
+            "side": "ENEMY",
+            "level": 40,
+            "hp": 2738,
+            "maxHp": 2738,
+            "atk": 3600,
+            "def": 615,
+            "spd": 62,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "FB_MIMIC_CRANE#S2",
+            "source": "FB_MIMIC_CRANE",
+            "side": "ENEMY",
+            "level": 40,
+            "hp": 1888,
+            "maxHp": 1888,
+            "atk": 3200,
+            "def": 461,
+            "spd": 70,
+            "shields": [],
+            "statuses": []
+          },
+          {
+            "id": "FB_MIMIC_CRANE#S3",
+            "source": "FB_MIMIC_CRANE",
+            "side": "ENEMY",
+            "level": 40,
+            "hp": 1888,
+            "maxHp": 1888,
+            "atk": 3200,
+            "def": 461,
+            "spd": 70,
+            "shields": [],
+            "statuses": []
+          }
+        ],
+        "nativeFutureSummonMatches": true
+      }
+    },
+    {
+      "id": "protective_gear_has_no_boss_loot_recipe_cycle_and_frost_cost_stays_exact",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "equip": "EQ_ARMOR_IRON_GUARD",
+            "recipe": "REC_ARMOR_IRON",
+            "place": "몬드성",
+            "merchant": "MRC_BLACKSMITH_COMMON",
+            "cost": {
+              "mora": 220,
+              "items": {
+                "ORE_WHITE_IRON": 4,
+                "TRPG_REFINED_LEATHER": 2
+              }
+            },
+            "levelCondition": "LEVEL>=5"
+          },
+          {
+            "equip": "EQ_ARMOR_FROSTWARD",
+            "recipe": "REC_ARMOR_FROST",
+            "place": "드래곤 스파인/몬드성",
+            "merchant": "MRC_BLACKSMITH_COMMON",
+            "cost": {
+              "mora": 180,
+              "items": {
+                "TRPG_COLD_IRON": 3,
+                "TRPG_STURDY_CLOTH": 2,
+                "TRPG_ELEMENTAL_DUST": 2
+              }
+            },
+            "levelCondition": "LEVEL>=5"
+          },
+          {
+            "equip": "EQ_LY_ARMOR_THUNDERWARD",
+            "recipe": "REC_LY_ARMOR_THUNDERWARD",
+            "place": "리월항",
+            "merchant": "MRC_LIYUE_EQUIP",
+            "cost": {
+              "mora": 500,
+              "items": {
+                "MAT_LIYUE_COR_LAPIS": 3,
+                "MAT_LIYUE_GLAZE_LILY": 4,
+                "MAT_CHAOS_DEVICE": 3
+              }
+            },
+            "levelCondition": "LEVEL>=5"
+          },
+          {
+            "equip": "EQ_LY_ARMOR_JADEFLAME",
+            "recipe": "REC_LY_ARMOR_JADEFLAME",
+            "place": "리월항",
+            "merchant": "MRC_LIYUE_EQUIP",
+            "cost": {
+              "mora": 520,
+              "items": {
+                "MAT_LIYUE_COR_LAPIS": 4,
+                "MAT_LIYUE_NOCTILUCOUS_JADE": 3,
+                "ORE_WHITE_IRON": 4,
+                "MAT_DAMAGED_MASK": 4
+              }
+            },
+            "levelCondition": "LEVEL>=5"
+          },
+          {
+            "equip": "EQ_LY_ARMOR_TIDEWARD",
+            "recipe": "REC_LY_ARMOR_TIDEWARD",
+            "place": "리월항",
+            "merchant": "MRC_LIYUE_EQUIP",
+            "cost": {
+              "mora": 480,
+              "items": {
+                "MAT_LIYUE_COR_LAPIS": 3,
+                "MAT_LIYUE_STARCONCH": 4,
+                "MAT_TREASURE_INSIGNIA": 3
+              }
+            },
+            "levelCondition": "LEVEL>=5"
+          },
+          {
+            "equip": "EQ_LY_ARMOR_BEDROCK",
+            "recipe": "REC_LY_ARMOR_BEDROCK",
+            "place": "리월항",
+            "merchant": "MRC_LIYUE_EQUIP",
+            "cost": {
+              "mora": 620,
+              "items": {
+                "MAT_LIYUE_COR_LAPIS": 6,
+                "ORE_WHITE_IRON": 8,
+                "MAT_STAINED_MASK": 2
+              }
+            },
+            "levelCondition": "LEVEL>=6"
+          }
+        ],
+        "frostCraftReceipt": {
+          "recipe": "REC_ARMOR_FROST",
+          "result": "EQ_ARMOR_FROSTWARD",
+          "quantity": 1,
+          "crafts": 1,
+          "minutes": 120,
+          "cost": {
+            "mora": 180,
+            "items": {
+              "TRPG_COLD_IRON": 3,
+              "TRPG_STURDY_CLOTH": 2,
+              "TRPG_ELEMENTAL_DUST": 2
+            }
+          }
+        },
+        "limits": "Inputs and money are granted for a paid public-craft contract, not natural gathering-time proof. Thunderward is Liyue Harbor only and cannot establish a pre-Liyue Lv20 first-clear guarantee."
+      }
+    },
+    {
+      "id": "source_input_did_not_change_during_review",
+      "passed": true,
+      "evidence": {
+        "fingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca"
+      }
+    },
+    {
+      "id": "actual_shared_database_objects_remain_unchanged",
+      "passed": true,
+      "evidence": {
+        "initialDbHashes": {
+          "before": "b8d306ce08ad818e9726bbc1ef9f6d37e1bff979def1ee0fe84fb53905a52e2e",
+          "current": "b8d306ce08ad818e9726bbc1ef9f6d37e1bff979def1ee0fe84fb53905a52e2e"
+        }
+      }
+    }
+  ]
+}

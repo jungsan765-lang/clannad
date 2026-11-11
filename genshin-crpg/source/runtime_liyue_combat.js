@@ -4,6 +4,7 @@
 const old=Object.fromEntries(['combatStoryConfig','startBattle','actorCards','cardSupport','cardReason','cardTargets','executeCard','combatStat','combatDamageMultiplier','newRound','roundEnd','aiTurn','applyDamage','damage','addCombatStatus','resolveEnemyPhases','checkBattleInterludes','actionReason','apply','validateSave'].map(k=>[k,P[k]]));
 const copy=x=>JSON.parse(JSON.stringify(x)),json=x=>{try{return JSON.parse(x||'{}');}catch{return {};}};
 const bossIds=new Set(['BOSS_TARTAGLIA','BOSS_ISK_L03_GOLDEN','BOSS_OSIAL','BOSS_ISK_L04_OSIAL','BOSS_AZHDAHA']),isOsial=a=>['BOSS_OSIAL','BOSS_ISK_L04_OSIAL'].includes(a?.source),isGolden=a=>['BOSS_TARTAGLIA','BOSS_ISK_L03_GOLDEN'].includes(a?.source),isAzhdaha=a=>a?.source==='BOSS_AZHDAHA';
+const DAILY_TARTAGLIA='MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM';
 const elementCode=e=>({불:'PYRO',물:'HYDRO',얼음:'CRYO',번개:'ELECTRO',바위:'GEO',물리:'PHYSICAL',PYRO:'PYRO',HYDRO:'HYDRO',CRYO:'CRYO',ELECTRO:'ELECTRO',GEO:'GEO',PHYSICAL:'PHYSICAL'}[e]||String(e||'').toUpperCase()),elementKo=e=>({PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',GEO:'바위',PHYSICAL:'물리'}[e]||e);
 const waves={1:['MON_FATUI_CRYO','MON_FATUI_PYRO'],3:['MON_FATUI_ELECTRO','MON_FATUI_HYDRO'],5:['MON_FATUI_GEO','MON_FATUI_ANEMO'],7:['MON_FATUI_AGENT']};
 P.supportsLiyueBoss=id=>bossIds.has(id);
@@ -12,6 +13,13 @@ P.combatStoryConfig=function(group){
  if(e){const p=e.p;return {node_id:node[4],map_id:node[8],route:'ROUTE_ISEKAI',party_max:4,guest_char_ids:[],branch:this.liyueLeaf(),eventId:e.EVENT_ID,noRewards:true,result:'VICTORY',liyue:true,objective:p.objective?.kind==='PROTECT_FORMATION'?{...copy(p.objective),formation_hp:2200,formation_def:90,wave_hp_multiplier:.80}:copy(p.objective||null)};}
  if(node?.[0]==='ROUTE_TRAVELER'&&String(node[1]).startsWith('Q_TRV_LIYUE_')&&String(node[12]).includes('START_FIXED_COMBAT:'+group))return {node_id:node[4],map_id:node[8],route:'ROUTE_TRAVELER',party_max:4,guest_char_ids:[],branch:this.s.flags.FLAG_TRV_LY_GOLDEN_ROUTE||null,liyue:true,objective:group==='EG_BOSS_OSIAL'?{kind:'PROTECT_FORMATION',formation_hp:2200,formation_def:90,charge_rounds:8,wave_hp_multiplier:.80}:null};
  return old.combatStoryConfig.call(this,group);
+};
+P.startBattle=function(group,origin='EXPLICIT',...rest){
+ const before=this.s.runtime,result=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;
+ // The existing opening boundary prevents enemy actions before this snapshot.
+ // Loading an unmarked battle does not pass through startBattle or opt it in.
+ if(b&&b!==before&&origin===DAILY_TARTAGLIA&&b.origin===DAILY_TARTAGLIA&&b.actors.some(a=>a.side==='ENEMY'&&a.source==='BOSS_TARTAGLIA'))b.dailyTargetingRevision=1;
+ return result;
 };
 const fieldEnemyCards=new Set(['ECARD_MITA_ROCK_SHIELD','ECARD_MITA_ROCK_CHARGE','ECARD_RUIN_VARIANT_CORE','ECARD_FATUI_CRYO_SPRAY','ECARD_FATUI_CRYO_ARMOR','ECARD_FATUI_PYRO_AIM','ECARD_FATUI_ANEMO_GUARD','ECARD_FATUI_ELECTRO_ARMOR','ECARD_FATUI_HYDRO_HEAL','ECARD_FATUI_GEO_BARRIER','ECARD_FATUI_AGENT_STEALTH','ECARD_FATUI_AGENT_BLADE']);
 P.isLiyueFieldEnemy=function(a){const b=this.s.runtime,map=this.tables['32_MAP_DB']?.get(this.s.global.CURRENT_MAP_ID);return a?.side==='ENEMY'&&map?.[1]==='리월'&&(b?.origin==='RANDOM'||b?.origin?.startsWith('QUEST:'));};
@@ -61,7 +69,7 @@ P.executeCard=function(a,c,target,branch){
  }
  if(isOsial(a))return;const enemies=this.s.runtime.actors.filter(t=>t.side==='ALLY'&&t.hp>0),t=enemies.find(t=>t.id===target)||enemies[0],script=c.script;let m;
  if((m=/^DMG:ATK\*([\d.]+):(\w+)/.exec(script)))this.damage(a,t,+m[1],m[2],{range:c.range,card:c.id});
- else if((m=/^DMG_AOE:ATK\*([\d.]+):(\w+):MAX(\d+)/.exec(script))){const hit=enemies.slice(0,+m[3]);for(const v of hit)this.damage(a,v,+m[1],m[2],{range:'전장',card:c.id});const follow=/;DMG:ATK\*([\d.]+):(\w+)/.exec(script);if(follow&&hit[0]?.hp>0)this.damage(a,hit[0],+follow[1],follow[2],{range:'전장',card:c.id,noAura:true});}
+ else if((m=/^DMG_AOE:ATK\*([\d.]+):(\w+):MAX(\d+)/.exec(script))){const b=this.s.runtime,ordered=b.dailyTargetingRevision===1&&b.origin===DAILY_TARTAGLIA&&a.source==='BOSS_TARTAGLIA'?this.combatOrderedTargets(a,enemies,target):enemies,hit=ordered.slice(0,+m[3]);for(const v of hit)this.damage(a,v,+m[1],m[2],{range:'전장',card:c.id});const follow=/;DMG:ATK\*([\d.]+):(\w+)/.exec(script);if(follow&&hit[0]?.hp>0)this.damage(a,hit[0],+follow[1],follow[2],{range:'전장',card:c.id,noAura:true});}
  else if((m=/^MULTIHIT:ATK\*([\d.]+):HITS=(\d+):ELEMENTS=([A-Z,]+)/.exec(script)))for(const [i,el]of m[3].split(',').entries())if(t?.hp>0)this.damage(a,t,+m[1],el,{range:c.range,card:c.id,noAura:i>0});
  a.cooldowns[c.id]=c.cooldown;
 };
@@ -81,7 +89,7 @@ P.newRound=function(){
  for(const a of b.actors)if(['MON_FATUI_CRYO','MON_FATUI_ELECTRO'].includes(a.source)&&!a.fatuiArmorInitialized){a.fatuiArmorInitialized=true;const cryo=a.source==='MON_FATUI_CRYO';this.shield(a,a.maxHp*.3,cryo?'ECARD_FATUI_CRYO_ARMOR':'ECARD_FATUI_ELECTRO_ARMOR',null,{element:cryo?'얼음':'번개',damageMultipliers:cryo?{불:2}:{얼음:2}});}
  return old.newRound.call(this);
 };
-P.liyueBattleOutcome=function(b){const evac=b.liyueEvacuation;if(evac){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(evac.completedRounds>=4&&!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0)){if(this.combatActor()?.hp<=0){b.defenseAwaitingRecovery=true;b.phase='WAIT_PLAYER';return 'HOLD';}return true;}return undefined;}const o=b.liyueObjective;if(!o)return undefined;if(o.hp<=0)return false;if(o.charge>=8&&!b.actors.some(a=>a.side==='ENEMY'&&!isOsial(a)&&a.hp>0)){if(this.combatActor()?.hp<=0){b.defenseAwaitingRecovery=true;b.phase='WAIT_PLAYER';this.s.global.COMBAT_ACTION_PHASE='WAIT_PLAYER';return 'HOLD';}return true;}return undefined;};
+P.liyueBattleOutcome=function(b){const evac=b.liyueEvacuation;if(evac){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(evac.completedRounds>=4&&!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0))return true;return undefined;}const o=b.liyueObjective;if(!o)return undefined;if(o.hp<=0)return false;if(o.charge>=8&&!b.actors.some(a=>a.side==='ENEMY'&&!isOsial(a)&&a.hp>0)){/* No legal action can revive a KO protagonist here. Settle a retryable defeat instead of waiting forever. */return !(this.combatActor()?.hp<=0);}return undefined;};
 P.combatStat=function(a,key){let n=old.combatStat.call(this,a,key);if(isAzhdaha(a)&&a.azhdaha?.zhongliBound&&['atk','def'].includes(key))n*=.85;return key==='eva'&&a.statuses?.some(s=>s.id==='AGENT_STEALTH')&&!this._fatuiAttack?.aoe?n+20:n;};
 P.combatDamageMultiplier=function(a,t,e,o={}){let n=old.combatDamageMultiplier.call(this,a,t,e,o);if(isAzhdaha(t)&&t.azhdaha?.current!=='GEO'&&elementCode(e)===t.azhdaha.current&&!o.neutralConverted)n=0;return !o.sourceKind&&this._fatuiAttack?.actor===a.id&&this._fatuiAttack.stealth?n*1.25:n;};
 P.damage=function(a,t,k,e,o={}){
@@ -109,14 +117,16 @@ P.aiTurn=function(a,targets){
 P.roundEnd=function(){
  const b=this.s.runtime,o=b?.liyueObjective;if(b?.liyueEvacuation)b.liyueEvacuation.completedRounds=Math.max(b.liyueEvacuation.completedRounds,b.round);if(o&&!o.settled.includes(b.round)){
   o.settled.push(b.round);o.charge=Math.min(8,o.charge+1);b.log.push({objective:'FORMATION_CHARGE',charge:o.charge,target:8,round:b.round});
-  if(b.round%3===0){const boss=b.actors.find(isOsial),proxy={...boss,atk:Math.max(230,Math.min(340,boss.atk))};for(const a of b.actors.filter(a=>a.side==='ALLY'&&a.hp>0))if(this.damage(proxy,a,1.75,'HYDRO',{range:'전장',card:'OSIAL_DELUGE',noAura:false}))a.nextScorePenalty=(a.nextScorePenalty||0)+12;}
+  // Growth-scaled bosses must not retain the pre-growth 340 ATK ceiling. The wide-area
+  // attack uses a fixed fraction of the boss's regional ATK; old unscaled saves keep their rule.
+  if(b.round%3===0){const boss=b.actors.find(isOsial),proxy={...boss,atk:boss.growthScaled?Math.round(boss.atk*.85):Math.max(230,Math.min(340,boss.atk))};for(const a of b.actors.filter(a=>a.side==='ALLY'&&a.hp>0))if(this.damage(proxy,a,1.75,'HYDRO',{range:'전장',card:'OSIAL_DELUGE',noAura:false}))a.nextScorePenalty=(a.nextScorePenalty||0)+12;}
  }
  const azh=b?.actors.find(a=>isAzhdaha(a)&&a.hp>0);if(azh?.azhdaha?.current&&azh.azhdaha.current!=='GEO')for(const ally of b.actors.filter(x=>x.side==='ALLY'&&x.hp>0))this.damage(azh,ally,.35,azh.azhdaha.current,{range:'전장',card:'ECARD_AZHDAHA_ELEMENT_CORE',sourceKind:'AZHDAHA_LEYLINE',aoe:true});
  return old.roundEnd.call(this);
 };
 P.resolveEnemyPhases=function(){
  const result=old.resolveEnemyPhases?.call(this),b=this.s.runtime;if(!b||b.opening?.state==='PENDING')return result;
- for(const a of b.actors.filter(isAzhdaha)){
+ for(const a of b.actors.filter(a=>isAzhdaha(a)&&a.hp>0)){
   if(!a.azhdaha)continue;const ratio=a.hp/a.maxHp,shift=(phase,element)=>{a.azhdaha.phase=phase;a.azhdaha.current=element;b.log.push({actor:a.name,actorId:a.id,phase,card:'ECARD_AZHDAHA_PHASE_SHIFT',cardName:'지맥의 원소 전환',text:'야타용왕이 '+elementKo(element)+' 원소를 흡수했다. 해당 원소 피해에 완전면역이 된다.',round:b.round,actionSequence:b.actionSequence||0});for(const ally of b.actors.filter(x=>x.side==='ALLY'&&x.hp>0))this.damage(a,ally,.75,element,{range:'전장',card:'ECARD_AZHDAHA_PHASE_SHIFT',sourceKind:'AZHDAHA_PHASE',aoe:true});};
   if(ratio<=.70&&a.azhdaha.phase<2)shift(2,a.azhdaha.element1);if(ratio<=.40&&a.azhdaha.phase<3)shift(3,a.azhdaha.element2);
  }
@@ -131,5 +141,5 @@ P.resolveEnemyPhases=function(){
 P.checkBattleInterludes=function(){const b=this.s.runtime;if(b?.liyueInterlude){b.phase='WAIT_PLAYER';this.s.global.SCREEN_MODE='COMBAT';this.s.global.COMBAT_ACTION_PHASE='WAIT_PLAYER';return true;}return old.checkBattleInterludes.call(this);};
 P.actionReason=function(type,a={}){if(type==='LIYUE_INTERLUDE_ACK')return this.s.runtime?.liyueInterlude?'':'확인할 전투 대화가 없습니다.';return old.actionReason.call(this,type,a);};
 P.apply=function(a){if(a.type==='LIYUE_INTERLUDE_ACK'){delete this.s.runtime.liyueInterlude;this.s.runtime.phase='RESOLVING';this.autoUntilPlayer();return {continued:true};}return old.apply.call(this,a);};
-P.validateSave=function(s){const b=s.runtime,o=b?.liyueObjective;if(b)for(const a of b.actors||[])if(isAzhdaha(a)&&a.azhdaha){const z=a.azhdaha;if(z.version!==1||![1,2,3].includes(z.phase)||!['GEO','PYRO','HYDRO','CRYO','ELECTRO'].includes(z.current)||!['PYRO','HYDRO','CRYO','ELECTRO'].includes(z.element1)||!['PYRO','HYDRO','CRYO','ELECTRO'].includes(z.element2)||z.element1===z.element2)throw new api.RuleError('AZHDAHA_SAVE','야타용왕의 원소 전환 기록을 확인하세요.');}if(o){if(!b.storyConfig?.liyue||!Number.isFinite(o.hp)||o.hp<0||o.hp>o.maxHp||!Number.isInteger(o.charge)||o.charge<0||o.charge>8||new Set(o.spawned).size!==o.spawned.length||o.spawned.some(n=>![1,3,5,7].includes(n))||Math.min(8,o.settled.length)!==o.charge)throw new api.RuleError('DEFENSE_SAVE','방어전의 진법·증원 기록을 확인하세요.');}return old.validateSave.call(this,s);};
+P.validateSave=function(s){const b=s.runtime,o=b?.liyueObjective;if(b?.dailyTargetingRevision!==undefined&&(b.dailyTargetingRevision!==1||b.origin!==DAILY_TARTAGLIA||!b.actors?.some(a=>a.side==='ENEMY'&&a.source==='BOSS_TARTAGLIA')))throw new api.RuleError('DAILY_TARGET_SAVE','타르탈리아 반복 도전의 대상 선택 기록을 확인하세요.');if(b)for(const a of b.actors||[])if(isAzhdaha(a)&&a.azhdaha){const z=a.azhdaha;if(z.version!==1||![1,2,3].includes(z.phase)||!['GEO','PYRO','HYDRO','CRYO','ELECTRO'].includes(z.current)||!['PYRO','HYDRO','CRYO','ELECTRO'].includes(z.element1)||!['PYRO','HYDRO','CRYO','ELECTRO'].includes(z.element2)||z.element1===z.element2)throw new api.RuleError('AZHDAHA_SAVE','야타용왕의 원소 전환 기록을 확인하세요.');}if(o){if(!b.storyConfig?.liyue||!Number.isFinite(o.hp)||o.hp<0||o.hp>o.maxHp||!Number.isInteger(o.charge)||o.charge<0||o.charge>8||new Set(o.spawned).size!==o.spawned.length||o.spawned.some(n=>![1,3,5,7].includes(n))||Math.min(8,o.settled.length)!==o.charge)throw new api.RuleError('DEFENSE_SAVE','방어전의 진법·증원 기록을 확인하세요.');}return old.validateSave.call(this,s);};
 })(globalThis);

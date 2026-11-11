@@ -90,7 +90,7 @@
   if(entry.entity)g.CURRENT_NPC_ENTITY_ID=entry.entity;g.SCREEN_MODE=screenFor[mode];return {place:id,mode,name:entry.name};
  };
  P.leavePlace=function(){this.s.placeVisit=null;this.s.global.SCREEN_MODE='LOCATION';return {left:true,map:this.s.global.CURRENT_MAP_ID};};
- P.placeStocks=function(){const v=this.currentPlace();if(!v?.valid||v.mode!=='SHOP')return [];return this.rows('19_SHOP_STOCK_DB').filter(r=>this.placeStockMerchants(v.entry).includes(r[1])).map(row=>({row,remaining:this.stockRemaining(row),reason:this.stockReason(row)}));};
+ P.placeStocks=function(){const v=this.currentPlace();if(!v?.valid||v.mode!=='SHOP')return [];return this.rows('19_SHOP_STOCK_DB').filter(r=>this.placeStockMerchants(v.entry).includes(r[1])).map(row=>this.stockOffer(row));};
  P.placeRecipes=function(){const v=this.currentPlace();if(!v?.valid||v.mode!=='CRAFT')return [];return this.rows('17_RECIPE_DB').filter(r=>!this.placeRecipeFacilityReason(this.recipeDefinition(r[0]),v.entry,this.s.global.CURRENT_MAP_ID)).map(row=>({row:this.recipeDefinition(row[0]),reason:this.craftReason(row)}));};
  P.placeEnhanceReason=function(){const reason=this.placeVisitReason('CRAFT');if(reason)return reason;return this.placeCanEnhance(this.currentPlace().entry)?'':'강화할 수 있는 대장간에 들어가 주세요.';};
  P.placeBossReason=function(id,entry,{continuing=false}={}){

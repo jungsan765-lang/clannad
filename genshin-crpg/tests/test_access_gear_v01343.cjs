@@ -16,7 +16,7 @@ let expanded=r.db,save=JSON.parse(r.serialize()),count=expanded['57_MOND_STORY_S
 for(let n=0;n<3;n++){const clone=new R(expanded,save);clone.storyIndex();assert.equal(clone.db['57_MOND_STORY_SCENE_DB'].length,count);expanded=clone.db;}
 assert.equal(r.shopEquipmentPreview('EQ_BOW_SLINGSHOT','PLAYER_CUSTOM').reason,'');
 for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI']){
- r=fresh('MAP_MOND_CITY',route);r.unlockCharacter('MOND_AMBER');r.action('PARTY',{char:'MOND_AMBER',slot:2});const slot=r.giveEquipment('EQ_BOW_SLINGSHOT');
+ r=fresh('MAP_MOND_CITY',route);r.adminApply({op:'recruit',char:'MOND_AMBER'});r.action('PARTY',{char:'MOND_AMBER',slot:2});const slot=r.giveEquipment('EQ_BOW_SLINGSHOT');
  const preview=r.equipmentPreview(slot,'MOND_AMBER');assert.equal(preview.reason,'');r.action('EQUIP',{slot,owner:'MOND_AMBER'});assert.equal(r.character('MOND_AMBER').atk,preview.after.atk);
  if(route==='ROUTE_TRAVELER'){assert.equal(r.equipmentPreview(slot,'PLAYER_CUSTOM').code,'PROFICIENCY');assert.throws(()=>r.action('EQUIP',{slot,owner:'PLAYER_CUSTOM'}));}
 }

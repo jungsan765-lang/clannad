@@ -3,7 +3,7 @@ const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),asse
 const root=path.resolve(__dirname,'..'),ctx=vm.createContext({console}),db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json'))),copy=x=>JSON.parse(JSON.stringify(x));
 const files=[...fs.readFileSync(path.join(root,'source/index.html'),'utf8').matchAll(/<script src="(runtime[^"]*\.js)"/g)].map(x=>x[1]);
 for(const f of files)vm.runInContext(fs.readFileSync(path.join(root,'source',f),'utf8'),ctx,{filename:f});
-function fresh(size){const r=new ctx.CRPGRuntime.Runtime(db);r.newGame({name:'균형 검증',route:'ROUTE_TRAVELER',seed:331,saveId:'BALANCE-09'});Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'HUB',STORY_CURSOR_NODE_ID:'HUB',CURRENT_MAP_ID:'MAP_MOND_PLAINS',STORY_WAITING:true,STORY_MENU_POLICY:'',PENDING_CHOICE_GROUP_ID:'',SCREEN_MODE:'LOCATION'});for(const [i,id]of ['MOND_AMBER','MOND_KAEYA','MOND_LISA'].slice(0,size-1).entries()){r.unlockCharacter(id);r.action('PARTY',{char:id,slot:i+2});}return r;}
+function fresh(size){const r=new ctx.CRPGRuntime.Runtime(db);r.newGame({name:'균형 검증',route:'ROUTE_TRAVELER',seed:331,saveId:'BALANCE-09'});Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'HUB',STORY_CURSOR_NODE_ID:'HUB',CURRENT_MAP_ID:'MAP_MOND_PLAINS',STORY_WAITING:true,STORY_MENU_POLICY:'',PENDING_CHOICE_GROUP_ID:'',SCREEN_MODE:'LOCATION'});for(const [i,id]of ['MOND_AMBER','MOND_KAEYA','MOND_LISA'].slice(0,size-1).entries()){r.adminApply({op:'recruit',char:id});r.action('PARTY',{char:id,slot:i+2});}return r;}
 let passed=0;
 for(const group of ['EG_MOND_SLIME_SMALL','EG_MOND_HILI_PATROL','EG_MOND_HILI_ELITE','EG_MOND_ABYSS_MAGE','EG_TREASURE_PATROL']){
  const raw=fresh(3),scaled=fresh(3);raw.startBattle(group,'EXPLICIT');scaled.startBattle(group,'RANDOM');

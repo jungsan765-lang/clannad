@@ -5,7 +5,7 @@ const source=process.env.CRPG_SOURCE||path.resolve(__dirname,'../source'),dbPath
 const ctx=vm.createContext({console}),hashes={},files=[...fs.readFileSync(path.join(source,'index.html'),'utf8').matchAll(/<script\s+src="(runtime[^/]*\.js)"/g)].map(x=>x[1]);
 for(const file of files){const p=file==='runtime_places.js'?path.join(source,file):path.join(source,file),text=fs.readFileSync(p,'utf8');hashes[file]=crypto.createHash('sha256').update(text).digest('hex');vm.runInContext(text,ctx,{filename:file});}
 const db=JSON.parse(fs.readFileSync(dbPath,'utf8')),Runtime=ctx.CRPGRuntime.Runtime;
-ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db)});
 const copy=x=>JSON.parse(JSON.stringify(x)),results=[];let seq=0;
 function fresh(route='ROUTE_TRAVELER'){const r=new Runtime(db);r.newGame({name:'시설검증',route,seed:74219,saveId:'PLACE-'+(++seq)});return r;}
 function free(map='MAP_MOND_CITY',time='08:00'){const r=fresh();Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:map,WORLD_TIME:time,STORY_MENU_POLICY:''});r.prepareStory();return r;}

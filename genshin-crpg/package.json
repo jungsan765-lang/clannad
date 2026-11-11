@@ -1,13 +1,13 @@
 {
   "name": "mond-crpg-adventure",
-  "version": "0.14.5",
+  "version": "0.16.70",
   "private": true,
   "scripts": {
     "dev": "vite",
     "dev:local": "node tools/local_dev.mjs",
     "build": "node tools/python.mjs tools/build.py",
     "test": "node tools/python.mjs tools/verify_release.py",
-    "test:browser": "node tests/test_online_browser.mjs",
+    "test:browser": "node tests/test_online_browser.mjs && node tests/test_screen_fit_v01629.mjs",
     "build:server": "node tools/python.mjs tools/build_server.py",
     "test:durable": "node tools/python.mjs tools/build_server.py && node tests/test_durable_account.mjs",
     "serve:fixed-region": "node server/fixed-region-staging.mjs",

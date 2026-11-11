@@ -16,7 +16,7 @@ version=json.loads((root/'package.json').read_text())['version']
 out=root/'server/generated';out.mkdir(exist_ok=True)
 # Module scope wrappers keep the existing runtime free of eval/new Function.
 source='const module=undefined;\n'+body+'\nconst DB='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'
-source+='const R=globalThis.CRPGRuntime.Runtime;\nif(globalThis.CRPGRelationships)globalThis.CRPGRelationships.install(globalThis.CRPGRuntime,{events:globalThis.CRPGRelationships.catalogFromDB(DB),activities:globalThis.CRPGRelationships.activitiesFromDB(DB),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});\nnew R(DB); // Warm immutable lookup maps once per Worker isolate, outside request handling.\n'
+source+='const R=globalThis.CRPGRuntime.Runtime;\nif(globalThis.CRPGRelationships)globalThis.CRPGRelationships.install(globalThis.CRPGRuntime,{events:globalThis.CRPGRelationships.catalogFromDB(DB),activities:globalThis.CRPGRelationships.activitiesFromDB(DB)});\nnew R(DB); // Warm immutable lookup maps once per Worker isolate, outside request handling.\n'
 source+='export {R,DB};\nexport const ENGINE_VERSION='+json.dumps(version)+';\n'
 source+='export const ENGINE_FINGERPRINT='+json.dumps(engine_fingerprint(root,data))+';\n'
 source+='export const ENGINE_COMPATIBILITY=[ENGINE_FINGERPRINT];\nexport const SERVER_BUILD='+json.dumps(server_build(root,data))+';\n'

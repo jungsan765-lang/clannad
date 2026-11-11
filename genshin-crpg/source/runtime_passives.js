@@ -109,7 +109,7 @@
     this._mealLotReservations = reservation;
     try {
       const out = old.meal.call(this, meals);
-      out.meals.forEach((entry, i) => Object.assign(entry, { variant: reservation.entries[i].variant, name: reservation.entries[i].name, requestedHealing: reservation.entries[i].heal }));
+      out.meals.forEach((entry, i) => Object.assign(entry, { variant: reservation.entries[i].variant, name: reservation.entries[i].name, requestedHealing: entry.requestedHealing ?? reservation.entries[i].heal }));
       return out;
     } finally { delete this._mealLotReservations; }
   };

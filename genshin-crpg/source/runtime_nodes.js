@@ -10,7 +10,7 @@ const scalar = s => s === 'TRUE' ? true : s === 'FALSE' ? false : /^[-+]?\d+(?:\
 const truth = x => x === true || x === 'TRUE' || x === 'Y';
 const NODE_COLUMNS = ['ROUTE_ID','QUEST_ID','ARC_ID','SCENE_ID','NODE_ID','NODE_TYPE','SPEAKER_REF','SPEAKER_NAME','MAP_ID','TEXT_KO','CHOICE_LABEL','PRECONDITION','EFFECT_ON_RESOLVE','NEXT_NODE_ID','CHOICE_GROUP_ID','ASSET_ROW_ID','CANON_SCOPE','ORDER_INDEX','STATUS','NOTE'];
 const TABLE_MAIN = '55_MAIN_STORY_DB', TABLE_PERSONAL = '57_MOND_STORY_SCENE_DB';
-const NO_EFFECT = new Set(['NO_COST_NO_PROGRESS','NO_PENALTY','NO_CARD','NO_AUTO_HEART','NO_FORCED_RECRUIT','KEEP_EXISTING_CARD_NO_DUPLICATE','NO_ADULT_COMMIT','NO_AFFECTION_COMPLETE']);
+const NO_EFFECT = new Set(['NO_COST_NO_PROGRESS','NO_PENALTY','NO_CARD','NO_AUTO_HEART','NO_FORCED_RECRUIT','KEEP_EXISTING_CARD_NO_DUPLICATE','NO_AFFECTION_COMPLETE']);
 
 // Parse all input first; unsupported syntax is an error, never a false condition.
 function parseCondition(source) {
@@ -57,8 +57,6 @@ function parseEffects(source) {
     if((m=/^ADD_HEART:(?:(PROFILE_\w+):)?([-+]?\d+)$/.exec(raw)))return {type:'ADD_HEART',profile:m[1]||null,amount:Number(m[2]),raw};
     if((m=/^LOCAL_CHOICE:(\w+):(.+)$/.exec(raw)))return {type:'LOCAL_CHOICE',id:m[1],value:m[2],raw};
     if((m=/^SCENE_MEMORY:(\w+)=(\w+)$/.exec(raw)))return {type:'SCENE_MEMORY',id:m[1],value:m[2],raw};
-    if((m=/^SET_SCENE_CONSENT:(TRUE|FALSE)$/.exec(raw)))return {type:'SET_SCENE_CONSENT',value:m[1]==='TRUE',raw};
-    if((m=/^ADULT_EVENT_COMMIT:(ROUTE_\w+):(PROFILE_\w+):(\w+)$/.exec(raw)))return {type:'ADULT_EVENT_COMMIT',route:m[1],profile:m[2],id:m[3],raw};
     if((m=/^ON_VICTORY:(.+)$/.exec(raw)))return {type:'ON_VICTORY',effects:parseEffects(m[1]),raw};
     if(raw==='ON_DEFEAT:RETRY_SAME_NODE')return {type:'ON_DEFEAT',mode:'RETRY_SAME_NODE',raw};
     fail('STORY_EFFECT','지원하지 않는 콘텐츠 명령: '+raw);
@@ -122,8 +120,6 @@ P.storyConditionValue = function(name,args,property) {
       const prev=row?.[0]||d?.PREV_EVENT_ID;return prev?this.storyAfterDaily(prev):false;}
     if(Object.prototype.hasOwnProperty.call(g,name))return g[name];
     if(Object.prototype.hasOwnProperty.call(this.s.flags,name))return this.s.flags[name];
-    if(['CURRENT_PLAYER_AGE_CONFIRMED_18_PLUS','ADULT_CONSENT_FLAG'].includes(name))return false;
-    if(/^CE_155_/.test(name))return 'UNVERIFIED';
     fail('CONDITION_UNKNOWN','정의되지 않은 조건 변수: '+name);
   }
   const profile=args.at(-1);
@@ -138,9 +134,6 @@ P.storyConditionValue = function(name,args,property) {
     case 'LOCAL_CHOICE':return this.s.storyLocalChoices?.[args[0]]||'';
     case 'SCENE_MEMORY':return this.s.storySceneMemories?.[args[0]]||'';
     case 'AFTER_PRIOR_DAILY':return this.storyAfterDaily(args[0]);
-    case 'WORLD_DAY_AFTER_PREV_UPPER_EVENT_END':return Number(g.WORLD_DAY)>Number(this.s.storyEventReceipts?.[args[0]]?.day??Infinity);
-    case 'PROJECT_AGE_CLASS':case 'ADULT_CONTENT_ELIGIBLE':case 'ADULT_ROUTE_ENABLED':return this.storyMatureCondition?.(name,args)??(name==='PROJECT_AGE_CLASS'?'UNVERIFIED':false);
-    case 'COMMIT_RECEIPT':return this.storyMatureCondition?.(name,args,property)??false;
     default:fail('CONDITION_FUNCTION','지원하지 않는 조건 함수: '+name);
   }
 };
@@ -158,10 +151,8 @@ P.storyCondition = function(source,definition) {
     if(n.type==='not')return !truth(evaluate(n.value));
     if(n.type==='and'||n.type==='or'){const a=truth(evaluate(n.left)),b=truth(evaluate(n.right));return n.type==='and'?a&&b:a||b;}
     let lhs=evaluate(n.left),rhs=n.right;
-    // Legacy upper relationship conditions asked for a sixth heart; the product
-    // contract retains five hearts and gates the separate continuous score.
+    // Five hearts (100) is the most a relationship holds.
     if(def?.kind==='AFFECTION'&&n.left.type==='call'&&n.left.name==='HEART'&&typeof rhs==='number'&&rhs>5)rhs=5;
-    if(def?.kind==='AFFECTION'&&n.left.type==='call'&&n.left.name==='BOND_SCORE'&&Number(def.BOND_SCORE_MIN)>100&&rhs>=100)rhs=Number(def.BOND_SCORE_MIN);
     return n.op==='='||n.op==='=='?lhs===rhs:n.op==='!='?lhs!==rhs:n.op==='>='?lhs>=rhs:n.op==='<='?lhs<=rhs:n.op==='>'?lhs>rhs:lhs<rhs;
   };
   const outer=this._storyConditionDef;this._storyConditionDef=def;
@@ -200,7 +191,7 @@ P.storyApplyEffects = function(source,node) {
   for(const c of commands){
     switch(c.type){
       case 'guard':break;
-      case 'assign':if(c.key==='ADULT_CONSENT_FLAG'){if(c.value)fail('CONSENT','현재 장면의 명시적 동의 API가 필요합니다.');if(this.clearSceneConsent)this.clearSceneConsent();break;}if(c.key.startsWith('FLAG_')){this.s.flags[c.key]=c.value;}else if(c.key==='PLAYER_ENTITY_ID')g.PLAYER_NARRATIVE_ENTITY_ID=c.value;else if(c.key==='STORY_ROUTE_ID'){if(c.value!==g.STORY_ROUTE_ID)fail('STORY_ROUTE','진행 중인 루트를 바꿀 수 없습니다.');}else if(c.key.startsWith('Q_')&&c.value==='COMPLETED')this.storyCompleteQuest(c.key);else fail('STORY_ASSIGN','지원하지 않는 상태 대입: '+c.key);break;
+      case 'assign':if(c.key.startsWith('FLAG_')){this.s.flags[c.key]=c.value;}else if(c.key==='PLAYER_ENTITY_ID')g.PLAYER_NARRATIVE_ENTITY_ID=c.value;else if(c.key==='STORY_ROUTE_ID'){if(c.value!==g.STORY_ROUTE_ID)fail('STORY_ROUTE','진행 중인 루트를 바꿀 수 없습니다.');}else if(c.key.startsWith('Q_')&&c.value==='COMPLETED')this.storyCompleteQuest(c.key);else fail('STORY_ASSIGN','지원하지 않는 상태 대입: '+c.key);break;
       case 'EVENT':this.storyEvent(c.id);break;
       case 'ENSURE_PLAYER_CARD':if(!g.PLAYER_CARD_CREATED||g.PLAYER_CARD_ID!=='PLAYER_CUSTOM')fail('PLAYER_CARD','주인공 카드를 확인할 수 없습니다.');break;
       case 'ENSURE_PLAYER_PARTY_SLOT':if(!this.s.party.some(p=>p.active&&p.source==='PLAYER_CUSTOM'))fail('PARTY','주인공이 파티에 없습니다.');break;
@@ -215,9 +206,7 @@ P.storyApplyEffects = function(source,node) {
       case 'ADD_HEART':break;
       case 'COMPLETE_AFFECTION':{const def=this.storyDefinition(c.id);if(!def||def.kind!=='AFFECTION'||this.s.storyContext?.entry!==c.id)fail('AFFECTION_SOURCE','현재 관계 사건의 완료점이 아닙니다.');if(this.completeAffection)this.completeAffection(c.id,{profileId:def.PROFILE_ID,stage:def.id.match(/_(H0[1-5])$/)?.[1]});this.s.storyEventReceipts||={};this.s.storyEventReceipts[c.id]||={day:g.WORLD_DAY,turn:g.TURN,node:node?.[4]};if(def.INFO_UNLOCK_KEY){const r=this.storyRelation(def.PROFILE_ID);r.unlocked||=[];if(!r.unlocked.includes(def.INFO_UNLOCK_KEY))r.unlocked.push(def.INFO_UNLOCK_KEY);}this.storyRelation(def.PROFILE_ID);break;}
       case 'LOCAL_CHOICE':this.s.storyLocalChoices||={};this.s.storyLocalChoices[c.id]=c.value;break;
-      case 'SCENE_MEMORY':if(c.value==='SHARED_NIGHT'&&!this.s.storyMatureReceipts?.[c.id])fail('MATURE_COMMIT','관계 사건의 확정 기록이 필요합니다.');this.s.storySceneMemories||={};this.s.storySceneMemories[c.id]=c.value;break;
-      case 'SET_SCENE_CONSENT':if(c.value)fail('CONSENT','장면 동의는 별도 명시적 입력으로 확인해야 합니다.');if(this.clearSceneConsent)this.clearSceneConsent();break;
-      case 'ADULT_EVENT_COMMIT':if(!this.storyMatureCommit)fail('MATURE_HANDLER','확인된 관계 사건 처리기가 없습니다.');this.storyMatureCommit(c,node);break;
+      case 'SCENE_MEMORY':this.s.storySceneMemories||={};this.s.storySceneMemories[c.id]=c.value;break;
       case 'START_FIXED_COMBAT':case 'ON_VICTORY':case 'ON_DEFEAT':fail('BATTLE_EFFECT','전투 결과 전용 명령이 잘못된 위치에 있습니다.');
       default:fail('STORY_EFFECT','지원하지 않는 명령: '+c.type);
     }
@@ -232,7 +221,7 @@ P.storyCompleteLegend=function(id){
   const quest=def.QUEST_ID;if(!this.s.storyCostReceipts?.[quest])fail('LEGEND_ACCEPT','개인 임무를 먼저 수락해야 합니다.');
   let bond;
   if(this.changeBond)bond=this.changeBond(def.PROFILE_ID,10,{source:'LEGEND:'+def.id});
-  else {const r=this.storyRelation(def.PROFILE_ID),before=this.storyBond(def.PROFILE_ID);r.BOND_SCORE=Math.min(120,before+10);r.heart=r.HEART_STATE=Math.min(5,Math.floor(r.BOND_SCORE/20));bond={profileId:def.PROFILE_ID,previous:before,score:r.BOND_SCORE,change:r.BOND_SCORE-before};}
+  else {const r=this.storyRelation(def.PROFILE_ID),before=this.storyBond(def.PROFILE_ID);r.BOND_SCORE=Math.min(100,before+10);r.heart=r.HEART_STATE=Math.min(5,Math.floor(r.BOND_SCORE/20));bond={profileId:def.PROFILE_ID,previous:before,score:r.BOND_SCORE,change:r.BOND_SCORE-before};}
   this.storyCompleteQuest(quest);if(def.COMPLETE_FLAG_ID)this.s.flags[def.COMPLETE_FLAG_ID]=true;
   const receipt={day:this.s.global.WORLD_DAY,turn:this.s.global.TURN,legend:def.id,quest,bond};this.s.storyEventReceipts||={};this.s.storyEventReceipts[quest]=receipt;this.s.storyEventReceipts[def.id]=copy(receipt);return receipt;
 };
@@ -246,7 +235,6 @@ P.storyEntryReason=function(def){
   if(def.kind==='LEGEND'){if(this.storyDone(def.id))return '이미 마친 개인 임무입니다.';if(!this.storyCondition(def.START_CONDITION,def))return '개인 임무의 선행 진행이 필요합니다.';}
   else {
     if(this.storyDone(def.id))return '이미 마친 이야기입니다.';
-    if(/ADULT|MATURE/.test(def.RELATION_KIND)||/ADULT|MATURE/.test(def.ADULT_SCENE_POLICY)&&!String(def.ADULT_SCENE_POLICY).startsWith('NONSEXUAL')){const reason=this.storyMatureEntryReason?.(def);if(reason!==null&&reason!=='')return reason||'확인된 관계 조건이 필요합니다.';}
     if(def.REQUIRED_QUEST_ID&&!this.storyDone(def.REQUIRED_QUEST_ID))return '개인 임무를 먼저 마쳐 주세요.';
     if(def.PREV_EVENT_ID&&!this.storyDone(def.PREV_EVENT_ID))return '앞선 관계 이야기를 먼저 마쳐 주세요.';
     if(readJSON(def.REQUIRED_FLAGS,[]).some(f=>!truth(this.s.flags[f])))return '선행 이야기의 진행이 필요합니다.';
@@ -304,13 +292,14 @@ P.validateSave=function(s){
   const index=this.storyIndex(),context=s.storyContext,active=context?.node||s.global.STORY_CURSOR_NODE_ID;
   const row=index.nodes.get(s.global.STORY_ROUTE_ID+':'+active);
   const definition=context?this.storyDefinition(context.entry):null;
-  const embedded=[...index.affections.values()].find(d=>d.ROUTE_SCOPE===s.global.STORY_ROUTE_ID&&String(active).startsWith(d.id+'_')&&/ADULT|MATURE/.test(d.RELATION_KIND));
-  if((definition&&/ADULT|MATURE/.test(definition.RELATION_KIND)||embedded)&&!this.storyMatureSaveAllowed?.(s,definition||embedded)){
-    s.storySuspendedContext=copy({context:context||null,node:active,reason:'MATURE_POLICY_UNVERIFIED'});
+  // 0.16.69: the stories above 100 bond were removed. A save inside one goes back to the main story.
+  const retired=context&&String(context.entry||'').startsWith('AFF_')&&!definition||!context&&String(active||'').startsWith('AFF_')&&!row;
+  if(retired){
+    s.storySuspendedContext=copy({context:context||null,node:active,reason:'STORY_RETIRED'});
     const frame=s.storyReturnStack?.pop();
     if(frame&&index.nodes.get(s.global.STORY_ROUTE_ID+':'+frame.main)?.table===TABLE_MAIN){s.global.STORY_CURSOR_NODE_ID=frame.main;s.global.CURRENT_STORY_NODE_ID=frame.main;s.global.PENDING_CHOICE_GROUP_ID=frame.choice||'';s.global.PENDING_INPUT_JSON=frame.input||'{}';s.global.CURRENT_MAP_ID=frame.map;}
     else if(index.nodes.get(s.global.STORY_ROUTE_ID+':'+s.global.STORY_CURSOR_NODE_ID)?.table!==TABLE_MAIN){s.global.STORY_CURSOR_NODE_ID='PAUSE';s.global.CURRENT_STORY_NODE_ID='PAUSE';s.global.PENDING_CHOICE_GROUP_ID='';s.global.PENDING_INPUT_JSON='{}';}
-    s.storyContext=null;s.global.SCREEN_MODE='SYSTEM';s.global.STORY_EXPOSURE_NOTICE='확인되지 않은 관계 장면을 중단했습니다. 저장된 완료 기록은 유지됩니다.';
+    s.storyContext=null;s.global.SCREEN_MODE='SYSTEM';s.global.STORY_EXPOSURE_NOTICE='이 이야기는 더 이상 없어서 메인 이야기로 돌아왔습니다.';
   }else if(row&&row.table!==(context?.table||TABLE_MAIN))fail('SAVE_STORY_CONTEXT','저장된 개인 장면의 복귀 문맥이 없습니다.');
   // Work on the candidate save only. Constructor validation precedes this.s, and
   // serialize() validates a clone: loading old saves never regrants or claws back bond.

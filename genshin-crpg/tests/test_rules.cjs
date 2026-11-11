@@ -7,7 +7,7 @@ const base=path.resolve(__dirname,'..'),ctx=vm.createContext({console});
 const scripts=[...fs.readFileSync(path.join(base,'source/index.html'),'utf8').matchAll(/<script\s+src="([^"]+)"/g)].map(m=>m[1]).filter(n=>/^runtime(?:_[a-z_]+)?\.js$/.test(n));
 for(const name of scripts)vm.runInContext(fs.readFileSync(path.join(base,'source',name),'utf8'),ctx,{filename:name});
 const db=JSON.parse(fs.readFileSync(path.join(base,'content/db.json'),'utf8')),R=ctx.CRPGRuntime.Runtime;
-if(ctx.CRPGRelationships)ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+if(ctx.CRPGRelationships)ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db)});
 const results=[];
 function test(name,fn){try{fn();results.push({name,ok:true});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.message});console.log('FAIL '+name+'\n  '+e.message.replaceAll('\n','\n  '));}}
 const plain=x=>JSON.parse(JSON.stringify(x));

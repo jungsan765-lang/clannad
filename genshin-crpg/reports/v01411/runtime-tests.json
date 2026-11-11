@@ -1,0 +1,120 @@
+{
+ "version": "0.14.11",
+ "total": 14,
+ "passed": 14,
+ "results": [
+  {
+   "name": "presets: a saved party comes back exactly (members, order, roles); a slot can be deleted",
+   "ok": true,
+   "evidence": {
+    "order": [
+     "PLAYER_CUSTOM",
+     "MOND_AMBER",
+     "MOND_LISA",
+     "MOND_KAEYA"
+    ]
+   }
+  },
+  {
+   "name": "편성: the cards are the battle line; press, hold and drag one onto another to swap",
+   "ok": true,
+   "evidence": null
+  },
+  {
+   "name": "시설 화면: the host beside what the place offers as tabs; 캐서린 says 별과 심연을 향해",
+   "ok": true,
+   "evidence": null
+  },
+  {
+   "name": "작업장 and battle text: the workshop bar, a 치명타! badge and 부착 tags",
+   "ok": true,
+   "evidence": null
+  },
+  {
+   "name": "words: 얼어붙은 구라구라꽃, and 가방 everywhere instead of 소지품",
+   "ok": true,
+   "evidence": null
+  },
+  {
+   "name": "talents: a rising curve, and C3/C5 raise the talent the original raises",
+   "ok": true,
+   "evidence": {
+    "curve": [
+     100,
+     108,
+     117,
+     127,
+     138,
+     150,
+     163,
+     177,
+     192,
+     208,
+     225,
+     243,
+     262
+    ]
+   }
+  },
+  {
+   "name": "운명의 자리: every fighter has the six official names and effects that the interpreter knows",
+   "ok": true,
+   "evidence": {
+    "fighters": 46
+   }
+  },
+  {
+   "name": "운명의 자리 effects act in battle: damage, charges, cooldowns, party bonuses, weaknesses, rescues",
+   "ok": true,
+   "evidence": {
+    "checked": 8
+   }
+  },
+  {
+   "name": "운명의 자리: whole battles with every effect unlocked run to the end",
+   "ok": true,
+   "evidence": {
+    "battles": 3
+   }
+  },
+  {
+   "name": "exchanges: fates for 원석, a chosen 운명의 별 by rarity, boss materials and stardust within weekly limits",
+   "ok": true,
+   "evidence": {
+    "balance": {
+     "PRIMOGEM": 0,
+     "STARGLITTER": 5,
+     "STARDUST": 150,
+     "INTERTWINED_FATE": 10,
+     "ACQUAINT_FATE": 0
+    }
+   }
+  },
+  {
+   "name": "기원: rates and pity, the weekly banner, the 10-wish companion, weapons, the record",
+   "ok": true,
+   "evidence": {
+    "pulls": 300,
+    "n5": 5,
+    "n4": 35
+   }
+  },
+  {
+   "name": "자백 is met only through events",
+   "ok": true,
+   "evidence": null
+  },
+  {
+   "name": "original textures and sounds are in place and recorded",
+   "ok": true,
+   "evidence": {
+    "constellationIcons": 270
+   }
+  },
+  {
+   "name": "screens: the wish screen and its presentation, the constellation chart and card frames are wired in",
+   "ok": true,
+   "evidence": null
+  }
+ ]
+}

@@ -19,7 +19,10 @@ console.log('PASS real action covers: overlapping timers, delayed acknowledgemen
 (async()=>{
  const online=fs.readFileSync(new URL('../source/app_online.js','file://'+__filename),'utf8');let timeout;
  const transport=vm.createContext({Date,AbortController,base:'https://fixture.invalid',O:{token:''},setTimeout:fn=>{timeout=fn;return 1;},clearTimeout:()=>{timeout=null;},fetch:async(url,{signal})=>({json:()=>new Promise((resolve,reject)=>{const fail=()=>reject(Object.assign(Error('stalled'),{name:'AbortError'}));if(signal.aborted)fail();else signal.addEventListener('abort',fail);})})});
- vm.runInContext(online.slice(online.indexOf('async function request('),online.indexOf('function checkVersion(')),transport);
+ // request() now stamps its login generation. Load those real source helpers too;
+ // keep the stalled-body/abort behavior under test unchanged.
+ const sessionHelpers=online.slice(online.indexOf('let sessionEpoch='),online.indexOf('function invalidateSession('));
+ vm.runInContext(sessionHelpers+online.slice(online.indexOf('async function request('),online.indexOf('function checkVersion(')),transport);
  const pending=transport.request('/game/action',{});await Promise.resolve();assert(timeout,'timeout stays armed while reading body');timeout();
  await assert.rejects(pending,e=>e.transient===true&&e.retryable===false);assert.equal(timeout,null);
  console.log('PASS stalled response body times out with recoverable pending action');

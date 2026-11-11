@@ -12,7 +12,6 @@ files=[
     root/'deploy-server-trial.cmd',
     root/'source/index.html',
     root/'content/db.json',
-    root/'content/story-revisions/rev03-db-patch.json',
     root/'server/wrangler.jsonc',
     root/'server/schema.sql',
     root/'server/protocol.json',
