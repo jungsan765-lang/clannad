@@ -816,11 +816,12 @@ class AssistantApp(QObject):
             return ""
         if self._away_since is not None:
             return "자리 비움 — 마우스나 키보드를 만지면 다시 봐요"
+        stop = bool(self.pref("screen.limit_stop", False))
         limit = int(self.pref("screen.daily_krw", 3000) or 0)
         used = self.ledger.krw(self.ledger.day_kinds_usd(SCREEN_KINDS))
-        if limit and used >= limit:
+        if stop and limit and used >= limit:
             return f"오늘 화면 한도({limit:,}원)를 다 씀 ({used:,}원) — 설정 '화면 보기'에서 올리면 바로 다시 봐요"
-        if settings_flag(self.settings, "screen.stop_when_over_budget", True):
+        if stop and settings_flag(self.settings, "screen.stop_when_over_budget", True):
             budget = self.budget_usd()
             if budget and self.ledger.month_usd() >= budget:
                 return f"이번 달 예산(${budget:,.0f})을 넘음 — 설정 '비용'에서 올리면 다시 봐요"
@@ -841,23 +842,33 @@ class AssistantApp(QObject):
             return False
         if self._away_since is not None:  # 자리 비움(자는 중 등) → 화면 보기 쉼 (밤새 비용 안 나가게)
             return False
+        stop = bool(self.pref("screen.limit_stop", False))  # 기본: 한도를 넘어도 알리기만 하고 계속 본다
         limit = int(self.pref("screen.daily_krw", 3000) or 0)
-        if limit and self.ledger.krw(self.ledger.day_kinds_usd(SCREEN_KINDS)) >= limit:  # 오늘 화면 한도
-            today = datetime.now().date().isoformat()
-            if self.pref("screen.daily_limit_told", "") != today:
-                self.set_pref("screen.daily_limit_told", today)
-                self._update_pause_status()
-                top = sorted(((k, v) for k, v in self.ledger.by_kind().items() if k in SCREEN_KINDS), key=lambda x: -x[1])
-                where = ", ".join(f"{KIND_KO.get(k, k)} {self.ledger.krw(v):,}원" for k, v in top[:3])
-                self.bubble.show_text(f"오늘 화면 보기 한도({limit:,}원)를 다 써서 내일까지 화면 보기는 쉴게요 (많이 쓴 곳: {where}). "
-                                      "대화와 F8·F10 은 그대로 돼요. 한도는 설정 창 '화면 보기'에서 바꿀 수 있어요.", self.anchor(),
-                                      system=True, seconds=15)
-            return False
-        if settings_flag(self.settings, "screen.stop_when_over_budget", True):
+        used = self.ledger.krw(self.ledger.day_kinds_usd(SCREEN_KINDS))
+        if limit and used >= limit:  # 오늘 화면 한도
+            self._limit_notice(limit, used, stop)
+            if stop:
+                return False
+        if stop and settings_flag(self.settings, "screen.stop_when_over_budget", True):
             budget = self.budget_usd()
             if budget and self.ledger.month_usd() >= budget:
                 return False
         return True
+
+    def _limit_notice(self, limit: int, used: int, stop: bool) -> None:
+        """하루 화면 한도를 넘었을 때, 그리고 그 뒤로 한도만큼 더 쓸 때마다 한 번씩 알린다 (멈추지는 않음이 기본)."""
+        level = used // limit
+        key = f"{datetime.now().date().isoformat()}:{level}"
+        if self.pref("screen.daily_limit_told", "") == key:
+            return
+        self.set_pref("screen.daily_limit_told", key)
+        self._update_pause_status()
+        top = sorted(((k, v) for k, v in self.ledger.by_kind().items() if k in SCREEN_KINDS), key=lambda x: -x[1])
+        where = ", ".join(f"{KIND_KO.get(k, k)} {self.ledger.krw(v):,}원" for k, v in top[:3])
+        what = ("내일까지 화면 보기는 쉴게요" if stop
+                else "화면 보기는 계속할게요 (멈추게 하려면 설정 '화면 보기'에서 '한도를 넘으면 멈추기')")
+        self.bubble.show_text(f"오늘 화면 보기에 {used:,}원 썼어요 — 한도 {limit:,}원을 넘었어요 (많이 쓴 곳: {where}). {what}.",
+                              self.anchor(), system=True, seconds=15)
 
     def set_screen_enabled(self, on: bool, save: bool = True) -> None:
         self.watcher.set_enabled(on)
@@ -1116,6 +1127,7 @@ class AssistantApp(QObject):
             "screen.result_depth": "deep" if self.watch_cfg.deep_result else "quick",
             "screen.line_quality": self.watch_cfg.line_quality,
             "screen.dense": self.watch_cfg.dense,
+            "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
             "screen.memory_gb": int(self.screen_log.max_gb),
@@ -1186,6 +1198,8 @@ class AssistantApp(QObject):
             self.watch_cfg.line_quality = str(changed["screen.line_quality"])
         if "screen.dense" in changed:
             self.watch_cfg.dense = str(changed["screen.dense"])
+        if "screen.limit_stop" in changed:
+            self._update_pause_status()
         if "screen.daily_krw" in changed:
             self.set_pref("screen.daily_krw", int(changed["screen.daily_krw"]))
             self.set_pref("screen.daily_limit_told", "")
@@ -1459,7 +1473,8 @@ class AssistantApp(QObject):
         warned = set(state.get("budget_warned_list", []))
         checks = [
             ("over", budget and used >= budget,
-             f"이번 달 예산을 넘었어요 (${used:,.2f} / ${budget:,.0f}). 화면 보기는 멈추고 대화만 할게요."),
+             f"이번 달 예산을 넘었어요 (${used:,.2f} / ${budget:,.0f})."
+             + (" 화면 보기는 멈추고 대화만 할게요." if self.pref("screen.limit_stop", False) else " 화면 보기는 계속해요.")),
             ("warn", budget and used >= budget * float(self.settings.get("budget.warn_ratio", 0.8)),
              f"이번 달 예산의 {used / budget:.0%}를 썼어요 (${used:,.2f} / ${budget:,.0f})." if budget else ""),
             ("credit", credit and used >= credit,

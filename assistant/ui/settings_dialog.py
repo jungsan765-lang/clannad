@@ -149,10 +149,13 @@ class SettingsDialog(QDialog):
         self.daily_limit = Choice(DAILY_LIMITS, str(v.get("screen.daily_krw", "3000")))
         self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "auto")))
         self.dense = Choice(DENSE, str(v.get("screen.dense", "game")))
+        self.limit_stop = QCheckBox("한도를 넘으면 화면 보기 멈추기 (끄면 알리기만 하고 계속 봄)")
+        self.limit_stop.setChecked(bool(v.get("screen.limit_stop", False)))
         self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "important")))
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         g2 = group("화면 보기", [("", self.screen_on), ("코칭", self.coach), ("", coach_note),
                                  ("판 끝난 뒤 총평", self.result_depth), ("하루 화면 비용 한도", self.daily_limit),
+                                 ("", self.limit_stop),
                                  ("화면 대사 모델", self.line_quality), ("촘촘히 보기", self.dense),
                                  ("게임 화면 자막", self.overlay), ("자막 위치", self.overlay_pos), ("말 거는 정도", self.chatty),
                                  ("화면 확인 간격", self.interval),
@@ -341,6 +344,7 @@ class SettingsDialog(QDialog):
             "screen.daily_krw": self.daily_limit.value(),
             "screen.line_quality": self.line_quality.value(),
             "screen.dense": self.dense.value(),
+            "screen.limit_stop": self.limit_stop.isChecked(),
             "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),
             "screen.read_windows": self.read_windows.isChecked(),

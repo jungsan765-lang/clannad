@@ -127,9 +127,12 @@ def test_budget_in_usd_with_credit_notice(qapp, tmp_path, built, monkeypatch):
     a.ledger.month_usd = lambda today=None: 125.0  # 예산 80% 넘김
     a._budget_warning()
     assert any("83%" in t for t in shown)
-    a.ledger.month_usd = lambda today=None: 151.0  # 예산 초과 → 화면 보기 멈춤
+    a.ledger.month_usd = lambda today=None: 151.0  # 예산 초과 → 기본은 알리기만, 화면 보기는 계속
     a._budget_warning()
-    assert any("예산을 넘었어요" in t for t in shown) and not a._screen_allowed()
+    assert any("예산을 넘었어요" in t and "계속해요" in t for t in shown) and a._screen_allowed()
+    a.set_pref("screen.limit_stop", True)  # '한도를 넘으면 멈추기'를 켜면 멈춤
+    assert not a._screen_allowed()
+    a.set_pref("screen.limit_stop", False)
     n = len(shown)
     a._budget_warning()
     assert len(shown) == n  # 같은 달에 같은 알림은 한 번만
@@ -937,8 +940,14 @@ def test_daily_screen_limit_pauses_watching(qapp, tmp_path, built):
     assert a._screen_allowed()
     a.ledger.record("claude-opus-5-5", {"input_tokens": 600_000}, "result_review")  # 2.4달러 ≈ 3,360원
     a.ledger.record("claude-opus-5-5", {"input_tokens": 600_000}, "chat")  # 대화는 한도에 안 들어감
-    assert not a._screen_allowed() and "화면 보기 한도" in a.bubble.text
+    assert a._screen_allowed() and "한도 3,000원을 넘었어요" in a.bubble.text and "계속할게요" in a.bubble.text  # 알리기만
     assert "(화면 3,360원/3,000원)" in a.cost_text()
+    a.bubble.hide()
+    assert a._screen_allowed() and not a.bubble.isVisible()  # 같은 단계는 한 번만 알림
+    a.set_pref("screen.limit_stop", True)  # 멈추기를 켜면 멈춤
+    assert not a._screen_allowed()
+    a.set_pref("screen.limit_stop", False)
+    a.set_pref("screen.daily_krw", 3000)
     a.apply_settings({"screen.daily_krw": "5000"})
     a.bubble.hide()
     assert a._screen_allowed()
@@ -1211,6 +1220,8 @@ def test_away_clears_when_gaming_and_pause_reason_is_shown(qapp, tmp_path, built
     assert a._away_since is None and a.screen_pause_reason() == ""
     assert "화면 쉼" not in a.status.current_text()
     a.ledger.record("claude-haiku-5-5", {"input_tokens": 30_000_000}, "judge")  # 3달러 ≈ 4,200원
+    assert a.screen_pause_reason() == ""  # 기본은 알리기만 → 쉬지 않음
+    a.set_pref("screen.limit_stop", True)
     assert "오늘 화면 한도(3,000원)" in a.screen_pause_reason()
     a.apply_settings({"screen.daily_krw": "5000"})
     assert a.screen_pause_reason() == ""
