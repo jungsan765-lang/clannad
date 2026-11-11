@@ -926,6 +926,7 @@ class ScreenWatcher(QObject):
         self._timing["judge"] = self.clock() - self._shot_at
         if note:
             self._check_claims(note, session)
+            self._heart_moment(note)
         self._remember(shot, mode, note)
         self._zoom_text(shot, note)
         if not note:
@@ -1099,6 +1100,27 @@ class ScreenWatcher(QObject):
         texts += self.sampler.caption_texts(self.clock() - 120)
         texts.append(self.page_text(15.0))
         return texts
+
+    def _heart_moment(self, note: dict) -> None:
+        """캐릭터의 마음이 크게 움직이는 것(성격 파일, 예: 산드로네에게 콜롬비나·달빛 정원)이 화면·소리에 새로 나왔으면
+        판단 담당이 조용히 있자고 해도 말하게 한다 (쉬는 시간은 그대로 — 지나면 그때)."""
+        find = getattr(self.companion, "new_triggers", None)
+        if find is None or note.get("speak") or note.get("scene") in ("loading", "cutscene"):
+            return
+        heard = ""
+        if self.ears is not None:
+            try:
+                heard = self.ears.text()
+            except Exception:  # noqa: BLE001
+                heard = ""
+        try:
+            hits = find(" ".join([str(note.get("situation", "")), str(note.get("point", "")), self.page_text(15.0), heard]))
+        except Exception:  # noqa: BLE001
+            return
+        if hits:
+            note["speak"] = True
+            note["point"] = (str(note.get("point", "")) + " / 마음이 크게 움직이는 것이 보임: "
+                             + ", ".join(n for n, _ in hits)).strip(" /")
 
     def _check_claims(self, note: dict, session) -> None:
         """판단 담당이 '의뢰 끝·보상 받음'이라고 했는데 화면 글자에 완료·획득이 없으면 '확인 안 됨'을 붙인다."""

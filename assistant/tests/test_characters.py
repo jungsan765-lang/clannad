@@ -233,3 +233,46 @@ def test_reactions_file_next_to_persona_feeds_the_ingredients(tmp_path):
     assert not any(e.title.startswith("1. 반응의 결") for e in a.companion.lorebook.entries)  # 사전에는 안 들어감
     assert "반응의 결" not in json.dumps(a.companion.system_blocks(), ensure_ascii=False)  # 성격 프롬프트에도 통째로는 안 들어감
     a.quit()
+
+
+def test_heart_moments_come_before_the_usual_angles(tmp_path):
+    from ai_client import AIClient
+    from companion import Companion, persona_triggers
+    from fake_anthropic import FakeAnthropic
+    from usage import UsageLedger
+
+    persona = ("# 산드로네\n## 9. 반응의 결\n- 자랑: 자랑한다\n- 투덜: 투덜거린다\n"
+               "## 13. 마음이 크게 움직이는 것 (먼저)\n"
+               "- 콜롬비나 (콜롬비나·달빛 정원·달맞이 견문): 제일 아끼는 친구. 걱정과 반가움이 새어 나온다\n"
+               "- 도토레 (도토레): 분노\n")
+    assert [(n, w) for n, w, _ in persona_triggers(persona)] == [
+        ("콜롬비나", ["콜롬비나", "달빛 정원", "달맞이 견문"]), ("도토레", ["도토레"])]
+    line = {"speak": True, "message": "…꽃은 잘 가꿔 놨네.", "emotion": "normal"}
+    fake = FakeAnthropic([dict(line) for _ in range(4)])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), persona,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    t = {"now": 0.0}
+    comp.clock = lambda: t["now"]
+    comp.screen_line(b"jpeg", "원신", {"situation": "노드크라이 달빛 정원에 들어옴", "point": ""})
+    sent = json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "마음이 크게 움직이는 것이 나왔다: 콜롬비나" in sent and "결: " not in sent  # 평소 결 대신 감정이 먼저
+    assert comp.new_triggers("달빛 정원") == []  # 방금 그걸로 말했으니 10분은 다시 안 끼움
+    t["now"] = 30.0
+    comp.screen_line(b"jpeg", "원신", {"situation": "달빛 정원을 걷는 중", "point": ""})
+    assert "결: " in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    comp.reply("여기 콜롬비나 살던 데야")  # 대화에서 꺼내도 감정이 먼저
+    assert "마음이 크게 움직이는 것이 나왔다: 콜롬비나" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+
+
+def test_heart_moment_makes_the_watcher_speak_even_if_the_judge_stays_quiet(tmp_path):
+    from PySide6.QtWidgets import QApplication
+    from test_watch_voice import WindowInfo, _img, _watcher
+
+    app = QApplication.instance() or QApplication([])  # noqa: F841
+
+    quiet = {"speak": False, "urgent": False, "scene": "playing", "situation": "노드크라이 달빛 정원", "point": ""}
+    w, comp, said, t, _ = _watcher(tmp_path, notes=[dict(quiet)], images=[_img(70) for _ in range(5)],
+                                   window=WindowInfo("Genshin", "notepad.exe", (0, 0, 1900, 1000)))
+    comp.new_triggers = lambda text: [("콜롬비나", "아끼는 친구")] if "달빛 정원" in text else []
+    w.tick()
+    assert said and comp.lines[-1]["note"]["speak"] and "마음이 크게 움직이는 것이 보임: 콜롬비나" in comp.lines[-1]["note"]["point"]

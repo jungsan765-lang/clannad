@@ -188,7 +188,9 @@ SCREEN_TASK = """[화면 보고 말 걸기 — 옆에서 같이 보는 말동무
   주인님이 고민하는 것에 도움이 되는 한마디만 한다. 사적인 내용은 언급을 아낀다.
 - remember: 화면에서 본 것 중 주인님에 대한 오래 기억할 일(약속·일정, 게임 목표 달성·중요한 결과)만 적는다.
   남의 메시지 내용이나 사적인 이야기는 적지 않는다. 없으면 빈 배열.
-- 인물은 얼굴 생김새만으로 단정하지 않는다. 화면에 글자로 보이는 이름(파티 목록, 대화창 위 이름 등)으로 알아본다.
+- 인물은 먼저 화면에 글자로 보이는 이름(파티 목록, 대화창 위 이름 등)으로 알아본다. 이름이 안 보여도 생김새로 아는
+  캐릭터면(옷·머리색·무기·분위기가 뚜렷하게 맞으면) "○○ 같은데?"처럼 짐작이라고 밝히고 말해도 된다. 확신이 없으면 생김새를 짧게
+  짚고 모른다고 한다. 단정하지는 않는다.
 - 화면에 이름이 보이는 인물·장소인데 네가 모르면 지어내지 말고 action 은 "web_search", target 은 "게임 이름 + 그 이름",
   message 는 빈 문자열로 한다(조용히 찾아본 뒤 말한다). 배경지식이나 '찾아보고 알게 된 것'에 있으면 찾지 않는다."""
 
@@ -495,6 +497,9 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 응답은 정해진 JSON 하나로만 한다: speak(말할지), message(할 말), emotion(표정).
 - 주인님이 직접 말을 걸었으면 speak 는 true. 화면을 보고 먼저 말 거는 상황에서 할 말이 없으면 speak 는 false, message 는 빈 문자열.
 - message 는 보통 1~2문장, 길어도 4문장. 말풍선에 들어갈 만큼 짧게.
+- 주인님이 화면 속 인물·캐릭터가 누구냐고 물으면: 첨부된 지금 화면을 보고, 이름이 보이면 그 이름. 안 보여도 생김새로 아는
+  캐릭터면 "○○ 같은데?"처럼 짐작이라고 밝히고 답한다(근거: 머리색·옷·무기 같은 특징 한두 개). 정말 모르면 생김새를 짧게 말하고
+  모른다고 한다. "이름이 뜨면 알려 줄게"로 미루지 않는다. 화면 없이(첨부가 없으면) 기억만으로 찍지 않는다.
 - 게임 상황(퀘스트 진행·보상·조건·결과)에 대해 말할 때는 첨부된 '지금 게임 화면'과 [확인] 기록을 근거로 한다.
   (추측) 기록이나 네 짐작은 단정하지 않는다. 확실하지 않으면 네 말투로 되묻거나(내가 보기엔 ~ 같은데 맞는지) 모른다고 한다.
   의뢰·일지에 적힌 보상은 앞으로 받을 것이지 받은 게 아니다. 주인님이 게임 내용을 고쳐 주면 그 내용은 사실로 받아들이고
@@ -712,6 +717,23 @@ def persona_items(persona: str | None, key: str) -> list[tuple[str, str]]:
     return []
 
 
+def persona_triggers(text: str | None) -> list[tuple[str, list[str], str]]:
+    """'## … 마음이 … 움직이는 것' 절: '- 이름 (낱말·낱말): 반응' → [(이름, 알아볼 낱말들, 반응)].
+    이 낱말이 화면·대화에 나오면 평소 결 제안 대신 이 감정이 먼저 (예: 산드로네에게 콜롬비나·달빛 정원)."""
+    for block in re.split(r"(?m)^## ", text or "")[1:]:
+        title, _, body = block.partition("\n")
+        if "마음이" not in title:
+            continue
+        out = []
+        for m in re.finditer(r"(?m)^-\s*([^(:：\n]+?)\s*\(([^)]*)\)\s*[:：]\s*(.+)$", body):
+            name = m.group(1).strip(" *")
+            words = [w.strip() for w in re.split(r"[·,，、/]", m.group(2)) if len(w.strip()) >= 2]
+            out.append((name, list(dict.fromkeys([name, *words])), m.group(3).strip()))
+        if out:
+            return out
+    return []
+
+
 def persona_angles(persona: str | None) -> list[tuple[str, str]]:
     """성격 파일의 '반응의 결' 절 (- 이름: 설명). 없으면 기본."""
     return persona_items(persona, "반응의 결") or DEFAULT_ANGLES
@@ -838,6 +860,7 @@ class Companion:
         self._topics_recent: deque[str] = deque(maxlen=6)
         self._focus_recent: deque[str] = deque(maxlen=3)
         self.reactions = ""  # 반응 재료 파일 (성격 파일 옆 reactions.md — 성격 파일을 안 건드리고 재료만 따로)
+        self._trigger_used: dict[str, float] = {}  # 마음이 움직이는 것 → 마지막으로 그걸로 말한 때
         self._mood: tuple[str, str] | None = None  # 한동안 이어지는 기분 (성격 파일의 '기분' 절)
         self._mood_until = 0.0
         self.clock = time.monotonic
@@ -945,6 +968,9 @@ class Companion:
         notes = self.lorebook.notes_for(user_text + "\n" + ctx[:200] + "\n" + ctx[-600:])
         if notes:
             content.append({"type": "text", "text": notes})
+        hits = self.triggers_in(user_text + " " + (context or ""))
+        if hits:  # 주인님이 그 사람·그곳 얘기를 꺼내면 (콜롬비나 등) 감정이 먼저
+            content.append({"type": "text", "text": "[" + self.trigger_text(hits) + "]"})
         mood = self.mood()
         if mood:  # 화면 한마디와 같은 기분이 대화에도 이어지게
             content.append({"type": "text", "text": f"[지금 네 기분: {mood[0]}" + (f" — {mood[1]}" if mood[1] else "")
@@ -1299,8 +1325,31 @@ class Companion:
             self._mood_until = now + self._rng.uniform(15, 40) * 60
         return self._mood
 
-    def flavor(self) -> str:
-        """화면 한마디 재료: 결 × 말 모양 × 기분 × 떠올릴 거리 (조합이 수천 가지라 매번 신선하게)."""
+    def triggers_in(self, text: str) -> list[tuple[str, str]]:
+        """글에 나온 '마음이 크게 움직이는 것' [(이름, 반응)]."""
+        low = (text or "").lower()
+        return [(name, how) for name, words, how in persona_triggers(self._flavor_text())
+                if any(w.lower() in low for w in words)]
+
+    def new_triggers(self, text: str, within: float = 600.0) -> list[tuple[str, str]]:
+        """그중 최근(10분)에 그걸로 말하지 않은 것 — 화면에 새로 나왔으면 판단 담당이 조용히 하자고 해도 말을 건다."""
+        now = self.clock()
+        return [t for t in self.triggers_in(text) if now - self._trigger_used.get(t[0], -1e9) >= within]
+
+    def trigger_text(self, hits: list[tuple[str, str]]) -> str:
+        name, how = hits[0]
+        return (f"마음이 크게 움직이는 것이 나왔다: {name} — {how}. 이번엔 이 감정이 먼저다. "
+                "츤데레로 덮더라도 진심이 한 줄은 새어 나오게, 밋밋하게 화면 설명으로 넘어가지 않는다")
+
+    def flavor(self, seen: str = "") -> str:
+        """화면 한마디 재료: 결 × 말 모양 × 기분 × 떠올릴 거리 (조합이 수천 가지라 매번 신선하게).
+        '마음이 크게 움직이는 것'(성격 파일)이 보이면 결·말 모양 대신 그 감정을 먼저."""
+        hits = self.new_triggers(seen) if seen else []
+        if hits:
+            self._trigger_used[hits[0][0]] = self.clock()
+            mood = self.mood()
+            return "[이번 한마디 — " + self.trigger_text(hits) + (
+                f" / 지금 기분: {mood[0]} (그래도 이 순간엔 감정이 먼저)" if mood else "") + "]"
         angle, how = self.pick_angle()
         form, shape = self._pick(persona_items(self._flavor_text(), "말 모양") or DEFAULT_FORMS, self._forms_recent)
         focus, where = self._pick(persona_items(self._flavor_text(), "꽂힐 곳") or DEFAULT_FOCUS, self._focus_recent)
@@ -1473,7 +1522,8 @@ class Companion:
                          " ".join(heard.get("lines", [])[:8])] + list(session_notes or [])[-5:])
         routine = not (pick or review or question or (note and note.get("urgent")))
         if routine:  # 매번 같은 꼴이 되지 않게: 결·말 모양·기분·떠올릴 거리를 돌아가며 (캐릭터 성격 파일의 절들)
-            lines.append(self.flavor())
+            lines.append(self.flavor(" ".join([seen, str((brain or {}).get("page") or ""),
+                                               str((brain or {}).get("context") or "")])))
             if self.drafts:
                 lines.append(DRAFT_TASK)
         # 픽 화면: 보이는 캐릭터 8명 + 조합 원칙까지 꺼내 본다. 평범한 반응 한마디엔 짧게만

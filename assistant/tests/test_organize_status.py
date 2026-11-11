@@ -261,7 +261,8 @@ def test_screen_line_can_ask_to_look_up_a_name(tmp_path):
     r = comp.screen_line(b"jpg", "원신", None)
     assert r.speak and r.message == "" and r.action == "web_search" and r.target == "원신 로노바"
     assert "이름표" not in fake.calls[-1]["system"][0]["text"]  # 규칙은 화면 지시 쪽에
-    assert "얼굴 생김새만으로" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    sent = json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "글자로 보이는 이름" in sent and "생김새로 아는" in sent and "단정하지는 않는다" in sent
 
 
 def test_user_names_and_pinned_facts_reach_prompts(tmp_path):

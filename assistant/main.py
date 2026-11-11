@@ -71,6 +71,9 @@ from watch.watcher import ScreenWatcher, WatchConfig
 log = logging.getLogger("assistant")
 # 대화에 이런 말이 나오면 원신 계정 정보를 함께 넘긴다
 CYPHERS_WORDS = re.compile(r"사이퍼즈|전적|공식전|일반전|킬뎃|딜량|승률|판수|티어|랭크")
+# 주인님이 지금 화면 속 무언가를 가리키는 말 (게임 밖이어도 대화에 지금 화면을 붙인다)
+SCREEN_REF = re.compile(r"이 ?캐릭|저 ?캐릭|이 ?사람|저 ?사람|이 ?애|저 ?애|얘는|쟤는|이거|저거|이건|저건|누구야|누구냐|누군지|"
+                        r"바탕 ?화면|배경 ?화면|화면에|화면 ?속|보여\??$|보이는|여기 ?어디|어디야")
 GENSHIN_WORDS = re.compile(r"원신|레진|기원|뽑기|천장|픽업|성유물|진열장|파티|일퀘|일일 ?의뢰|파견|주전자|나선|비경|환상극|돌파|특성")
 STARRAIL_WORDS = re.compile(r"스타레일|붕스|개척력|워프|광추|유물|차원 ?장신구|일일 ?훈련|시뮬레이션 ?우주|차분화|망각의 ?정원|"
                             r"허구 ?이야기|종말의 ?환영|전쟁의 ?여운|성옥|성혼|행적|뽑기|천장|픽업")
@@ -488,10 +491,15 @@ class AssistantApp(QObject):
             if at is not None:
                 images = [(f"({e.time:%H:%M} 화면)", e.file.read_bytes()) for e in self.screen_log.nearest(at)]
         live = self._live_game_view_allowed()
+        on_screen = not live and bool(SCREEN_REF.search(text)) and self._screen_view_allowed()
 
         def work(t, progress):
             # 떠올리기는 뒤에서 (색인 찾기·필요하면 낱말 넓히기 — 화면이 멈추지 않게)
             ctx, imgs = context, images
+            if on_screen and not imgs:  # 게임 밖이어도 '이 캐릭터·바탕화면·저거'처럼 화면을 가리키면 지금 화면을 같이
+                shot, _raw = self._live_game_view()
+                if shot:
+                    imgs = [("(지금 화면 — 주인님이 말하는 '이거·이 캐릭터·바탕화면'은 여기서 찾는다)", shot)]
             if live and not imgs:  # 게임 중엔 지금 화면도 같이 (판 기록의 짐작만 믿고 틀리지 않게, 1280 한 장 ≈ 7원)
                 shot, raw = self._live_game_view()
                 if shot:
@@ -513,6 +521,13 @@ class AssistantApp(QObject):
         """게임 중이고 화면 보기가 켜져 있고, 보지 말라고 한 창이 아닐 때만."""
         w = self.watcher
         if not (w.enabled and w.session is not None and w.mode.is_game and self.pref("chat.live_view", True)):
+            return False
+        return not w.blocked_word(w.process, w.window_title)
+
+    def _screen_view_allowed(self) -> bool:
+        """대화에 지금 화면을 붙여도 되나 (화면 보기가 켜져 있고, 보지 말라고 한 창이 아닐 때)."""
+        w = self.watcher
+        if not (w.enabled and self.pref("chat.live_view", True)):
             return False
         return not w.blocked_word(w.process, w.window_title)
 

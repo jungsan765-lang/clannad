@@ -1383,6 +1383,14 @@ def test_chat_during_a_game_sees_the_live_screen(qapp, tmp_path, built):
     a.ask("고마워")
     _wait(qapp, a)
     assert not any(b.get("type") == "image" for b in fake.calls[-1]["messages"][-1]["content"])
+    fake.replies.append({"speak": True, "message": "검은 단발에 크리스털이라… 처음 보는 얼굴이야.", "emotion": "normal"})
+    a.ask("그래서 이 캐릭터는 누구야 바탕화면에 있는 애")  # 게임 밖이어도 화면 속을 가리키면 지금 화면을 같이
+    _wait(qapp, a)
+    content = fake.calls[-1]["messages"][-1]["content"]
+    texts = " ".join(b.get("text", "") for b in content if b.get("type") == "text")
+    assert any(b.get("type") == "image" for b in content) and "'이거·이 캐릭터·바탕화면'은 여기서 찾는다" in texts
+    system = "".join(b["text"] for b in fake.calls[-1]["system"])
+    assert "\"이름이 뜨면 알려 줄게\"로 미루지 않는다" in system
     a.quit()
 
 
