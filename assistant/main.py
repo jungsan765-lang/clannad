@@ -124,6 +124,7 @@ class AssistantApp(QObject):
         self.ledger = ledger
         self.pool = pool or QThreadPool.globalInstance()
         self.busy = False
+        self._voice_state = ""  # 목소리 입력 상태 (listening·heard = 주인님이 말하는 중)
         self.jobs: set[Job] = set()
         self.state_path = settings.data_dir / "state.json"
 
@@ -244,6 +245,7 @@ class AssistantApp(QObject):
         self.watcher.sampler.ocr = local_ocr.read_text  # 자막·대사는 이 PC 글자 인식으로 먼저 (공짜)
         self.watcher.hud.ocr = local_ocr.read_text  # 퀘스트 안내·알림·킬 로그도 계속 읽기
         self.watcher.page_ocr = local_ocr.read_windows  # 의뢰·일지·메뉴 창은 화면 전체 글자를 원래 크기로
+        self.watcher.can_show = self._screen_can_show  # 주인님이 대화·입력·말하는 중엔 화면 얘기를 띄우지도 기억하지도 않음
         local_ocr.paddle_enabled = bool(self.pref("local.paddle_ocr", True))  # 정밀 글자 인식 (Windows 글자 인식이 틀릴 때)
         local_ocr.warm_up()
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
@@ -965,7 +967,7 @@ class AssistantApp(QObject):
             self.status.end("screen_pause")
 
     def _screen_allowed(self) -> bool:
-        if self.busy or self.bubble.isVisible():  # 대화 중이거나 말풍선이 떠 있으면 다음 기회에
+        if self.busy or self.bubble.isVisible() or self._user_talking():  # 대화·입력·말하는 중이거나 말풍선이 떠 있으면 다음에
             return False
         if self._away_since is not None:  # 자리 비움(자는 중 등) → 화면 보기 쉼 (밤새 비용 안 나가게)
             return False
@@ -1100,8 +1102,16 @@ class AssistantApp(QObject):
         self.window.set_emotion("surprised")
         QTimer.singleShot(4000, lambda: self.window.set_emotion("normal") if seq == self._moment_seq else None)
 
+    def _user_talking(self) -> bool:
+        """주인님이 지금 입력창에 쓰는 중이거나 목소리로 말하는 중인가."""
+        return self.input.isVisible() or self._voice_state in ("listening", "heard")
+
+    def _screen_can_show(self) -> bool:
+        """화면 얘기를 지금 띄워도 되나: 대화 중·입력 중·말하는 중이면 아님 (끼어들지 않고, 안 한 말을 했다고 기억하지 않게)."""
+        return not self.busy and not self._user_talking()
+
     def _on_screen_partial(self, message: str) -> None:
-        if self.busy or not message:  # 대화 중이면 대화가 먼저
+        if not self._screen_can_show() or not message:  # 대화·입력·말하는 중이면 대화가 먼저
             return
         self._screen_partial = message
         self.bubble.show_text(message, self.anchor(), seconds=0)
@@ -1117,9 +1127,9 @@ class AssistantApp(QObject):
         if isinstance(reply, Analysis) and reply.speak:  # 분석은 창에 남겨 두니 대화 중이어도 보여 준다
             self.analysis_panel.show_analysis(reply)
             self._index_analysis(reply)
-            if self.busy:
+            if not self._screen_can_show():
                 return
-        if self.busy:
+        if not self._screen_can_show():
             return
         if reply.action == "web_search":  # 화면에 모르는 이름 → 조용히 찾아보고 말하기 (한 시간에 6번까지)
             now = time.monotonic()
@@ -1166,6 +1176,7 @@ class AssistantApp(QObject):
 
     def _on_voice_state(self, state: str) -> None:
         """목소리 상태는 말풍선이 아니라 캐릭터 아래 작은 표시로 알린다."""
+        self._voice_state = state
         key = self.settings.get("hotkeys.voice", "F7")
         if state == "loading":
             self.status.begin("voice_load", "음성 인식 준비 중 (처음엔 내려받느라 몇 분)")

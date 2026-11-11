@@ -1416,3 +1416,18 @@ def test_user_taught_game_fact_goes_into_the_game_dictionary(qapp, tmp_path, bui
     assert "'주인님이 알려 준 것' 항목은 다른 배경지식·판 기록과 다르면 그쪽을 따른다" in system
     assert "한 줄 요약뿐이라 답이 안 되거나" in system  # 사전에 짧게만 있으면 찾아봄
     a.quit()
+
+
+def test_screen_talk_waits_while_user_types_or_speaks(qapp, tmp_path):
+    fake = FakeAnthropic([])
+    s = _settings(tmp_path, "no_such_folder")
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    assert a._screen_can_show() and a._screen_allowed()
+    a._on_voice_state("listening")  # 목소리로 말하는 중
+    assert not a._screen_can_show() and not a._screen_allowed()
+    a._on_voice_state("idle")
+    a.input.show()  # 입력창에 쓰는 중
+    assert not a._screen_can_show()
+    a.input.hide()
+    assert a._screen_can_show() and a.watcher.can_show()
+    a.quit()

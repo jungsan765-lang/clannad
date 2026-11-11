@@ -1861,3 +1861,18 @@ def test_judge_saying_quest_done_is_marked_unconfirmed_without_on_screen_words(q
     # 평소 플레이 화면에서 몇 글자 읽힌 건 화면 글자로 안 씀
     w.page_ocr = lambda img: "HP 1200 / 1500"
     assert w.read_page_now(_img(10)) == ""
+
+
+def test_line_not_shown_while_user_is_talking_is_not_remembered_as_said(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    talking = {"on": True}
+    w.can_show = lambda: not talking["on"]  # 주인님이 입력창에 쓰는 중·말하는 중
+    nothing = []
+    w.nothing.connect(lambda: nothing.append(1))
+    w.tick()
+    assert said == [] and nothing == [1]  # 끼어들지 않고
+    assert comp.memory.spoken_lines() == [] and w.last_spoke is None  # 안 한 말을 했다고 기억하지 않음
+    talking["on"] = False
+    t["now"] = 200
+    w.tick()
+    assert said == ["경로에 얼룩이 하나 있네요."] and comp.memory.spoken_lines() == ["경로에 얼룩이 하나 있네요."]

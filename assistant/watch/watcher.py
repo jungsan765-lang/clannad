@@ -7,6 +7,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import logging
 import sys
 import threading
@@ -228,6 +229,9 @@ class ScreenWatcher(QObject):
         self.hud = HudReader(None, clock)  # 화면 정보 상시 읽기 (글자 인식은 main 이 넣어 줌)
         # 화면 전체 글자 (의뢰·일지·메뉴 창처럼 글자가 많을 때): 판단과 동시에 이 PC 가 원래 크기로 읽는다 (main 이 넣어 줌)
         self.page_ocr: Callable | None = None
+        # 지금 말풍선을 띄워도 되나 (주인님이 대화·입력·말하는 중이면 아님, main 이 넣어 줌).
+        # 못 띄운 말은 '내가 한 말'로 기억·판 기록에 남기지 않는다 (안 한 말을 했다고 믿지 않게)
+        self.can_show: Callable[[], bool] = lambda: True
         self._page: tuple[float, str] | None = None  # (시각, 읽은 글)
         self._page_job = None
         self.ears = None  # 게임 소리 듣기 (watch.ears.GameEars, main 이 넣어 줌)
@@ -1219,6 +1223,13 @@ class ScreenWatcher(QObject):
         if reply is None or not reply.speak:
             self.nothing.emit()
             return
+        if reply.message and not self._can_show():
+            log.info("주인님이 대화 중이라 화면 얘기는 안 함 (기억에도 안 남김): %r", reply.message[:60])
+            if hasattr(reply, "summary"):  # 분석은 분석 창에 남긴다 (main 이 말풍선은 안 띄움, 기억에도 안 남김)
+                self.spoke.emit(reply)
+            else:
+                self.nothing.emit()
+            return
         self.last_spoke = self.clock()
         self.stats["spoke"] += 1
         if reply.message:  # 비어 있으면 '조용히 찾아보기' (찾아본 뒤 말한다)
@@ -1228,6 +1239,12 @@ class ScreenWatcher(QObject):
             if self.session:
                 self.session.add(self.last_spoke, "내가 한 말: " + reply.message, "said")
         self.spoke.emit(reply)
+
+    def _can_show(self) -> bool:
+        try:
+            return bool(self.can_show())
+        except Exception:  # noqa: BLE001
+            return True
 
     def _fail(self, message: str) -> None:
         self.running_job = False
