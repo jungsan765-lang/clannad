@@ -244,6 +244,8 @@ class AssistantApp(QObject):
         self.watcher.hud.ocr = local_ocr.read_text  # 퀘스트 안내·알림·킬 로그도 계속 읽기
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
         self.watch_cfg.eye = str(self.pref("screen.eye", "fast"))
+        self.watch_cfg.rush = bool(self.pref("screen.rush", True))
+        self.watch_cfg.fast_opus = bool(self.pref("screen.fast_opus", True))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
@@ -1227,6 +1229,8 @@ class AssistantApp(QObject):
             "screen.dense": self.watch_cfg.dense,
             "screen.scan": self.watch_cfg.scan,
             "screen.eye": self.watch_cfg.eye,
+            "screen.rush": self.watch_cfg.rush,
+            "screen.fast_opus": self.watch_cfg.fast_opus,
             "local.enabled": self.local_ai.enabled,
             "local.cpu": self.local_ai.cpu,
             "local.model": self.local_ai.model,
@@ -1310,6 +1314,9 @@ class AssistantApp(QObject):
             self.watch_cfg.scan = bool(changed["screen.scan"])
         if "screen.eye" in changed:
             self.watch_cfg.eye = str(changed["screen.eye"])
+        for key, attr in (("screen.rush", "rush"), ("screen.fast_opus", "fast_opus")):
+            if key in changed:
+                setattr(self.watch_cfg, attr, bool(changed[key]))
         if "ears.enabled" in changed:
             self.ears.enabled = bool(changed["ears.enabled"])
         if any(k.startswith("local.") for k in changed):

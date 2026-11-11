@@ -202,6 +202,11 @@ class SettingsDialog(QDialog):
         self.chatty = Choice(CHATTY, str(v["screen.chattiness"]))
         self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "brain_lite")))
         self.eye = Choice(EYE, str(v.get("screen.eye", "fast")))
+        self.rush = check("확 바뀐 순간엔 판단 결과를 기다리지 않고 바로 말하기 시작", "screen.rush", True,
+                          "죽음·암전·퀘스트 완료처럼 확 바뀐 순간엔 판단과 말하기를 동시에 시작해 2초쯤 빨라요. 45초에 한 번까지, "
+                          "판단이 컷신·결과·픽이면 버려요. 시간당 수백 원 더 들 수 있어요.")
+        self.fast_opus = check("Opus 가 말할 땐 빠른 모드 (요금 2배)", "screen.fast_opus", True,
+                               "물어볼 때·중요한 걸 찾았을 때처럼 Opus 가 말할 때 2배쯤 빨리 써요.")
         self.scan = check("둘러보기", "screen.scan", True,
                           "표시가 뜬 인물·이름표·빛나는 물건을 하나씩 확대해 알아보고, 보상이 좋은 것처럼 중요한 것만 알려요.")
         scan_hint = _hint("표시 뜬 인물·물건을 확대해 알아보고 중요한 것만 알려요. 하나에 1원도 안 들어요. 알아본 건 기억해 둬요.")
@@ -220,8 +225,8 @@ class SettingsDialog(QDialog):
         self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "important")))
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         screen = page(group("말 걸기", [("", self.screen_on), ("말 거는 정도", self.chatty),
-                                        ("말하는 방식", self.line_quality), ("눈 담당", self.eye), ("", self.scan),
-                                        ("", scan_hint)]),
+                                        ("말하는 방식", self.line_quality), ("눈 담당", self.eye), ("", self.rush),
+                                        ("", self.fast_opus), ("", self.scan), ("", scan_hint)]),
                       group("보는 방법", [("촘촘히 보기", self.dense), ("볼 모니터", self.monitor),
                                           ("선명도 (글자 읽기)", self.sharp), ("확인 간격", self.interval),
                                           ("말한 뒤 쉬는 시간", self.cooldown)]),
@@ -430,6 +435,8 @@ class SettingsDialog(QDialog):
             "screen.dense": self.dense.value(),
             "screen.scan": self.scan.isChecked(),
             "screen.eye": self.eye.value(),
+            "screen.rush": self.rush.isChecked(),
+            "screen.fast_opus": self.fast_opus.isChecked(),
             "local.enabled": self.local_on.isChecked(),
             "local.cpu": self.local_cpu.value(),
             "local.model": self.local_model.text().strip() or "gemma3:4b",

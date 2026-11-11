@@ -1579,3 +1579,80 @@ def test_fast_path_goes_straight_from_judge_to_speaker_and_streams(qapp, tmp_pat
     w._streamed = True
     w._done(None)  # 나오다가 안 하기로 한 말은 지움
     assert cancelled == [1]
+
+
+def _rush_watcher(tmp_path, scene="playing"):
+    from watch.modes import Mode as _Mode
+
+    game = _Mode("사이퍼즈", processes=["cy.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    note = {"speak": False, "urgent": False, "scene": scene, "situation": "교전", "point": "", "read_box": [], "look": []}
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40)] * 40, modes=[game], notes=[dict(note) for _ in range(5)],
+                                   window=WindowInfo("C", "cy.exe", (0, 0, 1900, 1000)))
+    w.cfg.dense = "game"
+    w.cfg.line_quality = "brain_lite"
+    w.sampler.set_active = lambda on: None
+    w.sampler.active = True
+    vals = iter([40] * 3 + [200] * 40)
+    w.sampler.grab = lambda: _img(next(vals))
+    w.update_mode()
+    w.tick()  # 처음 판단 (t=0)
+    for i in range(1, 7):
+        t["now"] = i * 0.5
+        w.sampler.capture_once()  # 1.5초째 화면이 확 바뀜 (죽음·장면 전환 같은)
+    return w, comp, said, t
+
+
+def test_sudden_change_starts_speaker_together_with_judge(qapp, tmp_path):
+    import threading
+
+    w, comp, said, t = _rush_watcher(tmp_path)
+    started = threading.Event()
+    real_line, real_judge = comp.screen_line, comp.judge
+
+    def line(*a, **k):
+        started.set()
+        return real_line(*a, **k)
+
+    def judge(*a, **k):
+        assert started.wait(3), "말하기가 판단과 동시에 출발하지 않음"
+        return real_judge(*a, **k)
+
+    comp.screen_line, comp.judge = line, judge
+    shown = []
+    w.partial.connect(shown.append)
+    t["now"] = 3.0
+    w._check_spike()
+    assert said == ["경로에 얼룩이 하나 있네요."]  # 판단은 '조용히'였지만 먼저 출발한 말하기 담당이 본 대로
+    assert comp.lines[-1]["note"]["situation"].startswith("(판단 담당을 기다리지 않고 바로 왔다")
+    assert comp.line_model == "claude-sonnet-5-5"
+    assert shown == []  # 판단이 끝나기 전에 나온 글자는 띄우지 않음 (시험의 가짜는 바로 한 번만 보냄)
+    w.last_spoke = None  # 쉬는 시간이 아니어도
+    t["now"] = 10.0
+    w._spike_kind = "screen"
+    assert not w._rush_ok(w.mode)  # 45초 안에는 또 동시 출발하지 않음 (비용)
+    t["now"] = 60.0
+    assert w._rush_ok(w.mode)
+
+
+def test_rushed_line_is_dropped_when_judge_says_cutscene(qapp, tmp_path):
+    w, comp, said, t = _rush_watcher(tmp_path, scene="cutscene")
+    shown = []
+    w.partial.connect(shown.append)
+    t["now"] = 3.0
+    w._check_spike()
+    assert w._last_rush == 3.0 and comp.lines  # 동시에 출발은 했지만
+    assert said == [] and shown == []  # 판단이 컷신이면 먼저 출발한 말은 버리고, 글자도 안 띄움
+    assert w._rush is None
+
+
+def test_opus_lines_use_fast_mode(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    w.cfg.line_quality = "brain_lite"
+    w.ask_now("저 사람 뭐야?")
+    assert comp.line_model == "claude-opus-5-5" and comp.lines[-1]["fast"] is True  # 물어볼 땐 Opus + 빠른 모드
+    t["now"] = 200
+    w.tick()
+    assert comp.line_model == "claude-sonnet-5-5" and comp.lines[-1]["fast"] is None  # 평소 Sonnet 은 보통
+    w.cfg.fast_opus = False
+    w.ask_now("또?")
+    assert comp.lines[-1]["fast"] is None

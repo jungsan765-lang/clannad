@@ -92,6 +92,10 @@ class WatchConfig:
     context_back: tuple = (40.0, 30.0, 20.0, 10.0)  # 판단 사진: 이만큼 전 몇 장 + 최근 5초 (합 10장, 비용 같음)
     # 눈 담당: fast = 안 씀(말하기 담당이 흐름 사진·화면을 직접 보고 바로 말함) / careful = 눈 담당이 먼저 자세히 봄 (5~20초 늦음)
     eye: str = "fast"
+    # 확 바뀐 순간(화면·화면 정보)엔 판단을 기다리지 않고 판단과 말하기를 동시에 시작 (rush_gap 초에 한 번까지)
+    rush: bool = True
+    rush_gap: float = 45.0
+    fast_opus: bool = True  # Opus 가 말할 땐 빠른 모드 (요금 2배, 2배쯤 빨리)
     calm_backoff: bool = True  # 게임 중 별일 없는 판단이 이어지면 판단 간격을 5→10→15초로 (확 바뀜·새 대사면 바로)
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
@@ -208,6 +212,9 @@ class ScreenWatcher(QObject):
         self._helper_busy: set[str] = set()  # 뒤에서 하는 중인 일 (같은 일을 겹쳐 하지 않게)
         self._finds_lock = threading.Lock()
         self._streamed = False  # 이번 대사를 나오는 대로 보여 줬는가
+        self._spike_kind = ""  # 마지막으로 바로 보게 한 것: screen(화면이 확 바뀜) · hud(화면 정보) · line(대사)
+        self._rush = None  # 판단과 동시에 먼저 시작한 말하기 (future, 판단 결과 기다리는 표시)
+        self._last_rush: float | None = None
         self.context = None  # 맥락 담당 (watch.context.ContextKeeper, main 이 넣어 줌)
         self.hud = HudReader(None, clock)  # 화면 정보 상시 읽기 (글자 인식은 main 이 넣어 줌)
         self.ears = None  # 게임 소리 듣기 (watch.ears.GameEars, main 이 넣어 줌)
@@ -512,14 +519,15 @@ class ScreenWatcher(QObject):
 
     def _spiked(self) -> bool:
         """판단한 뒤로 화면이 확 바뀐 적이 있고, 판단 사이 최소 간격이 지났는가."""
-        at = self.sampler.spike_at
+        at, kind = self.sampler.spike_at, "screen"
         said = self.sampler.latest_caption_at()  # 새 대사가 떠도 바로 (간격을 늘려 둔 동안에도 이야기는 놓치지 않게)
         heard = self.ears.alert_at if self.ears is not None else None  # 게임 대사가 들림
-        for t in (said, self.hud.alert_at, heard):  # 화면 정보: 퀘스트 완료·획득·체력이 확 깎임 등
+        for t, k in ((said, "line"), (self.hud.alert_at, "hud"), (heard, "line")):  # 화면 정보: 퀘스트 완료·획득 등
             if t is not None and (at is None or t > at):
-                at = t
+                at, kind = t, k
         if at is None or (self.last_judged is not None and at <= self.last_judged):
             return False
+        self._spike_kind = kind
         return self.last_judged is None or self.clock() - self.last_judged >= self.cfg.spike_gap
 
     def _check_spike(self) -> None:
@@ -792,7 +800,13 @@ class ScreenWatcher(QObject):
         return cap.to_jpeg(crop, 90)
 
     def _work(self, question: str | None):
-        """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디/총평."""
+        """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디/총평. 먼저 출발한 말을 안 썼으면 버린다."""
+        try:
+            return self._work_inner(question)
+        finally:
+            self._drop_rush()
+
+    def _work_inner(self, question: str | None):
         mode, session = self.mode, self.session
         self._current_history = None
         self._current_captions = self.sampler.captions(self.cfg.dense_batch + 3) if self.dense_active(mode) else []
@@ -841,6 +855,9 @@ class ScreenWatcher(QObject):
         story = self._context_text(mode)
         if story:
             extra["context"] = story
+        spiked = bool(recent) and since is not None and since < self.interval_for(mode)  # 박자가 아니라 확 바뀌어서 옴
+        if spiked and self._rush_ok(mode):
+            self._start_rush(shot, mode, notes, session)
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
                                     focus_label=shot.focus_label,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
@@ -901,6 +918,8 @@ class ScreenWatcher(QObject):
             return self._analyze(shot, note, mode, notes, review=True)
         if scene in ("loading", "cutscene") or (mode.quiet_during_play and scene == "playing"):
             return None
+        if self._rush is not None:  # 판단을 기다리지 않고 이미 말하기 담당이 돌고 있음 → 그 말을 쓴다 (판단이 조용히라 해도)
+            return self._use_rush()
         finds = [] if self.in_cooldown(mode) else self._pop_finds()
         if finds:  # 둘러보기에서 알릴 만한 걸 찾았으면 (판단 담당이 조용히 있으라 해도) 알려 드린다
             note = dict(note, speak=True, point="알아본 것 알려 드리기: " + " / ".join(f.get("say", "") for f in finds))
@@ -914,7 +933,8 @@ class ScreenWatcher(QObject):
                                                                                               self.cfg.line_model)
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes)
 
-    def _brain_say(self, shot, note, mode, notes, session, question: str | None = None, finds: list | None = None):
+    def _brain_say(self, shot, note, mode, notes, session, question: str | None = None, finds: list | None = None,
+                   hold=None):
         """뇌처럼 나눠 보기: 뒤에서 늘 도는 담당들(맥락 담당·화면 정보·들린 소리·기억·지식)이 모아 둔 것과 함께
         말하기 담당에게 넘긴다. 말하기 담당은 그 기록을 화면과 맞춰 본 뒤 말한다 (틀리면 화면을 믿음).
         눈 담당(장면 자세히)은 '꼼꼼히'일 때만 먼저 돈다 — 5~20초 늦어져서 기본은 말하기 담당이 흐름 사진을 직접 본다."""
@@ -922,10 +942,11 @@ class ScreenWatcher(QObject):
         caps = list(self._current_captions or [])
         best = question is not None or bool(finds) or self.cfg.line_quality == "brain"
         model = self.cfg.line_model if best else self.cfg.mid_line_model
+        fast = {"fast": True} if model == self.cfg.line_model and self.cfg.fast_opus else {}  # Opus 는 빠른 모드로
         if self.cfg.eye != "careful":  # 바로: 판단 → 말하기 (흐름 사진·자막은 말하기 담당이 직접)
             brain = {"scene": None, "dialogue": None, "found": list(finds or []), "context": self._context_text(mode)}
             return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes, question=question,
-                             brain=brain, history=flow or None, captions=caps or None)
+                             brain=brain, history=flow or None, captions=caps or None, _hold=hold, **fast)
         self._stage("perceive")
         from concurrent.futures import ThreadPoolExecutor
 
@@ -951,6 +972,42 @@ class ScreenWatcher(QObject):
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes,
                          question=question, brain=brain, history=None, captions=None)
 
+    def _rush_ok(self, mode: Mode) -> bool:
+        if not (self.cfg.rush and mode.is_game and self.cfg.line_quality in BRAIN and self._spike_kind in ("screen", "hud")):
+            return False
+        if self.in_cooldown(mode) or self.reviewing(mode) or self.cfg.analysis or mode.quiet_during_play:
+            return False
+        return self._last_rush is None or self.clock() - self._last_rush >= self.cfg.rush_gap
+
+    def _start_rush(self, shot, mode: Mode, notes, session) -> None:
+        """판단과 동시에 말하기 담당을 먼저 출발시킨다. 판단이 끝나기 전엔 글자를 띄우지 않는다 (버릴 수도 있어서)."""
+        from concurrent.futures import ThreadPoolExecutor
+
+        self._last_rush = self.clock()
+        hold = threading.Event()
+        note = {"situation": "(판단 담당을 기다리지 않고 바로 왔다 — 방금 화면이 확 바뀌었다. 말할 만한 순간이 아니면 speak=false)",
+                "point": ""}
+        pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="rush")
+        future = pool.submit(self._brain_say, shot, note, mode, notes, session, None, None, hold)
+        pool.shutdown(wait=False)
+        self._rush = (future, hold)
+
+    def _use_rush(self):
+        future, hold = self._rush
+        self._rush = None
+        hold.set()  # 이제 띄워도 됨 (그동안 나온 글자부터)
+        try:
+            return future.result(timeout=STAGE_LIMITS["line"])
+        except Exception as exc:  # noqa: BLE001
+            log.warning("먼저 출발한 말하기 실패: %r", exc)
+            return None
+
+    def _drop_rush(self) -> None:
+        """판단이 '컷신·결과·픽·긴급…'이라 먼저 출발한 말은 버림 (글자는 띄우지 않았음)."""
+        if self._rush is not None:
+            self._rush = None
+            log.info("먼저 출발한 말은 버림 (판단 결과가 다른 길)")
+
     def _count_game(self, scene: str, situation: str) -> None:
         """평소 모드인데 게임 화면이 자주 보이면 그 게임 모드를 만들자고 알린다."""
         p = self.process
@@ -963,6 +1020,7 @@ class ScreenWatcher(QObject):
             self.new_game.emit(p, self.window_title, hits[-10:])
 
     def _say(self, *args, **kwargs):
+        hold = kwargs.pop("_hold", None)  # 판단과 동시에 먼저 출발한 말: 판단이 끝나기 전엔 글자를 띄우지 않음
         self._stage("line")
         focus, label = getattr(self, "_current_focus", (None, ""))
         if focus:
@@ -976,8 +1034,12 @@ class ScreenWatcher(QObject):
         if at is not None:
             kwargs.setdefault("age", max(0.0, self.clock() - at))
         self._streamed = False
+        held = {"msg": ""}
 
         def show(message: str) -> None:
+            if hold is not None and not hold.is_set():
+                held["msg"] = message  # 판단 결과를 기다리는 중
+                return
             self._streamed = True
             self.partial.emit(message)  # 뒤 스레드에서 보내도 화면 쪽에서 차례로 받는다
 
