@@ -809,10 +809,10 @@ def test_screen_line_shows_as_it_streams_and_eye_setting(qapp, tmp_path, built):
     dlg = SettingsDialog(a.settings_values(), ["1"], [])
     dlg.eye.group.button(1).setChecked(True)
     assert "5~20초 늦어요" in dlg.eye.hint.text()
-    assert dlg.rush.isChecked() and dlg.fast_opus.isChecked()  # 기본은 둘 다 켜짐
+    assert dlg.rush.isChecked() and not dlg.fast_opus.isChecked()  # 동시 출발은 켜짐, 빠른 모드는 꺼짐
     dlg.rush.setChecked(False)
     a.apply_settings(dlg.changed())
-    assert a.watch_cfg.eye == "careful" and not a.watch_cfg.rush and a.watch_cfg.fast_opus
+    assert a.watch_cfg.eye == "careful" and not a.watch_cfg.rush and not a.watch_cfg.fast_opus
     a.quit()
 
 

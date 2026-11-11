@@ -246,7 +246,10 @@ class AssistantApp(QObject):
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
         self.watch_cfg.eye = str(self.pref("screen.eye", "fast"))
         self.watch_cfg.rush = bool(self.pref("screen.rush", True))
-        self.watch_cfg.fast_opus = bool(self.pref("screen.fast_opus", True))
+        if not self.pref("screen.fast_off_done", False):  # 주인님 결정: 빠른 모드는 효과가 작아 끔 (한 번만, 다시 켜면 그대로)
+            self.set_pref("screen.fast_opus", False)
+            self.set_pref("screen.fast_off_done", True)
+        self.watch_cfg.fast_opus = bool(self.pref("screen.fast_opus", False))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}

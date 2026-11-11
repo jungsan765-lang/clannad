@@ -207,8 +207,8 @@ class SettingsDialog(QDialog):
                           "판단이 컷신·결과·픽이면 버려요. 시간당 수백 원 더 들 수 있어요.")
         self.moment_face = check("확 바뀐 순간엔 말보다 먼저 표정으로 반응", "screen.moment_face", True,
                                  "죽음·암전 같은 순간 다니카가 바로 놀란 표정을 지어요 (돈 안 듦). 말은 몇 초 뒤에 와요.")
-        self.fast_opus = check("Opus 가 말할 땐 빠른 모드 (요금 2배)", "screen.fast_opus", True,
-                               "물어볼 때·중요한 걸 찾았을 때처럼 Opus 가 말할 때 2배쯤 빨리 써요.")
+        self.fast_opus = check("Opus 가 말할 땐 빠른 모드 (요금 2배)", "screen.fast_opus", False,
+                               "글자 쓰는 속도가 2배쯤 빨라지지만, 한두 문장 말은 시작까지 기다리는 시간이 대부분이라 효과가 작아요.")
         self.scan = check("둘러보기", "screen.scan", True,
                           "표시가 뜬 인물·이름표·빛나는 물건을 하나씩 확대해 알아보고, 보상이 좋은 것처럼 중요한 것만 알려요.")
         scan_hint = _hint("표시 뜬 인물·물건을 확대해 알아보고 중요한 것만 알려요. 하나에 1원도 안 들어요. 알아본 건 기억해 둬요.")

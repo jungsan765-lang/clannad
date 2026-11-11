@@ -1654,11 +1654,36 @@ def test_rushed_line_is_dropped_when_judge_says_cutscene(qapp, tmp_path):
     assert w._rush is None
 
 
+def test_line_is_dropped_when_a_new_event_happened_meanwhile(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    real = comp.screen_line
+
+    def slow_line(*a, **k):  # 말을 만드는 동안 화면이 확 바뀜 (새 사건)
+        w.sampler.spike_at = t["now"] + 3.0
+        t["now"] += 4.0
+        return real(*a, **k)
+
+    comp.screen_line = slow_line
+    dropped = []
+    w.nothing.connect(lambda: dropped.append(1))
+    w.tick()
+    assert said == [] and dropped == [1]  # 옛 장면 얘기는 버림
+    t["now"] = 200
+    w.ask_now("지금 뭐 하는 중이야?")
+    assert said == ["지금은 코드 편집 중이시네요."]  # 물어본 답은 버리지 않음
+    w.cfg.drop_stale = False
+    t["now"] = 400
+    w.tick()
+    assert len(said) == 2
+
+
 def test_opus_lines_use_fast_mode(qapp, tmp_path):
     w, comp, said, t, _ = _watcher(tmp_path)
     w.cfg.line_quality = "brain_lite"
+    assert not w.cfg.fast_opus  # 기본은 끔 (효과가 작아서)
+    w.cfg.fast_opus = True
     w.ask_now("저 사람 뭐야?")
-    assert comp.line_model == "claude-opus-5-5" and comp.lines[-1]["fast"] is True  # 물어볼 땐 Opus + 빠른 모드
+    assert comp.line_model == "claude-opus-5-5" and comp.lines[-1]["fast"] is True  # 켜면 물어볼 땐 Opus + 빠른 모드
     t["now"] = 200
     w.tick()
     assert comp.line_model == "claude-sonnet-5-5" and comp.lines[-1]["fast"] is None  # 평소 Sonnet 은 보통

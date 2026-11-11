@@ -95,7 +95,8 @@ class WatchConfig:
     # 확 바뀐 순간(화면·화면 정보)엔 판단을 기다리지 않고 판단과 말하기를 동시에 시작 (rush_gap 초에 한 번까지)
     rush: bool = True
     rush_gap: float = 45.0
-    fast_opus: bool = True  # Opus 가 말할 땐 빠른 모드 (요금 2배, 2배쯤 빨리)
+    fast_opus: bool = False  # Opus 가 말할 땐 빠른 모드 (요금 2배 — 짧은 말은 효과가 작아서 기본은 끔)
+    drop_stale: bool = True  # 말이 나가기 전에 새 사건(화면 확 바뀜·화면 정보)이 생겼으면 옛 장면 얘기는 버림
     calm_backoff: bool = True  # 게임 중 별일 없는 판단이 이어지면 판단 간격을 5→10→15초로 (확 바뀜·새 대사면 바로)
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
@@ -991,6 +992,12 @@ class ScreenWatcher(QObject):
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes,
                          question=question, brain=brain, history=None, captions=None)
 
+    def _newer_event(self, after: float) -> bool:
+        """그 뒤로 새 사건이 생겼나 (화면이 확 바뀜·퀘스트 완료 같은 화면 정보). 대사·소리는 자주 바뀌어서 안 셈."""
+        if not self.cfg.drop_stale:
+            return False
+        return any(t is not None and t > after for t in (self.sampler.spike_at, self.hud.alert_at))
+
     def _rush_ok(self, mode: Mode) -> bool:
         if not (self.cfg.rush and mode.is_game and self.cfg.line_quality in BRAIN and self._spike_kind in ("screen", "hud")):
             return False
@@ -1069,6 +1076,13 @@ class ScreenWatcher(QObject):
 
         kwargs.setdefault("on_partial", show)
         reply = self.companion.screen_line(*args, **kwargs)
+        note = args[2] if len(args) > 2 else kwargs.get("note")
+        routine = not (kwargs.get("question") or kwargs.get("review") or kwargs.get("pick") or (note or {}).get("urgent"))
+        if routine and at is not None and getattr(reply, "speak", False) and self._newer_event(at + 1.0):
+            log.info("말이 나가기 전에 새 사건이 생겨서 옛 장면 얘기는 버림: %r", getattr(reply, "message", "")[:60])
+            import dataclasses
+
+            return dataclasses.replace(reply, speak=False) if dataclasses.is_dataclass(reply) else None
         if at is not None and getattr(reply, "speak", False):
             timing["done"] = self.clock() - at
             timing.setdefault("first", timing["done"])
