@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 
+import charname
 from PySide6.QtCore import QDateTime, Qt
 from PySide6.QtWidgets import (QCheckBox, QComboBox, QDateTimeEdit, QDialog, QHBoxLayout, QLabel, QLineEdit,
                                QListWidget, QListWidgetItem, QPushButton, QTabWidget, QVBoxLayout, QWidget)
@@ -21,7 +22,7 @@ class PlannerDialog(QDialog):
         tabs = QTabWidget()
         tabs.addTab(self._reminder_tab(), "알림")
         tabs.addTab(self._todo_tab(), "할 일")
-        info = QLabel("다니카에게 '30분 뒤에 알려줘', '할 일에 ○○ 적어줘'라고 말해도 여기에 들어와요.")
+        info = QLabel(f"{charname.name()}에게 '30분 뒤에 알려줘', '할 일에 ○○ 적어줘'라고 말해도 여기에 들어와요.")
         info.setWordWrap(True)
         close = QPushButton("닫기")
         close.clicked.connect(self.accept)

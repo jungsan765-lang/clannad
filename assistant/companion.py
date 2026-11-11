@@ -543,7 +543,7 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 - 그 외에는 action 은 "none", target 은 빈 문자열.
 - remember: 이번 주인님 말(또는 네가 한 말)에 오래 기억해야 할 게 있으면 바로 적는다. 주인님에 대한 사실·취향·약속·일정,
   주인님 주변 사람(subject 에 이름), 게임 목표·진행(subject 에 게임 이름), 주인님이 고쳐 준 것, 네가 너 자신에 대해 새로 말한 것·
-  네가 한 약속(분류 '다니카 자신'). text 는 나중에 읽어도 알 수 있게 한 문장(누가·무엇·언제). importance 3 = 절대 잊으면 안 됨
+  네가 한 약속(분류 '자기 자신'). text 는 나중에 읽어도 알 수 있게 한 문장(누가·무엇·언제). importance 3 = 절대 잊으면 안 됨
   (이름·관계·약속·강한 취향·고쳐 준 것), 2 = 보통, 1 = 사소함. 이미 '기억'에 있는 그대로면 다시 적지 않는다. 없으면 빈 배열.
   분류 '게임 지식': 게임 자체에 대한 사실 — 의뢰 조건·보상 받는 법·순서·용어 뜻 등, 특히 주인님이 고쳐 준 것.
   subject 에 게임 이름, text 에 의뢰·용어 이름을 넣어 한 문장으로 (예: "붉은사막 '금전의 대가'는 조세 통지서의 세금을 내야
@@ -579,7 +579,7 @@ MEMORY_RULES = """# 할 일: 장기기억 정리
 남길 것과 분류:
 - 주인님 정보(이름·일·사는 곳·건강·생활), 관계·호칭(주인님이 바라는 호칭·말투, 너와의 관계), 사람(주인님 주변 사람: subject 에 그 이름),
   취향(좋아함·싫어함), 약속·할 일(날짜 포함), 게임(게임별 목표·버릇·잘하는 것: subject 에 게임 이름),
-  다니카 자신(네가 너 자신에 대해 말한 것·네 의견·네가 한 약속 — 나중에 말이 어긋나지 않게), 최근 있었던 일(의미 있는 사건).
+  자기 자신(네가 너 자신에 대해 말한 것·네 의견·네가 한 약속 — 나중에 말이 어긋나지 않게), 최근 있었던 일(의미 있는 사건).
 - 버릴 것: 인사·잡담, 추측, 성격 파일에 이미 있는 네 설정. 게임 기록의 (추측)·흐름(추측) 표시 내용은 사실 기억으로 만들지 않는다
   ([확인] 표시나 주인님이 직접 한 말만 사실로).
 - 중요도: 3 = 절대 잊으면 안 됨(이름·관계·약속·강하게 말한 취향·주인님이 고쳐 준 것), 2 = 보통, 1 = 사소함.
@@ -795,7 +795,7 @@ class Companion:
         style = style_reminder(self.persona)
         if style:  # 기억이 길어져도 말투가 흐려지지 않게, 맨 끝에서 한 번 더
             second += ("\n\n# 말투 다시 확인 (성격 파일에서 — 위 기억이 아무리 길어도 이 결을 지킨다. "
-                       "'다니카 자신' 기억과도 어긋나지 않게. 말버릇·비유는 뜻이 바로 통할 때만, "
+                       f"'{self.memory.self_category}' 기억과도 어긋나지 않게. 말버릇·비유는 뜻이 바로 통할 때만, "
                        "'제 큰 얼룩' 같은 억지 비유나 번역투는 쓰지 않는다)\n" + style)
         return [
             # 규칙·성격·배경지식은 거의 안 바뀌니 1시간 보관 (띄엄띄엄 말해도 다시 쓰는 비용이 안 듦)
@@ -1155,6 +1155,11 @@ class Companion:
                                   kind="weigh", max_tokens=600, effort="low", thinking_off=model.startswith("claude-haiku"),
                                   timeout=20)
         return r.data, r.usd
+
+    @property
+    def name(self) -> str:
+        """지금 캐릭터 이름 (다니카·산드로네)."""
+        return getattr(self.memory, "name", "다니카")
 
     @staticmethod
     def brain_text(brain: dict) -> str:
@@ -1557,14 +1562,15 @@ class Companion:
         return [str(w).strip() for w in (r.data or {}).get("words", []) if 2 <= len(str(w).strip()) <= 30][:8]
 
     def write_diary(self, day: str, material: str, model: str = "claude-haiku-5-5") -> str:
-        """하루 일기: 그날 기록(대화·화면·분석·게임)을 다니카 시점의 짧은 일기로 (싼 모델). 떠올리기 색인에 들어간다."""
+        """하루 일기: 그날 기록(대화·화면·분석·게임)을 지금 캐릭터 시점의 짧은 일기로 (싼 모델). 떠올리기 색인에 들어간다."""
         schema = {"type": "object", "properties": {"diary": {"type": "string"}}, "required": ["diary"],
                   "additionalProperties": False}
         names = self.names_text()
         text = (f"날짜: {day}\n{names}\n아래는 이날 이 PC 에 남은 기록이다(대화, 화면으로 본 것, 분석, 게임).\n"
-                "이걸로 '다니카의 일기' 한 편을 쓴다: 나중에 '그날 뭐 했지?', '그때 그거' 를 떠올릴 수 있게 구체적으로 — "
+                f"이걸로 '{self.name}의 일기' 한 편을 쓴다: 나중에 '그날 뭐 했지?', '그때 그거' 를 떠올릴 수 있게 구체적으로 — "
                 "언제(대략 시각), 무엇을, 누가 나왔는지, 주인님이 한 중요한 말(짧게 따옴), 게임 진행·결과, 약속, 기분.\n"
-                "다니카(나) 시점의 한국어 5~12문장. 기록에 없는 건 지어내지 않는다. 사적인 남의 대화는 요점만.\n\n"
+                f"{self.name}(나) 시점의 한국어 5~12문장. 기록에 없는 건 지어내지 않는다. 사적인 남의 대화는 요점만. "
+                "다른 캐릭터가 주인님과 나눈 대화는 '○○가 주인님과 이야기했다' 정도로만.\n\n"
                 + material[:14000])
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": "너는 기록을 일기로 정리하는 도우미다."}],
                                   messages=[{"role": "user", "content": text}], schema=schema, kind="diary",
@@ -1659,7 +1665,7 @@ class Companion:
 
     def consolidate(self) -> bool:
         """대기 중인 대화를 장기기억에 반영한다. 반영했으면 True."""
-        consumed = len(self.memory.pending)
+        consumed = len(self.memory.my_pending)
         if consumed == 0:
             return False
         system = [{"type": "text", "text": self.persona + "\n\n" + MEMORY_RULES.format(max_chars=self.memory_max_chars),

@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import charname
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QComboBox, QDialog, QHBoxLayout, QLabel, QLineEdit, QListWidget, QPushButton,
                                QVBoxLayout)
@@ -22,7 +23,7 @@ class RulesDialog(QDialog):
         self.setWindowTitle("화면 보는 규칙")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
         self.resize(600, 440)
-        info = QLabel("다니카에게 '앞으로 ~하지 마', '이런 건 챙겨 봐 줘', '○○은 아예 보지 마'라고 하면 여기에 적혀요. "
+        info = QLabel(f"{charname.name()}에게 '앞으로 ~하지 마', '이런 건 챙겨 봐 줘', '○○은 아예 보지 마'라고 하면 여기에 적혀요. "
                       "[전체]는 어디서나, [게임 이름]은 그 게임에서만. '아예 안 볼 창'이 앞에 있으면 화면을 찍지도 않아요.")
         info.setWordWrap(True)
         self.list = QListWidget()

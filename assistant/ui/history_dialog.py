@@ -31,9 +31,9 @@ def read_log(path: Path) -> list[dict]:
             user = str(row["user"])
             if not user.startswith("("):  # '(알림: …)' 같은 내부 표시는 주인님 말이 아님
                 out.append({"time": t, "who": "주인님", "text": user})
-            out.append({"time": t, "who": "다니카", "text": str(row.get("reply", ""))})
+            out.append({"time": t, "who": str(row.get("name") or "다니카"), "text": str(row.get("reply", ""))})
         elif "screen_line" in row:
-            out.append({"time": t, "who": "다니카(화면)", "text": str(row["screen_line"])})
+            out.append({"time": t, "who": f"{row.get('name') or '다니카'}(화면)", "text": str(row["screen_line"])})
     return out
 
 
@@ -50,7 +50,7 @@ class HistoryDialog(QDialog):
             self.day.addItem(p.stem, p)
         self.search = QLineEdit()
         self.search.setPlaceholderText("찾기 (예: 레진, 카톡, 약속)")
-        self.only_danika = QPushButton("다니카 말만")
+        self.only_danika = QPushButton("캐릭터 말만")
         self.only_danika.setCheckable(True)
         top = QHBoxLayout()
         top.addWidget(QLabel("날짜"))
@@ -82,15 +82,19 @@ class HistoryDialog(QDialog):
         if q:
             rows = [r for r in rows if q in r["text"]]
         if self.only_danika.isChecked():
-            rows = [r for r in rows if r["who"].startswith("다니카")]
+            rows = [r for r in rows if r["who"] != "주인님"]
         return rows
 
     def _show(self) -> None:
         rows = self.entries()
         e = html.escape
-        colors = {"주인님": "#2a6f97", "다니카": "#7a3b8f", "다니카(화면)": "#8a5a00"}
+        def color(who: str) -> str:
+            if who == "주인님":
+                return "#2a6f97"
+            return "#8a5a00" if who.endswith("(화면)") else "#7a3b8f"
+
         parts = [f"<p style='margin:6px 0'><span style='color:#888'>{e(r['time'])}</span> "
-                 f"<b style='color:{colors.get(r['who'], '#333')}'>{e(r['who'])}</b><br>{e(r['text'])}</p>" for r in rows]
+                 f"<b style='color:{color(r['who'])}'>{e(r['who'])}</b><br>{e(r['text'])}</p>" for r in rows]
         self.view.setHtml("".join(parts) or "<p style='color:#888'>기록이 없어요.</p>")
         self.view.verticalScrollBar().setValue(self.view.verticalScrollBar().maximum())  # 최근 것이 보이게
         self.count.setText(f"{len(rows)}개")

@@ -12,6 +12,7 @@ import colorsys
 from dataclasses import dataclass
 from typing import Callable
 
+import charname
 from PySide6.QtCore import QRect, QRectF, Qt, QTimer
 from PySide6.QtGui import QColor, QFont, QFontMetrics, QGuiApplication, QImage, QPainter
 from PySide6.QtWidgets import QWidget
@@ -165,7 +166,7 @@ class GameOverlay(QWidget):
         p.drawRoundedRect(r, 14, 14)
         p.setFont(self.name_font)
         p.setPen(pal.name)
-        p.drawText(QRect(self.PAD_X, self.PAD_Y, self.width(), 30), Qt.AlignmentFlag.AlignLeft, "다니카")
+        p.drawText(QRect(self.PAD_X, self.PAD_Y, self.width(), 30), Qt.AlignmentFlag.AlignLeft, charname.name())
         p.setFont(self.font_)
         p.setPen(pal.shadow)  # 그림자 테두리: 어떤 배경에서도 글자가 묻히지 않게
         for dx, dy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):

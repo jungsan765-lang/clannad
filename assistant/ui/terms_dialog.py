@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import charname
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QHBoxLayout, QLabel, QLineEdit, QListWidget, QPushButton, QVBoxLayout
 
@@ -13,7 +14,7 @@ class TermsDialog(QDialog):
         self.setWindowTitle("고친 말")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
         self.resize(520, 380)
-        info = QLabel("다니카에게 '남과가 아니라 호박이야'라고 하면 여기에 적혀요. 대화·화면 보고 하는 말·분석 모두 "
+        info = QLabel(f"{charname.name()}에게 '남과가 아니라 호박이야'라고 하면 여기에 적혀요. 대화·화면 보고 하는 말·분석 모두 "
                       "고친 말로 바뀌어요.")
         info.setWordWrap(True)
         self.list = QListWidget()

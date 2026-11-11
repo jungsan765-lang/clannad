@@ -7,13 +7,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import charname
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (QAbstractItemView, QComboBox, QDialog, QHBoxLayout, QInputDialog, QLabel, QLineEdit,
                                QListWidget, QListWidgetItem, QPushButton, QSplitter, QTableWidget, QTableWidgetItem,
                                QTabWidget, QTextBrowser, QVBoxLayout, QWidget)
 
-from memory import CATEGORIES
 from recall import KIND_LABEL, cues
 
 STARS = {1: "☆", 2: "★", 3: "★★★"}
@@ -25,7 +25,7 @@ class MemoryDialog(QDialog):
         self.memory = memory
         self.index = index
         self.diary_dir = diary_dir
-        self.setWindowTitle("다니카의 기억")
+        self.setWindowTitle(f"{charname.name()}의 기억")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
         self.resize(820, 600)
         self.tabs = QTabWidget()
@@ -38,8 +38,8 @@ class MemoryDialog(QDialog):
         close.clicked.connect(self.accept)
         lay = QVBoxLayout(self)
         info = QLabel("★★★ = 절대 잊지 않음(늘 기억), ★ = 보통(최근 것부터 늘 기억), ☆ = 사소함(관련 있을 때만). "
-                      "보관된 기억도 지워지지 않고, 관련 있으면 떠올려요." + (f"  · 정리 대기 중인 대화 {len(memory.pending)}개"
-                                                                          if memory.pending else ""))
+                      "보관된 기억도 지워지지 않고, 관련 있으면 떠올려요."
+                      + (f"  · 정리 대기 중인 대화 {len(memory.my_pending)}개" if memory.my_pending else ""))
         info.setWordWrap(True)
         lay.addWidget(info)
         lay.addWidget(self.tabs, 1)
@@ -67,7 +67,7 @@ class MemoryDialog(QDialog):
             buttons.addWidget(b)
         buttons.addStretch(1)
         self.new_cat = QComboBox()
-        self.new_cat.addItems(CATEGORIES)
+        self.new_cat.addItems(self.memory.categories())
         self.new_text = QLineEdit()
         self.new_text.setPlaceholderText("직접 적기 (예: 주인님은 오이를 싫어한다)")
         self.new_imp = QComboBox()
@@ -295,8 +295,9 @@ class MemoryDialog(QDialog):
     # ------------------------------------------------------------ 목록 새로고침
 
     def refresh(self, select: str | None = None) -> None:
+        cats = self.memory.categories()
         facts = sorted(self.memory.active_facts(),
-                       key=lambda f: (CATEGORIES.index(f["category"]) if f["category"] in CATEGORIES else 99,
+                       key=lambda f: (cats.index(f["category"]) if f["category"] in cats else 99,
                                       -f["importance"], f.get("date", "")))
         self.table.setRowCount(len(facts))
         for r, f in enumerate(facts):

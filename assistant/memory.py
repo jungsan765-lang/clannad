@@ -5,6 +5,10 @@
   사실마다 번호(id)·중요도(1~3)·상태(active/archived)가 있다. 정리할 때 전체를 다시 쓰지 않고 '추가·고침·보관'만 하므로
   말없이 사라지는 기억이 없다. 중요도 3(★)은 정리로 보관되지 않는다(약속이 지난 경우만 예외). 보관된 것도 찾으면 나온다.
 - 대화 원문: data/logs/날짜.jsonl (PC에만 보관)
+
+캐릭터가 여럿이면(메뉴에서 바꿔 씀): 주인님에 대한 기억(사실·고쳐 준 말·규칙·찾아본 것)은 같이 쓰고,
+캐릭터 자기 것(최근 대화 recent_이름.json, 아직 정리 안 된 대화, '자기 자신' 분류의 사실)은 캐릭터마다 따로.
+'자기 자신' 사실은 '다니카 자신'·'산드로네 자신'처럼 이름을 붙여 저장해서 다른 캐릭터에게는 안 보인다.
 """
 
 from __future__ import annotations
@@ -21,7 +25,9 @@ from wording import apply_terms
 
 log = logging.getLogger("assistant.memory")
 
-CATEGORIES = ["주인님 정보", "관계·호칭", "사람", "취향", "약속·할 일", "게임", "다니카 자신", "최근 있었던 일"]
+DEFAULT_WHO = "danika"  # 예전 기록(누구 것인지 안 적힌 것)은 다니카 것
+SELF = "자기 자신"  # AI 에게 보이는 분류 이름. 저장할 땐 '{캐릭터 이름} 자신'으로
+CATEGORIES = ["주인님 정보", "관계·호칭", "사람", "취향", "약속·할 일", "게임", SELF, "최근 있었던 일"]
 CORE_IMPORTANCE = {"주인님 정보": 3, "관계·호칭": 3}  # 예전 기억을 옮길 때 기본 중요도 (나머지는 2)
 
 
@@ -51,12 +57,15 @@ def gap_text(last: datetime | None, now: datetime) -> str:
 
 
 class Memory:
-    def __init__(self, folder: Path):
+    def __init__(self, folder: Path, who: str = DEFAULT_WHO, name: str = "다니카"):
         self.folder = folder
         self.folder.mkdir(parents=True, exist_ok=True)
         (self.folder / "logs").mkdir(exist_ok=True)
         self._lock = threading.Lock()
-        self.recent: list[dict] = self._read("recent.json", [])
+        self.who, self.name = who, name  # 지금 캐릭터 (키·보이는 이름)
+        self.self_category = f"{name} 자신"
+        self._recent_file = "recent.json" if who == DEFAULT_WHO else f"recent_{who}.json"
+        self.recent: list[dict] = self._read(self._recent_file, [])
         mem = self._read("memory.json", {})
         self.facts: list[dict] = [self._upgrade(f) for f in mem.get("facts", [])]
         self.updated: str | None = mem.get("updated")
@@ -82,7 +91,7 @@ class Memory:
         tmp.replace(self.folder / name)
 
     def _save(self) -> None:
-        self._write("recent.json", self.recent[-RECENT_KEEP:])
+        self._write(self._recent_file, self.recent[-RECENT_KEEP:])
         self._write("memory.json", {"facts": self.facts, "updated": self.updated, "pending": self.pending})
 
     # ------------------------------------------------------------ 대화
@@ -93,10 +102,11 @@ class Memory:
         with self._lock:
             self.recent += [{"role": "user", "text": user_text, "time": stamp},
                             {"role": "assistant", "text": reply_text, "time": stamp}]
-            self.pending.append({"time": stamp, "user": user_text, "reply": reply_text})
+            self.pending.append({"time": stamp, "user": user_text, "reply": reply_text, "who": self.who})
             self._save()
             with open(self.folder / "logs" / f"{when.date().isoformat()}.jsonl", "a", encoding="utf-8") as f:
-                f.write(json.dumps({"time": stamp, "user": user_text, "reply": reply_text}, ensure_ascii=False) + "\n")
+                f.write(json.dumps({"time": stamp, "user": user_text, "reply": reply_text, "who": self.who,
+                                    "name": self.name}, ensure_ascii=False) + "\n")
 
     def add_spoken(self, line: str, when: datetime | None = None) -> None:
         """화면을 보고 캐릭터가 먼저 한 말. 장기기억 정리 대상은 아니다."""
@@ -106,7 +116,8 @@ class Memory:
             self.recent.append({"role": "assistant", "text": line, "time": stamp, "kind": "screen"})
             self._save()
             with open(self.folder / "logs" / f"{when.date().isoformat()}.jsonl", "a", encoding="utf-8") as f:
-                f.write(json.dumps({"time": stamp, "screen_line": line}, ensure_ascii=False) + "\n")
+                f.write(json.dumps({"time": stamp, "screen_line": line, "who": self.who, "name": self.name},
+                                   ensure_ascii=False) + "\n")
 
     def add_game_record(self, game: str, minutes: float, notes: list[str], when: datetime | None = None) -> None:
         """게임을 끝냈을 때 기록 요약. 다음 장기기억 정리 때 '최근 있었던 일'이 된다."""
@@ -114,7 +125,7 @@ class Memory:
         stamp = when.isoformat(timespec="seconds")
         with self._lock:
             self.pending.append({"time": stamp, "user": f"({game}을(를) 약 {minutes:.0f}분 플레이함)",
-                                 "reply": "(이번 플레이에서 본 것) " + " / ".join(notes[-12:])})
+                                 "reply": "(이번 플레이에서 본 것) " + " / ".join(notes[-12:]), "who": self.who})
             self._save()
 
     def spoken_lines(self, n: int = 5) -> list[str]:
@@ -264,10 +275,11 @@ class Memory:
         if not self.active_facts():
             return "(아직 기억해 둔 것이 없음)"
         lines = []
-        for cat in CATEGORIES + sorted({f["category"] for f in core} - set(CATEGORIES)):
+        cats = self.categories()
+        for cat in cats + sorted({f["category"] for f in core} - set(cats)):
             items = [f for f in core if f["category"] == cat]
             if items:
-                lines.append(f"[{cat}]" + (" (네가 예전에 한 말·약속. 어긋나지 않게)" if cat == "다니카 자신" else ""))
+                lines.append(f"[{cat}]" + (" (네가 예전에 한 말·약속. 어긋나지 않게)" if cat == self.self_category else ""))
                 lines += [f"- {'★ ' if f['importance'] >= 3 else ''}{f['text']} ({f['date']})" for f in items]
         hidden = len(self.active_facts()) - len(core)
         if hidden > 0:
@@ -286,11 +298,39 @@ class Memory:
         f.setdefault("subject", "")
         return f
 
+    # ------------------------------------------------------------ 캐릭터마다 따로인 것
+
+    def categories(self) -> list[str]:
+        """화면·기억 창에 보이는 분류 (자기 자신 → '{이름} 자신')."""
+        return [self.self_category if c == SELF else c for c in CATEGORIES]
+
+    def _category(self, category: str | None) -> str | None:
+        """AI 가 준 분류를 저장할 분류로. 모르는 분류면 None."""
+        category = str(category or "")
+        if category == SELF:
+            return self.self_category
+        if category in CATEGORIES or category.endswith(" 자신"):
+            return category
+        return None
+
+    def _visible(self, f: dict) -> bool:
+        """다른 캐릭터의 '자기 자신' 기억은 안 보인다 (주인님 기억은 같이)."""
+        cat = f.get("category", "")
+        return not (cat.endswith(" 자신") and cat != self.self_category)
+
+    def _is_mine(self, p: dict) -> bool:
+        return p.get("who", DEFAULT_WHO) == self.who
+
+    @property
+    def my_pending(self) -> list[dict]:
+        """아직 장기기억에 반영 안 된 대화 중 지금 캐릭터 것 (다른 캐릭터 대화는 그 캐릭터가 나올 때 정리)."""
+        return [p for p in self.pending if self._is_mine(p)]
+
     def active_facts(self) -> list[dict]:
-        return [f for f in self.facts if f.get("status", "active") == "active"]
+        return [f for f in self.facts if f.get("status", "active") == "active" and self._visible(f)]
 
     def archived_facts(self) -> list[dict]:
-        return [f for f in self.facts if f.get("status") == "archived"]
+        return [f for f in self.facts if f.get("status") == "archived" and self._visible(f)]
 
     def fact(self, fid: str) -> dict | None:
         return next((f for f in self.facts if f["id"] == fid), None)
@@ -309,7 +349,7 @@ class Memory:
         text = " ".join(str(text or "").split())[:300]
         if not text:
             return None
-        category = category if category in CATEGORIES else "최근 있었던 일"
+        category = self._category(category) or "최근 있었던 일"
         importance = max(1, min(3, int(importance or 2)))
         day = (when or datetime.now().date().isoformat())[:10]
         with self._lock:
@@ -343,8 +383,8 @@ class Memory:
                 f["text"] = " ".join(text.split())[:300]
             if importance:
                 f["importance"] = max(1, min(3, int(importance)))
-            if category in CATEGORIES:
-                f["category"] = category
+            if self._category(category):
+                f["category"] = self._category(category)
             if subject is not None:
                 f["subject"] = subject.strip()[:40]
             f["date"] = (when or f.get("date") or datetime.now().date().isoformat())[:10]
@@ -377,7 +417,7 @@ class Memory:
         core_ids = {f["id"] for f in self.core_facts(getattr(self, "max_chars", 4000))} if skip_core else set()
         scored = []
         for f in self.facts:
-            if f["id"] in core_ids:
+            if f["id"] in core_ids or not self._visible(f):
                 continue
             hay = f"{f['text']} {f.get('subject', '')}".casefold()
             hits = [w for w in words if w and w.casefold() in hay]
@@ -428,22 +468,24 @@ class Memory:
                 self.add_fact(op.get("category", ""), op["text"], imp, op.get("subject", ""), op.get("date"),
                               source="consolidate", save=False)
         with self._lock:
-            self.pending = self.pending[consumed:]
+            done = {id(p) for p in self.my_pending[:consumed]}  # 지금 캐릭터 것만 (다른 캐릭터 대화는 남겨 둠)
+            self.pending = [p for p in self.pending if id(p) not in done]
             self.updated = datetime.now().isoformat(timespec="seconds")
             self._save()
         return archived
 
     def needs_consolidation(self, every: int) -> bool:
-        return len(self.pending) >= every
+        return len(self.my_pending) >= every
 
     def consolidation_input(self) -> str:
         today = date.today().isoformat()
-        convo = "\n".join(f"[{p['time']}] 주인님: {p['user']}\n[{p['time']}] 나: {p['reply']}" for p in self.pending)
+        convo = "\n".join(f"[{p['time']}] 주인님: {p['user']}\n[{p['time']}] 나: {p['reply']}" for p in self.my_pending)
         act = self.active_facts()
         listed = [f for f in act if f["importance"] >= 2]
         minor = sorted((f for f in act if f["importance"] < 2), key=lambda f: f.get("date", ""), reverse=True)
         listed += minor[:40]  # ☆ 는 최근 40개만 보여 줌 (나머지는 그대로 남아 있음)
-        facts = "\n".join(f"[{f['id']}] 중요도{f['importance']} [{f['category']}] {f['text']} ({f.get('date', '')})"
+        facts = "\n".join(f"[{f['id']}] 중요도{f['importance']} "
+                          f"[{SELF if f['category'] == self.self_category else f['category']}] {f['text']} ({f.get('date', '')})"
                           + (f" {{{f['subject']}}}" if f.get("subject") else "") for f in listed)
         return (f"오늘 날짜: {today}\n\n## 지금까지의 기억 (번호·중요도·분류)\n{facts or '(없음)'}\n\n"
                 f"## 기억에 아직 반영 안 된 대화\n{convo or '(없음)'}")

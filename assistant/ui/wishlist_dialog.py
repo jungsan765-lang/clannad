@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import charname
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel, QLineEdit, QMessageBox, QPlainTextEdit,
                                QPushButton, QVBoxLayout)
@@ -16,7 +17,7 @@ class WishlistDialog(QDialog):
         self.setWindowTitle("개선 요청 메모")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
         self.resize(560, 420)
-        info = QLabel("다니카가 못 했던 일이나 바라는 기능을 모아 둔 메모예요. "
+        info = QLabel(f"{charname.name()}가 못 했던 일이나 바라는 기능을 모아 둔 메모예요. "
                       "'복사하기'를 누르고 개발 채팅에 붙여넣으면, 만들어서 업데이트로 보내 드려요.")
         info.setWordWrap(True)
         self.view = QPlainTextEdit()

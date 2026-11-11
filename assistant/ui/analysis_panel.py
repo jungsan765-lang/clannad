@@ -8,6 +8,7 @@ from __future__ import annotations
 import html
 from typing import Callable
 
+import charname
 from PySide6.QtCore import QRect, Qt
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtWidgets import QHBoxLayout, QPushButton, QTextBrowser, QVBoxLayout, QWidget
@@ -26,7 +27,7 @@ def analysis_html(a) -> str:
         parts.append("<p><b>지금 할 일</b></p><ol>")
         parts += [f"<li>{e(s)}</li>" for s in a.next_steps]
         parts.append("</ol>")
-    parts.append(f"<p style='color:#666'>다니카: {e(a.summary)}</p>")
+    parts.append(f"<p style='color:#666'>{e(charname.name())}: {e(a.summary)}</p>")
     return "".join(parts)
 
 
@@ -35,7 +36,7 @@ class AnalysisPanel(QWidget):
         super().__init__(None)
         self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.Tool | Qt.WindowType.WindowStaysOnTopHint)
         self.setAttribute(Qt.WidgetAttribute.WA_ShowWithoutActivating)
-        self.setWindowTitle("다니카의 분석")
+        self.setWindowTitle(f"{charname.name()}의 분석")
         self.anchor = anchor
         self.keep = keep
         self.history: list = []

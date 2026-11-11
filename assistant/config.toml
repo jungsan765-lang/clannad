@@ -3,6 +3,7 @@
 # API 키는 여기 쓰지 않는다: 환경 변수 ANTHROPIC_API_KEY 또는 Windows 자격 증명 관리자(keyring).
 
 [character]
+active = "danika"                         # 지금 나오는 캐릭터 (아래 [characters.*] 중 하나). 메뉴 '캐릭터'에서 바꾸면 그쪽이 우선
 folder = "character/danika_still"          # manifest.json 이 있는 폴더 (make_still.py / make_rig.py 결과). 없으면 임시 원형 캐릭터
 persona = "character/danika/persona.md"   # 성격 파일. 없으면 기본 비서 말투
 lore = "character/danika/lore.md"         # 배경지식 (원신 세계관 등). 없으면 넘어감
@@ -11,6 +12,18 @@ max_fps = 30
 talk_motion = "bounce"                    # 말풍선이 떠 있는 동안: bounce(가슴 위만 살짝 튐) | still(숨쉬기 멈춤) | breathe(숨쉬기 계속)
 always_on_top = true                      # 모든 창(작업 표시줄·창모드 게임 포함)보다 앞에
 topmost_interval_ms = 1500                # 맨 앞으로 다시 올리는 간격
+
+# 캐릭터마다 다른 것 (적지 않은 값은 위 [character] 값). 그림·성격·배경지식 파일은 git 에 올리지 않는다.
+# 주인님에 대한 기억은 같이 쓰고, 캐릭터 자기 대화·약속·일기는 따로 남는다.
+[characters.danika]
+name = "다니카"
+
+[characters.sandrone]
+name = "산드로네"
+folder = "character/sandrone_still"
+persona = "character/sandrone/persona.md"
+lore = "character/sandrone/lore.md"
+lore_dirs = ["character/sandrone", "character/danika"]   # 원신 사전(캐릭터 일람·노드크라이)은 다니카 것을 같이
 
 [ai]
 chat_model = "claude-opus-5-5"     # 대화

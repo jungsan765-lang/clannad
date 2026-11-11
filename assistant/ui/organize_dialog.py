@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections import Counter
 
+import charname
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QAbstractItemView, QDialog, QHBoxLayout, QHeaderView, QLabel, QPushButton,
                                QTableWidget, QTableWidgetItem, QVBoxLayout)
@@ -20,7 +21,7 @@ class OrganizeDialog(QDialog):
         self.moves = moves
 
         head = QLabel(f"<b>{folder_label}</b> 폴더 · 파일 {total_files}개 중 {len(moves)}개를 옮기려고 해요.")
-        say = QLabel(f"다니카: {summary}" if summary else "")
+        say = QLabel(f"{charname.name()}: {summary}" if summary else "")
         say.setWordWrap(True)
         groups = Counter(m.folder for m in moves)
         sums = QLabel("  ·  ".join(f"{name} {n}개" for name, n in groups.most_common()))

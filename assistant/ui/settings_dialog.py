@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from typing import Callable
 
+import charname
 from PySide6.QtCore import Qt, QTimer, QUrl
 from PySide6.QtGui import QDesktopServices, QGuiApplication
 from PySide6.QtWidgets import (QButtonGroup, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QGridLayout,
@@ -143,7 +144,7 @@ class SettingsDialog(QDialog):
                  neople_set: bool = False, local: tuple[Callable[[], str], Callable[[], None]] | None = None,
                  parent=None):
         super().__init__(parent)
-        self.setWindowTitle("다니카 설정")
+        self.setWindowTitle(f"{charname.name()} 설정")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
         self.setMinimumWidth(520)
         self.initial = dict(values)
@@ -282,7 +283,7 @@ class SettingsDialog(QDialog):
         self.speak_rate = Choice(SPEAK_RATES, str(v.get("voice.speak_rate", "normal")))
         voice = page(group("목소리로 말 걸기", [("듣는 방식", self.voice_mode), ("마이크", self.mic), ("소리 크기", meter),
                                                 ("부르는 이름", wake), ("알아듣는 수준 (다시 시작하면 적용)", self.model)]),
-                     group("다니카 목소리", [("", self.speak), ("말 빠르기", self.speak_rate)]))
+                     group(f"{charname.name()} 목소리", [("", self.speak), ("말 빠르기", self.speak_rate)]))
 
         # ---------------------------------------------------------------- 비서
         self.briefing = check("하루 브리핑", "assist.briefing", True,

@@ -35,7 +35,8 @@ from ai_client import AIClient, AIError
 from companion import Analysis, Companion
 from lorebook import LoreBook
 from hotkeys import GlobalHotkeys
-from memory import Memory
+import charname
+from memory import DEFAULT_WHO, Memory
 from settings import Settings
 from ui.bubble import SpeechBubble
 from ui.character import CharacterWindow, SpriteSet
@@ -124,12 +125,18 @@ class AssistantApp(QObject):
         super().__init__()
         self.settings = settings
         self.companion = companion
+        # 지금 나와 있는 캐릭터 (메뉴 '캐릭터'에서 바꾸면 저장하고 다시 켠다)
+        self.char_key = str(settings.get("character.key", DEFAULT_WHO) or DEFAULT_WHO)
+        self.char_name = companion.name
+        charname.NAME = self.char_name  # 창·자막에 보이는 이름
         self.ledger = ledger
         self.pool = pool or QThreadPool.globalInstance()
         self.busy = False
         self._voice_state = ""  # 목소리 입력 상태 (listening·heard = 주인님이 말하는 중)
         self.jobs: set[Job] = set()
         self.state_path = settings.data_dir / "state.json"
+        if self.char_key != DEFAULT_WHO and not self.pref(f"character.since.{self.char_key}", ""):
+            self.set_pref(f"character.since.{self.char_key}", datetime.now().date().isoformat())  # 일기는 처음 나온 날부터
 
         self.window = CharacterWindow(sprites, max_fps=float(settings.get("character.max_fps", 30)))
         self.bubble = SpeechBubble(int(settings.get("ui.bubble_max_width", 320)),
@@ -312,7 +319,10 @@ class AssistantApp(QObject):
         # 목소리로 말 걸기 (항상 듣기 / 단축키로 듣기 / 듣지 않기)
         stt = Transcriber(g("voice.model", "small"), g("voice.device", "cpu"),
                           download_root=str(settings.data_dir / "whisper"))
-        self.voice = VoiceListener(stt, wake_word=str(g("voice.wake_word", "") or ""),
+        wake = str(g("voice.wake_word", "") or "")
+        if wake == "다니카" and self.char_key != DEFAULT_WHO:  # 부르는 말을 '다니카'로 해 뒀으면 지금 캐릭터 이름으로
+            wake = self.char_name
+        self.voice = VoiceListener(stt, wake_word=wake,
                                    device=str(g("voice.mic", "") or ""))
         self.voice.heard.connect(self._on_heard)
         self.voice.state.connect(self._on_voice_state)
@@ -377,7 +387,7 @@ class AssistantApp(QObject):
         if settings_flag(self.settings, "update.auto", True):
             QTimer.singleShot(3000, lambda: self.check_update(startup=True))
             self.update_timer.start(round(float(self.settings.get("update.check_hours", 6)) * 3600 * 1000))
-        if self.companion.memory.pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
+        if self.companion.memory.my_pending:  # 지난번에 정리 못 한 대화가 있으면 지금 정리
             self._consolidate()
         self.genshin_timer.start(10 * 60 * 1000)  # 원신 실시간 메모는 10분마다
         self.cleanup_timer.start(6 * 3600 * 1000)
@@ -619,14 +629,16 @@ class AssistantApp(QObject):
         return folder
 
     def write_diaries(self) -> None:
-        """새벽 5시가 지나면 지난 날(최대 7일 전까지)의 일기를 쓴다 (싼 모델, 하루 한 편). data/diary/날짜.md + 떠올리기 색인."""
+        """새벽 5시가 지나면 지난 날(최대 7일 전까지)의 일기를 쓴다 (싼 모델, 하루 한 편). data/diary/날짜.md + 떠올리기 색인.
+        캐릭터마다 따로(다니카 diary/, 다른 캐릭터 diary_이름/), 그 캐릭터가 처음 나온 날부터."""
         if self._diary_busy or not self.pref("memory.diary", True):
             return
         now = datetime.now()
         if now.hour < 5:
             return
-        folder = self.settings.data_dir / "diary"
-        days = [(now.date() - timedelta(days=i)).isoformat() for i in range(1, 8)]
+        folder = self.diary_dir
+        since = str(self.pref(f"character.since.{self.char_key}", "") or "")
+        days = [d for d in ((now.date() - timedelta(days=i)).isoformat() for i in range(1, 8)) if d >= since]
         todo = [d for d in days if not (folder / f"{d}.md").exists()]
         last_monday = now.date() - timedelta(days=now.weekday() + 7)
         week_file = folder / f"week-{last_monday.isoformat()}.md"
@@ -659,7 +671,9 @@ class AssistantApp(QObject):
                 diary = self.companion.write_diary(day, material, self.watch_cfg.judge_model)
                 if diary:
                     (folder / f"{day}.md").write_text(f"# {day}\n\n{diary}\n", encoding="utf-8")
-                    self.recall_index.add(f"{day}T23:59:00", "diary", f"{day} 일기: {diary}", source=f"diary:{day}")
+                    who = "" if self.char_key == DEFAULT_WHO else f"{self.char_key}:"
+                    label = "일기" if not who else f"{self.char_name}의 일기"
+                    self.recall_index.add(f"{day}T23:59:00", "diary", f"{day} {label}: {diary}", source=f"diary:{who}{day}")
                     written.append(day)
             return written
 
@@ -668,7 +682,7 @@ class AssistantApp(QObject):
             if written:
                 log.info("일기 씀: %s", ", ".join(written))
             today = datetime.now().date().isoformat()  # 일기를 쓴 날 하루 한 번만, 대화가 적어도 장기기억 정리
-            if written and self.companion.memory.pending and self.pref("memory.consolidated_day", "") != today:
+            if written and self.companion.memory.my_pending and self.pref("memory.consolidated_day", "") != today:
                 self.set_pref("memory.consolidated_day", today)
                 self._consolidate()
 
@@ -696,7 +710,7 @@ class AssistantApp(QObject):
         flow = " / ".join(list(self.watcher.flow)[-5:]) if not mode.is_game else ""
         try:
             self.recall_index.add(datetime.now().isoformat(timespec="seconds"), "moment",
-                                  f"주인님: {user_text}\n다니카: {reply_text}", detail=flow,
+                                  f"주인님: {user_text}\n{self.char_name}: {reply_text}", detail=flow,
                                   game=mode.name if mode.is_game else "", ref=ref)
         except Exception:  # noqa: BLE001
             log.exception("순간 저장 실패")
@@ -722,8 +736,10 @@ class AssistantApp(QObject):
         if summary:
             folder.mkdir(parents=True, exist_ok=True)
             path.write_text(f"# {days[0]} ~ {days[-1]} 한 주\n\n{summary}\n", encoding="utf-8")
-            self.recall_index.add(f"{days[-1]}T23:59:30", "diary", f"{days[0]}~{days[-1]} 주간 요약: {summary}",
-                                  source=f"week:{days[0]}")
+            who = "" if self.char_key == DEFAULT_WHO else f"{self.char_key}:"
+            self.recall_index.add(f"{days[-1]}T23:59:30", "diary",
+                                  f"{days[0]}~{days[-1]} {'' if not who else self.char_name + '의 '}주간 요약: {summary}",
+                                  source=f"week:{who}{days[0]}")
             log.info("주간 요약 씀: %s", path.name)
 
     def remember_episode(self, kind: str, text: str, game: str = "", detail: str = "") -> None:
@@ -1283,6 +1299,29 @@ class AssistantApp(QObject):
     def _on_update_fail(self, message: str) -> None:
         self.bubble.show_text(f"업데이트 실패: {message}", self.anchor(), system=True, seconds=8)
 
+    @property
+    def diary_dir(self) -> Path:
+        """지금 캐릭터의 일기 폴더 (다니카는 diary/, 다른 캐릭터는 diary_이름/)."""
+        name = "diary" if self.char_key == DEFAULT_WHO else f"diary_{self.char_key}"
+        return self.settings.data_dir / name
+
+    def switch_character(self, key: str) -> None:
+        """다른 캐릭터로: 저장하고 다시 켠다 (그림·성격·배경지식·대화를 새로 읽음). 주인님 기억은 같이."""
+        profiles = character_profiles(self.settings)
+        if key == self.char_key or key not in profiles:
+            return
+        folder = self.settings.path(f"characters.{key}.folder") or self.settings.path("character.folder")
+        name = str(profiles[key].get("name") or key)
+        if folder is None or not (folder / "manifest.json").is_file():
+            self.bubble.show_text(f"{name} 그림 폴더가 없어요: {folder}. 받은 캐릭터 파일을 프로그램 폴더에 풀어 주세요.",
+                                  self.anchor(), system=True, seconds=10)
+            for k, act in getattr(self, "char_actions", {}).items():
+                act.setChecked(k == self.char_key)
+            return
+        self.set_pref("character.active", key)
+        self.bubble.show_text(f"{name}(으)로 바꿀게요. 잠깐 껐다 켤게요.", self.anchor(), system=True, seconds=3)
+        QTimer.singleShot(1500, self.restart)
+
     def restart(self) -> None:
         """새 프로그램을 띄우고 지금 것은 끈다 (새 쪽은 지금 것이 완전히 꺼질 때까지 기다렸다 시작)."""
         relaunch(self.settings.root)
@@ -1573,6 +1612,15 @@ class AssistantApp(QObject):
 
         add(menu, "말 걸기", self.open_input)
         add(menu, "대화 기록 보기", self.show_history)
+        profiles = character_profiles(self.settings)
+        if len(profiles) > 1:  # 캐릭터 바꾸기 (한 번에 한 명, 주인님 기억은 같이)
+            who = menu.addMenu(f"캐릭터: {self.char_name}")
+            self.char_actions = {}
+            for key, prof in profiles.items():
+                act = add(who, str(prof.get("name") or key), lambda _=False, k=key: self.switch_character(k),
+                          checkable=True)
+                act.setChecked(key == self.char_key)
+                self.char_actions[key] = act
         menu.addSeparator()
         self.cost_action = info(menu)
         self.screen_action = add(menu, f"화면 보기 ({g('hotkeys.toggle_screen', 'F9')})",
@@ -1745,7 +1793,7 @@ class AssistantApp(QObject):
         from ui.memory_dialog import MemoryDialog
 
         self.sync_recall()
-        MemoryDialog(self.companion.memory, self.recall_index, self.settings.data_dir / "diary").exec()
+        MemoryDialog(self.companion.memory, self.recall_index, self.diary_dir).exec()
 
     def consolidate_now(self) -> None:
         self._consolidate(lambda ok: self.bubble.show_text("기억을 정리했어요." if ok else "정리할 새 대화가 없어요.",
@@ -2807,13 +2855,38 @@ def apply_saved_prefs(settings: Settings) -> None:
         settings.set(key, value)
 
 
+def character_profiles(settings: Settings) -> dict[str, dict]:
+    """[characters.*] 프로필 (없으면 다니카 하나)."""
+    profiles = settings.get("characters", {}) or {}
+    profiles = {str(k): v for k, v in profiles.items() if isinstance(v, dict)}
+    return profiles or {DEFAULT_WHO: {"name": "다니카"}}
+
+
+def apply_character_profile(settings: Settings) -> tuple[str, str]:
+    """지금 캐릭터(character.active) 프로필의 값(folder·persona·lore·lore_dirs·scale …)을 character.* 위에 덮는다.
+    프로필에 없는 값은 [character] 값 그대로 (다니카는 예전 설정 그대로 쓰게). (키, 보이는 이름)"""
+    profiles = character_profiles(settings)
+    key = str(settings.get("character.active", "") or DEFAULT_WHO)
+    if key not in profiles:
+        key = DEFAULT_WHO if DEFAULT_WHO in profiles else next(iter(profiles))
+    prof = profiles[key]
+    for k, v in prof.items():
+        if k != "name":
+            settings.set(f"character.{k}", v)
+    name = str(prof.get("name") or "다니카")
+    settings.set("character.key", key)
+    settings.set("character.name", name)
+    return key, name
+
+
 def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> AssistantApp:
     apply_saved_prefs(settings)
+    char_key, char_name = apply_character_profile(settings)
     data = settings.data_dir
     ledger = UsageLedger(data / "usage.json", float(settings.get("budget.krw_per_usd", 1400)))
     ai = ai or AIClient(ledger, float(settings.get("ai.timeout_seconds", 60)))
     ai.ledger = ledger
-    memory = Memory(data)
+    memory = Memory(data, who=char_key, name=char_name)  # 주인님 기억은 같이, 캐릭터 자기 대화·기억은 따로
     persona_path = settings.path("character.persona")
     persona = Companion.read_persona(persona_path)
     if persona is None:
@@ -2838,7 +2911,9 @@ def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> 
     # 사전(필요할 때 꺼내 보는 지식): 캐릭터 사전(성격 파일 옆, git 제외) + 게임 지식(knowledge/, 업데이트로 옴)
     # + 다니카가 받아 둔 게임 최신 소식(data/knowledge/). persona.md·lore.md 는 늘 아는 것이라 빼고 읽는다
     lore_dir = settings.path("character.lore_dir")
-    char_dirs = [lore_dir] if lore_dir else ([persona_path.parent, persona_path.parent / "lore"] if persona_path else [])
+    extra = [settings.root / Path(p) if not Path(p).is_absolute() else Path(p)
+             for p in (settings.get("character.lore_dirs") or [])]  # 캐릭터 프로필: 사전 폴더 여러 개
+    char_dirs = extra or ([lore_dir] if lore_dir else ([persona_path.parent, persona_path.parent / "lore"] if persona_path else []))
     companion.lore_dirs = [*char_dirs, settings.root / "knowledge", data / "knowledge"]
     companion.reload_lore()
     folder = settings.path("character.folder")
