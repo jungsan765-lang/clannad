@@ -13,6 +13,7 @@ from collections import deque
 from dataclasses import dataclass
 from typing import Callable
 
+import numpy as np
 from PIL import Image
 
 from . import capture as cap
@@ -25,11 +26,31 @@ class Frame:
     t: float
     jpeg: bytes  # 작은 사진 (모아 보기용)
     thumb: object  # 변화 비교용
+    hist: object = None  # 색 분포 (64칸) — 카메라만 돌린 건 비슷하고, 죽음·암전·섬광·장면 전환은 확 달라진다
+    light: float = 0.0  # 밝기 0~1
+
+
+def color_stats(img: Image.Image) -> tuple[np.ndarray, float]:
+    """색 분포(빨강·초록·파랑 각 4단계 → 64칸, 합 1)와 밝기."""
+    arr = np.asarray(img.convert("RGB").resize((64, 36), Image.Resampling.BILINEAR), dtype=np.uint8)
+    codes = (arr[..., 0] // 64).astype(np.int32) * 16 + (arr[..., 1] // 64) * 4 + (arr[..., 2] // 64)
+    hist = np.bincount(codes.ravel(), minlength=64).astype(np.float32)
+    hist /= max(1.0, hist.sum())
+    light = float((0.2126 * arr[..., 0] + 0.7152 * arr[..., 1] + 0.0722 * arr[..., 2]).mean() / 255.0)
+    return hist, light
+
+
+def event_change(a: Frame | None, b: Frame) -> float:
+    """'무슨 일이 났다' 정도: 색 분포가 얼마나 달라졌나(0~1)와 밝기 차이 중 큰 쪽. 카메라 회전은 작게 나온다."""
+    if a is None or a.hist is None or b.hist is None:
+        return 0.0
+    tv = float(np.abs(a.hist - b.hist).sum() / 2)
+    return max(tv, abs(a.light - b.light) * 2)
 
 
 class FrameSampler:
     def __init__(self, grab: Callable[[], Image.Image], interval: float = 0.5, keep_seconds: float = 15.0,
-                 width: int = 480, clock: Callable[[], float] = time.monotonic, spike: float = 0.12):
+                 width: int = 480, clock: Callable[[], float] = time.monotonic, spike: float = 0.35):
         self.grab = grab
         self.interval = interval
         self.keep_seconds = keep_seconds
@@ -41,8 +62,9 @@ class FrameSampler:
         self._thread: threading.Thread | None = None
         self._stop = threading.Event()
         self.errors = 0
-        self.spike = spike  # 0.5초 사이에 이만큼 확 바뀌면 '무슨 일이 났다' (죽음·폭발·장면 전환)
+        self.spike = spike  # 0.5초 사이 색 분포·밝기가 이만큼 확 바뀌면 '무슨 일이 났다' (죽음·암전·섬광·장면 전환)
         self.spike_at: float | None = None  # 마지막으로 확 바뀐 때
+        self._spikes: deque[float] = deque(maxlen=8)  # 최근 확 바뀐 때들 (너무 잦으면 그냥 정신없는 장면)
 
     # ------------------------------------------------------------ 켜고 끄기
 
@@ -78,10 +100,14 @@ class FrameSampler:
     def capture_once(self) -> Frame:
         img = self.grab()
         small = cap.shrink(img, self.width)
-        frame = Frame(self.clock(), cap.to_jpeg(small, 70), cap.thumb(small))
+        hist, light = color_stats(small)
+        frame = Frame(self.clock(), cap.to_jpeg(small, 70), cap.thumb(small), hist, light)
         with self._lock:
-            if self._frames and cap.change_amount(self._frames[-1].thumb, frame.thumb) >= self.spike:
-                self.spike_at = frame.t
+            if self._frames and event_change(self._frames[-1], frame) >= self.spike:
+                self._spikes.append(frame.t)
+                # 3초 안에 3번 넘게 확 바뀌면 사건이 아니라 정신없는 장면(난전·연출)이라 바로 판단하지 않는다 (5초 박자대로)
+                if sum(1 for t in self._spikes if frame.t - t <= 3.0) <= 2:
+                    self.spike_at = frame.t
             self._frames.append(frame)
             while self._frames and frame.t - self._frames[0].t > self.keep_seconds:
                 self._frames.popleft()

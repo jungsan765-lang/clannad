@@ -847,6 +847,63 @@ def test_sampler_keeps_recent_seconds_and_measures_motion(tmp_path):
     assert s.sheet(frames[:1]) is None and s.sheet(frames)
 
 
+def _world():
+    """게임 같은 넓은 장면 (하늘·땅·여러 색 덩어리). 카메라가 이 위를 훑는다."""
+    import numpy as np
+
+    rng = np.random.default_rng(7)
+    blocks = rng.integers(0, 255, size=(9, 40, 3)).astype(np.uint8)
+    blocks[:3] = (90, 150, 220)  # 위쪽은 하늘
+    return np.asarray(Image.fromarray(blocks).resize((4000, 1080), Image.Resampling.BILINEAR))
+
+
+def test_camera_turn_is_not_a_spike_but_blackout_is(tmp_path):
+    from watch.sampler import FrameSampler
+
+    world = _world()
+    t = {"now": 0.0}
+    views = iter([Image.fromarray(world[:, x:x + 1920].copy()) for x in range(0, 2000, 150)])
+    s = FrameSampler(lambda: next(views), clock=lambda: t["now"])
+    for i in range(13):  # 0.5초마다 150px씩 (꽤 빠르게) 화면을 돌림
+        t["now"] = i * 0.5
+        s.capture_once()
+    assert s.spike_at is None  # 그림은 많이 바뀌어도 색 구성·밝기는 그대로 → 사건 아님
+    s.grab = lambda: Image.new("RGB", (1920, 1080), (5, 5, 5))  # 암전 (죽음·장면 전환)
+    t["now"] = 7.0
+    s.capture_once()
+    assert s.spike_at == 7.0
+    red = world[:, :1920].astype(float)
+    red[..., 1:] *= 0.25  # 화면이 빨갛게 (피격·죽음 연출)
+    s.grab = lambda: Image.fromarray(red.astype("uint8"))
+    t["now"] = 7.5
+    s.capture_once()
+    assert s.spike_at == 7.5
+
+
+def test_too_frequent_spikes_are_treated_as_busy_scene(tmp_path):
+    from watch.sampler import FrameSampler
+
+    t = {"now": 0.0}
+    shade = {"v": 10}
+    s = FrameSampler(lambda: _img(shade["v"]), clock=lambda: t["now"])
+    seen = []
+    for i in range(8):  # 0.5초마다 번쩍번쩍 (난전·연출)
+        t["now"] = i * 0.5
+        shade["v"] = 240 if i % 2 else 10
+        s.capture_once()
+        seen.append(s.spike_at)
+    assert seen[1] == 0.5 and seen[2] == 1.0  # 처음 두 번은 바로 판단 거리
+    assert all(v == 1.0 for v in seen[3:])  # 3초 안에 계속 바뀌면 그냥 5초 박자대로
+    shade["v"] = 10
+    for i in range(8, 14):  # 잠잠해졌다가
+        t["now"] = i * 0.5
+        s.capture_once()
+    shade["v"] = 240
+    t["now"] = 7.5
+    s.capture_once()  # 다시 한 번 확 바뀌면 바로
+    assert s.spike_at == 7.5
+
+
 def test_routine_screen_line_is_lightweight(tmp_path):
     from PIL import Image as _Image
 
