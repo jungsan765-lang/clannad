@@ -209,9 +209,9 @@ class SettingsDialog(QDialog):
                                  "죽음·암전 같은 순간 다니카가 바로 놀란 표정을 지어요 (돈 안 듦). 말은 몇 초 뒤에 와요.")
         self.fast_opus = check("Opus 가 말할 땐 빠른 모드 (요금 2배)", "screen.fast_opus", False,
                                "글자 쓰는 속도가 2배쯤 빨라지지만, 한두 문장 말은 시작까지 기다리는 시간이 대부분이라 효과가 작아요.")
-        self.sonnet_think = check("평소 한마디도 생각하고 말하기 (조금 느려짐)", "screen.sonnet_think", False,
-                                  "끄면(기본) 평소 한마디(Sonnet)를 생각 없이 바로 써서 첫 글자가 빨라요. 판 기록을 화면과 "
-                                  "잘못 맞춰 보는 일이 늘었다 싶으면 켜 보세요. 물어볼 때(Opus)는 늘 생각해요.")
+        self.sonnet_quick = check("평소 한마디는 생각 없이 바로 (빨라지지만 잘못 볼 수 있음)", "screen.sonnet_quick", False,
+                                  "켜면 평소 한마디(Sonnet)를 생각 없이 바로 써서 첫 글자가 빨라져요. 대신 화면에 없는 걸 "
+                                  "있다고 말하는 일이 생겼어요. 물어볼 때(Opus)는 늘 생각해요.")
         self.scan = check("둘러보기", "screen.scan", True,
                           "표시가 뜬 인물·이름표·빛나는 물건을 하나씩 확대해 알아보고, 보상이 좋은 것처럼 중요한 것만 알려요.")
         scan_hint = _hint("표시 뜬 인물·물건을 확대해 알아보고 중요한 것만 알려요. 하나에 1원도 안 들어요. 알아본 건 기억해 둬요.")
@@ -231,7 +231,7 @@ class SettingsDialog(QDialog):
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         screen = page(group("말 걸기", [("", self.screen_on), ("말 거는 정도", self.chatty),
                                         ("말하는 방식", self.line_quality), ("눈 담당", self.eye), ("", self.rush),
-                                        ("", self.moment_face), ("", self.fast_opus), ("", self.sonnet_think),
+                                        ("", self.moment_face), ("", self.fast_opus), ("", self.sonnet_quick),
                                         ("", self.scan), ("", scan_hint)]),
                       group("보는 방법", [("촘촘히 보기", self.dense), ("볼 모니터", self.monitor),
                                           ("선명도 (글자 읽기)", self.sharp), ("확인 간격", self.interval),
@@ -450,7 +450,7 @@ class SettingsDialog(QDialog):
             "screen.rush": self.rush.isChecked(),
             "screen.moment_face": self.moment_face.isChecked(),
             "screen.fast_opus": self.fast_opus.isChecked(),
-            "screen.sonnet_think": self.sonnet_think.isChecked(),
+            "screen.sonnet_quick": self.sonnet_quick.isChecked(),
             "local.enabled": self.local_on.isChecked(),
             "local.cpu": self.local_cpu.value(),
             "local.model": self.local_model.text().strip() or "gemma3:4b",
