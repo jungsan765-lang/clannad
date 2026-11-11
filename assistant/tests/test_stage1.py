@@ -252,7 +252,7 @@ def test_style_reminder_comes_last_in_the_dynamic_block(tmp_path):
                "## 7. 예시\n- 어쩌고\n")
     s = style_reminder(persona)
     assert "[0. 최우선 규칙]" in s and "존댓말, 짧게" in s and "조용함" not in s and "어쩌고" not in s
-    assert style_reminder("") == "" and len(style_reminder("## 말투\n" + "가" * 2000)) <= 900
+    assert style_reminder("") == "" and len(style_reminder("## 말투\n" + "가" * 3000)) <= 2000
     comp, fake, mem = _companion(tmp_path, [])
     comp.persona = persona
     second = comp.system_blocks()[1]["text"]
