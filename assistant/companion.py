@@ -716,6 +716,8 @@ class Companion:
         self.recaller = None  # 화면 상황 글 → 이어지는 예전 일 (main 이 넣어 줌)
         self.layouts = None  # 게임 화면 배치 (watch.layout.Layouts, main 이 넣어 줌)
         self.seen = None  # 둘러보기로 알아본 것 (watch.scan.SeenThings, main 이 넣어 줌)
+        self.local = None  # 내 PC AI (local_ai.LocalAI) — 준비돼 있으면 아래 일은 공짜로 먼저 해 본다
+        self.local_roles = {"eye", "spot", "weigh"}  # 눈 담당 · 둘러보기 확대 · 판정
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -1003,6 +1005,9 @@ class Companion:
                 blocks.append(self._image_block(item))
         return blocks
 
+    def _use_local(self, role: str) -> bool:
+        return self.local is not None and role in self.local_roles and self.local.ready()
+
     def _layout_text(self, mode) -> str:
         if self.layouts is None or mode is None or not getattr(mode, "is_game", False):
             return ""
@@ -1020,6 +1025,18 @@ class Companion:
         if self.memory.terms:
             system += "\n\n" + self.memory.terms_text()
         name = getattr(mode, "name", "") or "평소"
+        if self._use_local("eye"):  # 내 PC AI: 지금 화면 + 몇 초 전 2장, 자막은 글로만 (느리니 사진을 줄여서)
+            past = [_shrink_jpeg(j, 448) for _, j in list(flow or [])[::2][-2:]]
+            heard = [f"{label}: {item}" for label, item in (captions or []) if isinstance(item, str)]
+            prompt = (f"지금 모드: {name}. " + (f"사진 {len(past)}장은 몇 초 전(오래된 것부터), 마지막 사진이 지금 화면이다. "
+                                               if past else "사진은 지금 화면이다. ")
+                      + ("자막·대사: " + " / ".join(heard) + ". " if heard else "") + "이 장면을 적어 줘.")
+            data = self.local.chat_json(system, prompt, SCENE_SCHEMA, past + [_shrink_jpeg(jpeg, 896)], timeout=45,
+                                        max_tokens=500)
+            if data and all(k in data for k in SCENE_SCHEMA["required"]):
+                if self.memory.terms:
+                    data = {k: self.memory.fix_words(str(v)) for k, v in data.items()}
+                return data, 0.0
         content = self._history_blocks(list(flow or [])) + [self._image_block(_shrink_jpeg(jpeg, 1568))] \
             + self._caption_blocks(captions) + [{"type": "text", "text": f"지금 모드: {name}. 이 장면을 적어 줘."}]
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system}],
@@ -1052,8 +1069,15 @@ class Companion:
 
     def inspect_spot(self, jpeg: bytes, what: str, mode, model: str) -> tuple[dict | None, float]:
         """확대 담당: 짚은 곳 하나를 원래 크기 조각으로 알아본다 (싼 모델, 조각이 작아 한 번에 1원도 안 됨)."""
-        content = [self._image_block(jpeg),
-                   {"type": "text", "text": f"게임: {getattr(mode, 'name', '') or '?'}\n짚은 이유: {what}\n이게 무엇인지 적어 줘."}]
+        ask = f"게임: {getattr(mode, 'name', '') or '?'}\n짚은 이유: {what}\n이게 무엇인지 적어 줘."
+        if self._use_local("spot"):  # 내 PC AI 로 먼저 (공짜, 뒤에서 하는 일이라 느려도 됨)
+            data = self.local.chat_json(SPOT_TASK, ask, SPOT_SCHEMA, [_shrink_jpeg(jpeg, 672)], timeout=30, max_tokens=200)
+            if data and all(k in data for k in SPOT_SCHEMA["required"]):
+                if self.memory.terms:
+                    data = dict(data, name=self.memory.fix_words(str(data.get("name", ""))),
+                                info=self.memory.fix_words(str(data.get("info", ""))))
+                return data, 0.0
+        content = [self._image_block(jpeg), {"type": "text", "text": ask}]
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": SPOT_TASK}],
                                   messages=[{"role": "user", "content": content}], schema=SPOT_SCHEMA, kind="spot",
                                   max_tokens=300, effort="low", thinking_off=model.startswith("claude-haiku"), timeout=20)
@@ -1080,6 +1104,10 @@ class Companion:
         extra = self.extra_context(mode) if self.extra_context else ""
         if extra:
             lines.append(extra)
+        if self._use_local("weigh"):  # 글만 보는 판정이라 작은 AI 로도 충분
+            data = self.local.chat_json(WEIGH_TASK, "\n".join(lines), WEIGH_SCHEMA, timeout=30, max_tokens=400)
+            if data and isinstance(data.get("items"), list):
+                return data, 0.0
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": WEIGH_TASK}],
                                   messages=[{"role": "user", "content": "\n".join(lines)}], schema=WEIGH_SCHEMA,
                                   kind="weigh", max_tokens=600, effort="low", thinking_off=model.startswith("claude-haiku"),

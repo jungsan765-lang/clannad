@@ -14,6 +14,7 @@ import logging.handlers
 import os
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -196,6 +197,16 @@ class AssistantApp(QObject):
         self.seen = SeenThings(settings.data_dir / "scan")  # 둘러보기로 알아본 것 (게임마다)
         self.watcher.seen = companion.seen = self.seen
         self.watch_cfg.scan = bool(self.pref("screen.scan", True))
+        from local_ai import DEFAULT_MODEL, LocalAI
+
+        # 내 PC AI: 남는 CPU 로 눈 담당·둘러보기 확대·판정 (Ollama, 그래픽카드 안 씀). 켤 때와 10분마다 연결 확인
+        self.local_ai = LocalAI(model=str(self.pref("local.model", DEFAULT_MODEL)), cpu=str(self.pref("local.cpu", "little")))
+        self.local_ai.enabled = bool(self.pref("local.enabled", True))
+        companion.local = self.local_ai
+        self._local_timer = QTimer(self)
+        self._local_timer.timeout.connect(self.check_local_ai)
+        self._local_timer.start(10 * 60 * 1000)
+        QTimer.singleShot(5000, self.check_local_ai)
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
         saved = self._load_state().get("prefs", {})
@@ -1135,6 +1146,13 @@ class AssistantApp(QObject):
         relaunch(self.settings.root)
         self.quit()
 
+    def check_local_ai(self) -> None:
+        """내 PC AI 연결 확인 (뒤에서). 없으면 그냥 클라우드로 하고, 모델이 없으면 받기 시작."""
+        ai = self.local_ai
+        if not ai.enabled or ai.state == "pulling":
+            return
+        threading.Thread(target=ai.check, daemon=True, name="local-ai-check").start()
+
     def settings_values(self) -> dict:
         g = self.settings.get
         return {
@@ -1154,6 +1172,9 @@ class AssistantApp(QObject):
             "screen.line_quality": self.watch_cfg.line_quality,
             "screen.dense": self.watch_cfg.dense,
             "screen.scan": self.watch_cfg.scan,
+            "local.enabled": self.local_ai.enabled,
+            "local.cpu": self.local_ai.cpu,
+            "local.model": self.local_ai.model,
             "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
@@ -1194,7 +1215,8 @@ class AssistantApp(QObject):
         dlg = SettingsDialog(self.settings_values(), monitors, list_input_devices(), voice_level=lambda: self.voice.level,
                              meter=(self.voice.start_meter, self.voice.stop_meter),
                              hoyolab=(self.hoyolab_status, self.hoyolab_login, self.hoyolab_logout),
-                             neople_set=bool(self.secrets.get("neople")))
+                             neople_set=bool(self.secrets.get("neople")),
+                             local=(self.local_ai.status_text, self.check_local_ai))
         if dlg.exec() == SettingsDialog.DialogCode.Accepted:
             key = dlg.neople_key.text().strip()
             if key:  # API 키는 설정 값(state.json)이 아니라 암호화 저장소에만
@@ -1227,6 +1249,13 @@ class AssistantApp(QObject):
             self.watch_cfg.dense = str(changed["screen.dense"])
         if "screen.scan" in changed:
             self.watch_cfg.scan = bool(changed["screen.scan"])
+        if any(k.startswith("local.") for k in changed):
+            self.local_ai.enabled = bool(changed.get("local.enabled", self.local_ai.enabled))
+            self.local_ai.cpu = str(changed.get("local.cpu", self.local_ai.cpu))
+            if str(changed.get("local.model", self.local_ai.model)).strip() != self.local_ai.model:
+                self.local_ai.model = str(changed["local.model"]).strip() or self.local_ai.model
+                self.local_ai.state = "unknown"
+            self.check_local_ai()
         if "screen.limit_stop" in changed:
             self._update_pause_status()
         if "screen.daily_krw" in changed:

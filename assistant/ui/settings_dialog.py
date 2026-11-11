@@ -7,8 +7,8 @@ from __future__ import annotations
 
 from typing import Callable
 
-from PySide6.QtCore import Qt, QTimer
-from PySide6.QtGui import QGuiApplication
+from PySide6.QtCore import Qt, QTimer, QUrl
+from PySide6.QtGui import QDesktopServices, QGuiApplication
 from PySide6.QtWidgets import (QButtonGroup, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QGridLayout,
                                QGroupBox, QHBoxLayout, QLabel, QLineEdit, QProgressBar, QPushButton, QRadioButton,
                                QScrollArea, QSlider, QTabWidget, QVBoxLayout, QWidget)
@@ -44,6 +44,9 @@ RESULT_DEPTH = [("deep", "깊게", "1~2분 생각하고 총평해요. 판마다 
 OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
 OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
 SHARPNESS = [(1280, "보통"), (1920, "선명 (추천)"), (2560, "아주 선명 (비용 2배쯤)")]
+LOCAL_CPU = [("little", "조금 (추천)", "CPU 스레드 4개까지만. 게임에 거의 영향 없음. 한 장에 15~25초."),
+             ("half", "절반", "CPU 절반. 조금 더 빠름 (한 장에 10~15초). 게임이 CPU 를 많이 쓰면 끊길 수 있어요."),
+             ("most", "많이", "CPU 거의 전부. 가장 빠르지만 게임 중엔 비추천.")]
 
 # 다시 시작해야 적용되는 설정
 RESTART_KEYS = {"character.scale", "voice.model"}
@@ -134,7 +137,8 @@ class SettingsDialog(QDialog):
     def __init__(self, values: dict, monitors: list[str], mics: list[str], voice_level: Callable[[], float] | None = None,
                  meter: tuple[Callable[[], bool], Callable[[], None]] | None = None,
                  hoyolab: tuple[Callable[[], str], Callable[[], str], Callable[[], str]] | None = None,
-                 neople_set: bool = False, parent=None):
+                 neople_set: bool = False, local: tuple[Callable[[], str], Callable[[], None]] | None = None,
+                 parent=None):
         super().__init__(parent)
         self.setWindowTitle("다니카 설정")
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
@@ -319,9 +323,39 @@ class SettingsDialog(QDialog):
                                                              ("최대 용량", self.memory_gb)]),
                       group("창 읽기", [("", self.read_windows), ("", self.auto_read)]))
 
+        # ---------------------------------------------------------------- 내 PC AI
+        self.local_on = check("남는 CPU 로 일부 담당 맡기기 (공짜)", "local.enabled", True)
+        local_hint = _hint("눈 담당(장면 자세히 보기)·둘러보기 확대·판정을 이 PC 에서 해요. 그래픽카드는 게임 몫이라 안 쓰고, "
+                           "CPU 만 정한 만큼 낮은 우선순위로 써요. 사진·글이 PC 밖으로 안 나가요. 대신 한마디가 10~20초 더 늦고, "
+                           "작은 AI 라 클라우드보다 눈이 나빠요 (마지막에 말하기 담당이 화면과 다시 맞춰 봐요). "
+                           "안 되거나 오래 걸리면 그 일은 클라우드가 해요.")
+        self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "little")))
+        self.local_model = QLineEdit(str(v.get("local.model", "gemma3:4b")))
+        self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨).")
+        self.local_status = QLabel(local[0]() if local else "")
+        self.local_status.setWordWrap(True)
+        status_row = QWidget()
+        sr = QHBoxLayout(status_row)
+        sr.setContentsMargins(0, 0, 0, 0)
+        sr.addWidget(self.local_status, 1)
+        get_btn, again_btn = QPushButton("Ollama 받기…"), QPushButton("다시 확인")
+        get_btn.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://ollama.com/download/windows")))
+        if local:
+            again_btn.clicked.connect(lambda: (local[1](), self.local_status.setText("확인 중…")))
+        sr.addWidget(get_btn)
+        sr.addWidget(again_btn)
+        setup = _hint("처음 한 번: 'Ollama 받기'로 설치 → 켜 두면(작업 표시줄 오른쪽 아래 라마 아이콘) 다니카가 알아서 연결하고 "
+                      "모델을 받아요 (약 3GB, 한 번만).")
+        local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("CPU 쓰는 정도", self.local_cpu),
+                                             ("모델", self.local_model), ("상태", status_row), ("", setup)]))
+        if local:
+            self._local_timer = QTimer(self)
+            self._local_timer.timeout.connect(lambda: self.local_status.setText(local[0]()))
+            self._local_timer.start(1000)
+
         self.tabs = QTabWidget()
-        for widget, title in ((screen, "화면 보기"), (basic, "기본"), (cost, "비용"), (voice, "목소리"), (assist, "비서"),
-                              (games, "게임 연결"), (memory, "기억·창 읽기")):
+        for widget, title in ((screen, "화면 보기"), (basic, "기본"), (cost, "비용"), (local_page, "내 PC AI"),
+                              (voice, "목소리"), (assist, "비서"), (games, "게임 연결"), (memory, "기억·창 읽기")):
             self.tabs.addTab(widget, title)
 
         self.note = QLabel("")
@@ -378,6 +412,9 @@ class SettingsDialog(QDialog):
             "screen.line_quality": self.line_quality.value(),
             "screen.dense": self.dense.value(),
             "screen.scan": self.scan.isChecked(),
+            "local.enabled": self.local_on.isChecked(),
+            "local.cpu": self.local_cpu.value(),
+            "local.model": self.local_model.text().strip() or "gemma3:4b",
             "screen.limit_stop": self.limit_stop.isChecked(),
             "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),

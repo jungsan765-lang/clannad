@@ -24,7 +24,7 @@ def _settings(tmp_path, character):
         f'[app]\ndata_dir = "{(tmp_path / "data").as_posix()}"\n'
         f'[character]\nfolder = "{character}"\npersona = "none.md"\nscale = 0.5\n'
         '[ui]\nbubble_min_seconds = 1.0\n[update]\nauto = false\n[memory]\ndiary = false\n'
-        '[screen]\nline_quality = "auto"\n', encoding="utf-8")
+        '[screen]\nline_quality = "auto"\n[local]\nenabled = false\n', encoding="utf-8")
     return Settings.load(tmp_path)
 
 
@@ -249,7 +249,7 @@ def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
     dlg.sharp.group.button(2).setChecked(True)
     assert a.watch_cfg.scan and dlg.scan.isChecked()
     dlg.scan.setChecked(False)
-    assert dlg.tabs.count() == 7 and dlg.tabs.tabText(0) == "화면 보기"
+    assert dlg.tabs.count() == 8 and dlg.tabs.tabText(0) == "화면 보기" and dlg.tabs.tabText(3) == "내 PC AI"
     dlg.line_quality.group.button(0).setChecked(True)
     assert "Sonnet" in dlg.line_quality.hint.text()  # 고른 방식의 설명만 아래에 짧게
     dlg.line_quality.group.button(2).setChecked(True)
@@ -260,6 +260,22 @@ def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
     a.apply_settings(changed)
     assert a.companion.fast and not a.status.enabled and a.watch_cfg.max_width == 2560
     assert not a.watch_cfg.scan and a.watch_cfg.line_quality == "auto"
+    assert a.companion.local is a.local_ai and not a.local_ai.enabled  # 시험 설정에선 꺼 둠
+    a.local_ai.http = lambda *args, **kw: (_ for _ in ()).throw(ConnectionRefusedError("없음"))
+    dlg2 = SettingsDialog(a.settings_values(), ["1", "2"], [], local=(a.local_ai.status_text, a.check_local_ai))
+    dlg2.local_on.setChecked(True)
+    dlg2.local_cpu.group.button(1).setChecked(True)
+    dlg2.local_model.setText("qwen2.5vl:3b")
+    assert dlg2.changed() == {"local.enabled": True, "local.cpu": "half", "local.model": "qwen2.5vl:3b"}
+    a.apply_settings(dlg2.changed())
+    assert a.local_ai.enabled and a.local_ai.cpu == "half" and a.local_ai.model == "qwen2.5vl:3b"
+    import time as _t
+
+    for _ in range(50):
+        if a.local_ai.state == "no_server":
+            break
+        _t.sleep(0.02)
+    assert a.local_ai.state == "no_server" and "Ollama" in dlg2.local_status.text() + a.local_ai.status_text()
     a.status.begin("x", "테스트")
     assert not a.status.isVisible()
     a.quit()

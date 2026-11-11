@@ -27,7 +27,7 @@ from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foregroun
 
 # 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
 BRAIN = ("brain", "brain_lite")  # 나눠 보기 (Opus 마무리 / 절약: 평소엔 Sonnet 마무리)
-STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "scan": 45.0, "perceive": 60.0, "line": 120.0, "analyze": 200.0,
+STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "scan": 120.0, "perceive": 90.0, "line": 120.0, "analyze": 200.0,
                 "analyze_deep": 330.0}
 
 
