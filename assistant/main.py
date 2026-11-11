@@ -211,10 +211,20 @@ class AssistantApp(QObject):
         from companion import _shrink_jpeg
         from watch.context import ContextKeeper
 
-        hud = self.watcher.hud
+        # 게임 소리 듣기: 스피커로 나가는 소리에서 대사를 받아씀 (이 PC, 게임 중에만, 다니카가 말할 땐 안 들음)
+        from watch.ears import GameEars, Whisper
+
+        w = self.watcher
+        self._tts_speaking = False
+        self.ears = GameEars(active=lambda: w.sampler.active and w.mode.is_game, muted=lambda: self._tts_speaking,
+                             transcribe=Whisper(str(self.pref("ears.model", "medium")), threads=4))
+        self.ears.enabled = bool(self.pref("ears.enabled", True))
+        self.watcher.ears = self.ears
+        self.ears.start()
+        hud, ears = self.watcher.hud, self.ears
         self.context_keeper = ContextKeeper(
             self.local_ai, self.watcher.sampler, shrink=_shrink_jpeg,
-            notes_since=lambda start: [f"{n}: {x}" for _, n, x in hud.recent(180, since=start)])
+            notes_since=lambda start: [f"{n}: {x}" for _, n, x in hud.recent(180, since=start) + ears.recent(180, since=start)])
         self.context_keeper.enabled = bool(self.pref("local.context", True))
         self.watcher.context = self.context_keeper
         w = self.watcher
@@ -360,6 +370,7 @@ class AssistantApp(QObject):
         self.recall_timer.stop()
         self.watcher.sampler.stop()
         self.context_keeper.stop()
+        self.ears.stop()
         self.away_timer.stop()
         self.genshin_timer.stop()
         self.cleanup_timer.stop()
@@ -1190,6 +1201,7 @@ class AssistantApp(QObject):
             "local.cpu": self.local_ai.cpu,
             "local.model": self.local_ai.model,
             "local.context": self.context_keeper.enabled,
+            "ears.enabled": self.ears.enabled,
             "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
@@ -1231,7 +1243,8 @@ class AssistantApp(QObject):
                              meter=(self.voice.start_meter, self.voice.stop_meter),
                              hoyolab=(self.hoyolab_status, self.hoyolab_login, self.hoyolab_logout),
                              neople_set=bool(self.secrets.get("neople")),
-                             local=(self.local_ai.status_text, self.check_local_ai))
+                             local=(lambda: f"{self.local_ai.status_text()}\n게임 소리: {self.ears.status_text()}",
+                                    self.check_local_ai))
         if dlg.exec() == SettingsDialog.DialogCode.Accepted:
             key = dlg.neople_key.text().strip()
             if key:  # API 키는 설정 값(state.json)이 아니라 암호화 저장소에만
@@ -1264,6 +1277,8 @@ class AssistantApp(QObject):
             self.watch_cfg.dense = str(changed["screen.dense"])
         if "screen.scan" in changed:
             self.watch_cfg.scan = bool(changed["screen.scan"])
+        if "ears.enabled" in changed:
+            self.ears.enabled = bool(changed["ears.enabled"])
         if any(k.startswith("local.") for k in changed):
             self.context_keeper.enabled = bool(changed.get("local.context", self.context_keeper.enabled))
             self.local_ai.enabled = bool(changed.get("local.enabled", self.local_ai.enabled))
@@ -1799,7 +1814,8 @@ class AssistantApp(QObject):
             self.speaker.speak(text)
 
     def _on_tts_state(self, speaking: bool) -> None:
-        """읽는 동안엔 마이크가 다니카 목소리를 주인님 말로 듣지 않게."""
+        """읽는 동안엔 마이크가 다니카 목소리를 주인님 말로 듣지 않게 (게임 소리 듣기도 쉼)."""
+        self._tts_speaking = speaking
         if speaking:
             self.voice.paused = True
         elif not self.busy:

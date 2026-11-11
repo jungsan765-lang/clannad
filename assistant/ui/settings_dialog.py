@@ -333,6 +333,9 @@ class SettingsDialog(QDialog):
         self.local_context = check("맥락 담당: 게임 중 계속 지켜보며 흐름 적기", "local.context", True,
                                    "10초쯤마다 지난 구간 사진·자막을 보고 '지금까지 흐름'을 이어 적어요. 판단·말하기 담당이 같이 봐요. "
                                    "CPU 를 계속 쓰지만 급한 일이 먼저예요.")
+        self.ears_on = check("게임 소리 듣기 (대사 받아쓰기)", "ears.enabled", True,
+                             "스피커로 나오는 소리에서 대사를 이 PC 에서 글로 바꿔요 (게임 중에만, 다니카가 말할 땐 안 들어요). "
+                             "디스코드 통화 소리도 같이 들려요. 받아쓴 글은 판단·말하기 AI 에게 보내져요.")
         self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "half")))
         self.local_model = QLineEdit(str(v.get("local.model", "gemma3:4b")))
         self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨).")
@@ -350,7 +353,7 @@ class SettingsDialog(QDialog):
         sr.addWidget(again_btn)
         setup = _hint("처음 한 번: 'Ollama 받기'로 설치 → 켜 두면(작업 표시줄 오른쪽 아래 라마 아이콘) 다니카가 알아서 연결하고 "
                       "모델을 받아요 (약 3GB, 한 번만).")
-        local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("", self.local_context),
+        local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("", self.local_context), ("", self.ears_on),
                                              ("CPU 쓰는 정도", self.local_cpu),
                                              ("모델", self.local_model), ("상태", status_row), ("", setup)]))
         if local:
@@ -421,6 +424,7 @@ class SettingsDialog(QDialog):
             "local.cpu": self.local_cpu.value(),
             "local.model": self.local_model.text().strip() or "gemma3:4b",
             "local.context": self.local_context.isChecked(),
+            "ears.enabled": self.ears_on.isChecked(),
             "screen.limit_stop": self.limit_stop.isChecked(),
             "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),

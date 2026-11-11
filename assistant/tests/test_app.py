@@ -24,7 +24,7 @@ def _settings(tmp_path, character):
         f'[app]\ndata_dir = "{(tmp_path / "data").as_posix()}"\n'
         f'[character]\nfolder = "{character}"\npersona = "none.md"\nscale = 0.5\n'
         '[ui]\nbubble_min_seconds = 1.0\n[update]\nauto = false\n[memory]\ndiary = false\n'
-        '[screen]\nline_quality = "auto"\n[local]\nenabled = false\n', encoding="utf-8")
+        '[screen]\nline_quality = "auto"\n[local]\nenabled = false\n[ears]\nenabled = false\n', encoding="utf-8")
     return Settings.load(tmp_path)
 
 

@@ -202,6 +202,7 @@ class ScreenWatcher(QObject):
         self._calm = 0  # 게임 중 별일 없는 판단이 이어진 수 (판단 간격 늘리기)
         self.context = None  # 맥락 담당 (watch.context.ContextKeeper, main 이 넣어 줌)
         self.hud = HudReader(None, clock)  # 화면 정보 상시 읽기 (글자 인식은 main 이 넣어 줌)
+        self.ears = None  # 게임 소리 듣기 (watch.ears.GameEars, main 이 넣어 줌)
         self.sampler.hud = self.hud
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
@@ -419,11 +420,11 @@ class ScreenWatcher(QObject):
         log.info("둘러보기 [%s]: %s", mode.name, ", ".join(f"{f.get('name')}={f['importance']}" for f in found))
 
     def _context_text(self, mode: Mode) -> str:
-        """판단·말하기에 붙이는 '보고 들은 것': 화면 정보(글자 인식·체력 막대) + 맥락 담당이 적은 흐름."""
+        """판단·말하기에 붙이는 '보고 들은 것': 화면 정보(글자 인식·체력 막대) + 들린 대사 + 맥락 담당이 적은 흐름."""
         if not mode.is_game:
             return ""
         parts = []
-        for source in (self.hud, self.context):
+        for source in (self.hud, self.ears, self.context):
             if source is None:
                 continue
             try:
@@ -485,7 +486,8 @@ class ScreenWatcher(QObject):
         """판단한 뒤로 화면이 확 바뀐 적이 있고, 판단 사이 최소 간격이 지났는가."""
         at = self.sampler.spike_at
         said = self.sampler.latest_caption_at()  # 새 대사가 떠도 바로 (간격을 늘려 둔 동안에도 이야기는 놓치지 않게)
-        for t in (said, self.hud.alert_at):  # 화면 정보: 퀘스트 완료·획득·체력이 확 깎임 등
+        heard = self.ears.alert_at if self.ears is not None else None  # 게임 대사가 들림
+        for t in (said, self.hud.alert_at, heard):  # 화면 정보: 퀘스트 완료·획득·체력이 확 깎임 등
             if t is not None and (at is None or t > at):
                 at = t
         if at is None or (self.last_judged is not None and at <= self.last_judged):
