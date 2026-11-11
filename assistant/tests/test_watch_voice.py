@@ -1924,3 +1924,25 @@ def test_line_already_appearing_is_finished_not_cut_off(qapp, tmp_path):
     t["now"] = 300
     w.tick()
     assert len(said) == 2 and cancelled == []
+
+
+def test_heard_speech_reaches_the_judge_outside_games_too(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(80) for _ in range(10)])
+
+    class Ears:
+        alert_at = None
+
+        def text(self):
+            return "[들린 소리 (이 PC 가 스피커 소리 — 게임·영상·방송 — 를 받아쓴 것, 틀릴 수 있음)] 2초 전 자 이제 빼빼로 완성!"
+
+    w.ears = Ears()
+    w.tick()  # 평소 모드(방송 보는 중)에도 들린 말을 판단 담당에게
+    assert "빼빼로 완성" in comp.context_seen and not w.mode.is_game
+    judged = len(comp.judged)
+    t["now"] = 150
+    w.tick()  # 화면이 그대로면 건너뛰지만
+    assert len(comp.judged) == judged
+    w.ears.alert_at = 160.0  # 새로 들린 말이 있으면 화면이 그대로여도 본다
+    t["now"] = 170
+    w.tick()
+    assert len(comp.judged) == judged + 1

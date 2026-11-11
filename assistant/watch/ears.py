@@ -1,6 +1,7 @@
 """게임 소리 듣기: 스피커로 나가는 소리를 이 PC 에서 받아(loopback) 대사를 글로 바꾼다 (돈 안 듦, 소리는 밖으로 안 나감).
 
-- 게임 중(촘촘히 보는 동안)에만 듣는다. 다니카가 소리 내서 말하는 동안은 안 듣는다(제 목소리를 대사로 듣지 않게).
+- 화면 보기가 켜져 있고 주인님이 자리에 있으면 늘 듣는다(게임·영상·방송 모두). 캐릭터가 소리 내서 말하는 동안은 안 듣는다
+  (제 목소리를 대사로 듣지 않게). 예전엔 게임 중에만 들었다.
 - 1초마다 최근 소리에서 사람 목소리 구간(Silero VAD)을 찾아, 끝난 구간만 faster-whisper 로 받아쓴다 (언어는 알아서).
   15초 넘게 이어지는 말은 끊어서 받아쓴다. 배경 음악·효과음만 있는 구간은 건너뛴다.
 - 새 대사가 들리면 alert_at 을 찍어 판단을 바로 하게 하고, 판단·말하기·맥락 담당에게 '들린 대사'로 붙인다.
@@ -106,7 +107,7 @@ class GameEars:
                  muted: Callable[[], bool] = lambda: False, transcribe: Callable[[np.ndarray], str] | None = None,
                  vad: Callable[[np.ndarray], list] | None = None, opener: Callable | None = None):
         self.clock = clock
-        self.active = active  # 지금 들어야 하나 (게임을 촘촘히 보는 중)
+        self.active = active  # 지금 들어야 하나 (화면 보기가 켜져 있고 자리에 있음)
         self.muted = muted  # 다니카가 소리 내서 말하는 중
         self.transcribe = transcribe or Whisper()
         self.vad = vad or default_vad
@@ -132,7 +133,7 @@ class GameEars:
     def status_text(self) -> str:
         if not self.enabled:
             return "꺼짐"
-        return {"off": "게임 중에만 들어요", "no_audio": "스피커 소리를 못 받아요 (Windows 에서만 돼요)",
+        return {"off": "화면 보기가 꺼져 있거나 자리를 비워서 쉬는 중", "no_audio": "스피커 소리를 못 받아요 (Windows 에서만 돼요)",
                 "listening": f"듣는 중 — 지금까지 대사 {self.heard}번 받아씀"}.get(self.state, self.state)
 
     # ------------------------------------------------------------ 소리 넣기 (0.5초씩)
@@ -235,7 +236,7 @@ class GameEars:
         items = self.recent(seconds)[-6:]
         if not items:
             return ""
-        return ("[들린 소리 (이 PC 가 게임 소리를 받아쓴 것, 틀릴 수 있음)] "
+        return ("[들린 소리 (이 PC 가 스피커 소리 — 게임·영상·방송 — 를 받아쓴 것, 틀릴 수 있음)] "
                 + " / ".join(f"{now - t:.0f}초 전 {x}" for t, _, x in items))
 
     # ------------------------------------------------------------ 뒤에서 계속

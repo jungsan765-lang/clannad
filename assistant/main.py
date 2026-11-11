@@ -224,12 +224,13 @@ class AssistantApp(QObject):
         from companion import _shrink_jpeg
         from watch.context import ContextKeeper
 
-        # 게임 소리 듣기: 스피커로 나가는 소리에서 대사를 받아씀 (이 PC, 게임 중에만, 다니카가 말할 땐 안 들음)
+        # PC 소리 듣기: 스피커로 나가는 소리에서 말을 받아씀 (이 PC, 공짜). 화면 보기가 켜져 있고 자리에 있으면 늘
+        # (게임·영상·방송 다 — 주인님 결정 2026-11-11 '공짜면 항상 켜'). 캐릭터가 소리 내서 말할 땐 안 들음
         from watch.ears import GameEars, Whisper
 
         w = self.watcher
         self._tts_speaking = False
-        self.ears = GameEars(active=lambda: w.sampler.active and w.mode.is_game, muted=lambda: self._tts_speaking,
+        self.ears = GameEars(active=lambda: w.enabled and self._away_since is None, muted=lambda: self._tts_speaking,
                              transcribe=Whisper(str(self.pref("ears.model", "medium")), threads=4))
         self.ears.enabled = bool(self.pref("ears.enabled", True))
         self.watcher.ears = self.ears
@@ -1409,7 +1410,7 @@ class AssistantApp(QObject):
                              meter=(self.voice.start_meter, self.voice.stop_meter),
                              hoyolab=(self.hoyolab_status, self.hoyolab_login, self.hoyolab_logout),
                              neople_set=bool(self.secrets.get("neople")),
-                             local=(lambda: f"{self.local_ai.status_text()}\n게임 소리: {self.ears.status_text()}",
+                             local=(lambda: f"{self.local_ai.status_text()}\nPC 소리 듣기: {self.ears.status_text()}",
                                     self.check_local_ai))
         if dlg.exec() == SettingsDialog.DialogCode.Accepted:
             key = dlg.neople_key.text().strip()

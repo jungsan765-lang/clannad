@@ -471,9 +471,13 @@ class ScreenWatcher(QObject):
         log.info("둘러보기 [%s]: %s", mode.name, ", ".join(f"{f.get('name')}={f['importance']}" for f in found))
 
     def _context_text(self, mode: Mode) -> str:
-        """판단·말하기에 붙이는 '보고 들은 것': 화면 정보(글자 인식·체력 막대) + 들린 대사 + 맥락 담당이 적은 흐름."""
+        """판단·말하기에 붙이는 '보고 들은 것': 화면 정보(글자 인식·체력 막대) + 들린 대사 + 맥락 담당이 적은 흐름.
+        게임이 아니면(영상·방송 등) 들린 소리만."""
         if not mode.is_game:
-            return ""
+            try:
+                return self.ears.text() if self.ears is not None else ""
+            except Exception:  # noqa: BLE001
+                return ""
         parts = []
         for source in (self.hud, self.ears, self.context):
             if source is None:
@@ -867,6 +871,9 @@ class ScreenWatcher(QObject):
         recent = self.sampler.recent(self.cfg.dense_batch + 0.6) if self.dense_active(mode) else []
         if len(recent) >= 2:  # 그 사이 움직임도 변화로 친다 (지금 화면이 처음과 같아도 중간에 일이 있었을 수 있음)
             changed = max(changed, self.sampler.motion(recent))
+        heard = self.ears.alert_at if self.ears is not None else None
+        if heard is not None and (self.last_judged is None or heard > self.last_judged):
+            changed = max(changed, self.cfg.change_threshold)  # 화면은 그대로여도 새로 들린 말이 있으면 (방송인이 말하는 중)
         due = since is None or since >= self.interval_for(mode) or (bool(recent) and self._spiked())  # 확인 간격이 지남·확 바뀜
         # 장면 전환은 큰 화면이 크게 바뀌고 멈췄을 때만 (작은 창 속 영상·채팅이 계속 바뀌는 건 확인 간격대로)
         scene = changed_main >= self.cfg.scene_change and settled and (since is None or since >= self.cfg.event_gap)
