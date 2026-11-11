@@ -62,12 +62,8 @@ class AIClient:
                     "API 키가 없어요. 환경 변수 ANTHROPIC_API_KEY 를 설정하거나 "
                     f"keyring 에 '{KEYRING_SERVICE}' / 'anthropic' 으로 저장해주세요."
                 )
-            import httpx
-
-            # 연결을 5분까지 살려 둔다 (기본 5초면 5초마다 판단할 때도 매번 새로 연결해서 조금씩 늦어짐)
-            http = anthropic.DefaultHttpxClient(limits=httpx.Limits(max_connections=50, max_keepalive_connections=10,
-                                                                     keepalive_expiry=300))
-            self._client = anthropic.Anthropic(api_key=key, timeout=self.timeout, max_retries=2, http_client=http)
+            self._client = anthropic.Anthropic(api_key=key, timeout=self.timeout, max_retries=2,
+                                               **_keepalive_client(anthropic))
         return self._client
 
     def complete_json(
@@ -193,6 +189,20 @@ class AIClient:
             log.warning("거절됨 (%s)", kind)
             text = ""
         return AIResult(None, text, served, stop, usd)
+
+
+def _keepalive_client(anthropic_module) -> dict:
+    """연결을 5분까지 살려 두는 통신 부품 (기본 5초면 판단할 때마다 새로 연결해서 조금씩 늦어짐).
+    PC 에 그 부품(httpx)이 따로 없거나 버전이 달라도 AI 호출은 꼭 되게: 못 만들면 기본 연결로."""
+    for name in ("httpx2", "httpx"):  # 새 anthropic 은 httpx2, 예전 것은 httpx
+        try:
+            mod = __import__(name)
+            limits = mod.Limits(max_connections=50, max_keepalive_connections=10, keepalive_expiry=300)
+            return {"http_client": anthropic_module.DefaultHttpxClient(limits=limits)}
+        except Exception as exc:  # noqa: BLE001 - 없거나 맞지 않음 → 다음 것
+            last = exc
+    log.info("연결 유지 부품을 못 써서 기본 연결로: %r", last)
+    return {}
 
 
 def _log_call(kind: str, response: Any, started: float) -> None:

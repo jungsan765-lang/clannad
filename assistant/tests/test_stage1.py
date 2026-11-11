@@ -284,3 +284,29 @@ def test_review_fixes_for_fact_ops(tmp_path):
     mem2.add_fact("게임", "주인님은 Valorant 를 한다.", 1)
     assert "아직 기억해 둔 것이 없음" not in mem2.notes_text()
     assert mem2.relevant_facts(["valorant"])
+
+
+def test_no_forced_metaphors_or_translationese(tmp_path):
+    from companion import RULES
+
+    assert "'이건 제 큰 얼룩입니다' ✗" in RULES and "번역투" in RULES
+
+
+def test_api_client_works_even_without_httpx(monkeypatch):
+    import builtins
+
+    import ai_client
+
+    real_import = builtins.__import__
+
+    def no_httpx(name, *args, **kwargs):
+        if name in ("httpx", "httpx2"):
+            raise ImportError(f"No module named '{name}'")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", no_httpx)
+    assert ai_client._keepalive_client(object()) == {}  # 부품이 없으면 기본 연결로 (AI 호출은 계속 됨)
+    monkeypatch.setattr(builtins, "__import__", real_import)
+    import anthropic
+
+    assert "http_client" in ai_client._keepalive_client(anthropic)
