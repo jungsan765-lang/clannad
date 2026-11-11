@@ -247,11 +247,19 @@ def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
     dlg.fast.setChecked(True)
     dlg.show_status.setChecked(False)
     dlg.sharp.group.button(2).setChecked(True)
+    assert a.watch_cfg.scan and dlg.scan.isChecked()
+    dlg.scan.setChecked(False)
+    assert dlg.tabs.count() == 7 and dlg.tabs.tabText(0) == "화면 보기"
+    dlg.line_quality.group.button(0).setChecked(True)
+    assert "Opus" in dlg.line_quality.hint.text()  # 고른 방식의 설명만 아래에 짧게
+    dlg.line_quality.group.button(1).setChecked(True)
+    assert "가장 싼 모델" in dlg.line_quality.hint.text()
     changed = dlg.changed()
-    assert {k: changed.get(k) for k in ("ai.fast", "ui.show_status", "screen.max_width")} == \
-        {"ai.fast": True, "ui.show_status": False, "screen.max_width": 2560}
+    assert {k: changed.get(k) for k in ("ai.fast", "ui.show_status", "screen.max_width", "screen.scan")} == \
+        {"ai.fast": True, "ui.show_status": False, "screen.max_width": 2560, "screen.scan": False}
     a.apply_settings(changed)
     assert a.companion.fast and not a.status.enabled and a.watch_cfg.max_width == 2560
+    assert not a.watch_cfg.scan and a.watch_cfg.line_quality == "auto"
     a.status.begin("x", "테스트")
     assert not a.status.isVisible()
     a.quit()

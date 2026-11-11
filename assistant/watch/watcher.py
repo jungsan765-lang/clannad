@@ -26,7 +26,7 @@ from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foreground_window
 
 # 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
-STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "perceive": 60.0, "line": 120.0, "analyze": 200.0,
+STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "scan": 45.0, "perceive": 60.0, "line": 120.0, "analyze": 200.0,
                 "analyze_deep": 330.0}
 
 
@@ -91,6 +91,10 @@ class WatchConfig:
     dense_interval: float = 0.5
     dense_batch: float = 5.0
     spike_gap: float = 2.0  # 화면이 확 바뀌면 5초를 기다리지 않고 바로 판단 (판단 사이 최소 간격)
+    # 둘러보기: 판단 담당이 짚은 '자세히 볼 것'(표시 뜬 인물·물건 …)을 확대 담당들이 알아보고 중요한 것만 알림
+    scan: bool = True
+    scan_gap: float = 15.0  # 둘러보기 사이 최소 간격
+    scan_model: str = "claude-haiku-5-5"  # 확대 담당·판정 담당 (조각·글만 보니 싼 모델로 충분)
 
 
 @dataclass
@@ -186,6 +190,10 @@ class ScreenWatcher(QObject):
         self._current_captions: list = []  # 이번 확인 때 새로 뜬 자막·대사 (원래 크기)
         self.layouts = None  # 게임 화면 배치 (watch.layout.Layouts, main 이 넣어 줌)
         self.layout_model = "claude-sonnet-5-5"  # 화면 배치 익히기 (게임·장면마다 한 번)
+        self.seen = None  # 둘러보기로 알아본 것 (watch.scan.SeenThings, main 이 넣어 줌)
+        self._last_scan: float | None = None
+        self._scanned: deque = deque(maxlen=30)  # (시각, 상자, 작은 그림) — 방금 본 이름 모를 것은 다시 안 봄
+        self._finds: list[tuple[float, dict]] = []  # 알릴 만하다고 판정됐는데 아직 못 알린 것 (쉬는 시간 중이었음)
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
@@ -318,6 +326,89 @@ class ScreenWatcher(QObject):
             self.tune_sampler(mode)
             log.info("화면 배치 익힘 [%s/%s]: %s", mode.name, scene,
                      ", ".join(r.get("name", "") for r in self.layouts.regions(mode.name)))
+
+    def _scan_due(self, mode: Mode, note: dict, shot) -> bool:
+        if (not self.cfg.scan or self.seen is None or not mode.is_game or note.get("scene") != "playing"
+                or not note.get("look") or shot.native is None or not hasattr(self.companion, "inspect_spot")):
+            return False
+        return self._last_scan is None or self.clock() - self._last_scan >= self.cfg.scan_gap
+
+    def _scan(self, shot, mode: Mode, note: dict, session) -> None:
+        """둘러보기: 짚은 것들을 원래 크기로 잘라 확대 담당들이 동시에 알아보고 → 판정 담당이 중요도 → 기억·알릴 것."""
+        from concurrent.futures import ThreadPoolExecutor
+
+        from .scan import box_overlap, crop_spot
+
+        self._stage("scan")
+        now = self._last_scan = self.clock()
+        while self._scanned and now - self._scanned[0][0] > 120:
+            self._scanned.popleft()
+        spots = []
+        for item in (note.get("look") or [])[:3]:
+            if not isinstance(item, dict):
+                continue
+            crop = crop_spot(shot.native, item.get("box") or [])
+            if crop is None:
+                continue
+            box = [float(v) for v in item["box"]]
+            th = cap.thumb(crop)
+            if any(box_overlap(box, b) > 0.4 and cap.change_amount(t, th) < 0.08 for _, b, t in self._scanned):
+                continue  # 2분 안에 같은 자리 같은 모습을 이미 봄
+            self._scanned.append((now, box, th))
+            spots.append((str(item.get("what", ""))[:80], cap.to_jpeg(crop, 88)))
+        if not spots:
+            return
+
+        def look(spot):
+            try:
+                return self.companion.inspect_spot(spot[1], spot[0], mode, self.cfg.scan_model)[0]
+            except Exception as exc:  # noqa: BLE001 - 하나 못 알아봐도 나머지는 계속
+                log.warning("확대 담당 실패: %r", exc)
+                return None
+
+        with ThreadPoolExecutor(max_workers=3, thread_name_prefix="scan") as pool:
+            results = list(pool.map(look, spots))
+        found, new = [], []
+        for (what, _), r in zip(spots, results):
+            if not r:
+                continue
+            r = dict(r, what=what)
+            known = self.seen.known(mode.name, r.get("name", ""))
+            if known:  # 예전에 알아본 것: 다시 판정하지 않음
+                self.seen.seen_again(mode.name, known["name"])
+                continue
+            new.append(r)
+        if not new:
+            return
+        verdict = None
+        try:
+            verdict = self.companion.weigh_spots(new, mode, self.cfg.scan_model)[0]
+        except _Abandoned:
+            raise
+        except Exception as exc:  # noqa: BLE001
+            log.warning("판정 담당 실패: %r", exc)
+        if not verdict:
+            return  # 판정을 못 했으면 기억하지 않는다 (별것 아닌 걸로 굳지 않게, 다음에 다시)
+        weights = {(v.get("name") or ""): v for v in (verdict or {}).get("items", []) if isinstance(v, dict)}
+        for r in new:
+            v = weights.get(r.get("name", "")) or {}
+            importance = max(1, min(3, int(v.get("importance", 1) or 1)))
+            if not r.get("clear"):
+                importance = min(importance, 2)  # 잘 안 보인 건 알리지 않음
+            found.append(dict(r, importance=importance, why=v.get("why", ""), say=v.get("say", "")))
+        self.seen.add(mode.name, found)
+        for f in found:
+            if f["importance"] >= 2 and session is not None:
+                session.add(now, f"알아봄: {f.get('name', '')} — {f.get('info', '')} ({f.get('why', '')})"[:300])
+            if f["importance"] >= 3 and f.get("say"):
+                self._finds.append((now, f))
+        log.info("둘러보기 [%s]: %s", mode.name, ", ".join(f"{f.get('name')}={f['importance']}" for f in found))
+
+    def _pop_finds(self) -> list[dict]:
+        now = self.clock()
+        finds = [f for t, f in self._finds if now - t <= 180]  # 3분 넘게 지난 건 이미 지나간 장면
+        self._finds = []
+        return finds[:3]
 
     def _end_session(self, now: float) -> None:
         s = self.session
@@ -691,6 +782,8 @@ class ScreenWatcher(QObject):
         learn = self._layout_due(mode, note, shot)
         if learn:  # 처음 보는 게임 화면: 조용한 순간에 UI 자리를 한 번 익힌다
             self._learn_layout(shot, mode, learn)
+        if self._scan_due(mode, note, shot):  # 짚은 것들을 하나씩 확대해 알아보기
+            self._scan(shot, mode, note, session)
         log.info("화면 판단 [%s] %s / %s → %s", mode.name, note.get("scene"), note.get("situation"),
                  "말함" if note.get("speak") or note.get("urgent") else "조용")
         calm = not (note.get("speak") or note.get("urgent") or mode.is_game) and note.get("scene") in ("other", "menu", "loading")
@@ -734,17 +827,20 @@ class ScreenWatcher(QObject):
             return self._analyze(shot, note, mode, notes, review=True)
         if scene in ("loading", "cutscene") or (mode.quiet_during_play and scene == "playing"):
             return None
+        finds = [] if self.in_cooldown(mode) else self._pop_finds()
+        if finds:  # 둘러보기에서 알릴 만한 걸 찾았으면 (판단 담당이 조용히 있으라 해도) 알려 드린다
+            note = dict(note, speak=True, point="알아본 것 알려 드리기: " + " / ".join(f.get("say", "") for f in finds))
         if self.in_cooldown(mode) or not note.get("speak"):
             return None
-        if self.cfg.analysis:
+        if self.cfg.analysis and not finds:
             return self._analyze(shot, note, mode, notes)
         if self.cfg.line_quality == "brain":
-            return self._brain_say(shot, note, mode, notes, session)
+            return self._brain_say(shot, note, mode, notes, session, finds=finds)
         model = {"auto": self.cfg.economy_line_model, "sonnet": self.cfg.mid_line_model}.get(self.cfg.line_quality,
                                                                                               self.cfg.line_model)
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes)
 
-    def _brain_say(self, shot, note, mode, notes, session, question: str | None = None):
+    def _brain_say(self, shot, note, mode, notes, session, question: str | None = None, finds: list | None = None):
         """뇌처럼 나눠 보기: 눈 담당(장면 자세히)·대사 담당(자막 받아 적기)을 동시에 돌리고, 기억·지식 담당(이 PC 안)이
         찾은 것과 함께 말하기 담당(Opus)에게 넘긴다. Opus 는 그 기록을 지금 화면과 맞춰 본 뒤 말한다 (틀리면 화면을 믿음)."""
         self._stage("perceive")
@@ -766,7 +862,7 @@ class ScreenWatcher(QObject):
             ear = pool.submit(safely, self.companion.read_captions, caps, self.cfg.economy_line_model) if caps else None
             scene = eye.result()[0]
             dialogue = ear.result()[0] if ear else None
-        brain = {"scene": scene, "dialogue": dialogue}
+        brain = {"scene": scene, "dialogue": dialogue, "found": list(finds or [])}
         if scene and scene.get("happened") and session is not None:  # 판 기록엔 자세히 본 것도 (작은 사진 판단보다 정확)
             session.add(self.clock(), "자세히 본 장면: " + " / ".join(
                 str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300])

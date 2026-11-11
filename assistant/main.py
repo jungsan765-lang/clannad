@@ -81,12 +81,13 @@ TTS_RATES = {"slow": -2, "normal": 0, "fast": 3}
 MOMENT_WORDS = re.compile(r"기억해|기억 ?해 ?둬|잊지 ?마|잊으면 안|중요한 거|중요해|메모해|적어 ?둬")
 # 화면 보기에 드는 호출 종류 (하루 화면 한도에 들어감). 주인님이 직접 부탁한 대화·분석은 한도와 상관없이 된다
 SCREEN_KINDS = ("judge", "screen", "pick", "analysis", "result_review", "official_review", "layout", "perceive",
-                "captions")
+                "captions", "spot", "weigh")
 KIND_KO = {"chat": "대화", "judge": "화면 판단", "screen": "화면 대사", "pick": "픽 조언", "analysis": "분석·복기",
            "result_review": "판 끝난 총평", "official_review": "공식 기록 총평", "memory": "기억 정리", "search": "검색",
            "progress": "진행 정리", "dates": "일정 뽑기", "diary": "일기", "recap": "하루·주간 정리",
            "mode": "게임 모드 만들기", "organize": "파일 정리", "video": "영상 복기", "recall": "기억 찾기 낱말",
-           "layout": "화면 배치 익히기", "perceive": "눈 담당 (장면 자세히)", "captions": "대사 담당 (자막 받아 적기)"}
+           "layout": "화면 배치 익히기", "perceive": "눈 담당 (장면 자세히)", "captions": "대사 담당 (자막 받아 적기)",
+           "spot": "확대 담당 (짚은 것 알아보기)", "weigh": "판정 담당 (알릴 만한지)"}
 
 
 class _TtsSignals(QObject):
@@ -190,6 +191,11 @@ class AssistantApp(QObject):
         self.watcher.layouts = companion.layouts = self.layouts
         self.watcher.layout_model = self.watch_cfg.mid_line_model
         self.watcher.tune_sampler()
+        from watch.scan import SeenThings
+
+        self.seen = SeenThings(settings.data_dir / "scan")  # 둘러보기로 알아본 것 (게임마다)
+        self.watcher.seen = companion.seen = self.seen
+        self.watch_cfg.scan = bool(self.pref("screen.scan", True))
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
         saved = self._load_state().get("prefs", {})
@@ -1144,6 +1150,7 @@ class AssistantApp(QObject):
             "screen.result_depth": "deep" if self.watch_cfg.deep_result else "quick",
             "screen.line_quality": self.watch_cfg.line_quality,
             "screen.dense": self.watch_cfg.dense,
+            "screen.scan": self.watch_cfg.scan,
             "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
@@ -1215,6 +1222,8 @@ class AssistantApp(QObject):
             self.watch_cfg.line_quality = str(changed["screen.line_quality"])
         if "screen.dense" in changed:
             self.watch_cfg.dense = str(changed["screen.dense"])
+        if "screen.scan" in changed:
+            self.watch_cfg.scan = bool(changed["screen.scan"])
         if "screen.limit_stop" in changed:
             self._update_pause_status()
         if "screen.daily_krw" in changed:

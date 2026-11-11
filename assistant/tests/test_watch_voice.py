@@ -1228,3 +1228,87 @@ def test_opus_gets_helper_notes_and_checks_against_the_screen(tmp_path):
 
     img = next(b for b in call["messages"][-1]["content"] if b.get("type") == "image")
     assert Image.open(io.BytesIO(base64.b64decode(img["source"]["data"]))).width == 1920  # 최종 확인은 원본 화면으로
+
+
+def test_scan_zooms_into_marked_things_and_tells_only_good_ones(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+    from watch.scan import SeenThings
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    look = [{"what": "머리 위 느낌표가 뜬 상인", "box": [0.40, 0.30, 0.48, 0.60]},
+            {"what": "평범한 경비병", "box": [0.60, 0.30, 0.66, 0.60]},
+            {"what": "화면 전체", "box": [0, 0, 1, 1]}]  # 잘못 짚은 것은 버림
+    quiet = {"speak": False, "urgent": False, "scene": "playing", "situation": "마을", "point": "", "read_box": [],
+             "look": look}
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 11) for i in range(20)], modes=[game],
+                                   notes=[dict(quiet), dict(quiet), dict(quiet, look=[])],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    w.seen = SeenThings(tmp_path / "scan")
+    inspected, weighed = [], []
+
+    def inspect_spot(jpeg, what, mode, model):
+        inspected.append((what, model, Image.open(__import__("io").BytesIO(jpeg)).size))
+        if "상인" in what:
+            return {"kind": "npc", "name": "떠돌이 상인 로안", "info": "머리 위 느낌표, 퀘스트: 잃어버린 짐", "clear": True}, 0.0
+        return {"kind": "npc", "name": "경비병", "info": "표시 없음", "clear": True}, 0.0
+
+    def weigh_spots(found, mode, model):
+        weighed.append([f["name"] for f in found])
+        return {"items": [{"name": "떠돌이 상인 로안", "importance": 3, "why": "보상으로 희귀 말 안장",
+                           "say": "로안 퀘스트 보상이 희귀 말 안장이다"},
+                          {"name": "경비병", "importance": 1, "why": "평범", "say": ""}]}, 0.0
+
+    comp.inspect_spot, comp.weigh_spots = inspect_spot, weigh_spots
+    w.update_mode()
+    w.tick()
+    assert [x[0] for x in inspected] == ["머리 위 느낌표가 뜬 상인", "평범한 경비병"]  # 상자 하나는 버림
+    assert all(m == "claude-haiku-5-5" for _, m, _ in inspected) and max(inspected[0][2]) >= 400  # 작은 조각은 키워서
+    assert weighed == [["떠돌이 상인 로안", "경비병"]]
+    assert said == ["경로에 얼룩이 하나 있네요."]  # 판단 담당은 조용히였지만 좋은 걸 찾아서 알림
+    assert "알아본 것 알려 드리기: 로안 퀘스트 보상이 희귀 말 안장이다" in comp.lines[-1]["note"]["point"]
+    assert any("알아봄: 떠돌이 상인 로안" in n for n in w.session.notes)
+    assert not any("경비병" in n for n in w.session.notes)  # 별것 아닌 건 판 기록에도 안 남김
+    assert [x["name"] for x in w.seen.items("붉은사막")] == ["떠돌이 상인 로안", "경비병"]
+    t["now"] = 30  # 같은 자리를 또 짚어도 (2분 안) 다시 안 봄
+    w.tick()
+    assert len(inspected) == 2 and len(said) == 1
+    w._scanned.clear()
+    t["now"] = 200  # 2분이 지나 다시 봐도, 이름으로 아는 것은 판정하지 않음
+    comp.notes = [dict(quiet)]
+    w.tick()
+    assert len(inspected) == 4 and weighed == [["떠돌이 상인 로안", "경비병"]]
+    assert "떠돌이 상인 로안(인물, 알려 드림)" in w.seen.brief("붉은사막")
+    comp.weigh_spots = lambda *a: (None, 0.0)  # 판정 담당이 실패하면
+    comp.inspect_spot = lambda *a: ({"kind": "item", "name": "빛나는 상자", "info": "금색", "clear": True}, 0.0)
+    w._scanned.clear()
+    t["now"] = 400
+    comp.notes = [dict(quiet)]
+    w.tick()
+    assert w.seen.known("붉은사막", "빛나는 상자") is None  # 별것 아닌 걸로 굳히지 않고 다음에 다시
+    w.seen.add("붉은사막", [{"name": "이름 모름", "kind": "npc", "importance": 1}])
+    assert all(x["name"] != "이름 모름" for x in w.seen.items("붉은사막"))
+
+
+def test_inspect_and_weigh_use_cheap_model_with_knowledge(tmp_path):
+    from watch import capture as cap
+    from watch.modes import Mode as _Mode
+
+    fake = FakeAnthropic([
+        {"kind": "npc", "name": "로안", "info": "머리 위 느낌표", "clear": True},
+        {"items": [{"name": "로안", "importance": 3, "why": "보상 좋음", "say": "로안 보상 좋음"}]},
+    ])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    game = _Mode("붉은사막", knowledge="x", is_game=True)
+    piece = cap.to_jpeg(Image.new("RGB", (400, 400), (90, 80, 70)), 85)
+    spot, _ = comp.inspect_spot(piece, "느낌표 뜬 상인", game, "claude-haiku-5-5")
+    call = fake.calls[-1]
+    assert spot["name"] == "로안" and call["model"] == "claude-haiku-5-5" and "확대 담당" in call["system"][0]["text"]
+    assert "짚은 이유: 느낌표 뜬 상인" in call["messages"][-1]["content"][-1]["text"]
+    verdict, _ = comp.weigh_spots([dict(spot, what="느낌표 뜬 상인")], game, "claude-haiku-5-5")
+    call = fake.calls[-1]
+    assert verdict["items"][0]["importance"] == 3 and "판정 담당" in call["system"][0]["text"]
+    assert "로안 (npc, 잘 보임): 머리 위 느낌표" in call["messages"][-1]["content"]
+    assert comp.weigh_spots([], game, "claude-haiku-5-5") == (None, 0.0)
+    text = Companion.brain_text({"found": [{"name": "로안", "info": "느낌표", "say": "보상 좋음"}]})
+    assert "둘러보기 담당(확대해서 알아본 것, 알릴 만하다고 판정): 로안: 느낌표 → 보상 좋음" in text

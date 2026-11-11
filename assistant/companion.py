@@ -53,8 +53,17 @@ JUDGE_SCHEMA = {
         "situation": {"type": "string"},
         "point": {"type": "string"},
         "read_box": {"type": "array", "items": {"type": "number"}},
+        "look": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {"what": {"type": "string"}, "box": {"type": "array", "items": {"type": "number"}}},
+                "required": ["what", "box"],
+                "additionalProperties": False,
+            },
+        },
     },
-    "required": ["speak", "urgent", "scene", "situation", "point", "read_box"],
+    "required": ["speak", "urgent", "scene", "situation", "point", "read_box", "look"],
     "additionalProperties": False,
 }
 
@@ -88,6 +97,9 @@ JUDGE_RULES = """너는 바탕화면 캐릭터의 '말 걸지 판단' 담당이�
   UI 가 바뀐 것(체력 막대가 확 줆, 처치·획득 알림)은 방금 일어난 일의 근거로 쓴다.
 - read_box: 말할 거리가 화면 속 작은 글씨(대사·자막·퀘스트 설명·채팅·아이템 설명 등)에 있는데 이 크기로는 읽기 어려우면,
   그 부분 위치를 [왼쪽, 위, 오른쪽, 아래] 로 적는다 (화면 전체를 0~1 로 본 비율, 예: [0.05, 0.7, 0.6, 0.95]). 아니면 빈 배열.
+- look: 게임 화면에 '확대해서 알아볼 만한 것'이 있으면 최대 3개 — 머리 위에 표시(느낌표·물음표·퀘스트·상점 표시)가 뜬 인물,
+  이름표가 보이는 인물, 빛나거나 표시된 물건·상자, 처음 보는 알림·간판·특별한 적. what 은 짧게(예: '머리 위 느낌표가 뜬 상인'),
+  box 는 read_box 와 같은 비율 상자(그것만 넉넉히). 평범한 행인·풍경·늘 있는 UI·'이미 알아본 것'에 있는 것은 넣지 않는다. 없으면 빈 배열.
 - 메신저(카카오톡 등) 대화가 보이면 흐름만 파악한다. 약속·일정, 주인님이 고민·질문하는 것, 도움이 될 정보가 있을 때만 speak=true.
   가벼운 수다나 남의 사적인 이야기에는 끼어들지 않는다."""
 
@@ -300,6 +312,55 @@ SCENE_TASK = """# 할 일: 눈 담당 — 장면 자세히 보기
   컷신·대화면 자막·대사로 무슨 이야기인지 파악해 적는다 (움직임만 보고 싸움이라 단정하지 않는다).
 - unsure: 작거나 가려져서 확실하지 않은 것. 짐작한 것은 여기에만 적는다 (없으면 빈 문자열).
 한국어로 짧고 구체적으로. 보이지 않는 것은 지어내지 않는다."""
+
+SPOT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "kind": {"type": "string", "enum": ["npc", "quest", "item", "enemy", "sign", "notice", "other"]},
+        "name": {"type": "string"},
+        "info": {"type": "string"},
+        "clear": {"type": "boolean"},
+    },
+    "required": ["kind", "name", "info", "clear"],
+    "additionalProperties": False,
+}
+
+SPOT_TASK = """# 할 일: 확대 담당 — 짚은 것 하나 알아보기
+사진은 게임 화면의 한 부분을 원래 크기로 잘라 키운 것이다. 판단 담당이 짚은 이유가 함께 온다.
+- kind: npc(인물) · quest(퀘스트 표시·안내) · item(물건·상자·채집물) · enemy(적) · sign(간판·글) · notice(알림) · other.
+- name: 이름표·글로 보이는 이름 그대로. 안 보이면 '이름 모름'.
+- info: 보이는 표시와 글을 그대로 (머리 위 느낌표·물음표, 퀘스트 이름, 보상, 가격, 레벨, 등급 색 등). 짐작은 쓰지 않는다.
+- clear: 잘 보였으면 true, 흐리거나 가려져서 확실하지 않으면 false."""
+
+WEIGH_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "items": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "importance": {"type": "integer"},
+                    "why": {"type": "string"},
+                    "say": {"type": "string"},
+                },
+                "required": ["name", "importance", "why", "say"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["items"],
+    "additionalProperties": False,
+}
+
+WEIGH_TASK = """# 할 일: 판정 담당 — 알아본 것이 주인님께 알릴 만한지
+확대 담당이 화면에서 알아본 것마다 중요도를 매긴다. 근거는 보인 정보와 아래 게임 지식·주인님이 챙겨 달라고 한 것뿐.
+- importance 3: 놓치면 아까운 것 — 보상이 좋은 퀘스트·의뢰, 희귀·높은 등급 물건, 기간 한정, 주인님이 챙겨 달라고 한 것, 위험한 적.
+  2: 지금 알릴 정도는 아니지만 나중에 물으면 답할 만한 것. 1: 평범한 인물·흔한 물건·장식.
+- 지식에 없고 화면에도 보상 같은 근거가 없으면 2 이하. 확실하지 않은 것(clear=false)은 2 이하.
+- why: 그렇게 본 이유 한 줄. say: 3일 때만 알려 줄 내용 한 문장 (사실만, 말투 없이). 아니면 빈 문자열.
+- 스포일러(주인님 진행보다 뒤 이야기, '(스포일러)' 표시 내용)는 say 에 넣지 않는다."""
 
 TRANSCRIPT_SCHEMA = {
     "type": "object",
@@ -654,6 +715,7 @@ class Companion:
         self.extra_context = None  # 모드에 따라 화면 대사에 덧붙일 정보 (예: 원신 계정 정보). mode → 글
         self.recaller = None  # 화면 상황 글 → 이어지는 예전 일 (main 이 넣어 줌)
         self.layouts = None  # 게임 화면 배치 (watch.layout.Layouts, main 이 넣어 줌)
+        self.seen = None  # 둘러보기로 알아본 것 (watch.scan.SeenThings, main 이 넣어 줌)
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -978,6 +1040,42 @@ class Companion:
                                   timeout=25)
         return r.data, r.usd
 
+    def inspect_spot(self, jpeg: bytes, what: str, mode, model: str) -> tuple[dict | None, float]:
+        """확대 담당: 짚은 곳 하나를 원래 크기 조각으로 알아본다 (싼 모델, 조각이 작아 한 번에 1원도 안 됨)."""
+        content = [self._image_block(jpeg),
+                   {"type": "text", "text": f"게임: {getattr(mode, 'name', '') or '?'}\n짚은 이유: {what}\n이게 무엇인지 적어 줘."}]
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": SPOT_TASK}],
+                                  messages=[{"role": "user", "content": content}], schema=SPOT_SCHEMA, kind="spot",
+                                  max_tokens=300, effort="low", thinking_off=model.startswith("claude-haiku"), timeout=20)
+        data = r.data
+        if data and self.memory.terms:
+            data = dict(data, name=self.memory.fix_words(str(data.get("name", ""))),
+                        info=self.memory.fix_words(str(data.get("info", ""))))
+        return data, r.usd
+
+    def weigh_spots(self, found: list[dict], mode, model: str) -> tuple[dict | None, float]:
+        """판정 담당: 알아본 것들 + 이 PC 의 게임 지식 + 챙겨 볼 것 → 중요도 (글만 보내 싸다)."""
+        if not found:
+            return None, 0.0
+        words = " ".join(f"{f.get('name', '')} {f.get('info', '')}" for f in found)
+        lines = [f"게임: {getattr(mode, 'name', '') or '?'}", "알아본 것:"]
+        lines += [f"- {f.get('name', '')} ({f.get('kind', '')}, {'잘 보임' if f.get('clear') else '확실하지 않음'}): "
+                  f"{f.get('info', '')} [짚은 이유: {f.get('what', '')}]" for f in found]
+        notes = self.lorebook.notes_for(f"{getattr(mode, 'name', '')} {words}", 3000, 4)
+        if notes:
+            lines.append(notes)
+        rules = self.rules_text(mode)
+        if rules:
+            lines.append(rules.strip())
+        extra = self.extra_context(mode) if self.extra_context else ""
+        if extra:
+            lines.append(extra)
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": WEIGH_TASK}],
+                                  messages=[{"role": "user", "content": "\n".join(lines)}], schema=WEIGH_SCHEMA,
+                                  kind="weigh", max_tokens=600, effort="low", thinking_off=model.startswith("claude-haiku"),
+                                  timeout=20)
+        return r.data, r.usd
+
     @staticmethod
     def brain_text(brain: dict) -> str:
         """여러 담당이 먼저 본 것을 말하기 담당(Opus)에게 넘기는 글."""
@@ -992,6 +1090,10 @@ class Companion:
         if dialogue.get("lines") or dialogue.get("summary"):
             said = " / ".join(str(x) for x in dialogue.get("lines", [])[:8])
             parts.append("- 대사 담당(자막): " + said + (f" → {dialogue['summary']}" if dialogue.get("summary") else ""))
+        found = brain.get("found") or []
+        if found:
+            parts.append("- 둘러보기 담당(확대해서 알아본 것, 알릴 만하다고 판정): " + " / ".join(
+                f"{f.get('name', '')}: {f.get('info', '')} → {f.get('say') or f.get('why', '')}" for f in found))
         judge = brain.get("judge") or {}
         if judge.get("situation"):
             parts.append(f"- 판단 담당(작은 사진으로 대충 본 것): {judge.get('situation', '')} / {judge.get('point', '')}")
@@ -1052,12 +1154,16 @@ class Companion:
                 "최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)")]
         if session_notes:
             info.append("이번 판(세션) 기록: " + " / ".join(session_notes[-8:]))
+        if self.seen is not None and getattr(mode, "is_game", False):
+            known = self.seen.brief(mode.name)
+            if known:
+                info.append(known)
         main_img = _shrink_jpeg(jpeg, 1280) if history else jpeg  # 흐름 모음이 있으면 지금 화면은 조금 작게
         content = self._history_blocks(history) + [self._image_block(main_img)] + self._focus_blocks(focus, focus_label) \
             + self._caption_blocks(captions) + [{"type": "text", "text": "\n".join(info)}]
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                   messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
-                                  kind="judge", max_tokens=400, effort="low", thinking_off=True, timeout=20)
+                                  kind="judge", max_tokens=500, effort="low", thinking_off=True, timeout=20)
         data = r.data
         if data and self.memory.terms:  # 이번 판 기록에 틀린 말이 남지 않게
             for key in ("situation", "point"):
