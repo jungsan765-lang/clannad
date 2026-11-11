@@ -112,3 +112,56 @@ def test_menu_switches_character_by_saving_and_restarting(tmp_path):
     assert b.char_key == "sandrone" and b.char_name == "산드로네" and b.companion.memory.self_category == "산드로네 자신"
     assert b.diary_dir.name == "diary_sandrone" and b.pref("character.since.sandrone")  # 일기는 처음 나온 날부터
     b.quit()
+
+
+def test_screen_lines_rotate_reaction_angles_from_the_persona(tmp_path):
+    from ai_client import AIClient
+    from companion import DEFAULT_ANGLES, Companion, persona_angles
+    from fake_anthropic import FakeAnthropic
+    from usage import UsageLedger
+
+    persona = ("# 산드로네\n## 4. 말투\n- 반말\n## 9. 반응의 결 (돌아가며)\n"
+               "- 자랑: 네 솜씨를 자랑한다\n- 투덜: 짧게 투덜거린다\n- **놀리기**: 너를 놀린다\n")
+    assert [a for a, _ in persona_angles(persona)] == ["자랑", "투덜", "놀리기"]
+    assert persona_angles("# 다니카\n## 4. 말투\n- 존댓말\n") is DEFAULT_ANGLES  # 절이 없으면 기본
+    line = {"speak": True, "message": "흥, 그 정도는 나도 하지.", "emotion": "normal"}
+    fake = FakeAnthropic([dict(line) for _ in range(6)])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), persona,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    picked = []
+    for _ in range(5):
+        comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로 그리기", "point": ""})
+        sent = json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+        picked.append(next(a for a in ("자랑", "투덜", "놀리기") if f"이번 한마디의 결(제안): {a}" in sent))
+    assert all(picked[i] != picked[i + 1] for i in range(4))  # 연달아 같은 결은 안 나옴
+    assert all(len(set(picked[i:i + 3])) == 3 for i in range(3))  # 최근 두 번과도 다름
+    comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로", "point": ""}, question="저거 뭐야?")
+    assert "이번 한마디의 결" not in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)  # 물어본 답엔 안 붙음
+
+
+def test_screen_line_writes_three_drafts_then_picks_one(tmp_path):
+    from ai_client import AIClient
+    from companion import DRAFT_SCHEMA, REPLY_SCHEMA, Companion, partial_message
+    from fake_anthropic import FakeAnthropic
+    from usage import UsageLedger
+
+    assert list(DRAFT_SCHEMA["properties"])[0] == "drafts"  # 후보를 다 쓴 뒤에 고른 말이 나온다
+    assert "drafts" not in REPLY_SCHEMA["properties"]  # 대화 답에는 후보가 없다
+    pick = {"drafts": ["이 정도 손글씨면 나도 눈 감고 쓰지.", "하, 몇 분째야.", "너 군침 흘리지?"],
+            "speak": True, "message": "이 정도 손글씨면 나도 눈 감고 쓰지.", "emotion": "normal"}
+    fake = FakeAnthropic([dict(pick), dict(pick), dict(pick)])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), "# 산드로네",
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    r = comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로", "point": ""})
+    call = fake.calls[-1]
+    assert r.message == "이 정도 손글씨면 나도 눈 감고 쓰지."
+    assert "drafts" in call["output_config"]["format"]["schema"]["properties"]
+    assert "drafts 에 서로 다른 결의 짧은 후보 3개" in json.dumps(call["messages"][-1], ensure_ascii=False)
+    comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로", "point": ""}, question="저거 뭐야?")
+    assert "drafts" not in fake.calls[-1]["output_config"]["format"]["schema"]["properties"]  # 물어본 답은 바로
+    comp.drafts = False  # 설정에서 끄면 바로
+    comp.screen_line(b"jpeg", "방송", {"situation": "빼빼로", "point": ""})
+    assert "drafts" not in fake.calls[-1]["output_config"]["format"]["schema"]["properties"]
+    # 실시간 표시는 후보가 아니라 고른 말부터
+    assert partial_message('{"drafts":["하, 몇 분째야."],"speak":true,"message":"이 정도 손') == "이 정도 손"
+    assert partial_message('{"drafts":["하, 몇 분') is None

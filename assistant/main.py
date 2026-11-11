@@ -266,6 +266,7 @@ class AssistantApp(QObject):
             self.set_pref("screen.fast_off_done", True)
         self.watch_cfg.fast_opus = bool(self.pref("screen.fast_opus", False))
         self.companion.quick_lines = bool(self.pref("screen.sonnet_quick", False))  # 평소 한마디(Sonnet)를 생각 없이 바로 (기본 끔)
+        self.companion.drafts = bool(self.pref("screen.drafts", True))  # 화면 한마디: 후보 3개 중 성격에 맞는 걸 골라서
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
@@ -1358,6 +1359,7 @@ class AssistantApp(QObject):
             "screen.moment_face": bool(self.pref("screen.moment_face", True)),
             "screen.fast_opus": self.watch_cfg.fast_opus,
             "screen.sonnet_quick": self.companion.quick_lines,
+            "screen.drafts": self.companion.drafts,
             "local.enabled": self.local_ai.enabled,
             "local.cpu": self.local_ai.cpu,
             "local.model": self.local_ai.model,
@@ -1448,6 +1450,8 @@ class AssistantApp(QObject):
                 setattr(self.watch_cfg, attr, bool(changed[key]))
         if "screen.sonnet_quick" in changed:
             self.companion.quick_lines = bool(changed["screen.sonnet_quick"])
+        if "screen.drafts" in changed:
+            self.companion.drafts = bool(changed["screen.drafts"])
         if "ears.enabled" in changed:
             self.ears.enabled = bool(changed["ears.enabled"])
         if "local.paddle_ocr" in changed:

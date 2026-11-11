@@ -213,6 +213,9 @@ class SettingsDialog(QDialog):
         self.sonnet_quick = check("평소 한마디는 생각 없이 바로 (빨라지지만 잘못 볼 수 있음)", "screen.sonnet_quick", False,
                                   "켜면 평소 한마디(Sonnet)를 생각 없이 바로 써서 첫 글자가 빨라져요. 대신 화면에 없는 걸 "
                                   "있다고 말하는 일이 생겼어요. 물어볼 때(Opus)는 늘 생각해요.")
+        self.drafts = check("한마디 전에 후보 3개 중 성격에 맞는 걸 고르기 (조금 늦어짐)", "screen.drafts", True,
+                            "화면 보고 먼저 거는 한마디를 서로 다른 결(자랑·투덜·놀리기 …)로 세 개 떠올린 뒤 캐릭터에 가장 맞는 걸 골라요. "
+                            "말이 한결같지 않게 돼요. 첫 글자가 1초쯤 늦어질 수 있어요.")
         self.scan = check("둘러보기", "screen.scan", True,
                           "표시가 뜬 인물·이름표·빛나는 물건을 하나씩 확대해 알아보고, 보상이 좋은 것처럼 중요한 것만 알려요.")
         scan_hint = _hint("표시 뜬 인물·물건을 확대해 알아보고 중요한 것만 알려요. 하나에 1원도 안 들어요. 알아본 건 기억해 둬요.")
@@ -232,7 +235,7 @@ class SettingsDialog(QDialog):
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         screen = page(group("말 걸기", [("", self.screen_on), ("말 거는 정도", self.chatty),
                                         ("말하는 방식", self.line_quality), ("눈 담당", self.eye), ("", self.rush),
-                                        ("", self.moment_face), ("", self.fast_opus), ("", self.sonnet_quick),
+                                        ("", self.moment_face), ("", self.fast_opus), ("", self.sonnet_quick), ("", self.drafts),
                                         ("", self.scan), ("", scan_hint)]),
                       group("보는 방법", [("촘촘히 보기", self.dense), ("볼 모니터", self.monitor),
                                           ("선명도 (글자 읽기)", self.sharp), ("확인 간격", self.interval),
@@ -458,6 +461,7 @@ class SettingsDialog(QDialog):
             "screen.moment_face": self.moment_face.isChecked(),
             "screen.fast_opus": self.fast_opus.isChecked(),
             "screen.sonnet_quick": self.sonnet_quick.isChecked(),
+            "screen.drafts": self.drafts.isChecked(),
             "local.enabled": self.local_on.isChecked(),
             "local.cpu": self.local_cpu.value(),
             "local.model": self.local_model.text().strip() or "gemma3:4b",

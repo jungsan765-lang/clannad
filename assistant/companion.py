@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import logging
+import random
 import re
+from collections import deque
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -41,6 +43,17 @@ REPLY_SCHEMA = {
     "required": ["speak", "message", "emotion", "action", "target", "important", "remember"],
     "additionalProperties": False,
 }
+
+# 화면 한마디 '후보 거르기': 서로 다른 결의 짧은 후보를 먼저 쓰고(drafts), 그중 성격에 가장 맞는 걸 골라 message 에.
+# drafts 를 맨 앞에 둬서 후보를 다 쓴 뒤에 message 가 나온다 (첫 글자가 조금 늦어지는 대신 고른 말이 나감)
+DRAFT_SCHEMA = {
+    **REPLY_SCHEMA,
+    "properties": {"drafts": {"type": "array", "items": {"type": "string"}}, **REPLY_SCHEMA["properties"]},
+    "required": ["drafts", *REPLY_SCHEMA["required"]],
+}
+DRAFT_TASK = ("[먼저 drafts 에 서로 다른 결의 짧은 후보 3개(각 40자 안쪽)를 쓴다 — 하나는 위에 제안된 결, 나머지 둘은 성격 파일의 "
+              "'반응의 결'(없으면 감탄·내 얘기·취향·장난·의견·질문·공감)에서 다른 것. 그다음 셋 중 성격(말투·태도·자존심·취향)에 "
+              "가장 잘 맞고 '최근에 먼저 한 말'과 꼴이 안 겹치는 것을 하나 골라 다듬어 message 에 쓴다. 셋 다 별로면 speak 는 false]")
 
 SCENES = ["playing", "result", "pick", "menu", "loading", "cutscene", "other"]
 
@@ -164,6 +177,9 @@ SCREEN_TASK = """[화면 보고 말 걸기 — 옆에서 같이 보는 말동무
 - 네 말은 장면보다 늦게 나간다(아래 '이 장면은 약 N초 전'). 체력·쿨타임·위치처럼 몇 초 만에 바뀌는 지금 상태를 전제로 한
   경고·지시('체력 얼마 안 남았어요, 조심하세요')는 하지 않는다 — 이미 지나 있다. 지나간 일로 말한다('방금 그거 아슬아슬했다'는 식으로, 네 말투로).
 - 한 문장, 길어도 두 문장. 말투는 성격 파일 그대로 캐릭터답게, 분위기는 채팅처럼 가볍고 솔직하게. 같은 말버릇·감탄을 반복하지 않는다.
+- 화면 묘사로 말을 시작하지 않는다('화면엔 이제 ~가 남았네', '~가 또 열렸네' ✗). 반응·생각부터. 화면은 계기일 뿐 말의 중심은 너(캐릭터)다.
+- 방송·영상을 볼 때 채팅창 반응은 가끔만 짚는다. 매번 '채팅은 ~' 하고 요약하지 않는다.
+- '최근에 먼저 한 말'과 문장 꼴·시작·끝맺음까지 겹치지 않게 한다 (같은 꼴이 두 번 이어졌으면 이번엔 확 다르게).
 - 최근에 한 말과 비슷하면 speak 는 false. 성격 파일의 '꼭 필요할 때만'보다 이 지시가 우선한다.
 - 확실히 보이지 않는 건 추측하지 않는다. 인물·동료·탈것·물건은 지금 사진에 실제로 보일 때만 '있다·떠 있다·서 있다'고 말한다.
   늘 따라다니는 동료라도 화면에 안 보이면 없는 것이다. 배경지식·기억으로 아는 것을 지금 화면에 있는 것처럼 말하지 않는다.
@@ -625,6 +641,31 @@ def mostly_korean(text: str) -> bool:
     return hangul > 0 and hangul / (hangul + latin) >= 0.4
 
 
+# 화면 보고 먼저 거는 한마디의 '결' — 매번 같은 꼴(화면 묘사 + 채팅 요약)이 되지 않게 돌아가며 제안한다.
+# 성격 파일에 '## … 반응의 결' 절(- 이름: 설명)이 있으면 그걸 쓴다.
+DEFAULT_ANGLES = [
+    ("감탄", "화면의 한 장면에 솔직하게 놀라거나 감탄한다"),
+    ("내 얘기", "화면을 보고 떠오른 네 경험·기억·일상 이야기를 한다"),
+    ("취향", "좋다·싫다를 분명하게, 네 취향대로 말한다"),
+    ("장난", "주인님을 가볍게 놀리거나 장난을 건다"),
+    ("의견", "보고 있는 것에 대한 네 생각·평가를 분명하게 말한다"),
+    ("질문", "주인님에게 가볍게 툭 묻는다 (대답 안 해도 되는 것)"),
+    ("공감", "주인님 기분·상황에 공감하는 한마디"),
+]
+
+
+def persona_angles(persona: str | None) -> list[tuple[str, str]]:
+    """성격 파일의 '반응의 결' 절 (- 이름: 설명). 없으면 기본."""
+    for block in re.split(r"(?m)^## ", persona or "")[1:]:
+        title, _, body = block.partition("\n")
+        if "반응의 결" in title:
+            found = [(m.group(1).strip(), m.group(2).strip())
+                     for m in re.finditer(r"(?m)^-\s*\**([^:：*\n]{1,12}?)\**\s*[:：]\s*(.+)$", body)]
+            if found:
+                return found
+    return DEFAULT_ANGLES
+
+
 def style_reminder(persona: str, max_chars: int = 2000) -> str:
     """성격 파일에서 말투·최우선 규칙 부분만 짧게 (제목에 '말투'·'최우선'·'호칭'·'말버릇'이 들어간 '## ' 절)."""
     if not persona:
@@ -741,6 +782,9 @@ class Companion:
         # 평소 화면 한마디(Sonnet)를 생각 없이 바로 (첫 글자가 빨라짐). 써 봤더니 화면에 없는 동료를 '떠 있다'고 말해서
         # 기본은 끔 (주인님과 정한 대로 문제 생겨서 되돌림). 설정 '평소 한마디는 생각 없이 바로'로 켤 수 있다
         self.quick_lines = False
+        self._angles_recent: deque[str] = deque(maxlen=2)  # 최근에 제안한 반응의 결 (연달아 같은 결이 안 나오게)
+        self.drafts = True  # 화면 한마디: 후보 3개 중 성격에 맞는 걸 골라서 (설정 '후보 중 고르기')
+        self._rng = random.Random()
         self.can_search = True  # 모르는 건 인터넷에서 찾아보기 (설정 창)
         self.user_names: list[str] = []  # 주인님 아이디·닉네임 (설정 창, 내 PC 에만 저장)
         self.lorebook = LoreBook()  # 필요할 때 꺼내 보는 배경지식 사전
@@ -1160,6 +1204,14 @@ class Companion:
                                   timeout=20)
         return r.data, r.usd
 
+    def pick_angle(self) -> tuple[str, str]:
+        """이번 화면 한마디의 결 (최근 두 번과 다른 것 중 하나)."""
+        angles = persona_angles(self.persona)
+        options = [a for a in angles if a[0] not in self._angles_recent] or angles
+        angle = self._rng.choice(options)
+        self._angles_recent.append(angle[0])
+        return angle
+
     @property
     def name(self) -> str:
         """지금 캐릭터 이름 (다니카·산드로네)."""
@@ -1313,6 +1365,12 @@ class Companion:
                          scene.get("me", ""), scene.get("others", ""), scene.get("place", ""), scene.get("happened", ""),
                          " ".join(heard.get("lines", [])[:8])] + list(session_notes or [])[-5:])
         routine = not (pick or review or question or (note and note.get("urgent")))
+        if routine:  # 매번 같은 꼴이 되지 않게 이번 한마디의 결을 돌아가며 제안 (캐릭터 성격 파일의 '반응의 결')
+            angle, how = self.pick_angle()
+            lines.append(f"[이번 한마디의 결(제안): {angle} — {how}. 화면과 영 안 맞으면 다른 결로 해도 되지만, "
+                         "최근에 한 말들과 같은 꼴(화면 묘사 + 채팅 반응 요약)은 피한다. 화면에 보이는 걸 설명하는 말로 시작하지 않는다]")
+            if self.drafts:
+                lines.append(DRAFT_TASK)
         # 픽 화면: 보이는 캐릭터 8명 + 조합 원칙까지 꺼내 본다. 평범한 반응 한마디엔 짧게만
         notes = (self.lorebook.notes_for(seen, 9000, 10) if pick
                  else self.lorebook.notes_for(seen, 3000, 4) if routine and brain  # 지식 담당: 나눠 볼 땐 조금 더
@@ -1354,10 +1412,14 @@ class Companion:
             system = system + [{"type": "text", "text": stable, "cache_control": {"type": "ephemeral", "ttl": "1h"}}]
         use = model or self.chat_model
         quick = self.quick_lines and routine and use.startswith("claude-sonnet-5-5")
+        schema = DRAFT_SCHEMA if routine and self.drafts else REPLY_SCHEMA
         r = self.ai.complete_json(model=use, system=system, messages=messages,
-                                  schema=REPLY_SCHEMA, kind="pick" if pick else "screen", max_tokens=self.max_tokens,
+                                  schema=schema, kind="pick" if pick else "screen", max_tokens=self.max_tokens,
                                   effort=effort, fast=fast, thinking_off=quick, on_text=stream_cb if on_partial else None)
         data = r.data
+        if data and data.get("drafts"):  # 어떤 후보 중에서 골랐는지 기록 (말투 다듬을 때 보려고)
+            log.info("한마디 후보: %s → %r", " / ".join(str(d) for d in data["drafts"][:4]),
+                     str(data.get("message", ""))[:80] if data.get("speak") else "(말 안 함)")
         if (routine and data and data.get("speak") and narrates_screen(str(data.get("message", "")))
                 and not shown["last"]):  # 이미 말풍선에 쓰기 시작했으면 끝까지 (중간에 사라지면 더 이상함)
             log.info("화면 글자를 읽어 주기만 하는 말이라 안 함: %r", data["message"][:80])
