@@ -371,7 +371,8 @@ class SettingsDialog(QDialog):
                                 "처음 쓸 때 뒤에서 설치해요 (약 80MB, 메모리 약 200MB).")
         self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "half")))
         self.local_model = QLineEdit(str(v.get("local.model", "gemma3:4b")))
-        self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨).")
+        self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨, 추천). "
+                                    "gemma3:12b 같은 큰 모델은 메모리를 9GB 넘게 써서 게임과 같이 돌리면 빠듯해요.")
         self.local_context_model = QLineEdit(str(v.get("local.context_model", "")))
         self.local_context_model.setPlaceholderText("비우면 위 모델을 같이 써요 (메모리 절약, 추천)")
         self.local_context_model.setToolTip("맥락 담당만 따로 쓸 모델. 더 큰 모델(gemma3:12b)은 더 정확하지만 메모리를 9GB 넘게 써서 "

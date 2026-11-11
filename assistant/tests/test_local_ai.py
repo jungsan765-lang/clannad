@@ -267,3 +267,35 @@ def test_memory_is_kept_light_for_the_game():
     assert ai.chat_json("규칙", "또", {"type": "object"}) == {"ok": 2}
     t["now"] = 60 + 10 * 60  # 10분 지나 내려갔으면 다시 따짐
     assert ai.chat_json("규칙", "또", {"type": "object"}) is None
+
+
+def test_tight_memory_unloads_loaded_models_and_rests():
+    t = {"now": 0.0}
+    mem = {"pct": 97.0}
+
+    class SizedOllama(FakeOllama):
+        def __call__(self, method, path, body=None, timeout=5.0, stream=False):
+            if path == "/api/ps":
+                self.calls.append((method, path, body))
+                sizes = {"gemma3:12b": 9.1e9, "gemma3:4b": 4.2e9, "bge-m3": 1.2e9}
+                return {"models": [{"name": m, "size": sizes.get(m, 0)} for m in getattr(self, "loaded", [])]}
+            return super().__call__(method, path, body, timeout, stream)
+
+    fake = SizedOllama(replies=[{"ok": 1}])
+    ai = LocalAI(model="gemma3:12b", http=fake, clock=lambda: t["now"])  # 큰 모델을 눈 담당으로 골라 둔 경우
+    ai.memory_percent = lambda: mem["pct"]
+    ai.check(pull=False)
+    fake.loaded = ["gemma3:12b", "bge-m3"]
+    ai._last_used["gemma3:12b"] = 0.0  # 10초마다 쓰는 중이라 예전엔 계속 붙어 있었음
+    assert ai.loaded() == [("gemma3:12b", 9.1), ("bge-m3", 1.2)]
+    assert "메모리에 올라간 모델: gemma3:12b 9.1GB, bge-m3 1.2GB" in ai.status_text()
+    gone = ai.guard_memory()  # 메모리 97%: 올라간 모델을 실제로 내린다
+    assert gone == ["gemma3:12b 9.1GB", "bge-m3 1.2GB"] and fake.loaded == []
+    assert not ai.ready() and "모델을 내리고 5분 쉬는 중" in ai.status_text()
+    t["now"] = 5.0
+    assert ai.guard_memory() == []  # 10초에 한 번만 본다
+    mem["pct"] = 70.0
+    t["now"] = 100.0
+    assert ai.guard_memory() == [] and not ai.ready()  # 쉬는 시간(5분)은 채운다
+    t["now"] = 301.0
+    assert ai.ready()  # 그 뒤엔 다시 쓴다

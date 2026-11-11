@@ -120,6 +120,9 @@ class ContextKeeper:
         def loop():
             while not self._stop.wait(2.0):
                 try:
+                    guard = getattr(self.local, "guard_memory", None)
+                    if guard is not None:  # 메모리가 빠듯하면 모델을 내리고 쉰다 (게임 중이 아니어도 늘 본다)
+                        guard()
                     game = current_game()
                     if not game:
                         continue

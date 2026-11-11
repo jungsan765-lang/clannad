@@ -31,6 +31,7 @@ OLD_BIG_MODELS = ("gemma3:12b",)  # 예전 기본값: 메모리에 올라가 있
 KEEP_ALIVE = "10m"  # 안 쓰면 이만큼 뒤에 메모리에서 내림 (게임 끝나면 메모리를 돌려줌)
 EMBED_KEEP_ALIVE = "5m"
 MEMORY_TIGHT = 93.0  # 메모리를 이만큼(%) 넘게 쓰면 모델을 새로 올리지 않고 쉰다 (게임이 먼저)
+MEMORY_REST = 300.0  # 메모리가 빠듯해서 모델을 내렸으면 이만큼(초) 쉰다
 CPU_LEVELS = {"little": 4, "half": 2, "most": 1}  # 논리 코어 ÷ 이 값 (little 은 최대 4개)
 
 
@@ -60,6 +61,9 @@ class LocalAI:
         self.context_model = CONTEXT_MODEL
         self.memory_percent: Callable[[], float] = _memory_percent
         self.short_on_memory = False
+        self.rest_until = 0.0  # 메모리가 빠듯해서 모델을 내리고 쉬는 중이면 이때까지
+        self.loaded_now: list[tuple[str, float]] = []  # 마지막으로 본, 메모리에 올라가 있는 모델 (이름, GB)
+        self._guard_at = -1e9
         self._last_used: dict[str, float] = {}  # 모델 → 마지막으로 쓴 때 (최근에 썼으면 이미 메모리에 있음)
         self.have: set[str] = set()  # Ollama 에 있는 모델
         self.pulling = ""  # 지금 받는 모델
@@ -133,6 +137,41 @@ class LocalAI:
             log.debug("모델 내리기 실패 (%s): %r", model, exc)
             return False
 
+    def loaded(self) -> list[tuple[str, float]]:
+        """지금 메모리에 올라가 있는 모델 (이름, GB) — Ollama /api/ps."""
+        try:
+            items = (self.http("GET", "/api/ps") or {}).get("models", [])
+        except Exception:  # noqa: BLE001
+            return []
+        out = [(str(m.get("name") or m.get("model", "")), float(m.get("size", 0) or 0) / 1e9) for m in items]
+        self.loaded_now = [x for x in out if x[0]]
+        return self.loaded_now
+
+    def guard_memory(self) -> list[str]:
+        """메모리가 빠듯하면(MEMORY_TIGHT%+) 올라가 있는 모델을 실제로 내리고 MEMORY_REST 초 쉰다 (게임이 먼저).
+        예전엔 새로 올리지만 않아서, 이미 올라간 모델(10초마다 쓰는 맥락 담당)이 계속 메모리를 잡고 있었다. 10초에 한 번만 본다."""
+        now = self.clock()
+        if not self.enabled or now - self._guard_at < 10.0:
+            return []
+        self._guard_at = now
+        try:
+            pct = self.memory_percent()
+        except Exception:  # noqa: BLE001
+            return []
+        if pct < MEMORY_TIGHT:
+            self.short_on_memory = now < self.rest_until
+            return []
+        gone = []
+        for name, gb in self.loaded():
+            if self.unload(name):
+                gone.append(f"{name} {gb:.1f}GB")
+        self.loaded_now = []
+        self.rest_until = now + MEMORY_REST
+        self.short_on_memory = True
+        if gone:
+            log.info("메모리 %.0f%% — 내 PC AI 모델을 내리고 %.0f분 쉼: %s", pct, MEMORY_REST / 60, ", ".join(gone))
+        return gone
+
     def unload_unused(self) -> list[str]:
         """지금 안 쓰는 모델(예전 기본값이던 큰 모델 등)이 메모리에 올라가 있으면 내린다."""
         try:
@@ -150,7 +189,7 @@ class LocalAI:
         return threads_for(self.cpu)
 
     def ready(self) -> bool:
-        return self.enabled and self.state == "ready"
+        return self.enabled and self.state == "ready" and self.clock() >= self.rest_until
 
     def status_text(self) -> str:
         if not self.enabled:
@@ -165,7 +204,11 @@ class LocalAI:
                      + (f" (마지막 {self.last_seconds:.0f}초)" if self.last_seconds else "")
                      + (f". {self.pulling} 받는 중 {self.progress * 100:.0f}%" if self.pulling and self.pulling != self.model
                         else "")
-                     + (". 지금은 메모리가 빠듯해서 쉬는 중 (게임이 먼저)" if self.short_on_memory else ""),
+                     + (f". 메모리가 빠듯해서 모델을 내리고 {max(1, round((self.rest_until - self.clock()) / 60))}분 쉬는 중 (게임이 먼저)"
+                        if self.clock() < self.rest_until else
+                        ". 지금은 메모리가 빠듯해서 쉬는 중 (게임이 먼저)" if self.short_on_memory else "")
+                     + (". 메모리에 올라간 모델: " + ", ".join(f"{n} {g:.1f}GB" for n, g in self.loaded_now)
+                        if self.loaded_now else ""),
             "error": "문제가 있어서 잠시 클라우드로 해요.",
         }.get(self.state, self.state)
 
@@ -229,6 +272,7 @@ class LocalAI:
         if self.state == "ready":
             self.lower_priority()
             self.unload_unused()  # 예전 기본값이던 큰 모델(맥락 담당 12b)이 올라가 있으면 내림
+            self.loaded()  # 설정 창에 '메모리에 올라간 모델'을 보여 주려고
         missing = [m for m in self.models() if not self.has(m)]
         if missing and pull:
             threading.Thread(target=self.pull_all, args=(missing,), daemon=True, name="local-ai-pull").start()
