@@ -279,6 +279,7 @@ class AssistantApp(QObject):
         self._cyphers_busy = False
         companion.extra_context = self._game_context
         companion.recaller = self.recall_for_screen
+        companion.on_game_knowledge = self._save_game_knowledge  # 주인님이 알려 준 게임 지식 → 게임 사전
         self.genshin_timer = QTimer(self)
         self.genshin_timer.timeout.connect(lambda: self.refresh_genshin())
         self.genshin_timer.timeout.connect(lambda: self.refresh_cyphers() if self.watcher.mode.name == "사이퍼즈" else None)
@@ -537,6 +538,13 @@ class AssistantApp(QObject):
         except Exception:  # noqa: BLE001 - 떠올리기가 안 돼도 대화는 된다
             log.exception("떠올리기 실패")
             return "", []
+
+    def _save_game_knowledge(self, game: str, text: str, when) -> None:
+        from lorebook import save_taught
+
+        game = game or (self.watcher.mode.name if self.watcher.mode.is_game else "일반")
+        new = save_taught(self.settings.data_dir / "knowledge", game, text, when)
+        self.companion.lorebook.entries[:0] = new  # 앞에 넣어 같은 점수면 먼저 꺼내지게 (주인님 말이 우선)
 
     def _embed(self, texts: list[str], timeout: float = 6.0):
         """기억을 뜻으로 찾을 때 쓰는 뜻 좌표 (내 PC 기억 검색 모델, 없으면 None → 낱말로만 찾음)."""

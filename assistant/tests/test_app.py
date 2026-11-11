@@ -1384,3 +1384,35 @@ def test_chat_during_a_game_sees_the_live_screen(qapp, tmp_path, built):
     _wait(qapp, a)
     assert not any(b.get("type") == "image" for b in fake.calls[-1]["messages"][-1]["content"])
     a.quit()
+
+
+def test_user_taught_game_fact_goes_into_the_game_dictionary(qapp, tmp_path, built):
+    from lorebook import LoreBook
+    from watch.modes import Mode
+
+    taught = "붉은사막 '금전의 대가'는 조세 통지서의 세금을 내야 중형 가방과 유니콘 유리공예를 받는다"
+    fake = FakeAnthropic([
+        {"speak": True, "message": "제가 잘못 알았네요. 세금을 내야 받는 거군요.", "emotion": "normal",
+         "remember": [{"category": "게임 지식", "text": taught, "importance": 3, "subject": "붉은사막"}]},
+        {"speak": True, "message": "네, 세금을 내셔야 가방이 나와요.", "emotion": "normal"},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    a.companion.lorebook = LoreBook.load(app_main.Path(__file__).resolve().parents[1] / "knowledge")
+    a.watcher.mode = Mode("붉은사막", knowledge="x", is_game=True)
+    a.ask("아니 금전의 대가는 아직 안 했고 세금을 내야 보상 주는 거야")
+    _wait(qapp, a)
+    saved = (s.data_dir / "knowledge" / "찾아본것_붉은사막.md").read_text(encoding="utf-8")
+    assert "주인님이 알려 준 것" in saved and taught in saved and "금전의 대가" in saved
+    assert not any(f.get("text") == taught for f in a.companion.memory.facts)  # 사실 기억이 아니라 게임 사전으로
+    a.ask("붉은사막 금전의 대가 보상 어떻게 받아?")
+    _wait(qapp, a)
+    import json as _json
+
+    prompt = _json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "주인님이 알려 준 것" in prompt and "세금을 내야 중형 가방" in prompt  # 다음엔 바로 꺼내짐
+    system = "".join(b["text"] for b in fake.calls[-1]["system"])
+    assert "'주인님이 알려 준 것' 항목은 다른 배경지식·판 기록과 다르면 그쪽을 따른다" in system
+    assert "한 줄 요약뿐이라 답이 안 되거나" in system  # 사전에 짧게만 있으면 찾아봄
+    a.quit()

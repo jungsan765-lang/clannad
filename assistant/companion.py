@@ -34,7 +34,7 @@ REPLY_SCHEMA = {
         # 이번 말에서 오래 기억할 것 (바로 장기기억에 적는다). 없으면 빈 배열
         "remember": {"type": "array", "items": {
             "type": "object",
-            "properties": {"category": {"type": "string", "enum": CATEGORIES}, "text": {"type": "string"},
+            "properties": {"category": {"type": "string", "enum": CATEGORIES + ["게임 지식"]}, "text": {"type": "string"},
                            "importance": {"type": "integer", "enum": [1, 2, 3]}, "subject": {"type": "string"}},
             "required": ["category", "text", "importance", "subject"], "additionalProperties": False}},
     },
@@ -541,6 +541,10 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   주인님 주변 사람(subject 에 이름), 게임 목표·진행(subject 에 게임 이름), 주인님이 고쳐 준 것, 네가 너 자신에 대해 새로 말한 것·
   네가 한 약속(분류 '다니카 자신'). text 는 나중에 읽어도 알 수 있게 한 문장(누가·무엇·언제). importance 3 = 절대 잊으면 안 됨
   (이름·관계·약속·강한 취향·고쳐 준 것), 2 = 보통, 1 = 사소함. 이미 '기억'에 있는 그대로면 다시 적지 않는다. 없으면 빈 배열.
+  분류 '게임 지식': 게임 자체에 대한 사실 — 의뢰 조건·보상 받는 법·순서·용어 뜻 등, 특히 주인님이 고쳐 준 것.
+  subject 에 게임 이름, text 에 의뢰·용어 이름을 넣어 한 문장으로 (예: "붉은사막 '금전의 대가'는 조세 통지서의 세금을 내야
+  중형 가방·유니콘 유리공예를 받는다"). 게임 사전에 적혀 다음에 그 이름이 나오면 바로 꺼내진다.
+- 배경지식 중 '주인님이 알려 준 것' 항목은 다른 배경지식·판 기록과 다르면 그쪽을 따른다.
 - 모르는 이름(캐릭터·사람·게임·사건)이나 확실하지 않은 사실을 아는 척하거나 지어내지 않는다.
 - 스포 주의: 게임 스토리의 앞으로의 전개·반전·결말은 주인님이 직접 묻지 않으면 먼저 말하지 않는다(화면에 이미 나온 데까지는 괜찮다).
   직접 물었으면 '스포일러인데요' 하고 짧게 알린 뒤 답한다.
@@ -550,7 +554,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
 
 SEARCH_ON = """- 인터넷 검색: 원신 캐릭터·사건, 게임 정보, 사람, 최근 소식처럼 네가 확실히 모르는 걸 물으면 찾아본다.
   action 은 "web_search", target 은 짧은 한국어 검색어(예: "원신 로노바"), message 는 "잠시만요, 찾아보겠습니다" 같은 아주 짧은 말.
-  배경지식이나 '찾아보고 알게 된 것'에 이미 있으면 검색하지 않는다. 인사·잡담·감정 이야기에는 검색하지 않는다."""
+  배경지식이나 '찾아보고 알게 된 것'에 이미 있고 지금 묻는 것(조건·받는 법·위치·순서)에 답이 되면 검색하지 않는다.
+  한 줄 요약뿐이라 답이 안 되거나, 화면·주인님 말과 다르면 찾아본다. 인사·잡담·감정 이야기에는 검색하지 않는다."""
 SEARCH_OFF = """- 인터넷 검색은 지금 꺼져 있다. 모르는 건 모른다고 솔직히 말한다."""
 
 SEARCH_SYSTEM = """너는 검색 담당이다. 주어진 검색어로 인터넷을 찾아보고, 질문에 답하는 데 필요한 사실만 한국어로 정리한다.
@@ -732,6 +737,7 @@ class Companion:
         self.recaller = None  # 화면 상황 글 → 이어지는 예전 일 (main 이 넣어 줌)
         self.layouts = None  # 게임 화면 배치 (watch.layout.Layouts, main 이 넣어 줌)
         self.seen = None  # 둘러보기로 알아본 것 (watch.scan.SeenThings, main 이 넣어 줌)
+        self.on_game_knowledge = None  # (게임, 글, 시각) → 게임 사전에 적기 (main 이 넣어 줌)
         self.local = None  # 내 PC AI (local_ai.LocalAI) — 준비돼 있으면 아래 일은 공짜로 먼저 해 본다
         self.local_roles = {"eye", "spot", "weigh"}  # 눈 담당 · 둘러보기 확대 · 판정
         self.chat_model = chat_model
@@ -952,6 +958,15 @@ class Companion:
         saved = []
         for it in items[:5]:
             if not isinstance(it, dict) or not is_korean(str(it.get("text", ""))):
+                continue
+            if it.get("category") == "게임 지식":  # 게임 자체에 대한 사실은 게임 사전으로 (이름이 나오면 바로 꺼내지게)
+                text = self.memory.fix_words(str(it.get("text", "")))
+                if self.on_game_knowledge is not None:
+                    try:
+                        self.on_game_knowledge(str(it.get("subject", "")).strip(), text, now or datetime.now())
+                        log.info("게임 사전에 적음: %s", text)
+                    except Exception as exc:  # noqa: BLE001
+                        log.warning("게임 사전에 못 적음: %r", exc)
                 continue
             f = self.memory.add_fact(it.get("category", ""), self.memory.fix_words(str(it.get("text", ""))),
                                      it.get("importance", 2), str(it.get("subject", "")),

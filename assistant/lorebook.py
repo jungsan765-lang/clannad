@@ -132,6 +132,32 @@ def lookup_entry(game: str, query: str, notes: str, when) -> str:
     return f"## {query} (찾아본 것, {when:%Y-%m-%d})\n키워드: {', '.join(keys)}\n{body}\n"
 
 
+def save_taught(folder: Path, game: str, text: str, when) -> list[Entry]:
+    """주인님이 알려 준(고쳐 준) 게임 지식을 그 게임 사전에 적는다. 키워드는 글에 나온 이름들(조사 뗀 낱말)."""
+    from recall import cues
+
+    words = [w for w in cues(text, limit=10) if w not in _GENERIC and w != game]
+    quoted = re.findall(r"['‘“\"]([^'’”\"]{2,20})['’”\"]", text)  # '금전의 대가' 처럼 따옴표 친 이름은 그대로
+    keys = list(dict.fromkeys(quoted + words))
+    if not keys:
+        return []
+    header = f"게임: {game}\n\n" if game and game != "일반" else ""
+    block = f"## 주인님이 알려 준 것 ({when:%Y-%m-%d}) — {' · '.join(keys[:3])}\n키워드: {', '.join(keys)}\n- {text.strip()}\n"
+    found = LoreBook.parse(header + block)
+    if not found:
+        return []
+    safe = re.sub(r'[\\/:*?"<>|\s]+', "_", game or "일반")
+    path = folder / f"찾아본것_{safe}.md"
+    try:
+        folder.mkdir(parents=True, exist_ok=True)
+        old = path.read_text(encoding="utf-8") if path.exists() else header
+        path.write_text(old.rstrip("\n") + "\n\n" + block, encoding="utf-8")
+    except OSError as exc:
+        log.warning("게임 사전에 못 적음: %s", exc)
+        return []
+    return found
+
+
 def save_lookup(folder: Path, game: str, query: str, notes: str, when) -> list[Entry]:
     """data/knowledge/찾아본것_게임.md 에 쌓는다 (같은 검색어면 새 것으로). 새 항목을 돌려준다."""
     header = f"게임: {game}\n\n" if game and game != "일반" else ""
