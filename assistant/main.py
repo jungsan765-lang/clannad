@@ -70,7 +70,7 @@ from watch.watcher import ScreenWatcher, WatchConfig
 
 log = logging.getLogger("assistant")
 # 이번 달 크레딧을 다 쓴 뒤 말하는 일(대화·화면 한마디·분석·총평)에 쓸 모델 (판단·검색·기억 정리는 그대로)
-AFTER_CREDIT = {"sonnet": "claude-sonnet-5-5", "haiku": "claude-haiku-5-5", "keep": ""}
+AFTER_CREDIT = {"sonnet": "claude-sonnet-5-5", "haiku": "claude-haiku-5-5", "always_sonnet": "claude-sonnet-5-5", "keep": ""}
 # 대화에 이런 말이 나오면 원신 계정 정보를 함께 넘긴다
 CYPHERS_WORDS = re.compile(r"사이퍼즈|전적|공식전|일반전|킬뎃|딜량|승률|판수|티어|랭크")
 # 주인님이 지금 화면 속 무언가를 가리키는 말 (게임 밖이어도 대화에 지금 화면을 붙인다)
@@ -1771,8 +1771,9 @@ class AssistantApp(QObject):
     def _apply_speak_cap(self) -> str:
         """이번 달 크레딧을 다 썼으면 말하는 모델을 설정대로 낮춘다. 다음 달이 되면 저절로 원래대로."""
         credit = float(self.settings.get("budget.credit_usd", 0) or 0)
-        over = bool(credit) and self.ledger.month_usd() >= credit
-        cap = AFTER_CREDIT.get(str(self.pref("budget.after_credit", "sonnet")), "") if over else ""
+        choice = str(self.pref("budget.after_credit", "sonnet"))
+        over = choice == "always_sonnet" or (bool(credit) and self.ledger.month_usd() >= credit)
+        cap = AFTER_CREDIT.get(choice, "") if over else ""
         if cap != self.companion.speak_cap:
             log.info("말하는 모델 상한: %s", cap or "없음")
         self.companion.speak_cap = cap
@@ -1792,7 +1793,8 @@ class AssistantApp(QObject):
         cap = self.companion.speak_cap
         return (f"오늘 사용 {self.ledger.krw(day):,}원 (화면 {screen:,}원" + (f"/{limit:,}원" if limit else "") + ") · "
                 f"이번 달 {self.ledger.krw(month):,}원 (${month:,.2f} / ${self.budget_usd():,.0f})"
-                + (f" · 크레딧 다 써서 말하기는 {cap.split('-')[1].capitalize()}" if cap else ""))
+                + ((" · 말하기는 Sonnet" if self.pref("budget.after_credit", "sonnet") == "always_sonnet"
+                    else f" · 크레딧 다 써서 말하기는 {cap.split('-')[1].capitalize()}") if cap else ""))
 
     def cost_details(self) -> str:
         """어디에 얼마 썼는지 (오늘·이번 달, 많이 쓴 것부터)."""

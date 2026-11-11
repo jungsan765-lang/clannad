@@ -25,9 +25,10 @@ MEMORY_GB = [("20", "20GB"), ("50", "50GB"), ("100", "100GB"), ("300", "300GB")]
 COACH = [("off", "끔", "평소처럼 말동무만 해요. F10 을 누르면 언제든 자세히 분석해요."),
          ("analysis", "분석", "결과·파티 화면처럼 중요한 순간에 자세히 봐요. 한 번에 50~150원."),
          ("review", "복기", "싸움이 끝날 때마다 '이랬으면 좋았을 것'을 짚어요. 게임 1시간에 2,000~4,000원쯤.")]
-AFTER_CREDIT = [("sonnet", "Sonnet (추천)", "말이 조금 단순해지지만 값은 Opus 의 절반이에요."),
-                ("haiku", "Haiku (가장 쌈)", "값은 약 40분의 1. 캐릭터 말투가 흐려지고 화면을 잘못 볼 수 있어요."),
-                ("keep", "그대로 Opus", "바꾸지 않아요.")]
+AFTER_CREDIT = [("sonnet", "크레딧 뒤 Sonnet", "크레딧을 다 쓰면 Sonnet 으로. 말이 조금 단순해지지만 값은 Opus 의 절반이에요."),
+                ("haiku", "크레딧 뒤 Haiku", "크레딧을 다 쓰면 Haiku 로. 값은 약 40분의 1, 캐릭터 말투가 흐려지고 화면을 잘못 볼 수 있어요."),
+                ("always_sonnet", "늘 Sonnet", "크레딧과 상관없이 늘 Sonnet 으로. 대화 한 번 값이 절반이에요."),
+                ("keep", "늘 Opus", "바꾸지 않아요.")]
 SPEAK_RATES = [("slow", "느리게"), ("normal", "보통"), ("fast", "빠르게")]
 CLIP_TOOLS = [("gamebar", "Xbox Game Bar", "Windows 설정 > 게임 > 캡처 > '발생한 내용 녹화'를 켜 두어야 영상이 남아요."),
               ("nvidia", "NVIDIA", "NVIDIA 앱에서 즉석 리플레이를 켜 두어야 영상이 남아요."),
@@ -258,8 +259,8 @@ class SettingsDialog(QDialog):
         cost = page(group("화면 보기 비용", [("하루 한도", self.daily_limit), ("", self.limit_stop),
                                              ("", _hint("한도를 넘으면 많이 쓴 곳 3개와 함께 알려 드려요. 우클릭 → 비용 내역에서 자세히."))]),
                     group("전체", [("월 예산", self.budget),
-                                   (f"크레딧(${credit:,.0f}) 다 쓴 뒤 말하기" if credit else "크레딧 다 쓴 뒤 말하기", self.after_credit),
-                                   ("", _hint("대화·화면 한마디·분석·총평만 바꿔요. 판단·검색·기억 정리는 그대로. 다음 달엔 원래대로."))]))
+                                   ("말하기 모델", self.after_credit),
+                                   ("", _hint((f"크레딧 ${credit:,.0f} 기준. " if credit else "") + "대화·화면 한마디·분석·총평만 바꿔요. 판단·검색·기억 정리는 그대로."))]))
 
         # ---------------------------------------------------------------- 목소리
         self.voice_mode = Choice(VOICE_MODES, str(v["voice.mode"]))

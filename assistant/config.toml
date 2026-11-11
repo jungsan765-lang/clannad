@@ -75,7 +75,7 @@ max_chars = 4000         # 장기기억 길이 상한(글자 수)
 [budget]
 monthly_usd = 150        # 월 예산(달러): Max 구독 API 크레딧 100달러 + 추가 50달러
 credit_usd = 100         # 매달 들어오는 크레딧. 이만큼 쓰면 '이제부터 카드 결제'라고 한 번 알림 (0 이면 안 알림)
-after_credit = "sonnet"  # 크레딧을 다 쓴 뒤 말하는 일(대화·화면 한마디·분석·총평) 모델: sonnet | haiku | keep(그대로 Opus). 판단·검색·기억 정리는 그대로
+after_credit = "sonnet"  # 말하는 일(대화·화면 한마디·분석·총평) 모델 낮추기: sonnet·haiku(크레딧 다 쓴 뒤) | always_sonnet(늘) | keep(늘 Opus). 판단·검색·기억 정리는 그대로
 # monthly_krw = 50000    # 원화로 정하고 싶으면 monthly_usd 를 지우고 이 줄을 쓴다
 warn_ratio = 0.8         # 예산의 이 비율을 넘으면 경고
 krw_per_usd = 1400       # 화면 표시용 환율 (원/달러)

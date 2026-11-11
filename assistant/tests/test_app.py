@@ -131,6 +131,11 @@ def test_budget_in_usd_with_credit_notice(qapp, tmp_path, built, monkeypatch):
     assert a.companion.speak_cap == "claude-haiku-5-5"
     a.apply_settings({"budget.after_credit": "keep"})
     assert a.companion.speak_cap == ""
+    a.ledger.month_usd = lambda today=None: 10.0  # 크레딧 전이어도 '지금부터 Sonnet'이면 바로
+    a.apply_settings({"budget.after_credit": "always_sonnet"})
+    assert a.companion.speak_cap == "claude-sonnet-5-5" and "말하기는 Sonnet" in a.cost_text()
+    a.apply_settings({"budget.after_credit": "sonnet"})
+    assert a.companion.speak_cap == ""
     a.ledger.month_usd = lambda today=None: 125.0  # 예산 80% 넘김
     a._budget_warning()
     assert any("83%" in t for t in shown)
