@@ -264,11 +264,12 @@ def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
     a.local_ai.http = lambda *args, **kw: (_ for _ in ()).throw(ConnectionRefusedError("없음"))
     dlg2 = SettingsDialog(a.settings_values(), ["1", "2"], [], local=(a.local_ai.status_text, a.check_local_ai))
     dlg2.local_on.setChecked(True)
-    dlg2.local_cpu.group.button(1).setChecked(True)
+    assert dlg2.local_cpu.value() == "half"  # 기본은 절반
+    dlg2.local_cpu.group.button(2).setChecked(True)
     dlg2.local_model.setText("qwen2.5vl:3b")
-    assert dlg2.changed() == {"local.enabled": True, "local.cpu": "half", "local.model": "qwen2.5vl:3b"}
+    assert dlg2.changed() == {"local.enabled": True, "local.cpu": "most", "local.model": "qwen2.5vl:3b"}
     a.apply_settings(dlg2.changed())
-    assert a.local_ai.enabled and a.local_ai.cpu == "half" and a.local_ai.model == "qwen2.5vl:3b"
+    assert a.local_ai.enabled and a.local_ai.cpu == "most" and a.local_ai.model == "qwen2.5vl:3b"
     import time as _t
 
     for _ in range(50):

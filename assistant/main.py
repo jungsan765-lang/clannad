@@ -200,7 +200,7 @@ class AssistantApp(QObject):
         from local_ai import DEFAULT_MODEL, LocalAI
 
         # 내 PC AI: 남는 CPU 로 눈 담당·둘러보기 확대·판정 (Ollama, 그래픽카드 안 씀). 켤 때와 10분마다 연결 확인
-        self.local_ai = LocalAI(model=str(self.pref("local.model", DEFAULT_MODEL)), cpu=str(self.pref("local.cpu", "little")))
+        self.local_ai = LocalAI(model=str(self.pref("local.model", DEFAULT_MODEL)), cpu=str(self.pref("local.cpu", "half")))
         self.local_ai.enabled = bool(self.pref("local.enabled", True))
         companion.local = self.local_ai
         self._local_timer = QTimer(self)

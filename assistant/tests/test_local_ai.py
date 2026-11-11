@@ -41,7 +41,8 @@ class FakeOllama:
         raise AssertionError(path)
 
 
-def test_threads_stay_small_by_default():
+def test_threads_default_to_half():
+    assert LocalAI().cpu == "half" and threads_for("half", 16) == 8  # 9800X3D: 16개 중 8개
     assert threads_for("little", 16) == 4 and threads_for("little", 8) == 2
     assert threads_for("half", 16) == 8 and threads_for("most", 16) == 14
 

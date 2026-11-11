@@ -36,7 +36,7 @@ def threads_for(level: str, cores: int | None = None) -> int:
 
 
 class LocalAI:
-    def __init__(self, model: str = DEFAULT_MODEL, cpu: str = "little", base_url: str = "http://127.0.0.1:11434",
+    def __init__(self, model: str = DEFAULT_MODEL, cpu: str = "half", base_url: str = "http://127.0.0.1:11434",
                  http: Callable | None = None, clock: Callable[[], float] = time.monotonic):
         self.model = model or DEFAULT_MODEL
         self.cpu = cpu

@@ -44,8 +44,8 @@ RESULT_DEPTH = [("deep", "깊게", "1~2분 생각하고 총평해요. 판마다 
 OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
 OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
 SHARPNESS = [(1280, "보통"), (1920, "선명 (추천)"), (2560, "아주 선명 (비용 2배쯤)")]
-LOCAL_CPU = [("little", "조금 (추천)", "CPU 스레드 4개까지만. 게임에 거의 영향 없음. 한 장에 15~25초."),
-             ("half", "절반", "CPU 절반. 조금 더 빠름 (한 장에 10~15초). 게임이 CPU 를 많이 쓰면 끊길 수 있어요."),
+LOCAL_CPU = [("little", "조금", "CPU 스레드 4개까지만. 한 장에 15~25초."),
+             ("half", "절반 (추천)", "CPU 스레드 절반 (9800X3D 면 16개 중 8개). 한 장에 10~15초. 낮은 우선순위라 게임이 먼저."),
              ("most", "많이", "CPU 거의 전부. 가장 빠르지만 게임 중엔 비추천.")]
 
 # 다시 시작해야 적용되는 설정
@@ -329,7 +329,7 @@ class SettingsDialog(QDialog):
                            "CPU 만 정한 만큼 낮은 우선순위로 써요. 사진·글이 PC 밖으로 안 나가요. 대신 한마디가 10~20초 더 늦고, "
                            "작은 AI 라 클라우드보다 눈이 나빠요 (마지막에 말하기 담당이 화면과 다시 맞춰 봐요). "
                            "안 되거나 오래 걸리면 그 일은 클라우드가 해요.")
-        self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "little")))
+        self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "half")))
         self.local_model = QLineEdit(str(v.get("local.model", "gemma3:4b")))
         self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨).")
         self.local_status = QLabel(local[0]() if local else "")
