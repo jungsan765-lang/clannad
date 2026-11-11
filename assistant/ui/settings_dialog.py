@@ -329,6 +329,9 @@ class SettingsDialog(QDialog):
                            "CPU 만 정한 만큼 낮은 우선순위로 써요. 사진·글이 PC 밖으로 안 나가요. 대신 한마디가 10~20초 더 늦고, "
                            "작은 AI 라 클라우드보다 눈이 나빠요 (마지막에 말하기 담당이 화면과 다시 맞춰 봐요). "
                            "안 되거나 오래 걸리면 그 일은 클라우드가 해요.")
+        self.local_context = check("맥락 담당: 게임 중 계속 지켜보며 흐름 적기", "local.context", True,
+                                   "20초쯤마다 지난 구간 사진·자막을 보고 '지금까지 흐름'을 이어 적어요. 판단·말하기 담당이 같이 봐요. "
+                                   "CPU 를 계속 쓰지만 급한 일이 먼저예요.")
         self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "half")))
         self.local_model = QLineEdit(str(v.get("local.model", "gemma3:4b")))
         self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨).")
@@ -346,7 +349,8 @@ class SettingsDialog(QDialog):
         sr.addWidget(again_btn)
         setup = _hint("처음 한 번: 'Ollama 받기'로 설치 → 켜 두면(작업 표시줄 오른쪽 아래 라마 아이콘) 다니카가 알아서 연결하고 "
                       "모델을 받아요 (약 3GB, 한 번만).")
-        local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("CPU 쓰는 정도", self.local_cpu),
+        local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("", self.local_context),
+                                             ("CPU 쓰는 정도", self.local_cpu),
                                              ("모델", self.local_model), ("상태", status_row), ("", setup)]))
         if local:
             self._local_timer = QTimer(self)
@@ -415,6 +419,7 @@ class SettingsDialog(QDialog):
             "local.enabled": self.local_on.isChecked(),
             "local.cpu": self.local_cpu.value(),
             "local.model": self.local_model.text().strip() or "gemma3:4b",
+            "local.context": self.local_context.isChecked(),
             "screen.limit_stop": self.limit_stop.isChecked(),
             "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),

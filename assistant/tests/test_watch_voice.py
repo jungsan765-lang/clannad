@@ -48,9 +48,10 @@ class FakeCompanion:
         self.lines = []
 
     def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False,
-              review=False, focus=None, focus_label="", history=None, captions=None):
+              review=False, focus=None, focus_label="", history=None, captions=None, context=""):
         self.history_seen = history
         self.captions_seen = captions
+        self.context_seen = context
         self.focus_seen = focus
         self.focus_label_seen = focus_label
         self.judged.append({"title": title, "model": model, "minutes": minutes, "mode": mode.name if mode else None,
@@ -1179,7 +1180,7 @@ def test_brain_mode_lets_helpers_look_first_and_opus_speak_last(qapp, tmp_path):
     w.sampler._captions.append(Caption(4.0, "자막", b"cap", None))
     w.tick()
     assert said == ["경로에 얼룩이 하나 있네요."]
-    assert comp.perceived[0]["model"] == "claude-sonnet-5-5" and len(comp.perceived[0]["flow"]) == 5  # 눈 담당: 흐름 절반
+    assert comp.perceived[0]["model"] == "claude-sonnet-5-5" and len(comp.perceived[0]["flow"]) == 10  # 눈 담당: 판단과 같은 흐름 사진
     assert comp.perceived[0]["captions"] == [("(자막) 1.0초 전", b"cap")]
     assert comp.heard[0]["model"] == "claude-haiku-5-5"  # 대사 담당은 싼 모델
     assert comp.line_model == "claude-opus-5-5"  # 마지막 말은 Opus 가
@@ -1408,3 +1409,100 @@ def test_lite_brain_uses_sonnet_for_routine_and_opus_when_it_matters(qapp, tmp_p
     t["now"] = 200
     w.tick()
     assert comp.line_model == "claude-opus-5-5"  # 'Opus' 를 고르면 늘 Opus
+
+
+def test_judge_sees_tens_of_seconds_back_with_same_photo_count(tmp_path):
+    from watch.sampler import FrameSampler
+
+    t = {"now": 0.0}
+    vals = iter(range(0, 10000))
+    s = FrameSampler(lambda: _img(next(vals) % 250), clock=lambda: t["now"])
+    for i in range(121):  # 60초 동안 0.5초마다 (멈추지 않고 계속 찍음)
+        t["now"] = i * 0.5
+        s.capture_once()
+    assert len(s.recent(100)) == 121  # 90초까지 들고 있음
+    hist = s.spread((40.0, 30.0, 20.0, 10.0), 5.0)
+    labels = [label.split(") ")[1] for label, _ in hist]
+    assert len(hist) == 10  # 장수는 그대로 (비용 같음)
+    assert labels[:4] == ["40.0초 전", "30.0초 전", "20.0초 전", "10.0초 전"] and labels[-1] == "0.0초 전"
+    assert all(float(x.split("초")[0]) <= 5.6 for x in labels[4:])  # 나머지는 최근 5초를 촘촘히
+    fresh = FrameSampler(lambda: _img(10), clock=lambda: t["now"])
+    for i in range(11):  # 막 켰을 때: 예전 사진이 없으면 최근 것만 10장
+        t["now"] = 100 + i * 0.5
+        fresh.capture_once()
+    assert len(fresh.spread()) == 10 and fresh.spread()[0][0].endswith("5.0초 전")
+    picked = s.between(40.0, 60.0, 4)
+    assert len(picked) == 4 and picked[-1].t == 60.0 and picked[0].t > 40.0
+
+
+def test_context_keeper_writes_the_running_story_on_my_pc(tmp_path):
+    from watch.context import ContextKeeper
+    from watch.sampler import Caption, FrameSampler
+
+    class Local:
+        def __init__(self):
+            self.calls, self.busy, self.answers = [], False, []
+
+        def ready(self):
+            return True
+
+        def chat_json(self, system, text, schema, images=None, timeout=45.0, max_tokens=600, background=False):
+            self.calls.append({"text": text, "images": len(images or []), "background": background})
+            if self.busy:
+                return None
+            return self.answers.pop(0)
+
+    t = {"now": 0.0}
+    s = FrameSampler(lambda: _img(int(t["now"]) % 200), clock=lambda: t["now"])
+    for i in range(81):
+        t["now"] = i * 0.5
+        s.capture_once()
+    s._captions.append(Caption(30.0, "자막", b"x", None, "도박사: 밑장 빼다 걸렸네"))
+    local = Local()
+    local.answers = [{"now": "도박판에서 속임수가 들통남", "story": "주인님이 술집 도박판에 앉았다. 상대가 밑장을 빼다 걸렸다."},
+                     {"now": "싸움이 벌어짐", "story": "도박판 속임수가 들통나 싸움이 벌어졌다."}]
+    keeper = ContextKeeper(local, s, clock=lambda: t["now"], every=20)
+    assert keeper.text() == ""
+    assert keeper.step("붉은사막")
+    call = local.calls[-1]
+    assert call["background"] and call["images"] == 4 and "도박사: 밑장 빼다 걸렸네" in call["text"]  # 급한 일이 먼저
+    assert "이전 흐름: (처음 보는 중)" in call["text"]
+    text = keeper.text()
+    assert "맥락 담당(내 PC 작은 AI, 틀릴 수 있음" in text and "밑장을 빼다 걸렸다" in text and "0초 전: 도박판에서" in text
+    assert not keeper.due()
+    for i in range(1, 51):  # 25초 더 찍음
+        t["now"] = 40.0 + i * 0.5
+        s.capture_once()
+    local.busy = True  # 눈 담당이 돌고 있으면 이번엔 건너뛰고, 구간은 그대로 이어서 다음에
+    assert not keeper.step("붉은사막") and keeper.due()
+    local.busy = False
+    assert keeper.step("붉은사막")
+    assert "이전 흐름: 주인님이 술집 도박판에 앉았다." in local.calls[-1]["text"]  # 이전 흐름을 이어서 고쳐 씀
+    assert [line for _, line in keeper.timeline] == ["도박판에서 속임수가 들통남", "싸움이 벌어짐"]
+    t["now"] = 65.0 + 200
+    assert keeper.text() == ""  # 오래된 흐름은 안 붙임
+    keeper.step("원신")  # 게임이 바뀌면 처음부터
+    assert keeper.game == "원신" and list(keeper.timeline) == []
+
+
+def test_story_reaches_judge_and_speaker(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+
+    class Keeper:
+        def text(self):
+            return "[맥락 담당] 도박판 속임수가 들통남"
+
+        def reset(self, game=""):
+            self.reset_to = game
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    w.context = Keeper()
+    w.cfg.line_quality = "brain_lite"
+    w.update_mode()
+    assert w.context.reset_to == "붉은사막"
+    w.tick()
+    assert comp.context_seen == "[맥락 담당] 도박판 속임수가 들통남"
+    assert comp.line_brain["context"] == "[맥락 담당] 도박판 속임수가 들통남"
+    assert "- [맥락 담당] 도박판 속임수가 들통남" in Companion.brain_text(comp.line_brain)

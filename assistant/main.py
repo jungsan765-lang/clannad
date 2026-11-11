@@ -207,6 +207,15 @@ class AssistantApp(QObject):
         self._local_timer.timeout.connect(self.check_local_ai)
         self._local_timer.start(10 * 60 * 1000)
         QTimer.singleShot(5000, self.check_local_ai)
+        # 맥락 담당: 게임 중 내 PC AI 가 계속 지켜보며 '지금까지 흐름'을 적는다 (판단·말하기에 붙임)
+        from companion import _shrink_jpeg
+        from watch.context import ContextKeeper
+
+        self.context_keeper = ContextKeeper(self.local_ai, self.watcher.sampler, shrink=_shrink_jpeg)
+        self.context_keeper.enabled = bool(self.pref("local.context", True))
+        self.watcher.context = self.context_keeper
+        w = self.watcher
+        self.context_keeper.start(lambda: w.mode.name if (w.sampler.active and w.mode.is_game) else None)
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
         saved = self._load_state().get("prefs", {})
@@ -346,6 +355,7 @@ class AssistantApp(QObject):
         self.pc_timer.stop()
         self.recall_timer.stop()
         self.watcher.sampler.stop()
+        self.context_keeper.stop()
         self.away_timer.stop()
         self.genshin_timer.stop()
         self.cleanup_timer.stop()
@@ -1175,6 +1185,7 @@ class AssistantApp(QObject):
             "local.enabled": self.local_ai.enabled,
             "local.cpu": self.local_ai.cpu,
             "local.model": self.local_ai.model,
+            "local.context": self.context_keeper.enabled,
             "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
@@ -1250,6 +1261,7 @@ class AssistantApp(QObject):
         if "screen.scan" in changed:
             self.watch_cfg.scan = bool(changed["screen.scan"])
         if any(k.startswith("local.") for k in changed):
+            self.context_keeper.enabled = bool(changed.get("local.context", self.context_keeper.enabled))
             self.local_ai.enabled = bool(changed.get("local.enabled", self.local_ai.enabled))
             self.local_ai.cpu = str(changed.get("local.cpu", self.local_ai.cpu))
             if str(changed.get("local.model", self.local_ai.model)).strip() != self.local_ai.model:

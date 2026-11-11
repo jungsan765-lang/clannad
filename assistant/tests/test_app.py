@@ -267,8 +267,12 @@ def test_settings_fast_status_and_sharpness(qapp, tmp_path, built):
     assert dlg2.local_cpu.value() == "half"  # 기본은 절반
     dlg2.local_cpu.group.button(2).setChecked(True)
     dlg2.local_model.setText("qwen2.5vl:3b")
-    assert dlg2.changed() == {"local.enabled": True, "local.cpu": "most", "local.model": "qwen2.5vl:3b"}
+    assert a.watcher.context is a.context_keeper and dlg2.local_context.isChecked()
+    dlg2.local_context.setChecked(False)
+    assert dlg2.changed() == {"local.enabled": True, "local.cpu": "most", "local.model": "qwen2.5vl:3b",
+                              "local.context": False}
     a.apply_settings(dlg2.changed())
+    assert not a.context_keeper.enabled
     assert a.local_ai.enabled and a.local_ai.cpu == "most" and a.local_ai.model == "qwen2.5vl:3b"
     import time as _t
 

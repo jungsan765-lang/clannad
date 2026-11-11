@@ -117,7 +117,7 @@ def event_change(a: Frame | None, b: Frame) -> float:
 
 
 class FrameSampler:
-    def __init__(self, grab: Callable[[], Image.Image], interval: float = 0.5, keep_seconds: float = 15.0,
+    def __init__(self, grab: Callable[[], Image.Image], interval: float = 0.5, keep_seconds: float = 90.0,
                  width: int = 480, clock: Callable[[], float] = time.monotonic, spike: float = 0.35):
         self.grab = grab
         self.interval = interval
@@ -275,6 +275,46 @@ class FrameSampler:
         now = self.clock()
         n = len(frames)
         return [(f"({i}/{n}) {now - f.t:.1f}초 전", f.jpeg) for i, f in enumerate(frames, 1)]
+
+    def spread(self, back=(40.0, 30.0, 20.0, 10.0), recent_seconds: float = 5.0,
+               max_frames: int = 10) -> list[tuple[str, bytes]]:
+        """판단에 보낼 장면: 수십 초 전 몇 장(back 초 전 근처) + 최근 몇 초는 촘촘히. 합쳐서 max_frames 장이라 비용은 같다.
+        5초만 봐서는 무슨 상황인지 모를 때가 있어서 (조금 전에 무슨 일이 있었는지)."""
+        now = self.clock()
+        with self._lock:
+            frames = list(self._frames)
+        if not frames:
+            return []
+        old: list[Frame] = []
+        for b in sorted(back, reverse=True):
+            if b <= recent_seconds:
+                continue
+            near = min(frames, key=lambda f: abs((now - f.t) - b))
+            if abs((now - near.t) - b) <= min(4.0, b / 4) and now - near.t > recent_seconds + 0.6 \
+                    and all(near is not f for f in old):
+                old.append(near)
+        recent = [f for f in frames if now - f.t <= recent_seconds + 0.6]
+        keep = max(2, max_frames - len(old))
+        if len(recent) > keep:
+            step = len(recent) / keep
+            recent = [recent[int(i * step)] for i in range(keep - 1)] + [recent[-1]]
+        chosen = old + recent
+        n = len(chosen)
+        return [(f"({i}/{n}) {now - f.t:.1f}초 전", f.jpeg) for i, f in enumerate(chosen, 1)]
+
+    def between(self, start: float, end: float | None = None, count: int = 4) -> list[Frame]:
+        """start~end 사이 장면 count 장 (고르게, 마지막 포함). 맥락 담당이 지난 구간을 볼 때."""
+        with self._lock:
+            frames = [f for f in self._frames if f.t > start and (end is None or f.t <= end)]
+        if len(frames) > count:
+            step = len(frames) / count
+            frames = [frames[int(i * step)] for i in range(count - 1)] + [frames[-1]]
+        return frames
+
+    def caption_texts(self, since: float) -> list[str]:
+        """since 뒤로 이 PC 글자 인식으로 읽은 자막·대사."""
+        with self._lock:
+            return [c.text for c in self._captions if c.t > since and c.text]
 
     def sheet(self, frames: list[Frame], cols: int = 4, cell_width: int = 480) -> bytes | None:
         """모아 보기 한 장 (왼쪽 위부터 시간 순, 칸 아래 '-4.5s')."""

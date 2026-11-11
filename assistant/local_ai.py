@@ -51,6 +51,7 @@ class LocalAI:
         self.last_seconds = 0.0
         self._lock = threading.Lock()  # 한 번에 하나씩 (CPU 를 조금만)
         self._checking = False
+        self._waiting = 0  # 급한 일(눈 담당 등)이 기다리는 수
         self._opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))  # 이 PC 안이라 프록시 안 거침
 
     # ------------------------------------------------------------ 상태
@@ -154,12 +155,22 @@ class LocalAI:
             pass
 
     def chat_json(self, system: str, text: str, schema: dict, images: list[bytes] | None = None,
-                  timeout: float = 45.0, max_tokens: int = 600) -> dict | None:
-        """작은 AI 에게 묻고 JSON 으로 받는다. 못 하면 None (그 일은 클라우드가)."""
+                  timeout: float = 45.0, max_tokens: int = 600, background: bool = False) -> dict | None:
+        """작은 AI 에게 묻고 JSON 으로 받는다. 못 하면 None (그 일은 클라우드가).
+        background: 뒤에서 늘 하는 일(맥락 담당) — 다른 일이 돌거나 기다리고 있으면 이번엔 건너뛴다 (급한 일이 먼저)."""
         if not self.ready():
             return None
-        if not self._lock.acquire(timeout=timeout):
-            return None  # 앞 일이 아직 안 끝남 → 이번 건 클라우드로
+        if background:
+            if self._waiting or not self._lock.acquire(blocking=False):
+                return None
+        else:
+            self._waiting += 1
+            try:
+                got = self._lock.acquire(timeout=timeout)
+            finally:
+                self._waiting -= 1
+            if not got:
+                return None  # 앞 일이 아직 안 끝남 → 이번 건 클라우드로
         started = self.clock()
         try:
             msg = {"role": "user", "content": text}

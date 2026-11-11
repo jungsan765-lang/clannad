@@ -88,6 +88,7 @@ class WatchConfig:
     #   Opus 가 화면과 맞춰 보고 말함 / brain: 늘 Opus 마무리
     # auto: 가장 싼 모델 / sonnet: 중간 모델 / best: 항상 line_model (경고·픽·총평·대화는 늘 line_model)
     line_quality: str = "brain_lite"
+    context_back: tuple = (40.0, 30.0, 20.0, 10.0)  # 판단 사진: 이만큼 전 몇 장 + 최근 5초 (합 10장, 비용 같음)
     calm_backoff: bool = True  # 게임 중 별일 없는 판단이 이어지면 판단 간격을 5→10→15초로 (확 바뀜·새 대사면 바로)
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
@@ -198,6 +199,7 @@ class ScreenWatcher(QObject):
         self._scanned: deque = deque(maxlen=30)  # (시각, 상자, 작은 그림) — 방금 본 이름 모를 것은 다시 안 봄
         self._finds: list[tuple[float, dict]] = []  # 알릴 만하다고 판정됐는데 아직 못 알린 것 (쉬는 시간 중이었음)
         self._calm = 0  # 게임 중 별일 없는 판단이 이어진 수 (판단 간격 늘리기)
+        self.context = None  # 맥락 담당 (watch.context.ContextKeeper, main 이 넣어 줌)
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
@@ -275,6 +277,8 @@ class ScreenWatcher(QObject):
             if new is not self.mode:
                 self.mode = new
                 self.tune_sampler(new)
+                if self.context is not None:  # 게임이 바뀌면 흐름은 처음부터
+                    self.context.reset(new.name if new.is_game else "")
                 self.mode_changed.emit(new.name)
         if self.mode.is_game:
             if self.session is None or self.session.mode is not self.mode:
@@ -407,6 +411,14 @@ class ScreenWatcher(QObject):
             if f["importance"] >= 3 and f.get("say"):
                 self._finds.append((now, f))
         log.info("둘러보기 [%s]: %s", mode.name, ", ".join(f"{f.get('name')}={f['importance']}" for f in found))
+
+    def _context_text(self, mode: Mode) -> str:
+        if self.context is None or not mode.is_game:
+            return ""
+        try:
+            return self.context.text()
+        except Exception:  # noqa: BLE001
+            return ""
 
     def _pop_finds(self) -> list[dict]:
         now = self.clock()
@@ -768,7 +780,8 @@ class ScreenWatcher(QObject):
             return None
         self._stage("judge")  # 이미 버린 확인이면 여기서 멈춤 (아래 상태를 바꾸지 않게)
         # AI 에겐 순서가 분명하게 '(1/10) 4.5초 전'… 따로따로, 화면 기억엔 한 장으로 모아 저장
-        history = self.sampler.ordered(recent) if len(recent) >= 3 else None
+        # 수십 초 전 몇 장 + 최근 5초 (5초만 봐서는 무슨 상황인지 모를 때가 있어서)
+        history = self.sampler.spread(self.cfg.context_back, self.cfg.dense_batch) if len(recent) >= 3 else None
         self._current_history = history
         shot.history = self.sampler.sheet(recent, cell_width=360) if history else None
         self.last_thumb = shot.thumb
@@ -779,6 +792,9 @@ class ScreenWatcher(QObject):
         extra = {"history": history} if history else {}
         if self._current_captions:
             extra["captions"] = self._current_captions
+        story = self._context_text(mode)
+        if story:
+            extra["context"] = story
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
                                     focus_label=shot.focus_label,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
@@ -858,7 +874,7 @@ class ScreenWatcher(QObject):
         self._stage("perceive")
         from concurrent.futures import ThreadPoolExecutor
 
-        flow = list(self._current_history or [])[1::2][-5:]  # 흐름 사진은 절반만 (5장)
+        flow = list(self._current_history or [])  # 수십 초 전 몇 장 + 최근 몇 초 (작은 사진)
         caps = list(self._current_captions or [])
 
         def safely(fn, *args, **kw):
@@ -874,7 +890,7 @@ class ScreenWatcher(QObject):
             ear = pool.submit(safely, self.companion.read_captions, caps, self.cfg.economy_line_model) if caps else None
             scene = eye.result()[0]
             dialogue = ear.result()[0] if ear else None
-        brain = {"scene": scene, "dialogue": dialogue, "found": list(finds or [])}
+        brain = {"scene": scene, "dialogue": dialogue, "found": list(finds or []), "context": self._context_text(mode)}
         if scene and scene.get("happened") and session is not None:  # 판 기록엔 자세히 본 것도 (작은 사진 판단보다 정확)
             session.add(self.clock(), "자세히 본 장면: " + " / ".join(
                 str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300])

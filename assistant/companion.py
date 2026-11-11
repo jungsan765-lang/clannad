@@ -86,8 +86,9 @@ JUDGE_RULES = """너는 바탕화면 캐릭터의 '말 걸지 판단' 담당이�
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다.
 - situation 에는 화면에 글자로 보이는 핵심 이름·용어(캐릭터·지명·적 이름, 大破·進撃 같은 게임 용어)를 원문 그대로 넣는다.
   한자·일본어 일반 단어는 원문 옆 괄호에 뜻이 통하는 우리말을 붙인다(예: 南瓜(호박)). 한국어 한자음(남과)으로 옮기지 않는다.
-- '지난 몇 초 흐름' 사진들이 함께 오면 번호 순서((1)이 먼저, 마지막이 최근 → 그다음 지금 화면)대로 이어 보고 방금 벌어진 일
-  (피함·맞음·죽음·처치·연출)을 판단한다. 순서를 거꾸로 읽지 않는다. 지금 화면 한 장만 보고 짐작하지 않는다.
+- '지난 흐름' 사진들이 함께 오면 번호 순서((1)이 먼저, 마지막이 최근 → 그다음 지금 화면)대로 이어 보고 방금 벌어진 일
+  (피함·맞음·죽음·처치·연출)을 판단한다. 앞쪽 사진은 수십 초 전이라 '조금 전엔 어땠는지'(누구와 있었는지, 어디였는지)를 보는 데 쓴다.
+  순서를 거꾸로 읽지 않는다. 지금 화면 한 장만 보고 짐작하지 않는다. '맥락 담당이 지켜본 흐름' 글이 있으면 사진과 맞을 때만 참고한다.
 - 컷신·대화 장면(위아래 검은 띠, 대화창, 자막)은 움직임이 커 보여도 '난전·싸움'으로 단정하지 않는다. '자막·대사' 사진이 오면
   그 글을 읽고 무슨 이야기인지(도박판 속임수가 들통남·협박·배신·농담·고백 등) 파악해 situation 에 적는다. 자막이 안 보이면
   인물들의 자세·표정·소품(카드·칼·술잔)으로 상황을 짐작하고, 모르면 '대화 장면'이라고만 적는다.
@@ -982,8 +983,9 @@ class Companion:
             return [{"type": "text", "text": "(지난 몇 초 흐름 — 왼쪽 위부터 시간 순으로 모은 한 장. 다음 사진이 지금 화면)"},
                     self._image_block(bytes(history))]
         blocks: list[dict] = [{"type": "text", "text": (
-            f"[지난 몇 초 흐름: 0.5초쯤 간격으로 찍은 {len(history)}장을 시간 순서대로 보낸다. (1)이 가장 먼저, "
-            f"({len(history)})이 가장 최근이고, 그다음에 오는 큰 사진이 '지금 화면'이다. 번호 순서대로 무슨 일이 이어졌는지 본다]")}]
+            f"[지난 흐름: {len(history)}장을 시간 순서대로 보낸다. 앞쪽 몇 장은 수십 초 전이라 간격이 넓고, 뒤쪽은 최근 몇 초를 "
+            f"0.5초쯤 간격으로 찍은 것이다 (사진마다 'N초 전'). (1)이 가장 먼저, ({len(history)})이 가장 최근이고, 그다음에 오는 "
+            "큰 사진이 '지금 화면'이다. 번호 순서대로 무슨 일이 이어졌는지 본다]")}]
         for label, jpeg in history:
             blocks.append({"type": "text", "text": label})
             blocks.append(self._image_block(jpeg))
@@ -1026,7 +1028,9 @@ class Companion:
             system += "\n\n" + self.memory.terms_text()
         name = getattr(mode, "name", "") or "평소"
         if self._use_local("eye"):  # 내 PC AI: 지금 화면 + 몇 초 전 2장, 자막은 글로만 (느리니 사진을 줄여서)
-            past = [_shrink_jpeg(j, 448) for _, j in list(flow or [])[::2][-2:]]
+            seen = list(flow or [])
+            picks = [seen[0], seen[len(seen) // 2]] if len(seen) >= 2 else seen  # 가장 오래된 것 + 중간 (넓게 보기)
+            past = [_shrink_jpeg(j, 448) for _, j in picks]
             heard = [f"{label}: {item}" for label, item in (captions or []) if isinstance(item, str)]
             prompt = (f"지금 모드: {name}. " + (f"사진 {len(past)}장은 몇 초 전(오래된 것부터), 마지막 사진이 지금 화면이다. "
                                                if past else "사진은 지금 화면이다. ")
@@ -1128,6 +1132,8 @@ class Companion:
         if dialogue.get("lines") or dialogue.get("summary"):
             said = " / ".join(str(x) for x in dialogue.get("lines", [])[:8])
             parts.append("- 대사 담당(자막): " + said + (f" → {dialogue['summary']}" if dialogue.get("summary") else ""))
+        if brain.get("context"):
+            parts.append("- " + str(brain["context"]))
         found = brain.get("found") or []
         if found:
             parts.append("- 둘러보기 담당(확대해서 알아본 것, 알릴 만하다고 판정): " + " / ".join(
@@ -1170,7 +1176,7 @@ class Companion:
     def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
               mode=None, session_notes: list[str] | None = None, chattiness: str = "normal",
               analysis: bool = False, review: bool = False, focus: bytes | None = None,
-              focus_label: str = "", history: bytes | None = None, captions=None) -> dict | None:
+              focus_label: str = "", history: bytes | None = None, captions=None, context: str = "") -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔.
         history: 촘촘히 보기의 '지난 몇 초 흐름' 모음 (0.5초 간격). captions: 새로 뜬 자막·대사 (원래 크기)."""
         recent = self.memory.spoken_lines(5)
@@ -1192,6 +1198,8 @@ class Companion:
                 "최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)")]
         if session_notes:
             info.append("이번 판(세션) 기록: " + " / ".join(session_notes[-8:]))
+        if context:
+            info.append(context)
         if self.seen is not None and getattr(mode, "is_game", False):
             known = self.seen.brief(mode.name)
             if known:
