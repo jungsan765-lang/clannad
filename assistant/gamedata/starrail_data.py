@@ -1,6 +1,6 @@
 """붕괴: 스타레일 계정 정보: 원신과 같은 HoYoLAB 로그인으로 공식 통로에서만 받는다 (게임 프로그램은 건드리지 않음).
 
-- 실시간 메모(개척력·예비 개척력·일일 훈련·주간 우주 점수·전쟁의 여운 할인·의뢰 파견): HoYoLAB (genshin.py)
+- 실시간 메모(개척력·예비 개척력·일일 훈련·주간 우주 점수·전쟁의 여운 보상 횟수·의뢰 파견): HoYoLAB (genshin.py)
 - 워프 기록: 게임 안에서 워프 기록을 열면 남는 주소(authkey)로 공식 기록 조회. 최근 6개월만 주니 data/starrail/wishes.json 에 쌓는다.
 
 원신 쪽(GenshinData)과 받는 방법·저장 방식이 같아서 그것을 이어 쓰고, 스타레일에 맞는 부분만 바꾼다.
@@ -101,7 +101,7 @@ class StarRailData(GenshinData):
         return (f"실시간 메모 ({_ago(self.notes_at, self.clock())}): 개척력 {n.current_stamina}/{n.max_stamina} "
                 f"(가득 차기까지 {full}){reserve}, 일일 훈련 {n.current_train_score}/{n.max_train_score}{weekly}, "
                 f"의뢰 파견 {len(n.expeditions)}개 중 완료 {done}개, "
-                f"전쟁의 여운 할인 남은 {n.remaining_weekly_discounts}/{n.max_weekly_discounts}번")
+                f"전쟁의 여운 이번 주 보상 남은 {n.remaining_weekly_discounts}/{n.max_weekly_discounts}번")
 
     def context_text(self) -> str:
         parts = [p for p in (self.notes_text(), pity_summary(self.wishes, WARPS, "워프")) if p]
@@ -125,7 +125,8 @@ class StarRailData(GenshinData):
 
         if n.max_stamina and n.current_stamina >= n.max_stamina - 20:
             once("stamina", 4, f"개척력이 {n.current_stamina}/{n.max_stamina}라 곧 가득 찬다"
-                 + (" (예비 개척력도 가득이라 넘치면 낭비)." if n.is_reserve_stamina_full else "."))
+                 + (" (예비 개척력도 가득이라 넘치면 낭비)." if n.is_reserve_stamina_full
+                    else " (가득 차면 예비 개척력으로 3분의 1 속도로만 쌓인다)."))
         if n.expeditions and all(e.status == "Finished" for e in n.expeditions):
             once("expedition", 6, f"의뢰 파견 {len(n.expeditions)}개가 모두 끝났다.")
         if (now.hour >= 22 or now.hour < 4) and n.max_train_score and n.current_train_score < n.max_train_score:
@@ -135,5 +136,5 @@ class StarRailData(GenshinData):
             if n.max_rogue_score and n.current_rogue_score < n.max_rogue_score:
                 once("rogue", 20, f"이번 주 우주 점수가 {n.current_rogue_score}/{n.max_rogue_score}이다(월요일 새벽 5시 초기화).")
             if n.remaining_weekly_discounts > 0:
-                once("echo", 20, f"전쟁의 여운 할인이 {n.remaining_weekly_discounts}번 남았다(월요일 새벽 5시 초기화).")
+                once("echo", 20, f"전쟁의 여운 이번 주 보상이 {n.remaining_weekly_discounts}번 남았다(월요일 새벽 5시 초기화).")
         return out

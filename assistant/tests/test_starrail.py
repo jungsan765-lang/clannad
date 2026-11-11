@@ -64,11 +64,11 @@ def test_starrail_notes_use_the_same_login_and_alert_once(tmp_path, monkeypatch)
     assert seen["clients"][0]["game"] == "hkrpg" and seen["clients"][0]["lang"] == "ko-kr"
     text = g.notes_text()
     assert "개척력 285/300 (가득 차기까지 1시간 30분), 예비 개척력 1200" in text and "일일 훈련 300/500" in text
-    assert "전쟁의 여운 할인 남은 3/3번" in text and "의뢰 파견 4개 중 완료 4개" in text
+    assert "전쟁의 여운 이번 주 보상 남은 3/3번" in text and "의뢰 파견 4개 중 완료 4개" in text
     sunday_night = datetime(2026, 11, 15, 23, 0)  # 일요일 밤: 일일 훈련·주간 점수·전쟁의 여운까지
     alerts = g.alerts(sunday_night)
-    assert "개척력이 285/300라 곧 가득 찬다." in alerts[0] and len(alerts) == 5
-    assert any("일일 훈련이 300/500" in a for a in alerts) and any("전쟁의 여운 할인이 3번" in a for a in alerts)
+    assert "개척력이 285/300라 곧 가득 찬다 (가득 차면 예비 개척력으로 3분의 1 속도로만" in alerts[0] and len(alerts) == 5
+    assert any("일일 훈련이 300/500" in a for a in alerts) and any("전쟁의 여운 이번 주 보상이 3번" in a for a in alerts)
     assert g.alerts(sunday_night) == []  # 같은 일은 다시 안 알림
     g.notes = _notes(stamina=120, train=500, rogue=14000, discounts=0, finished=1)
     t["now"] += 30 * 3600
@@ -122,3 +122,21 @@ def test_app_passes_starrail_info_to_chat(tmp_path, monkeypatch):
     assert "스타레일 계정 정보" not in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
     assert "스타레일 계정 정보" in a._game_context(type("M", (), {"name": "스타레일"})())  # 스타레일 중이면 화면 대사에도
     a.quit()
+
+
+def test_starrail_mode_and_dictionary_load(tmp_path):
+    from pathlib import Path
+
+    from lorebook import LoreBook
+    from watch.modes import load_modes
+
+    root = Path(__file__).resolve().parents[1]
+    mode = next(m for m in load_modes(root / "modes") if m.name == "스타레일")
+    assert mode.matches("starrail.exe", "붕괴: 스타레일") and not mode.matches("chrome.exe", "붕괴: 스타레일 4.7 리뷰 - YouTube")
+    assert mode.daily_reset == "05:00" and mode.weekly_reset == "mon 05:00" and "폼폼" in mode.knowledge
+    entries = LoreBook.parse((root / "knowledge" / "starrail_play.md").read_text(encoding="utf-8"))
+    book = LoreBook(entries)
+    assert any("개척력" in e.title for e in book.find("스타레일 개척력 넘치면 어떡해"))
+    assert book.find("원신 레진 넘치면 어떡해") == []  # 다른 게임 얘기엔 안 꺼냄
+    spoiler = next(e for e in entries if "스포일러" in e.title)
+    assert "탐식" not in spoiler.keywords and "출처" not in spoiler.text  # 기믹 얘기에 스포일러가 딸려 나오지 않게
