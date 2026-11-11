@@ -1876,3 +1876,24 @@ def test_line_not_shown_while_user_is_talking_is_not_remembered_as_said(qapp, tm
     t["now"] = 200
     w.tick()
     assert said == ["경로에 얼룩이 하나 있네요."] and comp.memory.spoken_lines() == ["경로에 얼룩이 하나 있네요."]
+
+
+def test_routine_sonnet_line_skips_thinking_but_questions_and_opus_do_not(tmp_path):
+    from ai_client import _thinking_off
+
+    assert _thinking_off("claude-sonnet-5-5") == {"type": "between_tools"}  # Sonnet 5.5 는 disabled 가 400
+    assert _thinking_off("claude-opus-5-5") is None and _thinking_off("claude-haiku-5-5") == {"type": "disabled"}
+    line = {"speak": True, "message": "오, 다리 건넜네요.", "emotion": "normal"}
+    fake = FakeAnthropic([dict(line), dict(line), dict(line), dict(line)])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    note = {"situation": "다리를 건넘", "point": ""}
+    comp.screen_line(b"jpeg", "게임", note, model="claude-sonnet-5-5")
+    assert fake.calls[-1]["thinking"] == {"type": "between_tools"}  # 평소 한마디: 생각 없이 바로
+    comp.screen_line(b"jpeg", "게임", note, model="claude-sonnet-5-5", question="저거 뭐야?")
+    assert "thinking" not in fake.calls[-1]  # 물어본 건 생각하고
+    comp.screen_line(b"jpeg", "게임", note, model="claude-opus-5-5")
+    assert "thinking" not in fake.calls[-1]  # Opus 는 끌 수 없음
+    comp.quick_lines = False  # 설정 '평소 한마디도 생각하고 말하기'
+    comp.screen_line(b"jpeg", "게임", note, model="claude-sonnet-5-5")
+    assert "thinking" not in fake.calls[-1]

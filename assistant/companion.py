@@ -732,6 +732,9 @@ class Companion:
         self.persona = (persona or DEFAULT_PERSONA).strip()
         self.lore = (lore or "").strip()  # 배경지식 (캐릭터가 원래 아는 세계관 등)
         self.search_model = search_model
+        # 평소 화면 한마디(Sonnet)는 생각 없이 바로 (첫 글자가 빨리 나오게). 주인님 결정 — 화면을 잘못 맞춰 보는 일이
+        # 늘었다 싶으면 이것부터 의심 (설정 '평소 한마디도 생각하고 말하기'로 되돌림)
+        self.quick_lines = True
         self.can_search = True  # 모르는 건 인터넷에서 찾아보기 (설정 창)
         self.user_names: list[str] = []  # 주인님 아이디·닉네임 (설정 창, 내 PC 에만 저장)
         self.lorebook = LoreBook()  # 필요할 때 꺼내 보는 배경지식 사전
@@ -1338,9 +1341,11 @@ class Companion:
         system = self.system_blocks()
         if stable:
             system = system + [{"type": "text", "text": stable, "cache_control": {"type": "ephemeral", "ttl": "1h"}}]
-        r = self.ai.complete_json(model=model or self.chat_model, system=system, messages=messages,
+        use = model or self.chat_model
+        quick = self.quick_lines and routine and use.startswith("claude-sonnet-5-5")
+        r = self.ai.complete_json(model=use, system=system, messages=messages,
                                   schema=REPLY_SCHEMA, kind="pick" if pick else "screen", max_tokens=self.max_tokens,
-                                  effort=effort, fast=fast, on_text=stream_cb if on_partial else None)
+                                  effort=effort, fast=fast, thinking_off=quick, on_text=stream_cb if on_partial else None)
         data = r.data
         if routine and data and data.get("speak") and narrates_screen(str(data.get("message", ""))):
             log.info("화면 글자를 읽어 주기만 하는 말이라 안 함: %r", data["message"][:80])

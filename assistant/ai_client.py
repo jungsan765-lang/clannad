@@ -20,6 +20,16 @@ FAST_MODELS = ("claude-opus-5-5", "claude-fable-5-2")  # speed="fast" 를 받는
 KEYRING_SERVICE = "danika-assistant"
 
 
+def _thinking_off(model: str) -> dict | None:
+    """생각 끄기는 모델마다 방법이 다르다. Sonnet 5.5 는 'disabled' 가 400 이라 between_tools(생각 없이 바로 답),
+    Opus 5.5·Fable 은 끌 수 없어서 아무것도 안 보냄(effort 로만 조절), 나머지(Haiku 5.5 등)는 disabled."""
+    if model.startswith("claude-sonnet-5-5"):
+        return {"type": "between_tools"}
+    if model.startswith(("claude-opus-5-5", "claude-fable", "claude-mythos")):
+        return None
+    return {"type": "disabled"}
+
+
 class AIError(RuntimeError):
     """사용자에게 그대로 보여줄 수 있는 한국어 오류."""
 
@@ -83,8 +93,7 @@ class AIClient:
     ) -> AIResult:
         """정해진 JSON 형식으로만 답을 받는다 (structured outputs).
 
-        thinking_off: 생각을 끈다. Haiku 5.5 처럼 끌 수 있는 모델에서만 쓴다
-        (Opus 5.5 는 끌 수 없어서 effort 로만 조절).
+        thinking_off: 생각을 끈다 (Haiku 5.5 는 disabled, Sonnet 5.5 는 between_tools, Opus 5.5 는 끌 수 없어서 그냥 둠).
         on_text: 주면 답을 실시간으로 받으며 지금까지 받은 글 전체를 계속 넘겨준다(말풍선에 바로 보여주기용).
         fast: 빠른 모드(요금 2배). 지원 안 하거나 막히면 보통 속도로 한 번 더 시도한다.
         """
@@ -92,8 +101,9 @@ class AIClient:
         if effort:
             output_config["effort"] = effort
         request = dict(model=model, max_tokens=max_tokens, system=system, messages=messages, output_config=output_config)
-        if thinking_off:
-            request["thinking"] = {"type": "disabled"}
+        off = _thinking_off(model) if thinking_off else None
+        if off:
+            request["thinking"] = off
         use_fast = fast and model.startswith(FAST_MODELS)
         started = time.monotonic()
         try:
@@ -165,8 +175,9 @@ class AIClient:
         request: dict = dict(model=model, max_tokens=max_tokens, system=system, messages=list(messages))
         if effort:
             request["output_config"] = {"effort": effort}
-        if thinking_off:
-            request["thinking"] = {"type": "disabled"}
+        off = _thinking_off(model) if thinking_off else None
+        if off:
+            request["thinking"] = off
         if tools:
             request["tools"] = tools
         usd = 0.0
