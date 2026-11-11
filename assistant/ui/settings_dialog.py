@@ -361,6 +361,9 @@ class SettingsDialog(QDialog):
         self.ears_on = check("PC 소리 듣기 (게임·영상·방송 말 받아쓰기)", "ears.enabled", True,
                              "스피커로 나오는 소리에서 말을 이 PC 에서 글로 바꿔요 (화면 보기를 켜 두면 늘, 캐릭터가 말할 땐 안 들어요. 공짜). "
                              "디스코드 통화 소리도 같이 들려요. 받아쓴 글은 판단·말하기 AI 에게 보내져요.")
+        self.skip_calls = check("통화 중엔 PC 소리 안 듣기 (디스코드·카톡 보이스톡 등)", "ears.skip_calls", True,
+                                "통화 프로그램에서 소리가 나는 동안(말이 끊겨도 15초는 이어서) PC 소리 듣기를 쉬어요. "
+                                "친구 목소리를 받아써서 AI 에게 보내지 않게.")
         self.paddle_ocr = check("정밀 글자 인식 (PaddleOCR 한국어 모델)", "local.paddle_ocr", True,
                                 "Windows 글자 인식이 비었거나 깨져 보이면 PaddleOCR 한국어 모델로 줄마다 다시 읽어 더 나은 쪽을 써요. "
                                 "처음 쓸 때 뒤에서 설치해요 (약 80MB, 메모리 약 200MB).")
@@ -387,7 +390,7 @@ class SettingsDialog(QDialog):
                       "모델을 차례로 받아요 (눈 담당·맥락 담당용 약 3GB → 기억 검색용 약 1.2GB, 한 번만). "
                       "메모리를 93% 넘게 쓰면 새로 모델을 올리지 않고 쉬어요(게임이 먼저), 10분 안 쓰면 메모리에서 내려요. "
                       "맥락 담당이 생각하는 중에 급한 일(눈 담당)이 오면 끊고 먼저 해요.")
-        local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("", self.local_context), ("", self.ears_on),
+        local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("", self.local_context), ("", self.ears_on), ("", self.skip_calls),
                                              ("", self.paddle_ocr),
                                              ("CPU 쓰는 정도", self.local_cpu),
                                              ("모델", self.local_model), ("맥락 담당 모델", self.local_context_model),
@@ -468,6 +471,7 @@ class SettingsDialog(QDialog):
             "local.context": self.local_context.isChecked(),
             "local.context_model": self.local_context_model.text().strip(),
             "ears.enabled": self.ears_on.isChecked(),
+            "ears.skip_calls": self.skip_calls.isChecked(),
             "local.paddle_ocr": self.paddle_ocr.isChecked(),
             "screen.limit_stop": self.limit_stop.isChecked(),
             "ui.bubble_time": self.bubble_time.value(),

@@ -109,6 +109,8 @@ class GameEars:
         self.clock = clock
         self.active = active  # 지금 들어야 하나 (화면 보기가 켜져 있고 자리에 있음)
         self.muted = muted  # 다니카가 소리 내서 말하는 중
+        self.blocked: Callable[[], str] = lambda: ""  # 지금 듣지 말아야 할 이유 (예: '디스코드 통화 중', main 이 넣어 줌)
+        self.block_reason = ""
         self.transcribe = transcribe or Whisper()
         self.vad = vad or default_vad
         self.opener = opener or open_loopback
@@ -133,6 +135,8 @@ class GameEars:
     def status_text(self) -> str:
         if not self.enabled:
             return "꺼짐"
+        if self.state == "paused":
+            return f"{self.block_reason}이라 쉬는 중"
         return {"off": "화면 보기가 꺼져 있거나 자리를 비워서 쉬는 중", "no_audio": "스피커 소리를 못 받아요 (Windows 에서만 돼요)",
                 "listening": f"듣는 중 — 지금까지 대사 {self.heard}번 받아씀"}.get(self.state, self.state)
 
@@ -259,12 +263,17 @@ class GameEars:
                 pass
         stream = None
         while not self._stop.is_set():
-            if not (self.enabled and self.active()):
+            on = self.enabled and self.active()
+            try:
+                reason = self.blocked() if on else ""
+            except Exception:  # noqa: BLE001
+                reason = ""
+            if not on or reason:
                 if stream:
                     stream[1]()
                     stream = None
                     self.reset()
-                self.state = "off"
+                self.state, self.block_reason = ("paused", reason) if reason else ("off", "")
                 self._stop.wait(1.0)
                 continue
             if stream is None:

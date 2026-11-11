@@ -233,6 +233,11 @@ class AssistantApp(QObject):
         self.ears = GameEars(active=lambda: w.enabled and self._away_since is None, muted=lambda: self._tts_speaking,
                              transcribe=Whisper(str(self.pref("ears.model", "medium")), threads=4))
         self.ears.enabled = bool(self.pref("ears.enabled", True))
+        from watch.voice_apps import CallWatch
+
+        self.call_watch = CallWatch()  # 디스코드 등 통화 소리가 나는 동안은 PC 소리 듣기를 쉰다 (친구 목소리를 받아쓰지 않게)
+        self.skip_calls = bool(self.pref("ears.skip_calls", True))
+        self.ears.blocked = lambda: self.call_watch.reason() if self.skip_calls else ""
         self.watcher.ears = self.ears
         self.ears.start()
         hud, ears = self.watcher.hud, self.ears
@@ -1368,6 +1373,7 @@ class AssistantApp(QObject):
             "local.context": self.context_keeper.enabled,
             "local.paddle_ocr": bool(self.pref("local.paddle_ocr", True)),
             "ears.enabled": self.ears.enabled,
+            "ears.skip_calls": self.skip_calls,
             "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
@@ -1455,6 +1461,8 @@ class AssistantApp(QObject):
             self.companion.drafts = bool(changed["screen.drafts"])
         if "ears.enabled" in changed:
             self.ears.enabled = bool(changed["ears.enabled"])
+        if "ears.skip_calls" in changed:
+            self.skip_calls = bool(changed["ears.skip_calls"])
         if "local.paddle_ocr" in changed:
             import local_ocr
 

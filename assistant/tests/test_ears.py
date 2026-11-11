@@ -106,3 +106,41 @@ def test_ears_only_listen_during_games_and_feed_judging(qapp, tmp_path):
     t["now"] = 10.5
     assert w._spiked()  # 새 대사가 들리면 바로
     assert "밑장 빼다 걸렸네" in w._context_text(game)
+
+
+def test_ears_pause_while_a_call_app_is_making_sound():
+    from watch.voice_apps import HOLD, CallWatch
+
+    t = {"now": 0.0}
+    peaks = {"apps": {}}
+    watch = CallWatch(probe=lambda: dict(peaks["apps"]), clock=lambda: t["now"])
+    assert watch.reason() == ""
+    peaks["apps"] = {"디스코드": 0.2}  # 친구가 말하는 중
+    t["now"] = 2.0
+    assert watch.reason() == "디스코드 통화 중"
+    peaks["apps"] = {"디스코드": 0.0}  # 말이 잠깐 끊겨도
+    t["now"] = 2.0 + HOLD - 1
+    assert watch.reason() == "디스코드 통화 중"
+    t["now"] = 2.0 + HOLD + 2  # 한참 조용하면 다시 듣는다
+    assert watch.reason() == ""
+    broken = CallWatch(probe=lambda: (_ for _ in ()).throw(OSError("no com")), clock=lambda: t["now"])
+    assert broken.reason() == ""  # 확인을 못 하면 그냥 계속 듣는다
+
+
+def test_ears_loop_does_not_open_audio_while_blocked():
+    import threading
+    import time as _time
+
+    from watch.ears import GameEars
+
+    opened = []
+    ears = GameEars(active=lambda: True, transcribe=lambda a: "", vad=lambda a: [],
+                    opener=lambda: opened.append(1) or None)
+    ears.blocked = lambda: "디스코드 통화 중"
+    ears.start()
+    deadline = _time.monotonic() + 3
+    while ears.state != "paused" and _time.monotonic() < deadline:
+        _time.sleep(0.05)
+    ears.stop()
+    assert ears.state == "paused" and opened == [] and ears.status_text() == "디스코드 통화 중이라 쉬는 중"
+    assert threading.active_count() >= 1
