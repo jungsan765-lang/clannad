@@ -21,6 +21,7 @@ from PySide6.QtCore import QObject, QTimer, Signal
 
 from . import capture as cap
 from .dxgi import DxgiGrabber
+from .sampler import FrameSampler
 from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foreground_window
 
@@ -81,6 +82,10 @@ class WatchConfig:
     event_gap: float = 8.0  # 장면 전환 판단 사이 최소 간격(초)
     economy_line_model: str = "claude-sonnet-5-5"  # 평범한 화면 대사는 이 모델 (중요한 말·대화는 line_model)
     line_quality: str = "auto"  # auto: 평범한 화면 대사는 economy_line_model / best: 항상 line_model
+    # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
+    dense: str = "game"
+    dense_interval: float = 0.5
+    dense_batch: float = 5.0
 
 
 @dataclass
@@ -92,6 +97,7 @@ class Shot:
     focus_label: str = ""  # 확대한 창이 무엇인지 (예: 카카오톡 — 단톡방)
     focus_thumb: object = None
     native: object = None  # 줄이기 전 원래 화면 (작은 글씨 확대용, 이번 확인 동안만)
+    history: bytes | None = None  # 촘촘히 보기: 지난 몇 초 흐름 모음
 
 
 @dataclass
@@ -170,6 +176,8 @@ class ScreenWatcher(QObject):
         self._job_local = threading.local()
         self._stage_name, self._stage_at, self._stage_limit = "", None, STAGE_LIMITS["start"]
         self.dxgi = DxgiGrabber()
+        self.sampler = FrameSampler(lambda: self.grabber(), interval=cfg.dense_interval, clock=clock)
+        self._current_history: bytes | None = None  # 이번 확인의 '지난 몇 초 흐름' 모음 (대사에도 같이)
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
@@ -219,6 +227,7 @@ class ScreenWatcher(QObject):
             self.status.emit("화면 보기 켜짐")
         elif not on and self.timer.isActive():
             self.timer.stop()
+            self.sampler.set_active(False)
             self.status.emit("화면 보기 꺼짐")
 
     # ------------------------------------------------------------ 모드·세션
@@ -284,9 +293,14 @@ class ScreenWatcher(QObject):
         base = min(mode.interval_seconds, self.cfg.interval_seconds)
         if self.reviewing(mode):
             return min(base, self.cfg.review_interval)
+        if self.dense_active(mode):  # 촘촘히 보기: 흐름을 모아서 5초마다
+            base = min(base, self.cfg.dense_batch)
         if not mode.is_game and self._quiet_streak >= 3:
             return min(max(base, 300.0), base * 2 ** min(5, self._quiet_streak // 3))
         return base
+
+    def dense_active(self, mode: Mode) -> bool:
+        return self.cfg.dense == "always" or (self.cfg.dense == "game" and mode.is_game)
 
     def reviewing(self, mode: Mode) -> bool:
         return self.cfg.review and mode.is_game
@@ -377,6 +391,9 @@ class ScreenWatcher(QObject):
         self.stats["ticks"] += 1
         self.check_stuck()
         self.update_mode()
+        # 촘촘히 보기: 볼 수 있을 때만 0.5초마다 찍는다 (자리 비움·한도·보지 말라는 창이면 쉼)
+        self.sampler.set_active(self.enabled and self.dense_active(self.mode) and self.can_run()
+                                and not self.blocked_word(self.process, self.window_title))
         if self.running_job or not self.can_run():
             return
         word = self.blocked_word(self.process, self.window_title)
@@ -412,7 +429,7 @@ class ScreenWatcher(QObject):
             from datetime import datetime
 
             self.screen_log.save(shot.jpeg, datetime.now(), getattr(mode, "name", ""), shot.title,
-                                 (note or {}).get("situation", ""))
+                                 (note or {}).get("situation", ""), seq=getattr(shot, "history", None))
         except OSError as exc:
             log.warning("화면 기억 저장 실패: %s", exc)
 
@@ -543,6 +560,7 @@ class ScreenWatcher(QObject):
     def _work(self, question: str | None):
         """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디/총평."""
         mode, session = self.mode, self.session
+        self._current_history = None
         notes = list(session.notes) if session else (list(self.flow) or None)
         shot = self._shot()
         if question is not None:
@@ -559,6 +577,9 @@ class ScreenWatcher(QObject):
             changed = max(changed, cap.change_amount(self.last_focus_thumb, shot.focus_thumb))
         settled = cap.change_amount(self._prev_sample, shot.thumb) < self.cfg.change_threshold * 2
         self._prev_sample = shot.thumb
+        recent = self.sampler.recent(self.cfg.dense_batch + 0.6) if self.dense_active(mode) else []
+        if len(recent) >= 2:  # 그 사이 움직임도 변화로 친다 (지금 화면이 처음과 같아도 중간에 일이 있었을 수 있음)
+            changed = max(changed, self.sampler.motion(recent))
         due = since is None or since >= self.interval_for(mode)  # 확인 간격이 지남
         # 장면 전환은 큰 화면이 크게 바뀌고 멈췄을 때만 (작은 창 속 영상·채팅이 계속 바뀌는 건 확인 간격대로)
         scene = changed_main >= self.cfg.scene_change and settled and (since is None or since >= self.cfg.event_gap)
@@ -566,15 +587,19 @@ class ScreenWatcher(QObject):
             self.stats["skipped_same"] += 1  # 그대로이거나, 바뀌었지만 아직 확인 간격 전 (다음 살펴보기 때 다시)
             return None
         self._stage("judge")  # 이미 버린 확인이면 여기서 멈춤 (아래 상태를 바꾸지 않게)
+        history = self.sampler.sheet(recent) if len(recent) >= 3 else None
+        self._current_history = history
+        shot.history = history
         self.last_thumb = shot.thumb
         self.last_focus_thumb = shot.focus_thumb
         self.frames.append((self.clock(), shot.jpeg))
         self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
+        extra = {"history": history} if history else {}
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
                                     focus_label=shot.focus_label,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
-                                    review=self.reviewing(mode))
+                                    review=self.reviewing(mode), **extra)
         self.stats["judged"] += 1
         self._remember(shot, mode, note)
         self._zoom_text(shot, note)
@@ -647,6 +672,8 @@ class ScreenWatcher(QObject):
         if focus:
             kwargs.setdefault("focus", focus)
             kwargs.setdefault("focus_label", label)
+        if self._current_history and kwargs.get("question") is None:
+            kwargs.setdefault("history", self._current_history)
         return self.companion.screen_line(*args, **kwargs)
 
     def _done(self, reply) -> None:

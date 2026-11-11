@@ -44,7 +44,9 @@ class ScreenLog:
 
     # ------------------------------------------------------------ 쌓기
 
-    def save(self, jpeg: bytes, when: datetime, mode: str = "", title: str = "", situation: str = "") -> Path | None:
+    def save(self, jpeg: bytes, when: datetime, mode: str = "", title: str = "", situation: str = "",
+             seq: bytes | None = None) -> Path | None:
+        """seq: 촘촘히 보기의 '지난 몇 초 흐름' 모음 사진 (있으면 같은 이름 _seq.jpg 로 함께)."""
         if not self.enabled:
             return None
         day = self.folder / f"{when:%Y-%m-%d}"
@@ -52,8 +54,12 @@ class ScreenLog:
         with self._lock:
             day.mkdir(parents=True, exist_ok=True)
             (day / name).write_bytes(jpeg)
-            self._append(day, {"time": when.isoformat(timespec="seconds"), "file": name, "mode": mode,
-                               "title": title[:120], "situation": situation[:300]})
+            row = {"time": when.isoformat(timespec="seconds"), "file": name, "mode": mode,
+                   "title": title[:120], "situation": situation[:300]}
+            if seq:
+                (day / name.replace(".jpg", "_seq.jpg")).write_bytes(seq)
+                row["seq"] = name.replace(".jpg", "_seq.jpg")
+            self._append(day, row)
             self._last = (day, name)
         return day / name
 

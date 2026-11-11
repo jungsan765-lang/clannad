@@ -185,6 +185,7 @@ class AssistantApp(QObject):
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
         self.watch_cfg.line_quality = str(self.pref("screen.line_quality", "auto"))
+        self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
@@ -310,6 +311,7 @@ class AssistantApp(QObject):
         self.planner_timer.stop()
         self.pc_timer.stop()
         self.recall_timer.stop()
+        self.watcher.sampler.stop()
         self.away_timer.stop()
         self.genshin_timer.stop()
         self.cleanup_timer.stop()
@@ -1078,6 +1080,7 @@ class AssistantApp(QObject):
             "screen.auto_read": bool(self.watch_cfg.auto_read),
             "screen.result_depth": "deep" if self.watch_cfg.deep_result else "quick",
             "screen.line_quality": self.watch_cfg.line_quality,
+            "screen.dense": self.watch_cfg.dense,
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
             "screen.memory_days": self.screen_log.keep_days,
             "screen.memory_gb": int(self.screen_log.max_gb),
@@ -1146,6 +1149,8 @@ class AssistantApp(QObject):
             self.watch_cfg.deep_result = changed["screen.result_depth"] == "deep"
         if "screen.line_quality" in changed:
             self.watch_cfg.line_quality = str(changed["screen.line_quality"])
+        if "screen.dense" in changed:
+            self.watch_cfg.dense = str(changed["screen.dense"])
         if "screen.daily_krw" in changed:
             self.set_pref("screen.daily_krw", int(changed["screen.daily_krw"]))
             self.set_pref("screen.daily_limit_told", "")
@@ -1686,6 +1691,8 @@ class AssistantApp(QObject):
             folder.mkdir(parents=True, exist_ok=True)
             for i, (_, jpeg) in enumerate(list(self.watcher.frames)[-6:], 1):
                 (folder / f"{i:02d}.jpg").write_bytes(jpeg)
+            for i, f in enumerate(self.watcher.sampler.recent(12.0), 1):  # 촘촘히 보기 중이면 지난 12초를 0.5초 간격으로
+                (folder / f"seq_{i:02d}.jpg").write_bytes(f.jpeg)
             (folder / "메모.txt").write_text(f"{time.strftime('%Y-%m-%d %H:%M:%S')} [{self.watcher.mode.name}]\n{note}\n",
                                             encoding="utf-8")
         except OSError as exc:

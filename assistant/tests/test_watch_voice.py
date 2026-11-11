@@ -48,7 +48,8 @@ class FakeCompanion:
         self.lines = []
 
     def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False,
-              review=False, focus=None, focus_label=""):
+              review=False, focus=None, focus_label="", history=None):
+        self.history_seen = history
         self.focus_seen = focus
         self.focus_label_seen = focus_label
         self.judged.append({"title": title, "model": model, "minutes": minutes, "mode": mode.name if mode else None,
@@ -66,7 +67,8 @@ class FakeCompanion:
         return Analysis(True, "흐름을 보니 왼쪽이 비었습니다.", "교전 직후", [{"title": "위치", "detail": "근거"}], ["보급"])
 
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False,
-                    focus=None, focus_label="", pick=False, fast=None):
+                    focus=None, focus_label="", pick=False, fast=None, history=None):
+        self.line_history = history
         self.lines.append({"note": note, "question": question, "mode": mode.name if mode else None,
                            "notes": list(session_notes or []), "review": review, "pick": pick, "fast": fast})
         text = "총평입니다." if review else ("지금은 코드 편집 중이시네요." if question else "경로에 얼룩이 하나 있네요.")
@@ -89,7 +91,7 @@ def _watcher(tmp_path, images=None, notes=None, modes=None, can_run=lambda: True
         except Exception as exc:  # noqa: BLE001
             fail(str(exc))
 
-    w = ScreenWatcher(comp, WatchConfig(interval_seconds=30, cooldown_seconds=120, deep_result=False), run_job,
+    w = ScreenWatcher(comp, WatchConfig(interval_seconds=30, cooldown_seconds=120, deep_result=False, dense="off"), run_job,
                       modes=modes or [],
                       can_run=can_run, grabber=lambda: next(imgs), window_info=lambda: state["window"],
                       monitor_rect=lambda: MON, clock=lambda: t["now"])
@@ -776,3 +778,45 @@ def test_small_changing_window_does_not_trigger_scene_checks(qapp, tmp_path):
         w.last_spoke = None
         w.tick()
     assert 2 <= len(comp.judged) <= 3 and comp.focus_seen  # 확인 간격(30초)대로만 (예전엔 10초마다)
+
+
+
+def test_dense_watching_sends_the_last_seconds_as_one_sheet(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    imgs = [_img(v) for v in range(0, 250, 5)]
+    w, comp, said, t, _ = _watcher(tmp_path, images=imgs, modes=[game],
+                                   window=WindowInfo("Crimson", "cd.exe", (0, 0, 1900, 1000)))
+    w.cfg.dense = "game"
+    w.update_mode()
+    assert w.dense_active(w.mode) and w.interval_for(w.mode) == 5.0
+    for i in range(10):  # 0.5초마다 이 PC 에서 찍음 (테스트에선 직접)
+        t["now"] = i * 0.5
+        w.sampler.capture_once()
+    w.sampler.set_active = lambda on: None  # 테스트에선 뒤 스레드를 켜지 않음
+    t["now"] = 5.0
+    w.tick()
+    assert comp.history_seen and comp.judged  # 판단에 흐름 모음이 같이 감
+    from io import BytesIO
+
+    sheet = Image.open(BytesIO(comp.history_seen))
+    assert sheet.width == 4 * 480  # 4칸씩
+    assert comp.line_history == comp.history_seen  # 대사에도 같이
+    w.cfg.dense = "off"
+    assert not w.dense_active(w.mode) and w.interval_for(w.mode) == 20
+
+
+def test_sampler_keeps_recent_seconds_and_measures_motion(tmp_path):
+    from watch.sampler import FrameSampler
+
+    t = {"now": 0.0}
+    vals = iter(range(0, 250, 10))
+    s = FrameSampler(lambda: _img(next(vals)), clock=lambda: t["now"], keep_seconds=3.0)
+    for i in range(10):
+        t["now"] = i * 0.5
+        s.capture_once()
+    assert len(s.recent(10)) == 7  # 3초치만 들고 있음
+    frames = s.recent(2.0)
+    assert len(frames) == 5 and s.motion(frames) > 0.03
+    assert s.sheet(frames[:1]) is None and s.sheet(frames)

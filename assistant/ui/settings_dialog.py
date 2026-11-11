@@ -25,6 +25,8 @@ SPEAK_RATES = [("slow", "느리게"), ("normal", "보통"), ("fast", "빠르게"
 CLIP_TOOLS = [("gamebar", "Xbox Game Bar"), ("nvidia", "NVIDIA"), ("off", "화면 몇 장만")]
 DAILY_LIMITS = [("1000", "1,000원"), ("3000", "3,000원 (추천)"), ("5000", "5,000원"), ("10000", "10,000원"),
                 ("0", "제한 없음")]
+DENSE = [("game", "게임할 때만 (0.5초마다 찍고 5초마다 흐름을 모아 판단, 판단만 시간당 약 600원)"),
+         ("always", "항상"), ("off", "끔 (확인 간격마다 한 장씩)")]
 LINE_QUALITY = [("auto", "아껴서 (평범한 화면 대사는 중간 모델, 중요한 말은 최고 모델)"), ("best", "항상 최고 모델")]
 RESULT_DEPTH = [("deep", "깊게 생각 (1~2분, 판마다 약 200~400원)"), ("quick", "빠르게")]
 OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
@@ -145,11 +147,12 @@ class SettingsDialog(QDialog):
         self.result_depth = Choice(RESULT_DEPTH, str(v.get("screen.result_depth", "deep")))
         self.daily_limit = Choice(DAILY_LIMITS, str(v.get("screen.daily_krw", "3000")))
         self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "auto")))
+        self.dense = Choice(DENSE, str(v.get("screen.dense", "game")))
         self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "important")))
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         g2 = group("화면 보기", [("", self.screen_on), ("코칭", self.coach), ("", coach_note),
                                  ("판 끝난 뒤 총평", self.result_depth), ("하루 화면 비용 한도", self.daily_limit),
-                                 ("화면 대사 모델", self.line_quality),
+                                 ("화면 대사 모델", self.line_quality), ("촘촘히 보기", self.dense),
                                  ("게임 화면 자막", self.overlay), ("자막 위치", self.overlay_pos), ("말 거는 정도", self.chatty),
                                  ("화면 확인 간격", self.interval),
                                  ("한 번 말한 뒤 쉬는 시간", self.cooldown), ("볼 모니터", self.monitor),
@@ -336,6 +339,7 @@ class SettingsDialog(QDialog):
             "screen.result_depth": self.result_depth.value(),
             "screen.daily_krw": self.daily_limit.value(),
             "screen.line_quality": self.line_quality.value(),
+            "screen.dense": self.dense.value(),
             "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),
             "screen.read_windows": self.read_windows.isChecked(),
