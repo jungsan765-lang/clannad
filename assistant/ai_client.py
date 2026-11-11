@@ -108,12 +108,16 @@ class AIClient:
             raise
         except Exception as exc:  # noqa: BLE001 - 아래에서 종류별로 한국어 메시지로 바꾼다
             log.warning("API 실패 (%s, %.1f초): %r", kind, time.monotonic() - started, exc)
+            try:
+                self.ledger.fail(kind)
+            except Exception:  # noqa: BLE001
+                pass
             raise AIError(_friendly_error(exc)) from exc
         _log_call(kind, response, started)
 
         usage = _usage_dict(response.usage)
         served = getattr(response, "model", model) or model
-        usd = self.ledger.record(served, usage, kind)
+        usd = self.ledger.record(served, usage, kind, images=_count_images(messages))
         text = next((b.text for b in response.content if getattr(b, "type", "") == "text"), "")
         stop = getattr(response, "stop_reason", None)
         if stop == "refusal":
@@ -205,10 +209,20 @@ def _keepalive_client(anthropic_module) -> dict:
     return {}
 
 
+def _count_images(messages: list[dict]) -> int:
+    n = 0
+    for m in messages or []:
+        content = m.get("content") if isinstance(m, dict) else None
+        if isinstance(content, list):
+            n += sum(1 for b in content if isinstance(b, dict) and b.get("type") == "image")
+    return n
+
+
 def _log_call(kind: str, response: Any, started: float) -> None:
     u = _usage_dict(getattr(response, "usage", None))
-    log.info("API %s %.1f초 (%s, 입력 %d+캐시 %d, 출력 %d)", kind, time.monotonic() - started,
-             getattr(response, "model", "?"), u["input_tokens"], u["cache_read_input_tokens"], u["output_tokens"])
+    log.info("API %s %.1f초 (%s, 입력 %d + 캐시 읽음 %d + 캐시 새로 씀 %d, 출력 %d)", kind, time.monotonic() - started,
+             getattr(response, "model", "?"), u["input_tokens"], u["cache_read_input_tokens"],
+             u.get("cache_creation_input_tokens", 0) + u.get("cache_creation_1h_input_tokens", 0), u["output_tokens"])
 
 
 def _is_fast_problem(exc: Exception) -> bool:

@@ -1476,9 +1476,9 @@ def test_context_keeper_writes_the_running_story_on_my_pc(tmp_path):
     call = local.calls[-1]
     assert call["background"] and call["images"] == 4 and "도박사: 밑장 빼다 걸렸네" in call["text"]  # 급한 일이 먼저
     assert call["model"] is None  # 맥락 담당 모델을 따로 안 정했으면 기본
-    assert "이전 흐름: (처음 보는 중)" in call["text"]
+    assert "다르면 고친다): (처음 보는 중)" in call["text"]
     text = keeper.text()
-    assert "맥락 담당(내 PC 작은 AI, 틀릴 수 있음" in text and "밑장을 빼다 걸렸다" in text and "0초 전: 도박판에서" in text
+    assert "(추측), 사진·[확인]과 맞을 때만 참고" in text and "밑장을 빼다 걸렸다" in text and "0초 전: 도박판에서" in text
     assert not keeper.due()
     for i in range(1, 51):  # 25초 더 찍음
         t["now"] = 40.0 + i * 0.5
@@ -1487,7 +1487,7 @@ def test_context_keeper_writes_the_running_story_on_my_pc(tmp_path):
     assert not keeper.step("붉은사막") and keeper.due()
     local.busy = False
     assert keeper.step("붉은사막")
-    assert "이전 흐름: 주인님이 술집 도박판에 앉았다." in local.calls[-1]["text"]  # 이전 흐름을 이어서 고쳐 씀
+    assert "다르면 고친다): 주인님이 술집 도박판에 앉았다." in local.calls[-1]["text"]  # 이전 흐름을 이어서 고쳐 씀
     assert [line for _, line in keeper.timeline] == ["도박판에서 속임수가 들통남", "싸움이 벌어짐"]
     t["now"] = 65.0 + 200
     assert keeper.text() == ""  # 오래된 흐름은 안 붙임
@@ -1733,3 +1733,74 @@ def test_sudden_change_shows_a_face_first_and_reads_center_banner(qapp, tmp_path
     s.capture_once()
     assert read and read[0][0] == 1200  # 가운데 큰 글자 자리를 읽음
     assert hud.recent()[-1][1:] == ("화면 가운데 큰 글자", "사망했습니다") and hud.alert_at == 0.5
+
+
+def test_session_log_separates_confirmed_from_guessed(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    w.update_mode()
+    w.hud._event(0.0, "퀘스트 안내", "퀘스트 완료: 잃어버린 짐")
+    w.tick()
+    notes = w.session.notes
+    assert any("[확인] 퀘스트 안내: 퀘스트 완료: 잃어버린 짐" in n for n in notes)  # 화면 글자로 확인된 것
+    assert any("(추측) 오류 창" in n for n in notes)  # 판단 담당이 짐작한 것
+    assert any(n.endswith("내가 한 말: 경로에 얼룩이 하나 있네요.") for n in notes)
+    t["now"] = 100
+    w.tick()
+    assert sum("퀘스트 완료" in n for n in w.session.notes) == 1  # 같은 사건은 한 번만 옮김
+    from companion import JUDGE_RULES, MEMORY_RULES, SCREEN_TASK
+
+    assert "(추측)은 AI 가 작은 사진으로" in JUDGE_RULES and "(추측)" in SCREEN_TASK
+    assert "사실 기억으로 만들지 않는다" in MEMORY_RULES
+
+
+def test_event_frames_crowd_around_the_moment_and_calm_sends_fewer(tmp_path):
+    from watch.sampler import FrameSampler
+
+    t = {"now": 0.0}
+    s = FrameSampler(lambda: _img(int(t["now"] * 7) % 250), clock=lambda: t["now"])
+    for i in range(81):  # 40초
+        t["now"] = i * 0.5
+        s.capture_once()
+    shots = s.around(38.0)
+    labels = [label for label, _ in shots]
+    assert len(shots) <= 10 and labels[0].split(") ")[1].startswith("20.0초 전")  # 조금 전 한 장
+    close = [float(x.split(") ")[1].split("초")[0]) for x in labels[1:]]
+    assert max(close) <= 4.6 and min(close) == 0.0  # 나머지는 사건 앞뒤를 몰아서
+    assert sum("← 확 바뀐 순간" in x for x in labels) == 1
+    assert len(s.spread((30.0,), 5.0, max_frames=5)) == 5  # 조용할 땐 5장만
+
+
+def test_watcher_rests_after_repeated_failures(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    statuses = []
+    w.status.connect(statuses.append)
+    comp.judge = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("API 호출 실패"))
+    for i in range(3):
+        t["now"] = i * 40
+        w.tick()
+    assert w._rest_until is not None and any("쉬었다가" in s for s in statuses)
+    judged = []
+    comp.judge = lambda *a, **k: judged.append(1) or {"speak": False, "urgent": False, "scene": "other", "situation": "",
+                                                      "point": "", "read_box": [], "look": []}
+    t["now"] = 100  # 쉬는 중엔 AI 를 안 부름
+    w.tick()
+    assert judged == []
+    t["now"] = 200  # 쉬는 시간이 지나면 다시
+    w.tick()
+    assert judged == [1] and w._fails == 0 and w._rest_until is None
+
+
+def test_ledger_tracks_cache_images_and_failures(tmp_path):
+    from usage import UsageLedger
+
+    led = UsageLedger(tmp_path / "u.json")
+    led.record("claude-sonnet-5-5", {"input_tokens": 1000, "output_tokens": 50, "cache_read_input_tokens": 9000,
+                                      "cache_creation_input_tokens": 0}, "screen", images=11)
+    led.fail("judge")
+    st = led.day_stats()
+    assert round(st["cache_hit"], 2) == 0.9 and st["images"] == 11 and st["fails"] == {"judge": 1}
+    assert st["models"]["claude-sonnet-5-5"]["images"] == 11

@@ -310,6 +310,29 @@ class FrameSampler:
         n = len(chosen)
         return [(f"({i}/{n}) {now - f.t:.1f}초 전", f.jpeg) for i, f in enumerate(chosen, 1)]
 
+    def around(self, at: float, before: float = 2.5, older=(20.0,), max_frames: int = 10) -> list[tuple[str, bytes]]:
+        """사건(확 바뀐 순간 등) 앞뒤를 0.5초 간격으로 몰아서 + 조금 전 한두 장. 누가 누굴 때렸는지처럼 짧은 순간을 볼 때."""
+        now = self.clock()
+        with self._lock:
+            frames = list(self._frames)
+        if not frames:
+            return []
+        window = [f for f in frames if f.t >= at - before - 0.01]
+        olds: list[Frame] = []
+        for b in sorted(older, reverse=True):
+            near = min(frames, key=lambda f: abs((now - f.t) - b))
+            if near.t < at - before - 1.0 and all(near is not f for f in olds):
+                olds.append(near)
+        keep = max(3, max_frames - len(olds))
+        if len(window) > keep:
+            step = len(window) / keep
+            window = [window[int(i * step)] for i in range(keep - 1)] + [window[-1]]
+        chosen = olds + window
+        hit = min(window, key=lambda f: abs(f.t - at)) if window else None
+        n = len(chosen)
+        return [(f"({i}/{n}) {now - f.t:.1f}초 전" + (" ← 확 바뀐 순간" if f is hit else ""), f.jpeg)
+                for i, f in enumerate(chosen, 1)]
+
     def between(self, start: float, end: float | None = None, count: int = 4) -> list[Frame]:
         """start~end 사이 장면 count 장 (고르게, 마지막 포함). 맥락 담당이 지난 구간을 볼 때."""
         with self._lock:

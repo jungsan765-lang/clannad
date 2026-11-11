@@ -51,7 +51,7 @@ class UsageLedger:
         except (OSError, json.JSONDecodeError):
             self.data = {"days": {}}
 
-    def record(self, model: str, usage: dict, kind: str, today: date | None = None) -> float:
+    def record(self, model: str, usage: dict, kind: str, today: date | None = None, images: int = 0) -> float:
         usd = cost_usd(model, usage)
         key = (today or date.today()).isoformat()
         with self._lock:
@@ -61,8 +61,37 @@ class UsageLedger:
             day["by_kind"][kind] = day["by_kind"].get(kind, 0.0) + usd
             for k, v in usage.items():
                 day["tokens"][k] = day["tokens"].get(k, 0) + int(v or 0)
+            m = day.setdefault("models", {}).setdefault(model, {"usd": 0.0, "calls": 0, "images": 0})
+            m["usd"] += usd
+            m["calls"] += 1
+            m["images"] += int(images)
+            for k, v in usage.items():
+                m[k] = m.get(k, 0) + int(v or 0)
+            day["images"] = day.get("images", 0) + int(images)
             self._save()
         return usd
+
+    def fail(self, kind: str, today: date | None = None) -> None:
+        """실패한 호출 (돈은 안 들지만 몇 번 실패했는지 보려고)."""
+        key = (today or date.today()).isoformat()
+        with self._lock:
+            day = self.data["days"].setdefault(key, {"usd": 0.0, "calls": 0, "by_kind": {}, "tokens": {}})
+            fails = day.setdefault("fails", {})
+            fails[kind] = fails.get(kind, 0) + 1
+            self._save()
+
+    def day_stats(self, today: date | None = None) -> dict:
+        """오늘 캐시 적중·사진 수·실패·모델별 (비용 내역용)."""
+        with self._lock:
+            day = json.loads(json.dumps(self.data["days"].get((today or date.today()).isoformat(), {})))
+        tok = day.get("tokens", {})
+        fresh = tok.get("input_tokens", 0)
+        read = tok.get("cache_read_input_tokens", 0)
+        write = tok.get("cache_creation_input_tokens", 0) + tok.get("cache_creation_1h_input_tokens", 0)
+        total = fresh + read + write
+        return {"cache_hit": read / total if total else 0.0, "cache_read": read, "cache_write": write, "fresh": fresh,
+                "output": tok.get("output_tokens", 0), "images": day.get("images", 0),
+                "fails": day.get("fails", {}), "models": day.get("models", {}), "calls": day.get("calls", 0)}
 
     def _save(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)

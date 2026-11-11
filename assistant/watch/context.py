@@ -77,7 +77,7 @@ class ContextKeeper:
             except Exception:  # noqa: BLE001
                 notes = []
         labels = ", ".join(f"{now - f.t:.0f}초 전" for f in frames)
-        prompt = (f"게임: {game}\n이전 흐름: {self.story or '(처음 보는 중)'}\n"
+        prompt = (f"게임: {game}\n이전 흐름(네가 전에 짐작한 것 — 사진·화면 글자와 다르면 고친다): {self.story or '(처음 보는 중)'}\n"
                   + (f"그 사이 자막·대사: {' / '.join(said[-8:])}\n" if said else "")
                   + (f"그 사이 화면 정보·들린 소리: {' / '.join(notes[-10:])}\n" if notes else "")
                   + f"사진 {len(frames)}장 (시간 순): {labels}\n흐름을 이어 적어 줘.")
@@ -103,7 +103,7 @@ class ContextKeeper:
         now = self.clock()
         recent = [f"{(now - t) / 60:.0f}분 전: {line}" if now - t >= 90 else f"{now - t:.0f}초 전: {line}"
                   for t, line in list(self.timeline)[-6:]]
-        return ("[맥락 담당(내 PC 작은 AI, 틀릴 수 있음 — 사진과 맞을 때만 참고)이 지켜본 지금까지 흐름] " + self.story
+        return ("[맥락 담당(내 PC 작은 AI)이 지켜본 지금까지 흐름 — (추측), 사진·[확인]과 맞을 때만 참고] " + self.story
                 + ("\n최근 일지: " + " / ".join(recent) if recent else ""))
 
     # ------------------------------------------------------------ 뒤에서 계속

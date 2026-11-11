@@ -1596,6 +1596,16 @@ class AssistantApp(QObject):
                 if usd > 0:
                     lines.append(f"  {KIND_KO.get(kind, kind)}: {self.ledger.krw(usd):,}원 ({usd / max(total, 1e-9):.0%})")
             lines.append("")
+        st = self.ledger.day_stats()
+        if st["calls"]:
+            lines.append(f"[오늘 자세히] 호출 {st['calls']:,}번 · 보낸 사진 {st['images']:,}장")
+            lines.append(f"  캐시 적중 {st['cache_hit']:.0%} (캐시에서 읽음 {st['cache_read']:,} · 새로 씀 {st['cache_write']:,} · "
+                         f"그냥 읽음 {st['fresh']:,} 토큰, 출력 {st['output']:,} 토큰)")
+            for model, m in sorted(st["models"].items(), key=lambda x: -x[1].get("usd", 0)):
+                lines.append(f"  {model}: {self.ledger.krw(m.get('usd', 0)):,}원 · {m.get('calls', 0):,}번 · 사진 "
+                             f"{m.get('images', 0):,}장")
+            if st["fails"]:
+                lines.append("  실패: " + ", ".join(f"{KIND_KO.get(k, k)} {v}번" for k, v in st["fails"].items()))
         return "\n".join(lines).strip()
 
     def show_cost_details(self) -> None:
@@ -2025,7 +2035,7 @@ class AssistantApp(QObject):
         prev = self.progress.text_for(game)
         keeper = getattr(self, "context_keeper", None)  # 맥락 담당이 적은 '지금까지 흐름'도 오래 기억에 (다음에 '저번 판에서…')
         story = keeper.story if keeper is not None and keeper.game == game and keeper.story else ""
-        detail = (f"흐름: {story} / " if story else "") + " / ".join(notes[-30:])
+        detail = (f"흐름(추측): {story} / " if story else "") + " / ".join(notes[-30:])
         self.remember_episode("game", f"{game} 약 {minutes:.0f}분 플레이", game, detail)
 
         def done(text: str) -> None:

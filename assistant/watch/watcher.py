@@ -130,12 +130,15 @@ class GameSession:
     last_review: float | None = None
     last_pick: float | None = None
 
-    def add(self, now: float, text: str) -> None:
+    def add(self, now: float, text: str, kind: str = "guess") -> None:
+        """kind: fact = 화면 글자·알림으로 확인된 것 [확인] / measure = 이 PC 가 잰 값 [잰 값] /
+        guess = AI 가 짐작한 것 (추측) / said = 다니카가 한 말 (표시 없음). 추측을 사실처럼 쌓지 않으려고 나눠 적는다."""
         if not text:
             return
+        tag = {"fact": "[확인] ", "measure": "[잰 값] ", "guess": "(추측) "}.get(kind, "")
         m = int((now - self.started) // 60)
-        self.notes.append(f"{m}분: {text}")
-        del self.notes[:-60]
+        self.notes.append(f"{m}분: {tag}{text}")
+        del self.notes[:-80]
 
     def minutes(self, now: float) -> float:
         return (now - self.started) / 60
@@ -210,6 +213,8 @@ class ScreenWatcher(QObject):
         self._scanned: deque = deque(maxlen=30)  # (시각, 상자, 작은 그림) — 방금 본 이름 모를 것은 다시 안 봄
         self._finds: list[tuple[float, dict]] = []  # 알릴 만하다고 판정됐는데 아직 못 알린 것 (쉬는 시간 중이었음)
         self._calm = 0  # 게임 중 별일 없는 판단이 이어진 수 (판단 간격 늘리기)
+        self._fails = 0  # AI 호출이 이어서 실패한 수
+        self._rest_until: float | None = None  # 이때까지는 AI 판단을 쉼 (찍기·이 PC 감지는 계속)
         self.sync_helpers = False  # 시험용: 둘러보기·배치 익히기를 뒤 스레드 대신 바로 (보통은 말하는 길을 막지 않게 뒤에서)
         self._helper_busy: set[str] = set()  # 뒤에서 하는 중인 일 (같은 일을 겹쳐 하지 않게)
         self._finds_lock = threading.Lock()
@@ -451,7 +456,7 @@ class ScreenWatcher(QObject):
         self.seen.add(mode.name, found)
         for f in found:
             if f["importance"] >= 2 and session is not None:
-                session.add(now, f"알아봄: {f.get('name', '')} — {f.get('info', '')} ({f.get('why', '')})"[:300])
+                session.add(now, f"알아봄: {f.get('name', '')} — {f.get('info', '')} ({f.get('why', '')})"[:300], "guess")
             if f["importance"] >= 3 and f.get("say"):
                 with self._finds_lock:
                     self._finds.append((now, f))
@@ -544,6 +549,7 @@ class ScreenWatcher(QObject):
         if at is None or (self.last_judged is not None and at <= self.last_judged):
             return False
         self._spike_kind = kind
+        self._spike_time = at
         return self.last_judged is None or self.clock() - self.last_judged >= self.cfg.spike_gap
 
     def _check_spike(self) -> None:
@@ -672,6 +678,8 @@ class ScreenWatcher(QObject):
                                            or self.dense_active(mode)):
             return
         self.last_check = now
+        if self._rest_until is not None and self.clock() < self._rest_until:
+            return  # AI 호출이 계속 실패해서 잠시 쉬는 중 (모드 확인·찍기·이 PC 감지는 계속)
         self._launch(self._work, None)
 
     def ask_analysis(self, question: str = "지금 화면을 자세히 분석해 줘") -> None:
@@ -859,8 +867,19 @@ class ScreenWatcher(QObject):
             return None
         self._stage("judge")  # 이미 버린 확인이면 여기서 멈춤 (아래 상태를 바꾸지 않게)
         # AI 에겐 순서가 분명하게 '(1/10) 4.5초 전'… 따로따로, 화면 기억엔 한 장으로 모아 저장
-        # 수십 초 전 몇 장 + 최근 5초 (5초만 봐서는 무슨 상황인지 모를 때가 있어서)
-        history = self.sampler.spread(self.cfg.context_back, self.cfg.dense_batch) if len(recent) >= 3 else None
+        # 사진 고르기 (장면 따라 장수도 다르게):
+        #  확 바뀐 순간 → 그 앞뒤를 0.5초 간격으로 몰아서 + 조금 전 한 장 (짧은 순간의 인과를 보게)
+        #  그냥 돌아다니는 중 → 5장만 (조금 전 1장 + 최근 4장, 돈 아낌)
+        #  그 밖 → 수십 초 전 몇 장 + 최근 5초 (5초만 봐서는 무슨 상황인지 모를 때가 있어서)
+        spiked_now = bool(recent) and since is not None and since < self.interval_for(mode)
+        if len(recent) < 3:
+            history = None
+        elif spiked_now and getattr(self, "_spike_time", None) is not None and self._spike_kind in ("screen", "hud"):
+            history = self.sampler.around(self._spike_time)
+        elif self._calm >= 3:
+            history = self.sampler.spread((30.0,), self.cfg.dense_batch, max_frames=5)
+        else:
+            history = self.sampler.spread(self.cfg.context_back, self.cfg.dense_batch)
         self._current_history = history
         shot.history = self.sampler.sheet(recent, cell_width=360) if history else None
         self.last_thumb = shot.thumb
@@ -904,7 +923,8 @@ class ScreenWatcher(QObject):
         if not mode.is_game:
             self._count_game(scene, note.get("situation", ""))
         if session:
-            session.add(now, note.get("situation", ""))
+            session.add(now, note.get("situation", ""), "guess")
+            self._log_facts(session)
         elif note.get("situation"):
             import time as _time
 
@@ -986,11 +1006,21 @@ class ScreenWatcher(QObject):
         brain = {"scene": scene, "dialogue": dialogue, "found": list(finds or []), "context": self._context_text(mode)}
         if scene and scene.get("happened") and session is not None:  # 판 기록엔 자세히 본 것도 (작은 사진 판단보다 정확)
             session.add(self.clock(), "자세히 본 장면: " + " / ".join(
-                str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300])
+                str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300], "guess")
         # 말하기 담당은 흐름 사진·자막 사진 대신 담당들이 정리한 글 + 지금 화면으로 확인한다 (비용 절약).
         # 절약이면 평소 한마디는 Sonnet, 물어볼 때·둘러보기에서 중요한 걸 찾았을 때만 Opus
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes,
                          question=question, brain=brain, history=None, captions=None)
+
+    def _log_facts(self, session) -> None:
+        """화면 정보(퀘스트·알림·배너·킬로그 글자 인식, 체력 막대 잰 값)를 판 기록에 [확인]·[잰 값]으로 옮긴다."""
+        since = getattr(self, "_facts_until", None)
+        events = self.hud.recent(600, since=since)
+        for t, name, text in events:
+            measured = name in self.hud.bars and "%" in text
+            session.add(t, f"{name}: {text}"[:200], "measure" if measured else "fact")
+        if events:
+            self._facts_until = events[-1][0]
 
     def _newer_event(self, after: float) -> bool:
         """그 뒤로 새 사건이 생겼나 (화면이 확 바뀜·퀘스트 완료 같은 화면 정보). 대사·소리는 자주 바뀌어서 안 셈."""
@@ -1093,6 +1123,7 @@ class ScreenWatcher(QObject):
 
     def _done(self, reply) -> None:
         self.running_job = False
+        self._fails, self._rest_until = 0, None
         self.activity.emit("")
         if self._streamed and (reply is None or not reply.speak or not getattr(reply, "message", "")):
             self.partial_cancel.emit()  # 나오다가 안 하기로 함 (화면 글자 읽기·한국어 아님·조용히 찾아보기) → 지움
@@ -1107,12 +1138,17 @@ class ScreenWatcher(QObject):
             if self.screen_log is not None:
                 self.screen_log.note(said=reply.message)
             if self.session:
-                self.session.add(self.last_spoke, "내가 한 말: " + reply.message)
+                self.session.add(self.last_spoke, "내가 한 말: " + reply.message, "said")
         self.spoke.emit(reply)
 
     def _fail(self, message: str) -> None:
         self.running_job = False
         self.activity.emit("")
         self.stats["errors"] += 1
+        self._fails += 1
+        if self._fails >= 3:  # 계속 실패하면 5초마다 다시 부르지 않고 쉰다 (1분 → 2분 → 4분 … 최대 5분)
+            rest = min(300.0, 60.0 * 2 ** (self._fails - 3))
+            self._rest_until = self.clock() + rest
+            self.status.emit(f"AI 호출이 계속 실패해서 {rest / 60:.0f}분 쉬었다가 다시 볼게요 ({message[:60]})")
         log.warning("화면 보기 실패: %s", message)
         self.status.emit(message)
