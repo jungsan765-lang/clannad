@@ -79,8 +79,10 @@ class FakeCompanion:
 
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False,
                     focus=None, focus_label="", pick=False, fast=None, history=None, captions=None, brain=None,
-                    age=None):
+                    age=None, on_partial=None):
         self.line_age = age
+        if on_partial is not None:
+            on_partial("나오는 중…")
         self.line_history = history
         self.line_captions = captions
         self.line_brain = brain
@@ -112,6 +114,7 @@ def _watcher(tmp_path, images=None, notes=None, modes=None, can_run=lambda: True
                       modes=modes or [],
                       can_run=can_run, grabber=lambda: next(imgs), window_info=lambda: state["window"],
                       monitor_rect=lambda: MON, clock=lambda: t["now"])
+    w.sync_helpers = True  # 시험에선 둘러보기·배치 익히기를 바로
     said = []
     w.spoke.connect(lambda r: said.append(r.message))
     return w, comp, said, t, state
@@ -1173,6 +1176,7 @@ def test_brain_mode_lets_helpers_look_first_and_opus_speak_last(qapp, tmp_path):
     w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game],
                                    window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
     w.cfg.line_quality = "brain"
+    w.cfg.eye = "careful"  # 꼼꼼히: 눈 담당이 먼저
     w.cfg.dense = "game"
     w.sampler.set_active = lambda on: None
     w.update_mode()
@@ -1400,7 +1404,7 @@ def test_lite_brain_uses_sonnet_for_routine_and_opus_when_it_matters(qapp, tmp_p
     w.cfg.line_quality = "brain_lite"
     w.update_mode()
     w.tick()
-    assert comp.line_model == "claude-sonnet-5-5" and comp.perceived  # 평소 한마디: 나눠 보고 Sonnet 마무리
+    assert comp.line_model == "claude-sonnet-5-5" and not hasattr(comp, "perceived")  # 바로: 눈 담당 없이 Sonnet
     w._finds = [(t["now"], {"name": "로안", "info": "느낌표", "say": "보상 좋음", "importance": 3})]
     t["now"] = 100
     w.tick()
@@ -1529,3 +1533,49 @@ def test_late_lines_talk_about_the_past_not_current_hp(qapp, tmp_path):
     from companion import JUDGE_RULES
 
     assert "'체력이 얼마 남았으니 조심'" in JUDGE_RULES
+
+
+def test_fast_path_goes_straight_from_judge_to_speaker_and_streams(qapp, tmp_path):
+    import threading
+
+    from watch.modes import Mode as _Mode
+    from watch.sampler import Caption
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    look = [{"what": "느낌표 뜬 상인", "box": [0.4, 0.3, 0.48, 0.6]}]
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(30)], modes=[game],
+                                   notes=[{"speak": True, "urgent": False, "scene": "playing", "situation": "마을",
+                                           "point": "감탄", "read_box": [], "look": look}],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    w.cfg.line_quality = "brain_lite"
+    w.cfg.dense = "game"
+    w.sync_helpers = False  # 실제처럼: 둘러보기는 뒤에서
+    w.sampler.set_active = lambda on: None
+    from watch.scan import SeenThings
+
+    w.seen = SeenThings(tmp_path / "scan")
+    gate = threading.Event()
+    comp.inspect_spot = lambda *a: (gate.wait(5), ({"kind": "npc", "name": "로안", "info": "!", "clear": True}, 0.0))[1]
+    comp.weigh_spots = lambda *a: ({"items": [{"name": "로안", "importance": 3, "why": "보상", "say": "보상 좋음"}]}, 0.0)
+    shown = []
+    w.partial.connect(shown.append)
+    w.update_mode()
+    for i in range(11):
+        t["now"] = i * 0.5
+        w.sampler.capture_once()
+    w.sampler._captions.append(Caption(4.5, "자막", b"pic", None))
+    w.tick()  # 둘러보기가 아직 안 끝났어도 말은 바로 나감
+    assert said == ["경로에 얼룩이 하나 있네요."] and not hasattr(comp, "perceived")
+    assert len(comp.line_history) == 10 and comp.line_captions == [("(자막) 0.5초 전", b"pic")]  # 말하기 담당이 직접 봄
+    assert shown == ["나오는 중…"]  # 나오는 대로 말풍선에
+    gate.set()
+    for _ in range(100):
+        if not w._helper_busy:
+            break
+        __import__("time").sleep(0.02)
+    assert w._finds and w._finds[0][1]["name"] == "로안"  # 뒤에서 알아본 건 다음 판단 때 알림
+    cancelled = []
+    w.partial_cancel.connect(lambda: cancelled.append(1))
+    w._streamed = True
+    w._done(None)  # 나오다가 안 하기로 한 말은 지움
+    assert cancelled == [1]

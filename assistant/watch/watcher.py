@@ -90,6 +90,8 @@ class WatchConfig:
     # auto: 가장 싼 모델 / sonnet: 중간 모델 / best: 항상 line_model (경고·픽·총평·대화는 늘 line_model)
     line_quality: str = "brain_lite"
     context_back: tuple = (40.0, 30.0, 20.0, 10.0)  # 판단 사진: 이만큼 전 몇 장 + 최근 5초 (합 10장, 비용 같음)
+    # 눈 담당: fast = 안 씀(말하기 담당이 흐름 사진·화면을 직접 보고 바로 말함) / careful = 눈 담당이 먼저 자세히 봄 (5~20초 늦음)
+    eye: str = "fast"
     calm_backoff: bool = True  # 게임 중 별일 없는 판단이 이어지면 판단 간격을 5→10→15초로 (확 바뀜·새 대사면 바로)
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
@@ -149,6 +151,8 @@ class ScreenWatcher(QObject):
     new_game = Signal(str, str, list)  # 처음 보는 게임을 자주 함: (실행 파일, 창 제목, 본 장면들)
     missed = Signal()  # 주인님이 부탁한 화면 보기·분석이 할 말 없이 끝남 (말없이 끝나지 않게 알려 준다)
     result_seen = Signal(str)
+    partial = Signal(str)  # 화면 대사가 나오는 대로 (말풍선에 바로)
+    partial_cancel = Signal()  # 나오다가 안 하기로 한 말 (말풍선에서 지움)
     session_started = Signal(str)  # 게임을 켬 (모드 이름)
     session_ended = Signal(str, float, list)  # 게임을 끔: (모드 이름, 분, 화면으로 본 기록)  # 게임 결과 화면을 봤음 (모드 이름) → 공식 기록이 있으면 나중에 기록으로 다시 본다
 
@@ -200,6 +204,10 @@ class ScreenWatcher(QObject):
         self._scanned: deque = deque(maxlen=30)  # (시각, 상자, 작은 그림) — 방금 본 이름 모를 것은 다시 안 봄
         self._finds: list[tuple[float, dict]] = []  # 알릴 만하다고 판정됐는데 아직 못 알린 것 (쉬는 시간 중이었음)
         self._calm = 0  # 게임 중 별일 없는 판단이 이어진 수 (판단 간격 늘리기)
+        self.sync_helpers = False  # 시험용: 둘러보기·배치 익히기를 뒤 스레드 대신 바로 (보통은 말하는 길을 막지 않게 뒤에서)
+        self._helper_busy: set[str] = set()  # 뒤에서 하는 중인 일 (같은 일을 겹쳐 하지 않게)
+        self._finds_lock = threading.Lock()
+        self._streamed = False  # 이번 대사를 나오는 대로 보여 줬는가
         self.context = None  # 맥락 담당 (watch.context.ContextKeeper, main 이 넣어 줌)
         self.hud = HudReader(None, clock)  # 화면 정보 상시 읽기 (글자 인식은 main 이 넣어 줌)
         self.ears = None  # 게임 소리 듣기 (watch.ears.GameEars, main 이 넣어 줌)
@@ -325,14 +333,32 @@ class ScreenWatcher(QObject):
             return None
         return scene
 
+    def _background(self, name: str, fn, *args) -> None:
+        """말하는 길을 막지 않게 뒤 스레드에서 (같은 일은 겹쳐 하지 않음)."""
+        if self.sync_helpers:
+            fn(*args)
+            return
+        if name in self._helper_busy:
+            return
+        self._helper_busy.add(name)
+
+        def run():
+            try:
+                fn(*args)
+            except Exception as exc:  # noqa: BLE001
+                log.warning("뒤에서 하던 일 실패 (%s): %r", name, exc)
+            finally:
+                self._helper_busy.discard(name)
+
+        threading.Thread(target=run, daemon=True, name=f"helper-{name}").start()
+
     def _learn_layout(self, shot, mode: Mode, scene: str) -> None:
-        self._stage("layout")
         self.layouts.mark_try(mode.name, scene)
+        self._background("layout", self._learn_layout_work, cap.to_jpeg(cap.shrink(shot.native, 1568), 88), mode, scene)
+
+    def _learn_layout_work(self, jpeg: bytes, mode: Mode, scene: str) -> None:
         try:
-            regions, _usd = self.companion.learn_layout(cap.to_jpeg(cap.shrink(shot.native, 1568), 88), mode.name, scene,
-                                                        self.layout_model)
-        except _Abandoned:
-            raise
+            regions, _usd = self.companion.learn_layout(jpeg, mode.name, scene, self.layout_model)
         except Exception as exc:  # noqa: BLE001 - 배치를 못 익혀도 화면 보기는 계속 (20분 뒤 다시)
             log.warning("화면 배치 익히기 실패 (%s): %r", mode.name, exc)
             return
@@ -354,7 +380,6 @@ class ScreenWatcher(QObject):
 
         from .scan import box_overlap, crop_spot
 
-        self._stage("scan")
         now = self._last_scan = self.clock()
         while self._scanned and now - self._scanned[0][0] > 120:
             self._scanned.popleft()
@@ -371,8 +396,11 @@ class ScreenWatcher(QObject):
                 continue  # 2분 안에 같은 자리 같은 모습을 이미 봄
             self._scanned.append((now, box, th))
             spots.append((str(item.get("what", ""))[:80], cap.to_jpeg(crop, 88)))
-        if not spots:
-            return
+        if spots:  # 알아보기·판정은 뒤에서 (말하는 길을 막지 않게) — 알릴 만한 건 다음 판단 때 알린다
+            self._background("scan", self._scan_work, spots, mode, session, now)
+
+    def _scan_work(self, spots: list, mode: Mode, session, now: float) -> None:
+        from concurrent.futures import ThreadPoolExecutor
 
         def look(spot):
             try:
@@ -398,8 +426,6 @@ class ScreenWatcher(QObject):
         verdict = None
         try:
             verdict = self.companion.weigh_spots(new, mode, self.cfg.scan_model)[0]
-        except _Abandoned:
-            raise
         except Exception as exc:  # noqa: BLE001
             log.warning("판정 담당 실패: %r", exc)
         if not verdict:
@@ -416,7 +442,8 @@ class ScreenWatcher(QObject):
             if f["importance"] >= 2 and session is not None:
                 session.add(now, f"알아봄: {f.get('name', '')} — {f.get('info', '')} ({f.get('why', '')})"[:300])
             if f["importance"] >= 3 and f.get("say"):
-                self._finds.append((now, f))
+                with self._finds_lock:
+                    self._finds.append((now, f))
         log.info("둘러보기 [%s]: %s", mode.name, ", ".join(f"{f.get('name')}={f['importance']}" for f in found))
 
     def _context_text(self, mode: Mode) -> str:
@@ -437,8 +464,9 @@ class ScreenWatcher(QObject):
 
     def _pop_finds(self) -> list[dict]:
         now = self.clock()
-        finds = [f for t, f in self._finds if now - t <= 180]  # 3분 넘게 지난 건 이미 지나간 장면
-        self._finds = []
+        with self._finds_lock:
+            finds = [f for t, f in self._finds if now - t <= 180]  # 3분 넘게 지난 건 이미 지나간 장면
+            self._finds = []
         return finds[:3]
 
     def _end_session(self, now: float) -> None:
@@ -887,13 +915,19 @@ class ScreenWatcher(QObject):
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes)
 
     def _brain_say(self, shot, note, mode, notes, session, question: str | None = None, finds: list | None = None):
-        """뇌처럼 나눠 보기: 눈 담당(장면 자세히)·대사 담당(자막 받아 적기)을 동시에 돌리고, 기억·지식 담당(이 PC 안)이
-        찾은 것과 함께 말하기 담당(Opus)에게 넘긴다. Opus 는 그 기록을 지금 화면과 맞춰 본 뒤 말한다 (틀리면 화면을 믿음)."""
-        self._stage("perceive")
-        from concurrent.futures import ThreadPoolExecutor
-
+        """뇌처럼 나눠 보기: 뒤에서 늘 도는 담당들(맥락 담당·화면 정보·들린 소리·기억·지식)이 모아 둔 것과 함께
+        말하기 담당에게 넘긴다. 말하기 담당은 그 기록을 화면과 맞춰 본 뒤 말한다 (틀리면 화면을 믿음).
+        눈 담당(장면 자세히)은 '꼼꼼히'일 때만 먼저 돈다 — 5~20초 늦어져서 기본은 말하기 담당이 흐름 사진을 직접 본다."""
         flow = list(self._current_history or [])  # 수십 초 전 몇 장 + 최근 몇 초 (작은 사진)
         caps = list(self._current_captions or [])
+        best = question is not None or bool(finds) or self.cfg.line_quality == "brain"
+        model = self.cfg.line_model if best else self.cfg.mid_line_model
+        if self.cfg.eye != "careful":  # 바로: 판단 → 말하기 (흐름 사진·자막은 말하기 담당이 직접)
+            brain = {"scene": None, "dialogue": None, "found": list(finds or []), "context": self._context_text(mode)}
+            return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes, question=question,
+                             brain=brain, history=flow or None, captions=caps or None)
+        self._stage("perceive")
+        from concurrent.futures import ThreadPoolExecutor
 
         def safely(fn, *args, **kw):
             try:
@@ -914,8 +948,6 @@ class ScreenWatcher(QObject):
                 str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300])
         # 말하기 담당은 흐름 사진·자막 사진 대신 담당들이 정리한 글 + 지금 화면으로 확인한다 (비용 절약).
         # 절약이면 평소 한마디는 Sonnet, 물어볼 때·둘러보기에서 중요한 걸 찾았을 때만 Opus
-        best = question is not None or bool(finds) or self.cfg.line_quality == "brain"
-        model = self.cfg.line_model if best else self.cfg.mid_line_model
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes,
                          question=question, brain=brain, history=None, captions=None)
 
@@ -943,11 +975,21 @@ class ScreenWatcher(QObject):
         at = getattr(self, "_shot_at", None)
         if at is not None:
             kwargs.setdefault("age", max(0.0, self.clock() - at))
+        self._streamed = False
+
+        def show(message: str) -> None:
+            self._streamed = True
+            self.partial.emit(message)  # 뒤 스레드에서 보내도 화면 쪽에서 차례로 받는다
+
+        kwargs.setdefault("on_partial", show)
         return self.companion.screen_line(*args, **kwargs)
 
     def _done(self, reply) -> None:
         self.running_job = False
         self.activity.emit("")
+        if self._streamed and (reply is None or not reply.speak or not getattr(reply, "message", "")):
+            self.partial_cancel.emit()  # 나오다가 안 하기로 함 (화면 글자 읽기·한국어 아님·조용히 찾아보기) → 지움
+        self._streamed = False
         if reply is None or not reply.speak:
             self.nothing.emit()
             return

@@ -243,6 +243,7 @@ class AssistantApp(QObject):
         self.watcher.sampler.ocr = local_ocr.read_text  # 자막·대사는 이 PC 글자 인식으로 먼저 (공짜)
         self.watcher.hud.ocr = local_ocr.read_text  # 퀘스트 안내·알림·킬 로그도 계속 읽기
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
+        self.watch_cfg.eye = str(self.pref("screen.eye", "fast"))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         self.watcher.known_games |= {p for m in modes for p in m.processes}
@@ -279,6 +280,9 @@ class AssistantApp(QObject):
         self.watcher.mode_changed.connect(lambda _: self.check_away() if self._away_since is not None else None)
         self._screen_searches: list[float] = []
         self.watcher.nothing.connect(lambda: self.bubble.hide() if self.bubble.text == "……" else None)
+        self.watcher.partial.connect(self._on_screen_partial)  # 화면 대사가 나오는 대로 말풍선에 (1초라도 빨리)
+        self.watcher.partial_cancel.connect(self._on_screen_partial_cancel)
+        self._screen_partial = ""
         self.watcher.missed.connect(self._on_screen_missed)
         self._last_watch_error = ""
 
@@ -1039,7 +1043,19 @@ class AssistantApp(QObject):
         self.remember_episode(kind, f"{a.when} {a.summary}", self.watcher.mode.name if self.watcher.mode.is_game else "",
                               f"{a.situation} / {points} / 다음: {', '.join(a.next_steps)}")
 
+    def _on_screen_partial(self, message: str) -> None:
+        if self.busy or not message:  # 대화 중이면 대화가 먼저
+            return
+        self._screen_partial = message
+        self.bubble.show_text(message, self.anchor(), seconds=0)
+
+    def _on_screen_partial_cancel(self) -> None:
+        if self._screen_partial and self.bubble.text == self._screen_partial:
+            self.bubble.hide()
+        self._screen_partial = ""
+
     def _on_screen_line(self, reply) -> None:
+        self._screen_partial = ""
         if isinstance(reply, Analysis) and reply.speak:  # 분석은 창에 남겨 두니 대화 중이어도 보여 준다
             self.analysis_panel.show_analysis(reply)
             self._index_analysis(reply)
@@ -1210,6 +1226,7 @@ class AssistantApp(QObject):
             "screen.line_quality": self.watch_cfg.line_quality,
             "screen.dense": self.watch_cfg.dense,
             "screen.scan": self.watch_cfg.scan,
+            "screen.eye": self.watch_cfg.eye,
             "local.enabled": self.local_ai.enabled,
             "local.cpu": self.local_ai.cpu,
             "local.model": self.local_ai.model,
@@ -1291,6 +1308,8 @@ class AssistantApp(QObject):
             self.watch_cfg.dense = str(changed["screen.dense"])
         if "screen.scan" in changed:
             self.watch_cfg.scan = bool(changed["screen.scan"])
+        if "screen.eye" in changed:
+            self.watch_cfg.eye = str(changed["screen.eye"])
         if "ears.enabled" in changed:
             self.ears.enabled = bool(changed["ears.enabled"])
         if any(k.startswith("local.") for k in changed):

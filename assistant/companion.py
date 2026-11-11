@@ -1224,7 +1224,7 @@ class Companion:
                     session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None,
                     focus: bytes | None = None, focus_label: str = "", pick: bool = False,
                     history: bytes | None = None, captions=None, brain: dict | None = None,
-                    age: float | None = None) -> Reply:
+                    age: float | None = None, on_partial=None) -> Reply:
         """화면을 보고 캐릭터 말투로 한마디.
 
         question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
@@ -1283,11 +1283,27 @@ class Companion:
             + self._caption_blocks(captions) + [{"type": "text", "text": "\n".join(lines)}]
         turns = min(self.history_turns, 4) if routine else self.history_turns  # 반응 한마디엔 최근 대화 4번만
         messages = self.memory.api_messages(turns) + [{"role": "user", "content": content}]
-        # 평범한 화면 대사는 한 번 더 생각하고(보탤 게 있는지) 말하게 effort 를 한 단계 올린다
-        effort = "low" if pick else ("medium" if routine and self.effort == "low" else self.effort)
+        # 평범한 화면 대사는 한 번 더 생각하고(보탤 게 있는지) 말하게 effort 를 한 단계 올린다.
+        # 나눠 보기면 담당들이 이미 정리해 줬으니 짧게 생각하고 바로 (1초라도 빨리)
+        effort = "low" if pick or (routine and brain is not None) else (
+            "medium" if routine and self.effort == "low" else self.effort)
+        shown = {"ok": True, "last": ""}
+
+        def stream_cb(buf: str) -> None:  # 나오는 대로 말풍선에 (다 받을 때까지 기다리지 않음)
+            msg = partial_message(buf)
+            if not msg or not shown["ok"] or msg == shown["last"]:
+                return
+            if not re.search(r"[가-힣]", msg) and len(msg) < 12:
+                return
+            if not is_korean(msg):
+                shown["ok"] = False
+                return
+            shown["last"] = msg
+            on_partial(self.memory.fix_words(msg))
+
         r = self.ai.complete_json(model=model or self.chat_model, system=self.system_blocks(), messages=messages,
                                   schema=REPLY_SCHEMA, kind="pick" if pick else "screen", max_tokens=self.max_tokens,
-                                  effort=effort, fast=fast)
+                                  effort=effort, fast=fast, on_text=stream_cb if on_partial else None)
         data = r.data
         if routine and data and data.get("speak") and narrates_screen(str(data.get("message", ""))):
             log.info("화면 글자를 읽어 주기만 하는 말이라 안 함: %r", data["message"][:80])

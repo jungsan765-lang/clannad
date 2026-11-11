@@ -33,13 +33,15 @@ DENSE = [("game", "게임할 때만", "0.5초마다 찍어 두고 5초마다 그
          ("always", "항상", "게임이 아닐 때도 촘촘히 봐요. 비용이 늘어요."),
          ("off", "끔", "확인 간격마다 한 장씩만 봐요. 가장 싸지만 흐름을 놓쳐요.")]
 LINE_QUALITY = [("brain_lite", "나눠 보기 · 절약 (추천)",
-                 "담당들이 먼저 보고 평소엔 Sonnet 이, 물어볼 때·중요한 걸 찾았을 때만 Opus 가 화면과 맞춰 본 뒤 말해요. "
-                 "한마디 30~45원 (Opus 일 땐 60~80원), 10초쯤 늦어요."),
-                ("brain", "나눠 보기 · Opus",
-                 "담당들이 먼저 보고 늘 Opus 가 화면과 맞춰 본 뒤 말해요. 한마디 60~80원, 10초쯤 늦어요."),
+                 "뒤에서 모아 둔 맥락·화면 정보·소리와 함께 평소엔 Sonnet 이, 물어볼 때·중요한 걸 찾았을 때만 Opus 가 화면과 "
+                 "맞춰 본 뒤 말해요. 한마디 30~45원 (Opus 일 땐 60~80원)."),
+                ("brain", "나눠 보기 · Opus", "늘 Opus 가 화면과 맞춰 본 뒤 말해요. 한마디 60~80원, 조금 더 느려요."),
                 ("auto", "가볍게", "가장 싼 모델이 바로 한마디 해요. 한마디 몇 원. 잘못 볼 때가 있어요."),
                 ("sonnet", "보통", "중간 모델이 혼자 보고 말해요. 한마디 수십 원."),
                 ("best", "최고", "Opus 가 혼자 보고 말해요. 나눠 보기보다 빠르지만 덜 꼼꼼해요.")]
+EYE = [("fast", "바로 (추천)", "판단하면 바로 말하기 담당이 흐름 사진·화면을 직접 보고 말해요. 맥락·화면 정보·소리는 뒤에서 "
+                                       "계속 모아 둔 걸 같이 줘요. 글자는 나오는 대로 말풍선에."),
+       ("careful", "꼼꼼히", "눈 담당이 먼저 장면을 자세히 보고 말하기 담당에게 넘겨요. 더 정확하지만 5~20초 늦어요.")]
 RESULT_DEPTH = [("deep", "깊게", "1~2분 생각하고 총평해요. 판마다 200~400원."), ("quick", "빠르게", "바로 짧게 총평해요.")]
 OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
 OVERLAY_POS = [("top", "위 가운데"), ("bottom", "아래 가운데")]
@@ -199,6 +201,7 @@ class SettingsDialog(QDialog):
         self.screen_on.setChecked(bool(v["screen.enabled"]))
         self.chatty = Choice(CHATTY, str(v["screen.chattiness"]))
         self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "brain_lite")))
+        self.eye = Choice(EYE, str(v.get("screen.eye", "fast")))
         self.scan = check("둘러보기", "screen.scan", True,
                           "표시가 뜬 인물·이름표·빛나는 물건을 하나씩 확대해 알아보고, 보상이 좋은 것처럼 중요한 것만 알려요.")
         scan_hint = _hint("표시 뜬 인물·물건을 확대해 알아보고 중요한 것만 알려요. 하나에 1원도 안 들어요. 알아본 건 기억해 둬요.")
@@ -217,7 +220,8 @@ class SettingsDialog(QDialog):
         self.overlay = Choice(OVERLAY, str(v.get("screen.overlay", "important")))
         self.overlay_pos = Choice(OVERLAY_POS, str(v.get("screen.overlay_pos", "top")))
         screen = page(group("말 걸기", [("", self.screen_on), ("말 거는 정도", self.chatty),
-                                        ("말하는 방식", self.line_quality), ("", self.scan), ("", scan_hint)]),
+                                        ("말하는 방식", self.line_quality), ("눈 담당", self.eye), ("", self.scan),
+                                        ("", scan_hint)]),
                       group("보는 방법", [("촘촘히 보기", self.dense), ("볼 모니터", self.monitor),
                                           ("선명도 (글자 읽기)", self.sharp), ("확인 간격", self.interval),
                                           ("말한 뒤 쉬는 시간", self.cooldown)]),
@@ -425,6 +429,7 @@ class SettingsDialog(QDialog):
             "screen.line_quality": self.line_quality.value(),
             "screen.dense": self.dense.value(),
             "screen.scan": self.scan.isChecked(),
+            "screen.eye": self.eye.value(),
             "local.enabled": self.local_on.isChecked(),
             "local.cpu": self.local_cpu.value(),
             "local.model": self.local_model.text().strip() or "gemma3:4b",

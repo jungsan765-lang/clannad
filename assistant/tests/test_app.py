@@ -788,6 +788,32 @@ def test_old_light_line_setting_moves_to_brain_mode_once(qapp, tmp_path, built):
     c.quit()
 
 
+def test_screen_line_shows_as_it_streams_and_eye_setting(qapp, tmp_path, built):
+    from ui.settings_dialog import SettingsDialog
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic()), tray=False)
+    a.start()
+    assert a.watch_cfg.eye == "fast"  # 기본은 바로
+    a.watcher.partial.emit("방금 그거 아슬")
+    qapp.processEvents()
+    assert a.bubble.text == "방금 그거 아슬" and a.bubble.isVisible()  # 다 받기 전에 바로
+    a.watcher.partial_cancel.emit()
+    qapp.processEvents()
+    assert not a.bubble.isVisible()  # 안 하기로 한 말은 지움
+    a.busy = True
+    a.watcher.partial.emit("대화 중엔 안 보임")
+    qapp.processEvents()
+    assert a.bubble.text != "대화 중엔 안 보임"
+    a.busy = False
+    dlg = SettingsDialog(a.settings_values(), ["1"], [])
+    dlg.eye.group.button(1).setChecked(True)
+    assert "5~20초 늦어요" in dlg.eye.hint.text()
+    a.apply_settings(dlg.changed())
+    assert a.watch_cfg.eye == "careful"
+    a.quit()
+
+
 def test_lookups_pile_up_in_a_per_game_dictionary(qapp, tmp_path, built):
     from watch.modes import Mode
 
