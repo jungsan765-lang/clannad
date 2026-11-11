@@ -231,7 +231,7 @@ class ScreenWatcher(QObject):
         self.page_ocr: Callable | None = None
         # 지금 말풍선을 띄워도 되나 (주인님이 대화·입력·말하는 중이면 아님, main 이 넣어 줌).
         # 못 띄운 말은 '내가 한 말'로 기억·판 기록에 남기지 않는다 (안 한 말을 했다고 믿지 않게)
-        self.can_show: Callable[[], bool] = lambda: True
+        self.can_show: Callable[..., bool] = lambda started=False: True
         self._page: tuple[float, str] | None = None  # (시각, 읽은 글)
         self._page_job = None
         self.ears = None  # 게임 소리 듣기 (watch.ears.GameEars, main 이 넣어 줌)
@@ -1183,6 +1183,9 @@ class ScreenWatcher(QObject):
             kwargs.setdefault("age", max(0.0, self.clock() - at))
         self._streamed = False
         held = {"msg": ""}
+        note = args[2] if len(args) > 2 else kwargs.get("note")
+        routine = not (kwargs.get("question") or kwargs.get("review") or kwargs.get("pick") or (note or {}).get("urgent"))
+        stale = {"on": False}  # 첫 글자를 띄우기 전에 새 사건이 생김 → 이 말은 안 띄우고 버린다
 
         timing = self._timing
         timing["rush"] = hold is not None
@@ -1191,6 +1194,11 @@ class ScreenWatcher(QObject):
             if hold is not None and not hold.is_set():
                 held["msg"] = message  # 판단 결과를 기다리는 중
                 return
+            if stale["on"]:
+                return
+            if not self._streamed and routine and at is not None and self._newer_event(at + 1.0):
+                stale["on"] = True  # 아직 아무것도 안 보였을 때만 버린다 (보이기 시작한 말은 끝까지 — 중간에 사라지지 않게)
+                return
             if "first" not in timing and at is not None:
                 timing["first"] = self.clock() - at
             self._streamed = True
@@ -1198,12 +1206,9 @@ class ScreenWatcher(QObject):
 
         kwargs.setdefault("on_partial", show)
         reply = self.companion.screen_line(*args, **kwargs)
-        note = args[2] if len(args) > 2 else kwargs.get("note")
-        routine = not (kwargs.get("question") or kwargs.get("review") or kwargs.get("pick") or (note or {}).get("urgent"))
-        if routine and at is not None and getattr(reply, "speak", False) and self._newer_event(at + 1.0):
+        if (routine and at is not None and getattr(reply, "speak", False) and not self._streamed
+                and (stale["on"] or self._newer_event(at + 1.0))):
             log.info("말이 나가기 전에 새 사건이 생겨서 옛 장면 얘기는 버림: %r", getattr(reply, "message", "")[:60])
-            import dataclasses
-
             return dataclasses.replace(reply, speak=False) if dataclasses.is_dataclass(reply) else None
         if at is not None and getattr(reply, "speak", False):
             timing["done"] = self.clock() - at
@@ -1219,12 +1224,14 @@ class ScreenWatcher(QObject):
         self.activity.emit("")
         if self._streamed and (reply is None or not reply.speak or not getattr(reply, "message", "")):
             self.partial_cancel.emit()  # 나오다가 안 하기로 함 (화면 글자 읽기·한국어 아님·조용히 찾아보기) → 지움
-        self._streamed = False
+        streamed, self._streamed = self._streamed, False
         if reply is None or not reply.speak:
             self.nothing.emit()
             return
-        if reply.message and not self._can_show():
+        if reply.message and not self._can_show(streamed):
             log.info("주인님이 대화 중이라 화면 얘기는 안 함 (기억에도 안 남김): %r", reply.message[:60])
+            if streamed:
+                self.partial_cancel.emit()  # 쓰다 만 말이 멈춘 채 남지 않게
             if hasattr(reply, "summary"):  # 분석은 분석 창에 남긴다 (main 이 말풍선은 안 띄움, 기억에도 안 남김)
                 self.spoke.emit(reply)
             else:
@@ -1240,9 +1247,10 @@ class ScreenWatcher(QObject):
                 self.session.add(self.last_spoke, "내가 한 말: " + reply.message, "said")
         self.spoke.emit(reply)
 
-    def _can_show(self) -> bool:
+    def _can_show(self, started: bool = False) -> bool:
+        """started: 이미 말풍선에 쓰기 시작한 말 (주인님이 입력창을 열었어도 대화가 시작된 게 아니면 끝까지 쓴다)."""
         try:
-            return bool(self.can_show())
+            return bool(self.can_show(started))
         except Exception:  # noqa: BLE001
             return True
 

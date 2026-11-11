@@ -1107,12 +1107,16 @@ class AssistantApp(QObject):
         """주인님이 지금 입력창에 쓰는 중이거나 목소리로 말하는 중인가."""
         return self.input.isVisible() or self._voice_state in ("listening", "heard")
 
-    def _screen_can_show(self) -> bool:
-        """화면 얘기를 지금 띄워도 되나: 대화 중·입력 중·말하는 중이면 아님 (끼어들지 않고, 안 한 말을 했다고 기억하지 않게)."""
-        return not self.busy and not self._user_talking()
+    def _screen_can_show(self, started: bool = False) -> bool:
+        """화면 얘기를 지금 띄워도 되나: 대화 중·입력 중·말하는 중이면 아님 (끼어들지 않고, 안 한 말을 했다고 기억하지 않게).
+        started: 이미 말풍선에 쓰기 시작한 말 — 대화(답 기다리기)가 시작된 게 아니면 끝까지 쓴다 (중간에 끊겨 사라지지 않게)."""
+        if self.busy:
+            return False
+        return started or not self._user_talking()
 
     def _on_screen_partial(self, message: str) -> None:
-        if not self._screen_can_show() or not message:  # 대화·입력·말하는 중이면 대화가 먼저
+        started = bool(self._screen_partial) and self.bubble.isVisible() and self.bubble.text == self._screen_partial
+        if not self._screen_can_show(started) or not message:  # 대화·입력·말하는 중이면 대화가 먼저 (쓰던 말은 끝까지)
             return
         self._screen_partial = message
         self.bubble.show_text(message, self.anchor(), seconds=0)
@@ -1123,14 +1127,17 @@ class AssistantApp(QObject):
         self._screen_partial = ""
 
     def _on_screen_line(self, reply) -> None:
+        started = bool(self._screen_partial) and self.bubble.isVisible() and self.bubble.text == self._screen_partial
         self._screen_partial = ""
         self._moment_seq += 1  # 말이 왔으니 표정 되돌리기는 취소 (말의 표정으로)
         if isinstance(reply, Analysis) and reply.speak:  # 분석은 창에 남겨 두니 대화 중이어도 보여 준다
             self.analysis_panel.show_analysis(reply)
             self._index_analysis(reply)
-            if not self._screen_can_show():
+            if not self._screen_can_show(started):
                 return
-        if not self._screen_can_show():
+        if not self._screen_can_show(started):
+            if started:  # 쓰다 만 말이 멈춘 채 남지 않게
+                self.bubble.hide()
             return
         if reply.action == "web_search":  # 화면에 모르는 이름 → 조용히 찾아보고 말하기 (한 시간에 6번까지)
             now = time.monotonic()

@@ -1431,3 +1431,24 @@ def test_screen_talk_waits_while_user_types_or_speaks(qapp, tmp_path):
     a.input.hide()
     assert a._screen_can_show() and a.watcher.can_show()
     a.quit()
+
+
+def test_screen_line_being_written_is_not_cut_off_when_input_opens(qapp, tmp_path):
+    from companion import Reply
+
+    fake = FakeAnthropic([])
+    s = _settings(tmp_path, "no_such_folder")
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.watcher.partial.emit("오, 다리")
+    qapp.processEvents()
+    assert a.bubble.text == "오, 다리"
+    a.input.show()  # 다니카가 쓰는 중에 주인님이 입력창을 엶
+    a._on_screen_partial("오, 다리 건넜네")
+    assert a.bubble.text == "오, 다리 건넜네"  # 쓰던 말은 이어서
+    a._on_screen_line(Reply(True, "오, 다리 건넜네요.", "normal"))
+    assert a.bubble.text == "오, 다리 건넜네요." and a.bubble.isVisible()  # 끝까지
+    a.bubble.hide()
+    a._on_screen_partial("새 얘기")  # 입력창이 열린 뒤 새로 시작하는 말은 띄우지 않음
+    assert not a.bubble.isVisible()
+    a.input.hide()
+    a.quit()

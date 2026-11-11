@@ -1866,7 +1866,7 @@ def test_judge_saying_quest_done_is_marked_unconfirmed_without_on_screen_words(q
 def test_line_not_shown_while_user_is_talking_is_not_remembered_as_said(qapp, tmp_path):
     w, comp, said, t, _ = _watcher(tmp_path)
     talking = {"on": True}
-    w.can_show = lambda: not talking["on"]  # 주인님이 입력창에 쓰는 중·말하는 중
+    w.can_show = lambda started=False: not talking["on"]  # 주인님이 입력창에 쓰는 중·말하는 중
     nothing = []
     w.nothing.connect(lambda: nothing.append(1))
     w.tick()
@@ -1897,3 +1897,28 @@ def test_routine_sonnet_line_skips_thinking_but_questions_and_opus_do_not(tmp_pa
     comp.quick_lines = False  # 설정 '평소 한마디도 생각하고 말하기'
     comp.screen_line(b"jpeg", "게임", note, model="claude-sonnet-5-5")
     assert "thinking" not in fake.calls[-1]
+
+
+def test_line_already_appearing_is_finished_not_cut_off(qapp, tmp_path):
+    w, comp, said, t, _ = _watcher(tmp_path)
+    real = comp.screen_line
+    shown, cancelled = [], []
+    w.partial.connect(shown.append)
+    w.partial_cancel.connect(lambda: cancelled.append(1))
+
+    def line_then_event(*a, **k):  # 말풍선에 쓰기 시작한 뒤에 화면이 확 바뀜
+        r = real(*a, **k)
+        w.sampler.spike_at = t["now"] + 3.0
+        t["now"] += 4.0
+        return r
+
+    comp.screen_line = line_then_event
+    w.tick()
+    assert shown == ["나오는 중…"] and cancelled == []  # 보이기 시작한 말은 중간에 지우지 않고
+    assert said == ["경로에 얼룩이 하나 있네요."]  # 끝까지 한다
+    # 쓰기 시작한 뒤 주인님이 입력창만 열었으면(대화 시작 전) 끝까지, 기억에도 남긴다
+    w.can_show = lambda started=False: started
+    comp.screen_line = real
+    t["now"] = 300
+    w.tick()
+    assert len(said) == 2 and cancelled == []

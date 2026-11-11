@@ -1347,7 +1347,8 @@ class Companion:
                                   schema=REPLY_SCHEMA, kind="pick" if pick else "screen", max_tokens=self.max_tokens,
                                   effort=effort, fast=fast, thinking_off=quick, on_text=stream_cb if on_partial else None)
         data = r.data
-        if routine and data and data.get("speak") and narrates_screen(str(data.get("message", ""))):
+        if (routine and data and data.get("speak") and narrates_screen(str(data.get("message", "")))
+                and not shown["last"]):  # 이미 말풍선에 쓰기 시작했으면 끝까지 (중간에 사라지면 더 이상함)
             log.info("화면 글자를 읽어 주기만 하는 말이라 안 함: %r", data["message"][:80])
             return Reply(False, "", "normal", r.usd)
         if data and data["speak"] and data["message"] and not is_korean(data["message"]):
