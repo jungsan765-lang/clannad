@@ -717,6 +717,25 @@ def test_chat_can_add_focus_and_block_window(qapp, tmp_path, built):
     a.quit()
 
 
+def test_chat_can_ask_to_relearn_game_layout(qapp, tmp_path, built):
+    from watch.modes import Mode
+
+    fake = FakeAnthropic([
+        {"speak": True, "message": "다시 볼게요.", "emotion": "normal", "action": "learn_layout", "target": ""},
+    ])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    assert a.companion.layouts is a.watcher.layouts is a.layouts
+    a.watcher.mode = Mode("붉은사막", knowledge="x", is_game=True)
+    a.layouts.save("붉은사막", "playing", [{"name": "미니맵", "kind": "minimap", "box": [0.8, 0.02, 0.98, 0.25], "when": ""}])
+    a.ask("UI 다시 익혀")
+    _wait(qapp, a)
+    assert not a.layouts.learned("붉은사막", "playing")  # 지우고 다음 조용한 순간에 다시
+    assert "layout" in app_main.SCREEN_KINDS and app_main.KIND_KO["layout"] == "화면 배치 익히기"
+    a.quit()
+
+
 def test_lookups_pile_up_in_a_per_game_dictionary(qapp, tmp_path, built):
     from watch.modes import Mode
 

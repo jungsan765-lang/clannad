@@ -6,6 +6,12 @@
 - quiet_during_play: 플레이 중엔 말하지 않음 (리듬 게임처럼 집중이 필요한 게임)
 - review_on_result: 결과 화면이 뜨면 이번 판 기록으로 총평
 - urgent: 대기 시간을 무시하고 바로 말해야 하는 상황 (예: 칸코레 대파 진격)
+- spike: 0.5초 사이 화면이 '확 바뀌면' 5초를 기다리지 않고 바로 보는 기준
+    "color" (기본) 색 구성·밝기가 확 바뀔 때만 — 1·3인칭처럼 화면을 돌리면 그림이 통째로 바뀌는 게임
+    "pixel" 그림이 확 바뀔 때 — 화면이 고정된 2D 게임 (창이 뜨거나 바뀌는 것 자체가 사건)
+    "off"   안 봄 — 리듬 게임처럼 늘 번쩍이는 게임 (5초 박자대로만)
+  spike_level: 기준값 (비우면 color 0.35, pixel 0.05. 높을수록 덜 민감)
+  spike_busy: 3초 안에 이만큼 확 바뀌면 사건이 아니라 정신없는 장면으로 본다 (기본 3, 0 이면 안 따짐)
 """
 
 from __future__ import annotations
@@ -38,12 +44,29 @@ class Mode:
     daily_note: str = ""  # 일일 숙제 이름 (예: 일일 임무)
     weekly_note: str = ""
     urgent: str = ""
+    spike: str = "color"
+    spike_level: float = 0.0
+    spike_busy: int = 3
     is_game: bool = False
 
     def matches(self, process: str, title: str) -> bool:
         p = (process or "").lower()
         t = (title or "").lower()
         return (p and p in self.processes) or any(k.lower() in t for k in self.titles if k)
+
+
+SPIKE_WORDS = {"color": "color", "색": "color", "pixel": "pixel", "그림": "pixel", "off": "off", "끔": "off"}
+
+
+def _spike(value) -> str:
+    return SPIKE_WORDS.get(str(value or "color").strip().lower(), "color")
+
+
+def _num(value, default: float) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
 
 
 def load_modes(folder: Path) -> list[Mode]:
@@ -70,6 +93,8 @@ def load_modes(folder: Path) -> list[Mode]:
                 daily_reset=str(d.get("daily_reset", "")), weekly_reset=str(d.get("weekly_reset", "")),
                 daily_note=str(d.get("daily_note", "")), weekly_note=str(d.get("weekly_note", "")),
                 urgent=str(d.get("urgent", "")).strip(),
+                spike=_spike(d.get("spike")), spike_level=max(0.0, _num(d.get("spike_level"), 0.0)),
+                spike_busy=max(0, int(_num(d.get("spike_busy"), 3))),
                 is_game=True,
             ))
     return modes
@@ -96,6 +121,7 @@ def save_mode(folder: Path, process: str, data: dict) -> Path:
         f"quiet_during_play = {'true' if data.get('quiet_during_play') else 'false'}",
         f"review_on_result = {'true' if data.get('review_on_result') else 'false'}",
         f"urgent = {_toml_str(data.get('urgent', ''))}",
+        f"spike = {_toml_str(_spike(data.get('spike')))}  # color: 1·3인칭 3D / pixel: 고정 화면 2D / off: 늘 번쩍이는 게임",
         f"knowledge = {_toml_str(data.get('knowledge', ''))}",
     ]
     text = "\n".join(lines) + "\n"

@@ -80,11 +80,12 @@ class _Signals(QObject):
 TTS_RATES = {"slow": -2, "normal": 0, "fast": 3}
 MOMENT_WORDS = re.compile(r"기억해|기억 ?해 ?둬|잊지 ?마|잊으면 안|중요한 거|중요해|메모해|적어 ?둬")
 # 화면 보기에 드는 호출 종류 (하루 화면 한도에 들어감). 주인님이 직접 부탁한 대화·분석은 한도와 상관없이 된다
-SCREEN_KINDS = ("judge", "screen", "pick", "analysis", "result_review", "official_review")
+SCREEN_KINDS = ("judge", "screen", "pick", "analysis", "result_review", "official_review", "layout")
 KIND_KO = {"chat": "대화", "judge": "화면 판단", "screen": "화면 대사", "pick": "픽 조언", "analysis": "분석·복기",
            "result_review": "판 끝난 총평", "official_review": "공식 기록 총평", "memory": "기억 정리", "search": "검색",
            "progress": "진행 정리", "dates": "일정 뽑기", "diary": "일기", "recap": "하루·주간 정리",
-           "mode": "게임 모드 만들기", "organize": "파일 정리", "video": "영상 복기", "recall": "기억 찾기 낱말"}
+           "mode": "게임 모드 만들기", "organize": "파일 정리", "video": "영상 복기", "recall": "기억 찾기 낱말",
+           "layout": "화면 배치 익히기"}
 
 
 class _TtsSignals(QObject):
@@ -182,6 +183,12 @@ class AssistantApp(QObject):
         self.screen_log = ScreenLog(settings.data_dir / "screens", int(self.pref("screen.memory_days", 180)),
                                     float(self.pref("screen.memory_gb", 100)), bool(self.pref("screen.memory", True)))
         self.watcher.screen_log = self.screen_log
+        from watch.layout import Layouts
+
+        self.layouts = Layouts(settings.data_dir / "layout")  # 게임마다 UI 자리 (처음 볼 때 한 번 익힘)
+        self.watcher.layouts = companion.layouts = self.layouts
+        self.watcher.layout_model = self.watch_cfg.mid_line_model
+        self.watcher.tune_sampler()
         self.watch_cfg.auto_read = bool(self.pref("screen.auto_read", True))
         self.watch_cfg.deep_result = self.pref("screen.result_depth", "deep") == "deep"
         self.watch_cfg.line_quality = str(self.pref("screen.line_quality", "auto"))
@@ -687,6 +694,10 @@ class AssistantApp(QObject):
             scope, text = self._rule_scope(reply.target)
             if self.companion.memory.add_rule(scope, text, kind="do"):
                 self.status.flash(f"챙겨 볼 것에 적었어요 ({scope})")
+        elif reply.action == "learn_layout":
+            game = self.watcher.relearn_layout()
+            self.status.flash(f"{game} 화면 배치를 다음에 조용할 때 다시 볼게요" if game
+                              else "게임 화면일 때 말해 주시면 다시 볼게요")
         elif reply.action == "block_window" and reply.target.strip():
             word = reply.target.strip().split(":")[-1].strip()
             if self.companion.memory.add_rule("전체", word, kind="skip"):

@@ -20,7 +20,7 @@ EMOTIONS = ["normal", "happy", "worried", "surprised", "angry"]
 ACTIONS = ["none", "organize_files", "web_search", "make_game_mode", "note_request", "pin_fact", "analyze_screen",
            "read_window", "add_rule", "correct_term", "zoom_screen", "add_focus", "block_window",
            "set_reminder", "cancel_reminder", "add_todo", "done_todo", "run_program", "media", "make_recap",
-           "save_clip", "set_progress"]
+           "save_clip", "set_progress", "learn_layout"]
 
 REPLY_SCHEMA = {
     "type": "object",
@@ -79,6 +79,11 @@ JUDGE_RULES = """너는 바탕화면 캐릭터의 '말 걸지 판단' 담당이�
   한자·일본어 일반 단어는 원문 옆 괄호에 뜻이 통하는 우리말을 붙인다(예: 南瓜(호박)). 한국어 한자음(남과)으로 옮기지 않는다.
 - '지난 몇 초 흐름' 사진들이 함께 오면 번호 순서((1)이 먼저, 마지막이 최근 → 그다음 지금 화면)대로 이어 보고 방금 벌어진 일
   (피함·맞음·죽음·처치·연출)을 판단한다. 순서를 거꾸로 읽지 않는다. 지금 화면 한 장만 보고 짐작하지 않는다.
+- 컷신·대화 장면(위아래 검은 띠, 대화창, 자막)은 움직임이 커 보여도 '난전·싸움'으로 단정하지 않는다. '자막·대사' 사진이 오면
+  그 글을 읽고 무슨 이야기인지(도박판 속임수가 들통남·협박·배신·농담·고백 등) 파악해 situation 에 적는다. 자막이 안 보이면
+  인물들의 자세·표정·소품(카드·칼·술잔)으로 상황을 짐작하고, 모르면 '대화 장면'이라고만 적는다.
+- '화면 배치'가 주어지면 그 자리의 그림·글은 UI(체력·미니맵·퀘스트 안내·버튼 등)다. 세상 속 물건으로 착각하지 않고,
+  UI 가 바뀐 것(체력 막대가 확 줆, 처치·획득 알림)은 방금 일어난 일의 근거로 쓴다.
 - read_box: 말할 거리가 화면 속 작은 글씨(대사·자막·퀘스트 설명·채팅·아이템 설명 등)에 있는데 이 크기로는 읽기 어려우면,
   그 부분 위치를 [왼쪽, 위, 오른쪽, 아래] 로 적는다 (화면 전체를 0~1 로 본 비율, 예: [0.05, 0.7, 0.6, 0.95]). 아니면 빈 배열.
 - 메신저(카카오톡 등) 대화가 보이면 흐름만 파악한다. 약속·일정, 주인님이 고민·질문하는 것, 도움이 될 정보가 있을 때만 speak=true.
@@ -245,10 +250,11 @@ MODE_SCHEMA = {
         "review_on_result": {"type": "boolean"},
         "knowledge": {"type": "string"},
         "urgent": {"type": "string"},
+        "spike": {"type": "string", "enum": ["color", "pixel", "off"]},
         "intro": {"type": "string"},
     },
     "required": ["name", "titles", "interval_seconds", "cooldown_seconds", "quiet_during_play", "review_on_result",
-                 "knowledge", "urgent", "intro"],
+                 "knowledge", "urgent", "spike", "intro"],
     "additionalProperties": False,
 }
 
@@ -262,7 +268,41 @@ MODE_RULES = """# 할 일: 게임 모드 만들기
 - knowledge: 이 게임 설명과 말 걸 기준을 한국어 글머리표 6~12줄. 게임 종류, 화면에서 읽을 것(체력·자원·미니맵 등),
   자주 하는 실수와 짧은 팁, 조용히 있을 때(로딩·컷신), 한국 서버 공식 용어. 확인 안 된 건 쓰지 않는다.
 - urgent: 바로 경고해야 할 위험한 상황이 있으면 한 문장(없으면 빈 문자열).
+- spike: 화면이 '확 바뀐 순간'을 무엇으로 알아챌지. 1인칭·3인칭처럼 카메라를 돌리면 화면이 통째로 바뀌는 게임은 "color"
+  (색·밝기가 확 바뀔 때만), 화면이 고정된 2D·카드·보드·시뮬레이션 게임은 "pixel", 리듬 게임처럼 늘 번쩍이는 게임은 "off".
 - intro: 모드를 만들었다고 주인님께 알리는 캐릭터 말투 한 문장."""
+
+LAYOUT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "regions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "kind": {"type": "string", "enum": ["subtitle", "dialogue", "hp", "minimap", "quest", "skill", "chat",
+                                                        "score", "notice", "team", "enemy", "menu", "other"]},
+                    "box": {"type": "array", "items": {"type": "number"}},
+                    "when": {"type": "string"},
+                },
+                "required": ["name", "kind", "box", "when"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["regions"],
+    "additionalProperties": False,
+}
+
+LAYOUT_TASK = """# 할 일: 게임 화면 배치 익히기
+이 게임 화면 사진에서 게임 세상 위에 덧그린 UI(화면 정보)가 어디 있는지 찾아 적는다. 나중에 화면을 볼 때
+'이 자리는 UI' 라고 알고, 자막·대화창은 따로 잘라 읽으려는 것이다.
+- regions: UI 하나마다 name(한국어 짧은 이름, 예: 체력바·미니맵·퀘스트 안내·스킬 칸·자막·대화창·킬 로그),
+  kind(종류), box([왼쪽, 위, 오른쪽, 아래], 화면 전체를 0~1 로 본 비율, 그 UI 를 넉넉히 감싸게),
+  when(언제 보이는지 짧게, 예: 항상·전투 중·대화 중. 모르면 빈 문자열).
+- 자막(subtitle)·대화창(dialogue)은 글이 뜨는 자리 전체를 감싼다 (이름표 포함). 지금 글이 떠 있을 때만 적는다.
+- 사진에 실제로 보이는 것만 적는다. 게임 세상 속 간판·사람·물건은 UI 가 아니다. 많아야 12개."""
 
 ORGANIZE_SCHEMA = {
     "type": "object",
@@ -359,6 +399,8 @@ RULES = """# 응답 규칙 (가장 먼저 지킬 것)
   하나와, 소리면 몇 단계인지(한 단계 2%, 예: "vol_down 5" = 10% 줄이기). message 는 아주 짧게.
 - 진행: 주인님이 게임을 어디까지 했는지 말하면("붉은사막 5장 들어왔어", "칸코레 E3 甲 깼어") action 은 "set_progress",
   target 은 "게임 이름: 지금까지 진행·지금 목표" 한 문장. 스포일러 경계와 이어하기 한마디에 쓴다.
+- 화면 배치: "UI 다시 익혀", "자막 위치 다시 봐", "화면 배치 틀렸어"처럼 게임 UI 자리를 다시 보라고 하면 action 은 "learn_layout"
+  (다음에 조용한 순간 화면을 보고 다시 익힌다). message 는 "다시 볼게요"처럼 짧게.
 - 하이라이트: "방금 거 저장해줘", "클립 따줘"는 action 은 "save_clip" (녹화 프로그램의 '방금 것 저장'을 누르고 화면 몇 장을 남긴다).
 - 정리: "오늘 하루 정리해줘", "이번 주 어땠어?"처럼 지난 시간을 정리해 달라면 action 은 "make_recap",
   target 은 today·yesterday·week 중 하나. message 는 "정리해 볼게요" 처럼 짧게 (기록을 모아서 이어서 정리한다).
@@ -569,6 +611,7 @@ class Companion:
         self.lorebook = LoreBook()  # 필요할 때 꺼내 보는 배경지식 사전
         self.extra_context = None  # 모드에 따라 화면 대사에 덧붙일 정보 (예: 원신 계정 정보). mode → 글
         self.recaller = None  # 화면 상황 글 → 이어지는 예전 일 (main 이 넣어 줌)
+        self.layouts = None  # 게임 화면 배치 (watch.layout.Layouts, main 이 넣어 줌)
         self.chat_model = chat_model
         self.memory_model = memory_model
         self.effort = effort
@@ -840,6 +883,37 @@ class Companion:
         blocks.append({"type": "text", "text": "(지금 화면)"})
         return blocks
 
+    def _caption_blocks(self, captions) -> list[dict]:
+        """자막·대화창 자리를 원래 크기로 잘라 둔 것들 (새 글이 떴을 때만, 오래된 것부터)."""
+        if not captions:
+            return []
+        blocks: list[dict] = [{"type": "text", "text": (
+            f"[자막·대사: 최근 몇 초 동안 자막·대화창 자리에 새로 뜬 글 {len(captions)}개를 원래 크기로 잘라 시간 순서대로 보낸다. "
+            "장면을 이해하는 데 쓴다 (그대로 읽어 주지 않는다). 글자가 아닌 게 찍혔으면 무시한다]")}]
+        for label, jpeg in captions:
+            blocks.append({"type": "text", "text": label})
+            blocks.append(self._image_block(jpeg))
+        return blocks
+
+    def _layout_text(self, mode) -> str:
+        if self.layouts is None or mode is None or not getattr(mode, "is_game", False):
+            return ""
+        try:
+            return self.layouts.describe(mode.name)
+        except Exception:  # noqa: BLE001 - 배치를 못 읽어도 화면은 본다
+            return ""
+
+    def learn_layout(self, jpeg: bytes, game: str, scene: str, model: str) -> tuple[list | None, float]:
+        """게임 화면 한 장을 보고 UI 자리를 익힌다 (게임·장면마다 한 번)."""
+        what = {"cutscene": "컷신·대화 장면"}.get(scene, "평소 플레이 화면")
+        content = [self._image_block(_shrink_jpeg(jpeg, 1568)),
+                   {"type": "text", "text": f"게임: {game}\n이 사진은 {what}이다. 이 화면의 UI 자리를 적어 줘."}]
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": LAYOUT_TASK}],
+                                  messages=[{"role": "user", "content": content}], schema=LAYOUT_SCHEMA,
+                                  kind="layout", max_tokens=1500, effort="low", timeout=60)
+        regions = (r.data or {}).get("regions") if r.data else None
+        return regions, r.usd
+
     def _focus_blocks(self, focus: bytes | None, label: str = "") -> list[dict]:
         if not focus:
             return []
@@ -861,9 +935,9 @@ class Companion:
     def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
               mode=None, session_notes: list[str] | None = None, chattiness: str = "normal",
               analysis: bool = False, review: bool = False, focus: bytes | None = None,
-              focus_label: str = "", history: bytes | None = None) -> dict | None:
+              focus_label: str = "", history: bytes | None = None, captions=None) -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔.
-        history: 촘촘히 보기의 '지난 몇 초 흐름' 모음 (0.5초 간격)."""
+        history: 촘촘히 보기의 '지난 몇 초 흐름' 모음 (0.5초 간격). captions: 새로 뜬 자막·대사 (원래 크기)."""
         recent = self.memory.spoken_lines(5)
         style = (REVIEW_JUDGE if review else ANALYSIS_JUDGE if analysis
                  else CHATTINESS.get(chattiness, CHATTINESS["normal"]))
@@ -872,6 +946,9 @@ class Companion:
             system += "\n\n" + self.memory.terms_text()
         if mode is not None:
             system += "\n\n" + self._mode_text(mode, None)
+        layout = self._layout_text(mode)
+        if layout:
+            system += "\n\n" + layout
         info = [f"맨 앞 창: {title or '(알 수 없음)'}"]
         if self.user_names:
             info.append(self.names_text())
@@ -882,7 +959,7 @@ class Companion:
             info.append("이번 판(세션) 기록: " + " / ".join(session_notes[-8:]))
         main_img = _shrink_jpeg(jpeg, 1280) if history else jpeg  # 흐름 모음이 있으면 지금 화면은 조금 작게
         content = self._history_blocks(history) + [self._image_block(main_img)] + self._focus_blocks(focus, focus_label) \
-            + [{"type": "text", "text": "\n".join(info)}]
+            + self._caption_blocks(captions) + [{"type": "text", "text": "\n".join(info)}]
         r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
                                   messages=[{"role": "user", "content": content}], schema=JUDGE_SCHEMA,
                                   kind="judge", max_tokens=400, effort="low", thinking_off=True, timeout=20)
@@ -896,7 +973,7 @@ class Companion:
                     question: str | None = None, now: datetime | None = None, mode=None,
                     session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None,
                     focus: bytes | None = None, focus_label: str = "", pick: bool = False,
-                    history: bytes | None = None) -> Reply:
+                    history: bytes | None = None, captions=None) -> Reply:
         """화면을 보고 캐릭터 말투로 한마디.
 
         question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
@@ -911,6 +988,9 @@ class Companion:
         mode_text = self._mode_text(mode, session_notes)
         if mode_text:
             lines.append(mode_text)
+        layout = self._layout_text(mode)
+        if layout:
+            lines.append(layout)
         if note and note.get("urgent"):
             lines.append("즉시 알릴 상황이다. 짧고 분명하게 경고한다. speak 는 true.")
         rules = self.rules_text(mode)
@@ -938,7 +1018,7 @@ class Companion:
             lines.append(extra)
         now_img = _shrink_jpeg(jpeg, 1280) if routine else jpeg  # 반응 한마디엔 지금 화면을 조금 작게 (글씨는 확대 사진으로)
         content = self._history_blocks(history) + [self._image_block(now_img)] + self._focus_blocks(focus, focus_label) \
-            + [{"type": "text", "text": "\n".join(lines)}]
+            + self._caption_blocks(captions) + [{"type": "text", "text": "\n".join(lines)}]
         turns = min(self.history_turns, 4) if routine else self.history_turns  # 반응 한마디엔 최근 대화 4번만
         messages = self.memory.api_messages(turns) + [{"role": "user", "content": content}]
         # 평범한 화면 대사는 한 번 더 생각하고(보탤 게 있는지) 말하게 effort 를 한 단계 올린다
@@ -1024,6 +1104,9 @@ class Companion:
         mode_text = self._mode_text(mode, session_notes)
         if mode_text:
             lines.append(mode_text)
+        layout = self._layout_text(mode)
+        if layout:
+            lines.append(layout)
         if note:
             lines.append(f"판단 메모: {note.get('situation', '')} / {note.get('point', '')}")
         if question:

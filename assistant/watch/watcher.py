@@ -26,7 +26,7 @@ from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foreground_window
 
 # 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
-STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "line": 120.0, "analyze": 200.0, "analyze_deep": 330.0}
+STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "line": 120.0, "analyze": 200.0, "analyze_deep": 330.0}
 
 
 class _Abandoned(Exception):
@@ -180,6 +180,9 @@ class ScreenWatcher(QObject):
         self.dxgi = DxgiGrabber()
         self.sampler = FrameSampler(lambda: self.grabber(), interval=cfg.dense_interval, clock=clock)
         self._current_history: bytes | None = None  # 이번 확인의 '지난 몇 초 흐름' 모음 (대사에도 같이)
+        self._current_captions: list = []  # 이번 확인 때 새로 뜬 자막·대사 (원래 크기)
+        self.layouts = None  # 게임 화면 배치 (watch.layout.Layouts, main 이 넣어 줌)
+        self.layout_model = "claude-sonnet-5-5"  # 화면 배치 익히기 (게임·장면마다 한 번)
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
@@ -256,6 +259,7 @@ class ScreenWatcher(QObject):
             new = detect(info.process, info.title, self.modes) or self.normal
             if new is not self.mode:
                 self.mode = new
+                self.tune_sampler(new)
                 self.mode_changed.emit(new.name)
         if self.mode.is_game:
             if self.session is None or self.session.mode is not self.mode:
@@ -265,6 +269,52 @@ class ScreenWatcher(QObject):
             self.session.last_seen = now
         elif self.session and now - self.session.last_seen > self.cfg.session_end_minutes * 60:
             self._end_session(now)
+
+    def tune_sampler(self, mode: Mode | None = None) -> None:
+        """게임마다: '확 바뀜' 기준(모드의 spike)과 따로 잘라 읽을 자막·대화창 자리(화면 배치)."""
+        mode = mode or self.mode
+        self.sampler.configure(mode.spike, mode.spike_level, mode.spike_busy)
+        if not mode.is_game:
+            self.sampler.set_text_boxes([])
+            return
+        from .layout import DEFAULT_TEXT_BOX
+
+        boxes = self.layouts.text_boxes(mode.name) if self.layouts is not None else [DEFAULT_TEXT_BOX]
+        self.sampler.set_text_boxes(boxes)
+
+    def relearn_layout(self) -> str | None:
+        """주인님이 'UI 다시 익혀' 하면: 지금 게임의 화면 배치를 지우고 다음 조용한 순간에 다시 본다."""
+        if self.layouts is None or not self.mode.is_game:
+            return None
+        self.layouts.forget(self.mode.name)
+        self.tune_sampler(self.mode)
+        return self.mode.name
+
+    def _layout_due(self, mode: Mode, note: dict, shot) -> str | None:
+        scene = note.get("scene")
+        if (self.layouts is None or not mode.is_game or scene not in ("playing", "cutscene") or shot.native is None
+                or note.get("speak") or note.get("urgent") or not hasattr(self.companion, "learn_layout")):
+            return None  # 말할 순간엔 말부터 (배치는 조용할 때)
+        if self.layouts.learned(mode.name, scene) or self.layouts.tried_recently(mode.name, scene):
+            return None
+        return scene
+
+    def _learn_layout(self, shot, mode: Mode, scene: str) -> None:
+        self._stage("layout")
+        self.layouts.mark_try(mode.name, scene)
+        try:
+            regions, _usd = self.companion.learn_layout(cap.to_jpeg(cap.shrink(shot.native, 1568), 88), mode.name, scene,
+                                                        self.layout_model)
+        except _Abandoned:
+            raise
+        except Exception as exc:  # noqa: BLE001 - 배치를 못 익혀도 화면 보기는 계속 (20분 뒤 다시)
+            log.warning("화면 배치 익히기 실패 (%s): %r", mode.name, exc)
+            return
+        if regions:
+            self.layouts.save(mode.name, scene, regions)
+            self.tune_sampler(mode)
+            log.info("화면 배치 익힘 [%s/%s]: %s", mode.name, scene,
+                     ", ".join(r.get("name", "") for r in self.layouts.regions(mode.name)))
 
     def _end_session(self, now: float) -> None:
         s = self.session
@@ -585,6 +635,7 @@ class ScreenWatcher(QObject):
         """뒤에서 실행: 캡처 → (변화 없으면 끝) → 판단 → 한마디/총평."""
         mode, session = self.mode, self.session
         self._current_history = None
+        self._current_captions = self.sampler.captions(self.cfg.dense_batch + 3) if self.dense_active(mode) else []
         notes = list(session.notes) if session else (list(self.flow) or None)
         shot = self._shot()
         if question is not None:
@@ -621,6 +672,8 @@ class ScreenWatcher(QObject):
         self.last_judged = self.clock()
         minutes = None if self.last_spoke is None else (self.clock() - self.last_spoke) / 60
         extra = {"history": history} if history else {}
+        if self._current_captions:
+            extra["captions"] = self._current_captions
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
                                     focus_label=shot.focus_label,
                                     chattiness=self.cfg.chattiness, analysis=self.cfg.analysis,
@@ -630,6 +683,9 @@ class ScreenWatcher(QObject):
         self._zoom_text(shot, note)
         if not note:
             return None
+        learn = self._layout_due(mode, note, shot)
+        if learn:  # 처음 보는 게임 화면: 조용한 순간에 UI 자리를 한 번 익힌다
+            self._learn_layout(shot, mode, learn)
         log.info("화면 판단 [%s] %s / %s → %s", mode.name, note.get("scene"), note.get("situation"),
                  "말함" if note.get("speak") or note.get("urgent") else "조용")
         calm = not (note.get("speak") or note.get("urgent") or mode.is_game) and note.get("scene") in ("other", "menu", "loading")
@@ -700,6 +756,8 @@ class ScreenWatcher(QObject):
             kwargs.setdefault("focus_label", label)
         if self._current_history and kwargs.get("question") is None:
             kwargs.setdefault("history", self._current_history)
+        if self._current_captions:
+            kwargs.setdefault("captions", self._current_captions)
         return self.companion.screen_line(*args, **kwargs)
 
     def _done(self, reply) -> None:

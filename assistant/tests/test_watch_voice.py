@@ -48,8 +48,9 @@ class FakeCompanion:
         self.lines = []
 
     def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False,
-              review=False, focus=None, focus_label="", history=None):
+              review=False, focus=None, focus_label="", history=None, captions=None):
         self.history_seen = history
+        self.captions_seen = captions
         self.focus_seen = focus
         self.focus_label_seen = focus_label
         self.judged.append({"title": title, "model": model, "minutes": minutes, "mode": mode.name if mode else None,
@@ -67,8 +68,9 @@ class FakeCompanion:
         return Analysis(True, "흐름을 보니 왼쪽이 비었습니다.", "교전 직후", [{"title": "위치", "detail": "근거"}], ["보급"])
 
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False,
-                    focus=None, focus_label="", pick=False, fast=None, history=None):
+                    focus=None, focus_label="", pick=False, fast=None, history=None, captions=None):
         self.line_history = history
+        self.line_captions = captions
         self.lines.append({"note": note, "question": question, "mode": mode.name if mode else None,
                            "notes": list(session_notes or []), "review": review, "pick": pick, "fast": fast})
         text = "총평입니다." if review else ("지금은 코드 편집 중이시네요." if question else "경로에 얼룩이 하나 있네요.")
@@ -372,6 +374,175 @@ def test_saved_mode_is_valid_and_loads(tmp_path):
     assert m.interval_seconds == 10 and m.cooldown_seconds == 600 and m.quiet_during_play  # 범위 안으로
     assert '"말레니아"' in m.knowledge and "\\주의" in m.knowledge
     assert detect("eldenring.exe", "", [m]) is m
+    assert m.spike == "color"  # 모델이 안 정했으면 기본 (1·3인칭 기준)
+    save_mode(tmp_path / "modes", "Balatro.exe", dict(data, name="발라트로", spike="pixel"))
+    assert {x.name: x.spike for x in load_modes(tmp_path / "modes")}["발라트로"] == "pixel"
+
+
+def test_each_game_mode_sets_its_own_spike_rule(tmp_path):
+    folder = tmp_path / "modes"
+    folder.mkdir()
+    (folder / "a.toml").write_text('name = "리듬"\nprocesses = ["r.exe"]\nspike = "off"\n', encoding="utf-8")
+    (folder / "b.toml").write_text('name = "카드"\nprocesses = ["c.exe"]\nspike = "그림"\nspike_level = 0.2\n'
+                                   'spike_busy = 0\n', encoding="utf-8")
+    (folder / "c.toml").write_text('name = "필드"\nprocesses = ["f.exe"]\nspike = "이상한값"\n', encoding="utf-8")
+    got = {m.name: (m.spike, m.spike_level, m.spike_busy) for m in load_modes(folder)}
+    assert got == {"리듬": ("off", 0.0, 3), "카드": ("pixel", 0.2, 0), "필드": ("color", 0.0, 3)}
+    shipped = {m.name: m.spike for m in load_modes(Path(__file__).resolve().parents[1] / "modes")}
+    assert shipped["디맥"] == "off" and shipped["칸코레"] == "pixel" and shipped["붉은사막"] == "color"
+
+
+def test_sampler_follows_the_game_spike_rule(tmp_path):
+    from watch.sampler import FrameSampler
+
+    t = {"now": 0.0}
+    shade = {"v": 10}
+    s = FrameSampler(lambda: _img(shade["v"]), clock=lambda: t["now"])
+    s.configure("off")
+    s.capture_once()
+    shade["v"] = 240
+    t["now"] = 0.5
+    s.capture_once()
+    assert s.spike_at is None  # 리듬 게임: 번쩍여도 바로 보지 않음
+    s.configure("pixel", 0.3)
+    assert s.spike == 0.3
+    from PIL import ImageDraw
+
+    world = Image.fromarray(_world()[:, :1920].copy())
+    popup = world.copy()
+    ImageDraw.Draw(popup).rectangle((560, 300, 1360, 780), fill=(60, 50, 40))  # 가운데에 창이 뜸 (진격/철수 같은)
+    for by, expect in (("color", None), ("pixel", 1.5)):
+        s.configure(by)
+        s.spike_at = None
+        s.grab = lambda: world
+        t["now"] = 1.0
+        s.capture_once()
+        s.spike_at = None
+        s.grab = lambda: popup
+        t["now"] = 1.5
+        s.capture_once()
+        assert s.spike_at == expect, by  # 3D 기준으론 작은 변화, 고정 화면 2D 기준으론 사건
+    assert s.spike == 0.05
+
+
+def _subtitle(base, text):
+    from PIL import ImageDraw, ImageFont
+
+    img = base.copy()
+    font = ImageFont.truetype("DejaVuSans.ttf", 40) if _has_font() else ImageFont.load_default(40)
+    ImageDraw.Draw(img).text((500, 900), text, font=font, fill=(245, 245, 245), stroke_width=2, stroke_fill=(0, 0, 0))
+    return img
+
+
+def _has_font():
+    from PIL import ImageFont
+
+    try:
+        ImageFont.truetype("DejaVuSans.ttf", 10)
+        return True
+    except OSError:
+        return False
+
+
+def test_subtitles_are_kept_once_per_new_line_at_full_size(tmp_path):
+    from watch.layout import DEFAULT_TEXT_BOX
+    from watch.sampler import FrameSampler
+
+    world = _world()
+    t = {"now": 0.0}
+    state = {"img": None}
+    s = FrameSampler(lambda: state["img"], clock=lambda: t["now"])
+    s.set_text_boxes([DEFAULT_TEXT_BOX])
+    script = ([Image.fromarray(world[:, x:x + 1920].copy()) for x in (0, 100, 200)]  # 자막 없음 (풍경만)
+              + [_subtitle(Image.fromarray(world[:, x:x + 1920].copy()), "You were dealing from the bottom.")
+                 for x in (300, 400, 500, 600)]  # 같은 대사가 떠 있는 동안 배경은 움직임
+              + [_subtitle(Image.fromarray(world[:, 700:2620].copy()), "Then I'll take that hand of yours.")])
+    for i, img in enumerate(script):
+        t["now"] = i * 0.5
+        state["img"] = img
+        s.capture_once()
+    caps = s.captions(10)
+    assert [label.split(")")[0] for label, _ in caps] == ["(자막·대사 자리", "(자막·대사 자리"]  # 새 대사 두 줄만
+    assert caps[0][0].endswith("2.0초 전") and caps[1][0].endswith("0.0초 전")
+    w = Image.open(__import__("io").BytesIO(caps[0][1])).width
+    assert w == 1100  # 작은 사진(480)이 아니라 글자가 읽히는 크기
+    s.set_text_boxes([])
+    assert s.captions(10) == []
+    s.set_text_boxes([DEFAULT_TEXT_BOX])  # 한 글자씩 써지는 대사는 다 써진 것만
+    line = "Then I'll take that hand of yours."
+    for i, n in enumerate((8, 16, 24, len(line)), 20):
+        t["now"] = i * 0.5
+        state["img"] = _subtitle(Image.fromarray(world[:, 300:2220].copy()), line[:n])
+        s.capture_once()
+    assert len(s.captions(10)) == 1
+
+
+def test_layouts_clean_describe_and_pick_text_boxes(tmp_path):
+    from datetime import datetime, timedelta
+
+    from watch.layout import DEFAULT_TEXT_BOX, Layouts, clean_regions
+
+    now = {"t": datetime(2026, 11, 11, 20, 0)}
+    lay = Layouts(tmp_path / "layout", clock=lambda: now["t"])
+    assert lay.text_boxes("붉은사막") == [DEFAULT_TEXT_BOX] and lay.describe("붉은사막") == ""
+    raw = [{"name": "체력바", "kind": "hp", "box": [0.02, 0.9, 0.25, 0.96], "when": "항상"},
+           {"name": "미니맵", "kind": "minimap", "box": [0.97, 0.03, 0.82, 0.25], "when": ""},  # 뒤집힌 상자도 바로잡음
+           {"name": "x", "kind": "이상함", "box": [0.1, 0.1], "when": ""},  # 상자가 깨짐 → 버림
+           {"name": "화면 전체", "kind": "other", "box": [0, 0, 1, 1], "when": ""}]  # 화면 대부분 → 버림
+    assert [r["name"] for r in clean_regions(raw)] == ["체력바", "미니맵"]
+    lay.mark_try("붉은사막", "playing")
+    assert lay.tried_recently("붉은사막", "playing")
+    now["t"] += timedelta(minutes=30)
+    assert not lay.tried_recently("붉은사막", "playing")
+    lay.save("붉은사막", "playing", raw)
+    lay.save("붉은사막", "cutscene", [{"name": "자막", "kind": "subtitle", "box": [0.2, 0.82, 0.8, 0.93], "when": "대화 중"}])
+    again = Layouts(tmp_path / "layout")  # 파일에서 다시 읽어도 그대로
+    assert again.learned("붉은사막", "playing") and again.learned("붉은사막", "cutscene")
+    assert again.text_boxes("붉은사막") == [("자막", (0.2, 0.82, 0.8, 0.93))]  # 흔한 자리 안이라 그것만
+    again.save("칸코레", "playing", [{"name": "대화창", "kind": "dialogue", "box": [0.02, 0.05, 0.4, 0.25], "when": ""}])
+    assert again.text_boxes("칸코레") == [("대화창", (0.02, 0.05, 0.4, 0.25)), DEFAULT_TEXT_BOX]  # 위쪽 대화창 + 아래 자막 자리
+    text = again.describe("붉은사막")
+    assert "체력바(체력·자원): 왼쪽 아래" in text and "미니맵(미니맵·지도): 오른쪽 위 [0.82, 0.03, 0.97, 0.25]" in text
+    assert "자막(자막): 아래 가운데" in text and "UI 다" in text
+    again.forget("붉은사막")
+    assert not again.learned("붉은사막", "playing") and again.text_boxes("붉은사막") == [DEFAULT_TEXT_BOX]
+
+
+def test_watcher_learns_layout_once_in_a_quiet_moment_and_reads_subtitles(qapp, tmp_path):
+    from watch.layout import Layouts
+    from watch.modes import Mode as _Mode
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    notes = [{"speak": True, "urgent": False, "scene": "playing", "situation": "보스전", "point": "감탄", "read_box": []}] \
+        + [{"speak": False, "urgent": False, "scene": "playing", "situation": "이동", "point": "", "read_box": []}] * 3
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game], notes=notes,
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    learned = []
+
+    def learn_layout(jpeg, name, scene, model):
+        learned.append((name, scene, model))
+        return [{"name": "대화창", "kind": "dialogue", "box": [0.15, 0.75, 0.85, 0.95], "when": "대화 중"},
+                {"name": "체력바", "kind": "hp", "box": [0.02, 0.9, 0.25, 0.96], "when": "항상"}], 0.01
+
+    comp.learn_layout = learn_layout
+    w.layouts = Layouts(tmp_path / "layout")
+    w.cfg.dense = "game"
+    w.sampler.set_active = lambda on: None
+    w.update_mode()
+    assert w.sampler.text_boxes and w.sampler.text_boxes[0][0] == "자막·대사 자리"  # 아직 모를 땐 흔한 자리
+    w.tick()  # 말할 순간 → 배치는 미룸
+    assert learned == [] and len(said) == 1
+    for i in range(1, 4):
+        t["now"] = i * 40
+        w.tick()
+    assert learned == [("붉은사막", "playing", "claude-sonnet-5-5")]  # 조용한 순간에 한 번만
+    assert w.sampler.text_boxes == [("대화창", (0.15, 0.75, 0.85, 0.95))]  # 익힌 자리로
+    w.sampler._captions.append(__import__("watch.sampler", fromlist=["Caption"]).Caption(t["now"] + 39, "대화창", b"jpg", None))
+    t["now"] = 160
+    comp.notes = [{"speak": True, "urgent": False, "scene": "cutscene", "situation": "대화", "point": "", "read_box": []}]
+    w.tick()
+    assert comp.captions_seen == [("(대화창) 1.0초 전", b"jpg")]
+    assert w.relearn_layout() == "붉은사막" and not w.layouts.learned("붉은사막", "playing")
 
 
 # ---------------------------------------------------------------- DXGI 화면 찍기
@@ -939,3 +1110,40 @@ def test_capturing_keeps_running_while_talking_or_outside_games(qapp, tmp_path):
     w.tick()
     assert calls[-1] is False
     w.timer.stop()
+
+
+def test_judge_and_line_get_layout_and_subtitles(tmp_path):
+    from watch.layout import Layouts
+    from watch.modes import Mode as _Mode
+
+    from watch import capture as cap
+
+    fake = FakeAnthropic([
+        {"regions": [{"name": "자막", "kind": "subtitle", "box": [0.2, 0.82, 0.8, 0.93], "when": "대화 중"},
+                     {"name": "체력바", "kind": "hp", "box": [0.02, 0.9, 0.25, 0.96], "when": "항상"}]},
+        {"speak": True, "urgent": False, "scene": "cutscene", "situation": "도박판에서 밑장 빼다 걸려 손을 자르겠다고 협박",
+         "point": "긴장", "read_box": []},
+        {"speak": True, "message": "와, 판이 완전히 뒤집혔네요.", "emotion": "surprised"},
+    ])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    comp.layouts = Layouts(tmp_path / "layout")
+    game = _Mode("붉은사막", knowledge="x", is_game=True)
+    shot = cap.to_jpeg(Image.new("RGB", (1920, 1080), (30, 30, 30)), 80)
+    regions, _ = comp.learn_layout(shot, "붉은사막", "cutscene", "claude-sonnet-5-5")
+    call = fake.calls[-1]
+    assert call["model"] == "claude-sonnet-5-5" and "화면 배치 익히기" in call["system"][0]["text"]
+    comp.layouts.save("붉은사막", "cutscene", regions)
+    caps = [("(자막) 2.5초 전", shot), ("(자막) 0.5초 전", shot)]
+    comp.judge(shot, "CD", "claude-haiku-5-5", None, mode=game, captions=caps)
+    call = fake.calls[-1]
+    system = call["system"][0]["text"]
+    assert "붉은사막 화면 배치" in system and "체력바(체력·자원): 왼쪽 아래" in system and "난전·싸움" in system
+    texts = [b.get("text", "") for b in call["messages"][-1]["content"] if b.get("type") == "text"]
+    assert any(t.startswith("[자막·대사: 최근 몇 초") for t in texts) and "(자막) 2.5초 전" in texts
+    images = [b for b in call["messages"][-1]["content"] if b.get("type") == "image"]
+    assert len(images) == 3  # 지금 화면 + 자막 두 줄
+    comp.screen_line(shot, "CD", {"situation": "협박", "point": "긴장"}, model="claude-haiku-5-5", mode=game, captions=caps)
+    content = fake.calls[-1]["messages"][-1]["content"]
+    assert any("(자막) 0.5초 전" == b.get("text") for b in content)
+    assert "붉은사막 화면 배치" in content[-1]["text"]
