@@ -226,6 +226,10 @@ class ScreenWatcher(QObject):
         self._timing: dict = {}
         self.context = None  # 맥락 담당 (watch.context.ContextKeeper, main 이 넣어 줌)
         self.hud = HudReader(None, clock)  # 화면 정보 상시 읽기 (글자 인식은 main 이 넣어 줌)
+        # 화면 전체 글자 (의뢰·일지·메뉴 창처럼 글자가 많을 때): 판단과 동시에 이 PC 가 원래 크기로 읽는다 (main 이 넣어 줌)
+        self.page_ocr: Callable | None = None
+        self._page: tuple[float, str] | None = None  # (시각, 읽은 글)
+        self._page_job = None
         self.ears = None  # 게임 소리 듣기 (watch.ears.GameEars, main 이 넣어 줌)
         self.sampler.hud = self.hud
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
@@ -894,6 +898,10 @@ class ScreenWatcher(QObject):
         if story:
             extra["context"] = story
         spiked = bool(recent) and since is not None and since < self.interval_for(mode)  # 박자가 아니라 확 바뀌어서 옴
+        before = self.page_text(12.0) if not spiked and changed_main < self.cfg.scene_change else ""
+        if before:  # 같은 화면이 이어지는 중이면 직전에 읽은 화면 글자를 판단 담당에게 (작은 사진으로 잘못 읽지 않게)
+            extra["page"] = before
+        self._read_page(shot, mode)
         if spiked and self._rush_ok(mode):
             self._start_rush(shot, mode, notes, session)
         note = self.companion.judge(shot.jpeg, shot.title, self.cfg.judge_model, minutes, mode, notes, focus=shot.focus,
@@ -902,6 +910,8 @@ class ScreenWatcher(QObject):
                                     review=self.reviewing(mode), **extra)
         self.stats["judged"] += 1
         self._timing["judge"] = self.clock() - self._shot_at
+        if note:
+            self._check_claims(note, session)
         self._remember(shot, mode, note)
         self._zoom_text(shot, note)
         if not note:
@@ -983,8 +993,10 @@ class ScreenWatcher(QObject):
         best = question is not None or bool(finds) or self.cfg.line_quality == "brain"
         model = self.cfg.line_model if best else self.cfg.mid_line_model
         fast = {"fast": True} if model == self.cfg.line_model and self.cfg.fast_opus else {}  # Opus 는 빠른 모드로
+        page = self.page_text(8.0)  # 다 읽었으면 (기다리지 않음)
         if self.cfg.eye != "careful":  # 바로: 판단 → 말하기 (흐름 사진·자막은 말하기 담당이 직접)
-            brain = {"scene": None, "dialogue": None, "found": list(finds or []), "context": self._context_text(mode)}
+            brain = {"scene": None, "dialogue": None, "found": list(finds or []), "context": self._context_text(mode),
+                     "page": page}
             return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes, question=question,
                              brain=brain, history=flow or None, captions=caps or None, _hold=hold, **fast)
         self._stage("perceive")
@@ -1003,14 +1015,90 @@ class ScreenWatcher(QObject):
             ear = pool.submit(safely, self.companion.read_captions, caps, self.cfg.economy_line_model) if caps else None
             scene = eye.result()[0]
             dialogue = ear.result()[0] if ear else None
-        brain = {"scene": scene, "dialogue": dialogue, "found": list(finds or []), "context": self._context_text(mode)}
+        brain = {"scene": scene, "dialogue": dialogue, "found": list(finds or []), "context": self._context_text(mode),
+                 "page": page}
         if scene and scene.get("happened") and session is not None:  # 판 기록엔 자세히 본 것도 (작은 사진 판단보다 정확)
-            session.add(self.clock(), "자세히 본 장면: " + " / ".join(
-                str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300], "guess")
+            from watch.claims import check
+
+            session.add(self.clock(), check("자세히 본 장면: " + " / ".join(
+                str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300], self._evidence(session)), "guess")
         # 말하기 담당은 흐름 사진·자막 사진 대신 담당들이 정리한 글 + 지금 화면으로 확인한다 (비용 절약).
         # 절약이면 평소 한마디는 Sonnet, 물어볼 때·둘러보기에서 중요한 걸 찾았을 때만 Opus
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes,
                          question=question, brain=brain, history=None, captions=None)
+
+    # ------------------------------------------------------------ 화면 전체 글자·'끝났다/받았다' 확인
+
+    def _read_page(self, shot, mode) -> None:
+        """게임 화면 전체 글자를 뒤에서 읽기 시작한다 (판단 담당이 도는 1~3초 동안 끝남, 기다리지 않음)."""
+        if self.page_ocr is None or shot.native is None or not getattr(mode, "is_game", False):
+            return
+        if self._page_job is not None and not self._page_job[1].done():
+            return  # 아직 앞의 것을 읽는 중
+        from concurrent.futures import ThreadPoolExecutor
+
+        if getattr(self, "_page_pool", None) is None:
+            self._page_pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="page-ocr")
+        img, t = shot.native, self.clock()
+        self._page_job = (t, self._page_pool.submit(self._page_read, img))
+
+    def _page_read(self, img) -> str:
+        try:
+            text = self.page_ocr(img) or ""
+        except Exception as exc:  # noqa: BLE001 - 못 읽어도 화면 보기는 계속
+            log.debug("화면 전체 글자 못 읽음: %r", exc)
+            return ""
+        text = " ".join(str(text).split())
+        hangul = sum("가" <= ch <= "힣" for ch in text)
+        # 글자 많은 창(의뢰·일지·메뉴·상점)일 때만 쓴다. 평소 플레이 화면에서 읽힌 몇 글자는 버림
+        return text[:1500] if hangul >= 30 else ""
+
+    def read_page_now(self, img) -> str:
+        """지금 바로 화면 전체 글자 읽기 (대화할 때, 뒤 스레드에서). 글자 많은 창이 아니면 빈 글."""
+        return self._page_read(img) if self.page_ocr is not None and img is not None else ""
+
+    def _page_done(self, wait: float = 0.0) -> None:
+        job = self._page_job
+        if job is None:
+            return
+        t, future = job
+        try:
+            text = future.result(timeout=wait) if wait > 0 else (future.result() if future.done() else None)
+        except Exception:  # noqa: BLE001 - 시간 안에 못 읽음: 다음에
+            return
+        if text is None:
+            return
+        self._page_job = None
+        self._page = (t, text)
+
+    def page_text(self, max_age: float = 15.0, wait: float = 0.0) -> str:
+        """최근에 이 PC 가 원래 크기로 읽은 화면 전체 글자 (글자 많은 창일 때만, 아니면 빈 글)."""
+        self._page_done(wait)
+        if not self._page or not self._page[1] or self.clock() - self._page[0] > max_age:
+            return ""
+        return self._page[1]
+
+    def _evidence(self, session) -> list[str]:
+        """'끝났다·받았다'를 확인할 화면 글자: 화면 정보(퀘스트 안내·알림·배너), 최근 자막, 화면 전체 글자."""
+        texts = [n for n in (session.notes[-40:] if session else []) if "[확인]" in n]
+        texts += [text for _, _, text in self.hud.recent(120)]
+        texts += self.sampler.caption_texts(self.clock() - 120)
+        texts.append(self.page_text(15.0))
+        return texts
+
+    def _check_claims(self, note: dict, session) -> None:
+        """판단 담당이 '의뢰 끝·보상 받음'이라고 했는데 화면 글자에 완료·획득이 없으면 '확인 안 됨'을 붙인다."""
+        from watch.claims import check, claims_done, shown_done
+
+        keys = [k for k in ("situation", "point") if claims_done(str(note.get(k) or ""))]
+        if not keys:
+            return
+        evidence = self._evidence(session)
+        if not shown_done(evidence) and self._page_job is not None:  # 화면 전체 글자를 아직 읽는 중이면 조금 기다려 본다
+            self._page_done(1.0)
+            evidence.append(self.page_text(15.0))
+        for key in keys:
+            note[key] = check(str(note[key]), evidence)
 
     def _log_facts(self, session) -> None:
         """화면 정보(퀘스트·알림·배너·킬로그 글자 인식, 체력 막대 잰 값)를 판 기록에 [확인]·[잰 값]으로 옮긴다."""

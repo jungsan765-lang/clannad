@@ -233,10 +233,17 @@ def test_app_passes_genshin_info_to_chat_and_announces(tmp_path, monkeypatch):
                           {"speak": True, "message": "레진은 195입니다.", "emotion": "normal"}])
     a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
     a.secrets.set("hoyolab", {"ltuid_v2": "1", "ltoken_v2": "x"})
-    a.apply_settings({"genshin.uid": "812345678"})
     a.genshin.fetch = fake_fetch([])
-    a.refresh_genshin(force=True)
-    _wait(app, a)
+    # UID 를 바꾸면 0.5초 뒤 알아서 한 번 받아 온다 (여기서 따로 또 받으면 바쁠 때 두 번째가 말풍선을 덮어써서 들쭉날쭉)
+    a.apply_settings({"genshin.uid": "812345678"})
+    import time as _time
+
+    from PySide6.QtCore import QThreadPool
+
+    deadline = _time.monotonic() + 10
+    while a.bubble.text != "레진이 거의 찼습니다, 주인님." and _time.monotonic() < deadline:
+        QThreadPool.globalInstance().waitForDone(50)
+        app.processEvents()
     _wait(app, a)
     assert a.bubble.text == "레진이 거의 찼습니다, 주인님."  # 먼저 알려 줌
     assert "레진이 195/200" in json.dumps(fake.calls[0]["messages"][-1], ensure_ascii=False)

@@ -48,7 +48,8 @@ class FakeCompanion:
         self.lines = []
 
     def judge(self, jpeg, title, model, minutes, mode=None, session_notes=None, chattiness="normal", analysis=False,
-              review=False, focus=None, focus_label="", history=None, captions=None, context=""):
+              review=False, focus=None, focus_label="", history=None, captions=None, context="", page=""):
+        self.page_seen = page
         self.history_seen = history
         self.captions_seen = captions
         self.context_seen = context
@@ -1493,6 +1494,15 @@ def test_context_keeper_writes_the_running_story_on_my_pc(tmp_path):
     assert keeper.text() == ""  # 오래된 흐름은 안 붙임
     keeper.step("원신")  # 게임이 바뀌면 처음부터
     assert keeper.game == "원신" and list(keeper.timeline) == []
+    # 화면 글자 없이 '의뢰 끝·보상 받음'이라고 적으면 '확인 안 됨'이 붙는다
+    t["now"] += 30
+    s.capture_once()
+    local.answers = [{"now": "금전의 대가 의뢰를 끝내고 보상을 받음", "story": "조세 통지서 의뢰를 봤다."}]
+    assert keeper.step("원신")
+    from watch.claims import CAVEAT
+
+    assert keeper.timeline[-1][1] == "금전의 대가 의뢰를 끝내고 보상을 받음" + CAVEAT
+    assert keeper.story == "조세 통지서 의뢰를 봤다."
 
 
 def test_story_reaches_judge_and_speaker(qapp, tmp_path):
@@ -1804,3 +1814,50 @@ def test_ledger_tracks_cache_images_and_failures(tmp_path):
     st = led.day_stats()
     assert round(st["cache_hit"], 2) == 0.9 and st["images"] == 11 and st["fails"] == {"judge": 1}
     assert st["models"]["claude-sonnet-5-5"]["images"] == 11
+
+
+def test_done_or_received_claims_need_on_screen_words():
+    from watch.claims import CAVEAT, check, claims_done, shown_done
+
+    assert claims_done("금전의 대가 의뢰 끝, 보상 받음")
+    assert claims_done("의뢰 완료, 중형 가방 획득")
+    assert not claims_done("적에게 공격받음")  # 싸움에서 '받음'은 해당 없음
+    assert not claims_done("보상을 받으려면 세금을 내야 함")
+    assert not claims_done("금전의 대가 의뢰 창을 보는 중 (보상: 중형 가방)")
+    # 의뢰 창의 '획득 보상'·'완료 조건'은 이미 됐다는 글이 아님
+    assert not shown_done(["획득 보상: 중형 가방, 유니콘 유리공예", "완료 조건: 세금 납부", "달성 시 보상"])
+    assert shown_done(["의뢰 완료: 금전의 대가"]) and shown_done(["중형 가방을 획득했습니다"])
+    assert check("금전의 대가 의뢰 끝, 보상 받음", ["획득 보상: 중형 가방"]).endswith(CAVEAT)
+    assert check("금전의 대가 의뢰 끝, 보상 받음", ["의뢰 완료: 금전의 대가"]) == "금전의 대가 의뢰 끝, 보상 받음"
+
+
+def test_judge_saying_quest_done_is_marked_unconfirmed_without_on_screen_words(qapp, tmp_path):
+    from watch.claims import CAVEAT
+    from watch.modes import Mode as _Mode
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    quest_window = ("금전의 대가 조세 징수관의 조세 통지서 세금을 납부하면 아래 보상을 받을 수 있습니다 "
+                    "획득 보상: 중형 가방, 유니콘 유리공예, 공헌도 100")
+    w.page_ocr = lambda img: quest_window  # 이 PC 가 원래 크기로 읽은 의뢰 창 글자
+    w.update_mode()
+    comp.notes = [{"speak": True, "urgent": False, "scene": "menu", "situation": "금전의 대가 의뢰 끝, 보상 받음",
+                   "point": "보상 받은 것 축하", "read_box": []}]
+    w.tick()
+    note = next(n for n in w.session.notes if "금전의 대가" in n)
+    assert note.startswith("0분: (추측)") and note.endswith(CAVEAT)  # 화면에 완료·획득 글이 없으니 '확인 안 됨'
+    assert w.page_text() == " ".join(quest_window.split())  # 글자 많은 창이라 화면 글자를 남겨 둠
+    # 화면 정보로 완료 알림을 봤으면 그대로 둔다 (쉬는 시간 지나서)
+    t["now"] = 200
+    w.hud._event(t["now"], "퀘스트 안내", "의뢰 완료: 금전의 대가")
+    w._page = (t["now"], "금전의 대가 의뢰 완료 보상을 받았습니다 중형 가방 유니콘 유리공예 공헌도 백")
+    comp.notes = [{"speak": False, "urgent": False, "scene": "playing", "situation": "금전의 대가 의뢰 끝, 보상 받음",
+                   "point": "", "read_box": []}]
+    w.tick()
+    assert len(comp.judged) == 2
+    assert any(n.endswith("(추측) 금전의 대가 의뢰 끝, 보상 받음") for n in w.session.notes)
+    assert "보상을 받았습니다" in comp.page_seen  # 같은 화면이 이어지는 중이면 판단 담당도 화면 글자를 받는다
+    # 평소 플레이 화면에서 몇 글자 읽힌 건 화면 글자로 안 씀
+    w.page_ocr = lambda img: "HP 1200 / 1500"
+    assert w.read_page_now(_img(10)) == ""

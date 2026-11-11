@@ -88,6 +88,8 @@ JUDGE_RULES = """너는 바탕화면 캐릭터의 '말 걸지 판단' 담당이�
 - situation 은 나중에 '이번 판 기록'으로 쓰이니, 게임이면 점수·체력·결과처럼 구체적인 것을 적는다.
 - 의뢰·퀘스트·일지·조건 화면에 적힌 '보상'은 앞으로 받을 것이다. 받았다·끝났다고 적지 않는다. 끝났다는 건 화면에
   '완료·달성·클리어' 같은 글이나 획득 알림이 실제로 보일 때만. 조건('~를 내면·~하면 받음')은 조건대로 적는다.
+  의뢰 창을 보고 있으면 '○○ 의뢰 창을 보는 중 (조건: …, 보상: …)'처럼 본 그대로 적는다.
+- '화면 글자(이 PC 가 원래 크기로 읽음)'가 오면 글자는 그걸 믿는다 (작은 사진보다 정확). 사진은 위치·모양만 본다.
 - '이번 판 기록'에서 [확인]은 화면 글자·알림으로 확인된 것, [잰 값]은 이 PC 가 잰 값(틀릴 수 있음), (추측)은 AI 가 작은 사진으로
   짐작한 것이라 틀릴 수 있다. 추측을 사실처럼 이어 받지 않고, 지금 사진과 다르면 사진을 믿는다.
 - situation 에는 화면에 글자로 보이는 핵심 이름·용어(캐릭터·지명·적 이름, 大破·進撃 같은 게임 용어)를 원문 그대로 넣는다.
@@ -1165,6 +1167,9 @@ class Companion:
             parts.append("- 대사 담당(자막): " + said + (f" → {dialogue['summary']}" if dialogue.get("summary") else ""))
         if brain.get("context"):
             parts.append("- " + str(brain["context"]))
+        if brain.get("page"):
+            parts.append("- 화면 글자(이 PC 가 원래 크기로 그대로 읽음 — 의뢰·일지·메뉴 글은 사진보다 이걸 믿는다. "
+                         "'보상'은 '완료·획득'이 적혀 있지 않으면 앞으로 받을 것): " + str(brain["page"]))
         found = brain.get("found") or []
         if found:
             parts.append("- 둘러보기 담당(확대해서 알아본 것, 알릴 만하다고 판정): " + " / ".join(
@@ -1207,7 +1212,8 @@ class Companion:
     def judge(self, jpeg: bytes, title: str, model: str, minutes_since_spoke: float | None,
               mode=None, session_notes: list[str] | None = None, chattiness: str = "normal",
               analysis: bool = False, review: bool = False, focus: bytes | None = None,
-              focus_label: str = "", history: bytes | None = None, captions=None, context: str = "") -> dict | None:
+              focus_label: str = "", history: bytes | None = None, captions=None, context: str = "",
+              page: str = "") -> dict | None:
         """싼 모델(Haiku)이 화면을 보고 말 걸 만한지 판단. thinking 은 끔.
         history: 촘촘히 보기의 '지난 몇 초 흐름' 모음 (0.5초 간격). captions: 새로 뜬 자막·대사 (원래 크기)."""
         recent = self.memory.spoken_lines(5)
@@ -1231,6 +1237,8 @@ class Companion:
             info.append("이번 판(세션) 기록: " + " / ".join(session_notes[-8:]))
         if context:
             info.append(context)
+        if page:
+            info.append("화면 글자(이 PC 가 원래 크기로 그대로 읽음 — 바로 전 같은 화면, 글자는 사진보다 이걸 믿는다): " + page)
         if self.seen is not None and getattr(mode, "is_game", False):
             known = self.seen.brief(mode.name)
             if known:

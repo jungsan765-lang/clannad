@@ -29,7 +29,8 @@ CONTEXT_TASK = """# 할 일: 맥락 담당 — 게임 흐름 이어 적기
 - story: '지금까지 흐름'을 이어서 고쳐 쓴다. 이전 흐름에 이번 일을 덧붙이고, 오래되고 덜 중요한 건 줄인다. 3~5문장.
   어디서 무엇을 하는 중인지, 누구와 무슨 이야기가 오갔는지, 목표·싸움이 어떻게 되어 가는지.
 - now: 이번 구간에 일어난 일 한 줄 (별일 없으면 '이동 중' 처럼 짧게).
-- 보이는 것과 자막만 근거로. 확실하지 않으면 '~인 듯'. 등에 멘 무기를 '들었다'고 하지 않는다. 한국어로."""
+- 보이는 것과 자막만 근거로. 확실하지 않으면 '~인 듯'. 등에 멘 무기를 '들었다'고 하지 않는다. 한국어로.
+- 의뢰·일지 창에 적힌 보상은 앞으로 받을 것이다. '완료·획득' 글자나 알림을 보지 않았으면 끝났다·받았다고 적지 않는다."""
 
 
 class ContextKeeper:
@@ -89,10 +90,13 @@ class ContextKeeper:
             return False  # 급한 일이 먼저거나 실패 → 다음 차례에 (구간은 그대로 이어서)
         self.last_at = now
         story, line = " ".join(str(data.get("story", "")).split()), " ".join(str(data.get("now", "")).split())
+        from watch.claims import check  # '의뢰 끝·보상 받음'은 화면 글자로 확인될 때만
+
+        line, story = check(line[:160], said + notes), check(story[:700], said + notes)
         if story:
-            self.story = story[:700]
+            self.story = story
         if line:
-            self.timeline.append((now, line[:160]))
+            self.timeline.append((now, line))
         self.updated_at = self.clock()
         return True
 

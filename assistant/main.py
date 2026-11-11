@@ -243,6 +243,7 @@ class AssistantApp(QObject):
 
         self.watcher.sampler.ocr = local_ocr.read_text  # 자막·대사는 이 PC 글자 인식으로 먼저 (공짜)
         self.watcher.hud.ocr = local_ocr.read_text  # 퀘스트 안내·알림·킬 로그도 계속 읽기
+        self.watcher.page_ocr = local_ocr.read_windows  # 의뢰·일지·메뉴 창은 화면 전체 글자를 원래 크기로
         local_ocr.paddle_enabled = bool(self.pref("local.paddle_ocr", True))  # 정밀 글자 인식 (Windows 글자 인식이 틀릴 때)
         local_ocr.warm_up()
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
@@ -460,9 +461,13 @@ class AssistantApp(QObject):
             # 떠올리기는 뒤에서 (색인 찾기·필요하면 낱말 넓히기 — 화면이 멈추지 않게)
             ctx, imgs = context, images
             if live and not imgs:  # 게임 중엔 지금 화면도 같이 (판 기록의 짐작만 믿고 틀리지 않게, 1280 한 장 ≈ 7원)
-                shot = self._live_game_view()
+                shot, raw = self._live_game_view()
                 if shot:
                     imgs = [("(지금 게임 화면 — 판 기록·네 기억보다 이 화면을 먼저 믿는다)", shot)]
+                page = self.watcher.page_text(5.0) or (self.watcher.read_page_now(raw) if raw is not None else "")
+                if page:  # 의뢰·일지 창이면 이 PC 가 원래 크기로 읽은 글도 (작은 글씨를 잘못 읽지 않게)
+                    ctx = ((ctx + "\n") if ctx else "") + ("[지금 화면 글자 — 이 PC 가 원래 크기로 읽음. '보상'은 '완료·획득'이 "
+                                                            "적혀 있지 않으면 앞으로 받을 것] " + page)
             memory_text, recalled = self.recall_for(t, window)
             if memory_text:
                 ctx = ((ctx + "\n") if ctx else "") + memory_text
@@ -479,14 +484,16 @@ class AssistantApp(QObject):
             return False
         return not w.blocked_word(w.process, w.window_title)
 
-    def _live_game_view(self) -> bytes | None:
+    def _live_game_view(self) -> tuple[bytes | None, object]:
+        """대화에 붙일 지금 게임 화면 (1280 jpeg, 원래 크기 그림 — 글자 읽기용)."""
         try:
             from watch import capture as cap
 
-            return cap.to_jpeg(cap.shrink(self.watcher.grabber(), 1280), 85)
+            img = self.watcher.grabber()
+            return cap.to_jpeg(cap.shrink(img, 1280), 85), img
         except Exception as exc:  # noqa: BLE001 - 못 찍어도 대화는 됨
             log.debug("대화용 지금 화면 못 찍음: %r", exc)
-            return None
+            return None, None
 
     # ------------------------------------------------------------ 떠올리기
 
