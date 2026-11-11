@@ -453,9 +453,15 @@ class AssistantApp(QObject):
                     "주인님이 지난 일을 물으면 이걸 근거로 답한다]\n" + diary)
             if at is not None:
                 images = [(f"({e.time:%H:%M} 화면)", e.file.read_bytes()) for e in self.screen_log.nearest(at)]
+        live = self._live_game_view_allowed()
+
         def work(t, progress):
             # 떠올리기는 뒤에서 (색인 찾기·필요하면 낱말 넓히기 — 화면이 멈추지 않게)
             ctx, imgs = context, images
+            if live and not imgs:  # 게임 중엔 지금 화면도 같이 (판 기록의 짐작만 믿고 틀리지 않게, 1280 한 장 ≈ 7원)
+                shot = self._live_game_view()
+                if shot:
+                    imgs = [("(지금 게임 화면 — 판 기록·네 기억보다 이 화면을 먼저 믿는다)", shot)]
             memory_text, recalled = self.recall_for(t, window)
             if memory_text:
                 ctx = ((ctx + "\n") if ctx else "") + memory_text
@@ -464,6 +470,22 @@ class AssistantApp(QObject):
             return self.companion.reply(t, context=ctx, on_partial=progress, images=imgs)
 
         self._run(work, self._on_reply, self._on_error, text, on_progress=self._on_partial)
+
+    def _live_game_view_allowed(self) -> bool:
+        """게임 중이고 화면 보기가 켜져 있고, 보지 말라고 한 창이 아닐 때만."""
+        w = self.watcher
+        if not (w.enabled and w.session is not None and w.mode.is_game and self.pref("chat.live_view", True)):
+            return False
+        return not w.blocked_word(w.process, w.window_title)
+
+    def _live_game_view(self) -> bytes | None:
+        try:
+            from watch import capture as cap
+
+            return cap.to_jpeg(cap.shrink(self.watcher.grabber(), 1280), 85)
+        except Exception as exc:  # noqa: BLE001 - 못 찍어도 대화는 됨
+            log.debug("대화용 지금 화면 못 찍음: %r", exc)
+            return None
 
     # ------------------------------------------------------------ 떠올리기
 

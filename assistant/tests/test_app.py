@@ -1352,3 +1352,35 @@ def test_away_clears_when_gaming_and_pause_reason_is_shown(qapp, tmp_path, built
     a.apply_settings({"screen.daily_krw": "5000"})
     assert a.screen_pause_reason() == ""
     a.quit()
+
+
+def test_chat_during_a_game_sees_the_live_screen(qapp, tmp_path, built):
+    from watch.modes import Mode
+    from watch.watcher import GameSession
+
+    fake = FakeAnthropic([{"speak": True, "message": "보상은 세금을 내야 받는 거네요.", "emotion": "normal"},
+                          {"speak": True, "message": "네.", "emotion": "normal"}])
+    s = _settings(tmp_path, built["out"].as_posix())
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    a.start()
+    game = Mode("붉은사막", knowledge="x", is_game=True)
+    a.watcher.set_enabled(True)
+    a.watcher.mode = game
+    a.watcher.session = GameSession(game, 0.0, 0.0)
+    a.watcher.session.add(0.0, "금전의 대가 의뢰 완료, 보상 받음", "guess")
+    from PIL import Image
+
+    a.watcher.grabber = lambda: Image.new("RGB", (1920, 1080), (90, 70, 40))
+    a.ask("아니 내가 세금을 왜 내")
+    _wait(qapp, a)
+    content = fake.calls[-1]["messages"][-1]["content"]
+    texts = " ".join(b.get("text", "") for b in content if b.get("type") == "text")
+    assert any(b.get("type") == "image" for b in content)  # 지금 게임 화면을 같이 봄
+    assert "판 기록·네 기억보다 이 화면을 먼저 믿는다" in texts and "(추측) 금전의 대가" in texts
+    system = "".join(b["text"] for b in fake.calls[-1]["system"])
+    assert "의뢰·일지에 적힌 보상은 앞으로 받을 것" in system
+    a.watcher.session = None  # 게임이 아니면 화면은 안 붙임
+    a.ask("고마워")
+    _wait(qapp, a)
+    assert not any(b.get("type") == "image" for b in fake.calls[-1]["messages"][-1]["content"])
+    a.quit()
