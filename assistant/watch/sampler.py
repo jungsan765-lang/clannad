@@ -139,6 +139,7 @@ class FrameSampler:
         self.text_min = 0.012  # text_score 가 이보다 높아야 글자가 있다고 본다
         self._captions: deque[Caption] = deque()
         self.ocr: Callable | None = None  # 이 PC 글자 인식 (그림 → 글, 못 쓰면 None 을 돌려줌)
+        self.hud = None  # 화면 정보 읽기 (watch.hud.HudReader) — 찍을 때마다 원래 크기 화면을 넘겨 준다
 
     def configure(self, by: str = "color", level: float = 0.0, busy: int = 3) -> None:
         """게임마다 '확 바뀜' 기준 (게임 모드의 spike·spike_level·spike_busy)."""
@@ -202,6 +203,11 @@ class FrameSampler:
                 self._frames.popleft()
         for name, box in self.text_boxes:
             self._read_box(img, name, box, frame.t)
+        if self.hud is not None:
+            try:
+                self.hud.feed(img, frame.t)
+            except Exception as exc:  # noqa: BLE001 - 화면 정보를 못 읽어도 찍기는 계속
+                log.debug("화면 정보 읽기 실패: %r", exc)
         return frame
 
     def _change(self, a: Frame, b: Frame) -> float:

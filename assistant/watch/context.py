@@ -34,12 +34,14 @@ CONTEXT_TASK = """# 할 일: 맥락 담당 — 게임 흐름 이어 적기
 
 class ContextKeeper:
     def __init__(self, local, sampler, clock: Callable[[], float] = time.monotonic, every: float = 10.0,
-                 shrink: Callable[[bytes, int], bytes] | None = None):
+                 shrink: Callable[[bytes, int], bytes] | None = None,
+                 notes_since: Callable[[float], list[str]] | None = None):
         self.local = local  # local_ai.LocalAI
         self.sampler = sampler
         self.clock = clock
         self.every = every
         self.shrink = shrink or (lambda jpeg, width: jpeg)
+        self.notes_since = notes_since  # 그 사이 화면 정보·들린 소리 (시각 → 글 목록)
         self.enabled = True
         self.game = ""
         self.story = ""
@@ -68,9 +70,16 @@ class ContextKeeper:
         if not frames:
             return False
         said = self.sampler.caption_texts(start)
+        notes = []
+        if self.notes_since is not None:
+            try:
+                notes = list(self.notes_since(start))
+            except Exception:  # noqa: BLE001
+                notes = []
         labels = ", ".join(f"{now - f.t:.0f}초 전" for f in frames)
         prompt = (f"게임: {game}\n이전 흐름: {self.story or '(처음 보는 중)'}\n"
                   + (f"그 사이 자막·대사: {' / '.join(said[-8:])}\n" if said else "")
+                  + (f"그 사이 화면 정보·들린 소리: {' / '.join(notes[-10:])}\n" if notes else "")
                   + f"사진 {len(frames)}장 (시간 순): {labels}\n흐름을 이어 적어 줘.")
         data = self.local.chat_json(CONTEXT_TASK, prompt, CONTEXT_SCHEMA, [self.shrink(f.jpeg, 448) for f in frames],
                                     timeout=90, max_tokens=300, background=True)

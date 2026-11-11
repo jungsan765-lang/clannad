@@ -21,6 +21,7 @@ from PySide6.QtCore import QObject, QTimer, Signal
 
 from . import capture as cap
 from .dxgi import DxgiGrabber
+from .hud import HudReader
 from .sampler import FrameSampler
 from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foreground_window
@@ -200,6 +201,8 @@ class ScreenWatcher(QObject):
         self._finds: list[tuple[float, dict]] = []  # 알릴 만하다고 판정됐는데 아직 못 알린 것 (쉬는 시간 중이었음)
         self._calm = 0  # 게임 중 별일 없는 판단이 이어진 수 (판단 간격 늘리기)
         self.context = None  # 맥락 담당 (watch.context.ContextKeeper, main 이 넣어 줌)
+        self.hud = HudReader(None, clock)  # 화면 정보 상시 읽기 (글자 인식은 main 이 넣어 줌)
+        self.sampler.hud = self.hud
         self.frames: deque = deque(maxlen=20)  # 최근 장면 (시각, jpeg) — 분석·복기할 때 흐름을 보려고
         self.flow: deque = deque(maxlen=12)  # 게임이 아닐 때도 최근 화면 흐름 ("14:02 유튜브 요리 영상") — 긴 흐름을 글로 싸게
         self.screen_log = None  # 화면 기억 (main 이 넣어 줌). 바뀐 화면을 날짜별로 저장
@@ -295,11 +298,14 @@ class ScreenWatcher(QObject):
         self.sampler.configure(mode.spike, mode.spike_level, mode.spike_busy)
         if not mode.is_game:
             self.sampler.set_text_boxes([])
+            self.hud.set_regions([])
             return
         from .layout import DEFAULT_TEXT_BOX
 
         boxes = self.layouts.text_boxes(mode.name) if self.layouts is not None else [DEFAULT_TEXT_BOX]
         self.sampler.set_text_boxes(boxes)
+        # 익힌 UI 자리 중 퀘스트 안내·알림·킬 로그·적 정보는 글자를 계속 읽고, 체력 막대는 길이를 잰다
+        self.hud.set_regions(self.layouts.regions(mode.name) if self.layouts is not None else [])
 
     def relearn_layout(self) -> str | None:
         """주인님이 'UI 다시 익혀' 하면: 지금 게임의 화면 배치를 지우고 다음 조용한 순간에 다시 본다."""
@@ -413,12 +419,20 @@ class ScreenWatcher(QObject):
         log.info("둘러보기 [%s]: %s", mode.name, ", ".join(f"{f.get('name')}={f['importance']}" for f in found))
 
     def _context_text(self, mode: Mode) -> str:
-        if self.context is None or not mode.is_game:
+        """판단·말하기에 붙이는 '보고 들은 것': 화면 정보(글자 인식·체력 막대) + 맥락 담당이 적은 흐름."""
+        if not mode.is_game:
             return ""
-        try:
-            return self.context.text()
-        except Exception:  # noqa: BLE001
-            return ""
+        parts = []
+        for source in (self.hud, self.context):
+            if source is None:
+                continue
+            try:
+                text = source.text()
+            except Exception:  # noqa: BLE001
+                text = ""
+            if text:
+                parts.append(text)
+        return "\n".join(parts)
 
     def _pop_finds(self) -> list[dict]:
         now = self.clock()
@@ -471,8 +485,9 @@ class ScreenWatcher(QObject):
         """판단한 뒤로 화면이 확 바뀐 적이 있고, 판단 사이 최소 간격이 지났는가."""
         at = self.sampler.spike_at
         said = self.sampler.latest_caption_at()  # 새 대사가 떠도 바로 (간격을 늘려 둔 동안에도 이야기는 놓치지 않게)
-        if said is not None and (at is None or said > at):
-            at = said
+        for t in (said, self.hud.alert_at):  # 화면 정보: 퀘스트 완료·획득·체력이 확 깎임 등
+            if t is not None and (at is None or t > at):
+                at = t
         if at is None or (self.last_judged is not None and at <= self.last_judged):
             return False
         return self.last_judged is None or self.clock() - self.last_judged >= self.cfg.spike_gap

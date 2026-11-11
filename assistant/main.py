@@ -211,7 +211,10 @@ class AssistantApp(QObject):
         from companion import _shrink_jpeg
         from watch.context import ContextKeeper
 
-        self.context_keeper = ContextKeeper(self.local_ai, self.watcher.sampler, shrink=_shrink_jpeg)
+        hud = self.watcher.hud
+        self.context_keeper = ContextKeeper(
+            self.local_ai, self.watcher.sampler, shrink=_shrink_jpeg,
+            notes_since=lambda start: [f"{n}: {x}" for _, n, x in hud.recent(180, since=start)])
         self.context_keeper.enabled = bool(self.pref("local.context", True))
         self.watcher.context = self.context_keeper
         w = self.watcher
@@ -227,6 +230,7 @@ class AssistantApp(QObject):
         import local_ocr
 
         self.watcher.sampler.ocr = local_ocr.read_text  # 자막·대사는 이 PC 글자 인식으로 먼저 (공짜)
+        self.watcher.hud.ocr = local_ocr.read_text  # 퀘스트 안내·알림·킬 로그도 계속 읽기
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
         self.cleanup_timer = QTimer(self)
         self.cleanup_timer.timeout.connect(lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
