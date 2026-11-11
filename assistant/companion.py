@@ -1354,7 +1354,7 @@ class Companion:
     def trigger_text(self, hits: list[tuple[str, str]]) -> str:
         name, how = hits[0]
         return (f"마음이 크게 움직이는 것이 나왔다: {name} — {how}. 이번엔 이 감정이 먼저다. "
-                "츤데레로 덮더라도 진심이 한 줄은 새어 나오게, 밋밋하게 화면 설명으로 넘어가지 않는다")
+                "겉으로는 성격대로 덮더라도 진심이 한 줄은 새어 나오게, 밋밋하게 화면 설명으로 넘어가지 않는다")
 
     def flavor(self, seen: str = "") -> str:
         """화면 한마디 재료: 결 × 말 모양 × 기분 × 떠올릴 거리 (조합이 수천 가지라 매번 신선하게).
