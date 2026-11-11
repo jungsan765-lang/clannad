@@ -347,6 +347,9 @@ class SettingsDialog(QDialog):
         self.ears_on = check("게임 소리 듣기 (대사 받아쓰기)", "ears.enabled", True,
                              "스피커로 나오는 소리에서 대사를 이 PC 에서 글로 바꿔요 (게임 중에만, 다니카가 말할 땐 안 들어요). "
                              "디스코드 통화 소리도 같이 들려요. 받아쓴 글은 판단·말하기 AI 에게 보내져요.")
+        self.paddle_ocr = check("정밀 글자 인식 (PaddleOCR 한국어 모델)", "local.paddle_ocr", True,
+                                "Windows 글자 인식이 비었거나 깨져 보이면 PaddleOCR 한국어 모델로 줄마다 다시 읽어 더 나은 쪽을 써요. "
+                                "처음 쓸 때 뒤에서 설치해요 (약 80MB, 메모리 약 200MB).")
         self.local_cpu = Choice(LOCAL_CPU, str(v.get("local.cpu", "half")))
         self.local_model = QLineEdit(str(v.get("local.model", "gemma3:4b")))
         self.local_model.setToolTip("Ollama 모델 이름. 그림을 볼 수 있는 모델이어야 해요 (gemma3:4b 약 3.3GB, 한국어 됨).")
@@ -371,6 +374,7 @@ class SettingsDialog(QDialog):
                       "메모리를 93% 넘게 쓰면 새로 모델을 올리지 않고 쉬어요(게임이 먼저), 10분 안 쓰면 메모리에서 내려요. "
                       "맥락 담당이 생각하는 중에 급한 일(눈 담당)이 오면 끊고 먼저 해요.")
         local_page = page(group("내 PC AI", [("", self.local_on), ("", local_hint), ("", self.local_context), ("", self.ears_on),
+                                             ("", self.paddle_ocr),
                                              ("CPU 쓰는 정도", self.local_cpu),
                                              ("모델", self.local_model), ("맥락 담당 모델", self.local_context_model),
                                              ("상태", status_row), ("", setup)]))
@@ -448,6 +452,7 @@ class SettingsDialog(QDialog):
             "local.context": self.local_context.isChecked(),
             "local.context_model": self.local_context_model.text().strip(),
             "ears.enabled": self.ears_on.isChecked(),
+            "local.paddle_ocr": self.paddle_ocr.isChecked(),
             "screen.limit_stop": self.limit_stop.isChecked(),
             "ui.bubble_time": self.bubble_time.value(),
             "screen.memory": self.memory_on.isChecked(),

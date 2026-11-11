@@ -243,6 +243,8 @@ class AssistantApp(QObject):
 
         self.watcher.sampler.ocr = local_ocr.read_text  # 자막·대사는 이 PC 글자 인식으로 먼저 (공짜)
         self.watcher.hud.ocr = local_ocr.read_text  # 퀘스트 안내·알림·킬 로그도 계속 읽기
+        local_ocr.paddle_enabled = bool(self.pref("local.paddle_ocr", True))  # 정밀 글자 인식 (Windows 글자 인식이 틀릴 때)
+        local_ocr.warm_up()
         self.watch_cfg.dense = str(self.pref("screen.dense", "game"))
         self.watch_cfg.eye = str(self.pref("screen.eye", "fast"))
         self.watch_cfg.rush = bool(self.pref("screen.rush", True))
@@ -1254,6 +1256,7 @@ class AssistantApp(QObject):
             "local.model": self.local_ai.model,
             "local.context_model": self.local_ai.context_model,
             "local.context": self.context_keeper.enabled,
+            "local.paddle_ocr": bool(self.pref("local.paddle_ocr", True)),
             "ears.enabled": self.ears.enabled,
             "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
             "screen.daily_krw": str(int(self.pref("screen.daily_krw", 3000) or 0)),
@@ -1337,6 +1340,10 @@ class AssistantApp(QObject):
                 setattr(self.watch_cfg, attr, bool(changed[key]))
         if "ears.enabled" in changed:
             self.ears.enabled = bool(changed["ears.enabled"])
+        if "local.paddle_ocr" in changed:
+            import local_ocr
+
+            local_ocr.paddle_enabled = bool(changed["local.paddle_ocr"])
         if any(k.startswith("local.") for k in changed):
             self.context_keeper.enabled = bool(changed.get("local.context", self.context_keeper.enabled))
             self.local_ai.enabled = bool(changed.get("local.enabled", self.local_ai.enabled))
