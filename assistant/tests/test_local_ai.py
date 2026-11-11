@@ -15,11 +15,17 @@ from watch import capture as cap  # noqa: E402
 
 
 class FakeOllama:
-    def __init__(self, models=("gemma3:4b",), replies=None, up=True):
+    def __init__(self, models=("gemma3:4b", "bge-m3", "gemma3:12b"), replies=None, up=True):
         self.models = list(models)
         self.replies = list(replies or [])
         self.up = up
         self.calls = []
+
+    @staticmethod
+    def vector(text):
+        """시험용 뜻 좌표: 같은 주제 낱말이 있으면 가까움."""
+        topics = [("도박", "카드", "밑장", "속임수"), ("말", "안장", "승마"), ("밥", "볶음밥", "요리")]
+        return [float(sum(w in text for w in words)) + 0.01 for words in topics]
 
     def __call__(self, method, path, body=None, timeout=5.0, stream=False):
         self.calls.append((method, path, body))
@@ -33,6 +39,8 @@ class FakeOllama:
             self.models.append(body["model"])
             return iter([{"status": "pulling manifest"}, {"status": "downloading", "total": 100, "completed": 40},
                          {"status": "downloading", "total": 100, "completed": 100}, {"status": "success"}])
+        if path == "/api/embed":
+            return {"embeddings": [self.vector(x) for x in body["input"]]}
         if path == "/api/chat":
             reply = self.replies.pop(0) if self.replies else {}
             if isinstance(reply, Exception):
@@ -108,3 +116,42 @@ def test_helpers_use_my_pc_first_and_cloud_when_it_fails(tmp_path):
     comp.local_roles = {"spot"}  # 맡길 일을 고를 수 있음
     assert not comp._use_local("eye") and comp._use_local("spot")
     assert set(SCENE_SCHEMA["required"]) == set(scene)
+
+
+def test_pulls_every_needed_model_one_after_another():
+    fake = FakeOllama(models=["gemma3:4b"])
+    ai = LocalAI(http=fake)
+    assert ai.models() == ["gemma3:4b", "bge-m3", "gemma3:12b"]
+    assert ai.check(pull=False) == "ready" and not ai.has("bge-m3")
+    ai.pull_all(["bge-m3", "gemma3:12b"])
+    assert ai.has("bge-m3") and ai.has("gemma3:12b") and ai.ready()  # 다른 모델을 받는 동안에도 눈 담당은 계속
+    assert [c[2]["model"] for c in fake.calls if c[1] == "/api/pull"] == ["bge-m3", "gemma3:12b"]
+    vecs = ai.embed(["밑장 빼기", "말 안장"])
+    assert len(vecs) == 2 and vecs[0][0] > vecs[0][1]
+    assert fake.calls[-1][2]["model"] == "bge-m3"
+
+
+def test_memories_are_found_by_meaning_not_only_words(tmp_path):
+    from datetime import datetime
+
+    from recall import EpisodeIndex, recall_block
+
+    fake = FakeOllama()
+    ai = LocalAI(http=fake)
+    ai.check(pull=False)
+    idx = EpisodeIndex(tmp_path / "recall.db")
+    idx.add("2026-11-01T21:00:00", "chat", "주인님: 아까 그 카드 게임에서 상대가 속임수 쓰다 걸렸어", source="a")
+    idx.add("2026-11-02T21:00:00", "chat", "주인님: 오늘 볶음밥 해 먹었어", source="b")
+    idx.add("2026-11-03T21:00:00", "screen", "도박판 장면", source="c")  # 화면 일지는 뜻 좌표를 안 만듦
+    assert idx.embed_pending(lambda texts: ai.embed(texts, background=True)) == 2
+    assert idx.embed_pending(lambda texts: ai.embed(texts, background=True)) == 0  # 한 번만
+    # 낱말이 하나도 안 겹쳐도 (밑장·도박 ↔ 카드·속임수) 뜻이 비슷하면 떠오른다
+    text, eps = recall_block(idx, "그때 밑장 빼던 도박 기억나?", datetime(2026, 11, 11, 22, 0), embed=lambda t: ai.embed(t))
+    assert eps and eps[0].text.startswith("주인님: 아까 그 카드 게임") and eps[0].sim > 0.9
+    assert not any("볶음밥" in e.text for e in eps)  # 상관없는 기억은 안 떠오름 (앞뒤 대화로 붙는 건 괜찮음)
+    text2, eps2 = recall_block(idx, "그때 밑장 빼던 도박 기억나?", datetime(2026, 11, 11, 22, 0))
+    assert not any("카드 게임" in e.text for e in eps2)  # 낱말로만 찾으면 못 찾음
+    idx.add("2026-11-01T21:00:00", "chat", "주인님: 말 안장 샀어", source="a")  # 내용이 바뀌면 뜻 좌표도 다시
+    assert idx.embed_pending(lambda texts: ai.embed(texts, background=True)) == 1
+    ai.state = "no_server"
+    assert recall_block(idx, "볶음밥 기억나?", datetime(2026, 11, 11, 22, 0), embed=lambda t: ai.embed(t))[1]  # 낱말로는 여전히

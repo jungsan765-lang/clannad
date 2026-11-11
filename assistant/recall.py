@@ -22,6 +22,8 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
 
+import numpy as np
+
 log = logging.getLogger("assistant.recall")
 
 # ---------------------------------------------------------------- 한국어 단서 뽑기
@@ -96,6 +98,7 @@ class Episode:
     detail: str = ""
     ref: str = ""
     score: float = 0.0
+    sim: float = 0.0  # 뜻으로 찾았을 때 얼마나 비슷한지 (0~1)
 
     def when(self) -> str:
         try:
@@ -138,7 +141,9 @@ class EpisodeIndex:
                 source TEXT UNIQUE);
             CREATE INDEX IF NOT EXISTS episodes_time ON episodes(time);
             CREATE TABLE IF NOT EXISTS offsets (file TEXT PRIMARY KEY, pos INTEGER);
+            CREATE TABLE IF NOT EXISTS vectors (id INTEGER PRIMARY KEY, vec BLOB);
         """)
+        self._vecs = None  # (번호 배열, 뜻 좌표 행렬) — 뜻으로 찾을 때 쓰는 기억 속 사본
         try:
             self.db.execute("CREATE VIRTUAL TABLE IF NOT EXISTS ep_fts USING fts5(body, tokenize='trigram')")
             self.fts = True
@@ -165,6 +170,8 @@ class EpisodeIndex:
                 cur.execute("UPDATE episodes SET time=?, kind=?, game=?, text=?, detail=?, ref=? WHERE id=?",
                             (time, kind, game, text, detail, ref, row[0]))
                 eid = row[0]
+                cur.execute("DELETE FROM vectors WHERE id = ?", (eid,))  # 내용이 바뀌었으니 뜻 좌표는 다시
+                self._vecs = None
                 if self.fts:
                     cur.execute("DELETE FROM ep_fts WHERE rowid = ?", (eid,))
             else:
@@ -330,6 +337,77 @@ class EpisodeIndex:
         eps.sort(key=lambda e: (-e.score, e.time), reverse=False)
         return eps[:limit]
 
+    # ------------------------------------------------------------ 뜻으로 찾기 (내 PC 기억 검색 모델)
+
+    def embed_pending(self, embed, batch: int = 32, max_items: int = 512) -> int:
+        """아직 뜻 좌표가 없는 기억 조각을 새것부터 색인한다 (화면 일지는 너무 많아서 뺌). 넣은 수."""
+        with self._lock:
+            rows = self.db.execute(
+                "SELECT e.id, e.text, e.detail FROM episodes e LEFT JOIN vectors v ON v.id = e.id "
+                "WHERE v.id IS NULL AND e.kind != 'screen' ORDER BY e.id DESC LIMIT ?", (max_items,)).fetchall()
+        done = 0
+        for i in range(0, len(rows), batch):
+            part = rows[i:i + batch]
+            vecs = embed([f"{t} {(d or '')[:200]}"[:600] for _, t, d in part])
+            if not vecs:
+                break  # 내 PC AI 가 바쁘거나 없음 → 다음에
+            with self._lock:
+                for (eid, _, _), v in zip(part, vecs):
+                    a = np.asarray(v, dtype=np.float32)
+                    n = float(np.linalg.norm(a))
+                    if n > 0:
+                        self.db.execute("INSERT OR REPLACE INTO vectors(id, vec) VALUES (?, ?)",
+                                        (eid, (a / n).astype(np.float16).tobytes()))
+                self.db.commit()
+                self._vecs = None
+            done += len(part)
+        return done
+
+    def _vector_table(self):
+        with self._lock:
+            if self._vecs is None:
+                rows = self.db.execute("SELECT id, vec FROM vectors").fetchall()
+                if not rows:
+                    self._vecs = (np.zeros(0, dtype=np.int64), np.zeros((0, 1), dtype=np.float32))
+                else:
+                    dim = len(rows[0][1]) // 2
+                    good = [(i, v) for i, v in rows if len(v) == dim * 2]
+                    ids = np.array([i for i, _ in good], dtype=np.int64)
+                    mat = np.frombuffer(b"".join(v for _, v in good), dtype=np.float16).reshape(len(good), dim)
+                    self._vecs = (ids, mat.astype(np.float32))
+            return self._vecs
+
+    def semantic(self, query_vec, limit: int = 6, since: str | None = None, until: str | None = None,
+                 before: str | None = None, kinds: tuple[str, ...] | None = None, floor: float = 0.55) -> list[Episode]:
+        """뜻이 비슷한 기억 조각 (낱말이 달라도). sim 이 floor 보다 낮은 건 버림."""
+        ids, mat = self._vector_table()
+        if not ids.size or query_vec is None:
+            return []
+        q = np.asarray(query_vec, dtype=np.float32)
+        if q.shape[0] != mat.shape[1] or not np.linalg.norm(q):
+            return []
+        sims = mat @ (q / np.linalg.norm(q))
+        order = np.argsort(-sims)[: limit * 8]
+        pick = {int(ids[i]): float(sims[i]) for i in order if sims[i] >= floor}
+        if not pick:
+            return []
+        with self._lock:
+            rows = self.db.execute(
+                "SELECT id, time, kind, game, text, detail, ref FROM episodes WHERE id IN (%s)" % ",".join("?" * len(pick)),
+                list(pick)).fetchall()
+        eps = []
+        for r in rows:
+            e = Episode(*r, sim=pick[r[0]])
+            if kinds and e.kind not in kinds:
+                continue
+            if since and e.time < since or until and e.time > until:
+                continue
+            if before and e.kind in RECENT_KINDS and e.time >= before:
+                continue
+            eps.append(e)
+        eps.sort(key=lambda e: -e.sim)
+        return eps[:limit]
+
     def around(self, ep: Episode, n: int = 1) -> list[Episode]:
         """같은 종류의 바로 앞뒤 일화 (그때 대화 흐름). '기억해' 한 순간이면 그 앞뒤 대화."""
         kind = "chat" if ep.kind == "moment" else ep.kind
@@ -388,17 +466,35 @@ SCREEN_HEAD = ("[지금 화면과 이어지는 예전 일 — 실제로 있었�
 
 def recall_block(index: EpisodeIndex, text: str, now: datetime, recent_since: str | None = None,
                  window: tuple[datetime, datetime] | None = None, max_chars: int = 2600, for_screen: bool = False,
-                 min_score: float = 6.0, extra_words: list[str] | None = None) -> tuple[str, list[Episode]]:
+                 min_score: float = 6.0, extra_words: list[str] | None = None,
+                 embed=None) -> tuple[str, list[Episode]]:
     """주인님 말 → (대화에 붙일 '떠오른 기억' 글, 찾은 일화들). 떠올리라는 말이 아니면 아주 확실한 것만.
-    for_screen: 화면 대사용 (떠올리라는 말은 없음, 더 확실한 것 2개까지만)."""
+    for_screen: 화면 대사용 (떠올리라는 말은 없음, 더 확실한 것 2개까지만).
+    embed: 글 → 뜻 좌표 (내 PC 기억 검색 모델). 주면 낱말이 달라도 뜻이 비슷한 기억을 함께 찾는다."""
     intent = bool(RECALL_INTENT.search(text or "")) and not for_screen
     words = cues(text) + [w for w in (extra_words or []) if w]
-    if not words:
+    if not words and embed is None:
         return "", []
     since = window[0].isoformat(timespec="seconds") if window else None
     until = window[1].isoformat(timespec="seconds") if window else None
-    eps = index.search(words, limit=6 if intent else 2 if for_screen else 3, since=since, until=until,
-                       before=recent_since)
+    limit = 6 if intent else 2 if for_screen else 3
+    eps = index.search(words, limit=limit, since=since, until=until, before=recent_since) if words else []
+    if embed is not None and text:
+        try:
+            vecs = embed([text[:500]])
+        except Exception:  # noqa: BLE001 - 뜻으로 못 찾아도 낱말로는 찾음
+            vecs = None
+        if vecs:
+            merged = {e.id: e for e in eps}
+            for e in index.semantic(vecs[0], limit=limit, since=since, until=until, before=recent_since):
+                bonus = max(0.0, e.sim - 0.5) * 30 * KIND_BOOST.get(e.kind, 1.0)  # 0.7 → 6점, 0.8 → 9점
+                if e.id in merged:
+                    merged[e.id].score += bonus
+                    merged[e.id].sim = e.sim
+                else:
+                    e.score = bonus
+                    merged[e.id] = e
+            eps = sorted(merged.values(), key=lambda e: -e.score)[:limit]
     if not intent:  # 묻지 않았는데 끼워 넣는 건 드문 이름이 2개 넘게 맞거나 아주 드문 것 하나일 때만
         eps = [e for e in eps if e.score >= min_score]
     if not eps:

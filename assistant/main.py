@@ -467,7 +467,13 @@ class AssistantApp(QObject):
             self._recall_busy = False
             log.warning("기억 색인 실패: %s", message)
 
-        self._run(lambda: self.recall_index.sync(self.settings.data_dir), done, fail)
+        def work():
+            n = self.recall_index.sync(self.settings.data_dir)
+            # 새 기억 조각의 뜻 좌표 (내 PC 기억 검색 모델, 다른 일이 기다리면 다음에)
+            self.recall_index.embed_pending(lambda texts: self.local_ai.embed(texts, background=True, timeout=120))
+            return n
+
+        self._run(work, done, fail)
 
     def recall_for(self, text: str, window=None):
         """주인님 말에 맞는 예전 일 (지금 대화 기록에 이미 있는 건 빼고)."""
@@ -477,8 +483,9 @@ class AssistantApp(QObject):
             # 시간을 콕 집은 말(어제·오늘·3시·아까)일 때만 그 시간대로 좁힌다. '그때·전에'는 언제든
             pinpoint = re.search(r"어제|그저께|그제|오늘|아까|방금|\d{1,2}\s*시", text)
             span = (window[0], window[1]) if window and pinpoint else None
-            block, eps = recall_block(self.recall_index, text, datetime.now(), recent_since, span)
-            if RECALL_INTENT.search(text) and (not eps or eps[0].score < 4.0):  # 떠올리라는데 약하게 나오면 낱말을 넓혀 한 번 더
+            block, eps = recall_block(self.recall_index, text, datetime.now(), recent_since, span, embed=self._embed)
+            meant = any(e.sim >= 0.6 for e in eps)  # 뜻으로 찾은 게 있으면 돈 드는 '비슷한 말 찾기'는 안 함
+            if RECALL_INTENT.search(text) and not meant and (not eps or eps[0].score < 4.0):  # 약하게 나오면 낱말을 넓혀 한 번 더
                 try:
                     extra = self.companion.expand_cues(text, self.watch_cfg.judge_model)
                 except Exception as exc:  # noqa: BLE001
@@ -486,7 +493,7 @@ class AssistantApp(QObject):
                     extra = []
                 if extra:
                     block2, eps2 = recall_block(self.recall_index, text, datetime.now(), recent_since, span,
-                                                extra_words=extra)
+                                                extra_words=extra, embed=self._embed)
                     if eps2 and (not eps or eps2[0].score > eps[0].score):
                         return block2, eps2
             return block, eps
@@ -494,12 +501,17 @@ class AssistantApp(QObject):
             log.exception("떠올리기 실패")
             return "", []
 
+    def _embed(self, texts: list[str]):
+        """기억을 뜻으로 찾을 때 쓰는 뜻 좌표 (내 PC 기억 검색 모델, 없으면 None → 낱말로만 찾음)."""
+        ai = getattr(self, "local_ai", None)
+        return ai.embed(texts, timeout=6) if ai is not None else None
+
     def recall_for_screen(self, seen: str) -> str:
         """화면 대사용: 지금 상황과 이어지는 예전 일 (6시간보다 오래된 것, 아주 확실한 것 2개까지, 사진 없음)."""
         try:
             since = (datetime.now() - timedelta(hours=6)).isoformat(timespec="seconds")
             text, _ = recall_block(self.recall_index, seen, datetime.now(), since, max_chars=700, for_screen=True,
-                                   min_score=8.0)
+                                   min_score=8.0, embed=self._embed)
             return text
         except Exception:  # noqa: BLE001
             log.exception("화면용 떠올리기 실패")
