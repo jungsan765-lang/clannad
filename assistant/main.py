@@ -202,6 +202,7 @@ class AssistantApp(QObject):
         # 내 PC AI: 남는 CPU 로 눈 담당·둘러보기 확대·판정 (Ollama, 그래픽카드 안 씀). 켤 때와 10분마다 연결 확인
         self.local_ai = LocalAI(model=str(self.pref("local.model", DEFAULT_MODEL)), cpu=str(self.pref("local.cpu", "half")))
         self.local_ai.enabled = bool(self.pref("local.enabled", True))
+        self.local_ai.context_model = str(self.pref("local.context_model", self.local_ai.context_model))
         companion.local = self.local_ai
         self._local_timer = QTimer(self)
         self._local_timer.timeout.connect(self.check_local_ai)
@@ -1212,6 +1213,7 @@ class AssistantApp(QObject):
             "local.enabled": self.local_ai.enabled,
             "local.cpu": self.local_ai.cpu,
             "local.model": self.local_ai.model,
+            "local.context_model": self.local_ai.context_model,
             "local.context": self.context_keeper.enabled,
             "ears.enabled": self.ears.enabled,
             "screen.limit_stop": bool(self.pref("screen.limit_stop", False)),
@@ -1298,6 +1300,8 @@ class AssistantApp(QObject):
             if str(changed.get("local.model", self.local_ai.model)).strip() != self.local_ai.model:
                 self.local_ai.model = str(changed["local.model"]).strip() or self.local_ai.model
                 self.local_ai.state = "unknown"
+            if "local.context_model" in changed:  # 없으면 확인할 때 뒤에서 받는다
+                self.local_ai.context_model = str(changed["local.context_model"]).strip()
             self.check_local_ai()
         if "screen.limit_stop" in changed:
             self._update_pause_status()

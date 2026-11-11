@@ -155,3 +155,85 @@ def test_memories_are_found_by_meaning_not_only_words(tmp_path):
     assert idx.embed_pending(lambda texts: ai.embed(texts, background=True)) == 1
     ai.state = "no_server"
     assert recall_block(idx, "볶음밥 기억나?", datetime(2026, 11, 11, 22, 0), embed=lambda t: ai.embed(t))[1]  # 낱말로는 여전히
+
+
+def test_urgent_work_cuts_in_on_background_context_work():
+    import threading
+    import time as _t
+
+    started, aborted = threading.Event(), threading.Event()
+
+    class Slow(FakeOllama):
+        def __call__(self, method, path, body=None, timeout=5.0, stream=False):
+            if path == "/api/chat" and body["model"] == "gemma3:12b":  # 맥락 담당: 오래 걸림
+                self.calls.append((method, path, body))
+                started.set()
+                if aborted.wait(5):
+                    raise ConnectionResetError("끊김")
+            return super().__call__(method, path, body, timeout, stream)
+
+    fake = Slow(replies=[{"me": "눈 담당 답"}])
+    ai = LocalAI(http=fake)
+    ai.check(pull=False)
+    ai.abort_hook = aborted.set
+    box = {}
+    bg = threading.Thread(target=lambda: box.setdefault("bg", ai.chat_json("맥락", "흐름", {"type": "object"}, background=True,
+                                                                            model="gemma3:12b")))
+    bg.start()
+    assert started.wait(2)
+    t0 = _t.monotonic()
+    assert ai.chat_json("눈", "지금 장면", {"type": "object"}) == {"me": "눈 담당 답"}  # 끊고 먼저
+    assert _t.monotonic() - t0 < 2 and ai.preempted == 1
+    bg.join(2)
+    assert box["bg"] is None  # 맥락 담당은 다음 차례에
+    assert fake.calls[-1][2]["model"] == "gemma3:4b"
+    ai.have.discard("gemma3:12b")  # 큰 모델을 아직 못 받았으면 기본 모델로
+    fake.replies = [{"story": "s", "now": "n"}]
+    ai.chat_json("맥락", "흐름", {"type": "object"}, background=True, model="gemma3:12b")
+    assert fake.calls[-1][2]["model"] == "gemma3:4b"
+
+
+def test_real_connection_is_cut_when_urgent_work_arrives():
+    import http.server
+    import threading
+    import time as _t
+
+    class Slow(http.server.BaseHTTPRequestHandler):
+        def do_POST(self):  # noqa: N802
+            self.rfile.read(int(self.headers.get("Content-Length", 0)))
+            _t.sleep(3)
+            try:
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(b'{"message": {"content": "{}"}}')
+            except OSError:
+                pass
+
+        def log_message(self, *a):
+            pass
+
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Slow)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    ai = LocalAI(base_url=f"http://127.0.0.1:{server.server_address[1]}")
+    ai._bg_running = True
+    box = {}
+
+    def run():
+        t0 = _t.monotonic()
+        try:
+            ai._http("POST", "/api/chat", {"x": 1}, timeout=10, abortable=True)
+        except Exception as exc:  # noqa: BLE001
+            box["err"] = exc
+        box["took"] = _t.monotonic() - t0
+
+    th = threading.Thread(target=run)
+    th.start()
+    for _ in range(50):
+        if ai._bg_conn is not None and ai._bg_conn.sock is not None:
+            break
+        _t.sleep(0.02)
+    _t.sleep(0.2)
+    ai.abort_background()
+    th.join(5)
+    server.shutdown()
+    assert "err" in box and box["took"] < 2  # 3초를 기다리지 않고 바로 끊김

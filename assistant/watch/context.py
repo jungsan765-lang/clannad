@@ -81,8 +81,10 @@ class ContextKeeper:
                   + (f"그 사이 자막·대사: {' / '.join(said[-8:])}\n" if said else "")
                   + (f"그 사이 화면 정보·들린 소리: {' / '.join(notes[-10:])}\n" if notes else "")
                   + f"사진 {len(frames)}장 (시간 순): {labels}\n흐름을 이어 적어 줘.")
+        # 뒤에서 천천히 해도 되니 더 큰 모델(있으면). 급한 일(눈 담당)이 오면 끊기고 다음에 그 구간까지 이어서 본다
         data = self.local.chat_json(CONTEXT_TASK, prompt, CONTEXT_SCHEMA, [self.shrink(f.jpeg, 448) for f in frames],
-                                    timeout=90, max_tokens=300, background=True)
+                                    timeout=180, max_tokens=300, background=True,
+                                    model=getattr(self.local, "context_model", None))
         if data is None:
             return False  # 급한 일이 먼저거나 실패 → 다음 차례에 (구간은 그대로 이어서)
         self.last_at = now

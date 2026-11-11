@@ -1446,8 +1446,8 @@ def test_context_keeper_writes_the_running_story_on_my_pc(tmp_path):
         def ready(self):
             return True
 
-        def chat_json(self, system, text, schema, images=None, timeout=45.0, max_tokens=600, background=False):
-            self.calls.append({"text": text, "images": len(images or []), "background": background})
+        def chat_json(self, system, text, schema, images=None, timeout=45.0, max_tokens=600, background=False, model=None):
+            self.calls.append({"text": text, "images": len(images or []), "background": background, "model": model})
             if self.busy:
                 return None
             return self.answers.pop(0)
@@ -1466,6 +1466,7 @@ def test_context_keeper_writes_the_running_story_on_my_pc(tmp_path):
     assert keeper.step("붉은사막")
     call = local.calls[-1]
     assert call["background"] and call["images"] == 4 and "도박사: 밑장 빼다 걸렸네" in call["text"]  # 급한 일이 먼저
+    assert call["model"] is None  # 맥락 담당 모델을 따로 안 정했으면 기본
     assert "이전 흐름: (처음 보는 중)" in call["text"]
     text = keeper.text()
     assert "맥락 담당(내 PC 작은 AI, 틀릴 수 있음" in text and "밑장을 빼다 걸렸다" in text and "0초 전: 도박판에서" in text

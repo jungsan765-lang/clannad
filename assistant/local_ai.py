@@ -11,7 +11,9 @@
 from __future__ import annotations
 
 import base64
+import http.client
 import json
+import socket
 import logging
 import os
 import threading
@@ -59,6 +61,10 @@ class LocalAI:
         self._checking = False
         self._waiting = 0  # 급한 일(눈 담당 등)이 기다리는 수
         self._embed_lock = threading.Lock()  # 기억 검색은 따로 (작은 모델이라 그림 보는 일을 기다리지 않게)
+        self._bg_conn = None  # 뒤에서 하는 일(맥락 담당)의 연결 — 급한 일이 오면 끊는다
+        self._bg_running = False
+        self.abort_hook: Callable | None = None  # 시험용
+        self.preempted = 0  # 급한 일 때문에 끊은 횟수
         self._opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))  # 이 PC 안이라 프록시 안 거침
 
     # ------------------------------------------------------------ 상태
@@ -108,8 +114,22 @@ class LocalAI:
 
     # ------------------------------------------------------------ 통신
 
-    def _http(self, method: str, path: str, body: dict | None = None, timeout: float = 5.0, stream: bool = False):
+    def _http(self, method: str, path: str, body: dict | None = None, timeout: float = 5.0, stream: bool = False,
+              abortable: bool = False):
         data = json.dumps(body).encode("utf-8") if body is not None else None
+        if abortable:  # 뒤에서 하는 일: 급한 일이 오면 연결을 끊어 Ollama 가 하던 걸 멈추게
+            from urllib.parse import urlparse
+
+            u = urlparse(self.base_url)
+            conn = http.client.HTTPConnection(u.hostname or "127.0.0.1", u.port or 11434, timeout=timeout)
+            self._bg_conn = conn
+            try:
+                conn.request(method, path, body=data, headers={"Content-Type": "application/json"})
+                resp = conn.getresponse()
+                return json.loads(resp.read().decode("utf-8") or "{}")
+            finally:
+                self._bg_conn = None
+                conn.close()
         req = urllib.request.Request(self.base_url + path, data=data, method=method,
                                      headers={"Content-Type": "application/json"})
         resp = self._opener.open(req, timeout=timeout)
@@ -206,19 +226,43 @@ class LocalAI:
         except Exception:  # noqa: BLE001 - 못 낮춰도 동작은 함
             pass
 
+    def abort_background(self) -> None:
+        """뒤에서 하던 일(맥락 담당)을 끊는다 — 연결을 닫으면 Ollama 도 그 일을 멈춘다."""
+        if not self._bg_running:
+            return
+        self.preempted += 1
+        if self.abort_hook is not None:
+            self.abort_hook()
+            return
+        conn = self._bg_conn
+        if conn is not None and conn.sock is not None:
+            try:
+                conn.sock.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+
     def chat_json(self, system: str, text: str, schema: dict, images: list[bytes] | None = None,
-                  timeout: float = 45.0, max_tokens: int = 600, background: bool = False) -> dict | None:
+                  timeout: float = 45.0, max_tokens: int = 600, background: bool = False,
+                  model: str | None = None) -> dict | None:
         """작은 AI 에게 묻고 JSON 으로 받는다. 못 하면 None (그 일은 클라우드가).
-        background: 뒤에서 늘 하는 일(맥락 담당) — 다른 일이 돌거나 기다리고 있으면 이번엔 건너뛴다 (급한 일이 먼저)."""
+        background: 뒤에서 늘 하는 일(맥락 담당) — 다른 일이 돌거나 기다리고 있으면 건너뛰고, 하는 중에 급한 일이
+        오면 끊긴다 (급한 일이 먼저). model: 이 일에 쓸 모델 (없으면 기본 모델)."""
         if not self.ready():
             return None
+        if model and not self.has(model):
+            model = None  # 아직 못 받았으면 기본 모델로
         if background:
             if self._waiting or not self._lock.acquire(blocking=False):
                 return None
+            self._bg_running = True
         else:
             self._waiting += 1
             try:
-                got = self._lock.acquire(timeout=timeout)
+                if not self._lock.acquire(blocking=False):
+                    self.abort_background()  # 맥락 담당이 하던 거면 끊고 먼저
+                    got = self._lock.acquire(timeout=timeout)
+                else:
+                    got = True
             finally:
                 self._waiting -= 1
             if not got:
@@ -228,11 +272,14 @@ class LocalAI:
             msg = {"role": "user", "content": text}
             if images:
                 msg["images"] = [base64.b64encode(b).decode("ascii") for b in images]
-            body = {"model": self.model, "stream": False, "format": schema, "keep_alive": "30m",
+            body = {"model": model or self.model, "stream": False, "format": schema, "keep_alive": "30m",
                     "messages": [{"role": "system", "content": system}, msg],
                     "options": {"num_gpu": 0, "num_thread": self.threads, "temperature": 0.2, "num_ctx": 4096,
                                 "num_predict": max_tokens}}
-            r = self.http("POST", "/api/chat", body, timeout=timeout)
+            if background and self.http == self._http:
+                r = self._http("POST", "/api/chat", body, timeout=timeout, abortable=True)
+            else:
+                r = self.http("POST", "/api/chat", body, timeout=timeout)
             content = ((r or {}).get("message") or {}).get("content", "")
             data = json.loads(content)
             self.calls += 1
@@ -246,7 +293,9 @@ class LocalAI:
                 self.state = "no_server"  # Ollama 가 꺼짐 (느려서 시간이 넘은 건 그대로 둠)
             return None
         finally:
-            self.last_seconds = self.clock() - started
+            if not background:
+                self.last_seconds = self.clock() - started
+            self._bg_running = False if background else self._bg_running
             self._lock.release()
             if self.calls % 20 == 1:
                 self.lower_priority()
