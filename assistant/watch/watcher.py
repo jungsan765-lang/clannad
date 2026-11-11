@@ -26,7 +26,8 @@ from .modes import NORMAL_KNOWLEDGE, Mode, detect
 from .windows import MESSENGERS, PROGRAMS, WindowInfo, capture_window, foreground_window
 
 # 단계마다 이 시간(초)이 넘도록 안 끝나면 그 확인은 버리고 다음으로 넘어간다 (서버·인터넷이 느릴 때 '화면 확인 중 87초' 방지)
-STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "line": 120.0, "analyze": 200.0, "analyze_deep": 330.0}
+STAGE_LIMITS = {"start": 40.0, "judge": 45.0, "layout": 90.0, "perceive": 60.0, "line": 120.0, "analyze": 200.0,
+                "analyze_deep": 330.0}
 
 
 class _Abandoned(Exception):
@@ -82,7 +83,9 @@ class WatchConfig:
     event_gap: float = 8.0  # 장면 전환 판단 사이 최소 간격(초)
     economy_line_model: str = "claude-haiku-5-5"  # 평범한 화면 대사(한두 마디 반응)는 이 모델 — 한 마디 몇 원
     mid_line_model: str = "claude-sonnet-5-5"
-    line_quality: str = "auto"  # auto: 가장 싼 모델 / sonnet: 중간 모델 / best: 항상 line_model (경고·픽·총평·대화는 늘 line_model)
+    # brain: 여럿이 나눠 보고(눈 담당 Sonnet·대사 담당 Haiku·기억·지식) 마지막에 line_model(Opus)이 화면과 맞춰 보고 말함
+    # auto: 가장 싼 모델 / sonnet: 중간 모델 / best: 항상 line_model (경고·픽·총평·대화는 늘 line_model)
+    line_quality: str = "brain"
     # 촘촘히 보기: 0.5초마다 이 PC 에서 찍어 두고, 5초마다 그 흐름을 한 장에 모아 판단 (game: 게임할 때만 / always / off)
     dense: str = "game"
     dense_interval: float = 0.5
@@ -641,6 +644,8 @@ class ScreenWatcher(QObject):
         if question is not None:
             self.last_thumb = shot.thumb
             self._remember(shot, mode)
+            if self.cfg.line_quality == "brain":  # 물어본 것도 여럿이 나눠 본 뒤 대답
+                return self._brain_say(shot, None, mode, notes, session, question=question)
             return self._say(shot.jpeg, shot.title, None, self.cfg.line_model, question=question,
                                               mode=mode, session_notes=notes)
         now = self.clock()
@@ -733,9 +738,41 @@ class ScreenWatcher(QObject):
             return None
         if self.cfg.analysis:
             return self._analyze(shot, note, mode, notes)
+        if self.cfg.line_quality == "brain":
+            return self._brain_say(shot, note, mode, notes, session)
         model = {"auto": self.cfg.economy_line_model, "sonnet": self.cfg.mid_line_model}.get(self.cfg.line_quality,
                                                                                               self.cfg.line_model)
         return self._say(shot.jpeg, shot.title, note, model, mode=mode, session_notes=notes)
+
+    def _brain_say(self, shot, note, mode, notes, session, question: str | None = None):
+        """뇌처럼 나눠 보기: 눈 담당(장면 자세히)·대사 담당(자막 받아 적기)을 동시에 돌리고, 기억·지식 담당(이 PC 안)이
+        찾은 것과 함께 말하기 담당(Opus)에게 넘긴다. Opus 는 그 기록을 지금 화면과 맞춰 본 뒤 말한다 (틀리면 화면을 믿음)."""
+        self._stage("perceive")
+        from concurrent.futures import ThreadPoolExecutor
+
+        flow = list(self._current_history or [])[1::2][-5:]  # 흐름 사진은 절반만 (5장)
+        caps = list(self._current_captions or [])
+
+        def safely(fn, *args, **kw):
+            try:
+                return fn(*args, **kw)
+            except Exception as exc:  # noqa: BLE001 - 한 담당이 실패해도 나머지로 말한다
+                log.warning("나눠 보기 담당 실패: %r", exc)
+                return None, 0.0
+
+        with ThreadPoolExecutor(max_workers=2, thread_name_prefix="brain") as pool:
+            eye = pool.submit(safely, self.companion.perceive, shot.jpeg, mode, self.cfg.mid_line_model,
+                              flow=flow, captions=caps)
+            ear = pool.submit(safely, self.companion.read_captions, caps, self.cfg.economy_line_model) if caps else None
+            scene = eye.result()[0]
+            dialogue = ear.result()[0] if ear else None
+        brain = {"scene": scene, "dialogue": dialogue}
+        if scene and scene.get("happened") and session is not None:  # 판 기록엔 자세히 본 것도 (작은 사진 판단보다 정확)
+            session.add(self.clock(), "자세히 본 장면: " + " / ".join(
+                str(scene[k]) for k in ("me", "happened") if scene.get(k))[:300])
+        # 말하기 담당은 흐름 사진·자막 사진 대신 담당들이 정리한 글 + 지금 화면 원본으로 확인한다 (비용 절약)
+        return self._say(shot.jpeg, shot.title, note, self.cfg.line_model, mode=mode, session_notes=notes,
+                         question=question, brain=brain, history=None, captions=None)
 
     def _count_game(self, scene: str, situation: str) -> None:
         """평소 모드인데 게임 화면이 자주 보이면 그 게임 모드를 만들자고 알린다."""

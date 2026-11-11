@@ -82,6 +82,8 @@ JUDGE_RULES = """너는 바탕화면 캐릭터의 '말 걸지 판단' 담당이�
 - 컷신·대화 장면(위아래 검은 띠, 대화창, 자막)은 움직임이 커 보여도 '난전·싸움'으로 단정하지 않는다. '자막·대사' 사진이 오면
   그 글을 읽고 무슨 이야기인지(도박판 속임수가 들통남·협박·배신·농담·고백 등) 파악해 situation 에 적는다. 자막이 안 보이면
   인물들의 자세·표정·소품(카드·칼·술잔)으로 상황을 짐작하고, 모르면 '대화 장면'이라고만 적는다.
+- 자세·장비는 확실할 때만 적는다. 등에 멘 방패·칼집에 든 칼을 '들었다·막는다'고 하지 않고, 걷기·달리기·막기·공격이
+  작은 사진으로 애매하면 '이동 중'처럼 넓게 적는다. 확실하지 않은 동작을 말할 거리(point)로 삼지 않는다.
 - '화면 배치'가 주어지면 그 자리의 그림·글은 UI(체력·미니맵·퀘스트 안내·버튼 등)다. 세상 속 물건으로 착각하지 않고,
   UI 가 바뀐 것(체력 막대가 확 줆, 처치·획득 알림)은 방금 일어난 일의 근거로 쓴다.
 - read_box: 말할 거리가 화면 속 작은 글씨(대사·자막·퀘스트 설명·채팅·아이템 설명 등)에 있는데 이 크기로는 읽기 어려우면,
@@ -271,6 +273,46 @@ MODE_RULES = """# 할 일: 게임 모드 만들기
 - spike: 화면이 '확 바뀐 순간'을 무엇으로 알아챌지. 1인칭·3인칭처럼 카메라를 돌리면 화면이 통째로 바뀌는 게임은 "color"
   (색·밝기가 확 바뀔 때만), 화면이 고정된 2D·카드·보드·시뮬레이션 게임은 "pixel", 리듬 게임처럼 늘 번쩍이는 게임은 "off".
 - intro: 모드를 만들었다고 주인님께 알리는 캐릭터 말투 한 문장."""
+
+SCENE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "me": {"type": "string"},
+        "others": {"type": "string"},
+        "place": {"type": "string"},
+        "ui": {"type": "string"},
+        "happened": {"type": "string"},
+        "unsure": {"type": "string"},
+    },
+    "required": ["me", "others", "place", "ui", "happened", "unsure"],
+    "additionalProperties": False,
+}
+
+SCENE_TASK = """# 할 일: 눈 담당 — 장면 자세히 보기
+너는 말하는 캐릭터를 돕는 '눈' 담당이다. 직접 말하지 않고, 화면에 실제로 보이는 것을 정확히 적는다. 이 기록을 보고 다른 담당이 말한다.
+- me: 주인님이 조종하는 캐릭터가 지금 하는 것 — 자세(서 있음·걷기·달리기·말 타기·공격·막기·구르기·쓰러짐 …),
+  무기·방패를 손에 들었는지 등·허리에 멨는지, 바라보는 쪽. 등에 멘 방패·칼집에 든 칼을 '들었다'고 하지 않는다.
+  막기·공격은 팔과 무기가 실제로 앞으로 나와 있을 때만.
+- others: 보이는 다른 인물·적·동물과 그들이 하는 것 (몇 명, 어디쯤, 적인지).
+- place: 장소와 분위기 (마을·숲·동굴·실내·밤 …).
+- ui: 화면 정보 상태 (체력 막대가 얼마나 남았는지, 목표·알림 글, 미니맵 표시). 글자는 보이는 대로.
+- happened: '지난 몇 초 흐름' 사진들을 번호 순서대로 이어 보고, 방금 무슨 일이 이어졌는지 한두 문장 (없으면 '특별한 일 없음').
+  컷신·대화면 자막·대사로 무슨 이야기인지 파악해 적는다 (움직임만 보고 싸움이라 단정하지 않는다).
+- unsure: 작거나 가려져서 확실하지 않은 것. 짐작한 것은 여기에만 적는다 (없으면 빈 문자열).
+한국어로 짧고 구체적으로. 보이지 않는 것은 지어내지 않는다."""
+
+TRANSCRIPT_SCHEMA = {
+    "type": "object",
+    "properties": {"lines": {"type": "array", "items": {"type": "string"}}, "summary": {"type": "string"}},
+    "required": ["lines", "summary"],
+    "additionalProperties": False,
+}
+
+TRANSCRIPT_TASK = """# 할 일: 대사 담당 — 자막·대화창 글 받아 적기
+사진은 게임 화면의 자막·대화창 자리를 시간 순서대로 잘라 낸 것이다.
+- lines: 사진마다 보이는 글을 그대로 옮긴다. 말한 사람 이름표가 있으면 '이름: 대사'. 글이 아니거나 안 읽히면 건너뛴다.
+  외국어면 원문 뒤 괄호에 우리말 뜻.
+- summary: 이 대사들로 본 대화 흐름 한 문장 (무슨 이야기인지, 분위기). 읽은 게 없으면 빈 문자열."""
 
 LAYOUT_SCHEMA = {
     "type": "object",
@@ -903,6 +945,59 @@ class Companion:
         except Exception:  # noqa: BLE001 - 배치를 못 읽어도 화면은 본다
             return ""
 
+    def perceive(self, jpeg: bytes, mode, model: str, flow=None, captions=None) -> tuple[dict | None, float]:
+        """눈 담당: 지금 화면(+지난 몇 초 흐름, 자막 자리)을 자세히 보고 무엇이 있는지 적는다. 말은 하지 않는다."""
+        system = SCENE_TASK
+        layout = self._layout_text(mode)
+        if layout:
+            system += "\n\n" + layout
+        if self.memory.terms:
+            system += "\n\n" + self.memory.terms_text()
+        name = getattr(mode, "name", "") or "평소"
+        content = self._history_blocks(list(flow or [])) + [self._image_block(_shrink_jpeg(jpeg, 1568))] \
+            + self._caption_blocks(captions) + [{"type": "text", "text": f"지금 모드: {name}. 이 장면을 적어 줘."}]
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": system}],
+                                  messages=[{"role": "user", "content": content}], schema=SCENE_SCHEMA,
+                                  kind="perceive", max_tokens=1200, effort="low", timeout=40)
+        data = r.data
+        if data and self.memory.terms:
+            data = {k: self.memory.fix_words(str(v)) for k, v in data.items()}
+        return data, r.usd
+
+    def read_captions(self, captions, model: str) -> tuple[dict | None, float]:
+        """대사 담당: 잘라 둔 자막·대화창 글을 받아 적는다 (원래 크기라 싼 모델로도 읽힌다)."""
+        if not captions:
+            return None, 0.0
+        content = []
+        for label, jpeg in captions:
+            content += [{"type": "text", "text": label}, self._image_block(jpeg)]
+        content.append({"type": "text", "text": "이 자막·대사를 받아 적어 줘."})
+        r = self.ai.complete_json(model=model, system=[{"type": "text", "text": TRANSCRIPT_TASK}],
+                                  messages=[{"role": "user", "content": content}], schema=TRANSCRIPT_SCHEMA,
+                                  kind="captions", max_tokens=600, effort="low", thinking_off=model.startswith("claude-haiku"),
+                                  timeout=25)
+        return r.data, r.usd
+
+    @staticmethod
+    def brain_text(brain: dict) -> str:
+        """여러 담당이 먼저 본 것을 말하기 담당(Opus)에게 넘기는 글."""
+        parts = ["[여럿이 나눠 본 것 — 다른 담당들이 먼저 본 기록이라 틀릴 수 있다. 첨부한 지금 화면과 직접 맞춰 보고, "
+                 "다르면 화면을 믿는다. 확인된 것만 말하고, 확실하지 않은 동작·물건은 말하지 않는다]"]
+        scene = brain.get("scene") or {}
+        if scene:
+            labels = (("me", "주인님 캐릭터"), ("others", "주변"), ("place", "장소"), ("ui", "화면 정보"),
+                      ("happened", "방금"), ("unsure", "확실하지 않음"))
+            parts.append("- 눈 담당(장면): " + " / ".join(f"{ko}: {scene[k]}" for k, ko in labels if scene.get(k)))
+        dialogue = brain.get("dialogue") or {}
+        if dialogue.get("lines") or dialogue.get("summary"):
+            said = " / ".join(str(x) for x in dialogue.get("lines", [])[:8])
+            parts.append("- 대사 담당(자막): " + said + (f" → {dialogue['summary']}" if dialogue.get("summary") else ""))
+        judge = brain.get("judge") or {}
+        if judge.get("situation"):
+            parts.append(f"- 판단 담당(작은 사진으로 대충 본 것): {judge.get('situation', '')} / {judge.get('point', '')}")
+        parts.append("- 기억·지식 담당이 찾은 것은 아래 따로 붙어 있다.")
+        return "\n".join(parts)
+
     def learn_layout(self, jpeg: bytes, game: str, scene: str, model: str) -> tuple[list | None, float]:
         """게임 화면 한 장을 보고 UI 자리를 익힌다 (게임·장면마다 한 번)."""
         what = {"cutscene": "컷신·대화 장면"}.get(scene, "평소 플레이 화면")
@@ -973,7 +1068,7 @@ class Companion:
                     question: str | None = None, now: datetime | None = None, mode=None,
                     session_notes: list[str] | None = None, review: bool = False, fast: bool | None = None,
                     focus: bytes | None = None, focus_label: str = "", pick: bool = False,
-                    history: bytes | None = None, captions=None) -> Reply:
+                    history: bytes | None = None, captions=None, brain: dict | None = None) -> Reply:
         """화면을 보고 캐릭터 말투로 한마디.
 
         question: 주인님이 지금 화면에 대해 물은 것. review: 결과 화면 → 이번 판 기록으로 총평.
@@ -996,17 +1091,24 @@ class Companion:
         rules = self.rules_text(mode)
         if rules:
             lines.append(rules.strip())
-        if note:
+        if brain:
+            lines.append(self.brain_text(dict(brain, judge=note)))
+        elif note:
             lines.append(f"판단 메모: {note.get('situation', '')} / {note.get('point', '')}")
         recent = self.memory.spoken_lines(5)
         lines.append("최근에 먼저 한 말: " + (" / ".join(recent) if recent else "(없음)"))
         if question:
             lines.append(f"주인님이 지금 화면을 보고 말해 달라고 했다: {question} → speak 는 true.")
+        scene = (brain or {}).get("scene") or {}
+        heard = (brain or {}).get("dialogue") or {}
         seen = " ".join([title or "", getattr(mode, "name", "") or "", question or "",
-                         (note or {}).get("situation", ""), (note or {}).get("point", "")] + list(session_notes or [])[-5:])
+                         (note or {}).get("situation", ""), (note or {}).get("point", ""),
+                         scene.get("me", ""), scene.get("others", ""), scene.get("place", ""), scene.get("happened", ""),
+                         " ".join(heard.get("lines", [])[:8])] + list(session_notes or [])[-5:])
         routine = not (pick or review or question or (note and note.get("urgent")))
         # 픽 화면: 보이는 캐릭터 8명 + 조합 원칙까지 꺼내 본다. 평범한 반응 한마디엔 짧게만
         notes = (self.lorebook.notes_for(seen, 9000, 10) if pick
+                 else self.lorebook.notes_for(seen, 3000, 4) if routine and brain  # 지식 담당: 나눠 볼 땐 조금 더
                  else self.lorebook.notes_for(seen, 1500, 2) if routine else self.lorebook.notes_for(seen))
         if notes:
             lines.append(notes)
@@ -1016,7 +1118,8 @@ class Companion:
         extra = self.extra_context(mode) if self.extra_context else ""
         if extra:
             lines.append(extra)
-        now_img = _shrink_jpeg(jpeg, 1280) if routine else jpeg  # 반응 한마디엔 지금 화면을 조금 작게 (글씨는 확대 사진으로)
+        # 반응 한마디엔 지금 화면을 조금 작게 (글씨는 확대 사진으로). 여럿이 나눠 볼 때는 최종 확인이라 그대로
+        now_img = _shrink_jpeg(jpeg, 1280) if routine and not brain else jpeg
         content = self._history_blocks(history) + [self._image_block(now_img)] + self._focus_blocks(focus, focus_label) \
             + self._caption_blocks(captions) + [{"type": "text", "text": "\n".join(lines)}]
         turns = min(self.history_turns, 4) if routine else self.history_turns  # 반응 한마디엔 최근 대화 4번만

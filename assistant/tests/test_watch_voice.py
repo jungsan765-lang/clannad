@@ -67,10 +67,21 @@ class FakeCompanion:
                                                           "review": review, "deep": deep}]
         return Analysis(True, "흐름을 보니 왼쪽이 비었습니다.", "교전 직후", [{"title": "위치", "detail": "근거"}], ["보급"])
 
+    def perceive(self, jpeg, mode, model, flow=None, captions=None):
+        self.perceived = getattr(self, "perceived", []) + [{"model": model, "flow": flow, "captions": captions}]
+        return {"me": "방패를 등에 멘 채 걷는 중", "others": "없음", "place": "숲길", "ui": "체력 가득",
+                "happened": "특별한 일 없음", "unsure": ""}, 0.01
+
+    def read_captions(self, captions, model):
+        self.heard = getattr(self, "heard", []) + [{"model": model, "captions": captions}]
+        return {"lines": ["도박사: 밑장 빼다 걸렸네"], "summary": "속임수가 들통남"}, 0.001
+
     def screen_line(self, jpeg, title, note, model=None, question=None, mode=None, session_notes=None, review=False,
-                    focus=None, focus_label="", pick=False, fast=None, history=None, captions=None):
+                    focus=None, focus_label="", pick=False, fast=None, history=None, captions=None, brain=None):
         self.line_history = history
         self.line_captions = captions
+        self.line_brain = brain
+        self.line_model = model
         self.lines.append({"note": note, "question": question, "mode": mode.name if mode else None,
                            "notes": list(session_notes or []), "review": review, "pick": pick, "fast": fast})
         text = "총평입니다." if review else ("지금은 코드 편집 중이시네요." if question else "경로에 얼룩이 하나 있네요.")
@@ -93,7 +104,8 @@ def _watcher(tmp_path, images=None, notes=None, modes=None, can_run=lambda: True
         except Exception as exc:  # noqa: BLE001
             fail(str(exc))
 
-    w = ScreenWatcher(comp, WatchConfig(interval_seconds=30, cooldown_seconds=120, deep_result=False, dense="off"), run_job,
+    w = ScreenWatcher(comp, WatchConfig(interval_seconds=30, cooldown_seconds=120, deep_result=False, dense="off",
+                                        line_quality="auto"), run_job,
                       modes=modes or [],
                       can_run=can_run, grabber=lambda: next(imgs), window_info=lambda: state["window"],
                       monitor_rect=lambda: MON, clock=lambda: t["now"])
@@ -868,7 +880,8 @@ def test_routine_lines_use_economy_model_and_review_uses_contact_sheet(tmp_path)
     from watch import capture as cap
 
     w_cfg = WatchConfig()
-    assert w_cfg.economy_line_model == "claude-haiku-5-5" and w_cfg.line_quality == "auto"  # 반응 한마디는 가장 싼 모델
+    assert w_cfg.economy_line_model == "claude-haiku-5-5"  # '가볍게'의 반응 한마디는 가장 싼 모델
+    assert w_cfg.line_quality == "brain"  # 기본은 나눠 보고 Opus 가 말함
     assert w_cfg.mid_line_model.startswith("claude-sonnet")
     frames = [(cap.to_jpeg(_Image.new("RGB", (1920, 1080), (i * 40, 0, 0))), f"-{30 - i * 10}s") for i in range(3)]
     sheet = _Image.open(__import__("io").BytesIO(cap.contact_sheet(frames)))
@@ -1147,3 +1160,71 @@ def test_judge_and_line_get_layout_and_subtitles(tmp_path):
     content = fake.calls[-1]["messages"][-1]["content"]
     assert any("(자막) 0.5초 전" == b.get("text") for b in content)
     assert "붉은사막 화면 배치" in content[-1]["text"]
+
+
+def test_brain_mode_lets_helpers_look_first_and_opus_speak_last(qapp, tmp_path):
+    from watch.modes import Mode as _Mode
+    from watch.sampler import Caption
+
+    game = _Mode("붉은사막", processes=["cd.exe"], interval_seconds=20, cooldown_seconds=60, knowledge="x", is_game=True)
+    w, comp, said, t, _ = _watcher(tmp_path, images=[_img(40 + i * 9) for i in range(20)], modes=[game],
+                                   window=WindowInfo("CD", "cd.exe", (0, 0, 1900, 1000)))
+    w.cfg.line_quality = "brain"
+    w.cfg.dense = "game"
+    w.sampler.set_active = lambda on: None
+    w.update_mode()
+    for i in range(11):
+        t["now"] = i * 0.5
+        w.sampler.capture_once()
+    w.sampler._captions.append(Caption(4.0, "자막", b"cap", None))
+    w.tick()
+    assert said == ["경로에 얼룩이 하나 있네요."]
+    assert comp.perceived[0]["model"] == "claude-sonnet-5-5" and len(comp.perceived[0]["flow"]) == 5  # 눈 담당: 흐름 절반
+    assert comp.perceived[0]["captions"] == [("(자막) 1.0초 전", b"cap")]
+    assert comp.heard[0]["model"] == "claude-haiku-5-5"  # 대사 담당은 싼 모델
+    assert comp.line_model == "claude-opus-5-5"  # 마지막 말은 Opus 가
+    assert comp.line_brain["scene"]["me"] == "방패를 등에 멘 채 걷는 중"
+    assert comp.line_brain["dialogue"]["summary"] == "속임수가 들통남"
+    assert comp.line_history is None and comp.line_captions is None  # Opus 엔 정리한 글 + 지금 화면만 (비용)
+    assert any("자세히 본 장면: 방패를 등에 멘" in n for n in w.session.notes)
+    comp.perceive = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("서버 오류"))  # 눈 담당이 실패해도
+    t["now"] = 100
+    w.tick()
+    assert len(said) == 2 and comp.line_brain["scene"] is None  # 나머지로 말한다
+
+
+def test_opus_gets_helper_notes_and_checks_against_the_screen(tmp_path):
+    from watch import capture as cap
+    from watch.modes import Mode as _Mode
+
+    fake = FakeAnthropic([
+        {"me": "방패를 등에 멘 채 걷는 중", "others": "없음", "place": "숲길", "ui": "체력 가득", "happened": "특별한 일 없음",
+         "unsure": "오른손에 든 것"},
+        {"lines": ["도박사: 밑장 빼다 걸렸네"], "summary": "속임수가 들통남"},
+        {"speak": True, "message": "숲길 바람 좋네요.", "emotion": "happy"},
+    ])
+    comp = Companion(AIClient(UsageLedger(tmp_path / "u.json"), client=fake), Memory(tmp_path / "d"), None,
+                     chat_model="claude-opus-5-5", memory_model="claude-opus-5-5")
+    game = _Mode("붉은사막", knowledge="x", is_game=True)
+    big = cap.to_jpeg(Image.new("RGB", (1920, 1080), (20, 60, 30)), 85)
+    scene, _ = comp.perceive(big, game, "claude-sonnet-5-5", flow=[("(1/2) 1.0초 전", big), ("(2/2) 0.5초 전", big)])
+    call = fake.calls[-1]
+    assert call["model"] == "claude-sonnet-5-5" and "눈 담당" in call["system"][0]["text"]
+    assert "등에 멘 방패" in call["system"][0]["text"]
+    heard, _ = comp.read_captions([("(자막) 1.0초 전", big)], "claude-haiku-5-5")
+    assert fake.calls[-1]["model"] == "claude-haiku-5-5" and heard["summary"] == "속임수가 들통남"
+    assert comp.read_captions([], "claude-haiku-5-5") == (None, 0.0)  # 자막이 없으면 부르지 않음
+    reply = comp.screen_line(big, "CD", {"situation": "방패를 들고 걷는 중", "point": "감탄"}, model="claude-opus-5-5",
+                             mode=game, brain={"scene": scene, "dialogue": heard})
+    assert reply.speak
+    call = fake.calls[-1]
+    text = call["messages"][-1]["content"][-1]["text"]
+    assert "여럿이 나눠 본 것" in text and "다르면 화면을 믿는다" in text
+    assert "눈 담당(장면): 주인님 캐릭터: 방패를 등에 멘 채 걷는 중" in text and "확실하지 않음: 오른손에 든 것" in text
+    assert "대사 담당(자막): 도박사: 밑장 빼다 걸렸네 → 속임수가 들통남" in text
+    assert "판단 담당(작은 사진으로 대충 본 것): 방패를 들고 걷는 중" in text
+    import base64
+    import io
+
+    img = next(b for b in call["messages"][-1]["content"] if b.get("type") == "image")
+    assert Image.open(io.BytesIO(base64.b64decode(img["source"]["data"]))).width == 1920  # 최종 확인은 원본 화면으로

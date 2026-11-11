@@ -23,7 +23,8 @@ def _settings(tmp_path, character):
     (tmp_path / "config.toml").write_text(
         f'[app]\ndata_dir = "{(tmp_path / "data").as_posix()}"\n'
         f'[character]\nfolder = "{character}"\npersona = "none.md"\nscale = 0.5\n'
-        '[ui]\nbubble_min_seconds = 1.0\n[update]\nauto = false\n[memory]\ndiary = false\n', encoding="utf-8")
+        '[ui]\nbubble_min_seconds = 1.0\n[update]\nauto = false\n[memory]\ndiary = false\n'
+        '[screen]\nline_quality = "auto"\n', encoding="utf-8")
     return Settings.load(tmp_path)
 
 
@@ -734,6 +735,28 @@ def test_chat_can_ask_to_relearn_game_layout(qapp, tmp_path, built):
     assert not a.layouts.learned("붉은사막", "playing")  # 지우고 다음 조용한 순간에 다시
     assert "layout" in app_main.SCREEN_KINDS and app_main.KIND_KO["layout"] == "화면 배치 익히기"
     a.quit()
+
+
+def test_old_light_line_setting_moves_to_brain_mode_once(qapp, tmp_path, built):
+    import json
+
+    s = _settings(tmp_path, built["out"].as_posix())
+    fake = FakeAnthropic([])
+    a = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    state = a._load_state()
+    state.setdefault("prefs", {}).update({"screen.line_quality": "auto"})
+    state["prefs"].pop("screen.brain_offered", None)
+    a._write_state(state)  # 예전에 기본값('가볍게')으로 저장해 둔 사람
+    path = a.state_path
+    a.quit()
+    b = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    assert b.watch_cfg.line_quality == "brain"  # 한 번만 나눠 보기로
+    b.set_pref("screen.line_quality", "auto")  # 그 뒤에 다시 '가볍게'를 고르면
+    b.quit()
+    c = app_main.build(s, ai=AIClient(UsageLedger(tmp_path / "x.json"), client=fake), tray=False)
+    assert c.watch_cfg.line_quality == "auto"  # 그대로 둔다
+    assert json.loads(path.read_text(encoding="utf-8"))["prefs"]["screen.brain_offered"] is True
+    c.quit()
 
 
 def test_lookups_pile_up_in_a_per_game_dictionary(qapp, tmp_path, built):

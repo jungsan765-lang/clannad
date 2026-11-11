@@ -27,7 +27,8 @@ DAILY_LIMITS = [("1000", "1,000원"), ("3000", "3,000원 (추천)"), ("5000", "5
                 ("0", "제한 없음")]
 DENSE = [("game", "게임할 때만 (0.5초마다 찍고 5초마다 흐름을 모아 판단, 판단만 시간당 약 400~600원)"),
          ("always", "항상"), ("off", "끔 (확인 간격마다 한 장씩)")]
-LINE_QUALITY = [("auto", "가볍게 (평범한 반응 한마디는 가장 싼 모델 — 한 마디 몇 원)"),
+LINE_QUALITY = [("brain", "나눠 보기 (눈·대사·기억·지식 담당이 먼저 보고 Opus 가 화면과 맞춰 본 뒤 말함 — 한 마디 70~100원쯤, 10초쯤 늦음)"),
+                ("auto", "가볍게 (평범한 반응 한마디는 가장 싼 모델 — 한 마디 몇 원)"),
                 ("sonnet", "보통 (중간 모델 — 한 마디 수십 원)"), ("best", "최고 (항상 최고 모델 — 가장 비쌈)")]
 RESULT_DEPTH = [("deep", "깊게 생각 (1~2분, 판마다 약 200~400원)"), ("quick", "빠르게")]
 OVERLAY = [("important", "중요한 것만"), ("game", "게임 중 모두"), ("always", "항상"), ("off", "끔")]
@@ -147,7 +148,7 @@ class SettingsDialog(QDialog):
         coach_note.setStyleSheet("color: #555;")
         self.result_depth = Choice(RESULT_DEPTH, str(v.get("screen.result_depth", "deep")))
         self.daily_limit = Choice(DAILY_LIMITS, str(v.get("screen.daily_krw", "3000")))
-        self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "auto")))
+        self.line_quality = Choice(LINE_QUALITY, str(v.get("screen.line_quality", "brain")))
         self.dense = Choice(DENSE, str(v.get("screen.dense", "game")))
         self.limit_stop = QCheckBox("한도를 넘으면 화면 보기 멈추기 (끄면 알리기만 하고 계속 봄)")
         self.limit_stop.setChecked(bool(v.get("screen.limit_stop", False)))
