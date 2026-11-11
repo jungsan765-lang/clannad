@@ -382,9 +382,22 @@ def test_screen_rules_ask_for_substance_and_judge_switches_in_analysis(tmp_path)
     comp, fake = _comp(tmp_path, [])
     comp.judge(b"jpg", "x", "claude-haiku-5-5", None, analysis=True)
     sys_text = fake.calls[-1]["system"][0]["text"]
-    assert "분석 모드" in sys_text and "결과·정산 화면" in sys_text and "화면을 그대로 옮긴 말" in sys_text
+    assert "분석 모드" in sys_text and "결과·정산 화면" in sys_text and "화면 글자 읽어 주기" in sys_text
+    assert "말동무" in sys_text
     comp.screen_line(b"jpg", "x", None)
-    assert "그대로 읊지 않는다" in json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    sent = json.dumps(fake.calls[-1]["messages"][-1], ensure_ascii=False)
+    assert "보이는 걸 다시 말해 주는 건 아무 의미가 없다" in sent and "방송 채팅창" in sent
+    assert fake.calls[-1]["output_config"]["effort"] == "medium"  # 평범한 화면 대사는 한 번 더 생각
+
+
+def test_screen_line_that_only_reads_the_screen_is_dropped(tmp_path):
+    comp, fake = _comp(tmp_path, [
+        {"speak": True, "message": "바로 곁에 마리우스와 대화하라는 안내가 떠 있네요. 438m 길에 나서기 전에 처리해 두시죠.",
+         "emotion": "normal"},
+        {"speak": True, "message": "와, 방금 그 회피 소름 돋았습니다.", "emotion": "surprised"},
+    ])
+    assert not comp.screen_line(b"jpg", "붉은사막", {"situation": "퀘스트 안내", "point": ""}).speak
+    assert comp.screen_line(b"jpg", "붉은사막", {"situation": "보스전", "point": "감탄"}).message.startswith("와,")
 
 
 def test_review_prompts(tmp_path):
