@@ -147,9 +147,9 @@ def showcase_summary(raw: dict, store: Store) -> str:
 
 # ---------------------------------------------------------------- 기원 기록
 
-def pity_summary(wishes: dict[str, list[dict]]) -> str:
+def pity_summary(wishes: dict[str, list[dict]], banners: dict | None = None, title: str = "기원") -> str:
     parts, recent = [], []
-    for key, label in BANNERS.items():
+    for key, label in (banners or BANNERS).items():
         items = sorted(wishes.get(str(key), []), key=lambda w: int(w["id"]))
         if not items:
             continue
@@ -159,7 +159,7 @@ def pity_summary(wishes: dict[str, list[dict]]) -> str:
         recent += [(w["time"], w["name"], label) for w in items if w["rarity"] == 5]
     if not parts:
         return ""
-    text = "기원: " + " / ".join(parts)
+    text = f"{title}: " + " / ".join(parts)
     if recent:
         recent.sort(reverse=True)
         text += "\n  최근 5성: " + ", ".join(f"{n}({t[:10]}, {b})" for t, n, b in recent[:5])

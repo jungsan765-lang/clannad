@@ -316,6 +316,9 @@ class SettingsDialog(QDialog):
             logout.clicked.connect(lambda: self.hoyo_label.setText(hoyolab[2]()))
             hr.addWidget(login)
             hr.addWidget(logout)
+        self.sr_uid = QLineEdit(str(v.get("starrail.uid", "")))
+        self.sr_uid.setPlaceholderText("스타레일 UID (게임 안 프로필에 있는 숫자 9자리)")
+        self.sr_uid.setMaxLength(10)
         self.neople_key = QLineEdit()
         self.neople_key.setEchoMode(QLineEdit.EchoMode.Password)
         self.neople_key.setPlaceholderText("저장돼 있어요 (바꿀 때만 새로 넣기)" if neople_set
@@ -324,6 +327,9 @@ class SettingsDialog(QDialog):
         self.cy_nick.setPlaceholderText("사이퍼즈 닉네임")
         games = page(group("원신", [("UID (진열장)", self.uid), ("HoYoLAB (레진·의뢰)", hoyo),
                                     ("", _hint("기원 기록은 게임 안에서 기원 → 기록을 한 번 열어 두면 게임을 끌 때 알아서 받아요."))]),
+                     group("스타레일", [("UID", self.sr_uid),
+                                       ("", _hint("HoYoLAB 로그인은 원신과 같이 써요 (개척력·일일 훈련). 워프 기록은 게임 안에서 "
+                                                  "워프 → 기록을 한 번 열어 두면 게임을 끌 때 알아서 받아요."))]),
                      group("사이퍼즈 (이 컴퓨터에만 저장)", [("API 키", self.neople_key), ("닉네임", self.cy_nick)]))
 
         # ---------------------------------------------------------------- 기억·창 읽기
@@ -476,6 +482,7 @@ class SettingsDialog(QDialog):
             "ai.fast": self.fast.isChecked(),
             "ai.web_search": self.web.isChecked(),
             "genshin.uid": "".join(ch for ch in self.uid.text() if ch.isdigit()),
+            "starrail.uid": "".join(ch for ch in self.sr_uid.text() if ch.isdigit()),
             "cyphers.nickname": self.cy_nick.text().strip(),
             "user.nickname": ", ".join(n.strip() for n in self.nick.text().replace("，", ",").split(",") if n.strip()),
             "ui.show_status": self.show_status.isChecked(),

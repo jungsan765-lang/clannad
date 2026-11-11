@@ -28,6 +28,7 @@ import organizer as org
 import re
 from gamedata.cyphers_data import CyphersData, compact
 from gamedata.genshin_data import GenshinData
+from gamedata.starrail_data import StarRailData
 from screen_log import ScreenLog, recall_window
 from secret_store import SecretStore
 from ai_client import AIClient, AIError
@@ -70,6 +71,8 @@ log = logging.getLogger("assistant")
 # 대화에 이런 말이 나오면 원신 계정 정보를 함께 넘긴다
 CYPHERS_WORDS = re.compile(r"사이퍼즈|전적|공식전|일반전|킬뎃|딜량|승률|판수|티어|랭크")
 GENSHIN_WORDS = re.compile(r"원신|레진|기원|뽑기|천장|픽업|성유물|진열장|파티|일퀘|일일 ?의뢰|파견|주전자|나선|비경|환상극|돌파|특성")
+STARRAIL_WORDS = re.compile(r"스타레일|붕스|개척력|워프|광추|유물|차원 ?장신구|일일 ?훈련|시뮬레이션 ?우주|차분화|망각의 ?정원|"
+                            r"허구 ?이야기|종말의 ?환영|전쟁의 ?여운|성옥|성혼|행적|뽑기|천장|픽업")
 
 
 class _Signals(QObject):
@@ -277,6 +280,10 @@ class AssistantApp(QObject):
         self.secrets = SecretStore(settings.data_dir / "secrets.bin")
         self.genshin = GenshinData(settings.data_dir / "genshin", uid=str(self.pref("genshin.uid", "") or ""),
                                    cookies=lambda: self.secrets.get("hoyolab"))
+        # 스타레일도 같은 HoYoLAB 로그인으로 (개척력·일일 훈련·워프 기록)
+        self.starrail = StarRailData(settings.data_dir / "starrail", uid=str(self.pref("starrail.uid", "") or ""),
+                                     cookies=lambda: self.secrets.get("hoyolab"))
+        self._starrail_busy = False
         # 사이퍼즈 전적 (네오플 공식 API). API 키도 이 PC 사용자만 풀 수 있게 암호화
         self.cyphers = CyphersData(settings.data_dir / "cyphers", api_key=lambda: self.secrets.get("neople"),
                                    nickname=str(self.pref("cyphers.nickname", "") or ""))
@@ -286,6 +293,7 @@ class AssistantApp(QObject):
         companion.on_game_knowledge = self._save_game_knowledge  # 주인님이 알려 준 게임 지식 → 게임 사전
         self.genshin_timer = QTimer(self)
         self.genshin_timer.timeout.connect(lambda: self.refresh_genshin())
+        self.genshin_timer.timeout.connect(lambda: self.refresh_starrail())
         self.genshin_timer.timeout.connect(lambda: self.refresh_cyphers() if self.watcher.mode.name == "사이퍼즈" else None)
         self._genshin_busy = False
         self._last_mode = "평소"
@@ -382,6 +390,7 @@ class AssistantApp(QObject):
         QTimer.singleShot(25_000, self.briefing)  # 하루 첫 실행이면 브리핑 (원신 정보를 받아 온 뒤)
         QTimer.singleShot(20_000, lambda: self._run(self.screen_log.cleanup, lambda _: None, log.warning))
         QTimer.singleShot(8000, lambda: self.refresh_genshin())
+        QTimer.singleShot(12000, lambda: self.refresh_starrail())
 
     def quit(self) -> None:
         self.update_timer.stop()
@@ -432,6 +441,8 @@ class AssistantApp(QObject):
         infos = []
         if self.genshin.has_uid and (mode == "원신" or GENSHIN_WORDS.search(text)):
             infos.append(self.genshin.context_text())
+        if self.starrail.has_uid and (mode == "스타레일" or STARRAIL_WORDS.search(text)):
+            infos.append(self.starrail.context_text())
         if self.cyphers.ready and (mode == "사이퍼즈" or CYPHERS_WORDS.search(text)):
             infos.append(self.cyphers.context_text())
         for game in self.progress.games:  # 하는 중이거나 말에 나온 게임의 진행 (스포일러 경계)
@@ -1330,6 +1341,7 @@ class AssistantApp(QObject):
             "ai.fast": bool(self.companion.fast),
             "ai.web_search": bool(self.companion.can_search),
             "genshin.uid": self.genshin.uid,
+            "starrail.uid": self.starrail.uid,
             "cyphers.nickname": self.cyphers.nickname,
             "user.nickname": ", ".join(self.companion.user_names),
             "ui.show_status": self.status.enabled,
@@ -1449,6 +1461,11 @@ class AssistantApp(QObject):
             self.genshin.uid = str(changed["genshin.uid"])
             self.genshin.showcase_next = 0
             QTimer.singleShot(500, lambda: self.refresh_genshin(force=True))
+        if "starrail.uid" in changed:
+            self.starrail.uid = str(changed["starrail.uid"])
+            self.starrail.notes = None
+            if self.starrail.has_uid:
+                QTimer.singleShot(1500, lambda: self.refresh_starrail(force=True))
         if "user.nickname" in changed:
             self.companion.user_names = split_names(changed["user.nickname"])
         if "ui.show_status" in changed:
@@ -1585,6 +1602,8 @@ class AssistantApp(QObject):
         game.addSeparator()
         add(game, "원신 정보 새로고침 (진열장·레진·기원)", lambda: self.refresh_genshin(force=True, wishes=True))
         add(game, "받은 원신 정보 보기", self.show_genshin)
+        add(game, "스타레일 정보 새로고침 (개척력·워프)", lambda: self.refresh_starrail(force=True, warps=True))
+        add(game, "받은 스타레일 정보 보기", self.show_starrail)
         add(game, "사이퍼즈 전적 새로고침", lambda: self.refresh_cyphers(force=True))
 
         # 도구: 파일 정리·목소리·메모
@@ -1796,6 +1815,50 @@ class AssistantApp(QObject):
 
         self._run(work, done, fail)
 
+    def refresh_starrail(self, force: bool = False, warps: bool = False) -> None:
+        """스타레일 실시간 메모(로그인했을 때), 워프 기록(게임을 껐을 때·직접). 원신과 같은 HoYoLAB 로그인."""
+        g = self.starrail
+        if self._starrail_busy or not g.has_uid:
+            if force and not g.has_uid:
+                self.bubble.show_text("설정 창 '게임 연결'에 스타레일 UID 를 먼저 적어 주세요.", self.anchor(), system=True,
+                                      seconds=5)
+            return
+        self._starrail_busy = True
+        if force:
+            self.status.begin("starrail", "스타레일 정보 받는 중")
+
+        def work():
+            g.refresh_notes()
+            if warps or force:
+                g.refresh_wishes()
+            return g.alerts()
+
+        def done(alerts) -> None:
+            self._starrail_busy = False
+            self.status.end("starrail")
+            errors = " ".join(dict.fromkeys(g.last_error.values()))
+            if force and errors:
+                self.bubble.show_text(errors, self.anchor(), system=True, seconds=8)
+            if alerts:  # 알릴 일이 있으면 다니카가 바로 말한다
+                self._announce("스타레일: " + alerts[0])
+            elif force and not errors:
+                self.bubble.show_text("스타레일 정보를 받아 왔어요.", self.anchor(), system=True, seconds=5)
+
+        def fail(message: str) -> None:
+            self._starrail_busy = False
+            self.status.end("starrail")
+            log.warning("스타레일 정보 받기 실패: %s", message)
+
+        self._run(work, done, fail)
+
+    def show_starrail(self) -> None:
+        g = self.starrail
+        text = g.context_text() or ("아직 받은 스타레일 정보가 없어요." if g.has_uid
+                                    else "설정 창 '게임 연결'에 스타레일 UID 를 적어 주세요.")
+        if g.last_error:
+            text += "\n\n[문제]\n" + "\n".join(dict.fromkeys(g.last_error.values()))
+        QMessageBox.information(None, "스타레일 정보", text)
+
     def check_reminders(self) -> None:
         self.check_chores()
         for r in self.planner.due():
@@ -1932,6 +1995,9 @@ class AssistantApp(QObject):
             notes = self.genshin.notes_text()
             if notes:
                 facts.append("원신: " + notes)
+            notes = self.starrail.notes_text()
+            if notes:
+                facts.append("스타레일: " + notes)
         _, yesterday = recap.collect("yesterday", datetime.now(), self.screen_log, None, None, None)
         if yesterday:
             facts.append("어제 화면으로 본 것: " + yesterday.split("\n")[0])
@@ -2064,6 +2130,10 @@ class AssistantApp(QObject):
             QTimer.singleShot(5000, lambda: self.refresh_genshin(wishes=True))
         elif name == "원신":
             QTimer.singleShot(3000, lambda: self.refresh_genshin())
+        if self._last_mode == "스타레일" and name != "스타레일":  # 게임을 끄면 워프 기록 파일을 읽을 수 있다
+            QTimer.singleShot(5000, lambda: self.refresh_starrail(warps=True))
+        elif name == "스타레일":
+            QTimer.singleShot(3000, lambda: self.refresh_starrail())
         elif name == "사이퍼즈":
             QTimer.singleShot(3000, lambda: self.refresh_cyphers())
         if self.watcher.mode.is_game:
@@ -2076,6 +2146,8 @@ class AssistantApp(QObject):
         parts = [self.progress.prompt_text(name)] if name else []
         if name == "원신":
             parts.append(self.genshin.context_text())
+        if name == "스타레일":
+            parts.append(self.starrail.context_text())
         if name == "사이퍼즈":
             parts.append(self.cyphers.context_text())
         return "\n".join(p for p in parts if p)
@@ -2117,7 +2189,8 @@ class AssistantApp(QObject):
         if not self.pref("assist.chores", True) or time.monotonic() - self._last_chores < 300:
             return
         self._last_chores = time.monotonic()
-        modes = [m for m in self.watcher.modes if not (m.name == "원신" and self.genshin.has_login)]
+        modes = [m for m in self.watcher.modes if not (m.name == "원신" and self.genshin.has_login)
+                 and not (m.name == "스타레일" and self.starrail.has_login and self.starrail.has_uid)]
         for chore in self.progress.chores(modes):
             log.info("숙제 알림: %s", chore)
             self._announce(f"게임 숙제 알림: {chore} 주인님께 짧게 알린다.")
@@ -2259,7 +2332,7 @@ class AssistantApp(QObject):
     def hoyolab_status(self) -> str:
         if not self.genshin.has_login:
             return "연결 안 됨"
-        err = self.genshin.last_error.get("notes")
+        err = self.genshin.last_error.get("notes") or self.starrail.last_error.get("notes")
         return "연결됨" + (f" (문제: {err})" if err else "")
 
     def hoyolab_login(self) -> str:
@@ -2267,11 +2340,13 @@ class AssistantApp(QObject):
         if dlg.exec() == HoyolabLogin.DialogCode.Accepted and cookies_complete(dlg.cookies):
             self.secrets.set("hoyolab", dlg.cookies)
             QTimer.singleShot(500, lambda: self.refresh_genshin(force=True))
+            QTimer.singleShot(2500, lambda: self.refresh_starrail(force=self.starrail.has_uid))
         return self.hoyolab_status()
 
     def hoyolab_logout(self) -> str:
         self.secrets.delete("hoyolab")
         self.genshin.notes = None
+        self.starrail.notes = None
         return self.hoyolab_status()
 
     def show_genshin(self) -> None:
