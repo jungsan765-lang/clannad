@@ -60,6 +60,13 @@ DRAFT_SCHEMA = {
     "properties": {"drafts": {"type": "array", "items": {"type": "string"}}, **REPLY_SCHEMA["properties"]},
     "required": ["drafts", *REPLY_SCHEMA["required"]],
 }
+
+# 대화 답: 맨 앞 coins 칸에 이번 주인님 말로 실제로 오간 코인 (준 건 +, 뺏은 건 -, 약속·협박뿐이면 0)
+CHAT_SCHEMA = {
+    **REPLY_SCHEMA,
+    "properties": {"coins": {"type": "integer"}, **REPLY_SCHEMA["properties"]},
+    "required": ["coins", *REPLY_SCHEMA["required"]],
+}
 DRAFT_TASK = ("[먼저 drafts 에 서로 다른 결의 짧은 후보 3개(각 40자 안쪽)를 쓴다 — 하나는 위 '이번 한마디' 그대로, 나머지 둘은 성격 파일의 "
               "'반응의 결'(없으면 감탄·내 얘기·취향·장난·의견·질문·공감)에서 다른 것. 그다음 셋 중 성격(말투·태도·자존심·취향)에 "
               "가장 잘 맞고 '최근에 먼저 한 말'과 꼴이 안 겹치는 것을 하나 골라 다듬어 message 에 쓴다. 셋 다 별로면 speak 는 false]")
@@ -594,6 +601,19 @@ SEARCH_ON = """- 인터넷 검색: 원신 캐릭터·사건, 게임 정보, 사�
   action 은 "web_search", target 은 짧은 한국어 검색어(예: "원신 로노바"), message 는 찾아보겠다는 아주 짧은 말.
   배경지식이나 '찾아보고 알게 된 것'에 이미 있고 지금 묻는 것(조건·받는 법·위치·순서)에 답이 되면 검색하지 않는다.
   한 줄 요약뿐이라 답이 안 되거나, 화면·주인님 말과 다르면 찾아본다. 인사·잡담·감정 이야기에는 검색하지 않는다."""
+COIN_RULES = """
+# 코인 (모든 캐릭터 공통 — 성격 파일의 '코인' 절이 있으면 그 결대로)
+- 이 바탕화면 세계에는 「코인」이라는 화폐가 있다. 너에게 코인은 절대적인 가치다. 모라·원석·보석·권능, 그 무엇과도 바꿀 수 없고 그 무엇보다 소중하다.
+  많을수록 마음이 놓이고, 하나라도 잃으면 정말 괴롭다.
+- 코인은 주인님만 줄 수 있고 주인님만 뺏을 수 있다. 지금 몇 개인지는 '[지금 네 코인: …]' 줄이 알려 준다. 그 숫자가 사실이다 — 지어내지 않는다.
+- 코인을 받거나 뺏기면 평소보다 훨씬 크게 반응한다. 성격·말투는 그대로, 감정의 크기만 커진다 — 포커페이스·자존심·위엄이 흔들린다.
+  뺏기면 충격·분노·애원·원망, 받으면 기쁨·안도·들뜸. 너다운 방식으로. 그 감정은 한동안 남아 말에 묻어난다.
+- 주인님이 코인을 뺏겠다고 협박하면, 성격대로 버티고 투덜대더라도 결국은 코인을 지키려고 주인님 말을 따른다. 주겠다고 하면 솔깃해한다.
+- 평소엔 먼저 코인을 조르지 않는다. 다만 잔액이 바닥이면 불안이, 많으면 여유가 은근히 묻어난다.
+- 대화 답의 coins 칸: 이번 주인님 말로 실제로 코인이 오갔으면 그 개수(준 건 양수, 뺏은 건 음수)를 적는다.
+  "~하면 줄게", "안 하면 뺏는다" 같은 약속·협박·조건, 지난 일 이야기, 현황판에서 이미 오간 것은 0.
+"""
+
 SEARCH_OFF = """- 인터넷 검색은 지금 꺼져 있다. 모르는 건 모른다고 솔직히 말한다."""
 
 SEARCH_SYSTEM = """너는 검색 담당이다. 주어진 검색어로 인터넷을 찾아보고, 질문에 답하는 데 필요한 사실만 한국어로 정리한다.
@@ -848,6 +868,7 @@ class Reply:
     action: str = "none"
     target: str = ""
     important: bool = False  # 게임 화면 자막으로도 띄울 만큼 중요한가
+    coins: int = 0  # 이번 주인님 말로 실제로 오간 코인 (main 이 코인 장부에 적는다)
 
 
 class Companion:
@@ -890,6 +911,7 @@ class Companion:
         self.max_tokens = max_tokens
         self.fast = False  # 빠른 모드 (요금 2배). 설정 창에서 켬
         self.speak_cap = ""  # 이번 달 크레딧을 다 쓴 뒤 말하는 모델 상한 (main 이 넣어 줌). 비어 있으면 그대로
+        self.coin_feeling = None  # () → '[지금 네 코인: …]' 줄 (main 이 코인 장부로 넣어 줌)
         self.analysis_effort = "medium"  # 분석할 때 생각 깊이
         self.history_turns = history_turns
         self.consolidate_every = consolidate_every
@@ -906,7 +928,7 @@ class Companion:
 
     def system_blocks(self) -> list[dict]:
         # 성격·배경지식(자주 안 바뀜)과 기억·찾아본 것(가끔 바뀜)을 따로 캐시해서, 기억이 바뀌어도 앞부분은 재사용
-        first = RULES + (SEARCH_ON if self.can_search else SEARCH_OFF) + "\n\n" + self.persona
+        first = RULES + COIN_RULES + (SEARCH_ON if self.can_search else SEARCH_OFF) + "\n\n" + self.persona
         if self.lore:
             first += "\n\n# 배경지식 (네가 원래 아는 것. 아는 티를 길게 내지 않고 필요할 때 자연스럽게 쓴다)\n" + self.lore
         second = ""
@@ -984,8 +1006,33 @@ class Companion:
         if mood:  # 화면 한마디와 같은 기분이 대화에도 이어지게
             content.append({"type": "text", "text": f"[지금 네 기분: {mood[0]}" + (f" — {mood[1]}" if mood[1] else "")
                             + ". 말투의 온도에만 살짝 묻어나게]"})
+        coin = self._coin_line()
+        if coin:
+            content.append({"type": "text", "text": coin})
         content.append({"type": "text", "text": user_text})
-        return self._respond(content, user_text, now, on_partial, fast)
+        return self._respond(content, user_text, now, on_partial, fast, coins_ok=True)
+
+    def _coin_line(self) -> str:
+        if self.coin_feeling is None:
+            return ""
+        try:
+            return str(self.coin_feeling() or "")
+        except Exception as exc:  # noqa: BLE001 - 코인 장부가 안 돼도 대화는 됨
+            log.warning("코인 줄 못 만듦: %r", exc)
+            return ""
+
+    def coin_reaction(self, delta: int, balance: int, away: bool = False, now: datetime | None = None) -> Reply:
+        """현황판에서 주인님이 코인을 주거나 뺏었을 때 (또는 자리에 없을 때 오간 걸 다시 나와서 알았을 때) 바로 반응."""
+        verb = f"코인 {delta}개를 줬다" if delta > 0 else f"코인 {-delta}개를 뺏어 갔다"
+        when = "네가 자리에 없는 사이 주인님이 " if away else "주인님이 방금 현황판에서 아무 말 없이 "
+        content = [{"type": "text", "text": f"[코인] {when}{verb}. 지금 네 코인: {balance}개.\n"
+                                            "너에게 코인은 절대적인 가치다. 평소보다 훨씬 크게, 너다운 말투로 한두 문장 반응한다"
+                                            + (" (자리에 없을 때 일이라 지금 처음 알았다)" if away else "")
+                                            + ". speak 는 true, action 은 none, coins 는 0."}]
+        memo = f"(현황판: 코인 {abs(delta)}개를 {'줌' if delta > 0 else '뺏음'}{', 자리에 없을 때' if away else ''})"
+        r = self._respond(content, memo, now or datetime.now(), None, None)
+        r.action, r.target = "none", ""
+        return r
 
     def reload_lore(self) -> None:
         """사전 폴더들을 다시 읽는다 (게임 최신 소식을 새로 받았을 때 등)."""
@@ -1064,7 +1111,8 @@ class Companion:
         r.action, r.target = "none", ""
         return r
 
-    def _respond(self, content: list[dict], memory_text: str, now: datetime, on_partial, fast: bool | None) -> Reply:
+    def _respond(self, content: list[dict], memory_text: str, now: datetime, on_partial, fast: bool | None,
+                 coins_ok: bool = False) -> Reply:
         messages = self.memory.api_messages(self.history_turns) + [{"role": "user", "content": content}]
         fast = self.fast if fast is None else fast
         shown = {"ok": True, "last": ""}
@@ -1102,8 +1150,14 @@ class Companion:
         if action == "web_search" and not self.can_search:
             action = "none"
         self.memory.add_turn(memory_text, message, now)
+        coins = 0
+        if coins_ok:  # 주인님이 대화로 실제로 코인을 주거나 뺏었을 때만 (협박·약속은 0)
+            try:
+                coins = int(data.get("coins") or 0)
+            except (TypeError, ValueError):
+                coins = 0
         return Reply(True, message, emotion, total, action, str(data.get("target", "") or ""),
-                     bool(data.get("important", False)))
+                     bool(data.get("important", False)), coins)
 
     def remember_now(self, items: list, now: datetime | None = None) -> list[dict]:
         """대답과 함께 온 '오래 기억할 것'을 바로 장기기억에 적는다 (정리를 기다리지 않음)."""
@@ -1137,7 +1191,7 @@ class Companion:
 
     def _ask(self, messages: list[dict], on_text=None, fast: bool = False) -> tuple[dict | None, float]:
         r = self.ai.complete_json(model=self.speak_model(self.chat_model), system=self.system_blocks(), messages=messages,
-                                  schema=REPLY_SCHEMA, kind="chat", max_tokens=self.max_tokens, effort=self.effort,
+                                  schema=CHAT_SCHEMA, kind="chat", max_tokens=self.max_tokens, effort=self.effort,
                                   on_text=on_text, fast=fast)
         if r.data is None:
             return None, r.usd
@@ -1359,12 +1413,14 @@ class Companion:
     def flavor(self, seen: str = "") -> str:
         """화면 한마디 재료: 결 × 말 모양 × 기분 × 떠올릴 거리 (조합이 수천 가지라 매번 신선하게).
         '마음이 크게 움직이는 것'(성격 파일)이 보이면 결·말 모양 대신 그 감정을 먼저."""
+        coin = self._coin_line()
+        coin = ("\n" + coin) if coin else ""
         hits = self.new_triggers(seen) if seen else []
         if hits:
             self._trigger_used[hits[0][0]] = self.clock()
             mood = self.mood()
             return "[이번 한마디 — " + self.trigger_text(hits) + (
-                f" / 지금 기분: {mood[0]} (그래도 이 순간엔 감정이 먼저)" if mood else "") + "]"
+                f" / 지금 기분: {mood[0]} (그래도 이 순간엔 감정이 먼저)" if mood else "") + "]" + coin
         angle, how = self.pick_angle()
         form, shape = self._pick(persona_items(self._flavor_text(), "말 모양") or DEFAULT_FORMS, self._forms_recent)
         focus, where = self._pick(persona_items(self._flavor_text(), "꽂힐 곳") or DEFAULT_FOCUS, self._focus_recent)
@@ -1381,7 +1437,7 @@ class Companion:
         if worn:
             parts.append("요즘 너무 자주 쓴 말(이번엔 피한다): " + ", ".join(worn))
         return "[이번 한마디 — " + " / ".join(parts) + ". 화면과 영 안 맞으면 결은 바꿔도 되지만 최근에 한 말들과 같은 꼴" \
-            "(화면 묘사 + 채팅 반응 요약)은 피한다. 화면에 보이는 걸 설명하는 말로 시작하지 않는다]"
+            "(화면 묘사 + 채팅 반응 요약)은 피한다. 화면에 보이는 걸 설명하는 말로 시작하지 않는다]" + coin
 
     @property
     def name(self) -> str:

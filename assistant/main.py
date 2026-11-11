@@ -311,6 +311,16 @@ class AssistantApp(QObject):
         companion.extra_context = self._game_context
         companion.recaller = self.recall_for_screen
         companion.on_game_knowledge = self._save_game_knowledge  # 주인님이 알려 준 게임 지식 → 게임 사전
+        # 코인: 캐릭터마다 잔액 (주인님만 주고 뺏음). 오갈 때마다 감정이 크게 움직인다
+        from coins import CoinBank
+
+        self.coins = CoinBank(settings.data_dir / "coins.json")
+        companion.coin_feeling = lambda: self.coins.feeling(self.char_key)
+        self._coin_pending = 0  # 현황판에서 연달아 누른 것 (잠깐 모았다가 한 번에 반응)
+        self._coin_timer = QTimer(self)
+        self._coin_timer.setSingleShot(True)
+        self._coin_timer.timeout.connect(self._coin_react)
+        self.coin_board = None
         self.genshin_timer = QTimer(self)
         self.genshin_timer.timeout.connect(lambda: self.refresh_genshin())
         self.genshin_timer.timeout.connect(lambda: self.refresh_starrail())
@@ -398,6 +408,12 @@ class AssistantApp(QObject):
             coach = "analysis" if self.pref("screen.analysis", False) else "off"
         self.set_coach(str(coach), save=False)
         self._register_hotkeys()
+        untold = self.coins.untold(self.char_key)
+        if untold:  # 자리에 없는 사이 코인이 오갔으면 나오자마자 알게 된다
+            total = sum(int(r["delta"]) for r in untold)
+            self.coins.mark_told(self.char_key)
+            if total:
+                QTimer.singleShot(7000, lambda: self._coin_say(total, away=True))
         if settings_flag(self.settings, "update.auto", True):
             QTimer.singleShot(3000, lambda: self.check_update(startup=True))
             self.update_timer.start(round(float(self.settings.get("update.check_hours", 6)) * 3600 * 1000))
@@ -797,6 +813,11 @@ class AssistantApp(QObject):
             self.companion.last_remembered = []
             star = "★ " if any(f["importance"] >= 3 for f in remembered) else ""
             QTimer.singleShot(1500, lambda: self.status.flash(f"{star}기억했어요: {remembered[0]['text'][:24]}", 3))
+        if getattr(reply, "coins", 0):  # 대화로 실제로 코인을 주거나 뺏음
+            moved = self.coins.change(self.char_key, reply.coins, how="chat")
+            if moved:
+                self.status.flash(f"코인 {'+' if moved > 0 else '−'}{abs(moved):,} (지금 {self.coins.balance(self.char_key):,}개)", 4)
+                self._refresh_coin_board()
         self.bubble.show_text(reply.message, self.anchor())
         self.show_overlay(reply.message, important=True)  # 주인님이 직접 말을 건 것의 대답
         self._say_aloud(reply.message)
@@ -1659,6 +1680,8 @@ class AssistantApp(QObject):
                           checkable=True)
                 act.setChecked(key == self.char_key)
                 self.char_actions[key] = act
+            who.addSeparator()
+            add(who, "코인 현황판…", self.show_coin_board)
         menu.addSeparator()
         self.cost_action = info(menu)
         self.screen_action = add(menu, f"화면 보기 ({g('hotkeys.toggle_screen', 'F9')})",
@@ -1734,6 +1757,8 @@ class AssistantApp(QObject):
             tgroup.addAction(act)
             self.talk_actions[style] = act
         self._sync_talk_actions()
+        if len(profiles) <= 1:
+            add(more, "코인 현황판…", self.show_coin_board)
         add(more, "비용 자세히 보기", self.show_cost_details)
         add(more, "설정 파일 열기 (고급)", self.open_settings)
         add(more, "업데이트 확인", lambda: self.check_update(manual=True))
@@ -2165,6 +2190,58 @@ class AssistantApp(QObject):
         from ui.planner_dialog import PlannerDialog
 
         PlannerDialog(self.planner).exec()
+
+    # ------------------------------------------------------------ 코인
+
+    def show_coin_board(self) -> None:
+        from ui.coin_board import CoinBoard
+
+        if self.coin_board is not None and self.coin_board.isVisible():
+            self.coin_board.raise_()
+            self.coin_board.activateWindow()
+            return
+        names = {k: str(p.get("name") or k) for k, p in character_profiles(self.settings).items()}
+        self.coin_board = CoinBoard(names, self.char_key, self.coins, self.coin_change)
+        self.coin_board.show()
+
+    def _refresh_coin_board(self) -> None:
+        if self.coin_board is not None and self.coin_board.isVisible():
+            self.coin_board.refresh()
+
+    def coin_change(self, who: str, delta: int) -> int:
+        """현황판에서 코인을 주거나(+) 뺏는다(-). 지금 나와 있는 캐릭터면 잠깐 모았다가 바로 반응."""
+        here = who == self.char_key
+        moved = self.coins.change(who, delta, how="board", told=here)
+        if moved and here:
+            self._coin_pending += moved
+            self._coin_timer.start(1500)  # 연달아 누르면 다 누른 뒤 한 번에
+        return moved
+
+    def _coin_react(self) -> None:
+        delta, self._coin_pending = self._coin_pending, 0
+        if delta:
+            self._coin_say(delta)
+
+    def _coin_say(self, delta: int, away: bool = False, tries: int = 0) -> None:
+        if self.busy:  # 대화 중이면 조금 뒤에 (코인 일은 꼭 반응한다)
+            if tries < 20:
+                QTimer.singleShot(3000, lambda: self._coin_say(delta, away, tries + 1))
+            return
+        balance = self.coins.balance(self.char_key)
+        self._run(lambda: self.companion.coin_reaction(delta, balance, away=away), self._on_coin_line,
+                  lambda m: log.warning("코인 반응 실패: %s", m))
+
+    def _on_coin_line(self, reply, tries: int = 0) -> None:
+        """코인 반응은 화면 한마디와 달리 입력 중이어도 띄운다 (대화 답을 기다리는 중이면 그 뒤에)."""
+        if self.busy and tries < 20:
+            QTimer.singleShot(2000, lambda: self._on_coin_line(reply, tries + 1))
+            return
+        self.bubble.show_text(reply.message, self.anchor())
+        self.show_overlay(reply.message, important=True)
+        self._say_aloud(reply.message)
+        self.window.set_emotion(reply.emotion)
+        self._start_talking()
+        self._refresh_cost()
 
     def _announce(self, fact: str, tries: int = 0) -> None:
         """레진이 넘치기 직전 같은 일을 다니카가 먼저 말한다 (바쁘면 조금 뒤에)."""
