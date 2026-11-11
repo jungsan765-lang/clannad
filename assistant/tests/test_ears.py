@@ -144,3 +144,27 @@ def test_ears_loop_does_not_open_audio_while_blocked():
     ears.stop()
     assert ears.state == "paused" and opened == [] and ears.status_text() == "디스코드 통화 중이라 쉬는 중"
     assert threading.active_count() >= 1
+
+
+def test_resampling_and_audio_error_is_shown():
+    import time as _time
+
+    import numpy as np
+
+    from watch.ears import GameEars, _to_16k
+
+    assert len(_to_16k(np.zeros(48000, np.float32), 48000)) == 16000
+    assert len(_to_16k(np.zeros(44100, np.float32), 44100)) == 16000  # 44.1k 장치도
+    assert len(_to_16k(np.zeros(16000, np.float32), 16000)) == 16000
+
+    def broken():
+        raise RuntimeError("soundcard: 0x88890008 / pyaudio: PyAudioWPatch 설치 실패")
+
+    ears = GameEars(active=lambda: True, transcribe=lambda a: "", vad=lambda a: [], opener=broken)
+    ears.start()
+    deadline = _time.monotonic() + 3
+    while ears.state != "no_audio" and _time.monotonic() < deadline:
+        _time.sleep(0.05)
+    ears.stop()
+    text = ears.status_text()
+    assert "스피커 소리를 못 받아요 — soundcard: 0x88890008" in text and "Windows 에서만" not in text

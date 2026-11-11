@@ -30,6 +30,7 @@ CONTEXT_MODEL = ""  # 맥락 담당 모델 — 비우면 눈 담당 모델을 �
 OLD_BIG_MODELS = ("gemma3:12b",)  # 예전 기본값: 메모리에 올라가 있으면 내린다
 KEEP_ALIVE = "10m"  # 안 쓰면 이만큼 뒤에 메모리에서 내림 (게임 끝나면 메모리를 돌려줌)
 EMBED_KEEP_ALIVE = "5m"
+EMBED_CTX = 1024  # 기억 검색 모델의 문맥 길이 (짧은 기억 조각만 넣음 — 메모리 절약)
 MEMORY_TIGHT = 93.0  # 메모리를 이만큼(%) 넘게 쓰면 모델을 새로 올리지 않고 쉰다 (게임이 먼저)
 MEMORY_REST = 300.0  # 메모리가 빠듯해서 모델을 내렸으면 이만큼(초) 쉰다
 CPU_LEVELS = {"little": 4, "half": 2, "most": 1}  # 논리 코어 ÷ 이 값 (little 은 최대 4개)
@@ -100,8 +101,9 @@ class LocalAI:
         try:
             if not self._room_for(self.embed_model):
                 return None
-            body = {"model": self.embed_model, "input": list(texts), "keep_alive": EMBED_KEEP_ALIVE,
-                    "options": {"num_thread": self.threads}}
+            # num_ctx: 기억 조각은 짧다. 안 정하면 모델 기본값(bge-m3 8192) × 동시 처리 수만큼 메모리를 잡아 몇 GB 더 쓴다
+            body = {"model": self.embed_model, "input": list(texts), "keep_alive": EMBED_KEEP_ALIVE, "truncate": True,
+                    "options": {"num_thread": self.threads, "num_ctx": EMBED_CTX}}
             r = self.http("POST", "/api/embed", body, timeout=max(timeout, 60.0) if background else timeout)
             vecs = (r or {}).get("embeddings") or []
             self._last_used[self.embed_model] = self.clock()

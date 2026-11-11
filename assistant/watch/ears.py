@@ -40,18 +40,94 @@ def _pip_install(package: str) -> bool:
         return False
 
 
+def _import(module: str, package: str):
+    """없으면 설치하고 불러온다. 설치 직후엔 import 경로 캐시를 비워야 바로 보인다."""
+    import importlib  # noqa: PLC0415
+
+    try:
+        return importlib.import_module(module)
+    except ImportError:
+        if not _pip_install(package):
+            raise RuntimeError(f"{package} 설치 실패") from None
+        importlib.invalidate_caches()
+        return importlib.import_module(module)
+
+
+def _to_16k(mono: np.ndarray, rate: int) -> np.ndarray:
+    if rate == RATE or len(mono) == 0:
+        return mono.astype(np.float32)
+    if rate % RATE == 0:
+        k = rate // RATE
+        n = len(mono) // k * k
+        return mono[:n].reshape(-1, k).mean(axis=1).astype(np.float32)
+    out_n = int(len(mono) * RATE / rate)
+    return np.interp(np.linspace(0, len(mono) - 1, out_n), np.arange(len(mono)), mono).astype(np.float32)
+
+
 def open_loopback():
-    """기본 스피커로 나가는 소리를 받는다 → (읽기 함수(초) → 16kHz 모노, 닫기 함수). Windows 만, 못 하면 None."""
+    """기본 스피커로 나가는 소리를 받는다 → (읽기 함수(초) → 16kHz 모노, 닫기 함수). Windows 만 (다른 곳은 None).
+    soundcard 로 먼저, 안 되면 PyAudioWPatch 로. 둘 다 안 되면 이유를 담아 RuntimeError (설정 창 상태에 보인다)."""
     if sys.platform != "win32":
         return None
+    errors = []
+    for opener in (_open_soundcard, _open_pyaudio):
+        try:
+            return opener()
+        except Exception as exc:  # noqa: BLE001
+            errors.append(f"{opener.__name__.removeprefix('_open_')}: {exc}"[:120])
+            log.warning("스피커 소리 받기 실패 (%s): %r", opener.__name__, exc)
+    raise RuntimeError(" / ".join(errors))
+
+
+def _open_pyaudio():
+    """PyAudioWPatch 의 WASAPI loopback. 소리가 없을 땐 데이터가 안 오니 기다리지 않고 있는 만큼 읽고 나머지는 0으로 채운다."""
+    pyaudio = _import("pyaudiowpatch", "PyAudioWPatch")
+    pa = pyaudio.PyAudio()
     try:
-        import soundcard as sc  # noqa: PLC0415
-    except ImportError:
-        if not _pip_install("soundcard"):
-            return None
-        import soundcard as sc  # noqa: PLC0415
+        try:
+            dev = pa.get_default_wasapi_loopback()
+        except Exception:  # noqa: BLE001 - 예전 버전
+            wasapi = pa.get_host_api_info_by_type(pyaudio.paWASAPI)
+            out = pa.get_device_info_by_index(wasapi["defaultOutputDevice"])
+            dev = next((d for d in pa.get_loopback_device_info_generator() if out["name"] in d["name"]), None)
+        if not dev:
+            raise RuntimeError("기본 스피커의 loopback 장치를 못 찾음")
+        rate, ch = int(dev["defaultSampleRate"]), max(1, int(dev["maxInputChannels"]))
+        stream = pa.open(format=pyaudio.paFloat32, channels=ch, rate=rate, input=True,
+                         input_device_index=int(dev["index"]), frames_per_buffer=int(rate * 0.1))
+    except Exception:
+        pa.terminate()
+        raise
+
+    def read(seconds: float) -> np.ndarray:
+        time.sleep(seconds)
+        want = int(rate * seconds)
+        avail = stream.get_read_available()
+        data = stream.read(min(avail, want * 2), exception_on_overflow=False) if avail else b""
+        arr = np.frombuffer(data, dtype=np.float32)
+        arr = arr[: len(arr) // ch * ch].reshape(-1, ch).mean(axis=1) if len(arr) else np.zeros(0, np.float32)
+        if len(arr) < want:  # 조용한 동안은 소리 데이터가 안 온다 → 0 으로 채워 시간이 흐르게
+            arr = np.concatenate([np.zeros(want - len(arr), np.float32), arr])
+        return _to_16k(arr, rate)
+
+    def close() -> None:
+        try:
+            stream.stop_stream()
+            stream.close()
+        finally:
+            pa.terminate()
+
+    log.info("PC 소리 듣기 (PyAudioWPatch): %s", dev.get("name"))
+    return read, close
+
+
+def _open_soundcard():
+    sc = _import("soundcard", "soundcard")
     speaker = sc.default_speaker()
-    mic = sc.get_microphone(id=str(speaker.name), include_loopback=True)
+    try:  # 같은 장치의 loopback (ID 가 정확, 안 되면 이름으로)
+        mic = sc.get_microphone(id=str(speaker.id), include_loopback=True)
+    except Exception:  # noqa: BLE001
+        mic = sc.get_microphone(id=str(speaker.name), include_loopback=True)
     rec = mic.recorder(samplerate=48000, channels=2, blocksize=4800)
     rec.__enter__()
 
@@ -68,7 +144,7 @@ def open_loopback():
         except Exception:  # noqa: BLE001
             pass
 
-    log.info("게임 소리 듣기: %s", speaker.name)
+    log.info("PC 소리 듣기 (soundcard): %s", speaker.name)
     return read, close
 
 
@@ -116,6 +192,7 @@ class GameEars:
         self.opener = opener or open_loopback
         self.enabled = True
         self.state = "off"  # off · no_audio · listening
+        self.audio_error = ""  # 스피커 소리를 못 받는 이유 (설정 창 상태에 보인다)
         self.events: deque[tuple[float, str, str]] = deque(maxlen=40)  # (시각, '소리', 글)
         self.alert_at: float | None = None
         self.heard = 0
@@ -137,7 +214,10 @@ class GameEars:
             return "꺼짐"
         if self.state == "paused":
             return f"{self.block_reason}이라 쉬는 중"
-        return {"off": "화면 보기가 꺼져 있거나 자리를 비워서 쉬는 중", "no_audio": "스피커 소리를 못 받아요 (Windows 에서만 돼요)",
+        if self.state == "no_audio":
+            return ("스피커 소리를 못 받아요" + (f" — {self.audio_error}" if self.audio_error else " (Windows 에서만 돼요)")
+                    + ". 1분 뒤 다시 해 봐요")
+        return {"off": "화면 보기가 꺼져 있거나 자리를 비워서 쉬는 중",
                 "listening": f"듣는 중 — 지금까지 대사 {self.heard}번 받아씀"}.get(self.state, self.state)
 
     # ------------------------------------------------------------ 소리 넣기 (0.5초씩)
@@ -279,8 +359,10 @@ class GameEars:
             if stream is None:
                 try:
                     stream = self.opener()
+                    self.audio_error = ""
                 except Exception as exc:  # noqa: BLE001
-                    log.warning("게임 소리를 못 받음: %r", exc)
+                    log.warning("PC 소리를 못 받음: %r", exc)
+                    self.audio_error = str(exc)[:200]
                     stream = None
                 if stream is None:
                     self.state = "no_audio"
