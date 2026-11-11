@@ -410,9 +410,12 @@ class ScreenWatcher(QObject):
         self.stats["ticks"] += 1
         self.check_stuck()
         self.update_mode()
-        # 촘촘히 보기: 볼 수 있을 때만 0.5초마다 찍는다 (자리 비움·한도·보지 말라는 창이면 쉼)
-        self.sampler.set_active(self.enabled and self.dense_active(self.mode) and self.can_run()
-                                and not self.blocked_word(self.process, self.window_title))
+        # 0.5초 찍기는 공짜라 화면 보기가 켜져 있는 동안 늘 한다 (말하는 중·말풍선·게임 밖이어도).
+        # 멈추는 건 화면 보기를 껐을 때와 '아예 보지 마' 한 창이 앞에 있을 때뿐. AI 판단에 흐름을 붙이는 건 촘촘히 보기 모드일 때
+        if self.cfg.dense != "off":
+            self.sampler.set_active(self.enabled and not self.blocked_word(self.process, self.window_title))
+        else:
+            self.sampler.set_active(False)
         if self.running_job or not self.can_run():
             return
         word = self.blocked_word(self.process, self.window_title)

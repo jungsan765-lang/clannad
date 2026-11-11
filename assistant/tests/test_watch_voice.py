@@ -867,3 +867,18 @@ def test_routine_screen_line_is_lightweight(tmp_path):
 
     img = next(b for b in call["messages"][-1]["content"] if b.get("type") == "image")
     assert _Image.open(io.BytesIO(base64.b64decode(img["source"]["data"]))).width == 1280
+
+
+def test_capturing_keeps_running_while_talking_or_outside_games(qapp, tmp_path):
+    w, comp, said, t, state = _watcher(tmp_path)
+    w.cfg.dense = "game"
+    calls = []
+    w.sampler.set_active = lambda on: calls.append(on)
+    w.timer.start(1000)
+    w.can_run = lambda: False  # 말하는 중·말풍선이 떠 있음
+    w.tick()
+    assert calls[-1] is True  # 평소 모드·말하는 중이어도 계속 찍음
+    w.companion.memory.add_rule("전체", "VS Code", kind="skip")  # 보지 말라고 한 창이 앞에 → 멈춤
+    w.tick()
+    assert calls[-1] is False
+    w.timer.stop()
