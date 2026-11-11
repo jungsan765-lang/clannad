@@ -205,3 +205,31 @@ def test_overused_words_are_named_so_the_next_line_avoids_them():
     worn = overused_words(lines)
     assert "흥(말 시작 2번)" in worn and "채팅(3번)" in worn  # '채팅은·채팅이'도 같은 말로 센다
     assert overused_words(["오늘은 맑네.", "디저트 먹고 싶다."]) == []
+
+
+def test_reactions_file_next_to_persona_feeds_the_ingredients(tmp_path):
+    from PySide6.QtWidgets import QApplication
+
+    import main as app_main
+    from ai_client import AIClient
+    from fake_anthropic import FakeAnthropic
+    from usage import UsageLedger
+
+    app = QApplication.instance() or QApplication([])  # noqa: F841
+    char = tmp_path / "char"
+    char.mkdir()
+    (char / "persona.md").write_text("# 다니카\n## 4. 말투 규칙\n- 존댓말\n", encoding="utf-8")
+    (char / "reactions.md").write_text("## 1. 반응의 결\n- 보고: 담담하게 짚는다\n- 크흠: 웃음을 참는다\n"
+                                       "## 2. 기분\n- 평온: 차분하다\n", encoding="utf-8")
+    (tmp_path / "config.toml").write_text(
+        f'[app]\ndata_dir = "{(tmp_path / "data").as_posix()}"\n'
+        f'[character]\nfolder = "missing"\npersona = "{(char / "persona.md").as_posix()}"\nscale = 0.5\n'
+        '[update]\nauto = false\n[memory]\ndiary = false\n[local]\nenabled = false\npaddle_ocr = false\n'
+        '[ears]\nenabled = false\n', encoding="utf-8")
+    a = app_main.build(Settings.load(tmp_path), ai=AIClient(UsageLedger(tmp_path / "x.json"), client=FakeAnthropic([])),
+                       tray=False)
+    text = a.companion.flavor()
+    assert ("결: 보고" in text or "결: 크흠" in text) and "지금 기분: 평온" in text
+    assert not any(e.title.startswith("1. 반응의 결") for e in a.companion.lorebook.entries)  # 사전에는 안 들어감
+    assert "반응의 결" not in json.dumps(a.companion.system_blocks(), ensure_ascii=False)  # 성격 프롬프트에도 통째로는 안 들어감
+    a.quit()

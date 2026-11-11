@@ -2918,6 +2918,8 @@ def build(settings: Settings, ai: AIClient | None = None, tray: bool = True) -> 
     extra = [settings.root / Path(p) if not Path(p).is_absolute() else Path(p)
              for p in (settings.get("character.lore_dirs") or [])]  # 캐릭터 프로필: 사전 폴더 여러 개
     char_dirs = extra or ([lore_dir] if lore_dir else ([persona_path.parent, persona_path.parent / "lore"] if persona_path else []))
+    if persona_path:  # 반응 재료(결·기분·화제·말 모양·꽂힐 곳)는 성격 파일 옆 reactions.md 에 따로 둘 수 있다
+        companion.reactions = Companion.read_persona(persona_path.with_name("reactions.md")) or ""
     companion.lore_dirs = [*char_dirs, settings.root / "knowledge", data / "knowledge"]
     companion.reload_lore()
     folder = settings.path("character.folder")

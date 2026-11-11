@@ -37,7 +37,7 @@ class LoreBook:
         self.entries = entries or []
 
     @classmethod
-    def load(cls, *folders: Path | None, skip: tuple[str, ...] = ("persona.md", "lore.md")) -> "LoreBook":
+    def load(cls, *folders: Path | None, skip: tuple[str, ...] = ("persona.md", "lore.md", "reactions.md")) -> "LoreBook":
         entries: list[Entry] = []
         files = 0
         for folder in folders:

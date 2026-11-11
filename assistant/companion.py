@@ -837,6 +837,7 @@ class Companion:
         self._forms_recent: deque[str] = deque(maxlen=3)
         self._topics_recent: deque[str] = deque(maxlen=6)
         self._focus_recent: deque[str] = deque(maxlen=3)
+        self.reactions = ""  # 반응 재료 파일 (성격 파일 옆 reactions.md — 성격 파일을 안 건드리고 재료만 따로)
         self._mood: tuple[str, str] | None = None  # 한동안 이어지는 기분 (성격 파일의 '기분' 절)
         self._mood_until = 0.0
         self.clock = time.monotonic
@@ -1265,6 +1266,10 @@ class Companion:
                                   timeout=20)
         return r.data, r.usd
 
+    def _flavor_text(self) -> str:
+        """반응 재료를 읽을 글: 성격 파일 옆 reactions.md(있으면 먼저) + 성격 파일."""
+        return (getattr(self, "reactions", "") or "") + "\n" + (self.persona or "")
+
     def _pick(self, items: list[tuple[str, str]], recent: deque) -> tuple[str, str]:
         """최근에 쓴 것을 되도록 많이 피해서 하나 (목록이 짧으면 가장 최근 것들만 피함)."""
         options = items
@@ -1280,11 +1285,11 @@ class Companion:
 
     def pick_angle(self) -> tuple[str, str]:
         """이번 화면 한마디의 결 (최근 두 번과 다른 것 중 하나)."""
-        return self._pick(persona_angles(self.persona), self._angles_recent)
+        return self._pick(persona_angles(self._flavor_text()), self._angles_recent)
 
     def mood(self) -> tuple[str, str] | None:
         """지금 기분 (성격 파일에 '기분' 절이 있을 때만). 15~40분쯤 이어지다 다른 기분으로."""
-        moods = persona_items(self.persona, "기분")
+        moods = persona_items(self._flavor_text(), "기분")
         if not moods:
             return None
         now = self.clock()
@@ -1297,14 +1302,14 @@ class Companion:
     def flavor(self) -> str:
         """화면 한마디 재료: 결 × 말 모양 × 기분 × 떠올릴 거리 (조합이 수천 가지라 매번 신선하게)."""
         angle, how = self.pick_angle()
-        form, shape = self._pick(persona_items(self.persona, "말 모양") or DEFAULT_FORMS, self._forms_recent)
-        focus, where = self._pick(persona_items(self.persona, "꽂힐 곳") or DEFAULT_FOCUS, self._focus_recent)
+        form, shape = self._pick(persona_items(self._flavor_text(), "말 모양") or DEFAULT_FORMS, self._forms_recent)
+        focus, where = self._pick(persona_items(self._flavor_text(), "꽂힐 곳") or DEFAULT_FOCUS, self._focus_recent)
         parts = [f"결: {angle} — {how}", f"모양: {form}" + (f" — {shape}" if shape else ""),
                  f"꽂힐 곳: {focus}" + (f" — {where}" if where else "")]
         mood = self.mood()
         if mood:
             parts.append(f"지금 기분: {mood[0]}" + (f" — {mood[1]}" if mood[1] else "") + " (한동안 이어지는 기분, 말투 온도에 묻어나게)")
-        topics = persona_items(self.persona, "화제")
+        topics = persona_items(self._flavor_text(), "화제")
         if topics and self._rng.random() < 0.45:
             topic, about = self._pick(topics, self._topics_recent)
             parts.append(f"떠올릴 거리: {topic}" + (f" — {about}" if about else "") + " (자연스러우면만 엮는다. 억지로 끼우지 않는다)")
