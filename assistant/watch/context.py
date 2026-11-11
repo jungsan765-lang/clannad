@@ -1,7 +1,7 @@
 """맥락 담당: 게임 중 내 PC AI 가 화면을 계속 지켜보며 '지금까지 흐름'을 이어 적는다 (공짜).
 
 판단 담당은 5초마다 최근 몇 초만 보니, 조금 전에 무슨 일이 있었는지(누구와 무슨 이야기를 했는지, 왜 싸우는지)를 놓친다.
-맥락 담당은 20초쯤마다 지난 구간 사진 몇 장과 그 사이 자막·대사 글, 이전 흐름을 받아 흐름을 고쳐 쓴다.
+맥락 담당은 10초쯤마다(한 번에 그보다 오래 걸리면 쉬지 않고 이어서) 지난 구간 사진 몇 장과 그 사이 자막·대사 글, 이전 흐름을 받아 흐름을 고쳐 쓴다.
 그 글을 판단·말하기 담당에게 붙여 준다. 작은 AI 라 틀릴 수 있다고 함께 적는다.
 급한 일(눈 담당 등)이 돌거나 기다리면 이번 차례는 건너뛴다. 게임이 바뀌면 처음부터.
 """
@@ -33,7 +33,7 @@ CONTEXT_TASK = """# 할 일: 맥락 담당 — 게임 흐름 이어 적기
 
 
 class ContextKeeper:
-    def __init__(self, local, sampler, clock: Callable[[], float] = time.monotonic, every: float = 20.0,
+    def __init__(self, local, sampler, clock: Callable[[], float] = time.monotonic, every: float = 10.0,
                  shrink: Callable[[bytes, int], bytes] | None = None):
         self.local = local  # local_ai.LocalAI
         self.sampler = sampler
