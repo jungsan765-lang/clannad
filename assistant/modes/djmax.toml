@@ -6,6 +6,7 @@ interval_seconds = 15
 cooldown_seconds = 60
 quiet_during_play = true
 review_on_result = true
+pad = false  # 패드 없이 하는 게임: 키보드·마우스를 20분 안 만지면 자리 비움(화면 보기 쉼)
 spike = "off"  # 늘 번쩍이는 리듬 게임: 5초 박자대로만
 knowledge = """DJMAX RESPECT V: 리듬 게임. 버튼 수(4B·5B·6B·8B)와 난이도별로 곡을 플레이하고, 결과 화면에 판정 비율(RATE), 콤보, BREAK 등이 나온다.
 - 곡을 플레이하는 중에는 절대 말 걸지 않는다(집중 방해).

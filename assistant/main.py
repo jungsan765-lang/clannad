@@ -60,7 +60,7 @@ from watch.modes import load_modes, save_mode
 from pc_monitor import PC_WORDS, PcMonitor
 from pc_monitor import read_status as read_pc_status
 from pc_monitor import status_text as pc_status_text
-from idle import idle_seconds
+from idle import PadWatch, idle_seconds
 from planner import Planner
 from progress import Progress
 from recall import RECALL_INTENT, EpisodeIndex, recall_block
@@ -160,6 +160,7 @@ class AssistantApp(QObject):
         self._last_clip = -1e9
         self._last_pet = -1e9
         self.idle_seconds = idle_seconds  # 테스트에서 바꿔 끼움
+        self.pad_watch = PadWatch()  # 게임패드(XInput)를 마지막으로 만진 뒤 지난 초 (패드가 없으면 None)
         self.clock = time.monotonic
         self._away_since: float | None = None  # 자리 비운 때 (자는 중 등)
         self.away_timer = QTimer(self)
@@ -2078,22 +2079,26 @@ class AssistantApp(QObject):
 
         self._run(work, done, fail)
 
-    AWAY_MINUTES = 20  # 키보드·마우스를 이만큼 안 만지면 자리 비움 (게임 중엔 패드일 수 있어 빼고)
+    AWAY_MINUTES = 20  # 키보드·마우스·패드를 이만큼 안 만지면 자리 비움
+    AWAY_PAD_UNKNOWN_MINUTES = 60  # 패드로도 하는 게임인데 패드(XInput)가 안 잡히면 (다른 종류 패드일 수 있어) 넉넉히
     LONG_AWAY_HOURS = 3  # 이만큼 비웠다 돌아오면 (자고 일어남) 오늘 브리핑
 
     def check_away(self) -> None:
-        """30초마다: 자리 비움이면 화면 보기를 쉬고, 오래 비웠다 돌아오면 그때 브리핑한다. 쉬는 이유 표시도 갱신."""
+        """30초마다: 자리 비움이면 화면 보기를 쉬고, 오래 비웠다 돌아오면 그때 브리핑한다. 쉬는 이유 표시도 갱신.
+        게임 중이어도 자리 비움을 건다 (예전엔 패드 때문에 게임 중엔 안 걸어서, 칸코레를 켜 둔 채 출근하면 오후 내내 화면을 봤다).
+        패드(XInput)를 만져도 입력으로 친다. 패드로도 하는 게임인데 패드가 안 잡히면 60분 기준."""
         self._update_pause_status()
         idle = self.idle_seconds()
+        pad = self.pad_watch.poll()
+        if pad is not None:
+            idle = min(idle, pad)
         now = self.clock()
-        if self._away_since is not None and self.watcher.mode.is_game:  # 패드로만 게임해도 자리 비움 아님
-            log.info("게임 중이라 자리 비움을 풂")
-            self._away_since = None
-            self._update_pause_status()
-            return
+        mode = self.watcher.mode
+        limit = self.AWAY_MINUTES
+        if mode.is_game and getattr(mode, "pad", True) and pad is None:
+            limit = self.AWAY_PAD_UNKNOWN_MINUTES
         if self._away_since is None:
-            if (idle >= self.AWAY_MINUTES * 60 and not self.watcher.mode.is_game
-                    and self.pref("assist.pause_when_away", True)):
+            if idle >= limit * 60 and self.pref("assist.pause_when_away", True):
                 self._away_since = now - idle
                 log.info("자리 비움 (%.0f분째 입력 없음) → 화면 보기 쉼", idle / 60)
                 self._update_pause_status()

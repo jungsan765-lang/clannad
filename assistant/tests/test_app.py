@@ -1352,10 +1352,37 @@ def test_away_clears_when_gaming_and_pause_reason_is_shown(qapp, tmp_path, built
     a.check_away()
     assert a._away_since is not None and "자리 비움" in a.screen_pause_reason()
     assert "화면 쉼: 자리 비움" in a.status.current_text()
-    a.watcher.mode = Mode("붉은사막", is_game=True)  # 패드로만 게임 (마우스·키보드 입력 없음)
+    a.watcher.mode = Mode("칸코레", is_game=True, pad=False)  # 게임을 켜 둔 채 자리를 떠도 자리 비움은 그대로
+    a.check_away()
+    assert a._away_since is not None
+    t["idle"] = 5  # 마우스를 만지면 돌아옴
     a.check_away()
     assert a._away_since is None and a.screen_pause_reason() == ""
     assert "화면 쉼" not in a.status.current_text()
+    pad = {"t": 0.0, "packets": {}}
+    from idle import PadWatch
+
+    a.pad_watch = PadWatch(read=lambda: pad["packets"], clock=lambda: pad["t"])
+    a.watcher.mode = Mode("붉은사막", is_game=True)  # 패드로도 하는 게임
+    t["now"], t["idle"] = 3000.0, 25 * 60  # 패드가 안 잡히면 (다른 종류 패드일 수 있어) 60분까지는 기다림
+    a.check_away()
+    assert a._away_since is None
+    t["now"], t["idle"] = 6000.0, 61 * 60
+    a.check_away()
+    assert a._away_since is not None
+    t["idle"] = 5
+    a.check_away()
+    pad["packets"] = {0: 100}  # 엑스박스 패드: 키보드·마우스는 안 만져도 패드를 만지고 있으면 자리 비움 아님
+    a.check_away()
+    pad["t"], pad["packets"] = 1500.0, {0: 180}
+    t["now"], t["idle"] = 9000.0, 30 * 60
+    a.check_away()
+    assert a._away_since is None
+    pad["t"] = 1500.0 + 21 * 60  # 패드도 21분째 그대로 → 자리 비움
+    a.check_away()
+    assert a._away_since is not None
+    t["idle"] = 5
+    a.check_away()
     a.ledger.record("claude-haiku-5-5", {"input_tokens": 30_000_000}, "judge")  # 3달러 ≈ 4,200원
     assert a.screen_pause_reason() == ""  # 기본은 알리기만 → 쉬지 않음
     a.set_pref("screen.limit_stop", True)

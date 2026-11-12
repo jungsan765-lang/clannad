@@ -7,6 +7,7 @@ interval_seconds = 20
 cooldown_seconds = 60
 review_on_result = true
 pick_advice = true
+pad = false  # 패드 없이 하는 게임: 키보드·마우스를 20분 안 만지면 자리 비움(화면 보기 쉼)
 spike = "color"  # 3인칭 시점: 화면 돌리기는 무시, 죽음(회색 화면)·부활·결과 전환은 바로
 knowledge = """사이퍼즈: 넥슨·네오플의 팀 대전 액션 게임(공성전: 타워를 부수고 HQ 파괴). 판 안에서 모은 코인으로 전투 장비를 산다.
 2026-08 부터 옛 포지션 대신 역할군 7종(뱅가드·스트라이커·스커미셔·리퍼·레인저·아틸러리·컨트롤러).

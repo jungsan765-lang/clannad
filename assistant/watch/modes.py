@@ -48,6 +48,7 @@ class Mode:
     spike_level: float = 0.0
     spike_busy: int = 3
     is_game: bool = False
+    pad: bool = True  # 패드로도 하는 게임 (false: 마우스·키보드만 → 자리 비움을 키보드·마우스로만 판단)
 
     def matches(self, process: str, title: str) -> bool:
         p = (process or "").lower()
@@ -95,7 +96,7 @@ def load_modes(folder: Path) -> list[Mode]:
                 urgent=str(d.get("urgent", "")).strip(),
                 spike=_spike(d.get("spike")), spike_level=max(0.0, _num(d.get("spike_level"), 0.0)),
                 spike_busy=max(0, int(_num(d.get("spike_busy"), 3))),
-                is_game=True,
+                is_game=True, pad=bool(d.get("pad", True)),
             ))
     return modes
 
