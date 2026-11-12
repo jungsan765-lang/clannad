@@ -31,6 +31,32 @@ def test_cost_and_ledger(tmp_path):
     assert led.krw(0.012) == 17
 
 
+def test_cost_counts_fast_mode_long_haiku_declined_attempts_and_calibration(tmp_path):
+    from types import SimpleNamespace
+
+    from ai_client import _declined_attempts, _usage_dict
+
+    assert cost_usd("claude-opus-5-5", {"output_tokens": 1_000_000, "fast_calls": 1}) == pytest.approx(40.0)  # 빠른 모드 2배
+    assert cost_usd("claude-haiku-5-5", {"input_tokens": 200_000}) == pytest.approx(0.1)  # 10만 넘으면 5배
+    assert cost_usd("claude-haiku-5-5", {"input_tokens": 90_000}) == pytest.approx(0.009)
+    fast = SimpleNamespace(input_tokens=10, output_tokens=5, cache_read_input_tokens=0, cache_creation_input_tokens=0,
+                           speed="fast")
+    assert _usage_dict(fast)["fast_calls"] == 1
+    attempt = lambda model, n, kind: SimpleNamespace(type=kind, model=model, input_tokens=n, output_tokens=n,  # noqa: E731
+                                                     cache_read_input_tokens=0, cache_creation_input_tokens=0)
+    resp = SimpleNamespace(model="claude-opus-4-8", usage=SimpleNamespace(
+        input_tokens=500, output_tokens=50, cache_read_input_tokens=0, cache_creation_input_tokens=0,
+        iterations=[attempt("claude-opus-5-5", 300, "message"), attempt("claude-opus-4-8", 500, "fallback_message")]))
+    assert _declined_attempts(resp, "claude-opus-5-5") == [("claude-opus-5-5", _usage_dict(resp.usage.iterations[0]))]
+    led = UsageLedger(tmp_path / "usage.json")
+    d = date(2026, 11, 12)
+    led.record("claude-opus-5-5", {"input_tokens": 1_000_000}, "chat", d)  # 앱이 센 것 $4
+    assert led.calibrate(10.0, d) == pytest.approx(6.0) and led.month_usd(d) == pytest.approx(10.0)
+    assert UsageLedger(tmp_path / "usage.json").month_usd(d) == pytest.approx(10.0)  # 저장됨
+    assert led.calibrate(1.0, d) == 0.0 and led.month_usd(d) == pytest.approx(4.0)  # 콘솔이 늦게 반영돼 작으면 앱 금액
+    assert led.month_usd(date(2026, 12, 1)) == 0.0  # 다음 달엔 새로
+
+
 # ---------------------------------------------------------------- API 호출 모양
 
 

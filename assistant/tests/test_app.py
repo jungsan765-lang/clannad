@@ -136,6 +136,10 @@ def test_budget_in_usd_with_credit_notice(qapp, tmp_path, built, monkeypatch):
     assert a.companion.speak_cap == "claude-sonnet-5-5" and "말하기는 Sonnet" in a.cost_text()
     a.apply_settings({"budget.after_credit": "sonnet"})
     assert a.companion.speak_cap == ""
+    del a.ledger.month_usd  # 위에서 바꿔 끼운 것을 원래대로
+    a.calibrate_cost(101.0)  # 콘솔에서 본 실제 금액으로 맞추면 크레딧을 넘은 걸로 판단
+    assert a.ledger.month_usd() == pytest.approx(101.0) and a.companion.speak_cap == "claude-sonnet-5-5"
+    assert "콘솔 금액에 맞춘 차이" in a.cost_details()
     a.ledger.month_usd = lambda today=None: 125.0  # 예산 80% 넘김
     a._budget_warning()
     assert any("83%" in t for t in shown)
@@ -1251,7 +1255,7 @@ def test_cost_details_by_kind(qapp, tmp_path, built):
     a.ledger.record("claude-opus-5-5", {"input_tokens": 500_000}, "analysis")
     a.ledger.record("claude-haiku-5-5", {"input_tokens": 1_000_000}, "judge")
     text = a.cost_details()
-    assert text.index("분석·복기: 2,800원") < text.index("화면 판단: 140원") and "[이번 달]" in text
+    assert text.index("분석·복기: 2,800원") < text.index("화면 판단: 700원") and "[이번 달]" in text  # Haiku 한 번에 10만 넘으면 5배
     a.quit()
 
 
@@ -1397,7 +1401,7 @@ def test_away_clears_when_gaming_and_pause_reason_is_shown(qapp, tmp_path, built
     assert asked == [f"{a.char_name}, 나 왔어"]
     t["idle"] = 5
     a.check_away()
-    a.ledger.record("claude-haiku-5-5", {"input_tokens": 30_000_000}, "judge")  # 3달러 ≈ 4,200원
+    a.ledger.record("claude-sonnet-5-5", {"input_tokens": 1_500_000}, "judge")  # 3달러 ≈ 4,200원
     assert a.screen_pause_reason() == ""  # 기본은 알리기만 → 쉬지 않음
     a.set_pref("screen.limit_stop", True)
     assert "오늘 화면 한도(3,000원)" in a.screen_pause_reason()

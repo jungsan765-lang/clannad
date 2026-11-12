@@ -128,6 +128,9 @@ class AIClient:
         usage = _usage_dict(response.usage)
         served = getattr(response, "model", model) or model
         usd = self.ledger.record(served, usage, kind, images=_count_images(messages))
+        for tried, u in _declined_attempts(response, model):  # 거절된 앞 시도도 돈이 나간다
+            log.info("거절된 시도도 기록: %s (%s)", tried, kind)
+            usd += self.ledger.record(tried, u, kind)
         text = next((b.text for b in response.content if getattr(b, "type", "") == "text"), "")
         stop = getattr(response, "stop_reason", None)
         if stop == "refusal":
@@ -191,6 +194,8 @@ class AIClient:
             _log_call(kind, response, started)
             served = getattr(response, "model", model) or model
             usd += self.ledger.record(served, _usage_dict(response.usage), kind)
+            for tried, u in _declined_attempts(response, model):
+                usd += self.ledger.record(tried, u, kind)
             if getattr(response, "stop_reason", None) != "pause_turn":
                 break
             request["messages"] = request["messages"] + [{"role": "assistant", "content": response.content}]
@@ -256,6 +261,23 @@ def _usage_dict(usage: Any) -> dict:
     searches = int(getattr(getattr(usage, "server_tool_use", None), "web_search_requests", 0) or 0)
     if searches:
         out["web_search_requests"] = searches
+    if str(getattr(usage, "speed", "") or "") == "fast":  # 빠른 모드로 돌았으면 값이 2배
+        out["fast_calls"] = 1
+    return out
+
+
+def _declined_attempts(response: Any, requested: str) -> list[tuple[str, dict]]:
+    """거절돼서 다른 모델로 다시 돌렸을 때, 돌려받은 답 앞의 시도들 [(모델, 사용량)].
+    맨 위 usage 는 답을 낸 마지막 시도만 담고, 앞 시도(거절된 것)는 usage.iterations 에만 있다 — 이것도 청구된다."""
+    usage = getattr(response, "usage", None)
+    its = list(getattr(usage, "iterations", None) or [])
+    out = []
+    for it in its[:-1]:
+        u = _usage_dict(it)
+        if not any(v for k, v in u.items() if k != "fast_calls"):
+            continue
+        model = str(getattr(it, "model", "") or "") or requested
+        out.append((model, u))
     return out
 
 

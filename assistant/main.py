@@ -1766,6 +1766,7 @@ class AssistantApp(QObject):
         if len(profiles) <= 1:
             add(more, "코인 현황판…", self.show_coin_board)
         add(more, "비용 자세히 보기", self.show_cost_details)
+        add(more, "실제 사용액 맞추기 (콘솔 금액)…", self.calibrate_cost)
         add(more, "설정 파일 열기 (고급)", self.open_settings)
         add(more, "업데이트 확인", lambda: self.check_update(manual=True))
         add(more, "다시 시작 (설정·업데이트 적용)", self.restart)
@@ -1805,6 +1806,10 @@ class AssistantApp(QObject):
     def cost_details(self) -> str:
         """어디에 얼마 썼는지 (오늘·이번 달, 많이 쓴 것부터)."""
         lines = []
+        extra = float(self.ledger.data.get("adjust", {}).get(self.ledger_month(), 0.0))
+        if extra:
+            lines.append(f"[이번 달] 콘솔 금액에 맞춘 차이 +{self.ledger.krw(extra):,}원 (${extra:,.2f}, 앱이 못 센 것)")
+            lines.append("")
         for title, data in (("오늘", self.ledger.by_kind()), ("이번 달", self.ledger.by_kind(month=True))):
             total = sum(data.values())
             lines.append(f"[{title}] 합계 {self.ledger.krw(total):,}원")
@@ -1823,6 +1828,25 @@ class AssistantApp(QObject):
             if st["fails"]:
                 lines.append("  실패: " + ", ".join(f"{KIND_KO.get(k, k)} {v}번" for k, v in st["fails"].items()))
         return "\n".join(lines).strip()
+
+    def calibrate_cost(self, value: float | None = None) -> None:
+        """Claude 콘솔(실제 청구)에서 본 이번 달 금액을 넣으면 앱의 이번 달 금액을 그만큼 맞춘다 (앱이 못 센 것까지).
+        크레딧·예산 알림과 '크레딧 다 쓴 뒤 말하기'가 이 금액으로 판단한다."""
+        if value is None:
+            from PySide6.QtWidgets import QInputDialog
+
+            value, ok = QInputDialog.getDouble(None, "실제 사용액 맞추기",
+                                               "Claude 콘솔 › 비용에서 본 이번 달 총 비용($)을 넣어 주세요.\n"
+                                               "(콘솔은 몇 시간 늦게 반영돼요. 앱보다 작으면 앱 금액을 그대로 써요.)",
+                                               round(self.ledger.month_usd(), 2), 0.0, 100000.0, 2)
+            if not ok:
+                return
+        extra = self.ledger.calibrate(float(value))
+        self._apply_speak_cap()
+        self._refresh_cost()
+        self._budget_warning()
+        self.bubble.show_text(f"이번 달 금액을 ${self.ledger.month_usd():,.2f}로 맞췄어요 (앱이 못 센 것 ${extra:,.2f}).",
+                              self.anchor(), system=True, seconds=5)
 
     def show_cost_details(self) -> None:
         QMessageBox.information(None, "비용 자세히", self.cost_details() + "\n\n화면 판단·화면 대사·분석·복기·총평은 "

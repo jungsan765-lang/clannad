@@ -28,9 +28,19 @@ def price_for(model: str) -> tuple[float, float, float, float]:
     return UNKNOWN_PRICE
 
 
+HAIKU_LONG = 100_000  # Haiku 5.5 는 한 번에 보내는 양이 이걸 넘으면 모든 값이 5배
+
+
 def cost_usd(model: str, usage: dict) -> float:
     pin, pout, pread, pwrite = price_for(model)
-    return (
+    prompt = (usage.get("input_tokens", 0) + usage.get("cache_read_input_tokens", 0)
+              + usage.get("cache_creation_input_tokens", 0) + usage.get("cache_creation_1h_input_tokens", 0))
+    times = 1.0
+    if model.startswith("claude-haiku-5-5") and prompt > HAIKU_LONG:
+        times *= 5
+    if usage.get("fast_calls"):  # 빠른 모드 = 모든 토큰 값 2배 (Opus 5.5: $8/$40)
+        times *= 2
+    return times * (
         usage.get("input_tokens", 0) * pin
         + usage.get("output_tokens", 0) * pout
         + usage.get("cache_read_input_tokens", 0) * pread
@@ -121,8 +131,21 @@ class UsageLedger:
         return out
 
     def month_usd(self, today: date | None = None) -> float:
+        """이번 달 쓴 돈 (+ 콘솔 실제 금액으로 맞춘 차이)."""
         prefix = (today or date.today()).isoformat()[:7]
-        return sum(d["usd"] for k, d in self.data["days"].items() if k.startswith(prefix))
+        counted = sum(d["usd"] for k, d in self.data["days"].items() if k.startswith(prefix))
+        return counted + float(self.data.get("adjust", {}).get(prefix, 0.0))
+
+    def calibrate(self, actual_usd: float, today: date | None = None) -> float:
+        """콘솔(실제 청구)에서 본 이번 달 금액에 맞춘다. 앱이 못 센 만큼(또는 더 센 만큼)을 이번 달 차이로 적어 두고 돌려준다.
+        콘솔은 몇 시간 늦게 반영되니, 맞출 땐 콘솔 금액이 앱보다 작으면 앱 쪽을 믿는다 (차이는 0 아래로 안 내림)."""
+        prefix = (today or date.today()).isoformat()[:7]
+        with self._lock:
+            adjust = self.data.setdefault("adjust", {})
+            counted = sum(d["usd"] for k, d in self.data["days"].items() if k.startswith(prefix))
+            adjust[prefix] = max(0.0, float(actual_usd) - counted)
+            self._save()
+            return adjust[prefix]
 
     def krw(self, usd: float) -> int:
         return round(usd * self.krw_per_usd)
