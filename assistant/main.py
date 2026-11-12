@@ -1280,6 +1280,11 @@ class AssistantApp(QObject):
     def _on_heard(self, text: str) -> None:
         log.info("들은 말: %s", text)
         self.status.end("voice")
+        if (self._away_since is not None and self.voice.mode == "always" and not self.voice.wake_word
+                and self.char_name not in text):
+            # 자리 비움인데 '항상 듣기'면 TV·방송 소리도 다 대화가 되어 돈이 나간다 → 이름을 부른 말만 받는다
+            log.info("자리 비움이라 이름을 안 부른 말은 넘김: %s", text[:40])
+            return
         self.ask(text)
 
     # ------------------------------------------------------------ 단축키
@@ -2251,7 +2256,11 @@ class AssistantApp(QObject):
         self._refresh_cost()
 
     def _announce(self, fact: str, tries: int = 0) -> None:
-        """레진이 넘치기 직전 같은 일을 다니카가 먼저 말한다 (바쁘면 조금 뒤에)."""
+        """레진이 넘치기 직전 같은 일을 다니카가 먼저 말한다 (바쁘면 조금 뒤에).
+        자리 비움이면 말하지 않는다 — 들을 사람이 없는데 한 번에 수십~수백 원 (돌아오면 브리핑이 따로 있다)."""
+        if self._away_since is not None:
+            log.info("자리 비움이라 알림을 말하지 않음: %s", fact[:60])
+            return
         if self.busy or (self.bubble.isVisible() and not self.bubble.system):  # 안내 말풍선은 덮어써도 됨
             if tries < 10:
                 QTimer.singleShot(60_000, lambda: self._announce(fact, tries + 1))

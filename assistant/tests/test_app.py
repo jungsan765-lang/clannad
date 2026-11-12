@@ -1383,6 +1383,20 @@ def test_away_clears_when_gaming_and_pause_reason_is_shown(qapp, tmp_path, built
     assert a._away_since is not None
     t["idle"] = 5
     a.check_away()
+    t["now"], t["idle"] = 20000.0, 25 * 60  # 다시 자리 비움: 알림은 말하지 않고, '항상 듣기'는 이름을 부른 말만
+    a.watcher.mode = Mode("평소")
+    a.check_away()
+    assert a._away_since is not None
+    asked = []
+    a.ask = lambda text: asked.append(text)
+    a._run = lambda *args, **kw: asked.append("알림")
+    a._announce("PC 상태 문제: 메모리 92%")
+    a.voice.mode, a.voice.wake_word = "always", ""
+    a._on_heard("오늘 방송 재밌네")  # TV·방송 소리
+    a._on_heard(f"{a.char_name}, 나 왔어")
+    assert asked == [f"{a.char_name}, 나 왔어"]
+    t["idle"] = 5
+    a.check_away()
     a.ledger.record("claude-haiku-5-5", {"input_tokens": 30_000_000}, "judge")  # 3달러 ≈ 4,200원
     assert a.screen_pause_reason() == ""  # 기본은 알리기만 → 쉬지 않음
     a.set_pref("screen.limit_stop", True)
