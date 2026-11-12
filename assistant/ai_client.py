@@ -286,6 +286,9 @@ def _friendly_error(exc: Exception) -> str:
         import anthropic
     except ImportError:  # pragma: no cover
         return f"API 호출 실패: {exc}"
+    text = str(getattr(exc, "message", "") or exc).lower()
+    if "credit balance" in text or "billing" in text:  # 크레딧이 바닥나 API 가 막힘 (이때는 돈이 안 나간다)
+        return "크레딧이 바닥나서 지금은 API 를 쓸 수 없어요. 충전하거나 다음 달 크레딧이 들어오면 다시 돼요."
     if isinstance(exc, anthropic.AuthenticationError):
         return "API 키가 올바르지 않아요. 키를 다시 확인해주세요."
     if isinstance(exc, anthropic.PermissionDeniedError):

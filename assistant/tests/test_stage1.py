@@ -91,6 +91,22 @@ def test_refusal_returns_no_data(tmp_path):
     assert r.data is None and r.stop_reason == "refusal"
 
 
+def test_credit_out_error_is_friendly():
+    import anthropic
+
+    try:
+        import httpx2 as httpx
+    except ImportError:  # 예전 SDK
+        import httpx
+
+    from ai_client import _friendly_error
+
+    req = httpx.Request("POST", "https://api.anthropic.com/v1/messages")
+    resp = httpx.Response(400, request=req)
+    exc = anthropic.BadRequestError("Your credit balance is too low to access the Anthropic API.", response=resp, body=None)
+    assert "크레딧이 바닥나서" in _friendly_error(exc)
+
+
 def test_missing_key_is_friendly(tmp_path, monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     ai = AIClient(UsageLedger(tmp_path / "usage.json"))
