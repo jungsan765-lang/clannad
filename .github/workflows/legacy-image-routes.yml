@@ -53,16 +53,20 @@ jobs:
               matches=sorted(p for p in names if p.startswith(root+'/') and pathlib.PurePosixPath(p).suffix.lower() in ('.png','.jpg','.jpeg','.webp','.gif','.avif','.svg'))
               if not matches: raise SystemExit('No image sample in '+root)
               chosen='1/tefs/1.png' if root=='1' and '1/tefs/1.png' in matches else matches[0]
-              samples.append((root,'https://clannad.shop/'+urllib.parse.quote(chosen,safe='/')))
+              path=urllib.parse.quote(chosen,safe='/')
+              # The site lives on clannad.pe.kr. clannad.shop keeps serving the same images, or (after the
+              # redirect-old step) sends them to the same path on clannad.pe.kr.
+              for domain in ('clannad.pe.kr','clannad.shop'):
+                  samples.append((root,domain,'https://'+domain+'/'+path,('https://clannad.pe.kr/'+path,)))
           def probe(sample):
-              root,url=sample
-              row={'namespace':root,'url':url,'ok':False}
+              root,domain,url,also=sample
+              row={'namespace':root,'domain':domain,'url':url,'ok':False}
               for attempt in range(2):
                   try:
                       req=urllib.request.Request(url,method='HEAD',headers={'Cache-Control':'no-cache'})
                       with urllib.request.urlopen(req,timeout=15) as r:
                           row.update(status=r.status,mime=r.headers.get_content_type(),final_url=r.url)
-                          row['ok']=r.status==200 and row['mime'].startswith('image/') and r.url==url
+                          row['ok']=r.status==200 and row['mime'].startswith('image/') and r.url in (url,)+also
                       break
                   except Exception as e: row['error']=str(e)
               return row
@@ -70,6 +74,6 @@ jobs:
           print(json.dumps(rows,ensure_ascii=False,indent=2))
           with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
               f.write('## Live legacy image probes (read-only)\n\n')
-              f.write('\n'.join('- /'+r['namespace']+'/: '+('PASS' if r['ok'] else 'FAIL')+' '+str(r.get('status',''))+' '+r.get('mime',r.get('error','')) for r in rows)+'\n')
+              f.write('\n'.join('- '+r['domain']+' /'+r['namespace']+'/: '+('PASS' if r['ok'] else 'FAIL')+' '+str(r.get('status',''))+' '+r.get('mime',r.get('error','')) for r in rows)+'\n')
           if not all(r['ok'] for r in rows): raise SystemExit('One or more live image namespaces failed.')
           PY

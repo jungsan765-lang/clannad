@@ -156,6 +156,65 @@ elif name=='curl':
         self.assertNotIn('cat >"$CADDY_DIR/production.caddy"', source)
 
 
+IMAGE_BLOCK = re.compile(r'(?ms)^[ \t]*# BEGIN CLANNAD LEGACY IMAGES.*?^[ \t]*# END CLANNAD LEGACY IMAGES\n?')
+
+
+def game_site(domain):
+    return candidate().replace('clannad.shop {', domain+' {', 1)
+
+
+class RestoreImagesTests(unittest.TestCase):
+    """restore-legacy-images.sh with clannad.pe.kr and clannad.shop served side by side (sandboxed, mocked)."""
+    setUp = RoutingGuardTests.setUp
+    commit = RoutingGuardTests.commit
+
+    def run_restore(self, config):
+        self.target.write_text(config)
+        source = (TOOLS / 'restore-legacy-images.sh').read_text()
+        for old, new in (('/etc/caddy/conf.d/production.caddy', str(self.target)),
+                         ('/etc/caddy/Caddyfile', str(self.etc / 'Caddyfile')),
+                         ('/opt/genshin-crpg-fixed/repo', str(self.repo)),
+                         ('/run/lock/clannad-image-recovery.lock', str(self.root / 'image.lock')),
+                         ('/var/lib/genshin-crpg', str(self.root / 'no-updater')),
+                         ('[[ $EUID -eq 0 ]]', '[[ 0 -eq 0 ]]')):
+            self.assertIn(old, source)
+            source = source.replace(old, new)
+        script = self.root / 'restore.sh'
+        script.write_text(source)
+        env = {**os.environ, 'PATH':str(self.bin)+os.pathsep+os.environ['PATH'], 'MOCK_ROOT':str(self.root)}
+        return subprocess.run(['bash', str(script)], env=env, text=True, capture_output=True, timeout=30)
+
+    def test_both_game_sites_get_the_image_routes(self):
+        config = game_site('clannad.pe.kr') + '\n' + game_site('clannad.shop')
+        result = self.run_restore(config)
+        self.assertEqual(result.returncode, 0, result.stdout+result.stderr)
+        after = self.target.read_text()
+        self.assertEqual(len(re.findall(r'^\s*@clannadLegacyImages \{', after, re.M)), 2)
+        self.assertEqual(IMAGE_BLOCK.sub('', after), IMAGE_BLOCK.sub('', config))
+        for domain in ('clannad.pe.kr', 'clannad.shop'):
+            self.assertRegex(after, r'(?m)^'+re.escape(domain)+r' \{\n    # BEGIN CLANNAD LEGACY IMAGES')
+            self.assertIn('--resolve '+domain+':443:127.0.0.1', (self.root/'calls').read_text())
+        self.assertEqual(self.run_restore(after).returncode, 0)
+        self.assertEqual(self.target.read_text(), after)
+
+    def test_redirect_only_site_is_left_alone(self):
+        redirect = 'clannad.shop {\n    handle {\n        redir https://clannad.pe.kr{uri} 308\n    }\n}\n'
+        config = game_site('clannad.pe.kr') + '\n' + redirect
+        result = self.run_restore(config)
+        self.assertEqual(result.returncode, 0, result.stdout+result.stderr)
+        after = self.target.read_text()
+        self.assertEqual(len(re.findall(r'^\s*@clannadLegacyImages \{', after, re.M)), 1)
+        self.assertTrue(after.endswith(redirect))
+        self.assertNotIn('--resolve clannad.shop:', (self.root/'calls').read_text())
+
+    def test_image_routes_in_an_unknown_site_block_the_change(self):
+        config = game_site('clannad.pe.kr') + '\n' + game_site('other.example')
+        result = self.run_restore(config)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Nothing changed', result.stderr)
+        self.assertEqual(self.target.read_text(), config)
+
+
 class RealCaddyTests(unittest.TestCase):
     def test_real_http_routing_and_header_isolation(self):
         caddy = shutil.which('caddy')
