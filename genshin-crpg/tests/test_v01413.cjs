@@ -115,7 +115,8 @@ check('production promotion copies the tested release only: no build there, a sa
  assert(!/\bnpm\b|\bnpx\b/.test(sh.replace(/^#.*$/gm,'')),'no npm on the 1 GB server');
  assert(sh.includes('[[ "$SHA" == "$DEPLOYED" ]]'),'only the commit the test server runs');
  assert(sh.includes('VACUUM INTO')&&sh.indexOf('VACUUM INTO')<sh.indexOf('systemctl restart "$SERVICE"'),'saves are backed up before anything switches');
- assert(sh.includes("window.CRPG_ONLINE_CONFIG={apiBase:'https://clannad.shop/api',environment:'production'};"),'production address, no TEST banner');
+ assert(sh.includes("window.CRPG_ONLINE_CONFIG={apiBase:location.origin+'/api',environment:'production'};"),'production API on the address the page was opened from (clannad.pe.kr and clannad.shop), no TEST banner');
+ assert(!/apiBase:'https:\/\//.test(sh),'no fixed production domain: the server refuses a page on one address calling the API on another');
  assert(sh.includes('cp "$WEB_ROOT/current/sw.js" "$TMP/sw.js"'),'production keeps its own service worker');
  assert(!sh.includes('genshin-crpg-fixed-region-update.timer enable')&&!/systemctl (enable|start) genshin-crpg-fixed-region-update/.test(sh),'the update timer stays off');
 });
