@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-DOMAIN="${1:-clannad.shop}"
+DOMAIN="${1:-clannad.pe.kr}"
 CADDY_DIR="/etc/caddy/conf.d"
 if [[ "${EUID}" -ne 0 ]]; then
   echo "Run as root." >&2
@@ -10,6 +10,13 @@ fi
 if [[ ! "$DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]]; then
   echo "Invalid domain." >&2
   exit 2
+fi
+# This writes production.caddy with this one site. Production now serves clannad.pe.kr and clannad.shop side by side
+# (tools/clannad-domain-migration.sh on the production branch), so refuse rather than drop the other address and its
+# image routes. It also rewrites the production sw.js below.
+if [[ -f "$CADDY_DIR/production.caddy" ]] && grep -E '^[^[:space:]#].*\{[[:space:]]*$' "$CADDY_DIR/production.caddy" | grep -qvxF "$DOMAIN {"; then
+  echo "production.caddy also serves another address. Nothing changed." >&2
+  exit 3
 fi
 curl --fail --silent --show-error http://127.0.0.1:8790/health >/dev/null
 [[ -f /var/www/genshin-crpg-production/current/index.html ]]

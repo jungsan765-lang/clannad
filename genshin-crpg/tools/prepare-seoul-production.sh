@@ -57,7 +57,7 @@ cat >"$PROD_ENV" <<EOF
 PASSWORD_PEPPER=$PASSWORD_PEPPER
 ADMIN_ACCOUNT_IDS=${ADMIN_ACCOUNT_IDS:-}
 CRPG_SQLITE_PATH=$PROD_DB
-ALLOWED_ORIGIN=https://clannad.shop
+ALLOWED_ORIGIN=https://clannad.pe.kr
 HOST=127.0.0.1
 PORT=8790
 EOF
@@ -71,7 +71,7 @@ rm -rf "$TMP"
 mkdir -p "$TMP"
 cp -aL /var/www/genshin-crpg-test/current/. "$TMP/"
 cat >"$TMP/online_config.js" <<'EOF'
-window.CRPG_ONLINE_CONFIG={apiBase:'https://clannad.shop/api',environment:'production'};
+window.CRPG_ONLINE_CONFIG={apiBase:location.origin+'/api',environment:'production'};
 EOF
 node - "$TMP" <<'NODE'
 const fs=require('fs'),crypto=require('crypto'),path=require('path'),root=process.argv[2];

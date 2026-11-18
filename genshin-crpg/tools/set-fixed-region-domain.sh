@@ -14,7 +14,7 @@ if [[ ! "$API_DOMAIN" =~ ^[A-Za-z0-9.-]+$ || ! "$TEST_DOMAIN" =~ ^[A-Za-z0-9.-]+
 fi
 
 # Staging may not take ownership of the production hostname.
-if [[ "${API_DOMAIN,,}" == clannad.shop || "${TEST_DOMAIN,,}" == clannad.shop || "${API_DOMAIN,,}" == "${TEST_DOMAIN,,}" ]]; then
+if [[ "${API_DOMAIN,,}" == clannad.shop || "${TEST_DOMAIN,,}" == clannad.shop || "${API_DOMAIN,,}" == clannad.pe.kr || "${TEST_DOMAIN,,}" == clannad.pe.kr || "${API_DOMAIN,,}" == "${TEST_DOMAIN,,}" ]]; then
   echo 'Production/duplicate hostname is not a staging target. Nothing changed.' >&2
   exit 2
 fi
