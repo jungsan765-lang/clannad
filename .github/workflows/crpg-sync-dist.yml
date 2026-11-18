@@ -93,7 +93,9 @@ jobs:
   # at the same time instead of making them wait behind ~150 regression tests.
   source-ui:
     name: source UI
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest moved to Ubuntu 26.04 (from 2026-10-19), and Playwright 1.51.1 cannot install chromium
+    # there ("Playwright does not support chromium on ubuntu26.04-x64"). Unpin together with a Playwright upgrade.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -137,7 +139,8 @@ jobs:
   # source gate above succeeds, then performs the release build and shipped-UI gate.
   verify:
     needs: [regression, source-ui]
-    runs-on: ubuntu-latest
+    # Installs chromium through Playwright too: same Ubuntu 24.04 pin as source-ui.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
