@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Seoul VPS: put the release that was checked on test.clannad.shop onto clannad.shop (production), byte for byte.
+# Seoul VPS: put the release that was checked on test.clannad.shop onto production (clannad.pe.kr; clannad.shop is
+# served from the same files), byte for byte.
 # Only after the owner said 「운영 반영」. Like the test installer, this machine only copies and swaps files: no npm, no
 # build, no tests (they once ran the 1 GB VPS out of memory and took Caddy and both servers down). Do not re-enable
 # genshin-crpg-fixed-region-update.timer.
@@ -12,8 +13,10 @@
 #   2. production API (genshin-crpg-production.service, port 8790): the tested API bundle is copied to
 #      /opt/genshin-crpg-production-server/releases/<sha> and the service runs it through a systemd drop-in; if it does
 #      not come back healthy on the new engine it is rolled back at once;
-#   3. production client (/var/www/genshin-crpg-production/current): the tested pack, with the production address in
-#      online_config.js (no TEST banner) and production's own sw.js kept, so its cache behaviour does not change.
+#   3. production client (/var/www/genshin-crpg-production/current): the tested pack, with online_config.js pointing at
+#      the API on whichever production address the page was opened from (no TEST banner; a page on one address calling
+#      the API on another is refused by the server), and production's own sw.js kept, so its cache behaviour does not
+#      change.
 # Untouched: the production database and env file, Caddy and its routes (the /genshin-crpg/dist/ path included), the
 # test server, and the shared checkout under /opt/genshin-crpg-fixed.
 set -Eeuo pipefail
@@ -102,7 +105,7 @@ TMP="$(mktemp -d "$WEB_ROOT/releases/.tmp-XXXXXX")"
 cp -a "$TEST_PACK/." "$TMP/"
 rm -f "$TMP/test-source-sha.txt"
 cat >"$TMP/online_config.js" <<'EOF'
-window.CRPG_ONLINE_CONFIG={apiBase:'https://clannad.shop/api',environment:'production'};
+window.CRPG_ONLINE_CONFIG={apiBase:location.origin+'/api',environment:'production'};
 EOF
 # Production keeps the service worker it has now.
 if [[ -f "$WEB_ROOT/current/sw.js" ]]; then cp "$WEB_ROOT/current/sw.js" "$TMP/sw.js"; fi
