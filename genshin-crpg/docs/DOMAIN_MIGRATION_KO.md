@@ -52,6 +52,6 @@
 2. 옛 주소 리다이렉트: 위 데이터를 옮길 시간을 준 뒤 `bash /root/clannad-domain-migration.sh redirect-old`를 실행한다.
    - `https://clannad.shop/*`는 `https://clannad.pe.kr/*`로 308 리다이렉트된다. 이미지도 같은 경로로 넘어간다.
    - `/api`, `/ping`, `/diagnostic`은 열려 있는 옛 탭을 위해 계속 직접 응답한다.
-   - 이 단계 전에 `main`의 이미지 점검 워크플로가 새 주소도 검사하는지 확인한다.
+   - 이 단계 전에 `main`에 브랜치 `chore/clannad-pe-kr-domain-main`을 반영한다. 이미지 점검 워크플로가 두 주소를 모두 검사하고, `tools/restore-legacy-images.sh`가 두 사이트 블록(리다이렉트 뒤에는 `clannad.pe.kr`만)에 이미지 경로를 복구하게 된다. 지금 서버에 있는 옛 복구 스크립트는 블록이 두 개면 아무것도 바꾸지 않고 멈춘다.
 3. GitHub Pages: 새 주소를 커스텀 도메인으로 등록하지 않는다(새 주소는 서울 서버가 직접 서비스). Pages에는 커스텀 도메인과 별도인 "리다이렉트 목적지" 설정이 없다. 그래서 github.io 주소는 `clannad.shop`을 거쳐, 2단계 이후에는 `clannad.pe.kr`에 도착한다.
 4. 서버 코드의 기본값(`allowedOrigin='https://clannad.shop'`)과 테스트들, 테스트 서버 주소는 그대로다. 운영은 env 값을 쓰므로 영향이 없다.
