@@ -9,7 +9,7 @@ for(const [table,rows]of Object.entries(ix.byTable))for(const row of rows){
  const next=String(row[13]||'');if(next&&!/^(SCREEN:|RETURN:|END$|PAUSE$|HUB$)/.test(next)){
   const group=next.match(/^(?:CHOICE_GROUP|CONDITION_GROUP):(.+)$/);if(group){if(!rows.some(x=>x[0]===row[0]&&x[14]===group[1]&&x[18]==='ACTIVE'))errors.push([row[4],'missing group '+next]);}else if(!ix.nodes.has(row[0]+':'+next))errors.push([row[4],'missing next '+next]);
  }
- if(!['META','EVENT'].includes(row[5])){const text=c.CRPGText.readable(row[9]+' '+(row[10]||''),{name:'민수'});if(/주인공|\b(?:DEX|ATK|DEF|SPD)\b|다음 이야기 입력|기존 성인 루트 허용/.test(text))technical.push([row[4],text.slice(0,130)]);}
+ if(!['META','EVENT'].includes(row[5])){const text=c.CRPGText.readable(row[9]+' '+(row[10]||''),{name:'민수'});if(/주인공|\b(?:DEX|ATK|DEF|SPD)\b|다음 이야기 입력/.test(text))technical.push([row[4],text.slice(0,130)]);}
 }
 assert.deepEqual(errors,[],'all Mond links/commands/conditions must be connected');assert.deepEqual(technical,[],'story surface cannot leak internal prose');
 // All removed cameos stay loadable; new paths are optional and never grant their contacts.

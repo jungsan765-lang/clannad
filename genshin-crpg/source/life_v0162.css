@@ -1,0 +1,228 @@
+/* 0.16.2 생활: the place's activity cards and the activity window (resource scenes: app_life_v0162.js; fishing:
+   app_life.js). Pictures and numbers, no paragraphs. Hover looks only for a hovering pointer; upright-phone rules keep to
+   tall screens (min-height:501px); a sideways phone (at most 500 px tall) gets the whole window on one screen. */
+
+/* ---------- the place's cards ---------- */
+body.teyvat .life-cards{display:grid;gap:8px;margin:6px 0 10px}
+body.teyvat .life-card{display:grid;gap:8px;padding:10px 12px 12px;border-radius:14px;background:linear-gradient(160deg,rgba(36,43,64,.92),rgba(20,24,38,.92));border:1px solid rgba(211,188,142,.34);box-shadow:0 6px 18px rgba(0,0,0,.28)}
+body.teyvat .life-card-head{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0}
+body.teyvat .life-card-name{font:700 1.08rem var(--font-display);color:var(--t-gold-hi);margin-right:auto;letter-spacing:.04em}
+body.teyvat .life-chip{display:inline-flex;align-items:baseline;gap:4px;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(243,223,174,.3);font-size:.74rem;color:var(--t-muted);white-space:nowrap}
+body.teyvat .life-chip b{color:var(--t-cream);font-size:.9rem;font-variant-numeric:tabular-nums}
+body.teyvat .life-chip.out{border-color:rgba(242,154,145,.6)}
+body.teyvat .life-chip.out b{color:#f29a91}
+body.teyvat .life-chip.time{color:var(--t-cream)}
+body.teyvat .life-card-items,body.teyvat .life-card-gear{display:flex;flex-wrap:wrap;gap:6px}
+body.teyvat .life-item{position:relative;display:grid;place-items:center;width:48px;height:48px;border-radius:9px 9px 16px 9px;background:var(--rar-1);overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 2px 6px rgba(0,0,0,.3)}
+body.teyvat :is(.life-item,.life-tally-slot).tier-2{background:var(--rar-2)}
+body.teyvat :is(.life-item,.life-tally-slot).tier-3{background:var(--rar-3)}
+body.teyvat :is(.life-item,.life-tally-slot).tier-4{background:var(--rar-4)}
+body.teyvat :is(.life-item,.life-tally-slot).tier-5{background:var(--rar-5)}
+body.teyvat .life-item img{width:100%;height:100%;object-fit:contain}
+body.teyvat .life-item.small{width:40px;height:40px}
+body.teyvat .life-item.lack{filter:grayscale(1) brightness(.7);box-shadow:inset 0 0 0 2px rgba(242,154,145,.7)}
+body.teyvat .life-item-count{position:absolute;right:2px;bottom:1px;font-size:.68rem;color:#fff;text-shadow:0 1px 2px #000,0 0 3px #000}
+body.teyvat .life-card-why{font-size:.78rem;font-weight:700;color:#f2b9a6}
+body.teyvat .life-card .life-go{width:100%;min-height:42px}
+body.teyvat .life-card-where{display:grid;gap:4px}
+body.teyvat .life-card-where .material-source{font-size:.74rem;color:var(--t-muted)}
+
+/* ---------- the activity window ---------- */
+body.teyvat .life-scene{position:fixed;inset:0;top:var(--crpg-top-inset,0px);z-index:2150;display:grid;grid-template:"top" auto "stage" minmax(0,1fr)/minmax(0,1fr);overflow:hidden;color:var(--t-text);opacity:0;transition:opacity .22s;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;word-break:keep-all;
+ background:radial-gradient(ellipse at 50% 115%,rgba(64,120,82,.75),transparent 62%),linear-gradient(180deg,#25486a 0,#5d8fae 44%,#4f7c55 45%,#22392a 100%)}
+body.teyvat .life-scene.region-liyue{background:radial-gradient(ellipse at 50% 115%,rgba(150,104,52,.7),transparent 62%),linear-gradient(180deg,#5b4127 0,#c39a5b 44%,#8a6a3c 45%,#3b2b19 100%)}
+body.teyvat .life-scene.region-other{background:radial-gradient(ellipse at 50% 115%,rgba(70,90,140,.7),transparent 62%),linear-gradient(180deg,#1c2a48 0,#4a6290 44%,#3b4e6a 45%,#1a2234 100%)}
+body.teyvat .life-scene.open{opacity:1}
+/* The place's own picture, and a shade at the top for the strip. */
+body.teyvat .life-scene::before{content:'';position:absolute;inset:0;background:var(--life-bg,none) center/cover no-repeat;filter:saturate(1.06) brightness(.86)}
+body.teyvat .life-scene::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(6,9,16,.78) 0,rgba(6,9,16,.18) 20%,transparent 46%,rgba(6,9,16,.32) 100%)}
+body.teyvat .life-scene.kind-mine::after{background:linear-gradient(180deg,rgba(6,9,16,.8) 0,rgba(6,9,16,.25) 22%,rgba(6,9,16,.12) 50%,rgba(6,9,16,.45) 100%)}
+/* style.css draws every <header> as the 84 px page bar; this strip takes its content's height. */
+body.teyvat .life-top{grid-area:top;position:relative;z-index:3;height:auto;min-height:0;display:flex;align-items:center;gap:12px;min-width:0;padding:10px max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left));background:linear-gradient(180deg,rgba(10,13,22,.88),rgba(10,13,22,.55));border-bottom:1px solid rgba(243,223,174,.28)}
+body.teyvat .life-title{display:flex;flex-direction:column;min-width:0;flex:0 1 auto}
+body.teyvat .life-title strong{font:700 1.25rem var(--font-display);color:var(--t-gold-hi);letter-spacing:.08em;line-height:1.2}
+body.teyvat .life-title small{font-size:.74rem;color:var(--t-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* The clock: a ring that empties, the seconds inside. */
+body.teyvat .life-clock{--p:1;position:relative;flex:0 0 auto;display:grid;place-items:center;width:50px;height:50px;border-radius:50%;background:conic-gradient(var(--life-ring,#f3dfae) calc(var(--p)*1turn),rgba(255,255,255,.14) 0)}
+body.teyvat .life-clock::before{content:'';position:absolute;inset:4px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#202842,#0d1220)}
+body.teyvat .life-clock b{position:relative;font-size:1.05rem;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+body.teyvat .life-clock.low{--life-ring:#ff8f7c;animation:lifePulse .9s ease-in-out infinite}
+/* The tally: what has been collected, as pictures and counts. */
+body.teyvat .life-tally{flex:1 1 auto;display:flex;align-items:center;justify-content:flex-end;gap:6px;min-width:0;overflow:hidden}
+body.teyvat .life-tally-slot{position:relative;display:none;align-items:center;justify-content:center;width:44px;height:44px;flex:0 0 auto;border-radius:9px 9px 15px 9px;background:var(--rar-1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 2px 8px rgba(0,0,0,.4)}
+body.teyvat .life-tally-slot.got{display:flex}
+body.teyvat .life-tally-slot img{width:100%;height:100%;object-fit:contain}
+body.teyvat .life-tally-slot b{position:absolute;right:-2px;bottom:-5px;padding:0 5px;border-radius:8px;background:rgba(12,16,26,.92);border:1px solid rgba(243,223,174,.5);font-size:.72rem;color:#fff;font-variant-numeric:tabular-nums}
+body.teyvat .life-tally-slot.bump{animation:lifeBump .35s ease-out}
+body.teyvat .life-back,body.teyvat .life-end-btn{flex:0 0 auto;min-height:40px;padding:6px 18px;border-radius:20px;border:1px solid rgba(236,229,216,.35);background:rgba(255,255,255,.08);color:#ece5d8;font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1}
+body.teyvat .life-end-btn.primary{background:linear-gradient(#fbf6ea,#e2d7bf);color:#3b4255;border:2px solid #fff;box-shadow:0 3px 0 #b7a98a,0 8px 18px rgba(0,0,0,.4)}
+body.teyvat :is(.life-back,.life-end-btn):disabled{opacity:.45;cursor:default}
+body.teyvat .life-stage{grid-area:stage;position:relative;z-index:2;min-height:0;overflow:hidden;touch-action:none}
+body.teyvat .life-field{container-type:size}
+body.teyvat .life-field:focus-visible{outline:2px solid rgba(243,223,174,.6);outline-offset:-4px}
+body.teyvat .life-scene.ended .life-field{pointer-events:none}
+body.teyvat .life-scene.ended .life-end.failed{pointer-events:auto}
+
+/* ---------- what is in the scene ---------- */
+body.teyvat .life-node{--node:76px;position:absolute;width:var(--node);height:var(--node);transform:translate(-50%,-50%);display:grid;place-items:center;border-radius:50%;cursor:pointer;outline:none;z-index:1}
+body.teyvat .life-node:focus-visible{box-shadow:0 0 0 3px rgba(243,223,174,.85)}
+body.teyvat .life-node-icon{position:relative;z-index:2;width:80%;height:80%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 4px 6px rgba(0,0,0,.6))}
+body.teyvat .life-plus{position:absolute;z-index:4;left:50%;top:0;transform:translate(-50%,0);font-size:1.15rem;font-weight:800;color:#fff7dc;text-shadow:0 0 8px rgba(255,214,120,.9),0 2px 3px #000;opacity:0;pointer-events:none;white-space:nowrap}
+body.teyvat .life-flyer{position:absolute;z-index:5;left:50%;top:50%;width:64%;height:64%;object-fit:contain;transform:translate(-50%,-50%);opacity:0;pointer-events:none}
+body.teyvat .life-node.fly .life-flyer{animation:lifeFly .58s cubic-bezier(.45,0,.7,.25) forwards}
+body.teyvat .life-node.fly .life-plus{animation:lifePlus .9s ease-out forwards}
+/* 채집: a plant sits in a soft pool of light with a slowly breathing gold ring; a press picks it. */
+body.teyvat .life-node.plant::before{content:'';position:absolute;inset:-16%;border-radius:50%;background:radial-gradient(circle,rgba(16,20,30,.42) 0,rgba(255,240,196,.5) 38%,rgba(255,230,160,.22) 54%,transparent 70%);animation:lifeGlow 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+body.teyvat .life-node.plant::after{content:'';position:absolute;inset:-2%;border-radius:50%;border:2px solid rgba(255,240,204,.9);box-shadow:0 0 14px rgba(255,222,140,.85),inset 0 0 12px rgba(255,222,140,.45);animation:lifeRing 2.4s ease-in-out infinite;animation-delay:var(--d,0s);pointer-events:none}
+body.teyvat .life-node.plant .life-node-icon{width:86%;height:86%;animation:lifeBob 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+body.teyvat .life-node.picked{cursor:default}
+body.teyvat .life-node.picked .life-node-icon{animation:lifePick .42s ease-out forwards}
+body.teyvat .life-node.picked::before{animation:lifeBurst .5s ease-out forwards}
+body.teyvat .life-node.picked::after{display:none}
+/* 채광: a vein in the rock; blows crack it (the dots count them), the last one shatters it. */
+body.teyvat .life-node.vein{--node:88px}
+body.teyvat .life-node.vein::before{content:'';position:absolute;inset:0;border-radius:44% 52% 40% 50%/48% 42% 54% 46%;background:radial-gradient(circle at 34% 28%,#8d9098,#55575f 52%,#2c2d33 100%);box-shadow:inset 0 -8px 14px rgba(0,0,0,.55),inset 0 4px 8px rgba(255,255,255,.12),0 8px 18px rgba(0,0,0,.55)}
+body.teyvat .life-node.vein .life-node-icon{width:62%;height:62%;filter:drop-shadow(0 0 8px rgba(255,236,190,.55)) drop-shadow(0 3px 4px rgba(0,0,0,.6))}
+body.teyvat .life-crack{position:absolute;inset:6%;z-index:3;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .12s;background:linear-gradient(118deg,transparent 46%,rgba(18,14,10,.95) 47.5%,rgba(255,226,170,.55) 49%,transparent 50.5%),linear-gradient(38deg,transparent 52%,rgba(18,14,10,.9) 53.5%,rgba(255,226,170,.45) 55%,transparent 56.5%) 0 0/100% 60% no-repeat,linear-gradient(162deg,transparent 40%,rgba(18,14,10,.9) 41.5%,rgba(255,226,170,.45) 43%,transparent 44.5%) 0 100%/100% 55% no-repeat}
+body.teyvat .life-node.vein[data-crack="1"] .life-crack{opacity:.45}
+body.teyvat .life-node.vein[data-crack="2"] .life-crack{opacity:.75}
+body.teyvat .life-node.vein[data-crack="3"] .life-crack{opacity:1}
+body.teyvat .life-node.vein.struck{animation:lifeShake .2s ease-out}
+body.teyvat .life-bit{position:absolute;z-index:4;left:50%;top:50%;width:7px;height:7px;margin:-3.5px;border-radius:2px;background:#b9b2a4;opacity:0;pointer-events:none}
+body.teyvat .life-node.vein.struck .life-bit{animation:lifeBit .38s ease-out}
+body.teyvat .life-shard{position:absolute;z-index:3;left:50%;top:50%;width:30%;height:22%;margin:-11% 0 0 -15%;clip-path:polygon(0 30%,60% 0,100% 55%,40% 100%);background:linear-gradient(140deg,#8d9098,#3a3b41);opacity:0;pointer-events:none}
+body.teyvat .life-node.vein.broken::before{animation:lifeRockGone .3s ease-out forwards}
+body.teyvat .life-node.vein.broken .life-shard{animation:lifeShard .55s cubic-bezier(.2,.7,.4,1) forwards}
+body.teyvat .life-node.vein.broken :is(.life-crack,.life-pips){opacity:0}
+body.teyvat .life-node.vein.broken .life-node-icon{animation:lifeOre .45s ease-out forwards}
+body.teyvat .life-node.broken{cursor:default}
+body.teyvat .life-pips{position:absolute;z-index:4;left:50%;bottom:-14px;transform:translateX(-50%);display:flex;gap:4px;padding:3px 6px;border-radius:9px;background:rgba(10,13,22,.72);transition:opacity .2s}
+body.teyvat .life-pips i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.28)}
+body.teyvat .life-pips i.on{background:#f3dfae;box-shadow:0 0 6px #f3dfae}
+/* 사냥: animals run across; a press shows where the arrow went (gold where it caught one). */
+body.teyvat .life-node.life-animal{--node:68px;cursor:crosshair;pointer-events:none}
+/* Sizes follow the field (a short, wide field keeps an animal inside the 9 % reach of a press on it). */
+@supports (width:1cqh){
+ body.teyvat .life-node{--node:clamp(48px,min(17cqh,12cqw),92px)}
+ body.teyvat .life-node.vein{--node:clamp(56px,min(20cqh,14cqw),104px)}
+ body.teyvat .life-node.life-animal{--node:clamp(40px,min(16cqh,11cqw),84px)}
+}
+body.teyvat .life-animal.away{visibility:hidden}
+body.teyvat .life-beast{position:relative;z-index:2;display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 40% 32%,rgba(255,255,255,.3),rgba(58,44,28,.72) 70%);border:2px solid rgba(243,223,174,.75);box-shadow:0 8px 18px rgba(0,0,0,.5)}
+body.teyvat .life-animal .life-node-icon{width:78%;height:78%;animation:lifeRun .3s ease-in-out infinite alternate}
+body.teyvat .life-animal.from-r .life-node-icon{scale:-1 1}
+body.teyvat .life-dust{position:absolute;z-index:1;top:58%;width:70%;height:34%;border-radius:50%;background:radial-gradient(ellipse,rgba(222,206,170,.5),transparent 70%);animation:lifeDust .3s ease-in-out infinite alternate;pointer-events:none}
+body.teyvat .life-animal.from-l .life-dust{right:62%}
+body.teyvat .life-animal.from-r .life-dust{left:62%}
+body.teyvat .life-animal.caught .life-beast{animation:lifeCaught .5s ease-out forwards}
+body.teyvat .life-animal.caught .life-dust{display:none}
+body.teyvat .life-ripple{position:absolute;z-index:3;width:54px;height:54px;transform:translate(-50%,-50%) scale(.3);border-radius:50%;border:2px solid rgba(255,255,255,.85);opacity:0;pointer-events:none}
+body.teyvat .life-ripple.hit{border-color:#ffd27a;box-shadow:0 0 14px rgba(255,210,122,.8)}
+body.teyvat .life-ripple.go{animation:lifeRipple .45s ease-out}
+/* The end: a word in the middle; if saving failed, why and what to do. */
+body.teyvat .life-end{position:absolute;z-index:6;left:50%;top:44%;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;max-width:min(560px,calc(100% - 32px));padding:14px 28px;border-radius:30px;background:rgba(14,18,30,.9);border:1px solid rgba(243,223,174,.6);box-shadow:0 14px 40px rgba(0,0,0,.55);font:700 1.35rem var(--font-display);color:var(--t-gold-hi);text-align:center;opacity:0;transform:translate(-50%,-50%) scale(.9);pointer-events:none;transition:opacity .2s,transform .25s}
+body.teyvat .life-end:empty{display:none}
+body.teyvat .life-end.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+body.teyvat .life-end-why{flex-basis:100%;font:600 .92rem var(--font-ui);color:#f6c2b4}
+
+/* ---------- fishing ---------- */
+body.teyvat .life-scene.kind-fish .life-stage{display:grid;grid-template-rows:minmax(0,1fr) auto auto;justify-items:center;align-content:center;gap:14px;padding:14px max(16px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+body.teyvat .fish-pond{--size:min(42vmin,230px);position:relative;align-self:center;width:var(--size);height:var(--size);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 42%,rgba(110,180,214,.55),rgba(22,58,84,.82) 68%,rgba(10,26,40,.9));box-shadow:inset 0 0 34px rgba(0,0,0,.55),0 10px 30px rgba(0,0,0,.5)}
+/* The ring around the water fills as the fish comes up. */
+body.teyvat .fish-ring{--p:0;position:absolute;inset:-9px;border-radius:50%;background:conic-gradient(#8fe0c8 calc(var(--p)*1turn),rgba(255,255,255,.14) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px));mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px))}
+body.teyvat .fish-bait,body.teyvat .fish-icon{position:absolute;width:44%;height:44%;object-fit:contain;filter:drop-shadow(0 6px 8px rgba(0,0,0,.6))}
+body.teyvat .fish-bait{width:30%;height:30%;animation:fishBob 1.6s ease-in-out infinite}
+body.teyvat .fish-icon{opacity:0;transform:scale(.6)}
+body.teyvat .life-scene.bite .fish-bait{opacity:0;animation:none}
+body.teyvat .life-scene.bite .fish-icon{opacity:1;transform:none;animation:fishWiggle .5s ease-in-out infinite}
+body.teyvat .life-scene.bite.in-zone .fish-icon{animation-duration:1s}
+body.teyvat .life-scene.caught .fish-icon{animation:lifeOre .5s ease-out forwards}
+body.teyvat .fish-state{font:700 1.15rem var(--font-display);color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.8);min-height:1.4em}
+body.teyvat .life-scene.in-zone .fish-state{color:#a8f0cf}
+body.teyvat .fish-controls{display:flex;align-items:center;gap:16px;width:min(620px,100%)}
+body.teyvat .fish-tension{position:relative;flex:1;height:18px;border-radius:9px;background:rgba(8,14,24,.82);border:1px solid rgba(255,255,255,.22);overflow:hidden}
+body.teyvat .fish-zone{position:absolute;top:0;bottom:0;width:32%;border-radius:9px;background:linear-gradient(90deg,rgba(243,223,174,.22),rgba(243,223,174,.65),rgba(243,223,174,.22))}
+body.teyvat .life-scene.in-zone .fish-zone{background:linear-gradient(90deg,rgba(143,224,200,.25),rgba(143,224,200,.75),rgba(143,224,200,.25));box-shadow:0 0 12px rgba(143,224,200,.6)}
+body.teyvat .fish-cursor{position:absolute;top:0;bottom:0;width:6px;margin-left:-3px;border-radius:3px;background:#fff;box-shadow:0 0 8px #fff}
+body.teyvat .fish-hold{flex:0 0 auto;width:96px;height:96px;border-radius:50%;border:3px solid #fff;background:radial-gradient(circle at 50% 35%,#fffaf0,#e2d7bf);color:#3b4255;font:800 1.15rem var(--font-ui);box-shadow:0 4px 0 #b7a98a,0 10px 24px rgba(0,0,0,.45);cursor:pointer;touch-action:none;display:grid;place-items:center;transition:transform .08s}
+body.teyvat .fish-hold.pulling{transform:translateY(3px) scale(.96);box-shadow:0 1px 0 #b7a98a,0 0 0 6px rgba(243,223,174,.35),0 6px 18px rgba(0,0,0,.45)}
+body.teyvat .fish-hold[aria-disabled="true"]{opacity:.5;cursor:default}
+
+/* ---------- motion ---------- */
+@keyframes lifeGlow{0%,100%{opacity:.75;transform:scale(.92)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes lifeRing{0%,100%{opacity:.95;transform:scale(.94)}50%{opacity:.45;transform:scale(1.08)}}
+@keyframes lifeBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6%)}}
+@keyframes lifePick{0%{transform:scale(1)}40%{transform:scale(1.25) translateY(-8%)}100%{transform:scale(.6) translateY(-30%);opacity:0}}
+@keyframes lifeBurst{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.8)}}
+@keyframes lifePlus{0%{opacity:0;transform:translate(-50%,10%)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-140%)}}
+@keyframes lifeFly{0%{opacity:0;transform:translate(-50%,-50%) scale(.8)}12%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}88%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--fx,0px)),calc(-50% + var(--fy,0px))) scale(.4)}}
+@keyframes lifeBump{0%{transform:scale(1)}40%{transform:scale(1.22)}100%{transform:scale(1)}}
+@keyframes lifeShake{0%{transform:translate(-50%,-50%)}25%{transform:translate(calc(-50% - 4px),calc(-50% + 1px)) rotate(-3deg)}50%{transform:translate(calc(-50% + 4px),calc(-50% - 1px)) rotate(2deg)}75%{transform:translate(calc(-50% - 2px),-50%)}100%{transform:translate(-50%,-50%)}}
+@keyframes lifeBit{0%{opacity:1;transform:rotate(var(--a)) translate(0)}100%{opacity:0;transform:rotate(var(--a)) translate(calc(var(--node)*.75)) rotate(160deg)}}
+@keyframes lifeShard{0%{opacity:1;transform:rotate(var(--a)) translate(0)}100%{opacity:0;transform:rotate(var(--a)) translate(calc(var(--node)*.95)) rotate(90deg)}}
+@keyframes lifeRockGone{to{opacity:0;transform:scale(1.15)}}
+@keyframes lifeOre{0%{transform:scale(1)}45%{transform:scale(1.35)}100%{transform:scale(1.1);opacity:0}}
+@keyframes lifeRun{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-10%) rotate(4deg)}}
+@keyframes lifeDust{from{opacity:.35;transform:scaleX(.8)}to{opacity:.7;transform:scaleX(1.1)}}
+@keyframes lifeCaught{0%{transform:scale(1)}35%{transform:scale(1.25)}100%{transform:scale(.4);opacity:0}}
+@keyframes lifeRipple{0%{opacity:1;transform:translate(-50%,-50%) scale(.3)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}}
+@keyframes lifePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes fishBob{0%,100%{transform:translateY(0)}50%{transform:translateY(8%)}}
+@keyframes fishWiggle{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg) translateX(4%)}}
+html.reduce-motion body.teyvat .life-scene :is(.life-node,.life-node::before,.life-node::after,.life-node-icon,.life-beast,.life-dust,.life-clock,.fish-bait,.fish-icon,.life-bit,.life-shard){animation:none!important}
+html.reduce-motion body.teyvat .life-node.fly .life-flyer{animation:none!important;opacity:0}
+html.reduce-motion body.teyvat .life-node:is(.picked,.broken,.caught) :is(.life-node-icon,.life-beast){opacity:0}
+html.reduce-motion body.teyvat .life-node.vein.broken::before{opacity:0}
+
+/* ---------- a pointer that hovers ---------- */
+@media (hover:hover){
+ body.teyvat .life-node.plant:not(.picked):hover::before{background:radial-gradient(circle,rgba(255,250,222,.85),rgba(255,234,166,.32) 46%,transparent 72%)}
+ body.teyvat .life-node.vein:not(.broken):hover::before{box-shadow:inset 0 -8px 14px rgba(0,0,0,.55),inset 0 4px 8px rgba(255,255,255,.12),0 0 0 2px rgba(243,223,174,.55),0 8px 18px rgba(0,0,0,.55)}
+ body.teyvat :is(.life-back,.life-end-btn):hover:not(:disabled){border-color:rgba(243,223,174,.75);background:rgba(236,229,216,.16)}
+ body.teyvat .life-end-btn.primary:hover{background:linear-gradient(#fffaf0,#ece3cf)}
+ body.teyvat .fish-hold:hover:not([aria-disabled="true"]){box-shadow:0 4px 0 #b7a98a,0 0 0 4px rgba(243,223,174,.35),0 10px 24px rgba(0,0,0,.45)}
+}
+
+/* ---------- an upright phone ---------- */
+@media (max-width:760px) and (min-height:501px){
+ body.teyvat .life-top{flex-wrap:wrap;gap:8px 10px;padding:8px 12px}
+ body.teyvat .life-title{flex:1 1 auto}
+ body.teyvat .life-tally{order:4;flex-basis:100%;justify-content:flex-start;min-height:0}
+ body.teyvat .life-tally:not(:has(.got)){display:none}
+ body.teyvat .life-scene.kind-fish .life-stage{gap:12px}
+ body.teyvat .fish-pond{--size:min(62vw,240px)}
+ body.teyvat .fish-controls{flex-direction:column;gap:14px}
+ body.teyvat .fish-tension{flex:0 0 auto;width:100%}
+ body.teyvat .life-card-items .life-item{width:44px;height:44px}
+}
+/* ---------- a sideways phone: everything on one screen ---------- */
+@media (orientation:landscape) and (max-height:500px){
+ body.teyvat .life-top{gap:8px;padding:4px max(10px,env(safe-area-inset-right)) 4px max(10px,env(safe-area-inset-left))}
+ body.teyvat .life-title{flex-direction:row;align-items:baseline;gap:8px}
+ body.teyvat .life-title strong{font-size:1.02rem}
+ body.teyvat .life-title small{font-size:.68rem}
+ body.teyvat .life-clock{width:36px;height:36px}
+ body.teyvat .life-clock::before{inset:3px}
+ body.teyvat .life-clock b{font-size:.85rem}
+ body.teyvat .life-tally-slot{width:32px;height:32px}
+ body.teyvat .life-tally-slot b{font-size:.64rem;bottom:-4px}
+ body.teyvat .life-back,body.teyvat .life-end-btn{min-height:32px;padding:4px 14px;font-size:.82rem}
+ body.teyvat .life-plus{font-size:.95rem}
+ body.teyvat .life-pips{bottom:-11px;padding:2px 5px;gap:3px}
+ body.teyvat .life-pips i{width:6px;height:6px}
+ body.teyvat .life-end{font-size:1.05rem;padding:10px 20px}
+ body.teyvat .life-scene.kind-fish .life-stage{grid-template-rows:auto auto;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"pond state" "pond controls";align-content:center;justify-items:start;column-gap:22px;row-gap:10px;padding:8px max(16px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+ body.teyvat .fish-pond{--size:min(56vh,200px);grid-area:pond}
+ body.teyvat .fish-state{grid-area:state;align-self:end}
+ body.teyvat .fish-controls{grid-area:controls;align-self:start;gap:12px}
+ body.teyvat .fish-hold{width:74px;height:74px;font-size:1rem}
+ body.teyvat .life-item{width:40px;height:40px}
+ body.teyvat .life-card{padding:8px 10px 10px;gap:6px}
+ body.teyvat .life-card .life-go{min-height:36px}
+}
+@media (orientation:landscape) and (max-height:380px){
+ body.teyvat .life-title small{display:none}
+ body.teyvat .life-clock{width:32px;height:32px}
+ body.teyvat .fish-pond{--size:min(52vh,160px)}
+ body.teyvat .fish-hold{width:62px;height:62px}
+}

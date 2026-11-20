@@ -1,0 +1,1927 @@
+{
+  "version": "0.16.11",
+  "base": "d29b1238ef7d5ab4a3e40b9889b9b50f230163f2",
+  "root": "Q_TASK_LEARN_01",
+  "removed": [
+    "D_V168_HILI",
+    "W_V168_MOND_PATROL",
+    "W_V169_REPORT",
+    "W_V168_CRYO_VINE"
+  ],
+  "counts": {
+    "daily": 11,
+    "weekly": 28,
+    "oneTime": 288
+  },
+  "bonuses": {
+    "dailyPrimogems": 20,
+    "weeklyPrimogems": 200
+  },
+  "daily": [
+    {
+      "id": "D_WIN",
+      "name": "전투 5번 이기기",
+      "goal": 5,
+      "prerequisites": [],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 300
+          },
+          {
+            "minLevel": 10,
+            "mora": 800
+          },
+          {
+            "minLevel": 20,
+            "mora": 1200
+          },
+          {
+            "minLevel": 30,
+            "mora": 1800
+          },
+          {
+            "minLevel": 40,
+            "mora": 2400
+          },
+          {
+            "minLevel": 50,
+            "mora": 3200
+          },
+          {
+            "minLevel": 60,
+            "mora": 4200
+          }
+        ],
+        "items": {
+          "MAT_CHAR_EXP_ADVENTURER": 2
+        }
+      }
+    },
+    {
+      "id": "D_LEY",
+      "name": "지맥의 꽃 2번 이기기",
+      "goal": 2,
+      "prerequisites": [
+        "D_WIN"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 600
+          },
+          {
+            "minLevel": 10,
+            "mora": 900
+          },
+          {
+            "minLevel": 20,
+            "mora": 1300
+          },
+          {
+            "minLevel": 30,
+            "mora": 1900
+          },
+          {
+            "minLevel": 40,
+            "mora": 2700
+          },
+          {
+            "minLevel": 50,
+            "mora": 3500
+          },
+          {
+            "minLevel": 60,
+            "mora": 4500
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_DOMAIN",
+      "name": "비경 3번 이기기",
+      "goal": 3,
+      "prerequisites": [
+        "D_WIN"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 500
+          },
+          {
+            "minLevel": 10,
+            "mora": 1000
+          },
+          {
+            "minLevel": 20,
+            "mora": 1500
+          },
+          {
+            "minLevel": 30,
+            "mora": 2200
+          },
+          {
+            "minLevel": 40,
+            "mora": 3000
+          },
+          {
+            "minLevel": 50,
+            "mora": 3800
+          },
+          {
+            "minLevel": 60,
+            "mora": 4800
+          }
+        ],
+        "items": {
+          "MAT_CHAR_EXP_ADVENTURER": 2
+        }
+      }
+    },
+    {
+      "id": "D_LIFE",
+      "name": "채집·채광·사냥·낚시 3번",
+      "goal": 3,
+      "prerequisites": [],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 400
+          },
+          {
+            "minLevel": 10,
+            "mora": 600
+          },
+          {
+            "minLevel": 20,
+            "mora": 900
+          },
+          {
+            "minLevel": 30,
+            "mora": 1200
+          },
+          {
+            "minLevel": 40,
+            "mora": 1600
+          },
+          {
+            "minLevel": 50,
+            "mora": 2100
+          },
+          {
+            "minLevel": 60,
+            "mora": 2700
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_V168_PYRO_HYDRO",
+      "name": "보유 원소를 포함하여 전투 5번 이기기",
+      "goal": 5,
+      "prerequisites": [
+        "D_WIN"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 200
+          },
+          {
+            "minLevel": 10,
+            "mora": 450
+          },
+          {
+            "minLevel": 20,
+            "mora": 700
+          },
+          {
+            "minLevel": 30,
+            "mora": 1100
+          },
+          {
+            "minLevel": 40,
+            "mora": 1600
+          },
+          {
+            "minLevel": 50,
+            "mora": 2200
+          },
+          {
+            "minLevel": 60,
+            "mora": 3000
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_V168_REVELATION15",
+      "name": "계시의 꽃 1번 이기기",
+      "goal": 1,
+      "prerequisites": [
+        "D_LEY"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 600
+          },
+          {
+            "minLevel": 10,
+            "mora": 1000
+          },
+          {
+            "minLevel": 20,
+            "mora": 1400
+          },
+          {
+            "minLevel": 30,
+            "mora": 2000
+          },
+          {
+            "minLevel": 40,
+            "mora": 2800
+          },
+          {
+            "minLevel": 50,
+            "mora": 3600
+          },
+          {
+            "minLevel": 60,
+            "mora": 4600
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_V168_WEALTH30",
+      "name": "부의 꽃 1번 이기기",
+      "goal": 1,
+      "prerequisites": [
+        "D_LEY"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1200
+          },
+          {
+            "minLevel": 10,
+            "mora": 1700
+          },
+          {
+            "minLevel": 20,
+            "mora": 2200
+          },
+          {
+            "minLevel": 30,
+            "mora": 3000
+          },
+          {
+            "minLevel": 40,
+            "mora": 4200
+          },
+          {
+            "minLevel": 50,
+            "mora": 5200
+          },
+          {
+            "minLevel": 60,
+            "mora": 6500
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_V168_TALENT15",
+      "name": "특성 비경 3번 이기기",
+      "goal": 3,
+      "prerequisites": [
+        "D_DOMAIN"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 800
+          },
+          {
+            "minLevel": 10,
+            "mora": 1500
+          },
+          {
+            "minLevel": 20,
+            "mora": 2300
+          },
+          {
+            "minLevel": 30,
+            "mora": 3200
+          },
+          {
+            "minLevel": 40,
+            "mora": 4400
+          },
+          {
+            "minLevel": 50,
+            "mora": 5500
+          },
+          {
+            "minLevel": 60,
+            "mora": 7000
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_V168_ASCENSION40",
+      "name": "돌파 비경 3번 이기기",
+      "goal": 3,
+      "prerequisites": [
+        "D_DOMAIN"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1000
+          },
+          {
+            "minLevel": 10,
+            "mora": 1800
+          },
+          {
+            "minLevel": 20,
+            "mora": 2600
+          },
+          {
+            "minLevel": 30,
+            "mora": 3800
+          },
+          {
+            "minLevel": 40,
+            "mora": 5000
+          },
+          {
+            "minLevel": 50,
+            "mora": 6500
+          },
+          {
+            "minLevel": 60,
+            "mora": 8000
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_V168_APPLE",
+      "name": "채집 3번 하기",
+      "goal": 3,
+      "prerequisites": [
+        "D_LIFE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 400
+          },
+          {
+            "minLevel": 10,
+            "mora": 600
+          },
+          {
+            "minLevel": 20,
+            "mora": 900
+          },
+          {
+            "minLevel": 30,
+            "mora": 1200
+          },
+          {
+            "minLevel": 40,
+            "mora": 1600
+          },
+          {
+            "minLevel": 50,
+            "mora": 2100
+          },
+          {
+            "minLevel": 60,
+            "mora": 2700
+          }
+        ]
+      }
+    },
+    {
+      "id": "D_V168_STEAK",
+      "name": "요리 3개 만들기",
+      "goal": 3,
+      "prerequisites": [
+        "D_V168_APPLE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 700
+          },
+          {
+            "minLevel": 10,
+            "mora": 1000
+          },
+          {
+            "minLevel": 20,
+            "mora": 1400
+          },
+          {
+            "minLevel": 30,
+            "mora": 1900
+          },
+          {
+            "minLevel": 40,
+            "mora": 2500
+          },
+          {
+            "minLevel": 50,
+            "mora": 3200
+          },
+          {
+            "minLevel": 60,
+            "mora": 3900
+          }
+        ]
+      }
+    }
+  ],
+  "weekly": [
+    {
+      "id": "W_WIN",
+      "name": "전투 150번 이기기",
+      "goal": 150,
+      "prerequisites": [
+        "W_V168_REACTION"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 2600
+          },
+          {
+            "minLevel": 10,
+            "mora": 4200
+          },
+          {
+            "minLevel": 20,
+            "mora": 6500
+          },
+          {
+            "minLevel": 30,
+            "mora": 9100
+          },
+          {
+            "minLevel": 40,
+            "mora": 13000
+          },
+          {
+            "minLevel": 50,
+            "mora": 16900
+          },
+          {
+            "minLevel": 60,
+            "mora": 20800
+          }
+        ],
+        "items": {
+          "MAT_CHAR_EXP_HERO": 2
+        }
+      }
+    },
+    {
+      "id": "W_BOSS",
+      "name": "필드 보스 10번 토벌",
+      "goal": 10,
+      "prerequisites": [
+        "W_V168_REACTION"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3900
+          },
+          {
+            "minLevel": 10,
+            "mora": 5800
+          },
+          {
+            "minLevel": 20,
+            "mora": 9100
+          },
+          {
+            "minLevel": 30,
+            "mora": 14300
+          },
+          {
+            "minLevel": 40,
+            "mora": 19500
+          },
+          {
+            "minLevel": 50,
+            "mora": 25400
+          },
+          {
+            "minLevel": 60,
+            "mora": 32500
+          }
+        ],
+        "primogem": 50
+      }
+    },
+    {
+      "id": "W_DOMAIN",
+      "name": "비경 30번 이기기",
+      "goal": 30,
+      "prerequisites": [],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 2600
+          },
+          {
+            "minLevel": 10,
+            "mora": 4200
+          },
+          {
+            "minLevel": 20,
+            "mora": 6500
+          },
+          {
+            "minLevel": 30,
+            "mora": 9800
+          },
+          {
+            "minLevel": 40,
+            "mora": 14300
+          },
+          {
+            "minLevel": 50,
+            "mora": 19500
+          },
+          {
+            "minLevel": 60,
+            "mora": 26000
+          }
+        ],
+        "items": {
+          "MAT_CHAR_EXP_HERO": 3
+        }
+      }
+    },
+    {
+      "id": "W_BONUS",
+      "name": "오늘의 임무 모두 달성 보상 5번 받기",
+      "goal": 5,
+      "prerequisites": [],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1300
+          },
+          {
+            "minLevel": 10,
+            "mora": 2000
+          },
+          {
+            "minLevel": 20,
+            "mora": 2900
+          },
+          {
+            "minLevel": 30,
+            "mora": 4200
+          },
+          {
+            "minLevel": 40,
+            "mora": 5800
+          },
+          {
+            "minLevel": 50,
+            "mora": 7800
+          },
+          {
+            "minLevel": 60,
+            "mora": 9800
+          }
+        ],
+        "primogem": 40
+      }
+    },
+    {
+      "id": "W_V168_REACTION",
+      "name": "보유 원소를 포함하여 전투 30번 이기기",
+      "goal": 30,
+      "prerequisites": [],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1000
+          },
+          {
+            "minLevel": 10,
+            "mora": 1600
+          },
+          {
+            "minLevel": 20,
+            "mora": 2600
+          },
+          {
+            "minLevel": 30,
+            "mora": 4200
+          },
+          {
+            "minLevel": 40,
+            "mora": 5800
+          },
+          {
+            "minLevel": 50,
+            "mora": 7800
+          },
+          {
+            "minLevel": 60,
+            "mora": 10400
+          }
+        ],
+        "primogem": 30
+      }
+    },
+    {
+      "id": "W_V168_OCEANID",
+      "name": "물의 정령 3번 토벌",
+      "goal": 3,
+      "prerequisites": [
+        "W_BOSS"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1600
+          },
+          {
+            "minLevel": 10,
+            "mora": 2900
+          },
+          {
+            "minLevel": 20,
+            "mora": 4600
+          },
+          {
+            "minLevel": 30,
+            "mora": 7200
+          },
+          {
+            "minLevel": 40,
+            "mora": 9800
+          },
+          {
+            "minLevel": 50,
+            "mora": 13000
+          },
+          {
+            "minLevel": 60,
+            "mora": 16200
+          }
+        ],
+        "primogem": 40
+      }
+    },
+    {
+      "id": "W_V168_TALENT30",
+      "name": "특성 비경 20번 이기기",
+      "goal": 20,
+      "prerequisites": [
+        "W_V168_EXPERIENCE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3200
+          },
+          {
+            "minLevel": 10,
+            "mora": 5500
+          },
+          {
+            "minLevel": 20,
+            "mora": 8400
+          },
+          {
+            "minLevel": 30,
+            "mora": 13000
+          },
+          {
+            "minLevel": 40,
+            "mora": 18800
+          },
+          {
+            "minLevel": 50,
+            "mora": 25400
+          },
+          {
+            "minLevel": 60,
+            "mora": 32500
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_ASCENSION",
+      "name": "돌파 비경 20번 이기기",
+      "goal": 20,
+      "prerequisites": [
+        "W_V168_EXPERIENCE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3600
+          },
+          {
+            "minLevel": 10,
+            "mora": 6200
+          },
+          {
+            "minLevel": 20,
+            "mora": 9400
+          },
+          {
+            "minLevel": 30,
+            "mora": 14300
+          },
+          {
+            "minLevel": 40,
+            "mora": 20200
+          },
+          {
+            "minLevel": 50,
+            "mora": 27300
+          },
+          {
+            "minLevel": 60,
+            "mora": 35800
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_EXPERIENCE",
+      "name": "경험치 비경 20번 이기기",
+      "goal": 20,
+      "prerequisites": [
+        "W_DOMAIN"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 2000
+          },
+          {
+            "minLevel": 10,
+            "mora": 3200
+          },
+          {
+            "minLevel": 20,
+            "mora": 5200
+          },
+          {
+            "minLevel": 30,
+            "mora": 7800
+          },
+          {
+            "minLevel": 40,
+            "mora": 11000
+          },
+          {
+            "minLevel": 50,
+            "mora": 15000
+          },
+          {
+            "minLevel": 60,
+            "mora": 19500
+          }
+        ],
+        "primogem": 30
+      }
+    },
+    {
+      "id": "W_V168_REVELATION",
+      "name": "계시의 꽃 10번 이기기",
+      "goal": 10,
+      "prerequisites": [
+        "W_V168_REACTION"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1600
+          },
+          {
+            "minLevel": 10,
+            "mora": 2600
+          },
+          {
+            "minLevel": 20,
+            "mora": 3900
+          },
+          {
+            "minLevel": 30,
+            "mora": 6200
+          },
+          {
+            "minLevel": 40,
+            "mora": 8400
+          },
+          {
+            "minLevel": 50,
+            "mora": 11700
+          },
+          {
+            "minLevel": 60,
+            "mora": 15600
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_WEALTH",
+      "name": "부의 꽃 10번 이기기",
+      "goal": 10,
+      "prerequisites": [
+        "W_V168_REVELATION"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 5500
+          },
+          {
+            "minLevel": 10,
+            "mora": 7500
+          },
+          {
+            "minLevel": 20,
+            "mora": 11000
+          },
+          {
+            "minLevel": 30,
+            "mora": 17000
+          },
+          {
+            "minLevel": 40,
+            "mora": 24000
+          },
+          {
+            "minLevel": 50,
+            "mora": 33000
+          },
+          {
+            "minLevel": 60,
+            "mora": 45000
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_GATHER",
+      "name": "채집 30번 하기",
+      "goal": 30,
+      "prerequisites": [],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1000
+          },
+          {
+            "minLevel": 10,
+            "mora": 1600
+          },
+          {
+            "minLevel": 20,
+            "mora": 2600
+          },
+          {
+            "minLevel": 30,
+            "mora": 4200
+          },
+          {
+            "minLevel": 40,
+            "mora": 5800
+          },
+          {
+            "minLevel": 50,
+            "mora": 7800
+          },
+          {
+            "minLevel": 60,
+            "mora": 10400
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_MINE",
+      "name": "채광 20번 하기",
+      "goal": 20,
+      "prerequisites": [],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1300
+          },
+          {
+            "minLevel": 10,
+            "mora": 2300
+          },
+          {
+            "minLevel": 20,
+            "mora": 3600
+          },
+          {
+            "minLevel": 30,
+            "mora": 5500
+          },
+          {
+            "minLevel": 40,
+            "mora": 7800
+          },
+          {
+            "minLevel": 50,
+            "mora": 10400
+          },
+          {
+            "minLevel": 60,
+            "mora": 14300
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_FISH",
+      "name": "낚시 20번 하기",
+      "goal": 20,
+      "prerequisites": [
+        "W_V168_GATHER"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1000
+          },
+          {
+            "minLevel": 10,
+            "mora": 1600
+          },
+          {
+            "minLevel": 20,
+            "mora": 2600
+          },
+          {
+            "minLevel": 30,
+            "mora": 3900
+          },
+          {
+            "minLevel": 40,
+            "mora": 5500
+          },
+          {
+            "minLevel": 50,
+            "mora": 7200
+          },
+          {
+            "minLevel": 60,
+            "mora": 9100
+          }
+        ],
+        "primogem": 20
+      }
+    },
+    {
+      "id": "W_V168_HUNT",
+      "name": "사냥 20번 하기",
+      "goal": 20,
+      "prerequisites": [
+        "W_V168_GATHER"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1200
+          },
+          {
+            "minLevel": 10,
+            "mora": 2000
+          },
+          {
+            "minLevel": 20,
+            "mora": 2900
+          },
+          {
+            "minLevel": 30,
+            "mora": 4600
+          },
+          {
+            "minLevel": 40,
+            "mora": 6500
+          },
+          {
+            "minLevel": 50,
+            "mora": 8800
+          },
+          {
+            "minLevel": 60,
+            "mora": 11700
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_COOK",
+      "name": "요리 20개 만들기",
+      "goal": 20,
+      "prerequisites": [
+        "W_V168_GATHER"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1600
+          },
+          {
+            "minLevel": 10,
+            "mora": 2600
+          },
+          {
+            "minLevel": 20,
+            "mora": 3900
+          },
+          {
+            "minLevel": 30,
+            "mora": 5500
+          },
+          {
+            "minLevel": 40,
+            "mora": 7800
+          },
+          {
+            "minLevel": 50,
+            "mora": 10400
+          },
+          {
+            "minLevel": 60,
+            "mora": 14300
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_FORGE",
+      "name": "장비 3개 제작하기",
+      "goal": 3,
+      "prerequisites": [
+        "W_V168_MINE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3200
+          },
+          {
+            "minLevel": 10,
+            "mora": 4600
+          },
+          {
+            "minLevel": 20,
+            "mora": 7200
+          },
+          {
+            "minLevel": 30,
+            "mora": 9800
+          },
+          {
+            "minLevel": 40,
+            "mora": 13000
+          },
+          {
+            "minLevel": 50,
+            "mora": 16900
+          },
+          {
+            "minLevel": 60,
+            "mora": 22100
+          }
+        ],
+        "primogem": 20
+      }
+    },
+    {
+      "id": "W_V168_ABYSS",
+      "name": "나선비경 전투 9번 이기기",
+      "goal": 9,
+      "prerequisites": [
+        "W_DOMAIN"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 0
+          },
+          {
+            "minLevel": 10,
+            "mora": 0
+          },
+          {
+            "minLevel": 20,
+            "mora": 1600
+          },
+          {
+            "minLevel": 30,
+            "mora": 2600
+          },
+          {
+            "minLevel": 40,
+            "mora": 4600
+          },
+          {
+            "minLevel": 50,
+            "mora": 7200
+          },
+          {
+            "minLevel": 60,
+            "mora": 11700
+          }
+        ],
+        "primogem": 80
+      }
+    },
+    {
+      "id": "W_V168_LIYUE_PATROL",
+      "name": "리월 평야·산악·절운간에서 전투 40번 승리",
+      "goal": 40,
+      "prerequisites": [
+        "W_V168_REACTION"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 2600
+          },
+          {
+            "minLevel": 10,
+            "mora": 4200
+          },
+          {
+            "minLevel": 20,
+            "mora": 6200
+          },
+          {
+            "minLevel": 30,
+            "mora": 9400
+          },
+          {
+            "minLevel": 40,
+            "mora": 13600
+          },
+          {
+            "minLevel": 50,
+            "mora": 18800
+          },
+          {
+            "minLevel": 60,
+            "mora": 24700
+          }
+        ],
+        "primogem": 40
+      }
+    },
+    {
+      "id": "W_V168_DOMAIN_CIRCUIT",
+      "name": "비경 50번 이기기",
+      "goal": 50,
+      "prerequisites": [
+        "W_V168_TALENT30",
+        "W_V168_ASCENSION"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3900
+          },
+          {
+            "minLevel": 10,
+            "mora": 6500
+          },
+          {
+            "minLevel": 20,
+            "mora": 10100
+          },
+          {
+            "minLevel": 30,
+            "mora": 15300
+          },
+          {
+            "minLevel": 40,
+            "mora": 21800
+          },
+          {
+            "minLevel": 50,
+            "mora": 29600
+          },
+          {
+            "minLevel": 60,
+            "mora": 39000
+          }
+        ],
+        "primogem": 60
+      }
+    },
+    {
+      "id": "W_V168_LIFE_SUPPLY",
+      "name": "채집·채광·낚시·사냥 60번 하기",
+      "goal": 60,
+      "prerequisites": [
+        "W_V168_GATHER",
+        "W_V168_MINE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 2000
+          },
+          {
+            "minLevel": 10,
+            "mora": 3200
+          },
+          {
+            "minLevel": 20,
+            "mora": 5200
+          },
+          {
+            "minLevel": 30,
+            "mora": 7800
+          },
+          {
+            "minLevel": 40,
+            "mora": 11000
+          },
+          {
+            "minLevel": 50,
+            "mora": 15000
+          },
+          {
+            "minLevel": 60,
+            "mora": 19500
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V168_ORE_SUPPLY",
+      "name": "광석 60개 새로 채광하기",
+      "goal": 60,
+      "prerequisites": [
+        "W_V168_MINE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 1600
+          },
+          {
+            "minLevel": 10,
+            "mora": 2900
+          },
+          {
+            "minLevel": 20,
+            "mora": 4200
+          },
+          {
+            "minLevel": 30,
+            "mora": 6500
+          },
+          {
+            "minLevel": 40,
+            "mora": 9400
+          },
+          {
+            "minLevel": 50,
+            "mora": 12700
+          },
+          {
+            "minLevel": 60,
+            "mora": 16900
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V169_INN",
+      "name": "숙박시설에서 5번 숙박",
+      "goal": 5,
+      "prerequisites": [
+        "W_V168_REACTION"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3000
+          },
+          {
+            "minLevel": 30,
+            "mora": 4200
+          },
+          {
+            "minLevel": 50,
+            "mora": 5000
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V169_PROCESS",
+      "name": "식재료 12회 가공",
+      "goal": 12,
+      "prerequisites": [
+        "W_V168_COOK"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3500
+          },
+          {
+            "minLevel": 30,
+            "mora": 8500
+          },
+          {
+            "minLevel": 50,
+            "mora": 14000
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V169_INCIDENT",
+      "name": "지역 돌발상황 8번 해결",
+      "goal": 8,
+      "prerequisites": [
+        "W_V168_REACTION"
+      ],
+      "reward": {
+        "primogem": 35,
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3000
+          },
+          {
+            "minLevel": 30,
+            "mora": 7000
+          },
+          {
+            "minLevel": 50,
+            "mora": 11000
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V169_ENHANCE",
+      "name": "장비 강화 4번 시도",
+      "goal": 4,
+      "prerequisites": [
+        "W_V168_FORGE"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 4500
+          },
+          {
+            "minLevel": 30,
+            "mora": 16000
+          },
+          {
+            "minLevel": 50,
+            "mora": 27000
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V169_ARTIFACT_ENHANCE",
+      "name": "성유물 강화 4번 시도",
+      "goal": 4,
+      "prerequisites": [
+        "W_V169_ENHANCE"
+      ],
+      "reward": {
+        "primogem": 30,
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 4500
+          },
+          {
+            "minLevel": 30,
+            "mora": 15000
+          },
+          {
+            "minLevel": 50,
+            "mora": 25000
+          }
+        ]
+      }
+    },
+    {
+      "id": "W_V169_RECOVERY_MEAL",
+      "name": "회복 음식으로 캐릭터 12번 회복",
+      "goal": 12,
+      "prerequisites": [
+        "W_V168_COOK"
+      ],
+      "reward": {
+        "moraByLevel": [
+          {
+            "minLevel": 1,
+            "mora": 3000
+          },
+          {
+            "minLevel": 30,
+            "mora": 6000
+          },
+          {
+            "minLevel": 50,
+            "mora": 10000
+          }
+        ]
+      }
+    }
+  ],
+  "learning": [
+    {
+      "id": "Q_TASK_LEARN_01",
+      "name": "의뢰 접수 연습",
+      "prerequisites": [],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_02",
+      "name": "주변에서 재료 채집",
+      "prerequisites": [
+        "Q_TASK_LEARN_01"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_03",
+      "name": "풍경 속 보물상자",
+      "prerequisites": [
+        "Q_TASK_LEARN_01"
+      ],
+      "finitePriorEvidence": true
+    },
+    {
+      "id": "Q_TASK_LEARN_04",
+      "name": "신의 눈동자 조사",
+      "prerequisites": [
+        "Q_TASK_LEARN_03"
+      ],
+      "finitePriorEvidence": true
+    },
+    {
+      "id": "Q_TASK_LEARN_05",
+      "name": "제작을 위한 채광",
+      "prerequisites": [
+        "Q_TASK_LEARN_02"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_06",
+      "name": "회복 음식 요리",
+      "prerequisites": [
+        "Q_TASK_LEARN_02"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_07",
+      "name": "동료와 회복 음식 먹기",
+      "prerequisites": [
+        "Q_TASK_LEARN_06"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_08",
+      "name": "숙박으로 파티 회복",
+      "prerequisites": [
+        "Q_TASK_LEARN_07"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_09",
+      "name": "낚싯대와 미끼 준비",
+      "prerequisites": [
+        "Q_TASK_LEARN_02"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_10",
+      "name": "식재료 가공",
+      "prerequisites": [
+        "Q_TASK_LEARN_06"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_11",
+      "name": "장비 제작의 첫걸음",
+      "prerequisites": [
+        "Q_TASK_LEARN_05"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_12",
+      "name": "새 장비 장착",
+      "prerequisites": [
+        "Q_TASK_LEARN_11"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_13",
+      "name": "장비 강화 체험",
+      "prerequisites": [
+        "Q_TASK_LEARN_12"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_14",
+      "name": "경험치 비경으로 레벨링",
+      "prerequisites": [
+        "Q_TASK_LEARN_01"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_15",
+      "name": "계시의 꽃과 경험치 책",
+      "prerequisites": [
+        "Q_TASK_LEARN_14"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_16",
+      "name": "현장 의뢰 결과 보고",
+      "prerequisites": [
+        "Q_TASK_LEARN_02"
+      ],
+      "finitePriorEvidence": true
+    },
+    {
+      "id": "Q_TASK_LEARN_17",
+      "name": "개인 임무를 통한 만남",
+      "prerequisites": [
+        "Q_TASK_LEARN_16"
+      ],
+      "finitePriorEvidence": true
+    },
+    {
+      "id": "Q_TASK_LEARN_18",
+      "name": "호감도와 관계 사건",
+      "prerequisites": [
+        "Q_TASK_LEARN_17"
+      ],
+      "finitePriorEvidence": true
+    },
+    {
+      "id": "Q_TASK_LEARN_19",
+      "name": "길 위의 돌발상황",
+      "prerequisites": [
+        "Q_TASK_LEARN_01"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_20",
+      "name": "모아 온 눈동자 공양",
+      "prerequisites": [
+        "Q_TASK_LEARN_04"
+      ],
+      "finitePriorEvidence": true
+    },
+    {
+      "id": "Q_TASK_LEARN_21",
+      "name": "핸드북에서 업적 보상 받기",
+      "prerequisites": [
+        "Q_TASK_LEARN_01"
+      ],
+      "finitePriorEvidence": true
+    },
+    {
+      "id": "Q_TASK_LEARN_22",
+      "name": "핸드북으로 필드 보스 찾기",
+      "prerequisites": [
+        "Q_TASK_LEARN_14",
+        "Q_TASK_LEARN_12"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_23",
+      "name": "부의 꽃과 강화 자금",
+      "prerequisites": [
+        "Q_TASK_LEARN_15",
+        "Q_TASK_LEARN_13"
+      ],
+      "finitePriorEvidence": false
+    },
+    {
+      "id": "Q_TASK_LEARN_24",
+      "name": "나선비경 첫 공략",
+      "prerequisites": [
+        "Q_TASK_LEARN_14",
+        "Q_TASK_LEARN_12"
+      ],
+      "finitePriorEvidence": false
+    }
+  ],
+  "familyRoots": [
+    {
+      "id": "Q_TASK_MOND_PATROL_01",
+      "family": "MOND_PATROL",
+      "name": "몬드 순찰 1 · 몬드 외곽 초원 전투 1번 승리",
+      "prerequisites": [
+        "Q_TASK_LEARN_16"
+      ]
+    },
+    {
+      "id": "Q_TASK_LIYUE_PATROL_01",
+      "family": "LIYUE_PATROL",
+      "name": "리월 순찰 1 · 리월 평야·도로 전투 2번 승리",
+      "prerequisites": [
+        "Q_TASK_LEARN_16"
+      ]
+    },
+    {
+      "id": "Q_TASK_SLIME_01",
+      "family": "SLIME",
+      "name": "슬라임 대응 1 · 바람 슬라임이 있는 전투 1번 승리",
+      "prerequisites": [
+        "Q_TASK_LEARN_16"
+      ]
+    },
+    {
+      "id": "Q_TASK_HILICHURL_01",
+      "family": "HILICHURL",
+      "name": "츄츄족 대응 1 · 츄츄 싸움꾼이 있는 전투 1번 승리",
+      "prerequisites": [
+        "Q_TASK_LEARN_16"
+      ]
+    },
+    {
+      "id": "Q_TASK_BANDITS_01",
+      "family": "BANDITS",
+      "name": "보물 사냥단·우인단 대응 1 · 보물 사냥단 척후병이 있는 전투 2승",
+      "prerequisites": [
+        "Q_TASK_LEARN_16"
+      ]
+    },
+    {
+      "id": "Q_TASK_RUINS_01",
+      "family": "RUINS",
+      "name": "유적·층암거연 대응 1 · 유적 가디언이 있는 전투 1번 승리",
+      "prerequisites": [
+        "Q_TASK_LEARN_16"
+      ]
+    },
+    {
+      "id": "Q_TASK_MOND_GATHER_01",
+      "family": "MOND_GATHER",
+      "name": "몬드 채집 1 · 초원에서 사과 3개 채집",
+      "prerequisites": [
+        "Q_TASK_LEARN_02"
+      ]
+    },
+    {
+      "id": "Q_TASK_LIYUE_GATHER_01",
+      "family": "LIYUE_GATHER",
+      "name": "리월 채집 1 · 리월 평야에서 당근 3개 채집",
+      "prerequisites": [
+        "Q_TASK_LEARN_02"
+      ]
+    },
+    {
+      "id": "Q_TASK_MINING_01",
+      "family": "MINING",
+      "name": "광석 수집 1 · 몬드 동쪽 광산에서 철광 3개 채광",
+      "prerequisites": [
+        "Q_TASK_LEARN_05"
+      ]
+    },
+    {
+      "id": "Q_TASK_FISH_HUNT_01",
+      "family": "FISH_HUNT",
+      "name": "낚시·사냥 1 · 시드르 호수 낚시터에서 생선 살코기 3개 낚기",
+      "prerequisites": [
+        "Q_TASK_LEARN_09"
+      ]
+    },
+    {
+      "id": "Q_TASK_COOKING_01",
+      "family": "COOKING",
+      "name": "조리 기록 1 · 스테이크 1회 요리",
+      "prerequisites": [
+        "Q_TASK_LEARN_06"
+      ]
+    },
+    {
+      "id": "Q_TASK_FORGING_01",
+      "family": "FORGING",
+      "name": "단조 기록 1 · 참암 프로토타입 1개 단조",
+      "prerequisites": [
+        "Q_TASK_LEARN_11"
+      ]
+    },
+    {
+      "id": "Q_TASK_REVELATION_01",
+      "family": "REVELATION",
+      "name": "계시의 꽃 수련 1 · 계시의 꽃 Lv.6 이상 1승",
+      "prerequisites": [
+        "Q_TASK_LEARN_15"
+      ]
+    },
+    {
+      "id": "Q_TASK_WEALTH_01",
+      "family": "WEALTH",
+      "name": "부의 꽃 수련 1 · 부의 꽃 Lv.6 이상 1승",
+      "prerequisites": [
+        "Q_TASK_LEARN_23"
+      ]
+    },
+    {
+      "id": "Q_TASK_TALENT_01",
+      "family": "TALENT",
+      "name": "특성 비경 수련 1 · 잊혀진 협곡 Lv.5 이상 1승",
+      "prerequisites": [
+        "Q_TASK_LEARN_14"
+      ]
+    },
+    {
+      "id": "Q_TASK_ASCENSION_01",
+      "family": "ASCENSION",
+      "name": "돌파 비경 수련 1 · 각인의 골짜기 Lv.5 이상 1승",
+      "prerequisites": [
+        "Q_TASK_LEARN_14"
+      ]
+    },
+    {
+      "id": "Q_TASK_EXPERIENCE_01",
+      "family": "EXPERIENCE",
+      "name": "경험치 비경 순회 1 · 한 여름의 정원 Lv.5 이상 1승",
+      "prerequisites": [
+        "Q_TASK_LEARN_14"
+      ]
+    },
+    {
+      "id": "Q_TASK_MOND_BOSSES_01",
+      "family": "MOND_BOSSES",
+      "name": "몬드 필드 보스 1 · 무상의 바람 1회 토벌",
+      "prerequisites": [
+        "Q_TASK_LEARN_22"
+      ]
+    },
+    {
+      "id": "Q_TASK_LIYUE_BOSSES_01",
+      "family": "LIYUE_BOSSES",
+      "name": "리월 필드 보스 1 · 폭염 나무: 물 포함 1승",
+      "prerequisites": [
+        "Q_TASK_LEARN_22"
+      ]
+    },
+    {
+      "id": "Q_TASK_ABYSS_01",
+      "family": "ABYSS",
+      "name": "나선비경 도전 1 · 나선비경 1층 전투 3승",
+      "prerequisites": [
+        "Q_TASK_LEARN_24"
+      ]
+    },
+    {
+      "id": "Q_TASK_MONO_ANEMO_01",
+      "family": "MONO_ANEMO",
+      "name": "바람·바위 4인 도전 1 · 바람 원소 4인으로 초원 전투 2승",
+      "prerequisites": [
+        "Q_TASK_LEARN_17"
+      ]
+    },
+    {
+      "id": "Q_TASK_DOUBLE_PAIRS_01",
+      "family": "DOUBLE_PAIRS",
+      "name": "원소 2+2인 편성 1 · 바람 2·불 2인으로 전투 2승",
+      "prerequisites": [
+        "Q_TASK_LEARN_17"
+      ]
+    },
+    {
+      "id": "Q_TASK_MOND_SQUADS_01",
+      "family": "MOND_SQUADS",
+      "name": "몬드 4★ 동료 편성 1 · 엠버·케이아·리사와 초원 전투 2승",
+      "prerequisites": [
+        "Q_TASK_LEARN_17"
+      ]
+    },
+    {
+      "id": "Q_TASK_LIYUE_SQUADS_01",
+      "family": "LIYUE_SQUADS",
+      "name": "리월 4★ 동료 편성 1 · 향릉·행추·중운과 리월 평야 전투 2승",
+      "prerequisites": [
+        "Q_TASK_LEARN_17"
+      ]
+    },
+    {
+      "id": "Q_TASK_SUPPLIES_01",
+      "family": "SUPPLIES",
+      "name": "달콤달콤꽃 8개 납품",
+      "prerequisites": [
+        "Q_TASK_LEARN_02"
+      ]
+    },
+    {
+      "id": "Q_TASK_PROVISIONS_01",
+      "family": "PROVISIONS",
+      "name": "밀가루 4개 납품",
+      "prerequisites": [
+        "Q_TASK_LEARN_10"
+      ]
+    },
+    {
+      "id": "Q_TASK_KITCHEN_DELIVERY_01",
+      "family": "KITCHEN_DELIVERY",
+      "name": "스테이크 4개 납품",
+      "prerequisites": [
+        "Q_TASK_LEARN_06"
+      ]
+    },
+    {
+      "id": "Q_TASK_GEAR_DELIVERY_01",
+      "family": "GEAR_DELIVERY",
+      "name": "여행자 외투 1개 납품",
+      "prerequisites": [
+        "Q_TASK_LEARN_11"
+      ]
+    }
+  ],
+  "invariants": {
+    "otherIdsPreserved": true,
+    "goalsAndIndividualRewardsPreserved": true,
+    "acceptedDefinitionsFrozen": true,
+    "noUiLayoutChange": true
+  }
+}

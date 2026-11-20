@@ -1,0 +1,3088 @@
+{
+  "schema": 1,
+  "version": "0.16.14",
+  "sourceSha256": "5ed4fdca03d4ccebc8cf315775d79bc8eef5e73b3c87708eaca4fbcbdf5b541d",
+  "scope": "Native costs and payout model. No actual 60-fight combat/timing simulation, no real account or server was changed.",
+  "assumptions": [
+    "Daily 3 wins rotate TALENT -> ASCENSION -> EXP over seven Korean days.",
+    "Weekly TALENT/ASCENSION/EXP 20 wins each includes daily wins; total is 60, not 81.",
+    "The first three material wins are shared per day. EXP does not consume them.",
+    "Leftover weekly wins settle on day seven. An alternate model adds three material wins on each EXP day.",
+    "MOND books and LIYUE books are separate. MOND highest talent level is 25 (5 base books), LIYUE 60 (12).",
+    "Current own-element ASCENSION model uses PYRO. All same-element gem demands share the native formula.",
+    "Books/gems are inventory supplies, not cloned separately for four participants."
+  ],
+  "characters": [
+    {
+      "owner": "MOND_AMBER",
+      "rarity": 4,
+      "region": "MOND",
+      "ascensionPhases": [
+        {
+          "phase": 0,
+          "level": 10,
+          "nextCap": 20,
+          "cost": {
+            "mora": 800,
+            "items": {
+              "GROWTH_GEM_PYRO": 3,
+              "ING_LAMP_GRASS": 2,
+              "MAT_DAMAGED_MASK": 2
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "level": 20,
+          "nextCap": 30,
+          "cost": {
+            "mora": 2400,
+            "items": {
+              "GROWTH_GEM_PYRO": 6,
+              "ING_LAMP_GRASS": 4,
+              "MAT_DAMAGED_MASK": 3
+            }
+          }
+        },
+        {
+          "phase": 2,
+          "level": 30,
+          "nextCap": 40,
+          "cost": {
+            "mora": 6000,
+            "items": {
+              "GROWTH_GEM_PYRO": 12,
+              "ING_LAMP_GRASS": 6,
+              "MAT_STAINED_MASK": 3
+            }
+          }
+        },
+        {
+          "phase": 3,
+          "level": 40,
+          "nextCap": 50,
+          "cost": {
+            "mora": 14000,
+            "items": {
+              "GROWTH_GEM_PYRO": 40,
+              "ING_LAMP_GRASS": 8,
+              "MAT_STAINED_MASK": 4,
+              "TRPG_BOSS_ESSENCE": 1
+            }
+          }
+        },
+        {
+          "phase": 4,
+          "level": 50,
+          "nextCap": 55,
+          "cost": {
+            "mora": 28000,
+            "items": {
+              "GROWTH_GEM_PYRO": 80,
+              "ING_LAMP_GRASS": 10,
+              "MAT_OMINOUS_MASK": 4,
+              "MAT_FB_EVERFLAME_SEED": 2
+            }
+          }
+        },
+        {
+          "phase": 5,
+          "level": 55,
+          "nextCap": 60,
+          "cost": {
+            "mora": 42000,
+            "items": {
+              "GROWTH_GEM_PYRO": 800,
+              "ING_LAMP_GRASS": 12,
+              "MAT_OMINOUS_MASK": 6,
+              "MAT_FB_EVERFLAME_SEED": 3
+            }
+          }
+        }
+      ],
+      "ascensionTotal": {
+        "mora": 93200,
+        "items": {
+          "GROWTH_GEM_PYRO": 941,
+          "ING_LAMP_GRASS": 42,
+          "MAT_DAMAGED_MASK": 5,
+          "MAT_STAINED_MASK": 7,
+          "TRPG_BOSS_ESSENCE": 1,
+          "MAT_OMINOUS_MASK": 10,
+          "MAT_FB_EVERFLAME_SEED": 5
+        }
+      },
+      "newLevel55LastAscension": {
+        "mora": 42000,
+        "items": {
+          "GROWTH_GEM_PYRO": 800,
+          "ING_LAMP_GRASS": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_EVERFLAME_SEED": 3
+        }
+      },
+      "threeTalentCosts": {
+        "8": {
+          "mora": 105000,
+          "items": {
+            "GROWTH_TALENT_MOND": 168,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 30
+          }
+        },
+        "10": {
+          "mora": 213750,
+          "items": {
+            "GROWTH_TALENT_MOND": 270,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 57
+          }
+        }
+      },
+      "moraBudget": {
+        "fullAscensionTalent8Gear3At10": 426404.2750995135,
+        "new55AscensionTalent8Gear3At10": 375204.2750995135,
+        "excludes": "crafting, item purchases/conversions, travel, recovery, story and opportunity costs"
+      }
+    },
+    {
+      "owner": "MOND_DILUC",
+      "rarity": 5,
+      "region": "MOND",
+      "ascensionPhases": [
+        {
+          "phase": 0,
+          "level": 10,
+          "nextCap": 20,
+          "cost": {
+            "mora": 1440,
+            "items": {
+              "GROWTH_GEM_PYRO": 6,
+              "ING_LAMP_GRASS": 4,
+              "MAT_DAMAGED_MASK": 4
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "level": 20,
+          "nextCap": 30,
+          "cost": {
+            "mora": 4320,
+            "items": {
+              "GROWTH_GEM_PYRO": 12,
+              "ING_LAMP_GRASS": 8,
+              "MAT_DAMAGED_MASK": 6
+            }
+          }
+        },
+        {
+          "phase": 2,
+          "level": 30,
+          "nextCap": 40,
+          "cost": {
+            "mora": 10800,
+            "items": {
+              "GROWTH_GEM_PYRO": 24,
+              "ING_LAMP_GRASS": 12,
+              "MAT_STAINED_MASK": 6
+            }
+          }
+        },
+        {
+          "phase": 3,
+          "level": 40,
+          "nextCap": 50,
+          "cost": {
+            "mora": 25200,
+            "items": {
+              "GROWTH_GEM_PYRO": 80,
+              "ING_LAMP_GRASS": 16,
+              "MAT_STAINED_MASK": 8,
+              "TRPG_BOSS_ESSENCE": 2
+            }
+          }
+        },
+        {
+          "phase": 4,
+          "level": 50,
+          "nextCap": 55,
+          "cost": {
+            "mora": 50400,
+            "items": {
+              "GROWTH_GEM_PYRO": 160,
+              "ING_LAMP_GRASS": 20,
+              "MAT_OMINOUS_MASK": 8,
+              "MAT_FB_EVERFLAME_SEED": 4
+            }
+          }
+        },
+        {
+          "phase": 5,
+          "level": 55,
+          "nextCap": 60,
+          "cost": {
+            "mora": 75600,
+            "items": {
+              "GROWTH_GEM_PYRO": 1600,
+              "ING_LAMP_GRASS": 24,
+              "MAT_OMINOUS_MASK": 12,
+              "MAT_FB_EVERFLAME_SEED": 6
+            }
+          }
+        }
+      ],
+      "ascensionTotal": {
+        "mora": 167760,
+        "items": {
+          "GROWTH_GEM_PYRO": 1882,
+          "ING_LAMP_GRASS": 84,
+          "MAT_DAMAGED_MASK": 10,
+          "MAT_STAINED_MASK": 14,
+          "TRPG_BOSS_ESSENCE": 2,
+          "MAT_OMINOUS_MASK": 20,
+          "MAT_FB_EVERFLAME_SEED": 10
+        }
+      },
+      "newLevel55LastAscension": {
+        "mora": 75600,
+        "items": {
+          "GROWTH_GEM_PYRO": 1600,
+          "ING_LAMP_GRASS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_EVERFLAME_SEED": 6
+        }
+      },
+      "threeTalentCosts": {
+        "8": {
+          "mora": 157500,
+          "items": {
+            "GROWTH_TALENT_MOND": 168,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 30
+          }
+        },
+        "10": {
+          "mora": 320625,
+          "items": {
+            "GROWTH_TALENT_MOND": 270,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 57
+          }
+        }
+      },
+      "moraBudget": {
+        "fullAscensionTalent8Gear3At10": 553464.2750995136,
+        "new55AscensionTalent8Gear3At10": 461304.2750995135,
+        "excludes": "crafting, item purchases/conversions, travel, recovery, story and opportunity costs"
+      }
+    },
+    {
+      "owner": "LIYUE_XIANGLING",
+      "rarity": 4,
+      "region": "LIYUE",
+      "ascensionPhases": [
+        {
+          "phase": 0,
+          "level": 10,
+          "nextCap": 20,
+          "cost": {
+            "mora": 800,
+            "items": {
+              "GROWTH_GEM_PYRO": 3,
+              "MAT_LIYUE_JUEYUN_CHILI": 2,
+              "MAT_DAMAGED_MASK": 2
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "level": 20,
+          "nextCap": 30,
+          "cost": {
+            "mora": 2400,
+            "items": {
+              "GROWTH_GEM_PYRO": 6,
+              "MAT_LIYUE_JUEYUN_CHILI": 4,
+              "MAT_DAMAGED_MASK": 3
+            }
+          }
+        },
+        {
+          "phase": 2,
+          "level": 30,
+          "nextCap": 40,
+          "cost": {
+            "mora": 6000,
+            "items": {
+              "GROWTH_GEM_PYRO": 12,
+              "MAT_LIYUE_JUEYUN_CHILI": 6,
+              "MAT_STAINED_MASK": 3
+            }
+          }
+        },
+        {
+          "phase": 3,
+          "level": 40,
+          "nextCap": 50,
+          "cost": {
+            "mora": 14000,
+            "items": {
+              "GROWTH_GEM_PYRO": 40,
+              "MAT_LIYUE_JUEYUN_CHILI": 8,
+              "MAT_STAINED_MASK": 4,
+              "TRPG_BOSS_ESSENCE": 1
+            }
+          }
+        },
+        {
+          "phase": 4,
+          "level": 50,
+          "nextCap": 55,
+          "cost": {
+            "mora": 28000,
+            "items": {
+              "GROWTH_GEM_PYRO": 80,
+              "MAT_LIYUE_JUEYUN_CHILI": 10,
+              "MAT_OMINOUS_MASK": 4,
+              "MAT_FB_EVERFLAME_SEED": 2
+            }
+          }
+        },
+        {
+          "phase": 5,
+          "level": 55,
+          "nextCap": 60,
+          "cost": {
+            "mora": 42000,
+            "items": {
+              "GROWTH_GEM_PYRO": 800,
+              "MAT_LIYUE_JUEYUN_CHILI": 12,
+              "MAT_OMINOUS_MASK": 6,
+              "MAT_FB_EVERFLAME_SEED": 3
+            }
+          }
+        }
+      ],
+      "ascensionTotal": {
+        "mora": 93200,
+        "items": {
+          "GROWTH_GEM_PYRO": 941,
+          "MAT_LIYUE_JUEYUN_CHILI": 42,
+          "MAT_DAMAGED_MASK": 5,
+          "MAT_STAINED_MASK": 7,
+          "TRPG_BOSS_ESSENCE": 1,
+          "MAT_OMINOUS_MASK": 10,
+          "MAT_FB_EVERFLAME_SEED": 5
+        }
+      },
+      "newLevel55LastAscension": {
+        "mora": 42000,
+        "items": {
+          "GROWTH_GEM_PYRO": 800,
+          "MAT_LIYUE_JUEYUN_CHILI": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_EVERFLAME_SEED": 3
+        }
+      },
+      "threeTalentCosts": {
+        "8": {
+          "mora": 105000,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 336,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 30
+          }
+        },
+        "10": {
+          "mora": 213750,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 540,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 57
+          }
+        }
+      },
+      "moraBudget": {
+        "fullAscensionTalent8Gear3At10": 426404.2750995135,
+        "new55AscensionTalent8Gear3At10": 375204.2750995135,
+        "excludes": "crafting, item purchases/conversions, travel, recovery, story and opportunity costs"
+      }
+    },
+    {
+      "owner": "LIYUE_ZHONGLI",
+      "rarity": 5,
+      "region": "LIYUE",
+      "ascensionPhases": [
+        {
+          "phase": 0,
+          "level": 10,
+          "nextCap": 20,
+          "cost": {
+            "mora": 1440,
+            "items": {
+              "GROWTH_GEM_GEO": 6,
+              "MAT_LIYUE_COR_LAPIS": 4,
+              "MAT_DAMAGED_MASK": 4
+            }
+          }
+        },
+        {
+          "phase": 1,
+          "level": 20,
+          "nextCap": 30,
+          "cost": {
+            "mora": 4320,
+            "items": {
+              "GROWTH_GEM_GEO": 12,
+              "MAT_LIYUE_COR_LAPIS": 8,
+              "MAT_DAMAGED_MASK": 6
+            }
+          }
+        },
+        {
+          "phase": 2,
+          "level": 30,
+          "nextCap": 40,
+          "cost": {
+            "mora": 10800,
+            "items": {
+              "GROWTH_GEM_GEO": 24,
+              "MAT_LIYUE_COR_LAPIS": 12,
+              "MAT_STAINED_MASK": 6
+            }
+          }
+        },
+        {
+          "phase": 3,
+          "level": 40,
+          "nextCap": 50,
+          "cost": {
+            "mora": 25200,
+            "items": {
+              "GROWTH_GEM_GEO": 80,
+              "MAT_LIYUE_COR_LAPIS": 16,
+              "MAT_STAINED_MASK": 8,
+              "TRPG_BOSS_ESSENCE": 2
+            }
+          }
+        },
+        {
+          "phase": 4,
+          "level": 50,
+          "nextCap": 55,
+          "cost": {
+            "mora": 50400,
+            "items": {
+              "GROWTH_GEM_GEO": 160,
+              "MAT_LIYUE_COR_LAPIS": 20,
+              "MAT_OMINOUS_MASK": 8,
+              "MAT_FB_BASALT_PILLAR": 4
+            }
+          }
+        },
+        {
+          "phase": 5,
+          "level": 55,
+          "nextCap": 60,
+          "cost": {
+            "mora": 75600,
+            "items": {
+              "GROWTH_GEM_GEO": 1600,
+              "MAT_LIYUE_COR_LAPIS": 24,
+              "MAT_OMINOUS_MASK": 12,
+              "MAT_FB_BASALT_PILLAR": 6
+            }
+          }
+        }
+      ],
+      "ascensionTotal": {
+        "mora": 167760,
+        "items": {
+          "GROWTH_GEM_GEO": 1882,
+          "MAT_LIYUE_COR_LAPIS": 84,
+          "MAT_DAMAGED_MASK": 10,
+          "MAT_STAINED_MASK": 14,
+          "TRPG_BOSS_ESSENCE": 2,
+          "MAT_OMINOUS_MASK": 20,
+          "MAT_FB_BASALT_PILLAR": 10
+        }
+      },
+      "newLevel55LastAscension": {
+        "mora": 75600,
+        "items": {
+          "GROWTH_GEM_GEO": 1600,
+          "MAT_LIYUE_COR_LAPIS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_BASALT_PILLAR": 6
+        }
+      },
+      "threeTalentCosts": {
+        "8": {
+          "mora": 157500,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 336,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 30
+          }
+        },
+        "10": {
+          "mora": 320625,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 540,
+            "MAT_SLIME_SECRETIONS": 15,
+            "MAT_SLIME_CONCENTRATE": 57
+          }
+        }
+      },
+      "moraBudget": {
+        "fullAscensionTalent8Gear3At10": 553464.2750995136,
+        "new55AscensionTalent8Gear3At10": 461304.2750995135,
+        "excludes": "crafting, item purchases/conversions, travel, recovery, story and opportunity costs"
+      }
+    }
+  ],
+  "enhancement": [
+    {
+      "target": 3,
+      "mora": 406.3157894736842,
+      "items": {
+        "ORE_IRON": 6.43859649122807,
+        "ORE_WHITE_IRON": 0,
+        "ORE_CRYSTAL": 0
+      },
+      "ascensionFeeExcluded": null
+    },
+    {
+      "target": 6,
+      "mora": 3779.4250331711637,
+      "items": {
+        "ORE_IRON": 47.42599144921127,
+        "ORE_WHITE_IRON": 9.642857142857142,
+        "ORE_CRYSTAL": 0
+      },
+      "ascensionFeeExcluded": null
+    },
+    {
+      "target": 10,
+      "mora": 76068.09169983784,
+      "items": {
+        "ORE_IRON": 47.42599144921127,
+        "ORE_WHITE_IRON": 241.6395238095238,
+        "ORE_CRYSTAL": 139.95666666666665
+      },
+      "ascensionFeeExcluded": null
+    },
+    {
+      "target": 12,
+      "mora": 382845.92903317115,
+      "items": {
+        "ORE_IRON": 47.42599144921127,
+        "ORE_WHITE_IRON": 1047.2724171428572,
+        "ORE_CRYSTAL": 731.4322799999999
+      },
+      "ascensionFeeExcluded": {
+        "mora": 3000,
+        "items": {
+          "TRPG_BOSS_ESSENCE": 3,
+          "TRPG_BOSS_CORE": 1,
+          "ORE_CRYSTAL": 5
+        }
+      }
+    }
+  ],
+  "weeklySupplyModels": [
+    {
+      "talentLevel": 5,
+      "ascensionLevel": 5,
+      "extraOnExperienceDays": false,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 9,
+        "ASCENSION": 6
+      },
+      "totalMaterialBonusWins": 15,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_MOND": 29,
+          "GROWTH_GEM_PYRO": 26
+        },
+        "xp": 5600,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 6
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 6
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 6
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 6
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 42,
+          "counts": {
+            "TALENT": 14,
+            "ASCENSION": 14,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 17,
+            "GROWTH_GEM_PYRO": 14
+          }
+        }
+      ]
+    },
+    {
+      "talentLevel": 5,
+      "ascensionLevel": 5,
+      "extraOnExperienceDays": true,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 12,
+        "ASCENSION": 9
+      },
+      "totalMaterialBonusWins": 21,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_MOND": 32,
+          "GROWTH_GEM_PYRO": 29
+        },
+        "xp": 5600,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 6
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 6
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 6
+          }
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 6
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 6
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 6
+          }
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 36,
+          "counts": {
+            "TALENT": 11,
+            "ASCENSION": 11,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 14,
+            "GROWTH_GEM_PYRO": 11
+          }
+        }
+      ]
+    },
+    {
+      "talentLevel": 25,
+      "ascensionLevel": 25,
+      "extraOnExperienceDays": false,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 9,
+        "ASCENSION": 6
+      },
+      "totalMaterialBonusWins": 15,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_MOND": 145,
+          "GROWTH_GEM_PYRO": 130
+        },
+        "xp": 12800,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 30
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 30
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 42,
+          "counts": {
+            "TALENT": 14,
+            "ASCENSION": 14,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 85,
+            "GROWTH_GEM_PYRO": 70
+          }
+        }
+      ]
+    },
+    {
+      "talentLevel": 25,
+      "ascensionLevel": 25,
+      "extraOnExperienceDays": true,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 12,
+        "ASCENSION": 9
+      },
+      "totalMaterialBonusWins": 21,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_MOND": 160,
+          "GROWTH_GEM_PYRO": 145
+        },
+        "xp": 12800,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 30
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 30
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 30
+          }
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 36,
+          "counts": {
+            "TALENT": 11,
+            "ASCENSION": 11,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 70,
+            "GROWTH_GEM_PYRO": 55
+          }
+        }
+      ]
+    },
+    {
+      "talentLevel": 25,
+      "ascensionLevel": 60,
+      "extraOnExperienceDays": false,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 9,
+        "ASCENSION": 6
+      },
+      "totalMaterialBonusWins": 15,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_MOND": 145,
+          "GROWTH_GEM_PYRO": 832
+        },
+        "xp": 40400,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 42,
+          "counts": {
+            "TALENT": 14,
+            "ASCENSION": 14,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 85,
+            "GROWTH_GEM_PYRO": 448
+          }
+        }
+      ]
+    },
+    {
+      "talentLevel": 25,
+      "ascensionLevel": 60,
+      "extraOnExperienceDays": true,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 12,
+        "ASCENSION": 9
+      },
+      "totalMaterialBonusWins": 21,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_MOND": 160,
+          "GROWTH_GEM_PYRO": 928
+        },
+        "xp": 40400,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 30
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 36,
+          "counts": {
+            "TALENT": 11,
+            "ASCENSION": 11,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_MOND": 70,
+            "GROWTH_GEM_PYRO": 352
+          }
+        }
+      ]
+    },
+    {
+      "talentLevel": 60,
+      "ascensionLevel": 60,
+      "extraOnExperienceDays": false,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 9,
+        "ASCENSION": 6
+      },
+      "totalMaterialBonusWins": 15,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 348,
+          "GROWTH_GEM_PYRO": 832
+        },
+        "xp": 68000,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 72
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 72
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 0,
+          "items": {}
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 42,
+          "counts": {
+            "TALENT": 14,
+            "ASCENSION": 14,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 204,
+            "GROWTH_GEM_PYRO": 448
+          }
+        }
+      ]
+    },
+    {
+      "talentLevel": 60,
+      "ascensionLevel": 60,
+      "extraOnExperienceDays": true,
+      "weeklyWins": {
+        "TALENT": 20,
+        "ASCENSION": 20,
+        "EXP": 20
+      },
+      "materialBonusWins": {
+        "TALENT": 12,
+        "ASCENSION": 9
+      },
+      "totalMaterialBonusWins": 21,
+      "totals": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 384,
+          "GROWTH_GEM_PYRO": 928
+        },
+        "xp": 68000,
+        "mora": 0
+      },
+      "days": [
+        {
+          "day": 1,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 72
+          }
+        },
+        {
+          "day": 2,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 3,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 72
+          }
+        },
+        {
+          "day": 4,
+          "dailyKind": "TALENT",
+          "runs": 3,
+          "counts": {
+            "TALENT": 3,
+            "ASCENSION": 0,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 72
+          }
+        },
+        {
+          "day": 5,
+          "dailyKind": "ASCENSION",
+          "runs": 3,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 0
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 6,
+          "dailyKind": "EXP",
+          "runs": 6,
+          "counts": {
+            "TALENT": 0,
+            "ASCENSION": 3,
+            "EXP": 3
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_GEM_PYRO": 192
+          }
+        },
+        {
+          "day": 7,
+          "dailyKind": "TALENT",
+          "runs": 36,
+          "counts": {
+            "TALENT": 11,
+            "ASCENSION": 11,
+            "EXP": 14
+          },
+          "materialBonusWins": 3,
+          "items": {
+            "GROWTH_TALENT_LIYUE": 168,
+            "GROWTH_GEM_PYRO": 352
+          }
+        }
+      ]
+    }
+  ],
+  "nativeDomainRewards": [
+    {
+      "kind": "TALENT",
+      "level": 5,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_MOND": 2
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 40
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_MOND": 1
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 40
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 10,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_MOND": 4
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 90
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_MOND": 2
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 90
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 15,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_MOND": 6
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 90
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_MOND": 3
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 90
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 20,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_MOND": 8
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 220
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_MOND": 4
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 220
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 25,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_MOND": 10
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 220
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_MOND": 5
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 220
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 30,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 12
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 360
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 6
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 360
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 35,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 14
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 360
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 7
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 360
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 40,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 16
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 500
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 8
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 500
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 45,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 18
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 500
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 9
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 500
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 50,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 20
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 900
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 10
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 900
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 55,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 22
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 900
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 11
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 900
+      }
+    },
+    {
+      "kind": "TALENT",
+      "level": 60,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 24
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 1600
+      },
+      "normal": {
+        "items": {
+          "GROWTH_TALENT_LIYUE": 12
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 1600
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 5,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 2
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 40
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 1
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 40
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 10,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 4
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 90
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 2
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 90
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 15,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 6
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 90
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 3
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 90
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 20,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 8
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 220
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 4
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 220
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 25,
+      "region": "몬드",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 10
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 220
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 5
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 220
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 30,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 12
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 360
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 6
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 360
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 35,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 14
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 360
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 7
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 360
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 40,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 16
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 500
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 8
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 500
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 45,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 18
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 500
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 9
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 500
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 50,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 20
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 900
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 10
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 900
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 55,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 40
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 900
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 20
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 900
+      }
+    },
+    {
+      "kind": "ASCENSION",
+      "level": 60,
+      "region": "리월",
+      "first": {
+        "items": {
+          "GROWTH_GEM_PYRO": 64
+        },
+        "bonus": true,
+        "doubles": true,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 1600
+      },
+      "normal": {
+        "items": {
+          "GROWTH_GEM_PYRO": 32
+        },
+        "bonus": false,
+        "doubles": true,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 1600
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 5,
+      "region": "몬드",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 200
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 200
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 10,
+      "region": "몬드",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 450
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 450
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 15,
+      "region": "몬드",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 1000
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 1000
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 20,
+      "region": "몬드",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 1100
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 1100
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 25,
+      "region": "몬드",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 1250
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 1250
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 30,
+      "region": "리월",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 1500
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 1500
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 35,
+      "region": "리월",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 1800
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 1800
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 40,
+      "region": "리월",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 2100
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 2100
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 45,
+      "region": "리월",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 4500
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 4500
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 50,
+      "region": "리월",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 5400
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 5400
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 55,
+      "region": "리월",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 8000
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 8000
+      }
+    },
+    {
+      "kind": "EXP",
+      "level": 60,
+      "region": "리월",
+      "first": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 3,
+        "mora": 0,
+        "xp": 10000
+      },
+      "normal": {
+        "items": {},
+        "bonus": false,
+        "doubles": false,
+        "remaining": 0,
+        "mora": 0,
+        "xp": 10000
+      }
+    }
+  ],
+  "unchangedXpCurve": {
+    "pacingVersion": 3,
+    "curve": [
+      80,
+      150,
+      250,
+      380,
+      520,
+      660,
+      820,
+      1000,
+      1170,
+      2080,
+      2170,
+      2250,
+      2340,
+      2410,
+      2510,
+      2580,
+      2680,
+      2750,
+      2830,
+      9300,
+      9680,
+      10050,
+      10420,
+      10800,
+      11160,
+      11550,
+      11920,
+      12290,
+      12660,
+      55530,
+      57760,
+      59970,
+      62190,
+      64420,
+      66640,
+      68860,
+      71070,
+      73300,
+      75520,
+      105650,
+      105670,
+      105690,
+      105720,
+      105740,
+      105760,
+      105780,
+      105810,
+      105830,
+      105850,
+      189000,
+      189950,
+      190890,
+      191840,
+      192780,
+      193730,
+      194670,
+      195620,
+      196560,
+      197510,
+      0
+    ],
+    "expDomainXp": {
+      "5": 200,
+      "10": 450,
+      "15": 1000,
+      "20": 1100,
+      "25": 1250,
+      "30": 1500,
+      "35": 1800,
+      "40": 2100,
+      "45": 4500,
+      "50": 5400,
+      "55": 8000,
+      "60": 10000
+    },
+    "materialDomainXp": {
+      "5": 40,
+      "10": 90,
+      "15": 90,
+      "20": 220,
+      "25": 220,
+      "30": 360,
+      "35": 360,
+      "40": 500,
+      "45": 500,
+      "50": 900,
+      "55": 900,
+      "60": 1600
+    }
+  },
+  "recipeBenchmarks": [
+    {
+      "id": "REC_SWORD_RANCOUR",
+      "kind": "forge",
+      "result": "EQ_SWORD_RANCOUR",
+      "output": 1,
+      "nativeCost": {
+        "mora": 100,
+        "items": {
+          "ORE_CRYSTAL": 1,
+          "ORE_WHITE_IRON": 3
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 1,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "ORE_WHITE_IRON",
+          "count": 3,
+          "npcCatalogMinPrice": null
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_SWORD_IRON_STING",
+      "kind": "forge",
+      "result": "EQ_SWORD_IRON_STING",
+      "output": 1,
+      "nativeCost": {
+        "mora": 200,
+        "items": {
+          "ORE_CRYSTAL": 4,
+          "TRPG_ENCHANTED_WOOD": 3
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 4,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "TRPG_ENCHANTED_WOOD",
+          "count": 3,
+          "npcCatalogMinPrice": 80
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_CLAYMORE_WHITEBLIND",
+      "kind": "forge",
+      "result": "EQ_CLAYMORE_WHITEBLIND",
+      "output": 1,
+      "nativeCost": {
+        "mora": 220,
+        "items": {
+          "ORE_CRYSTAL": 5,
+          "ORE_WHITE_IRON": 6
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 5,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "ORE_WHITE_IRON",
+          "count": 6,
+          "npcCatalogMinPrice": null
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_CLAYMORE_ARCHAIC",
+      "kind": "forge",
+      "result": "EQ_CLAYMORE_ARCHAIC",
+      "output": 1,
+      "nativeCost": {
+        "mora": 120,
+        "items": {
+          "ORE_CRYSTAL": 1,
+          "ORE_WHITE_IRON": 4
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 1,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "ORE_WHITE_IRON",
+          "count": 4,
+          "npcCatalogMinPrice": null
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_POLEARM_STARGITTER",
+      "kind": "forge",
+      "result": "EQ_POLEARM_STARGITTER",
+      "output": 1,
+      "nativeCost": {
+        "mora": 200,
+        "items": {
+          "ORE_CRYSTAL": 4,
+          "ORE_WHITE_IRON": 5
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 4,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "ORE_WHITE_IRON",
+          "count": 5,
+          "npcCatalogMinPrice": null
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_POLEARM_CRESCENT",
+      "kind": "forge",
+      "result": "EQ_POLEARM_CRESCENT",
+      "output": 1,
+      "nativeCost": {
+        "mora": 200,
+        "items": {
+          "ORE_CRYSTAL": 4,
+          "ORE_WHITE_IRON": 5
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 4,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "ORE_WHITE_IRON",
+          "count": 5,
+          "npcCatalogMinPrice": null
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_BOW_CRESCENT",
+      "kind": "forge",
+      "result": "EQ_BOW_CRESCENT",
+      "output": 1,
+      "nativeCost": {
+        "mora": 100,
+        "items": {
+          "ORE_CRYSTAL": 1,
+          "TRPG_ENCHANTED_WOOD": 2
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 1,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "TRPG_ENCHANTED_WOOD",
+          "count": 2,
+          "npcCatalogMinPrice": 80
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_CATALYST_MAPPA",
+      "kind": "forge",
+      "result": "EQ_CATALYST_MAPPA",
+      "output": 1,
+      "nativeCost": {
+        "mora": 220,
+        "items": {
+          "ORE_CRYSTAL": 3,
+          "TRPG_RESONANCE_CRYSTAL": 2
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 3,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "TRPG_RESONANCE_CRYSTAL",
+          "count": 2,
+          "npcCatalogMinPrice": 200
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=5",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_CATALYST_AMBER",
+      "kind": "forge",
+      "result": "EQ_CATALYST_AMBER",
+      "output": 1,
+      "nativeCost": {
+        "mora": 120,
+        "items": {
+          "ORE_CRYSTAL": 1,
+          "TRPG_RESONANT_GEM": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_CRYSTAL",
+          "count": 1,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "TRPG_RESONANT_GEM",
+          "count": 1,
+          "npcCatalogMinPrice": 300
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=3",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_ARMOR_IRON",
+      "kind": "forge",
+      "result": "EQ_ARMOR_IRON_GUARD",
+      "output": 1,
+      "nativeCost": {
+        "mora": 220,
+        "items": {
+          "ORE_WHITE_IRON": 4,
+          "TRPG_REFINED_LEATHER": 2
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ORE_WHITE_IRON",
+          "count": 4,
+          "npcCatalogMinPrice": null
+        },
+        {
+          "item": "TRPG_REFINED_LEATHER",
+          "count": 2,
+          "npcCatalogMinPrice": 32
+        }
+      ],
+      "allIngredientsNpcCost": null,
+      "unlock": "LEVEL>=5",
+      "worldTime": "2시간"
+    },
+    {
+      "id": "REC_FOOD_STEAK",
+      "kind": "cook",
+      "result": "FOOD_STEAK",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_RAW_MEAT": 2
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_RAW_MEAT",
+          "count": 2,
+          "npcCatalogMinPrice": 36
+        }
+      ],
+      "allIngredientsNpcCost": 72,
+      "unlock": "기본 해금",
+      "worldTime": "10분"
+    },
+    {
+      "id": "REC_FOOD_CHICKEN_SKEWER",
+      "kind": "cook",
+      "result": "FOOD_CHICKEN_SKEWER",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_MUSHROOM",
+          "count": 1,
+          "npcCatalogMinPrice": 12
+        },
+        {
+          "item": "ING_FOWL",
+          "count": 1,
+          "npcCatalogMinPrice": 28
+        }
+      ],
+      "allIngredientsNpcCost": 40,
+      "unlock": "기본 해금",
+      "worldTime": "10분"
+    },
+    {
+      "id": "REC_FOOD_MOND_GRILLED_FISH",
+      "kind": "cook",
+      "result": "FOOD_MOND_GRILLED_FISH",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_FISH": 1,
+          "ING_PEPPER": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_FISH",
+          "count": 1,
+          "npcCatalogMinPrice": 40
+        },
+        {
+          "item": "ING_PEPPER",
+          "count": 1,
+          "npcCatalogMinPrice": 16
+        }
+      ],
+      "allIngredientsNpcCost": 56,
+      "unlock": "기본 해금",
+      "worldTime": "10분"
+    },
+    {
+      "id": "REC_FOOD_RADISH_SOUP",
+      "kind": "cook",
+      "result": "FOOD_RADISH_SOUP",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_RADISH": 1,
+          "ING_MINT": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_RADISH",
+          "count": 1,
+          "npcCatalogMinPrice": 12
+        },
+        {
+          "item": "ING_MINT",
+          "count": 1,
+          "npcCatalogMinPrice": 12
+        }
+      ],
+      "allIngredientsNpcCost": 24,
+      "unlock": "기본 해금",
+      "worldTime": "10분"
+    },
+    {
+      "id": "REC_FOOD_MINT_JELLY",
+      "kind": "cook",
+      "result": "FOOD_MINT_JELLY",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_MINT": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_MINT",
+          "count": 1,
+          "npcCatalogMinPrice": 12
+        },
+        {
+          "item": "ING_SUGAR",
+          "count": 1,
+          "npcCatalogMinPrice": 24
+        }
+      ],
+      "allIngredientsNpcCost": 36,
+      "unlock": "기본 해금",
+      "worldTime": "10분"
+    },
+    {
+      "id": "REC_FOOD_SWEET_MADAME",
+      "kind": "cook",
+      "result": "FOOD_SWEET_MADAME",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_FOWL": 2,
+          "ING_SWEET_FLOWER": 2
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_FOWL",
+          "count": 2,
+          "npcCatalogMinPrice": 28
+        },
+        {
+          "item": "ING_SWEET_FLOWER",
+          "count": 2,
+          "npcCatalogMinPrice": 12
+        }
+      ],
+      "allIngredientsNpcCost": 80,
+      "unlock": "전투 중 아님",
+      "worldTime": "15분"
+    },
+    {
+      "id": "REC_FOOD_MORA_MEAT",
+      "kind": "cook",
+      "result": "FOOD_MORA_MEAT",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "ING_FLOUR": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_RAW_MEAT",
+          "count": 1,
+          "npcCatalogMinPrice": 36
+        },
+        {
+          "item": "ING_FLOUR",
+          "count": 1,
+          "npcCatalogMinPrice": 18
+        }
+      ],
+      "allIngredientsNpcCost": 54,
+      "unlock": "기본 해금",
+      "worldTime": "10분"
+    },
+    {
+      "id": "REC_FOOD_STIR_FRIED_FILET",
+      "kind": "cook",
+      "result": "FOOD_STIR_FRIED_FILET",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "MAT_LIYUE_JUEYUN_CHILI": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_RAW_MEAT",
+          "count": 1,
+          "npcCatalogMinPrice": 36
+        },
+        {
+          "item": "MAT_LIYUE_JUEYUN_CHILI",
+          "count": 1,
+          "npcCatalogMinPrice": 240
+        }
+      ],
+      "allIngredientsNpcCost": 276,
+      "unlock": "기본 해금",
+      "worldTime": "10분"
+    },
+    {
+      "id": "REC_FOOD_LOTUS_EGG_SOUP",
+      "kind": "cook",
+      "result": "FOOD_LOTUS_EGG_SOUP",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_LOTUS_HEAD": 1,
+          "ING_BIRD_EGG": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_LOTUS_HEAD",
+          "count": 1,
+          "npcCatalogMinPrice": 27
+        },
+        {
+          "item": "ING_BIRD_EGG",
+          "count": 1,
+          "npcCatalogMinPrice": 12
+        },
+        {
+          "item": "ING_SUGAR",
+          "count": 1,
+          "npcCatalogMinPrice": 24
+        }
+      ],
+      "allIngredientsNpcCost": 63,
+      "unlock": "기본 해금",
+      "worldTime": "20분"
+    },
+    {
+      "id": "REC_FOOD_ALMOND_TOFU",
+      "kind": "cook",
+      "result": "FOOD_ALMOND_TOFU",
+      "output": 1,
+      "nativeCost": {
+        "mora": 0,
+        "items": {
+          "ING_MILK": 3,
+          "ING_SUGAR": 1,
+          "ING_ALMOND": 1
+        }
+      },
+      "ingredients": [
+        {
+          "item": "ING_MILK",
+          "count": 3,
+          "npcCatalogMinPrice": 20
+        },
+        {
+          "item": "ING_SUGAR",
+          "count": 1,
+          "npcCatalogMinPrice": 24
+        },
+        {
+          "item": "ING_ALMOND",
+          "count": 1,
+          "npcCatalogMinPrice": 24
+        }
+      ],
+      "allIngredientsNpcCost": 108,
+      "unlock": "STK_V014_LIYUE_REC_01 구매완료",
+      "worldTime": "20분"
+    }
+  ],
+  "recipeCostLimits": "Minimum listed NPC ingredient prices include other regions and locked stocks. Missing NPC ingredients stay null; no invented market price or replacement-cash total. Native recipe costs are fees/material quantities and not crafting sale-profit claims."
+}

@@ -16,7 +16,7 @@ try{
  for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI']){
   const r=new old.CRPGRuntime.Runtime(oldDB);r.newGame({name:'이전 저장 호환',route,seed:75409,saveId:'V012-COMPAT-'+route});
   r.addXp('PLAYER_CUSTOM',350);r.giveItem('ORE_IRON',3);r.s.global.MORA=7654;
-  r.unlockCharacter('MOND_AMBER');r.s.flags.V013_COMPAT_SENTINEL=true;
+  r.adminApply({op:'recruit',char:'MOND_AMBER'});r.s.flags.V013_COMPAT_SENTINEL=true;
   const original=JSON.parse(r.serialize()),input=JSON.stringify({envelopeSchema:1,contentVersion:oldMeta.saveCompatibilityVersion,state:original});
   const parsed=adapter.parseImport(input),loaded=new R(db,parsed.state),after=JSON.parse(loaded.serialize());
   for(const field of ['SAVE_ID','STORY_ROUTE_ID','PRNG_STATE','MORA','PLAYER_XP_STATE','PLAYER_LEVEL_STATE','CURRENT_STORY_NODE_ID','STORY_CURSOR_NODE_ID','COMPANION_ELIGIBILITY_JSON'])assert.deepEqual(after.global[field],original.global[field],field);

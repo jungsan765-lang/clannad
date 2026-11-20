@@ -11,8 +11,8 @@ const CONFIG={version:1,baseCap:10,ascendedCap:12,
  success:[0,10000,9500,9000,8500,8000,7000,6000,5000,4000,3000,2500,2000],
  down:[0,0,0,0,0,0,0,0,0,50,100,200,300],
  primaryGrowth:[0,.05,.10,.15,.20,.25,.30,.35,.40,.45,.50,.65,.80],
- mora:[0,80,120,180,260,380,550,800,1100,1500,2000,2800,4000],
- ores:[{}, {ORE_IRON:1},{ORE_IRON:2},{ORE_IRON:3},{ORE_IRON:4},{ORE_IRON:5,ORE_WHITE_IRON:1},{ORE_IRON:6,ORE_WHITE_IRON:2},{ORE_WHITE_IRON:3,ORE_CRYSTAL:1},{ORE_WHITE_IRON:4,ORE_CRYSTAL:2},{ORE_WHITE_IRON:5,ORE_CRYSTAL:3},{ORE_WHITE_IRON:6,ORE_CRYSTAL:4},{ORE_WHITE_IRON:8,ORE_CRYSTAL:5},{ORE_WHITE_IRON:10,ORE_CRYSTAL:8}],
+ mora:[0,80,120,180,390,760,1375,2400,4400,7500,12000,14000,18000],
+ ores:[{}, {ORE_IRON:1},{ORE_IRON:2},{ORE_IRON:3},{ORE_IRON:6},{ORE_IRON:10,ORE_WHITE_IRON:2},{ORE_IRON:15,ORE_WHITE_IRON:5},{ORE_WHITE_IRON:9,ORE_CRYSTAL:3},{ORE_WHITE_IRON:16,ORE_CRYSTAL:8},{ORE_WHITE_IRON:25,ORE_CRYSTAL:15},{ORE_WHITE_IRON:36,ORE_CRYSTAL:24},{ORE_WHITE_IRON:40,ORE_CRYSTAL:28},{ORE_WHITE_IRON:48,ORE_CRYSTAL:36}],
  ascensionCost:{mora:3000,items:{TRPG_BOSS_ESSENCE:3,TRPG_BOSS_CORE:1,ORE_CRYSTAL:5}},
  bosses:{BOSS_DVALIN:{route:'BRT_DVALIN',map:'MAP_STORMTERROR_LAIR',group:'EG_BOSS_DVALIN'},BOSS_ANDRIUS:{route:'BRT_ANDRIUS',map:'MAP_WOLF_ARENA',group:'EG_BOSS_ANDRIUS'}},
 };
@@ -68,11 +68,18 @@ P.enhancementStatsAt=function(inv,level){
  for(const [lv,m]of Object.entries(profile.milestones||{}))if(Number(lv)<=level)for(const [key,val]of Object.entries(m.stats_add||{}))stats[key]=(stats[key]||0)+val;
  return stats;
 };
+P.enhancementHasGain=function(inv){
+ const profile=parse(this.row('16_EQUIP_DB',inv.equip)[32]);
+ // Some support equipment has only fixed secondary stats and traits. Keep its
+ // existing saved enhancement levels valid, but never charge for a useless path.
+ return Object.values(profile.milestones||{}).some(m=>Object.values(m.stats_add||{}).some(v=>Number(v)!==0)||Object.keys(m.effect_override||{}).length>0);
+};
 P.enhancementQuote=function(slot,kind='ENHANCE'){
  const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)return {supported:false,reason:'소지한 개별 장비를 선택해 주세요.'};
  const row=this.row('16_EQUIP_DB',inv.equip),supported=this.isMondEnhanceable(inv.equip),target=inv.enhance+1,cap=this.enhancementCap(inv);
  const q={slot,name:row[1],equip:inv.equip,level:inv.enhance,cap,instanceRevision:inv.instanceRevision||0,supported,kind,target,reason:'',cost:null};
  if(!supported){q.reason=row[35]||'이 장비는 확률 강화·돌파 대상이 아닙니다.';return q;}
+ if(!this.enhancementHasGain(inv)){q.supported=false;q.reason='이 장비는 강화로 증가하는 능력치·효과가 없어 강화·돌파할 수 없습니다.';return q;}
  q.statsBefore=this.enhancementStatsAt(inv,inv.enhance);
  if(kind==='ASCEND'){
   q.target=12;q.cost=copy(CONFIG.ascensionCost);q.success=10000;q.hold=q.down=0;q.statsAfter=copy(q.statsBefore);
@@ -113,11 +120,11 @@ P.performEnhancement=function(a){
 };
 P.enhance=function(slot){const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)fail('ENHANCE','소지한 장비를 선택해 주세요.');if(!this.isMondEnhanceable(inv.equip))fail('ENHANCE',this.row('16_EQUIP_DB',inv.equip)[35]||'이 장비는 강화할 수 없습니다.');return this.performEnhancement({type:'ENHANCE',slot});};
 P.materialChallengeReason=function(boss){
- const cfg=CONFIG.bosses[boss];if(!cfg)return '몬드의 두 보스만 재도전할 수 있습니다.';
+ const cfg=CONFIG.bosses[boss];if(!cfg)return '몬드의 일일 보스는 안드리우스와 드발린입니다.';
  const base=old.actionReason.call(this,'MOND_MATERIAL_CHALLENGE',{boss});if(base)return base;
  if(this.s.runtime||this.s.battlePreparation)return '진행 중인 전투를 먼저 마쳐 주세요.';
  if(['AWAIT_NEXT','IN_BATTLE','RETRY'].includes(this.s.bossRouteProgress?.phase))return '진행 중인 보스 루트를 마치거나 이탈해 주세요.';
- if(this.s.global.CURRENT_MAP_ID!==cfg.map)return '해당 보스의 현장에 도착해야 재도전할 수 있습니다.';
+ if(this.s.global.CURRENT_MAP_ID!==cfg.map)return '해당 보스의 현장에 도착해야 도전할 수 있습니다.';
  const cleared=yes(this.s.flags[this.row('35_BOSS_ROUTE_DB',cfg.route)[13]])||Object.values(this.s.combatReceipts||{}).some(r=>r.victory&&r.group===cfg.group)||
   boss==='BOSS_DVALIN'&&['FLAG_TRV_DVALIN_PURIFIED','FLAG_ISK_K_DVALIN_PURIFIED','FLAG_ISK_AA_DVALIN_LEFT_WITH_BARBATOS','FLAG_ISK_AB_DVALIN_DEPARTED_ALIVE','FLAG_ISK_B_DVALIN_DEPARTED_ALIVE'].some(f=>yes(this.s.flags[f]));
  return cleared?'':'본편 또는 현장 도전에서 이 보스를 먼저 클리어해야 합니다.';

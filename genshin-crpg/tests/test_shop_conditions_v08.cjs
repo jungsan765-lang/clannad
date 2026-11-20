@@ -24,8 +24,7 @@ const db = JSON.parse(dbBytes);
 const Runtime = ctx.CRPGRuntime.Runtime;
 ctx.CRPGRelationships.install(ctx.CRPGRuntime, {
   events:ctx.CRPGRelationships.catalogFromDB(db),
-  activities:ctx.CRPGRelationships.activitiesFromDB(db),
-  preferences:{adultModeEnabled:false}, eligibility:{profiles:{}, protagonists:{}}
+  activities:ctx.CRPGRelationships.activitiesFromDB(db)
 });
 const expected = [
   ['STK_ALCH_001','MRC_ALCHEMY_COMMON','LEVEL>=5 / 연금 시설 접근',5],
