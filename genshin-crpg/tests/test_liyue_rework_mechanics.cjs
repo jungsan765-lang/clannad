@@ -5,6 +5,9 @@ const results=[];function test(name,fn){try{fn();results.push({name,pass:true});
 const cp=x=>JSON.parse(JSON.stringify(x));
 function restore(r){return new R(db,JSON.parse(r.serialize()));}
 function finish(r){for(let n=0;n<160&&r.s.storyContext;n++){
+ if(r.s.runtime){for(const x of r.s.runtime.actors.filter(x=>x.side==='ENEMY'))x.hp=0;r.action('COMBAT_BEGIN');continue;}
+ if(r.s.global.SCREEN_MODE==='REWARD'){r.action('MENU',{screen:'STORY'});continue;}
+ if(r.s.battlePreparation){const prep=r.s.battlePreparation,view=r.battlePreparation(prep.group);r.action('COMBAT_PREPARE',{group:prep.group,companions:(view?.guests||[]).map(x=>x.id).slice(0,3)});continue;}
  if(r.s.storyJourney){const target=r.s.storyJourney.target;if(r.s.global.CURRENT_MAP_ID===target)r.action('JOURNEY_RESUME');else{const e=r.navigationRoute(target)?.edges[0];assert(e,'route to '+target);r.action('MOVE',{edge:e[0]});}continue;}
  const choices=r.storyChoices();if(choices.length)r.action('STORY_CHOICE',{node:choices[0][4]});else r.action('STORY_NEXT',{node:r.storyNode()[4]});
  }assert(!r.s.storyContext,'story returned');return r;}
