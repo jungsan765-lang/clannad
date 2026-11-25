@@ -23,7 +23,9 @@ assert(online.includes('async function actionRequest(payload)'), 'game actions m
 assert(online.includes("return request('/game/action',payload)"), 'action retry must reuse the exact same payload and requestId');
 assert(av.includes('function startActionCover(type,params={},generic=true)'),'timed and generic saved actions must start progress feedback before the server round-trip finishes');
 assert(av.includes("if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params)"),'combat must begin visible windup while a fresh server action is being confirmed');
-assert(av.includes("index*32/(settings.combatSpeed||1)"),'multi-hit playback must use rapid per-hit spacing');
+assert(/hitEvents\.forEach\(\(event,index\)=>this\.queueHit\([\s\S]*?\},index\*32\)\);/.test(av),'multi-hit playback must queue each hit with rapid 32ms spacing at 1x');
+assert(av.includes('Math.round(hit.remaining/speed)'),'queued hit spacing must scale the unplayed interval by the current speed');
+assert(av.includes('hit.remaining-(now-hit.startedAt)*hit.speed'),'queued hit spacing must preserve the remaining interval when playback is paused or its speed changes');
 assert(av.includes("preservePresentation=false"),'presentation restore hook must support same-action commits without resetting playback');
 assert(online.includes("install(out,{preservePresentation:true})"),'online action commits must preserve current audio/combat presentation');
 assert(online.includes("LOCAL_ONLY_ACTIONS=new Set(['MENU'])"),'screen-only MENU navigation must be explicitly local-only');

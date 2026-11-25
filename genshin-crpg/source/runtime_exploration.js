@@ -56,7 +56,7 @@
   ['ANEMO_DRAGONSPINE_SHELTER','MAP_DRAGONSPINE',6,'바람막이 뒤의 잔향','탐사대 바람막이 뒤, 눈이 닿지 않는 틈에서 따뜻한 바람이 샌다.']
  ].map(([id,map,level,title,clue])=>({id,map,level,title,clue}));
  const points=root.CRPGWorldContent?.oculi||legacyPoints;
- const tiers=[{id:'TIER_1',cost:2,reward:{mora:100,items:{MAT_CHAR_EXP_WANDERER:2}}},{id:'TIER_2',cost:4,reward:{mora:180,items:{MAT_CHAR_EXP_ADVENTURER:1}}},{id:'TIER_FINAL',cost:6,reward:{character:'MOND_VENTI'}}];
+ const tiers=[{id:'TIER_1',cost:2,reward:{mora:100,items:{MAT_CHAR_EXP_WANDERER:2}}},{id:'TIER_2',cost:4,reward:{mora:180,items:{MAT_CHAR_EXP_ADVENTURER:1}}},{id:'TIER_FINAL',cost:6,reward:{mora:300,items:{MAT_CHAR_EXP_HERO:2}}}];
  const plain=x=>!!x&&typeof x==='object'&&!Array.isArray(x);
  P.installExplorationContent=function(){
   if(this._explorationInstalled)return;
@@ -80,7 +80,7 @@
   }
   setTable('22_QUEST_DB',rows);
   const items=this.db['14_ITEM_DB'].map(r=>r.slice());if(!items.some(r=>r[0]===ITEM))items.push([ITEM,'바람 신의 눈동자','퀘스트 아이템','희귀','[바람]','몬드 곳곳의 바람에 남은 작은 결정. 거목 아래에서 바람에 돌려줄 수 있다.','탐험','거목 아래 공양','','','N','공용','','일회성 수집',0,0,12,'몬드 탐험','N','Y','몬드','CRPG_LOCAL_V09']);setTable('14_ITEM_DB',items);
-  const flags=this.db['23_FLAG_DB'].map(r=>r.slice());if(!flags.some(r=>r[0]===OWNED))flags.push([OWNED,'눈동자 공양으로 벤티와 동행 약속을 맺음',false,'PROFILE_MOND_VENTI','몬드','','CRPG_LOCAL_V09']);setTable('23_FLAG_DB',flags);
+  const flags=this.db['23_FLAG_DB'].map(r=>r.slice());if(!flags.some(r=>r[0]===OWNED))flags.push([OWNED,'바람 눈동자 공양을 모두 마침',false,'PROFILE_MOND_VENTI','몬드','','CRPG_LOCAL_V09']);setTable('23_FLAG_DB',flags);
   this._explorationInstalled=true;
  };
  P.explorationVisitedEvidence=function(state=this.s){
@@ -130,7 +130,9 @@
   const summary=this.oculusSummary(),tier=tiers[summary.offerings];
   if(!tier||this.s.global.CURRENT_MAP_ID!=='MAP_MOND_WINDRISE'||summary.collected<2)return null;
   if(tier.id==='TIER_FINAL'&&(summary.collected<12||!this.oculusFinalStoryReady()))return null;
-  return {...copy(tier),title:tier.id==='TIER_FINAL'?'바람에 돌아온 노래':'거목 아래에 눈동자 공양',text:tier.id==='TIER_FINAL'?'모아 온 바람을 따라 익숙한 노랫소리가 들린다. 벤티와 다음 여정의 동행을 약속할 수 있다.':'눈동자에 깃든 바람을 거목 아래로 돌려보낸다.',reason:this.actionReason('OCULUS_OFFER',{tier:tier.id})};
+  // 0.16.30 (user: 「눈동자 공양했는데 원석 보상 없고, 동행 약속 벤티 아직도 남아있어 동행같은건 전부 다 뽑기여야」): the last
+  // offering is a reward like the others (companions come from wishes only); its 원석 come from runtime_offerings_v01415.js.
+  return {...copy(tier),title:tier.id==='TIER_FINAL'?'바람에 돌아온 노래':'거목 아래에 눈동자 공양',text:tier.id==='TIER_FINAL'?'모아 온 바람이 거목 아래에서 노래가 되어 흩어진다. 몬드의 바람이 여정을 축복한다.':'눈동자에 깃든 바람을 거목 아래로 돌려보낸다.',reason:this.actionReason('OCULUS_OFFER',{tier:tier.id})};
  };
  P.oculusCollect=function(id){
   const reason=this.actionReason('OCULUS_COLLECT',{point:id});if(reason)fail('OCULUS',reason);
@@ -141,7 +143,6 @@
   const reason=this.actionReason('OCULUS_OFFER',{tier:id});if(reason)fail('OCULUS',reason);
   const e=this.ensureExplorationState(),tier=tiers[e.tiers.length],g=this.s.global;
   this.pay({items:{[ITEM]:tier.cost}});for(const [item,n]of Object.entries(tier.reward.items||{}))this.giveItem(item,n);g.MORA+=tier.reward.mora||0;
-  if(tier.reward.character){this.unlockCharacter(tier.reward.character);this.s.flags[OWNED]=true;}
   e.tiers.push({id:tier.id,day:g.WORLD_DAY,action:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1)});this.advanceTime(10);return {tier:id,reward:copy(tier.reward),character:tier.reward.character||null};
  };
  P.actionReason=function(type,a={}){
@@ -158,7 +159,6 @@
    if(this.s.global.CURRENT_MAP_ID!=='MAP_MOND_WINDRISE'||this.s.placeVisit)return '거목 아래에서 바람을 돌려보내 주세요.';
    if(this.itemCount(ITEM)<tier.cost)return '공양할 눈동자가 부족합니다.';
    if(tier.id==='TIER_FINAL'&&(Object.keys(e?.oculi||{}).length<12||!this.oculusFinalStoryReady()))return '아직 바람의 노래가 응답하지 않습니다.';
-   if(tier.id==='TIER_FINAL'&&json(this.s.global.COMPANION_ELIGIBILITY_JSON).MOND_VENTI?.state==='JOINED')return '이미 벤티와 동행을 약속했습니다.';
   }
   return '';
  };
@@ -177,7 +177,6 @@
   if(e.tiers.length>tiers.length||e.tiers.some((r,i)=>r.id!==tiers[i].id||!validReceipt(r)))fail('EXPLORATION_SAVE','눈동자 공양 순서를 확인해 주세요.');
   const spent=tiers.slice(0,e.tiers.length).reduce((n,t)=>n+t.cost,0),balance=s.inventory.filter(x=>x.item===ITEM).reduce((n,x)=>n+x.quantity,0);
   if(balance!==Object.keys(e.oculi).length-spent||balance<0)fail('EXPLORATION_SAVE','눈동자 수집·공양·소지 수량이 일치하지 않습니다.');
-  if(e.tiers.length===3&&(!yes(s.flags[OWNED])||json(g.COMPANION_ELIGIBILITY_JSON).MOND_VENTI?.state!=='JOINED'))fail('EXPLORATION_SAVE','바람의 동행 약속 기록이 일치하지 않습니다.');
   return s;
  };
  P.explorationVersion=1;api.explorationVersion=1;

@@ -1,13 +1,16 @@
 /* Current game interface: all navigation and gameplay controls use the public policy. */
+// 0.14.13: a greyed-out button keeps why, and app_reasons_v01413.js shows it when the button is pressed.
+function withReason(b,reason){if(reason){b.setAttribute('data-reason',reason);if(!b.title)b.title=reason;}return b;}
 function actionButton(label,type,params={},primary=false){
   const reason=game?.actionReason(type,params)||'';
   const b=button(label,()=>act(type,params),!!reason||busy,primary);
-  if(reason){b.title=reason;b.setAttribute('aria-description',reason);}
+  b.dataset.action=type;b.crpgAction={type,params};
+  if(reason){b.title=reason;b.setAttribute('aria-description',reason);b.setAttribute('data-reason',reason);}
   return b;
 }
 function xpMeter(parent,owner='PLAYER_CUSTOM'){
   const growth=game.growth(owner),box=el('div','xp-block');
-  if(growth.max)box.append(el('div','stat','Lv. 20 · 최대 레벨'));
+  if(growth.max)box.append(el('div','stat','Lv. '+growth.level+(growth.final?' · 최대 레벨':' · 돌파로 상한을 열어 주세요')));
   else {box.append(el('div','stat','경험치 '+growth.xp.toLocaleString()+' / '+growth.next.toLocaleString()));
     const bar=el('progress','xp-progress');bar.max=growth.next;bar.value=growth.xp;bar.setAttribute('aria-label','다음 레벨까지의 경험치');box.append(bar);}
   parent.append(box);
@@ -22,14 +25,14 @@ sidebar=function(g,v){
   const phase=game.playPhase(),message={STORY:'이야기 진행 중',STORY_LOCKED:'이야기 진행 중',CUTIN:'전투 대화 진행 중',COMBAT:'전투 중',COMBAT_OPENING:'전투 시작 대기',PREPARATION:'전투 준비',RECOVERY:'전투 직전부터 재도전',FREE:'자유행동',DOWNED:'전투불능 · 회복 필요',LIFE:'생활 작업 중'}[phase];
   side.append(el('div','phase-note',message));
   const nav=el('nav');nav.setAttribute('aria-label','게임 메뉴');
-  for(const [screen,label,icon]of [['STORY','이야기','✧'],['STATUS','성장·능력치','◈'],['LOCATION','메인 화면','⌂'],['PARTY','편성','♙'],['INVENTORY','아이템','▣'],['QUEST','임무','♢'],['RELATIONS','호감도','♡'],['SYSTEM','저장·설정','⚙']]){
+  for(const [screen,label,icon]of [['STORY','이야기','✧'],['STATUS','캐릭터','◈'],['LOCATION','메인 화면','⌂'],['PARTY','편성','♙'],['INVENTORY','가방','▣'],['QUEST','임무','♢'],['RELATIONS','호감도','♡'],['SYSTEM','설정','⚙']]){
     const b=actionButton('', 'MENU',{screen});b.append(el('span','nav-icon',icon),el('span','',label));b.dataset.screen=screen;
     if(g.SCREEN_MODE===screen)b.classList.add('active');nav.append(b);
   }
   side.append(nav);return side;
 };
 function growthScreen(p){
-  p.append(el('h1','','성장·능력치'));
+  p.append(el('h1','','캐릭터'));
   const owners=game.s.party.filter(x=>x.active).map(x=>x.source);
   for(const id of owners){const growth=game.growth(id),a=game.s.runtime?.actors.find(a=>a.source===id)||(id==='PLAYER_CUSTOM'?game.player():game.character(id)),c=el('section','card');
     c.append(el('h2','',growth.name+' · Lv. '+growth.level));meter(c,'HP',a.hp,a.maxHp);xpMeter(c,id);
@@ -111,12 +114,15 @@ boot=async function(){
     if(saveStore)try{const existing=await saveStore.list(),legacy=localStorage.getItem('crpg-latest');if(legacy&&!existing.some(x=>x.saveId===legacy))await saveStore.importLegacyLocalStorage('legacy:'+legacy,{key:'crpg-save:'+legacy,name:'이전 저장'});}catch(e){say('이전 저장을 자동으로 가져오지 못했습니다. 현재 저장소는 정상 사용할 수 있습니다.');}
   }
   render();
-  if('serviceWorker'in navigator&&location.protocol!=='file:')try{const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;navigator.serviceWorker.addEventListener('message',e=>{if(e.data?.type==='PACK_READY')window.CRPG_OFFLINE_READY=true;});reg.active?.postMessage({type:'PACK_STATUS'});}catch(e){say('오프라인 기능을 시작하지 못했습니다. '+e.message);}
+  if('serviceWorker'in navigator&&location.protocol!=='file:')try{const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;navigator.serviceWorker.addEventListener('message',e=>{if(e.data?.type==='PACK_READY')window.CRPG_OFFLINE_READY=true;});reg.active?.postMessage({type:'PACK_STATUS'});}catch(e){console.warn('CRPG offline pack unavailable:',e?.message||e);}
+  // 0.15.9: a browser without the offline pack (private windows, some in-app browsers) plays on as usual; the browser's
+  // English error used to stay over the title and, on a small phone, over 「게임 시작」.
 };
 window.CRPG_APP={get game(){return game;},begin:(...a)=>begin(...a),act:(...a)=>act(...a),render:()=>render(),get settings(){return settings;},get saveStore(){return saveStore;}};
 // Boot runs after the formation and presentation modules have installed.
 // Player-facing status names cover runtime effects as well as database rows.
 const combatStatusNames={LIFTED:'띄워짐',LEVITATION:'부양',ANEMO_VULN:'바람 피해 취약',REACTION_BOOST:'반응 강화',BOSS_CONTROL:'행동 둔화',PHYS_VULN:'물리 피해 취약',ILLUSORY_BUBBLE:'포영',OMEN:'성이',QUICKEN:'활성',SKILL_COEFF:'스킬 강화',DILUC_INFUSION:'불 원소 부여',FALLBACK_DEFENSE:'피해 감소',NOELLE_SWEEP:'대청소',MIKA_SPEED:'속도 증가',HAWK_FEATHER:'매의 깃털',THUNDERWOLF:'늑대의 영혼',ENCOURAGEMENT_ATK:'공격력 격려',ENCOURAGEMENT_TAG:'격려',ROSARIA_NIGHT:'밤의 은혜',ROSARIA_BEHIND:'후방 치명타 증가',ROSARIA_CRIT_SHARE:'치명타 공유',EULA_GRIMHEART:'냉혹한 마음',EULA_CRYO_PHYSICAL_VULN:'얼음·물리 피해 취약',STATUS_ELECTROCHARGED:'감전',STATUS_BURN:'연소'};
+Object.assign(combatStatusNames,Object.fromEntries(Object.entries(CRPGRuntime.statusCatalog||{}).map(([id,v])=>[id,v.name])));
 const safeNameRevision=safeName;
 safeName=function(table,id,col=1){return table==='13_STATUS_EFFECT_DB'&&combatStatusNames[id]?combatStatusNames[id]:safeNameRevision(table,id,col);};
 const growthRevision=growthScreen;
@@ -134,7 +140,7 @@ combat=function(p){combatRevision(p);const b=game.s.runtime,box=el('section','ba
 
 const prepareRevision=battlePrepare;
 battlePrepare=function(p){prepareRevision(p);const group=game.row('33_ENCOUNTER_GROUP_DB',game.s.battlePreparation.group),members=game.combatRows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===group[0]);
- const note=el('section','card preparation-guide');note.append(el('h2','','전투 전 확인'),el('p','',members.map(m=>{const e=game.row('09_MONSTER_DB',m[3]);return e[1]+' · '+(group[6]==='PARTY_BANDED'?'파티 레벨에 맞춰 등장':'Lv. '+e[18]);}).join(' / ')),el('p','muted','편성·장비에서 동료와 장비를, 소지품에서 식사와 전술 도구를 준비할 수 있습니다. 패배하면 전투 직전 상태로 돌아가 편성을 바꾸어 재도전할 수 있습니다.'));
+ const note=el('section','card preparation-guide');note.append(el('h2','','전투 전 확인'),el('p','',members.map(m=>{const e=game.row('09_MONSTER_DB',m[3]);return e[1]+' · '+(group[6]==='PARTY_BANDED'?'파티 레벨에 맞춰 등장':'Lv. '+e[18]);}).join(' / ')),el('p','muted','편성과 캐릭터 화면에서 동료와 장비를, 가방에서 식사와 전술 도구를 준비할 수 있습니다. 패배하면 전투 직전 상태로 돌아가 편성을 바꾸어 재도전할 수 있습니다.'));
  if(game.combatStoryConfig(group[0]))note.append(el('p','muted','공중의 적에게는 원거리 공격 또는 부양·발판이 필요합니다. 지형이 모두 무너지기 전에 전투를 마쳐야 합니다.'));
- note.append(actionButton('편성·장비 확인','MENU',{screen:'PARTY'}),actionButton('소지품 확인','MENU',{screen:'INVENTORY'}),actionButton('성장 확인','MENU',{screen:'STATUS'}));p.prepend(note);
+ note.append(actionButton('편성 확인','MENU',{screen:'PARTY'}),actionButton('가방 확인','MENU',{screen:'INVENTORY'}),actionButton('캐릭터 확인','MENU',{screen:'STATUS'}));p.prepend(note);
 };

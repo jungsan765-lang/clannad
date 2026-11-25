@@ -17,3 +17,6 @@ server/generated/
 
 .dev.vars
 .dev.vars.*
+
+# Built pack: CI builds it from source; it is never committed.
+dist/

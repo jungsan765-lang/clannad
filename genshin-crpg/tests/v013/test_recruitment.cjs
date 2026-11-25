@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict'),crypto=require('node:crypto');
 const {c,fs,root,db,R}=require('../helpers_v011.cjs');
-c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db)});
 const cp=x=>JSON.parse(JSON.stringify(x));let seq=0;
 const report={scope:'All 85 authored legend definitions. Main completion/branch prerequisites and initial provisioning are synthetic fixtures. All tested legend/rejoin transitions use runtime actions. Random field encounters suppressed; actual MOVE edges still used. No source writes.',source:root,dbSha256:crypto.createHash('sha256').update(fs.readFileSync(root+'/content/db.json')).digest('hex'),results:[]};
 const path=process.env.QA_REPORT||'/tmp/recruitment_v013_qa.json';
@@ -18,7 +18,7 @@ function provision(def){let r=new R(db);r.newGame({name:'QA개인임무',route:d
  const l=r.ensureLiyue();l.access={phase:'OPEN'};
  if(def.ROUTE_SCOPE==='ROUTE_ISEKAI'){const e=r.liyueDefinitions().get('EVT_ISK_L04_AB1_END');const receipt={event:e.EVENT_ID,resolvedNode:e.SOURCE_ID_OR_FILTER,saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,quest:e.p.quest_id,branch:'AB',leaf:'AB1',kind:'gate',day:g.WORLD_DAY,turn:0};l.events[e.EVENT_ID]=receipt;l.regionReceipt=cp(receipt);}
  r.s.guildLegends={[def.id]:{day:g.WORLD_DAY}};
- if(def.RECRUIT_MODE==='STORY_ALREADY_JOINED')r.unlockCharacter(def.CHAR_ID);
+ if(def.RECRUIT_MODE==='STORY_ALREADY_JOINED')r.adminApply({op:'recruit',char:def.CHAR_ID});
  for(const [id,n]of Object.entries(JSON.parse(def.COST_ITEMS_JSON||'{}')))r.giveItem(id,Number(n)*2);
  r.rollEncounter=()=>null;r.prepareStory();return r;
 }

@@ -280,3 +280,29 @@ P.validateSave=function(s){
 
 P.qualityFixesV2=1;api.qualityFixesV2=1;api.directRegionTransitIds=[...DIRECT_REGION];api.razorWolvendomPlace=RAZOR_PLACE;
 })(globalThis);
+
+/* v0.15.14 existing story portraits: explicit audited rows, no name inference. */
+(function(root){
+'use strict';
+const P=root.CRPGRuntime.Runtime.prototype,previous=P.storyIndex,installed=new WeakSet();
+const ozIds=[
+ 'LEG_MOND_FISCHL_N004','LEG_MOND_FISCHL_N011','LEG_MOND_FISCHL_N022','LEG_MOND_FISCHL_N025',
+ 'LEG_MOND_FISCHL_N035','LEG_MOND_FISCHL_N042','LEG_MOND_FISCHL_N051',
+ 'LEG_ISK_MOND_FISCHL_V143_INTRO_01','LEG_ISK_MOND_FISCHL_V143_FIRST_01','LEG_ISK_MOND_FISCHL_V143_FIRST_03',
+ 'LEG_ISK_MOND_FISCHL_V143_AGAIN_01','LEG_ISK_MOND_FISCHL_V143_FIELD_01','LEG_ISK_MOND_FISCHL_V143_FIELD_04',
+ 'LEG_ISK_MOND_FISCHL_V143_FIELD_05B_R_01','LEG_ISK_MOND_FISCHL_V143_FIELD_07','LEG_ISK_MOND_FISCHL_V143_AFTER_00',
+ 'LEG_ISK_MOND_FISCHL_V143_JOIN_01','LEG_MOND_FISCHL_V143_FIRST_01','LEG_MOND_FISCHL_V143_AGAIN_01'
+];
+const xianglingIds=['LEG_LIYUE_SHENHE_WORK04','LEG_LIYUE_SHENHE_MID04','LEG_LIYUE_SHENHE_B2_R','LEG_LIYUE_SHENHE_RES04','AFF_LIYUE_SHENHE_H01_C2_R'];
+P.storyIndex=function(){
+ const ix=previous.call(this);if(installed.has(ix))return ix;
+ const bind=(id,name,column,value)=>{
+  const route=id.startsWith('LEG_ISK_')?'ROUTE_ISEKAI':'ROUTE_TRAVELER',row=ix.nodes.get(route+':'+id);
+  if(row&&row[5]==='DIALOGUE'&&row[18]==='ACTIVE'&&row[7]===name&&!row[6]&&!row[15])row[column]=value;
+ };
+ for(const id of ozIds)bind(id,'오즈',6,'ENTITY_OZ');
+ // Asset-only binding keeps Xiangling's first-contact and relationship effects unchanged.
+ for(const id of xianglingIds)bind(id,'향릉',15,'ASSET_RIWAL_HR_1');
+ installed.add(ix);return ix;
+};
+})(globalThis);

@@ -1,0 +1,259 @@
+/* 0.16.2 기술 연출 (app_skill_fx_v0162.js): skill casts, bursts, what skills leave behind, boss wind-ups and the board.
+   Nothing here takes a click; 움직임 줄이기 stops every loop. Colours come in as --fx (the element's). */
+
+/* ---------- the layer of passing effects (above the board, under the damage numbers and the playback band) ---------- */
+body.teyvat .sfx-layer{position:fixed;inset:0;pointer-events:none;z-index:79;overflow:hidden}
+body.cp-fx-on .sfx-layer{z-index:2169}
+body.teyvat .sfx-p{position:absolute;display:block;margin:0;padding:0;box-sizing:border-box;pointer-events:none;transform:translate(-50%,-50%);will-change:transform,opacity;--fx:#f3dfae}
+body.teyvat .sfx-ring{width:90px;height:90px;border-radius:50%;border:3px solid var(--fx);box-shadow:0 0 14px var(--fx),inset 0 0 10px var(--fx)}
+body.teyvat .sfx-ring.flat{border-width:4px;height:auto!important;aspect-ratio:3.2/1}
+body.teyvat .sfx-ring.hex{border:0;border-radius:0;box-shadow:none;background:linear-gradient(135deg,#fffbe6,var(--fx) 48%,#a77a20);clip-path:polygon(evenodd,25% 2%,75% 2%,100% 50%,75% 98%,25% 98%,0 50%,25% 2%,31% 13%,69% 13%,87% 50%,69% 87%,31% 87%,13% 50%,31% 13%)}
+body.teyvat .sfx-ring.shield{border-width:4px;background:radial-gradient(circle,transparent 58%,rgba(255,255,255,.18) 70%,transparent 72%)}
+body.teyvat .sfx-ring.hex.shield{background:repeating-conic-gradient(from 30deg,#fff3c4 0 2deg,var(--fx) 2deg 58deg,#fff3c4 58deg 60deg)}
+body.teyvat .sfx-flash{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#fff 0 12%,var(--fx) 34%,transparent 68%);mix-blend-mode:screen}
+body.teyvat .sfx-mote{width:9px;height:9px;border-radius:50%;background:var(--fx);box-shadow:0 0 8px var(--fx)}
+body.teyvat .sfx-mote.m-flame{width:9px;height:13px;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(ellipse at 50% 70%,#fff4c8,var(--fx) 55%,rgba(255,90,40,.2) 85%)}
+body.teyvat .sfx-mote.m-drop{width:9px;height:12px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 35%,#fff,var(--fx) 60%)}
+body.teyvat .sfx-mote.m-shard{width:7px;height:15px;border-radius:1px;box-shadow:none;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:linear-gradient(#fff,var(--fx))}
+body.teyvat .sfx-mote.m-spark{width:15px;height:3px;border-radius:2px;background:linear-gradient(90deg,transparent,#fff,var(--fx))}
+body.teyvat .sfx-mote.m-leaf{width:11px;height:6px;border-radius:0 80% 0 80%;background:linear-gradient(90deg,#fff,var(--fx))}
+body.teyvat .sfx-mote.m-gem{width:9px;height:9px;border-radius:1px;box-shadow:none;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:linear-gradient(135deg,#fff6c9,var(--fx))}
+body.teyvat .sfx-streak{height:6px;border-radius:3px;background:linear-gradient(90deg,transparent,var(--fx) 40%,#fff);box-shadow:0 0 12px var(--fx)}
+body.teyvat .sfx-streak.soft{opacity:.85;background:linear-gradient(90deg,var(--fx),#fff,var(--fx))}
+body.teyvat .sfx-streak.thread{height:3px;background:linear-gradient(90deg,var(--fx),#e6fbff 50%,var(--fx));box-shadow:0 0 8px var(--fx)}
+body.teyvat .sfx-streak.lance{height:8px;border-radius:0 6px 6px 0;background:linear-gradient(90deg,transparent,var(--fx) 30%,#fff 88%,#fff)}
+body.teyvat .sfx-fall{width:24px;height:24px}
+body.teyvat .sfx-fall.f-orb{border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,var(--fx) 55%,transparent 72%);box-shadow:0 0 16px var(--fx)}
+body.teyvat .sfx-fall.f-rock{border-radius:30% 42% 34% 40%;background:radial-gradient(circle at 35% 30%,#fff3c4,var(--fx) 45%,#7a5a1c);box-shadow:0 0 14px var(--fx)}
+body.teyvat .sfx-fall.f-planet{border-radius:50%;background:radial-gradient(circle at 36% 30%,#fff7d2 0 7%,#f5c542 28%,#b8862a 60%,#4e3810 100%);box-shadow:0 0 50px #f5c542,0 0 120px rgba(245,197,66,.45),inset -14px -18px 34px rgba(50,32,8,.65)}
+body.teyvat .sfx-fall.f-planet::after{content:'';position:absolute;inset:-14%;border-radius:50%;border:3px solid rgba(255,236,170,.75);transform:scaleY(.28) rotate(-14deg)}
+body.teyvat .sfx-fall.f-streak{width:4px;height:42px;border-radius:2px;background:linear-gradient(transparent,var(--fx),#fff)}
+body.teyvat .sfx-fall.f-arrow{width:6px;height:48px;background:linear-gradient(transparent,#ffd9a8 40%,#fff);clip-path:polygon(35% 0,65% 0,65% 80%,100% 80%,50% 100%,0 80%,35% 80%)}
+body.teyvat .sfx-fall.f-sword{width:12px;height:58px;background:linear-gradient(#f2fdff,var(--fx) 55%,#fff);clip-path:polygon(50% 100%,100% 82%,72% 76%,72% 0,28% 0,28% 76%,0 82%)}
+body.teyvat .sfx-fall.f-jade{width:16px;height:20px;border-radius:50% 50% 45% 45%;background:radial-gradient(circle at 40% 35%,#f4ffd6,#a5d63b 60%,#3f6b14);box-shadow:0 0 10px #a5d63b}
+body.teyvat .sfx-fall.f-star{width:20px;height:20px;clip-path:polygon(50% 0,61% 38%,100% 50%,61% 62%,50% 100%,39% 62%,0 50%,39% 38%);background:radial-gradient(circle,#fff 0 30%,var(--fx) 75%)}
+body.teyvat .sfx-fall.f-icicle{width:10px;height:36px;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(#f0fcff,var(--fx))}
+body.teyvat .sfx-fall.f-flake{width:11px;height:11px;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);background:#f2fdff}
+body.teyvat .sfx-vortex{width:120px;height:120px;border-radius:50%;background:conic-gradient(from 0deg,transparent,var(--fx) 25%,transparent 45%,#fff 58%,var(--fx) 70%,transparent 90%);-webkit-mask:radial-gradient(circle,transparent 30%,#000 32% 64%,transparent 66%);mask:radial-gradient(circle,transparent 30%,#000 32% 64%,transparent 66%)}
+body.teyvat .sfx-sigil{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,transparent 0 46%,var(--fx) 47% 50%,transparent 51% 59%,var(--fx) 60% 62%,transparent 63%),repeating-conic-gradient(from 0deg,var(--fx) 0 3deg,transparent 3deg 30deg);-webkit-mask:radial-gradient(circle,transparent 40%,#000 41% 64%,transparent 65%);mask:radial-gradient(circle,transparent 40%,#000 41% 64%,transparent 65%)}
+body.teyvat .sfx-pillar{width:46px;height:150px;border-radius:40% 40% 8px 8px/16% 16% 8px 8px;background:linear-gradient(to top,var(--fx),rgba(255,255,255,.85) 30%,transparent);box-shadow:0 0 22px var(--fx);mix-blend-mode:screen}
+body.teyvat .sfx-bolt{width:38px;height:220px;background:linear-gradient(#fff,var(--fx) 70%,#fff);clip-path:polygon(42% 0,64% 0,52% 33%,72% 33%,36% 69%,54% 69%,26% 100%,36% 64%,18% 64%,44% 29%,26% 29%)}
+body.teyvat .sfx-spike{width:14px;height:50px;background:linear-gradient(to top,var(--fx),#f2fdff);clip-path:polygon(50% 0,100% 100%,0 100%)}
+body.teyvat .sfx-spike.geo{width:18px;background:linear-gradient(to top,#8a6422,#f5c542 50%,#fff3c4);clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%)}
+body.teyvat .sfx-flame{width:24px;height:54px;border-radius:50% 50% 45% 45%/70% 70% 30% 30%;background:radial-gradient(ellipse at 50% 80%,#fff6cc,var(--fx) 45%,rgba(255,80,30,.3) 75%,transparent);mix-blend-mode:screen}
+body.teyvat .sfx-bloom{width:96px;height:96px;border-radius:50%;background:repeating-conic-gradient(from 0deg,var(--fx) 0 14deg,transparent 14deg 30deg);-webkit-mask:radial-gradient(circle,#000 0 18%,transparent 20% 30%,#000 31% 62%,transparent 64%);mask:radial-gradient(circle,#000 0 18%,transparent 20% 30%,#000 31% 62%,transparent 64%)}
+body.teyvat .sfx-bloom.crimson{background:repeating-conic-gradient(from 0deg,#ff5a4a 0 16deg,transparent 16deg 36deg)}
+body.teyvat .sfx-bubble{width:86px;height:86px;border-radius:50%;border:2px solid rgba(190,240,255,.9);background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.85),transparent 22%),radial-gradient(circle,transparent 50%,rgba(76,194,241,.45));box-shadow:0 0 18px rgba(76,194,241,.6),inset 0 0 20px rgba(76,194,241,.5)}
+body.teyvat .sfx-star{width:20px;height:20px;clip-path:polygon(50% 0,61% 38%,100% 50%,61% 62%,50% 100%,39% 62%,0 50%,39% 38%);background:radial-gradient(circle,#fff 0 30%,var(--fx) 75%)}
+body.teyvat .sfx-talisman{width:22px;height:56px;border-radius:2px;background:linear-gradient(90deg,transparent 44%,rgba(170,40,30,.85) 45% 55%,transparent 56%) 0 20%/100% 60% no-repeat,linear-gradient(#f7f1df,#e6dbbb);border:2px solid var(--fx);box-shadow:0 0 12px var(--fx)}
+body.teyvat .sfx-markd{width:30px;height:30px;border:3px solid var(--fx);background:rgba(255,255,255,.18);box-shadow:0 0 14px var(--fx),inset 0 0 8px var(--fx)}
+body.teyvat .sfx-orb{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle,#fff 0 25%,var(--fx) 55%,transparent 72%)}
+body.teyvat .sfx-crescent{width:110px;height:110px;border-radius:50%;border-top:7px solid #fff;border-left:2px solid transparent;border-right:2px solid transparent;filter:drop-shadow(0 0 3px var(--fx)) drop-shadow(0 0 10px var(--fx))}
+body.teyvat .sfx-crescent.big{width:150px;height:150px;border-top-width:10px}
+body.teyvat .sfx-claw{width:92px;height:5px;border-radius:3px;background:linear-gradient(90deg,transparent,#fff 25%,var(--fx) 80%,transparent);box-shadow:0 0 8px var(--fx)}
+body.teyvat .sfx-die{width:18px;height:18px;border-radius:4px;border:1px solid rgba(255,255,255,.8);background:radial-gradient(circle at 28% 28%,#fff 0 9%,transparent 11%),radial-gradient(circle at 72% 72%,#fff 0 9%,transparent 11%),radial-gradient(circle,#fff 0 9%,transparent 11%),linear-gradient(135deg,#8fe0ff,#2a8fd0);box-shadow:0 0 10px var(--fx)}
+body.teyvat .sfx-tornado{width:180px;height:220px}
+body.teyvat .sfx-tornado::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent,var(--fx) 20%,transparent 40%,#fff 52%,var(--fx) 65%,transparent 85%);-webkit-mask:radial-gradient(ellipse,transparent 22%,#000 30% 62%,transparent 70%);mask:radial-gradient(ellipse,transparent 22%,#000 30% 62%,transparent 70%);animation:sfxSpin .42s linear infinite}
+body.teyvat .sfx-tornado::after{content:'';position:absolute;left:28%;right:28%;top:2%;bottom:2%;border-radius:50% 50% 40% 40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);filter:blur(4px)}
+body.teyvat .sfx-wave{border-radius:46%;background:linear-gradient(90deg,transparent,var(--fx) 55%,#fff 82%,transparent);filter:blur(2px);mix-blend-mode:screen}
+body.teyvat .sfx-crack{height:3px;border-radius:2px;background:linear-gradient(90deg,#fff,var(--fx),transparent);box-shadow:0 0 8px var(--fx)}
+body.teyvat .sfx-dash{height:26px;border-radius:50%;background:linear-gradient(90deg,transparent,var(--fx) 40%,#fff 90%,transparent);box-shadow:0 0 20px var(--fx);mix-blend-mode:screen}
+body.teyvat .sfx-dash.s-phoenix{background:radial-gradient(ellipse at 82% 50%,#fff6cc,#ff9a52 32%,rgba(255,90,40,.55) 60%,transparent 74%),linear-gradient(90deg,transparent,rgba(255,120,60,.55) 70%,transparent)}
+body.teyvat .sfx-dash.s-raven{background:linear-gradient(90deg,transparent,rgba(110,60,190,.65) 40%,#eadcff 90%,transparent)}
+body.teyvat .sfx-dash.s-swallow{height:18px;background:linear-gradient(90deg,transparent,var(--fx) 50%,#fff 92%,transparent)}
+body.teyvat .sfx-dash.s-joint{background:linear-gradient(90deg,transparent,#f3dfae 50%,#fff 90%,transparent);box-shadow:0 0 24px #f3dfae}
+body.teyvat .sfx-beam{border-radius:60px;background:linear-gradient(90deg,var(--fx),#fff 35%,var(--fx) 80%,transparent);box-shadow:0 0 30px var(--fx);mix-blend-mode:screen}
+body.teyvat .sfx-deluge{transform:none;border-radius:16px;background:linear-gradient(180deg,rgba(170,232,255,.92),rgba(76,194,241,.7) 38%,rgba(20,90,160,.45));box-shadow:inset 0 12px 30px rgba(255,255,255,.55);-webkit-mask:linear-gradient(180deg,#000 72%,transparent);mask:linear-gradient(180deg,#000 72%,transparent)}
+body.teyvat .sfx-wash{transform:none;border-radius:16px;background:radial-gradient(ellipse at 50% 100%,var(--fx),transparent 72%);mix-blend-mode:screen}
+body.teyvat .sfx-petal{width:10px;height:7px;border-radius:0 80% 0 80%;background:var(--fx);box-shadow:0 0 6px var(--fx)}
+body.teyvat .sfx-petal.p-feather{width:6px;height:18px;border-radius:50% 50% 50% 50%/80% 80% 20% 20%;background:linear-gradient(#fff,var(--fx))}
+body.teyvat .sfx-petal.p-seed{width:13px;height:13px;border-radius:50%;box-shadow:none;background:radial-gradient(circle,#fff 0 16%,transparent 18%),repeating-conic-gradient(rgba(255,255,255,.95) 0 6deg,transparent 6deg 30deg)}
+body.teyvat .sfx-petal.p-star{width:12px;height:12px;border-radius:0;box-shadow:none;clip-path:polygon(50% 0,61% 38%,100% 50%,61% 62%,50% 100%,39% 62%,0 50%,39% 38%);background:#fff}
+body.teyvat .sfx-summon{width:66px;height:66px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.4),transparent 70%);box-shadow:0 0 22px var(--fx)}
+body.teyvat .sfx-summon>img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 8px var(--fx))}
+/* An elemental skill: its own picture over the caster. */
+body.teyvat .sfx-epop{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(16,20,32,.9) 56%,rgba(16,20,32,0) 72%);border:2px solid var(--fx);box-shadow:0 0 18px var(--fx),inset 0 0 12px var(--fx)}
+body.teyvat .sfx-epop>img{width:78%;height:78%;object-fit:contain;filter:drop-shadow(0 0 6px var(--fx))}
+
+/* ---------- a burst: a band across the board with the character, the burst's picture and its name ---------- */
+body.teyvat .sfx-band{position:absolute;left:-5%;right:-5%;top:22vh;height:clamp(120px,22vh,210px);overflow:hidden;pointer-events:none;background:linear-gradient(90deg,rgba(6,10,18,0),rgba(6,10,18,.88) 12%,rgba(6,10,18,.88) 88%,rgba(6,10,18,0));border-top:2px solid var(--fx);border-bottom:2px solid var(--fx);box-shadow:0 0 34px var(--fx);--fx:#f3dfae}
+body.teyvat .sfx-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 120% at 70% 50%,var(--fx),transparent 70%);opacity:.32;mix-blend-mode:screen}
+body.teyvat .sfx-band-art{position:absolute;right:6%;top:-12%;bottom:-12%;width:min(60%,600px);background-size:cover;background-position:center 20%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24%,#000 80%,transparent);mask-image:linear-gradient(90deg,transparent,#000 24%,#000 80%,transparent)}
+body.teyvat .sfx-band-sweep{position:absolute;top:-30%;bottom:-30%;left:0;width:24%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);mix-blend-mode:screen}
+body.teyvat .sfx-band-copy{position:absolute;left:max(24px,9vw);top:50%;margin-top:-56px;display:grid;justify-items:start;gap:4px;text-shadow:0 2px 10px #000,0 0 2px #000;z-index:1}
+body.teyvat .sfx-band-pics{display:flex;align-items:center;gap:8px}
+body.teyvat .sfx-band-icon{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:rgba(10,14,24,.92);border:2px solid var(--fx);box-shadow:0 0 18px var(--fx),inset 0 0 10px var(--fx)}
+body.teyvat .sfx-band-icon>img{width:80%;height:80%;object-fit:contain}
+body.teyvat .sfx-band-el{width:30px;height:30px;display:grid;place-items:center}
+body.teyvat .sfx-band-el>img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 6px var(--fx))}
+body.teyvat .sfx-band-copy>strong{display:block;color:#fff;font-weight:800;font-size:clamp(1.3rem,2.8vw,2.2rem);line-height:1.15;letter-spacing:.02em;white-space:nowrap}
+body.teyvat .sfx-band-copy>small{display:block;color:var(--fx);font-weight:700;font-size:.92rem;letter-spacing:.08em;white-space:nowrap}
+body.teyvat .sfx-band-mote{position:absolute;left:-12%;top:calc(12% + var(--i)*9%);width:70px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--fx),#fff);opacity:.85;animation:sfxBandMote .95s linear infinite;animation-delay:calc(var(--i)*-.11s)}
+@keyframes sfxBandMote{to{transform:translateX(130vw)}}
+@media (max-height:500px){
+ body.teyvat .sfx-band{top:14vh;height:clamp(84px,32vh,118px)}
+ body.teyvat .sfx-band-copy{margin-top:-40px;gap:2px}
+ body.teyvat .sfx-band-icon{width:40px;height:40px}
+ body.teyvat .sfx-band-el{width:22px;height:22px}
+ body.teyvat .sfx-band-copy>strong{font-size:1.15rem}
+ body.teyvat .sfx-band-copy>small{font-size:.74rem}
+ body.teyvat .sfx-epop{width:44px;height:44px}
+}
+
+/* ---------- what stays while it lasts: on a card (clipped to it, placed on its picture: --ax --ay --as) ---------- */
+body.teyvat .combatant-row>.sfx-card{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:2;--ax:30px;--ay:50%;--o:40px;--m:48px}
+body.teyvat .sfx-look{position:absolute;inset:0;pointer-events:none;display:block}
+body.teyvat .sfx-look>i{position:absolute;display:block}
+/* Things circling the fighter (a flattened ring, so they pass in front of and behind the picture). */
+body.teyvat .sfx-k-blades,body.teyvat .sfx-k-pyronado,body.teyvat .sfx-k-rainswords,body.teyvat .sfx-k-dice,body.teyvat .sfx-k-herald,body.teyvat .sfx-k-quills,body.teyvat .sfx-k-seamless,body.teyvat .sfx-k-cicin,body.teyvat .sfx-k-melody,body.teyvat .sfx-k-seal,body.teyvat .sfx-k-stun{inset:auto;left:var(--ox,var(--ax));top:var(--ay);width:calc(var(--o)*var(--rf,2.4));height:calc(var(--o)*var(--rf,2.4));--sq:.4;transform:translate(-50%,-50%) scaleY(var(--sq)) rotate(0deg);animation:sfxOrbit var(--spin,2.4s) linear infinite}
+body.teyvat .sfx-k-blades>i,body.teyvat .sfx-k-pyronado>i,body.teyvat .sfx-k-rainswords>i,body.teyvat .sfx-k-dice>i,body.teyvat .sfx-k-herald>i,body.teyvat .sfx-k-quills>i,body.teyvat .sfx-k-seamless>i,body.teyvat .sfx-k-cicin>i,body.teyvat .sfx-k-melody>i,body.teyvat .sfx-k-seal>i,body.teyvat .sfx-k-stun>i{left:50%;top:0;transform-origin:50% calc(var(--o)*var(--rf,2.4)/2);transform:translateX(-50%) rotate(calc(var(--i)*var(--step,120deg)))}
+@keyframes sfxOrbit{from{transform:translate(-50%,-50%) scaleY(var(--sq)) rotate(0deg)}to{transform:translate(-50%,-50%) scaleY(var(--sq)) rotate(360deg)}}
+body.teyvat .sfx-k-blades{--spin:2.1s;--rf:2.7;filter:drop-shadow(0 0 4px #bff0ff) drop-shadow(0 0 8px #7fd8ff)}
+body.teyvat .sfx-k-blades>i{width:38px;height:12px;margin-top:-6px;clip-path:polygon(0 50%,22% 0,100% 50%,22% 100%);background:linear-gradient(90deg,#9fdcf5,#f2fdff 60%,#fff)}
+body.teyvat .sfx-k-pyronado{--spin:1.15s;--step:180deg;--rf:2.6;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 18%,rgba(255,120,60,.85) 30%,transparent 46% 68%,rgba(255,176,90,.85) 80%,transparent 96%);-webkit-mask:radial-gradient(closest-side,transparent 68%,#000 74% 92%,transparent 100%);mask:radial-gradient(closest-side,transparent 68%,#000 74% 92%,transparent 100%)}
+body.teyvat .sfx-k-pyronado>i{width:24px;height:24px;margin-top:-12px;border-radius:50%;background:radial-gradient(circle,#fff6cc,#ff9a52 50%,rgba(255,80,30,0) 75%)}
+body.teyvat .sfx-k-rainswords{--spin:3s;--rf:2.6;filter:drop-shadow(0 0 4px #7fd8ff)}
+body.teyvat .sfx-k-rainswords>i{width:34px;height:8px;margin-top:-4px;clip-path:polygon(0 50%,14% 0,100% 30%,100% 70%,14% 100%);background:linear-gradient(90deg,#e8fbff,#4cc2f1)}
+body.teyvat .sfx-k-dice{--spin:3.2s;--step:180deg;--sq:.5;--rf:2.5}
+body.teyvat .sfx-k-dice>i{width:19px;height:19px;margin-top:-9px;border-radius:3px;border:1px solid rgba(255,255,255,.85);background:radial-gradient(circle at 28% 28%,#fff 0 9%,transparent 11%),radial-gradient(circle at 72% 72%,#fff 0 9%,transparent 11%),radial-gradient(circle,#fff 0 9%,transparent 11%),linear-gradient(135deg,#8fe0ff,#2a8fd0);box-shadow:0 0 8px #4cc2f1}
+body.teyvat .sfx-k-herald{--spin:2.4s;--rf:2.6}
+body.teyvat .sfx-k-herald>i{width:18px;height:18px;margin-top:-9px;border-radius:50%;background:radial-gradient(circle,#fff 0 30%,#a6e4f2 65%,transparent 75%);box-shadow:-10px 0 10px -2px rgba(166,228,242,.8),-20px 0 12px -4px rgba(166,228,242,.45)}
+body.teyvat .sfx-k-quills{--spin:3.6s;--rf:2.5}
+body.teyvat .sfx-k-quills>i{width:18px;height:6px;margin-top:-3px;border-radius:0 80% 0 80%;background:linear-gradient(90deg,#fff,#a6e4f2);box-shadow:0 0 6px #a6e4f2}
+body.teyvat .sfx-k-seamless{--spin:6s;--step:90deg;--rf:2;border-radius:50%;border:2px dashed rgba(165,214,59,.85);box-shadow:0 0 10px rgba(165,214,59,.6)}
+body.teyvat .sfx-k-seamless>i{width:11px;height:6px;margin-top:-3px;border-radius:0 80% 0 80%;background:#c9f07a;box-shadow:0 0 6px #a5d63b}
+body.teyvat .sfx-k-cicin{--spin:1.8s;--step:180deg;--rf:2.2}
+body.teyvat .sfx-k-cicin>i{width:12px;height:12px;margin-top:-6px;border-radius:50%;background:radial-gradient(circle,#fff 0 25%,var(--fx) 60%,transparent 75%);box-shadow:0 0 10px var(--fx)}
+body.teyvat .sfx-k-melody{--spin:3s;--step:90deg;--rf:1.9;border-radius:50%;box-shadow:0 0 8px rgba(76,194,241,.5),inset 0 0 8px rgba(76,194,241,.4)}
+body.teyvat .sfx-k-melody>i{width:8px;height:10px;margin-top:-5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 35%,#fff,#4cc2f1 60%)}
+body.teyvat .sfx-k-seal{--spin:4s;--sq:.55;--rf:1.9}
+body.teyvat .sfx-k-seal>i{width:9px;height:9px;margin-top:-4px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:linear-gradient(135deg,#fff3c4,#ff8a50)}
+body.teyvat .sfx-k-stun{--spin:1.6s;--sq:.35;--rf:1.5;top:calc(var(--ay) - var(--m)*.5)}
+body.teyvat .sfx-k-stun>i{width:13px;height:13px;margin-top:-6px;clip-path:polygon(50% 0,61% 38%,100% 50%,61% 62%,50% 100%,39% 62%,0 50%,39% 38%);background:#ffe9a6}
+/* A stance: the card breathes its colour and its sparks rise. */
+body.teyvat .sfx-k-stance,body.teyvat .sfx-k-papilio,body.teyvat .sfx-k-bane,body.teyvat .sfx-k-encourage,body.teyvat .sfx-k-frost,body.teyvat .sfx-k-arcs{box-shadow:inset 0 0 18px -2px var(--fx);animation:sfxBreath 2.2s ease-in-out infinite}
+body.teyvat .sfx-k-papilio{--fx:#ff4a3a}
+body.teyvat .sfx-k-bane{--fx:#2bb594;background:radial-gradient(ellipse at var(--ax) 60%,rgba(10,40,34,.45),transparent 60%)}
+body.teyvat .sfx-k-stance>i,body.teyvat .sfx-k-papilio>i,body.teyvat .sfx-k-bane>i,body.teyvat .sfx-k-encourage>i{bottom:-10px;left:calc(6% + var(--i)*19%);width:6px;height:9px;border-radius:50% 50% 45% 45%;background:radial-gradient(ellipse at 50% 70%,#fff,var(--fx) 60%,transparent);opacity:0;animation:sfxRise 2.4s linear infinite;animation-delay:calc(var(--i)*-.5s)}
+body.teyvat .sfx-k-bane>i{width:5px;height:14px;background:linear-gradient(transparent,#7ff0cf,#0f5f4c)}
+body.teyvat .sfx-k-encourage{box-shadow:inset 0 -14px 20px -10px #ff8a50;background:linear-gradient(to top,rgba(255,138,80,.28),transparent 55%)}
+@keyframes sfxBreath{0%,100%{box-shadow:inset 0 0 14px -6px var(--fx)}50%{box-shadow:inset 0 0 28px -2px var(--fx)}}
+@keyframes sfxRise{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.95}70%{opacity:.6}100%{transform:translate(6px,-120px) scale(.2);opacity:0}}
+body.teyvat .sfx-k-frost>i{top:-10px;left:calc(10% + var(--i)*30%);width:9px;height:9px;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);background:#f2fdff;opacity:0;animation:sfxFall 3s linear infinite;animation-delay:calc(var(--i)*-1s)}
+@keyframes sfxFall{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:.9}100%{transform:translate(-8px,110px) rotate(200deg);opacity:0}}
+body.teyvat .sfx-k-arcs>i{top:calc(14% + var(--i)*28%);left:calc(8% + var(--i)*30%);width:26px;height:8px;background:linear-gradient(90deg,transparent,#f1e2ff 30%,#c79bff 70%,transparent);clip-path:polygon(0 50%,20% 0,40% 100%,60% 0,80% 100%,100% 50%,80% 70%,60% 20%,40% 80%,20% 30%);opacity:0;animation:sfxCrackle 1.4s steps(1,end) infinite;animation-delay:calc(var(--i)*-.45s)}
+@keyframes sfxCrackle{0%,100%{opacity:0}10%{opacity:1}18%{opacity:.2}26%{opacity:.95}34%{opacity:0}}
+/* Around the picture: a halo, a shield arc, a bubble, marks. */
+body.teyvat .sfx-k-moon,body.teyvat .sfx-k-bubble,body.teyvat .sfx-k-omen,body.teyvat .sfx-k-blossom,body.teyvat .sfx-k-armour,body.teyvat .sfx-k-expose,body.teyvat .sfx-k-riptide{inset:auto;left:var(--ax);top:var(--ay);width:calc(var(--m)*1.1);height:calc(var(--m)*1.1);transform:translate(-50%,-50%);border-radius:50%}
+body.teyvat .sfx-k-moon{border:2px solid rgba(255,244,214,.85);box-shadow:0 0 14px #fff1c9,inset 0 0 10px #fff1c9;animation:sfxPulse 3s ease-in-out infinite}
+body.teyvat .sfx-k-moon>i{width:6px;height:6px;border-radius:50%;background:#fff8e2;box-shadow:0 0 6px #fff1c9;left:calc(10% + var(--i)*36%);top:calc(8% + var(--i)*30%);animation:sfxTwinkle 2s ease-in-out infinite;animation-delay:calc(var(--i)*-.6s)}
+body.teyvat .sfx-k-bubble{width:calc(var(--m)*1.05);height:calc(var(--m)*1.05);border:2px solid rgba(190,240,255,.85);background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.75),transparent 22%),radial-gradient(circle,transparent 55%,rgba(76,194,241,.35));box-shadow:0 0 14px rgba(76,194,241,.55);animation:sfxWobble 2.4s ease-in-out infinite}
+body.teyvat .sfx-k-omen{top:calc(var(--ay) + var(--m)*.4);height:calc(var(--m)*.4);border:2px dashed rgba(120,200,255,.85);box-shadow:0 0 12px rgba(76,194,241,.7);animation:sfxPulse 2s ease-in-out infinite}
+body.teyvat .sfx-k-blossom{width:calc(var(--m)*.62);height:calc(var(--m)*.62);background:repeating-conic-gradient(from 0deg,rgba(255,80,70,.9) 0 18deg,transparent 18deg 36deg);-webkit-mask:radial-gradient(circle,#000 0 22%,transparent 24% 32%,#000 34% 62%,transparent 64%);mask:radial-gradient(circle,#000 0 22%,transparent 24% 32%,#000 34% 62%,transparent 64%);animation:sfxBlossom 2.6s ease-in-out infinite}
+body.teyvat .sfx-k-armour{border:2px solid var(--fx);border-radius:28%;box-shadow:0 0 12px var(--fx),inset 0 0 10px var(--fx);animation:sfxArmour 6s linear infinite;opacity:.8}
+body.teyvat .sfx-k-expose{width:calc(var(--m)*.7);height:calc(var(--m)*.7);border:2px solid #ffb36b;box-shadow:0 0 12px #ff8a50,inset 0 0 8px #ff8a50;animation:sfxPulse 1.2s ease-in-out infinite}
+body.teyvat .sfx-k-expose.hunt{border-color:#ff5a4a;background:linear-gradient(#ff5a4a,#ff5a4a) center/2px 100% no-repeat,linear-gradient(#ff5a4a,#ff5a4a) center/100% 2px no-repeat;-webkit-mask:radial-gradient(circle,transparent 28%,#000 30%);mask:radial-gradient(circle,transparent 28%,#000 30%);box-shadow:0 0 12px rgba(255,80,66,.8)}
+body.teyvat .sfx-k-riptide{width:calc(var(--m)*.8);height:calc(var(--m)*.8);border-right:3px solid #4cc2f1;border-bottom:2px solid transparent;border-top:2px solid transparent;box-shadow:6px 0 12px -6px #4cc2f1;animation:sfxArmour 3s linear infinite}
+body.teyvat .sfx-k-counter>i{left:calc(var(--ax) - var(--m)*.82);top:calc(var(--ay) - var(--m)*.72);width:calc(var(--m)*1.44);height:calc(var(--m)*1.44);border-radius:50%;border-left:4px solid var(--fx);box-shadow:-8px 0 14px -6px var(--fx);animation:sfxPulse 1.6s ease-in-out infinite}
+body.teyvat .sfx-k-talisman>i{left:calc(var(--ax) + var(--m)*.16);top:calc(var(--ay) - var(--m)*.5);width:14px;height:36px;border-radius:2px;background:linear-gradient(90deg,transparent 42%,rgba(170,40,30,.85) 43% 57%,transparent 58%) 0 20%/100% 60% no-repeat,linear-gradient(#f7f1df,#e6dbbb);border:1px solid #a6e4f2;box-shadow:0 0 10px #a6e4f2;transform-origin:50% 0;animation:sfxSway 2.2s ease-in-out infinite}
+body.teyvat .sfx-k-glint>i,body.teyvat .sfx-k-stars>i{width:9px;height:9px;clip-path:polygon(50% 0,61% 38%,100% 50%,61% 62%,50% 100%,39% 62%,0 50%,39% 38%);background:#fff;filter:drop-shadow(0 0 3px var(--fx));left:calc(var(--ax) + (var(--i) - 1) * var(--m) * .5);top:calc(var(--ay) - var(--m)*.4 + var(--i) * 8px);opacity:0;animation:sfxTwinkle 2.2s ease-in-out infinite;animation-delay:calc(var(--i)*-.7s)}
+body.teyvat .sfx-k-stars>i{left:calc(10% + var(--i)*24%);top:calc(16% + var(--i)*15%);background:var(--fx)}
+body.teyvat .sfx-k-glint>i{background:radial-gradient(circle,#fff,var(--fx))}
+@keyframes sfxTwinkle{0%,100%{transform:scale(.3) rotate(0);opacity:0}50%{transform:scale(1) rotate(45deg);opacity:1}}
+@keyframes sfxPulse{0%,100%{opacity:.65;filter:none}50%{opacity:1;filter:brightness(1.4)}}
+@keyframes sfxWobble{0%,100%{transform:translate(-50%,-50%) scale(1,1)}50%{transform:translate(-50%,-50%) scale(1.04,.97)}}
+@keyframes sfxBlossom{0%,100%{transform:translate(-50%,-50%) rotate(0) scale(.92);opacity:.75}50%{transform:translate(-50%,-50%) rotate(40deg) scale(1.05);opacity:1}}
+@keyframes sfxArmour{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes sfxSway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+/* Over the whole card. */
+body.teyvat .sfx-k-mist>i{bottom:-30%;left:calc(var(--i)*32% - 12%);width:62%;height:62%;border-radius:50%;background:radial-gradient(ellipse,rgba(130,214,255,.5),transparent 70%);animation:sfxDrift 5s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-1.6s)}
+@keyframes sfxDrift{from{transform:translateX(-8%)}to{transform:translateX(10%)}}
+body.teyvat .sfx-k-stele>i{left:calc(var(--ax) + var(--m)*.7);bottom:6%;width:15px;height:74%;clip-path:polygon(50% 0,100% 10%,100% 100%,0 100%,0 10%);background:linear-gradient(90deg,transparent 40%,rgba(255,250,220,.9) 45% 55%,transparent 60%) 0 30%/100% 40% no-repeat,linear-gradient(to top,#7a5a1c,#f5c542 45%,#fff3c4)}
+body.teyvat .sfx-k-stele{filter:drop-shadow(0 0 6px #f5c542);animation:sfxPulse 2.6s ease-in-out infinite}
+body.teyvat .sfx-k-cloud>i{bottom:-14%;left:calc(var(--i)*30% - 4%);width:46%;height:44%;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.6),transparent 70%);animation:sfxDrift 4s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-1.3s)}
+body.teyvat .sfx-k-cloud{box-shadow:inset 0 -12px 18px -10px #74e0c2}
+body.teyvat .sfx-k-feather>i{top:-12px;left:calc(var(--ax) + (var(--i) - .5) * var(--m) * .8);width:6px;height:16px;border-radius:50% 50% 50% 50%/80% 80% 20% 20%;background:linear-gradient(#fff,#a6e4f2);opacity:0;animation:sfxFall 3.4s ease-in-out infinite;animation-delay:calc(var(--i)*-1.7s)}
+body.teyvat .sfx-k-lift>i,body.teyvat .sfx-k-raincut>i,body.teyvat .sfx-k-seeds>i{left:calc(12% + var(--i)*28%);bottom:-12px;width:3px;height:22px;border-radius:2px;background:linear-gradient(transparent,var(--fx));opacity:0;animation:sfxRise 1.8s linear infinite;animation-delay:calc(var(--i)*-.6s)}
+body.teyvat .sfx-k-raincut>i{top:-20px;bottom:auto;transform:rotate(18deg);background:linear-gradient(transparent,#bfeaff);animation-name:sfxRain;animation-duration:1.1s}
+@keyframes sfxRain{0%{transform:translate(0,0) rotate(18deg);opacity:0}20%{opacity:.85}100%{transform:translate(-24px,90px) rotate(18deg);opacity:0}}
+body.teyvat .sfx-k-seeds>i{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle,#fff 0 18%,transparent 20%),repeating-conic-gradient(rgba(255,255,255,.95) 0 8deg,transparent 8deg 36deg);animation-duration:3.4s}
+body.teyvat .sfx-k-banner>i{top:6%;left:-4%;width:70%;height:7px;border-radius:0 6px 6px 0;background:linear-gradient(90deg,transparent,#f5c542 30%,#fff3c4 70%,#f5c542);transform-origin:0 50%;animation:sfxRibbon 1.8s ease-in-out infinite;box-shadow:0 0 8px rgba(245,197,66,.7)}
+body.teyvat .sfx-k-banner>i+i{top:16%;width:54%;background:linear-gradient(90deg,transparent,#d9473a 30%,#ff9b7a 70%,#d9473a);animation-delay:-.6s;box-shadow:0 0 8px rgba(217,71,58,.7)}
+@keyframes sfxRibbon{0%,100%{transform:skewY(0) scaleX(1)}50%{transform:skewY(-4deg) scaleX(.94)}}
+body.teyvat .sfx-k-petrify{-webkit-backdrop-filter:grayscale(.85) sepia(.4) brightness(.85);backdrop-filter:grayscale(.85) sepia(.4) brightness(.85);box-shadow:inset 0 0 0 2px rgba(200,160,90,.75),inset 0 0 20px rgba(120,90,40,.6)}
+body.teyvat .sfx-k-petrify>i{top:20%;left:30%;width:40%;height:2px;background:rgba(255,236,190,.75);transform:rotate(28deg)}
+body.teyvat .sfx-k-petrify>i+i{top:52%;left:42%;width:30%;transform:rotate(-34deg)}
+body.teyvat .sfx-k-stealth{background:radial-gradient(ellipse at var(--ax) var(--ay),rgba(18,10,10,.55),transparent 70%)}
+body.teyvat .sfx-k-stealth>i{left:calc(var(--ax) - 20px + var(--i)*24px);bottom:6%;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle,rgba(70,50,50,.6),transparent 70%);animation:sfxRise 2.6s linear infinite;animation-delay:calc(var(--i)*-1.3s)}
+body.teyvat .sfx-k-burrow{background:linear-gradient(to top,rgba(96,74,40,.7),transparent 55%)}
+body.teyvat .sfx-k-burrow>i{bottom:4%;left:calc(18% + var(--i)*24%);width:16px;height:10px;border-radius:50%;background:rgba(170,140,90,.8);animation:sfxRise 1.6s linear infinite;animation-delay:calc(var(--i)*-.5s)}
+/* A wind-up: the boss glows and says what is coming. */
+body.teyvat .sfx-k-warn{box-shadow:inset 0 0 0 2px rgba(255,110,70,.9),inset 0 0 26px rgba(255,90,60,.55);animation:sfxWarn .9s ease-in-out infinite}
+body.teyvat .sfx-k-warn>b{position:absolute;left:50%;top:6px;transform:translateX(-50%);max-width:92%;padding:2px 10px;border-radius:10px;background:rgba(110,18,10,.9);border:1px solid #ffb08a;color:#fff3e6;font:700 .72rem/1.45 var(--font-ui,sans-serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 0 10px rgba(255,90,60,.7)}
+@keyframes sfxWarn{0%,100%{box-shadow:inset 0 0 0 2px rgba(255,110,70,.7),inset 0 0 16px rgba(255,90,60,.35)}50%{box-shadow:inset 0 0 0 3px rgba(255,150,100,1),inset 0 0 34px rgba(255,90,60,.7)}}
+
+/* ---------- over a side of the board (over the foes' pictures as light only, so they stay readable; over the party's cards, faintly) ---------- */
+body.teyvat .combat-panel .shell-enemies,body.teyvat .combat-panel .shell-allies{position:relative;isolation:isolate}
+body.teyvat .shell-enemies>.sfx-zone,body.teyvat .shell-allies>.sfx-zone{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:18px;z-index:3}
+body.teyvat .shell-enemies>.sfx-zone{mix-blend-mode:screen}
+body.teyvat .shell-allies>.sfx-zone{opacity:.85}
+body.teyvat .sfx-zone>.sfx-look{inset:0}
+body.teyvat .sfx-k-hail>i,body.teyvat .sfx-k-blizzard>i{top:-40px;left:calc(3% + var(--i)*9.8%);width:9px;height:34px;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(#f0fcff,#a6e4f2);opacity:0;animation:sfxHail 1.3s linear infinite;animation-delay:calc(var(--i)*-.37s)}
+body.teyvat .sfx-k-hail{background:radial-gradient(ellipse at 50% -20%,rgba(166,228,242,.35),transparent 60%)}
+@keyframes sfxHail{0%{transform:translate(0,0);opacity:0}10%{opacity:.95}100%{transform:translate(-26px,105vh);opacity:.2}}
+body.teyvat .sfx-k-blizzard{background:linear-gradient(110deg,rgba(220,245,255,.18),transparent 60%)}
+body.teyvat .sfx-k-blizzard>i{width:10px;height:10px;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);background:#f2fdff;animation-duration:1.8s}
+body.teyvat .sfx-k-sparks>i{top:-20px;left:calc(6% + var(--i)*13%);width:10px;height:10px;border-radius:50%;background:radial-gradient(circle,#fff6cc,#ff8a50 60%,transparent 75%);box-shadow:0 0 10px #ff8a50;opacity:0;animation:sfxSparkFall 1.6s cubic-bezier(.5,0,.8,.5) infinite;animation-delay:calc(var(--i)*-.23s)}
+@keyframes sfxSparkFall{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:1}85%{transform:translate(-14px,72vh) scale(1);opacity:1}100%{transform:translate(-16px,74vh) scale(2.4);opacity:0}}
+body.teyvat .sfx-k-vortex>i{left:50%;top:46%;width:min(70%,220px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,transparent,rgba(116,224,194,.8) 25%,transparent 45%,rgba(255,255,255,.7) 58%,rgba(116,224,194,.8) 70%,transparent 90%);-webkit-mask:radial-gradient(circle,transparent 30%,#000 32% 64%,transparent 66%);mask:radial-gradient(circle,transparent 30%,#000 32% 64%,transparent 66%);animation:sfxSpinC 1.4s linear infinite}
+body.teyvat .sfx-k-vortex>i+i{width:min(42%,130px);animation-duration:.9s;animation-direction:reverse}
+@keyframes sfxSpinC{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes sfxSpin{to{transform:rotate(360deg)}}
+body.teyvat .sfx-k-rose>i{left:50%;top:18%;width:34px;height:34px;margin-left:-17px;border-radius:50%;background:radial-gradient(circle,#fff 0 20%,#c79bff 55%,transparent 72%);box-shadow:0 0 24px #c79bff;animation:sfxPulse 1.2s ease-in-out infinite}
+body.teyvat .sfx-k-rose>i+i,body.teyvat .sfx-k-rose>i+i+i{top:calc(18% + 10px);width:120px;height:10px;margin-left:-60px;border-radius:0;box-shadow:none;background:linear-gradient(90deg,transparent,#f1e2ff 30%,#c79bff 70%,transparent);clip-path:polygon(0 50%,20% 0,40% 100%,60% 0,80% 100%,100% 50%,80% 70%,60% 20%,40% 80%,20% 30%);animation:sfxCrackle 1.2s steps(1,end) infinite;transform:rotate(30deg)}
+body.teyvat .sfx-k-rose>i+i+i{transform:rotate(-34deg);animation-delay:-.5s}
+body.teyvat .sfx-k-fog>i{bottom:-10%;left:calc(var(--i)*34% - 14%);width:64%;height:56%;border-radius:50%;background:radial-gradient(ellipse,rgba(200,240,255,.5),transparent 70%);animation:sfxDrift 6s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-2s)}
+body.teyvat .sfx-k-talismans>i{left:calc(12% + var(--i)*19%);top:30%;width:14px;height:34px;border-radius:2px;background:linear-gradient(90deg,transparent 42%,rgba(170,40,30,.85) 43% 57%,transparent 58%) 0 20%/100% 60% no-repeat,linear-gradient(#f7f1df,#e6dbbb);box-shadow:0 0 10px #a6e4f2;animation:sfxFloat 2.4s ease-in-out infinite;animation-delay:calc(var(--i)*-.5s)}
+body.teyvat .sfx-k-talismans>i:first-child{left:50%;top:auto;bottom:4%;width:min(84%,300px);height:auto;aspect-ratio:3/1;margin-left:calc(min(84%,300px)/-2);border-radius:50%;background:radial-gradient(ellipse,transparent 0 46%,#a6e4f2 47% 50%,transparent 51% 60%,#a6e4f2 61% 63%,transparent 64%);box-shadow:none;animation:sfxPulse 2s ease-in-out infinite}
+@keyframes sfxFloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(6deg)}}
+body.teyvat .sfx-k-lance>i{left:50%;bottom:6%;width:26px;height:58%;margin-left:-13px;clip-path:polygon(50% 0,100% 18%,70% 100%,30% 100%,0 18%);background:linear-gradient(#f2fdff,#a6e4f2 60%,#6fb8d8)}
+body.teyvat .sfx-k-lance>i+i{bottom:4%;width:120px;height:16px;margin-left:-60px;clip-path:none;border-radius:50%;background:radial-gradient(ellipse,rgba(166,228,242,.7),transparent 70%)}
+body.teyvat .sfx-k-lance{filter:drop-shadow(0 0 8px #a6e4f2)}
+body.teyvat .sfx-k-fire>i{bottom:-6px;left:calc(4% + var(--i)*19%);width:30px;height:46px;border-radius:50% 50% 45% 45%/70% 70% 30% 30%;background:radial-gradient(ellipse at 50% 80%,#fff3c4,#ff8a50 45%,rgba(255,80,30,.3) 75%,transparent);transform-origin:50% 100%;animation:sfxFlicker .6s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-.17s)}
+@keyframes sfxFlicker{from{transform:scale(.9,.85);opacity:.75}to{transform:scale(1.05,1.15);opacity:1}}
+body.teyvat .sfx-k-mines>i{bottom:8%;left:calc(18% + var(--i)*28%);width:14px;height:14px;border-radius:50%;background:radial-gradient(circle,#fff6cc,#ff5a3a 60%,#7a1a10);box-shadow:0 0 10px #ff8a50;animation:sfxBlink 1s steps(1,end) infinite;animation-delay:calc(var(--i)*-.33s)}
+@keyframes sfxBlink{0%,100%{opacity:1}50%{opacity:.35}}
+body.teyvat .sfx-k-phantom>i{left:16%;bottom:16%;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(255,255,255,.7),rgba(76,194,241,.55) 45%,rgba(30,110,180,.25) 70%,transparent 72%);box-shadow:0 0 18px rgba(76,194,241,.7);animation:sfxWobbleZ 2.2s ease-in-out infinite}
+body.teyvat .sfx-k-phantom>i+i{left:calc(16% - 14px);bottom:calc(16% - 14px);width:84px;height:84px;background:none;border:2px solid rgba(120,210,255,.7);box-shadow:none;animation:sfxRipple 1.8s ease-out infinite}
+@keyframes sfxWobbleZ{0%,100%{transform:scale(1,1)}50%{transform:scale(1.05,.95)}}
+@keyframes sfxRipple{from{transform:scale(.6);opacity:.9}to{transform:scale(1.4);opacity:0}}
+body.teyvat .sfx-k-sword>i{left:50%;top:2%;width:40px;height:70%;margin-left:-20px;clip-path:polygon(50% 100%,100% 84%,74% 78%,74% 6%,50% 0,26% 6%,26% 78%,0 84%);background:linear-gradient(rgba(242,253,255,.95),rgba(166,228,242,.75) 60%,rgba(255,255,255,.9));animation:sfxFloat 2.6s ease-in-out infinite;opacity:.85}
+body.teyvat .sfx-k-sword{filter:drop-shadow(0 0 10px #a6e4f2)}
+body.teyvat .sfx-k-wolves>i{bottom:10%;left:-20%;width:46px;height:18px;border-radius:50% 60% 40% 50%;background:radial-gradient(ellipse at 70% 50%,rgba(220,245,255,.8),rgba(166,228,242,.35) 60%,transparent 72%);animation:sfxRun 2.4s linear infinite;animation-delay:calc(var(--i)*-.8s)}
+@keyframes sfxRun{to{transform:translateX(140%) translateX(200px)}}
+body.teyvat .sfx-k-storm>i{top:calc(var(--i)*16%);left:-40%;width:40%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(190,255,236,.75),transparent);transform:rotate(-12deg);animation:sfxGale 1.1s linear infinite;animation-delay:calc(var(--i)*-.19s)}
+@keyframes sfxGale{to{transform:translateX(360%) rotate(-12deg)}}
+body.teyvat .sfx-k-jade>i{left:0;top:4%;bottom:4%;width:10px;border-radius:6px;background:linear-gradient(90deg,rgba(245,197,66,.85),rgba(255,243,196,.5) 60%,transparent);box-shadow:0 0 16px rgba(245,197,66,.8);animation:sfxPulse 2.4s ease-in-out infinite}
+body.teyvat .sfx-k-lotus>i{left:2%;top:calc(30% + var(--i)*7%);width:22px;height:12px;border-radius:0 80% 0 80%;background:linear-gradient(90deg,#f2fdff,#a6e4f2);box-shadow:0 0 8px #a6e4f2;transform:rotate(calc(-40deg + var(--i)*20deg));transform-origin:0 50%;animation:sfxPulse 2s ease-in-out infinite}
+body.teyvat .sfx-k-formation>i{left:50%;bottom:2%;width:min(92%,340px);aspect-ratio:3.4/1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,transparent 0 44%,rgba(245,197,66,calc(.35 + var(--charge,0)*.65)) 45% 48%,transparent 49% 58%,rgba(245,197,66,calc(.25 + var(--charge,0)*.6)) 59% 61%,transparent 62%),repeating-conic-gradient(from 0deg,rgba(245,197,66,calc(.25 + var(--charge,0)*.5)) 0 2deg,transparent 2deg 20deg);-webkit-mask:radial-gradient(ellipse,transparent 40%,#000 41% 64%,transparent 65%);mask:radial-gradient(ellipse,transparent 40%,#000 41% 64%,transparent 65%);animation:sfxPulse 2.4s ease-in-out infinite}
+body.teyvat .sfx-k-formation>i+i{bottom:auto;top:0;width:100%;height:100%;aspect-ratio:auto;border-radius:0;background:linear-gradient(to top,rgba(245,197,66,calc(.08 + var(--charge,0)*.18)),transparent 45%);-webkit-mask:none;mask:none}
+body.teyvat .sfx-k-heat>i{bottom:-10px;left:calc(8% + var(--i)*19%);width:8px;height:12px;border-radius:50%;background:radial-gradient(ellipse,#fff3c4,#ff8a50 60%,transparent);opacity:0;animation:sfxRise 2s linear infinite;animation-delay:calc(var(--i)*-.4s)}
+body.teyvat .sfx-k-heat{background:linear-gradient(to top,rgba(255,110,50,.25),transparent 50%)}
+body.teyvat .sfx-k-frostfield{background:linear-gradient(to top,rgba(200,240,255,.28),transparent 45%);box-shadow:inset 0 0 22px rgba(190,235,255,.5)}
+body.teyvat .sfx-k-frostfield>i{top:-10px;left:calc(8% + var(--i)*24%);width:9px;height:9px;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);background:#f2fdff;opacity:0;animation:sfxFall 3s linear infinite;animation-delay:calc(var(--i)*-.75s)}
+body.teyvat .sfx-k-lightning>i{top:calc(10% + var(--i)*30%);left:calc(10% + var(--i)*26%);width:60px;height:10px;background:linear-gradient(90deg,transparent,#f1e2ff 30%,#c79bff 70%,transparent);clip-path:polygon(0 50%,20% 0,40% 100%,60% 0,80% 100%,100% 50%,80% 70%,60% 20%,40% 80%,20% 30%);opacity:0;animation:sfxCrackle 1.6s steps(1,end) infinite;animation-delay:calc(var(--i)*-.53s)}
+body.teyvat .sfx-k-lightning{background:radial-gradient(ellipse at 50% 0,rgba(199,155,255,.22),transparent 60%)}
+body.teyvat .sfx-k-flood{background:linear-gradient(to top,rgba(76,194,241,.32),rgba(76,194,241,.08) 35%,transparent 50%)}
+body.teyvat .sfx-k-flood>i{bottom:4%;left:calc(var(--i)*33% - 10%);width:44%;height:12px;border-radius:50%;border-top:2px solid rgba(190,240,255,.8);animation:sfxDrift 2.6s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-.9s)}
+body.teyvat .sfx-k-corrosion{background:radial-gradient(ellipse at 50% 100%,rgba(130,70,190,.32),transparent 65%)}
+body.teyvat .sfx-k-corrosion>i{bottom:-14px;left:calc(10% + var(--i)*23%);width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,rgba(170,110,230,.6),transparent 70%);opacity:0;animation:sfxRise 3s linear infinite;animation-delay:calc(var(--i)*-.75s)}
+body.teyvat .sfx-k-leyline{background:linear-gradient(to top,color-mix(in srgb,var(--fx) 28%,transparent),transparent 50%)}
+body.teyvat .sfx-k-leyline>i{bottom:0;left:calc(15% + var(--i)*30%);width:3px;height:60%;background:linear-gradient(to top,var(--fx),transparent);animation:sfxPulse 1.6s ease-in-out infinite;animation-delay:calc(var(--i)*-.5s)}
+body.teyvat .sfx-k-crumble{background:linear-gradient(to top,rgba(120,90,40,.4),transparent 60%)}
+body.teyvat .sfx-k-crumble>i{top:-12px;left:calc(8% + var(--i)*16%);width:12px;height:10px;border-radius:30%;background:#9a7a44;animation:sfxRubble 1.4s cubic-bezier(.5,0,.9,.6) forwards;animation-delay:calc(var(--i)*.08s)}
+@keyframes sfxRubble{to{transform:translateY(110vh) rotate(260deg)}}
+
+/* 움직임 줄이기: everything stays still (the looks keep their colour; nothing loops or flies). */
+html.reduce-motion body.teyvat .sfx-look,html.reduce-motion body.teyvat .sfx-look>i,html.reduce-motion body.teyvat .sfx-band-mote,html.reduce-motion body.teyvat .sfx-tornado::before{animation:none!important}
+html.reduce-motion body.teyvat .sfx-look>i{opacity:.8}
+html.reduce-motion body.teyvat .sfx-k-hail>i,html.reduce-motion body.teyvat .sfx-k-blizzard>i,html.reduce-motion body.teyvat .sfx-k-sparks>i,html.reduce-motion body.teyvat .sfx-k-storm>i,html.reduce-motion body.teyvat .sfx-k-crumble,html.reduce-motion body.teyvat .sfx-band-mote{display:none}

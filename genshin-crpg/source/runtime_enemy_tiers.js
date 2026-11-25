@@ -110,7 +110,7 @@ P.analyzeEnemyLineup=function(b){
 };
 P.applyEnemyTiers=function(b){
  const risk=this.enemyTierRisk(b),map=this.tables['32_MAP_DB'].get(this.s.global.CURRENT_MAP_ID),allies=b.actors.filter(a=>a.side==='ALLY');
- const party=allies.length?allies.reduce((n,a)=>n+(Number(a.level)||1),0)/allies.length:1,over=Math.max(0,Math.round(party-(Number(map?.[7])||party)));
+ const party=allies.length?allies.reduce((n,a)=>n+(Number(a.level)||1),0)/allies.length:1,over=0;
  const c=CONFIG.chance,enemies=b.actors.filter(a=>a.side==='ENEMY');
  const chance=(spec)=>Math.min(spec.max,spec.perRisk*risk+spec.perOver*over);
  const state={version:1,risk,over,promoted:[],danger:null,lineup:null};
@@ -147,7 +147,13 @@ P.startBattle=function(...args){
 const singleAttack=(r,o)=>{if(o.aoe||o.sourceKind)return false;if(!o.card)return true;const row=r.tables['08_SKILL_CARD_DB']?.get(o.card)||r.tables['12_ENEMY_CARD_DB']?.get(o.card);const mode=String(row?.[31]||''),script=String(row?.[32]||'');if(/DMG_AOE|ENEMY_(?:ALL|MAX[2-9])|(?:^|:)MAX[2-9]/.test(mode+';'+script))return false;return !mode||/^(ALLY_1|ENEMY_1|PRIMARY|LOWEST_HP|HIGHEST_HP|SINGLE|TARGET)/.test(mode);};
 P.enemyGuardFor=function(a,t,o){
  const b=this.s.runtime;if(!b?.enemyTiers||a.side!=='ALLY'||t.side!=='ENEMY'||o.covered||!ranged(t)||!singleAttack(this,o))return null;
- const key='G:'+a.id+':'+(b.actionSequence||0)+':'+t.id;b.guardDecisions=b.guardDecisions||{};if(key in b.guardDecisions)return b.actors.find(x=>x.id===b.guardDecisions[key])||null;
+ const key='G:'+a.id+':'+(b.actionSequence||0)+':'+t.id;b.guardDecisions=b.guardDecisions||{};
+ if(key in b.guardDecisions){
+  // Keep the action's one probability roll, but a fallen/disabled guard cannot take later hits.
+  const guard=b.actors.find(x=>x.id===b.guardDecisions[key]&&x.hp>0&&has(x,'GUARDIAN')&&!this.combatActionLocked?.(x));
+  if(!guard)b.guardDecisions[key]=null;
+  return guard||null;
+ }
  const guard=b.actors.find(x=>x.side==='ENEMY'&&x.id!==t.id&&x.hp>0&&has(x,'GUARDIAN')&&!this.combatActionLocked?.(x));
  const pick=guard&&this.random()*100<CONFIG.guardianChance?guard:null;
  b.guardDecisions[key]=pick?.id||null;if(Object.keys(b.guardDecisions).length>60)b.guardDecisions={[key]:pick?.id||null};return pick;
@@ -188,6 +194,19 @@ P.roundEnd=function(...args){
  if(b?.enemyTiers)for(const a of b.actors.filter(x=>x.side==='ENEMY'&&x.hp>0&&has(x,'REGEN')&&x.hp<x.maxHp)){const healed=this.heal(a,a.maxHp*.06,'재생');if(healed)b.log.push({target:a.name,targetId:a.id,heal:healed,text:a.name+' · 재생',round:b.round});}
  return old.roundEnd.apply(this,args);
 };
+// 0.16.35 (TODO 6-4, user: 길에서 만난 적이 「강적의 잔향」을 줌): the boss echo and core come from bosses — the daily and field
+// bosses, the Spiral Abyss, Lv.40+ domains — not from fights on the road (the field's own encounters, quests, events, chests).
+const BOSS_MATS=new Set(['TRPG_BOSS_ESSENCE','TRPG_BOSS_CORE']);
+// 0.16.36: only a fight started under this rule (marked roadLoot:1 when it begins) follows it; one saved before the update
+// ends with the drops it was started with (gate test_balance_saves_v0166: a loaded old battle settles exactly as before).
+// Only road fights are marked — every other fight (Liyue field steps, domains, bosses, the Abyss) starts exactly as before
+// (gate test_enemy_balance_v01627 compares a whole new protected field fight with the genuine 0.16.26 engine).
+const roadOrigin=o=>o==='RANDOM'||/^(QUEST|REGION_EVENT|CHEST):/.test(o);
+{const priorStart=P.startBattle;P.startBattle=function(...args){const out=priorStart.apply(this,args);const b=this.s.runtime;if(b&&b.roadLoot===undefined&&roadOrigin(String(b.origin||'')))b.roadLoot=1;return out;};}
+function roadBattle(b){const o=String(b?.origin||'');return !!b&&b.roadLoot===1&&roadOrigin(o)&&!b.fieldBoss&&!b.twinBoss&&!b.abyss&&!b.raid&&!b.growthDomain&&!b.rematch&&!b.actors?.some(a=>a.side==='ENEMY'&&a.grade==='보스');}
+const priorRows=P.combatRows;
+P.combatRows=function(n){const rows=priorRows.call(this,n);return n==='20_LOOT_TABLE'&&roadBattle(this.s.runtime)?rows.filter(r=>!BOSS_MATS.has(r[2])):rows;};
+P.roadBattle=function(b=this.s.runtime){return roadBattle(b);};
 P.finishBattle=function(victory){
  const b=this.s.runtime,info=b?.enemyTiers?copy(b.enemyTiers):null,enemies=b?b.actors.filter(a=>a.side==='ENEMY'&&a.variant?.tier).map(a=>({id:a.id,source:a.source,name:a.name,level:a.level,tier:a.variant.tier,affixes:a.variant.affixes.slice()})):[];
  const result=old.finishBattle.call(this,victory);
@@ -195,9 +214,10 @@ P.finishBattle=function(victory){
  const loot={};
  for(const e of enemies){const rule=CONFIG.reward[e.tier];if(!rule)continue;
   const table=this.row('09_MONSTER_DB',e.source)[14],drops=table?this.combatRows('20_LOOT_TABLE').filter(x=>x[0]===table&&this.tables['14_ITEM_DB'].has(x[2])):[];
-  const rare=drops.slice().sort((x,y)=>Number(x[5])-Number(y[5]))[0];
+  // 0.16.35 (TODO 6-4): a monster met on the road never brings the boss echo or core, even the 츄츄왕 whose rarest drop it is.
+  const rare=drops.filter(x=>!(b.roadLoot===1&&BOSS_MATS.has(x[2]))).sort((x,y)=>Number(x[5])-Number(y[5]))[0];
   if(rare)for(const chance of rule.rolls||[])if(chance>=1||this.random()<chance){const n=Number(rare[3])||1;this.giveItem(rare[2],n);loot[rare[2]]=(loot[rare[2]]||0)+n;}
-  if(rule.essence&&this.die(100)<=rule.essence&&this.tables['14_ITEM_DB'].has('TRPG_BOSS_ESSENCE')){this.giveItem('TRPG_BOSS_ESSENCE',1);loot.TRPG_BOSS_ESSENCE=(loot.TRPG_BOSS_ESSENCE||0)+1;}}
+  if(rule.essence&&!roadBattle(b)&&this.die(100)<=rule.essence&&this.tables['14_ITEM_DB'].has('TRPG_BOSS_ESSENCE')){this.giveItem('TRPG_BOSS_ESSENCE',1);loot.TRPG_BOSS_ESSENCE=(loot.TRPG_BOSS_ESSENCE||0)+1;}}
  result.tierBonus={version:1,loot,enemies:enemies.map(e=>({name:e.name,tier:e.tier,label:TIERS[e.tier],affixes:e.affixes.map(x=>AFFIX[x]?.label||x)}))};
  result.loot={...result.loot};for(const [id,n]of Object.entries(loot))result.loot[id]=(result.loot[id]||0)+n;
  this.s.combatReceipts[result.battleId||result.id]=copy(result);this.s.global.LAST_BATTLE_RESULT_JSON=JSON.stringify(result);

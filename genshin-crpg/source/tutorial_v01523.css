@@ -1,0 +1,29 @@
+/* The tutorial floats above the actual control; it never consumes a row of game space. */
+#tutorial-spotlight{position:fixed;inset:0;margin:0;width:100vw;height:100dvh;max-width:none;max-height:none;padding:0;border:0;background:transparent;color:#fff;overflow:visible;pointer-events:none;z-index:2147483600;box-sizing:border-box}
+#tutorial-spotlight::backdrop{background:transparent;pointer-events:none}
+#tutorial-spotlight .tutorial-veil{position:fixed;background:rgba(3,8,15,.79);pointer-events:auto;touch-action:none}
+#tutorial-spotlight .tutorial-ring{position:fixed;box-sizing:border-box;border:2px solid #f7d588;border-radius:9px;box-shadow:0 0 0 3px #f7d58825,0 0 22px #f7d58845;pointer-events:none;animation:tutorialRing 1.6s ease-in-out infinite}
+@keyframes tutorialRing{0%,100%{box-shadow:0 0 0 3px #f7d58825,0 0 18px #f7d58840}50%{box-shadow:0 0 0 5px #f7d58840,0 0 30px #f7d58870}}
+/* 0.15.24: the guide speaks — Amber (or Paimon for the traveller's first move) in a speech bubble with her face. */
+#tutorial-tour.tutorial-callout{position:fixed;margin:0;display:flex;align-items:center;gap:12px;padding:10px 14px 10px 10px;border:1px solid rgba(243,207,130,.55);border-radius:16px;background:linear-gradient(180deg,rgba(28,34,50,.96),rgba(17,21,33,.96));box-shadow:0 10px 28px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);pointer-events:none;color:#fff;text-align:left;font-family:var(--font-ui);box-sizing:border-box;animation:tutorialSay .28s ease-out}
+@keyframes tutorialSay{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+#tutorial-tour .tutorial-avatar{flex:0 0 52px;width:52px;height:52px;border-radius:50%;object-fit:cover;background:radial-gradient(circle at 50% 35%,#fff4dc,#d9b86a 70%,#8a6a2c);border:2px solid #f3cf82;box-shadow:0 0 0 3px rgba(243,207,130,.18)}
+#tutorial-tour.say-amber .tutorial-avatar{background:radial-gradient(circle at 50% 35%,#ffe2d6,#e2735c 72%,#8e2f22)}
+/* The tail points at the target from the side the bubble chose (app_tutorial.js tutorialPosition). */
+#tutorial-tour.tutorial-say::after{content:'';position:absolute;width:14px;height:14px;background:#151a28;border:1px solid rgba(243,207,130,.55);box-sizing:border-box;transform:rotate(45deg)}
+#tutorial-tour.tutorial-say[data-tail="down"]::after{left:calc(var(--tail-x,50%) - 7px);bottom:-8px;border-top:0;border-left:0}
+#tutorial-tour.tutorial-say[data-tail="up"]::after{left:calc(var(--tail-x,50%) - 7px);top:-8px;border-bottom:0;border-right:0;background:#1c2232}
+#tutorial-tour.tutorial-say[data-tail="left"]::after{top:calc(var(--tail-y,50%) - 7px);left:-8px;border-top:0;border-right:0}
+#tutorial-tour.tutorial-say[data-tail="right"]::after{top:calc(var(--tail-y,50%) - 7px);right:-8px;border-bottom:0;border-left:0}
+#tutorial-tour .tutorial-avatar.fallback{display:grid;place-items:center;color:#5a4212;font-size:24px}
+#tutorial-tour .tutorial-words{min-width:0;flex:1}
+#tutorial-tour .tutorial-name{display:inline-block;margin:0 0 3px;padding:1px 9px;border-radius:9px;background:rgba(243,207,130,.16);color:#f3cf82;font-size:12px;font-weight:800;letter-spacing:.02em}
+#tutorial-tour .tutorial-words>strong{display:block;font-size:16px;line-height:1.45;font-weight:700;color:#fff;word-break:keep-all;overflow-wrap:anywhere}
+#tutorial-tour .tutorial-words>p{font-size:12px;line-height:1.5;margin:4px 0 0;color:#d6dbe3;word-break:keep-all}
+@media(max-height:500px){
+ #tutorial-tour.tutorial-callout{gap:9px;padding:7px 11px 7px 7px;border-radius:13px}
+ #tutorial-tour .tutorial-avatar{flex-basis:40px;width:40px;height:40px}
+ #tutorial-tour .tutorial-words>strong{font-size:14px;line-height:1.4}
+ #tutorial-tour .tutorial-name{font-size:11px;margin-bottom:2px}
+}
+html.reduce-motion #tutorial-spotlight .tutorial-ring,html.reduce-motion #tutorial-tour.tutorial-callout{animation:none}

@@ -139,9 +139,9 @@
   P.validateSave = function(s) {
     previous.validateSave.call(this,s);
     const g=s.global,level=g.PLAYER_LEVEL_STATE,xp=g.PLAYER_XP_STATE;
-    if(!Number.isInteger(level)||level<1||level>20||!Number.isSafeInteger(xp)||xp<0||level===20&&xp!==0||level<20&&xp>=Number(this.row('26_LEVEL_RULES',level)[2]))throw new api.RuleError('GROWTH_SAVE','주인공 성장 저장값이 잘못되었습니다.');
-    g.PLAYER_XP_NEXT=level===20?0:Number(this.row('26_LEVEL_RULES',level)[2]);
-    for(const [owner,st]of Object.entries(s.chars||{}))if(!Number.isInteger(st.level)||st.level<1||st.level>20||!Number.isSafeInteger(st.xp)||st.xp<0||st.level===20&&st.xp!==0||st.level<20&&st.xp>=Number(this.row('26_LEVEL_RULES',st.level)[2]))throw new api.RuleError('GROWTH_SAVE','캐릭터 성장 저장값이 잘못되었습니다.');
+    if(!Number.isInteger(level)||level<1||level>60||!Number.isSafeInteger(xp)||xp<0||level===60&&xp!==0||level<60&&xp>=Number(this.row('26_LEVEL_RULES',level)[2]))throw new api.RuleError('GROWTH_SAVE','주인공 성장 저장값이 잘못되었습니다.');
+    g.PLAYER_XP_NEXT=level===60?0:Number(this.row('26_LEVEL_RULES',level)[2]);
+    for(const [owner,st]of Object.entries(s.chars||{}))if(!Number.isInteger(st.level)||st.level<1||st.level>60||!Number.isSafeInteger(st.xp)||st.xp<0||st.level===60&&st.xp!==0||st.level<60&&st.xp>=Number(this.row('26_LEVEL_RULES',st.level)[2]))throw new api.RuleError('GROWTH_SAVE','캐릭터 성장 저장값이 잘못되었습니다.');
     return s;
   };
   api.flowVersion=1;

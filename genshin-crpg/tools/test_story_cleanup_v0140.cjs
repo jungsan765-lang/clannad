@@ -74,7 +74,7 @@ test('Isekai statue card reads as a scene, with one short help line',()=>{
 
 test('bond grows only from the first personal mission (10) and battle victories of every party companion',()=>{
  // Same installation as the game client (source/app.js).
- const Rel=h.c.CRPGRelationships;Rel.install(h.c.CRPGRuntime,{events:Rel.catalogFromDB(h.db),activities:Rel.activitiesFromDB(h.db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+ const Rel=h.c.CRPGRelationships;Rel.install(h.c.CRPGRuntime,{events:Rel.catalogFromDB(h.db),activities:Rel.activitiesFromDB(h.db)});
  const g=h.fresh('MAP_MOND_CITY','ROUTE_TRAVELER'),chars=g.rows('04_CHAR_DB');
  const cast=[...g.storyIndex().legends.values()].filter(d=>d.ROUTE_SCOPE==='ROUTE_TRAVELER').map(d=>({d,pid:d.PROFILE_ID,char:chars.find(x=>x[0]===d.PROFILE_ID)?.[1]})).filter(x=>x.char).slice(0,4);
  assert.equal(cast.length,4);

@@ -6,7 +6,7 @@ globalThis.__splitState=splitState;
 const f=durableFixture(),created=await f.start();assert.equal(created.status,200,JSON.stringify(created));assert(f.token.startsWith('v2.'));
 const id=f.account.id,object=()=>f.get(id),read=()=>joinState(object().parts());
 let calls=f.d1Calls;
-const p={version:'0.14.5',engineVersion:ENGINE_FINGERPRINT,type:'MENU',params:{screen:'SYSTEM'},revision:0,requestId:crypto.randomUUID(),responseMode:'state-parts-v1'};
+const p={version:'0.14.8',engineVersion:ENGINE_FINGERPRINT,type:'MENU',params:{screen:'SYSTEM'},revision:0,requestId:crypto.randomUUID(),responseMode:'state-parts-v1'};
 const first=await f.call('/game/action',p);assert.equal(first.status,200,JSON.stringify(first));assert(first.statePatch);assert.equal(f.d1Calls,calls,'warm action makes no D1 calls');
 const merged=joinState(applyParts(splitState(created.state),first.statePatch));assert.deepEqual(merged,joinState(publicParts(object().parts())));
 const replay=await f.call('/game/action',p);assert.equal(replay.replayed,true);assert.equal(replay.revision,1);assert.deepEqual(replay.result,first.result);

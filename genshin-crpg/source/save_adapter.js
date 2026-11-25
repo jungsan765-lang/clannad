@@ -5,9 +5,6 @@ class SaveError extends Error{constructor(code,message,cause){super(message);thi
 const fail=(code,message)=>{throw new SaveError(code,message)};
 function cleanTransient(value){
  const state=copy(value);
- for(const key of ['relationshipConsent','consent','consentToken','matureSceneSession','adultModeEnabled'])delete state[key];
- if(state.global)for(const key of ['ADULT_CONSENT_FLAG','ADULT_CONSENT_STATE','CURRENT_SCENE_CONSENT','adultModeEnabled'])delete state.global[key];
- for(const r of Object.values(state.relations||{}))for(const key of ['consent','consentToken','ADULT_CONSENT_FLAG','ADULT_CONSENT_STATE'])delete r[key];
  return state;
 }
 function validateState(state){
@@ -109,8 +106,8 @@ class SaveAdapter{
   // Never remove the original localStorage save or import its mode setting.
   return this.importJSON(slotId,raw,{expectedSlotRevision,name});
  }
- async getPreferences(){return this.transact(['settings'],'readonly',(tx,set)=>{const req=tx.objectStore('settings').get('display');req.onsuccess=()=>set({adultModeEnabled:req.result?.value?.adultModeEnabled===true,fontSize:Number(req.result?.value?.fontSize)||18});});}
- async setPreferences(value){const prefs={adultModeEnabled:value.adultModeEnabled===true,fontSize:Math.max(16,Math.min(28,Number(value.fontSize)||18))};return this.transact(['settings'],'readwrite',(tx,set)=>{tx.objectStore('settings').put({key:'display',value:prefs});set(prefs);});}
+ async getPreferences(){return this.transact(['settings'],'readonly',(tx,set)=>{const req=tx.objectStore('settings').get('display');req.onsuccess=()=>set({fontSize:Number(req.result?.value?.fontSize)||18});});}
+ async setPreferences(value){const prefs={fontSize:Math.max(16,Math.min(28,Number(value.fontSize)||18))};return this.transact(['settings'],'readwrite',(tx,set)=>{tx.objectStore('settings').put({key:'display',value:prefs});set(prefs);});}
  async remove(slotId,{expectedSlotRevision}={}){
   try{
    if(typeof slotId!=='string'||!slotId||slotId.length>100||!Number.isSafeInteger(expectedSlotRevision)||expectedSlotRevision<1)fail('SAVE_SLOT','삭제할 저장 슬롯 정보가 올바르지 않습니다.');

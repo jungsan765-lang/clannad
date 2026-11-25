@@ -2,7 +2,17 @@
 (function(){
 'use strict';
 const TABS=[['ALL','전체'],['MOND','몬드 요리'],['LIYUE','리월 요리'],['FOREIGN','이국 요리'],['PROCESS','재료 손질']];
-const EFFECTS=[['ALL','모든 효과'],['HEAL','회복'],['ATK','공격'],['CRIT','치명타'],['DEF','방어'],['SPEED','속도'],['RESIST','상태 저항']];
+const EFFECTS=[['ALL','모든 효과'],['HEAL','회복'],['FATIGUE','피로 풀기'],['ATK','공격'],['CRIT','치명타'],['DEF','방어'],['SPEED','속도'],['RESIST','상태 저항']];
+// 0.16.49 (user: 「피로에 대해서 유저들이 잘 이해할 수 있게끔 요리에 잘 적어두고」): a recovery dish shows what it clears of 비경 피로 in
+// each level band (the protagonist's band lit), its rare ingredients are marked 「드묾」, and 「피로 풀기」 finds the dishes that
+// clear 피로 at the protagonist's level.
+const fatigueNow=d=>{try{return d.heal?game.foodFatigueClear?.(d.item[0])||0:0;}catch{return 0;}};
+function fatigueRow(d){
+  let bands=null;try{bands=d.heal?game.foodFatigueBands?.(d.item[0]):null;}catch{}if(!bands)return null;
+  const lv=Number(game.s.global.PLAYER_LEVEL_STATE)||1,row=el('div','cook-fatigue');row.append(el('span','cook-fatigue-label','비경 피로'));
+  for(const b of bands){const now=lv>=b.from&&lv<=b.upTo,x=el('span','cook-fatigue-band'+(now?' now':'')+(b.clear?'':' none'));x.append(el('small','',b.upTo>=60?'Lv'+b.from+'~':'Lv'+b.upTo+'까지'),el('b','',b.clear?'−'+b.clear:'없음'));x.title=(b.upTo>=60?'Lv'+b.from+' 이상':'Lv'+b.from+'~'+b.upTo)+' · '+(b.clear?'비경 피로 '+b.clear+' 풂':'피로를 못 풂 (드문 재료가 더 필요)');row.append(x);}
+  return row;
+}
 const STATUS_KIND={STATUS_FOOD_ATK:'ATK',STATUS_FOOD_FEAST:'ATK',STATUS_FOOD_CRIT:'CRIT',STATUS_FOOD_DEF:'DEF',STATUS_FOOD_SPEED:'SPEED',STATUS_FOOD_RESIST:'RESIST'};
 const EFFECT_LABEL={HEAL:'회복',ATK:'공격',CRIT:'치명타',DEF:'방어',SPEED:'속도',RESIST:'상태 저항',PROCESS:'재료'};
 const STARS={일반:1,고급:2,희귀:3,전설:4};
@@ -55,20 +65,22 @@ function dishInfo(x){
   const effect=tab==='PROCESS'?'PROCESS':status?STATUS_KIND[status]||'ATK':heal?'HEAL':'PROCESS';
   let cost=null,missing='';try{cost=game.recipeCost(r,1);missing=Object.entries(cost.items).filter(([id,n])=>game.itemCount(id)<n).map(([id])=>id).join(',');}catch(e){missing='?';}
   const locked=/제작법을 먼저 구매/.test(x.reason||'');
-  const canMake=cost?Math.min(...Object.entries(cost.items).map(([id,n])=>Math.floor(game.itemCount(id)/n)),game.s.global.MORA>=cost.mora?99:0):0;
+  const canMake=cost?Math.min(...Object.entries(cost.items).map(([id,n])=>Math.floor(game.itemCount(id)/n)),cost.mora>0?Math.floor(game.s.global.MORA/cost.mora):99):0;
   return {x,r,item,tab,effect,heal,status,cost,missing:missing?missing.split(','):[],locked,ready:!x.reason&&canMake>0,canMake,stars:STARS[item[3]]||1,region};
 }
 function effectLine(d){
   if(d.tab==='PROCESS')return d.item[2]==='낚시 도구'?'낚시에 쓰는 미끼':'다른 요리에 쓰는 재료';
-  if(d.heal&&!d.status)return 'HP '+d.heal+' 회복';
+  if(d.heal&&!d.status)return 'HP '+game.foodHealingAmount(d.heal)+' 회복 · 주인공 기준';
   const text=String(d.item[7]||'').replace(/^지정 캐릭터\s*/,'');
-  return (d.heal?'HP '+d.heal+' 회복 · ':'')+text;
+  return (d.heal?'HP '+game.foodHealingAmount(d.heal)+' 회복 · 주인공 기준 · ':'')+text;
 }
 function chip(id,need){
   const have=game.itemCount(id),box=el('span','cook-chip'+(have>=need?' ok':' short'));
   const icon=itemPresenter.itemDetail({item:id,quantity:1}).icon;
   if(icon?.url){const img=el('img','cook-chip-icon');img.src=icon.url;img.alt='';box.append(img);}
-  box.append(tierMark(el('span','cook-chip-name',safeName('14_ITEM_DB',id)),id),el('span','cook-chip-count',have+'/'+need));return box;
+  box.append(tierMark(el('span','cook-chip-name',safeName('14_ITEM_DB',id)),id),el('span','cook-chip-count',have+'/'+need));
+  let rare=0;try{rare=game.ingredientRarity?.(id)||0;}catch{}if(rare>0){const m=el('b','cook-chip-rare','드묾');m.title=rare>1?'아주 드문 재료 · 높은 레벨에서도 비경 피로를 푸는 요리에 들어감':'조금 드문 재료 · 비경 피로를 푸는 요리에 들어감';box.append(m);}
+  return box;
 }
 function card(d){
   const c=el('section','cook-card'+(d.ready?' ready':'')+(d.locked?' locked':''));c.dataset.recipeId=d.r[0];c.dataset.effect=d.effect;
@@ -76,8 +88,10 @@ function card(d){
   const title=el('div','cook-title');title.append(tierMark(el('h3','',detail.name||safeName('14_ITEM_DB',d.r[3])),detail),el('span','cook-stars','★'.repeat(d.stars)));
   head.append(title,el('span','cook-badge effect-'+d.effect.toLowerCase(),EFFECT_LABEL[d.effect]||''));c.append(head);
   if(d.item[5])c.append(el('p','cook-desc',d.item[5]));
-  c.append(el('p','cook-effect',effectLine(d)));
-  const chips=el('div','cook-chips');for(const [id,n]of Object.entries(d.cost?.items||{}))chips.append(chip(id,n));c.append(chips);
+  c.append(el('p','cook-effect',effectLine(d)));const tired=fatigueRow(d);if(tired)c.append(tired);
+  const chips=el('div','cook-chips');for(const [id,n]of Object.entries(d.cost?.items||{}))chips.append(chip(id,n));
+  if(d.cost?.mora){const have=game.s.global.MORA,box=el('span','cook-chip'+(have>=d.cost.mora?' ok':' short')),icon=typeof currencyIcon==='function'&&currencyIcon('MORA','cook-chip-icon');if(icon)box.append(icon);box.append(el('span','cook-chip-name','모라'),el('span','cook-chip-count',have+'/'+d.cost.mora));chips.append(box);}
+  c.append(chips);
   if(d.missing.length&&!d.locked){
     const where=el('div','cook-where');
     for(const id of d.missing)where.append(el('p','',safeName('14_ITEM_DB',id)+' — '+whereText(id)));
@@ -94,16 +108,17 @@ function renderKitchen(p,recipes){
   const entry=placeHeader(p,'CRAFT');if(!entry)return;
   if(presenterDB!==game.db){itemPresenter=CRPGInventoryPresenter.create(game.db,MANIFEST);presenterDB=game.db;}
   const list=recipes.map(dishInfo),made=list.filter(d=>d.ready).length,learned=list.filter(d=>!d.locked).length;
-  const hero=el('section','cook-hero');hero.append(el('h2','','오늘은 무엇을 만들까요?'),el('p','muted','재료를 모아 요리하고, 몬드의 디어 헌터 식당이나 리월의 만민당에서 새 레시피를 배울 수 있습니다. 요리는 만든다고 바로 먹지 않고 소지품에 보관됩니다.'));
+  const hero=el('section','cook-hero');hero.append(el('h2','','오늘은 무엇을 만들까요?'),el('p','muted','재료를 모아 요리하고, 몬드의 디어 헌터 식당이나 리월의 만민당에서 새 레시피를 배울 수 있습니다. 요리는 만든다고 바로 먹지 않고 가방에 보관됩니다.'),el('p','cook-fatigue-note','비경 피로는 여관에서 쉬거나, 레벨에 맞는 회복 요리로 풉니다. 레벨이 높을수록 「드묾」 재료가 든 요리가 필요합니다.'));
   const stats=el('div','cook-stats');stats.append(el('span','','지금 만들 수 있는 요리 '+made+'개'),el('span','','배운 레시피 '+learned+' / '+list.length));hero.append(stats);p.append(hero);
   if(view.tab!=='ALL'&&!list.some(d=>d.tab===view.tab))view.tab='ALL';
   const tabs=el('div','bag-tabs cook-tabs');tabs.setAttribute('aria-label','요리 분류');
   for(const [key,label]of TABS){const n=list.filter(d=>key==='ALL'||d.tab===key).length;if(!n&&key!=='ALL')continue;const b=button(label+' '+n,()=>{view.tab=key;render();});b.classList.toggle('selected',view.tab===key);b.setAttribute('aria-pressed',String(view.tab===key));tabs.append(b);}
   const effects=el('div','cook-effects');effects.setAttribute('aria-label','효과로 찾기');
-  for(const [key,label]of EFFECTS){if(key!=='ALL'&&!list.some(d=>d.effect===key))continue;const b=button(label,()=>{view.effect=key;render();});b.classList.toggle('selected',view.effect===key);b.setAttribute('aria-pressed',String(view.effect===key));effects.append(b);}
+  for(const [key,label]of EFFECTS){if(key==='FATIGUE'?!list.some(d=>fatigueNow(d)>0):key!=='ALL'&&!list.some(d=>d.effect===key))continue;const b=button(label,()=>{view.effect=key;render();});b.classList.toggle('selected',view.effect===key);b.setAttribute('aria-pressed',String(view.effect===key));effects.append(b);}
   const box=el('label','forge-toggle cook-ready'),input=el('input');input.type='checkbox';input.checked=view.ready;input.onchange=()=>{view.ready=input.checked;render();};box.append(input,el('span','','지금 만들 수 있는 것만'));
   p.append(tabs,effects,box);
-  const shown=list.filter(d=>(view.tab==='ALL'||d.tab===view.tab)&&(view.effect==='ALL'||d.effect===view.effect)&&(!view.ready||d.ready));
+  if(view.effect==='FATIGUE'&&!list.some(d=>fatigueNow(d)>0))view.effect='ALL';
+  const shown=list.filter(d=>(view.tab==='ALL'||d.tab===view.tab)&&(view.effect==='ALL'||(view.effect==='FATIGUE'?fatigueNow(d)>0:d.effect===view.effect))&&(!view.ready||d.ready));
   shown.sort((a,b)=>(b.ready-a.ready)||(a.locked-b.locked)||(a.stars-b.stars)||String(a.item[1]).localeCompare(String(b.item[1]),'ko'));
   const grid=el('div','cook-grid');for(const d of shown)grid.append(card(d));
   if(!shown.length)grid.append(el('p','muted',list.length?'조건에 맞는 요리가 없습니다. 분류나 필터를 바꿔 보세요.':'이 조리시설에서 만들 수 있는 요리가 없습니다.'));

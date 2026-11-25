@@ -17,8 +17,8 @@ const {chromium}=require('playwright'),http=require('node:http'),fs=require('nod
    const current=await adapter.load('autosave');check('CAS winner preserved',current.slotRevision===2);
    try{await adapter.save('autosave',state,{expectedSlotRevision:2})}catch(e){check('stale runtime revision rejected',e.code==='SAVE_STALE')}
    check('last error persists',adapter.lastError?.code==='SAVE_STALE');await adapter.list();check('read success does not erase error',adapter.lastError?.code==='SAVE_STALE');
-   await adapter.setPreferences({adultModeEnabled:false,fontSize:20});const text=adapter.exportState(state);const imported=JSON.parse(text);imported.state.adultModeEnabled=true;imported.state.global.ADULT_CONSENT_FLAG=true;
-   await adapter.importJSON('manual-copy',JSON.stringify(imported));const copy=await adapter.load('manual-copy');check('import strips transient consent',copy.state.global.ADULT_CONSENT_FLAG===undefined);check('import keeps current mode OFF',(await adapter.getPreferences()).adultModeEnabled===false);
+   await adapter.setPreferences({fontSize:20});const text=adapter.exportState(state);const imported=JSON.parse(text);
+   await adapter.importJSON('manual-copy',JSON.stringify(imported));const copy=await adapter.load('manual-copy');check('import keeps the save',!!copy.state.global);check('import keeps the font size',(await adapter.getPreferences()).fontSize===20);
    const before=JSON.stringify((await adapter.load('autosave')).state);try{await adapter.importJSON('autosave','{broken',{expectedSlotRevision:2})}catch(e){check('corrupt import explicit error',e.code==='SAVE_CORRUPT')}
    check('corrupt import preserves old save',JSON.stringify((await adapter.load('autosave')).state)===before);
    localStorage.setItem('legacy-crpg-test',JSON.stringify(state));await adapter.importLegacyLocalStorage('legacy-slot',{key:'legacy-crpg-test'});check('legacy source retained',localStorage.getItem('legacy-crpg-test')!==null);
